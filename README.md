@@ -1,4 +1,4 @@
-# AI-HPC-Docs
+# mila-docs
 
 This is the repository of the offical MILA Cluster documentation.
 
