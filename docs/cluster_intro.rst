@@ -98,7 +98,7 @@ sections for more details.
    This cluster is to be used for regular development and relatively small
    number of jobs (< 5)
 
-See `https://dashboard.server.mila.quebec`_ for a dynamically updated list of
+See `<https://dashboard.server.mila.quebec>`_ for a dynamically updated list of
 available resources.
 
 :ref:`Compute Canada Clusters <cc_clusters>` The clusters Beluga, Cedar,
@@ -106,5 +106,5 @@ available resources.
    have allocations. These are to be used for many jobs, multi-nodes and/or
    multi-GPU jobs as well as long running jobs
 
-See `https://www.computecanada.ca/techrenewal/national-systems/`_ for a
+See `<https://www.computecanada.ca/techrenewal/national-systems/>`_ for a
 complete list of computing capacity offered by Compute Canada.
