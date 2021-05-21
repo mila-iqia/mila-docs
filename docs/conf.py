@@ -74,6 +74,7 @@ html_context = {
     'github_user': 'mila-iqia',
     'github_repo': 'mila-docs',
     'github_version': 'master/'
+    'conf_py_path': '/docs/'
 }
 
 # Include CNAME file so GitHub Pages can set Custom Domain name
