@@ -2,6 +2,8 @@ name: 'build_the_docs'
 
 on:
   push:
+    branches:
+      - master
 
 jobs:
 
