@@ -101,7 +101,8 @@ sections for more details.
 See `<https://dashboard.server.mila.quebec>`_ for a dynamically updated list of
 available resources.
 
-:ref:`Compute Canada Clusters <cc_clusters>` The clusters Beluga, Cedar,
+:ref:`Compute Canada Clusters <cc_clusters>`
+The clusters Beluga, Cedar,
    Graham, Helios and Niagara are clusters provided by Compute Canada on which we
    have allocations. These are to be used for many jobs, multi-nodes and/or
    multi-GPU jobs as well as long running jobs
