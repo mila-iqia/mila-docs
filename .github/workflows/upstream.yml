@@ -17,6 +17,7 @@ jobs:
       - uses: buildthedocs/btd@v0
         with:
           config: '.btd-upstream.yml'
+          token: False
 
       - uses: actions/upload-artifact@v2
         with:
