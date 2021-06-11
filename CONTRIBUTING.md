@@ -70,7 +70,7 @@ There are no heading levels assigned to certain characters as the structure is d
 
 ### Note box
 
-```
+```reST
 .. note::
    This is a long
    long long note
