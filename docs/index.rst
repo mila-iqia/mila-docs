@@ -1,4 +1,4 @@
-Mila documentation - UPSTREAM Version
+Mila documentation - UPSTREAM
 ------------------------------------
 
 This documentation aims to cover the information required to run scientific
