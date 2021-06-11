@@ -1,0 +1,22 @@
+---
+name: build_the_docs
+
+on:
+  push:
+    branches:
+      - upstream
+
+jobs:
+
+  publish_docs:
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses: actions/checkout@v2
+
+      - uses: buildthedocs/btd@v0
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: docs_upstream
+          path: docs/_build/html

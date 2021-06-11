@@ -1,0 +1,19 @@
+---
+name: build_the_docs
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+
+  publish_docs:
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses: actions/checkout@v2
+
+      - uses: buildthedocs/btd@v0
+        with:
+          token: ${{ github.token }}
