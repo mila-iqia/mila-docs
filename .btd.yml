@@ -11,10 +11,10 @@ output: _build
 requirements: requirements.txt
 
 # Domain/repo/branch|tag where sources are located:
-#source: upstream
+source: upstream
 
 # Domain/repo/branch and path where products are to be deployed:
-target: gh-pages
+target: gh-pages-upstream
 
 # List of output formats
 formats: [ html ]
