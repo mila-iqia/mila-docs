@@ -15,7 +15,7 @@ Thank you for your interest into making a better documentation for all at Mila. 
 
 ### Issues
 
-Issues can be used to notify about missing sections, broken tools or other suggestions to improve the overall documentation.
+Issues can be used to report any error in the documentation, missing or unclear sections, broken tools or other suggestions to improve the overall documentation.
 
 ### Pull Requests
 
