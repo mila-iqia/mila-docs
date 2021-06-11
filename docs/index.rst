@@ -1,5 +1,5 @@
-Mila documentation
-------------------
+Mila documentation - UPSTREAM Version
+------------------------------------
 
 This documentation aims to cover the information required to run scientific
 and data-intensive computing tasks at Mila and the available resources for its
