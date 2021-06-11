@@ -1,5 +1,5 @@
 ---
-name: build_the_docs
+name: build_the_docs_upstream
 
 on:
   push:
