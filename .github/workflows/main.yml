@@ -19,5 +19,5 @@ jobs:
 
     - uses: actions/upload-artifact@v2
       with:
-        name: source
-        path: source/_build/html
+        name: docs
+        path: docs/_build/html
