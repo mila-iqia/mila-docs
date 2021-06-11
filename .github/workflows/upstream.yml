@@ -1,5 +1,6 @@
 ---
 name: build_the_docs_upstream
+continue-on-error: true
 
 on:
   push:
