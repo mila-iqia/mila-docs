@@ -1,6 +1,6 @@
 # Contributing to the Mila Docs
 
-Thank you for your interest into making a better documentation for all at Mila. Here are some gidelines to help bring your suggestions to life.
+Thank you for your interest into making a better documentation for all at Mila. Here are some gidelines to help bring your contribbutions to life.
 
 ## What could be included
 
@@ -11,20 +11,31 @@ Thank you for your interest into making a better documentation for all at Mila. 
 * Software development good practices
 * Useful tools
 
-## Issues / PR
+## Issues / Pull Requests
+
+### Issues
 
 Issues can be used to notify about missing sections, broken tools or other suggestions to improve the overall documentation.
 
-Pull requests are welcome! You can attempt to build the docs yourself to see if the formating is right:
+### Pull Requests
+
+PRs are welcome! Reference the related issues like this:
+
+```
+Resolves: #123
+See also: #456, #789
+```
+
+You can attempt to build the docs yourself to see if the formating is right:
 
 ```console
 python3 -m pip install -r docs/requirements.txt
-sphinx-build -b html docs/. docs/_build/
+sphinx-build -b html docs/ docs/_build/
 ```
 
 This will produce the html version of the documentation which you can navigate by opening `docs/_build/index.html`.
 
-If you have any issues, don't hesitate to open an issue to request help or simply provide the content you would like to add in markdown if that is simpler for you.
+If you have any touble building the docs, don't hesitate to open an issue to request help or simply provide the content you would like to add in markdown if that is simpler for you.
 
 ## Sphinx / reStructuredText (reST)
 
