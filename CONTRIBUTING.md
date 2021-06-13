@@ -1,6 +1,6 @@
 # Contributing to the Mila Docs
 
-Thank you for your interest into making a better documentation for all at Mila. Here are some gidelines to help bring your contribbutions to life.
+Thank you for your interest into making a better documentation for all at Mila. Here are some guidelines to help bring your contributions to life.
 
 ## What could be included
 
@@ -19,7 +19,7 @@ Issues can be used to report any error in the documentation, missing or unclear 
 
 ### Pull Requests
 
-PRs are welcome! Reference the related issues like this:
+PRs are welcome! Keep the lines width to 80 characters or less and reference the related issues like this:
 
 ```
 Resolves: #123
