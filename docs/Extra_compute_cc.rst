@@ -1,10 +1,17 @@
+.. highlight:: bash
 .. _cc_clusters:
 
 Compute Canada Clusters
 =======================
 
-.. highlight:: bash
+The clusters Beluga, Cedar, Graham, Helios and Niagara are clusters provided by
+Compute Canada on which we have allocations. These are to be used for many jobs,
+multi-nodes and/or multi-GPU jobs as well as long running jobs
 
+Current allocation description
+------------------------------
+
+TODO
 
 Account Creation
 ----------------
