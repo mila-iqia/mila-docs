@@ -4,4 +4,6 @@ Dans le contexte du sprint de la semaine du 14 juin, je passe à la convention d
 - Première niveau de chapites, aucun préfixe
 - Deuxième niveau de chapitres, emploi comme préfixe le premier niveau du parent.
 
-Les noms de sections sont prises à partir de https://team-1581964371445.atlassian.net/wiki/x/dwATTg .
+Les noms de sections sont prises à partir de https://team-1581964371445.atlassian.net/wiki/x/dwATTg (en date du 14 juin 2021)
+
+La convention sur les niveaux de sections RST sont déterminées dans CONTRIBUTING.md

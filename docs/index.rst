@@ -1,5 +1,6 @@
 Mila documentation
-------------------
+##################
+
 
 This documentation aims to cover the information required to run scientific
 and data-intensive computing tasks at Mila and the available resources for its
@@ -15,36 +16,49 @@ members. It is targeted towards Mila researchers and students.
 
 
 .. toctree::
-   :caption: Introduction
-   :maxdepth: 2
+   :numbered:
+   :maxdepth: 3
 
-   cluster_intro
-
-.. toctree::
-   :caption: The batch scheduler: Slurm
-   :maxdepth: 2
-
-   slurm/index
-   slurm/advanced
+   Purpose
 
 .. toctree::
-   :caption: Computing Clusters
-   :maxdepth: 1
+   :numbered:
+   :maxdepth: 3
 
-   mila-cluster/index
-   compute-canada-cluster/index
-
-.. toctree::
-   :caption: Software
-   :maxdepth: 2
-
-   software/index
-   software/python
-   software/tools
+   Theory_cluster
 
 .. toctree::
-   :caption: Containers
-   :maxdepth: 2
+   :numbered:
+   :maxdepth: 3
 
-   docker/index
-   singularity/index
+   Information
+
+.. toctree::
+   :numbered:
+   :maxdepth: 3
+
+   Userguide
+
+.. toctree::
+   :numbered:
+   :maxdepth: 3
+
+   Extra_compute
+
+.. toctree::
+   :numbered:
+   :maxdepth: 3
+
+   Handbook
+
+.. toctree::
+   :numbered:
+   :maxdepth: 3
+
+   Audio_video
+
+.. toctree::
+   :numbered:
+   :maxdepth: 3
+
+   IDT
