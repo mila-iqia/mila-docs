@@ -1,10 +1,9 @@
 Mila documentation
 ##################
 
+.. First and only part.
 
-This documentation aims to cover the information required to run scientific
-and data-intensive computing tasks at Mila and the available resources for its
-members. It is targeted towards Mila researchers and students.
+.. include:: Purpose.rst
 
 :Support: To reach the Mila infrastructure support, please file a ticket
    at https://it-support.mila.quebec/
@@ -15,50 +14,17 @@ members. It is targeted towards Mila researchers and students.
    <https://github.com/mila-iqia/mila-docs>`_.
 
 
+.. Link to chapters below.
+
 .. toctree::
    :numbered:
    :maxdepth: 3
 
    Purpose
-
-.. toctree::
-   :numbered:
-   :maxdepth: 3
-
    Theory_cluster
-
-.. toctree::
-   :numbered:
-   :maxdepth: 3
-
    Information
-
-.. toctree::
-   :numbered:
-   :maxdepth: 3
-
    Userguide
-
-.. toctree::
-   :numbered:
-   :maxdepth: 3
-
    Extra_compute
-
-.. toctree::
-   :numbered:
-   :maxdepth: 3
-
    Handbook
-
-.. toctree::
-   :numbered:
-   :maxdepth: 3
-
    Audio_video
-
-.. toctree::
-   :numbered:
-   :maxdepth: 3
-
    IDT
