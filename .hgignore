@@ -1,5 +1,5 @@
 syntax: glob
 
 docs/_build/*
-docs/env/*
+env/*
 */*.swp

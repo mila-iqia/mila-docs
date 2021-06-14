@@ -1,5 +1,5 @@
-Resources Available at Mila
-===========================
+Overview of available computing resources
+=========================================
 
 This table contains the computational resources Mila has access to.
 

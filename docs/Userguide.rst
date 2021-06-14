@@ -12,3 +12,4 @@ knowledge, tips and tricks and example commands.
 .. include:: Userguide_datasets.rst
 .. include:: Userguide_notebooks.rst
 .. include:: Userguide_multigpu.rst
+.. include:: Userguide_debugging.rst
