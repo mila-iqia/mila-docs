@@ -11,3 +11,4 @@ synchronised to the scheduler which are called : *Compute Nodes*.
 In fact it's a bit trickier than that, but we'll stay at this abstraction level
 for now.
 
+.. include:: Theory_cluster_slurm.rst

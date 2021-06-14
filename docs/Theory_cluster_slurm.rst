@@ -2,26 +2,29 @@
 
 .. _slurmpage:
 
-Quick Start
-===========
+Slurm
+-----
 
-Resource sharing on a supercomputer/cluster is orchestrated by a resource manage/job scheduler.
-Users submit jobs, which are scheduled and allocated resources (CPU time, memory, GPUs, etc.) by the resource manager, if
-the resources are available the job can start otherwise it will be placed in queue.
+Resource sharing on a supercomputer/cluster is orchestrated by a resource
+manage/job scheduler.  Users submit jobs, which are scheduled and allocated
+resources (CPU time, memory, GPUs, etc.) by the resource manager, if the
+resources are available the job can start otherwise it will be placed in queue.
 
-On a cluster, users don't have direct access to the compute nodes but instead connect to a login node to pass the commands they
-would like to execute in a script for the workload manager to execute.
+On a cluster, users don't have direct access to the compute nodes but instead
+connect to a login node to pass the commands they would like to execute in a
+script for the workload manager to execute.
 
-**Mila** as well as **Compute Canada** use the workload manager `Slurm <https://slurm.schedmd.com/documentation.html>`_
-to schedule and allocate resources on their infrastructure.
+**Mila** as well as **Compute Canada** use the workload manager `Slurm
+<https://slurm.schedmd.com/documentation.html>`_ to schedule and allocate
+resources on their infrastructure.
 
-**Slurm** client commands are available on the login nodes for you to submit jobs to the main controller and add your job
-to the queue. Jobs are of 2 types: *batch* jobs and *interactive* jobs.
-
+**Slurm** client commands are available on the login nodes for you to submit
+jobs to the main controller and add your job to the queue. Jobs are of 2 types:
+*batch* jobs and *interactive* jobs.
 
 
 Basic Usage
-===========
+^^^^^^^^^^^
 
 The SLURM `documentation <https://slurm.schedmd.com/documentation.html>`_ provides extensive information on the
 available commands to query the cluster status or submit jobs.
@@ -31,10 +34,11 @@ Below are some basic examples of how to use SLURM.
 
 
 Submitting jobs
----------------
+^^^^^^^^^^^^^^^
 
 Batch job
-^^^^^^^^^
+"""""""""
+
 In order to submit a batch job, you have to create a script containing the main command(s) you would like to execute on
 the allocated resources/nodes.
 
@@ -68,7 +72,7 @@ The *working directory* of the job will be the one where your executed ``sbatch`
 
 
 Interactive job
-^^^^^^^^^^^^^^^
+"""""""""""""""
 
 Workload managers usually run batch jobs to avoid having to watch its progression and let the scheduler
 run it as soon as resources are available. If you want to get access to a shell while leveraging cluster resources,
@@ -109,9 +113,6 @@ In order to accurately select the resources for your job, several arguments are 
    Always consider requesting the adequate amount of resources to improve the scheduling of your job (small jobs always run first).
 
 
-Managing jobs
---------------
-
 Checking job status
 ^^^^^^^^^^^^^^^^^^^
 
@@ -124,7 +125,6 @@ To display *jobs* currently in queue, use ``squeue`` and to get only your jobs t
     133     my_username   myjob   R   2019-03-28T18:33   0:50     1    2        N/A  7000M c1-8g-tiny1 (None) (null)
 
 
-
 Removing a job
 ^^^^^^^^^^^^^^^
 
@@ -134,9 +134,6 @@ To cancel your job simply use ``scancel``
 
     scancel 4323674
 
-
-Cluster status
---------------
 
 Information on partitions/nodes
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -246,9 +243,7 @@ or more info on a node and its resources
 
 
 Useful Commands
-----------------
-
-
+^^^^^^^^^^^^^^^
 
 
 +----------------------------------------------------------+-----------------------------------------------------------------------------+
@@ -288,10 +283,3 @@ Useful Commands
 | sacct -oJobID,JobName,User,Partition,Node,State          | List of current and recent jobs                                             |
 +----------------------------------------------------------+-----------------------------------------------------------------------------+
 
-
-
-
-Fairshare/Priority
--------------------
-
-TODO

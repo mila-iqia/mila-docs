@@ -15,5 +15,3 @@ Each compute node has local file systems ( of which ``$SLURM_TMPDIR`` ) that
 are usually more efficient but any data remaining on these will be erased at
 the end of the job execution for the next job to come along.
 
-
-

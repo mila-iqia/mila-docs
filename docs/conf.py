@@ -11,8 +11,9 @@ import sphinx_theme
 extensions = [
             'sphinx-prompt',
             'sphinx_copybutton',
-            'recommonmark'
-]
+            'recommonmark',
+            'sphinx.ext.autosectionlabel']
+
 templates_path = ['templates', '_templates', '.templates']
 source_suffix = ['.rst', '.md']
 source_parsers = {
