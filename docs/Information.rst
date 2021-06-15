@@ -1,3 +1,5 @@
+.. _infra_info:
+
 Mila research computing infrastructure information and policies
 ***************************************************************
 
