@@ -38,60 +38,68 @@ command(s) you would like to execute on the allocated resources/nodes.
     python my_script.py
 
 
-Your job script is then submitted to SLURM with ``sbatch`` (`ref. <https://slurm.schedmd.com/sbatch.html>`__)
+Your job script is then submitted to SLURM with ``sbatch`` (`ref.
+<https://slurm.schedmd.com/sbatch.html>`__)
 
 .. prompt:: bash $, auto
 
-    $ sbatch job_script
-    sbatch: Submitted batch job 4323674
+   $ sbatch job_script
+   sbatch: Submitted batch job 4323674
 
 The *working directory* of the job will be the one where your executed ``sbatch``.
 
 .. tip::
-   Slurm directives can be specified on the command line alongside ``sbatch`` or inside the job script with a line
-   starting with ``#SBATCH``.
+   Slurm directives can be specified on the command line alongside ``sbatch`` or
+   inside the job script with a line starting with ``#SBATCH``.
 
 
 Interactive job
 """""""""""""""
 
-Workload managers usually run batch jobs to avoid having to watch its progression and let the scheduler
-run it as soon as resources are available. If you want to get access to a shell while leveraging cluster resources,
-you can submit an interactive jobs where the main executable is a shell with the
-``srun/salloc`` (`srun <https://slurm.schedmd.com/srun.html>`_/`salloc <https://slurm.schedmd.com/salloc.html>`_) commands
+Workload managers usually run batch jobs to avoid having to watch its
+progression and let the scheduler run it as soon as resources are available. If
+you want to get access to a shell while leveraging cluster resources, you can
+submit an interactive jobs where the main executable is a shell with the
+``srun/salloc`` (`srun <https://slurm.schedmd.com/srun.html>`_/`salloc
+<https://slurm.schedmd.com/salloc.html>`_) commands
 
 .. prompt:: bash $
 
     salloc
 
-will start an interactive job on the first node available with the default resources set in SLURM (1 task/1 CPU).
-``srun`` accepts the same arguments as ``sbatch`` with the exception that the environment is not passed.
+will start an interactive job on the first node available with the default
+resources set in SLURM (1 task/1 CPU).  ``srun`` accepts the same arguments as
+``sbatch`` with the exception that the environment is not passed.
 
 .. tip::
-   To pass your current environment to an interactive job, add ``--preserve-env`` to ``srun``.
+   To pass your current environment to an interactive job, add
+   ``--preserve-env`` to ``srun``.
 
-``salloc`` can also be used and is mostly a wrapper around ``srun`` if provided without more info but it gives more flexibility
-if for example you want to get an allocation on multiple nodes.
+``salloc`` can also be used and is mostly a wrapper around ``srun`` if provided
+without more info but it gives more flexibility if for example you want to get
+an allocation on multiple nodes.
 
 
 
 Job submission arguments
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-In order to accurately select the resources for your job, several arguments are available. The most important ones are:
+In order to accurately select the resources for your job, several arguments are
+available. The most important ones are:
 
-=============================     ====================================================================================
-  Argument                         Description
-=============================     ====================================================================================
--n, --ntasks=<number>              The number of task in your script, usually =1
--c, --cpus-per-task=<ncpus>        The number of cores for each task
--t, --time=<time>                  Time requested for your job
---mem=<size[units]>                Memory requested for all your tasks
---gres=<list>                      Select generic resources such as GPUs for your job: ``--gres=gpu:GPU_MODEL``
-=============================     ====================================================================================
+=========================== ============================================================================
+Argument                    Description
+=========================== ============================================================================
+-n, --ntasks=<number>       The number of task in your script, usually =1
+-c, --cpus-per-task=<ncpus> The number of cores for each task
+-t, --time=<time>           Time requested for your job
+--mem=<size[units]>         Memory requested for all your tasks
+--gres=<list>               Select generic resources such as GPUs for your job: ``--gres=gpu:GPU_MODEL``
+=========================== ============================================================================
 
 .. tip::
-   Always consider requesting the adequate amount of resources to improve the scheduling of your job (small jobs always run first).
+   Always consider requesting the adequate amount of resources to improve the
+   scheduling of your job (small jobs always run first).
 
 
 Checking job status
@@ -120,12 +128,13 @@ To cancel your job simply use ``scancel``
 Partitioning
 ------------
 
-Since we don't have many GPUs on the cluster, resources must be shared as fairly as possible.
-The ``--partition=/-p`` flag of SLURM allows you to set the priority you need for a job.
-Each job assigned with a priority can preempt jobs with a lower priority:
-``unkillable > main > long``. Once preempted, your job is killed without notice and is automatically re-queued
-on the same partition until resources are available. (To leverage a different preemption mechanism,
-see the :ref:`Handling preemption <advanced_preemption>`)
+Since we don't have many GPUs on the cluster, resources must be shared as fairly
+as possible.  The ``--partition=/-p`` flag of SLURM allows you to set the
+priority you need for a job.  Each job assigned with a priority can preempt jobs
+with a lower priority: ``unkillable > main > long``. Once preempted, your job is
+killed without notice and is automatically re-queued on the same partition until
+resources are available. (To leverage a different preemption mechanism, see the
+:ref:`Handling preemption <advanced_preemption>`)
 
 ========================== ========================== ============ ============
 Flag                         Max Resource Usage       Max Time     Note
@@ -135,7 +144,8 @@ Flag                         Max Resource Usage       Max Time     Note
 --partition=long             no limit of resources      7 days
 ========================== ========================== ============ ============
 
-For instance, to request an unkillable job with 1 GPU, 4 CPUs, 10G of RAM and 12h of computation do:
+For instance, to request an unkillable job with 1 GPU, 4 CPUs, 10G of RAM and
+12h of computation do:
 
 .. prompt:: bash $
 
@@ -148,12 +158,13 @@ You can also make it an interactive job using ``salloc``:
     salloc --gres=gpu:1 -c 4 --mem=10G -t 12:00:00 --partition=unkillable
 
 
-The Mila cluster has many different types of nodes/GPUs. To request a specific type of node/GPU, you can
-add specific feature requirements to your job submission command.
+The Mila cluster has many different types of nodes/GPUs. To request a specific
+type of node/GPU, you can add specific feature requirements to your job
+submission command.
 
-To access those special nodes you need to request them explicitly by adding the flag ``--constraint=<name>``.
-The full list of nodes in the Mila Cluster can be accessed :ref:`Node profile
-description`.
+To access those special nodes you need to request them explicitly by adding the
+flag ``--constraint=<name>``.  The full list of nodes in the Mila Cluster can be
+accessed :ref:`Node profile description`.
 
 *Example:*
 
@@ -171,29 +182,32 @@ To request a machine with 2 GPUs using NVLink, you can use
     sbatch -c 4 --gres=gpu:2 --constraint=nvlink
 
 
-=========================================== =================================================================================
-Feature                                        Particularities
-=========================================== =================================================================================
-x86_64 (Default)                               Regular nodes
-Power9                                         :ref:`Power9 <power9_nodes>` CPUs (incompatible with x86_64 software)
-12GB/16GB/24GB/32GB/48GB                       Request a specific amount of *GPU* memory
-maxwell/pascal/volta/tesla/turing/kepler       Request a specific *GPU* architecture
-nvlink                                         Machine with GPUs using the NVLink technology
-=========================================== =================================================================================
+======================================== =====================================================================
+Feature                                  Particularities
+======================================== =====================================================================
+x86_64 (Default)                         Regular nodes
+Power9                                   :ref:`Power9 <power9_nodes>` CPUs (incompatible with x86_64 software)
+12GB/16GB/24GB/32GB/48GB                 Request a specific amount of *GPU* memory
+maxwell/pascal/volta/tesla/turing/kepler Request a specific *GPU* architecture
+nvlink                                   Machine with GPUs using the NVLink technology
+======================================== =====================================================================
 
 
 .. note::
 
-	You don't need to specify *x86_64* when you add a constraint as it is added by default ( ``nvlink`` -> ``x86_64&nvlink`` )
+   You don't need to specify *x86_64* when you add a constraint as it is added
+   by default ( ``nvlink`` -> ``x86_64&nvlink`` )
+
 
 Information on partitions/nodes
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-``sinfo`` (`ref. <https://slurm.schedmd.com/sinfo.html>`__) provides most of the information
-about available nodes and partitions/queues to submit jobs to.
+``sinfo`` (`ref. <https://slurm.schedmd.com/sinfo.html>`__) provides most of the
+information about available nodes and partitions/queues to submit jobs to.
 
-Partitions are a group of nodes usually sharing similar features. On a partition, some
-job limits can be applied which will override those asked for a job (i.e. max time, max CPUs, etc...)
+Partitions are a group of nodes usually sharing similar features. On a
+partition, some job limits can be applied which will override those asked for a
+job (i.e. max time, max CPUs, etc...)
 
 To display available *partitions*, simply use
 
@@ -218,7 +232,8 @@ To display available *nodes* and their status, you can use
     node[10-15]     6 batch     idle      2    246    16000     0  (null)   (null)
     ...
 
-and to get statistics on a job running or terminated, use ``sacct`` with some of the fields you want to display
+and to get statistics on a job running or terminated, use ``sacct`` with some of
+the fields you want to display
 
 .. prompt:: bash $, auto
 
@@ -236,8 +251,8 @@ or to get the list of all your previous jobs, use the ``--start=####`` flag
     sacct -u my_username --start=20190101
 
 
-``scontrol`` (`ref. <https://slurm.schedmd.com/scontrol.html>`__) can be used to provide
-specific information on a job (currently running or recently terminated)
+``scontrol`` (`ref. <https://slurm.schedmd.com/scontrol.html>`__) can be used to
+provide specific information on a job (currently running or recently terminated)
 
 .. prompt:: bash $, auto
 
@@ -297,49 +312,50 @@ Useful Commands
 ---------------
 
 
-+----------------------------------------------------------+-----------------------------------------------------------------------------+
-| Command                                                  | Description                                                                 |
-+==========================================================+=============================================================================+
-| salloc                                                   | Get an interactive job and give you a shell. (ssh like) CPU only            |
-+----------------------------------------------------------+-----------------------------------------------------------------------------+
-| salloc --gres=gpu -c 2 --mem=12000                       | Get an interactive job with one GPU, 2 CPUs and 12000 MB RAM                |
-+----------------------------------------------------------+-----------------------------------------------------------------------------+
-| sbatch                                                   | start a batch job (same options as salloc)                                  |
-+----------------------------------------------------------+-----------------------------------------------------------------------------+
-| sattach --pty <jobid>.0                                  | Re-attach a dropped interactive job                                         |
-+----------------------------------------------------------+-----------------------------------------------------------------------------+
-| sinfo                                                    | status of all nodes                                                         |
-+----------------------------------------------------------+-----------------------------------------------------------------------------+
-| sinfo -Ogres:27,nodelist,features -tidle,mix,alloc       | List GPU type and FEATURES that you can request                             |
-+----------------------------------------------------------+-----------------------------------------------------------------------------+
-| savail                                                   | (Custom) List available gpu                                                 |
-+----------------------------------------------------------+-----------------------------------------------------------------------------+
-| scancel <jobid>                                          | Cancel a job                                                                |
-+----------------------------------------------------------+-----------------------------------------------------------------------------+
-| squeue                                                   | summary status of all active jobs                                           |
-+----------------------------------------------------------+-----------------------------------------------------------------------------+
-| squeue -u $USER                                          | summary status of all YOUR active jobs                                      |
-+----------------------------------------------------------+-----------------------------------------------------------------------------+
-| squeue -j <jobid>                                        | summary status of a specific job                                            |
-+----------------------------------------------------------+-----------------------------------------------------------------------------+
-| squeue -Ojobid,name,username,partition,                  |  status of all jobs including requested                                     |
-| state,timeused,nodelist,gres,tres                        |  resources (see the SLURM squeue doc for all output options)                |
-+----------------------------------------------------------+-----------------------------------------------------------------------------+
-| scontrol show job <jobid>                                | Detailed status of a running job                                            |
-+----------------------------------------------------------+-----------------------------------------------------------------------------+
-| sacct -j <job_id> -o NodeList                            | Get the node where a finished job ran                                       |
-+----------------------------------------------------------+-----------------------------------------------------------------------------+
-| sacct -u $USER -S <start_time> -E <stop_time>            | Find info about old jobs                                                    |
-+----------------------------------------------------------+-----------------------------------------------------------------------------+
-| sacct -oJobID,JobName,User,Partition,Node,State          | List of current and recent jobs                                             |
-+----------------------------------------------------------+-----------------------------------------------------------------------------+
++----------------------------------------------------+------------------------------------------------------------------+
+| Command                                            | Description                                                      |
++====================================================+==================================================================+
+| salloc                                             | Get an interactive job and give you a shell. (ssh like) CPU only |
++----------------------------------------------------+------------------------------------------------------------------+
+| salloc --gres=gpu -c 2 --mem=12000                 | Get an interactive job with one GPU, 2 CPUs and 12000 MB RAM     |
++----------------------------------------------------+------------------------------------------------------------------+
+| sbatch                                             | start a batch job (same options as salloc)                       |
++----------------------------------------------------+------------------------------------------------------------------+
+| sattach --pty <jobid>.0                            | Re-attach a dropped interactive job                              |
++----------------------------------------------------+------------------------------------------------------------------+
+| sinfo                                              | status of all nodes                                              |
++----------------------------------------------------+------------------------------------------------------------------+
+| sinfo -Ogres:27,nodelist,features -tidle,mix,alloc | List GPU type and FEATURES that you can request                  |
++----------------------------------------------------+------------------------------------------------------------------+
+| savail                                             | (Custom) List available gpu                                      |
++----------------------------------------------------+------------------------------------------------------------------+
+| scancel <jobid>                                    | Cancel a job                                                     |
++----------------------------------------------------+------------------------------------------------------------------+
+| squeue                                             | summary status of all active jobs                                |
++----------------------------------------------------+------------------------------------------------------------------+
+| squeue -u $USER                                    | summary status of all YOUR active jobs                           |
++----------------------------------------------------+------------------------------------------------------------------+
+| squeue -j <jobid>                                  | summary status of a specific job                                 |
++----------------------------------------------------+------------------------------------------------------------------+
+| squeue -Ojobid,name,username,partition,            |  status of all jobs including requested                          |
+| state,timeused,nodelist,gres,tres                  |  resources (see the SLURM squeue doc for all output options)     |
++----------------------------------------------------+------------------------------------------------------------------+
+| scontrol show job <jobid>                          | Detailed status of a running job                                 |
++----------------------------------------------------+------------------------------------------------------------------+
+| sacct -j <job_id> -o NodeList                      | Get the node where a finished job ran                            |
++----------------------------------------------------+------------------------------------------------------------------+
+| sacct -u $USER -S <start_time> -E <stop_time>      | Find info about old jobs                                         |
++----------------------------------------------------+------------------------------------------------------------------+
+| sacct -oJobID,JobName,User,Partition,Node,State    | List of current and recent jobs                                  |
++----------------------------------------------------+------------------------------------------------------------------+
 
 
 
 Special GPU requirements
 ------------------------
 
-Specific GPU *architecture* and *memory* can be easily requested through the ``--gres`` flag by using either
+Specific GPU *architecture* and *memory* can be easily requested through the
+``--gres`` flag by using either
 
 * ``--gres=gpu:architecture:memory:number``
 * ``--gres=gpu:architecture:number``
@@ -361,9 +377,11 @@ The full list of GPU and their features can be accessed :ref:`here <node_list>`.
 CPU-only jobs
 -------------
 
-Since the priority is given to the usage of GPUs, CPU-only jobs have a low priority and can only consume **4 cpus maximum per node**.
-The partition for CPU-only jobs is named ``cpu_jobs`` and you can request it with ``-p cpu_jobs`` or if you don't specify any GPU, you will be
-automatically rerouted to this partition.
+Since the priority is given to the usage of GPUs, CPU-only jobs have a low
+priority and can only consume **4 cpus maximum per node**.  The partition for
+CPU-only jobs is named ``cpu_jobs`` and you can request it with ``-p cpu_jobs``
+or if you don't specify any GPU, you will be automatically rerouted to this
+partition.
 
 
 Example script

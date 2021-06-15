@@ -23,8 +23,9 @@ You can list available images with
     shifterimg images
 
 
-**DO NOT USE IMAGES WITH SENSITIVE INFORMATION** yet, it will soon be possible. For now, every image
-is pulled to a common registry but access-control will soon be implemented.
+**DO NOT USE IMAGES WITH SENSITIVE INFORMATION** yet, it will soon be possible.
+For now, every image is pulled to a common registry but access-control will soon
+be implemented.
 
 
 Using in Slurm
@@ -62,7 +63,8 @@ Using the salloc command, you can request the image while getting the allocation
     salloc -c2 --mem=16g --image=docker:image_name:latest
 
 
-and once in the job, you can activate the container's environment with the ``shifter`` command
+and once in the job, you can activate the container's environment with the
+``shifter`` command
 
 .. prompt:: bash
 
@@ -109,21 +111,25 @@ the ``sbatch/salloc/shifter`` command line
 
 Following folders will be mounted in the container:
 
-==============================  ==================  ======================================================
-  Host                           Container             Comment
-==============================  ==================  ======================================================
-/ai/apps/cuda/10.0                /cuda               Cuda libraries and bin, added to ``PATH``
-/usr/bin                          /nvidia/bin         To access ``nvidia-smi``
-/usr/lib/x86_64-linux-gnu/        /nvidia/lib         ``LD_LIBRARY_PATH`` will be set to ``/nvidia/lib``
-==============================  ==================  ======================================================
+========================== =========== ==================================================
+Host                       Container   Comment
+========================== =========== ==================================================
+/ai/apps/cuda/10.0         /cuda       Cuda libraries and bin, added to ``PATH``
+/usr/bin                   /nvidia/bin To access ``nvidia-smi``
+/usr/lib/x86_64-linux-gnu/ /nvidia/lib ``LD_LIBRARY_PATH`` will be set to ``/nvidia/lib``
+========================== =========== ==================================================
 
 
 .. note::
 
    - Use image names in 3 parts to avoid confusion: ``_type:name:tag_``
-   - Please keep in mind that root is squashed on Shifter images, so the software should be installed in a way that is executable to someone with user-level permissions.
-   - Currently the ``/etc`` and ``/var`` directories are reserved for use by the system and will be overwritten when the image is mounted
-   - The container is not isolated so you share the network card and all hardware from the host, no need to forward ports
+   - Please keep in mind that root is squashed on Shifter images, so the
+     software should be installed in a way that is executable to someone with
+     user-level permissions.
+   - Currently the ``/etc`` and ``/var`` directories are reserved for use by the
+     system and will be overwritten when the image is mounted
+   - The container is not isolated so you share the network card and all
+     hardware from the host, no need to forward ports
 
 
 Example

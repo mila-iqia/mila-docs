@@ -1,6 +1,7 @@
 Portability concerns and solutions
 ==================================
 
+
 Creating a list of your software's dependencies
 -----------------------------------------------
 
@@ -16,8 +17,9 @@ Managing your envs
 Using Modules
 -------------
 
-Many software, such as Python and Conda, are already compiled and available on the cluster through the ``module`` command and
-its sub-commands. In particular, if you with to use ``Python 3.7`` you can simply do:
+Many software, such as Python and Conda, are already compiled and available on
+the cluster through the ``module`` command and its sub-commands. In particular,
+if you with to use ``Python 3.7`` you can simply do:
 
 .. prompt:: bash $
 
@@ -35,5 +37,5 @@ One popular mechanism for containerisation on a computational cluster is called
 `singularity`. This is the recommended approach for running containers on the
 Mila cluster.
 
-
 .. include:: singularity/index.rst
+

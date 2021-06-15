@@ -19,31 +19,39 @@ Notable Sections
 You should focus your attention on the metrics below
 
 * CPU
-    * iowait (pink line): High values means your model is waiting on IO a lot (disk or network)
+
+   * iowait (pink line): High values means your model is waiting on IO a lot (disk or network)
 
 .. image:: monitoring_cpu.png
     :align: center
     :alt: monitoring_cpu.png
 
+
 * RAM
-    * Make sure you are only allocating enough to make your code run and not more otherwise you are wasting resources.
+
+   * Make sure you are only allocating enough to make your code run and not more otherwise you are wasting resources.
 
 .. image:: monitoring_ram.png
     :align: center
     :alt: monitoring_ram.png
 
+
 * NV
-    * Usage of each GPU
-    * You should make sure you use the GPU to its fullest
-        * Select the biggest batch size if possible
-        * Spawn multiple experiments
+
+   * Usage of each GPU
+   * You should make sure you use the GPU to its fullest
+
+      * Select the biggest batch size if possible
+      * Spawn multiple experiments
 
 .. image:: monitoring_gpu.png
     :align: center
     :alt: monitoring_gpu.png
 
-* Users:
-    * In some cases the machine might seem slow, it may be useful to check if other people are using the machine as well
+
+* Users
+
+   * In some cases the machine might seem slow, it may be useful to check if other people are using the machine as well
 
 .. image:: monitoring_users.png
     :align: center
