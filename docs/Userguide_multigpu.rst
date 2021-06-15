@@ -52,10 +52,10 @@ The easiest way to handle preemption is by trapping the ``SIGTERM`` signal
 .. note::
    | **Requeuing**:
    | The local Slurm cluster does not allow a grace period before preempting a
-     job while requeuing it automatically, therefore your job will be cancelled at
-     the end of the grace period.
+   | job while requeuing it automatically, therefore your job will be cancelled at
+   | the end of the grace period.
    | To automatically requeue it, you can just add the ``sbatch`` command inside
-   your ``exit_script`` function.
+   | your ``exit_script`` function.
 
 
 The following table summarizes the different preemption mode and grace periods:

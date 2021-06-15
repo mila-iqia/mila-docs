@@ -24,7 +24,7 @@ Mila technical documentation
    Theory_cluster
    Information
    Userguide
-   Extra_compute
    Handbook
+   Extra_compute
    Audio_video
    IDT
