@@ -1,15 +1,5 @@
-.. _modules:
-
-Modules
-#######
-
-Mila and Compute Canada provides various software (such as python, cuda, etc) through the ``module`` command.
-Modules are small files which modify your environment variables (PATH, LD_LIBRARY_PATH, etc...) to register the correct
-location of the software you wish to use.
-
-
-The ``module`` command
-"""""""""""""""""""""""
+The module command
+^^^^^^^^^^^^^^^^^^
 
 For a list of available modules, simply use:
 
@@ -69,7 +59,7 @@ If you want to use ``python3.7`` you can type:
 
 
 Available Software
-"""""""""""""""""""""
+^^^^^^^^^^^^^^^^^^
 
 Modules are divided in 5 main sections:
 
@@ -99,7 +89,7 @@ Pytorch/Tensorflow               Pytorch/TF built with a specific Cuda/Cudnn
 
 
 Default package location
-""""""""""""""""""""""""""
+^^^^^^^^^^^^^^^^^^^^^^^^
 
 
 Python by default uses the user site package first and packages provided by ``module`` last to not interfere with your installation.

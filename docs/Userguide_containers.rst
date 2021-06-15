@@ -30,8 +30,8 @@ is pulled to a common registry but access-control will soon be implemented.
 Using in Slurm
 --------------
 
-Batch job
-^^^^^^^^^
+Containerized Batch job
+^^^^^^^^^^^^^^^^^^^^^^^
 
 You must use the ``--image=docker:image_name:latest`` directive to specify
 the container to use. Once the container is mounted, you are not yet

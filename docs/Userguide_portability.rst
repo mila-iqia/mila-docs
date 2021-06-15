@@ -23,10 +23,17 @@ its sub-commands. In particular, if you with to use ``Python 3.7`` you can simpl
 
     module load python/3.7
 
-Please look at the :ref:`Module <modules>` and :ref:`Python <python>` sections for more details.
+.. include:: Userguide_portability_modules.rst
 
 
 On using containers
 -------------------
 
 Another option for portable code might also be :ref:`Using containers`.
+
+One popular mechanism for containerisation on a computational cluster is called
+`singularity`. This is the recommended approach for running containers on the
+Mila cluster.
+
+
+.. include:: singularity/index.rst

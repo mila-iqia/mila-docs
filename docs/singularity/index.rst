@@ -1,32 +1,8 @@
-Reproducible.. _singularity:
-
-Singularity
-############
-
-.. contents:: Mila Cluster
-   :depth: 2
-   :local:
-
-
 .. highlight:: bash
 
 Singularity is a software container system designed to facilitate portability and reproducibility of high performance computing (HPC) workflows.
 It performs a function similar to docker, but with HPC in mind. It is compatible with existing docker containers, and provides tools for
 building new containers from recipe files or ad-hoc commands.
-
-Why should you use containers ?
-===============================
-
-================ =========================================================================================
-Advantages       Descriptions
-================ =========================================================================================
-Reproducibility  All software you have used for your experiments is packaged inside one file.
-Portability      Copy the container you built on every cluster without the need to install anything.
-Flexibility      You can use apt-get !
-================ =========================================================================================
-
-Building containers
-===================
 
 Building a container is like creating a new environment except that containers are much more powerful since they are self-contain systems.
 With singularity, there are two ways to build containers.
@@ -36,16 +12,14 @@ you install it. Here you can get a vanilla container with Ubuntu called a sandbo
 This procedure can take time but will allow you to understand how things work and what you need. This is recommended if you need to figure out
 how things will be compiled or if you want to install packages on the fly. We'll refer to this procedure as singularity sandboxes.
 
-
 The second one way is more like you know what you want, so you write a list of everything you need, you sent it to singularity and it will install
 everything for you. Those lists are called singularity recipes.
 
 
 First way: Build and use a sandbox
-..................................
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-On which machine should I build a container ?
------------------------------------------------
+You might ask yourself; *On which machine should I build a container ?*
 
 First of all, you need to choose where you'll build your container. This operation requires **memory and high cpu usage**.
 
@@ -75,7 +49,7 @@ In this case, in order to avoid too much I/O over the network, you should define
 
 
 Download containers from the web
---------------------------------
+""""""""""""""""""""""""""""""""
 
 Hopefully, you may not need to create containers from scratch as many have been already built for the most common deep learning software.
 You can find most of them on `dockerhub`_.
@@ -106,7 +80,7 @@ Currently the pulled image ``pytorch.simg`` or ``tensorflow.simg`` is read only 
 Starting now, pytorch will be taken as example. If you use tensorflow, simply replace every **pytorch** occurrences by **tensorflow**.
 
 How to add or install stuff in a container
-------------------------------------------
+""""""""""""""""""""""""""""""""""""""""""
 
 The first step is to transform your read only container ``pytorch-1.0.1-cuda10.0-cudnn7-runtime.simg`` in a writable version that will allow you to add packages.
 
@@ -137,7 +111,7 @@ Once you get into the container, you can use pip and install anything you need (
 You should install your stuff in /usr/local instead.
 
 Creating useful directory
-^^^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""""
 
 One of the benefit of containers is that you'll be able to use them across different clusters. However for each cluster the dataset and experiment folder location
 can be different. In order to be invariant to those locations, we will create some useful mount points inside the container:
@@ -153,7 +127,7 @@ From now, you won't need to worry anymore when you write your code to specify wh
 independently of the cluster you are using.
 
 Testing
-^^^^^^^
+"""""""
 
 If you have some code that you want to test before finalizing your container, you have two choices.
 You can either log into your container and run python code inside it with
@@ -173,7 +147,7 @@ or you can execute your command directly with
 .. warning:: Don't forget to clear the cache of the packages you installed in the containers.
 
 Creating a new image from the sandbox
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""""""""""""""""
 
 Once everything you need is installed inside the container, you need to convert it back to a read-only singularity image with:
 
@@ -184,10 +158,7 @@ Once everything you need is installed inside the container, you need to convert 
 .. _Recipe_section:
 
 Second way: Use recipes
-.......................
-
-Singularity Recipe
-------------------
+^^^^^^^^^^^^^^^^^^^^^^^
 
 A singularity recipe is a file including specifics about installation software, environment variables, files to add, and container metadata.
 It is a starting point for designing any custom container. Instead of pulling a container and install your packages manually, you can specify
@@ -242,7 +213,7 @@ In order to build a singularity container from a singularity recipe file, you sh
 
 
 Build recipe on singularity hub
--------------------------------
+"""""""""""""""""""""""""""""""
 
 Singularity hub allows users to build containers from recipes directly on singularity-hub's cloud meaning that you don't need anymore to build containers by yourself.
 You need to register on `singularity-hub`_ and link your singularity-hub account to your github account, then
@@ -263,7 +234,7 @@ At this point, robots from singularity-hub will build the container for you, you
 
 
 Example: Recipe with openai gym, mujoco and miniworld
------------------------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 Here is an example on how you can use singularity recipe to install complex environment as opanai gym, mujoco and miniworld on a pytorch based container.
 In order to use mujoco, you'll need to copy the key stored on the mila cluster in `/ai/apps/mujoco/license/mjkey.txt` to your current directory.
@@ -436,7 +407,7 @@ Keep in mind that those environment variables are sourced at runtime and not at 
 
 
 Using containers on clusters
-============================
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 On every cluster with SLURM, dataset and intermediate results should go in ``$SLURM_TMPDIR`` while the final experiments results should go in ``$SCRATCH``.
 In order to use the container you built, you need to copy it on the cluster you want to use.
@@ -466,7 +437,7 @@ If you want to run multiple commands inside the container you can use:
 
 
 Example: Interactive case (srun/salloc)
-.......................................
+"""""""""""""""""""""""""""""""""""""""
 
 Once you get an interactive session with slurm, copy ``<YOUR_CONTAINER>`` and ``<YOUR_DATASET>`` to ``$SLURM_TMPDIR``
 
@@ -528,7 +499,7 @@ This will allow you to run any code with:
 
 
 Example: sbatch case
-....................
+""""""""""""""""""""
 
 You can also create a ``sbatch`` script:
 
@@ -558,7 +529,7 @@ You can also create a ``sbatch`` script:
 
 
 Issue with PyBullet and OpenGL libraries
-........................................
+""""""""""""""""""""""""""""""""""""""""
 
 If you are running certain gym environments that require ``pyglet``, you may encounter a problem when running your singularity instance with the Nvidia drivers using the ``--nv`` flag. This happens because the ``--nv`` flag also provides the OpenGL libraries:
 
@@ -577,7 +548,7 @@ If you don't experience those problems with ``pyglet``, you probably don't need 
 
 
 Mila cluster
-............
+""""""""""""
 
 On the Mila cluster ``$SCRATCH`` is not yet defined, you should add the experiment results you want to keep in ``/network/tmp1/$USER/``.
 In order to use the sbatch script above and to match other cluster environment's names, you can define ``$SCRATCH`` as an alias for ``/network/tmp1/$USER`` with:
@@ -589,18 +560,9 @@ In order to use the sbatch script above and to match other cluster environment's
 Then, you can follow the general procedure explained above.
 
 
-Mila-cloud cluster
-..................
-
-On mila-cloud, the procedure is the same as above except that you have to define ``$SCRATCH`` as:
-
-.. prompt:: bash $
-
-        echo "export SCRATCH=/scratch/$USER" >> ~/.bashrc
-
 
 Compute Canada
-..............
+""""""""""""""
 
 Using singularity on Compute Canada is similar except that you need to add Yoshua's account name and load singularity.
 Here is an example of a ``sbatch`` script using singularity on compute Canada cluster:
