@@ -46,6 +46,15 @@ this in mind as you'll have to be aware of *which* nodes you are working on.
 More on that later.
 
 
+The Storage nodes
+-----------------
+
+Some computers on a cluster will have one function only which is to serve files.
+While the name of these computers might matter to some, as a user, you'll only
+be concerned about the path to the data. More on that in the :ref:`Processing
+data` section.
+
+
 Different nodes for different uses
 ----------------------------------
 
@@ -60,9 +69,3 @@ In other words, please refrain from executing long or compute intensive
 processes on login nodes because it affects all other users. In some cases, you
 will also find that doing so might get you into trouble.
 
-The Storage nodes
------------------
-
-Some computers on a cluster will have one function only which is to serve
-files. While the name of these computers might matter to some, as a user,
-you'll only be concerned about the path to the data. More on that in the :ref:`Processing data` section.
