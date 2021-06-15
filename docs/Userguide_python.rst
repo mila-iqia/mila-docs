@@ -1,10 +1,7 @@
 .. _python:
 
-Python
-######
-
 Pip/Virtualenv
-"""""""""""""""
+^^^^^^^^^^^^^^
 
 Pip is the preferred package manager for Python and each cluster provides several Python versions through the associated module
 which comes with pip. In order to install new packages, you will first have to create a personal space for them to be stored.
@@ -42,7 +39,7 @@ or `Tensorflow <https://www.tensorflow.org/install/gpu>`_:
     pip install tensorflow-gpu
 
 Conda
-"""""
+^^^^^
 
 Another solution for Python is to use `miniconda <https://docs.conda.io/en/latest/miniconda.html>`_ or
 `anaconda <https://docs.anaconda.com>`_ which are also available through the ``module`` command:

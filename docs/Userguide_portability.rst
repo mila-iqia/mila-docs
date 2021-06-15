@@ -10,7 +10,8 @@ TODO
 Managing your envs
 ------------------
 
-TODO
+.. include:: Userguide_python.rst
+
 
 Using Modules
 -------------
