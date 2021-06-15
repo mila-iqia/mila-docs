@@ -12,7 +12,8 @@ extensions = [
             'sphinx-prompt',
             'sphinx_copybutton',
             'recommonmark',
-            'sphinx.ext.autosectionlabel']
+            'sphinx.ext.autosectionlabel',
+            'sphinx.ext.todo']
 
 templates_path = ['templates', '_templates', '.templates']
 source_suffix = ['.rst', '.md']
@@ -32,7 +33,12 @@ latex_documents = [
    u'', 'manual'),
 ]
 
-exclude_patterns = ['_build']
+exclude_patterns = ['_build',
+                    'Userguide_*',
+                    'Theory_cluster_*',
+                    'Information_*',
+                    'Purpose_*',
+                    'Extra_compute_*']
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'
 

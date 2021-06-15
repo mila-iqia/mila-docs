@@ -9,7 +9,9 @@ knowledge, tips and tricks and example commands.
 .. include:: Userguide_login.rst
 .. include:: Userguide_running_code.rst
 .. include:: Userguide_portability.rst
+.. include:: Userguide_containers.rst
 .. include:: Userguide_datasets.rst
 .. include:: Userguide_notebooks.rst
 .. include:: Userguide_multigpu.rst
 .. include:: Userguide_debugging.rst
+.. include:: Userguide_faq.rst

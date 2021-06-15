@@ -1,13 +1,12 @@
-Docker/Shifter
+Using containers
 ================
-
 
 Docker containers are now available on the local cluster with a root-less
 system called Shifter integrated into Slurm.
 *It is still in beta and be careful with this usage*
 
-Containers
------------
+Initialising your Containers
+----------------------------
 
 To first use a container, you have to pull it to the local registry to be
 converted to a Shifter-compatible image.
@@ -32,7 +31,7 @@ Using in Slurm
 --------------
 
 Batch job
-^^^^^^^^^^
+^^^^^^^^^
 
 You must use the ``--image=docker:image_name:latest`` directive to specify
 the container to use. Once the container is mounted, you are not yet
@@ -53,8 +52,8 @@ e.g.:
 
 
 
-Interactive job
-^^^^^^^^^^^^^^^^
+Container Interactive job
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Using the salloc command, you can request the image while getting the allocation
 
@@ -73,7 +72,7 @@ and once in the job, you can activate the container's environment with the ``shi
 
 
 Command line
--------------
+------------
 
 ``shifter`` support various options on the command line but you should be
 set with the image name and the command to execute:
@@ -90,14 +89,14 @@ set with the image name and the command to execute:
 
 
 Volumes
---------
+-------
 
 ``/home/yourusername``, ``/Tmp``, ``/ai`` and all ``/network/..`` sub-folders are
 mounted inside the container.
 
 
 GPU
-----
+---
 
 To access the GPU inside a container, you need to specify ``--module=nvidia`` on
 the ``sbatch/salloc/shifter`` command line
@@ -119,18 +118,16 @@ Following folders will be mounted in the container:
 ==============================  ==================  ======================================================
 
 
+.. note::
 
-Remember
----------
-
-- Use image names in 3 parts to avoid confusion: ``_type:name:tag_``
-- Please keep in mind that root is squashed on Shifter images, so the software should be installed in a way that is executable to someone with user-level permissions.
-- Currently the ``/etc`` and ``/var`` directories are reserved for use by the system and will be overwritten when the image is mounted
-- The container is not isolated so you share the network card and all hardware from the host, no need to forward ports
+   - Use image names in 3 parts to avoid confusion: ``_type:name:tag_``
+   - Please keep in mind that root is squashed on Shifter images, so the software should be installed in a way that is executable to someone with user-level permissions.
+   - Currently the ``/etc`` and ``/var`` directories are reserved for use by the system and will be overwritten when the image is mounted
+   - The container is not isolated so you share the network card and all hardware from the host, no need to forward ports
 
 
 Example
---------
+-------
 
 .. code-block:: bash
 

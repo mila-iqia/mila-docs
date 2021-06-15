@@ -27,3 +27,5 @@ Please look at the :ref:`Module <modules>` and :ref:`Python <python>` sections f
 
 On using containers
 -------------------
+
+Another option for portable code might also be :ref:`Using containers`.

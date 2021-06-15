@@ -33,8 +33,8 @@ The Mila cluster has many different types of nodes/GPUs. To request a specific t
 add specific feature requirements to your job submission command.
 
 To access those special nodes you need to request them explicitly by adding the flag ``--constraint=<name>``.
-The full list of nodes in the Mila Cluster can be accessed :ref:`Complete List
-of Nodes`.
+The full list of nodes in the Mila Cluster can be accessed :ref:`Node profile
+description`.
 
 *Example:*
 
