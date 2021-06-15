@@ -1,5 +1,7 @@
-User's Guide (IDT's list of opiniated howtos)
-*********************************************
+Users Guide
+***********
+
+... or *IDT's list of opiniated howtos*
 
 This section seeks to provide users of the Mila infrastructure with practical
 knowledge, tips and tricks and example commands.
@@ -15,3 +17,4 @@ knowledge, tips and tricks and example commands.
 .. include:: Userguide_multigpu.rst
 .. include:: Userguide_debugging.rst
 .. include:: Userguide_faq.rst
+

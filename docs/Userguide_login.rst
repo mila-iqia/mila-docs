@@ -1,4 +1,4 @@
-Welcome to the machine: Logging in to the cluster
+Welcome to the machine, Logging in to the cluster
 =================================================
 
 To access the Mila Cluster clusters, you will need an account. Please contact Mila systems administrators if you don't have it already. Our IT support service is available here: https://it-support.mila.quebec/

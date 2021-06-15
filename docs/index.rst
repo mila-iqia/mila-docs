@@ -1,7 +1,7 @@
-Mila documentation
-##################
+Mila technical documentation
+############################
 
-.. First and only part.
+.. First and only part to the documentation.
 
 .. include:: Purpose.rst
 

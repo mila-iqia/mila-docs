@@ -72,8 +72,8 @@ And to get an interactive session, use the ``salloc`` command:
 The full documentation for jobs launching on Beluga can be found `here <https://docs.computecanada.ca/wiki/Running_jobs>`__.
 
 
-Nodes
-"""""
+Beluga Nodes description
+""""""""""""""""""""""""
 
 The GPU nodes consist of:
 
@@ -86,8 +86,8 @@ The GPU nodes consist of:
 
 .. _cc_storage:
 
-Storage
-"""""""
+Beluga Storage
+""""""""""""""
 
 ============== ==================== =========================
 Storage        Path                 Usage
