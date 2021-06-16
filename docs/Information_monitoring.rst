@@ -1,58 +1,104 @@
 Monitoring
 ==========
 
-Every compute node on the Mila cluster has a monitoring daemon allowing you to
-check the resource usage of your model and identify bottlenecks.
-You can access the monitoring web page by typing in your browser: ``<node>.server.mila.quebec:19999``.
+Every compute node on the Mila cluster has a `netdata <https://www.netdata.cloud/>`_
+monitoring daemon allowing you to get a sense of the state of the node.
+This information is exposed in two ways:
 
-For example, if I have a job running on ``eos1`` I can type ``eos1.server.mila.quebec:19999`` and
-the page below should appear.
+* For every node, there is a web interface from netdata itself at ``<node>.server.mila.quebec:19999``.
+  This is accessible only when present at Mila (or connected remotely).
+* The Mila dashboard at `dashboard.server.mila.quebec <https://dashboard.server.mila.quebec/>`_
+  exposes aggregated statistics with the use of `grafana <https://grafana.com/>`_.
+  These are collected internally to an instance of `prometheus <https://prometheus.io/>`_.
+
+In both cases, those graphs are not editable by individual users,
+but they provide valuable insight into the state of the whole cluster
+or the individual nodes.
+One of the important uses is to collect data about the health
+of the Mila cluster and to sound the alarm if outages occur
+(e.g. if the nodes crash or if GPUs mysteriously become unavailable for slurm).
+
+Example with netdata on eos1
+----------------------------
+
+For example, if we have a job running on ``eos1``,
+we can type ``eos1.server.mila.quebec:19999`` and
+the following page will appear.
 
 .. image:: monitoring.png
     :align: center
     :alt: monitoring.png
 
+Example watching the CPU/RAM/GPU usage
+--------------------------------------
 
-Notable Sections
-----------------
+Given that compute nodes are generally shared
+with other users who are also running jobs at the same time and
+consuming resources, this is not generally a good way to profile your code
+in fine details.
+However, it can still be a very useful source of information
+for getting an idea of whether the machine that you requested is being
+used in its full capacity.
 
-You should focus your attention on the metrics below
+Given how expensive the GPUs are, it generally makes sense to try to
+make sure that this resources is always kept busy.
+
+TODO : Vérifier que, effectivement, on peut regarder un GPU spécifique.
 
 * CPU
-
-   * iowait (pink line): High values means your model is waiting on IO a lot (disk or network)
+    * iowait (pink line): High values means your model is waiting on IO a lot (disk or network).
 
 .. image:: monitoring_cpu.png
     :align: center
     :alt: monitoring_cpu.png
 
-
-* RAM
-
-   * Make sure you are only allocating enough to make your code run and not more otherwise you are wasting resources.
+* CPU RAM
+    * You can see how much CPU RAM is being used by your script in practice,
+      considering the amount that you requested (e.g. ```sbatch --mem=8G ...```).
+    * GPU usage is generally more important to monitor than CPU RAM.
+      You should not cut it so close to the limit that your experiments randomly fail
+      because they run out of RAM. However, you should not request blindly 32GB of RAM
+      when you actually require only 8GB.
 
 .. image:: monitoring_ram.png
     :align: center
     :alt: monitoring_ram.png
 
-
-* NV
-
-   * Usage of each GPU
-   * You should make sure you use the GPU to its fullest
-
-      * Select the biggest batch size if possible
-      * Spawn multiple experiments
+* GPU
+    * Monitors the GPU usage using an `nvidia-smi plugin for netdata <https://learn.netdata.cloud/docs/agent/collectors/python.d.plugin/nvidia_smi/>`_.
+    * You should make sure you use the GPUs to their fullest capacity.
+    * Select the biggest batch size if possible to increase GPU memory usage and
+      the GPU computational load.
+    * Spawn multiple experiments if you can fit many on a single GPU.
+      Running 10 independent MNIST experiments on a single GPU will probably take
+      less than 10x the time to run a single one. This assumes that you have more
+      experiments to run, because nothing is gained by gratuitously running experiments.
+    * You can request a less powerful GPU and leave the more powerful GPUs
+      to other researchers who have experiments that can make best use of them.
+      Sometimes you really just need a k80 and not a v100.
 
 .. image:: monitoring_gpu.png
     :align: center
     :alt: monitoring_gpu.png
 
-
-* Users
-
-   * In some cases the machine might seem slow, it may be useful to check if other people are using the machine as well
+* Other users or jobs
+    * If the node seems unresponsive or slow,
+      it may be useful to check what other tasks are
+      running at the same time on that node.
+      This should not be an issue in general,
+      but in practice it is useful to be able to
+      inspect this to diagnose certain problems.
 
 .. image:: monitoring_users.png
     :align: center
     :alt: monitoring_users.png
+
+
+
+
+Example with Mila dashboard
+---------------------------
+
+.. image:: mila_dashboard_2021-06-15.png
+    :align: center
+    :alt: mila_dashboard_2021-06-15.png
