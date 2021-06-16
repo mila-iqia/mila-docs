@@ -1,5 +1,3 @@
-.. sectnum::
-
 Frequently asked questions (FAQs)
 =================================
 
