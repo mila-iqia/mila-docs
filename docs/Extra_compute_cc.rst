@@ -254,7 +254,7 @@ the necessary servers for using CometML and Wandb ("Weights and Biases").
 
     module load httpproxy
 
-More documentation about this can be found at `https://docs.computecanada.ca/wiki/Weights_%26_Biases_(wandb)`.
+More documentation about this can be found `here <https://docs.computecanada.ca/wiki/Weights_%26_Biases_(wandb)>`__.
 
 
 .. _graham:
@@ -296,6 +296,25 @@ Since its structure is similar to `Beluga`, please look at the `Beluga`_ documen
 
 .. note:: However, we don't have any CPU priority on Cedar, in this case you can use ``--account=def-bengioy`` for CPU. Thus, it might take some time before they start.
 
+
+.. _niagara:
+
+Niagara
+^^^^^^^
+
+Niagara is a cluster located at University of Toronto. It uses SLURM to schedule jobs. Its full documentation can be found `here <https://docs.computecanada.ca/wiki/Niagara>`__, and its current status `here <http://status.computecanada.ca>`__.
+
+You can access Niagara via ssh:
+
+.. prompt:: bash $
+
+    ssh <user>@niagara.computecanada.ca
+
+Where ``<user>`` is the username you created previously (see `Account Creation`_).
+
+Since its structure is similar to `Beluga`, please look at the `Beluga`_ documentation, as well as
+relevant parts of the
+`Compute Canada Documentation <https://docs.computecanada.ca/wiki/Niagara_Quickstart>`__.
 
 
 FAQ
