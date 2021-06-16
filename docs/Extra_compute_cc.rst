@@ -31,7 +31,7 @@ at a given perioud of time. Please see Compute Canada's
 `documentation <https://docs.computecanada.ca/wiki/Allocations_and_resource_scheduling>`__
 for more information on how allocations and resource scheduling.
 
-Table below provides as an example the allocation for ``rrg-bengioy-ad``. Note that there is no
+Table below provides as an example the allocation for ``rrg-bengioy-ad``. Note that there are no
 special allocations for CPUs on Cedar and Graham and therefore jobs without GPUs should be submitted
 with the account ``def-bengioy``.
 
@@ -47,6 +47,8 @@ with the account ``def-bengioy``.
 +------------------------+------+----------------+----------+-----+----------------------+----------------+
 | :ref:`Graham <graham>` | --   | def-bengioy    |  T4      | 60  | t4                   | rrg-bengioy-ad |
 +------------------------+------+----------------+----------+-----+----------------------+----------------+
+
+
 
 Account Creation
 ----------------
@@ -65,6 +67,29 @@ You will need to **wait** for your sponsor to accept before being able to login 
 
 Clusters
 --------
+
+Beluga:
+   (:ref:`Mila doc <beluga>`)
+   (`Compute Canada doc <https://docs.computecanada.ca/wiki/B%C3%A9luga/en>`__)
+
+   For most students, Beluga is the best choice for both CPU and GPU jobs because
+   of larger allocations on this cluster.
+Graham:
+   (:ref:`Mila doc <graham>`)
+   (`Compute Canada doc <https://docs.computecanada.ca/wiki/Graham/en>`__)
+
+   Graham has recent T4 GPUs. It can be a good alternative to Beluga with similar characteristics.
+Cedar:
+   (:ref:`Mila doc <cedar>`)
+   (`Compute Canada doc <https://docs.computecanada.ca/wiki/Cedar/en>`__)
+
+   Cedar is a good alternative to Beluga if you absolutely need to have an internet connection
+   on the compute nodes.
+Niagara:
+   (:ref:`Mila doc <niagara>`)
+   (`Compute Canada doc <https://docs.computecanada.ca/wiki/Niagara/en>`__)
+
+   We do not have allocations on Niagara anymore but it remains a good alternative for CPU jobs.
 
 .. _beluga:
 
@@ -85,12 +110,17 @@ Where ``<user>`` is the username you created previously (see `Account Creation`_
 Launching Jobs
 """"""""""""""
 
+
 Users must specify the resource allocation Group Name using the flag ``--account=rrg-bengioy-ad``.
 To launch a CPU-only job:
 
 .. prompt:: bash $
 
     sbatch --time=1:0:0 --account=rrg-bengioy-ad job.sh
+
+.. note::
+
+   The account name will differ based on your affiliation.
 
 To launch a GPU job:
 
