@@ -76,25 +76,38 @@ support (such as `InfiniBand <https://en.wikipedia.org/wiki/InfiniBand>`_,
 `NVLink <https://en.wikipedia.org/wiki/NVLink>`_ or others)
 
 
-Filesystems
-===========
+Filesystem concerns
+-------------------
 
-Clusters have different types of file systems to support different data
-storage use cases. We differentiate them by name. You'll hear or read about
-file systems such as "home", "scratch" or "project" and so on.
+When working on a cluster, you will generally encounter several
+different filesystems.  Usually there will be names such as 'home',
+'scratch', 'datasets', 'projects', 'tmp'.
 
-Most of these file systems are are provided in a way which is globally
-available to all nodes in the cluster. Software or data required by jobs can
-be accessed from any node on the cluster.
-(See :ref:`Mila <milacluster_storage>` or :ref:`CC <cc_storage>` for more
-information on available file systems)
+The reason for having different filesystems available instead of a
+single giant one is to provide for different uses cases. For example,
+then 'datasets' filesystem would be optimized for fast reads but have
+slow write performance. This is because datasets are usually written
+once and then read very often for training.
 
-Different file systems have different performance levels. For instance, backed
-up file-systems ( such as ``$PROJECT`` ) provide more space and can handle
-large files but cannot sustain highly parallel accesses typically required
-for high speed model training.
+The set of filesystems provided by the cluster you are using should be
+detailed in the documentation for that cluster and the names can
+differ from those above. You should pay attention to their recommended
+use case in the documentation and use the appropriate filesystem for
+the appropriate job. There are cases where a job ran hundreds of times
+slower because it tried to use a filesystem that wasn't a good fit for
+the job.
 
-Each compute node has local file systems ( of which ``$SLURM_TMPDIR`` ) that
-are usually more efficient but any data remaining on these will be erased at
-the end of the job execution for the next job to come along.
+One last thing to pay attention to is the data retention policy for
+the filesystems. This has two subpoints: how long is the data kept
+for, and are there backups.
 
+Some filesystems will have a limit on how long they keep their
+files. Typically the limit is some number of days (like 90 days) but
+can also be 'as long as the jub runs' for some.
+
+As for backups, some filesystems will not have a limit for data, but
+will also not have backups. For those it is important to maintain a
+copy of any crucial data somewhere else. The data will not be
+purposefully deleted, but the filesystem may fail and lose all or part
+of its data. If you have any data that is crucial for a paper or your
+thesis keep an additional copy of it somewhere else.
