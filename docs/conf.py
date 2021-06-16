@@ -6,8 +6,6 @@ from datetime import datetime
 
 from recommonmark.parser import CommonMarkParser
 
-import sphinx_theme
-
 extensions = [
             'sphinx-prompt',
             'sphinx_copybutton',
@@ -72,8 +70,7 @@ html_js_files = ['documentation_options.js', 'documentation_options_fix.js']
 #
 # html_sidebars = {}
 #---sphinx-themes-----
-html_theme = 'neo_rtd_theme'
-html_theme_path = [sphinx_theme.get_html_theme_path()]
+html_theme = 'sphinx_rtd_theme'
 html_context = {
     # Enable the "Edit in GitHub link within the header of each page.
     'display_github': True,
