@@ -98,7 +98,6 @@ suggesting the following convention:
 ### Note box
 
 ```reST
-.. note::
-   This is a long
+.. note:: This is a long
    long long note
 ```
