@@ -11,7 +11,42 @@ multi-nodes and/or multi-GPU jobs as well as long running jobs.
 Current allocation description
 ------------------------------
 
-TODO
+Clusters of Compute Canada are shared with researchers across all the country.
+Allocations
+are given by Compute Canada to selected research groups to ensure to a minimal amount of
+computational ressources throughout the year.
+
+Depending on your affiliation, you will have access to different allocations. If you are a student
+at UdeM, you can have access to the ``rrg-bengioy-ad`` allocation described below. For students from
+other universities, you should ask your advisor to know which allocations you could have access to.
+
+From Compute Canada's documentation;
+`An allocation is an amount of resources that a research group can target for use for a period of time, usually a year.`
+To be clear, it is not a maximal amount of resources that can be used simultaneously, it is a
+weighting factor of the job scheduler to balance jobs.
+For instance,
+even though we are allocated 150 GPU-years on a cluster, we can use more or less than 150 GPUs
+simultaneously depending on the history of usage from our group and other groups using the cluster
+at a given perioud of time. Please see Compute Canada's
+`documentation <https://docs.computecanada.ca/wiki/Allocations_and_resource_scheduling>`__
+for more information on how allocations and resource scheduling.
+
+Table below provides as an example the allocation for ``rrg-bengioy-ad``. Note that there is no
+special allocations for CPUs on Cedar and Graham and therefore jobs without GPUs should be submitted
+with the account ``def-bengioy``.
+
+
++------------------------+-----------------------+--------------------------------------------------------+
+| Cluster                | CPUs                  | GPUs                                                   |
+|                        +------+----------------+----------+-----+----------------------+----------------+
+|                        |  #   | account        | Model    | #   | Slurm type specifier | account        |
++------------------------+------+----------------+----------+-----+----------------------+----------------+
+| :ref:`Beluga <beluga>` |  185 | rrg-bengioy-ad | V100     | 150 |  v100                | rrg-bengioy-ad |
++------------------------+------+----------------+----------+-----+----------------------+----------------+
+| :ref:`Cedar <cedar>`   | --   | def-bengioy    |  V100    | 40  | v100                 | rrg-bengioy-ad |
++------------------------+------+----------------+----------+-----+----------------------+----------------+
+| :ref:`Graham <graham>` | --   | def-bengioy    |  T4      | 60  | t4                   | rrg-bengioy-ad |
++------------------------+------+----------------+----------+-----+----------------------+----------------+
 
 Account Creation
 ----------------
