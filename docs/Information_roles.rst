@@ -1,4 +1,4 @@
-Roles and authorisations
+Roles and authorizations
 ========================
 
 There are mainly two types of researchers statuses at Mila :
