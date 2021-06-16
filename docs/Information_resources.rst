@@ -4,24 +4,21 @@ Overview of available computing resources at Mila
 The Mila cluster is to be used for regular development and relatively small
 number of jobs (< 5). It is an heterogeneous cluster. It uses :ref:`SLURM<slurmpage>` to schedule jobs.
 
-+--------------------+-------+---------------------+
-| compute ressource  | count | count / student     |
-|                    |       | (for ~500 students) |
-+====================+=======+=====================+
-| CPUs               | TODO  | TODO                |
-+--------------------+-------+---------------------+
-| GPU v100           | 66    | 100                 |
-+--------------------+-------+---------------------+
-| GPU k80            | 16    | 100                 |
-+--------------------+-------+---------------------+
-| GPU m40            | 5     | 100                 |
-+--------------------+-------+---------------------+
-| GPU rtx8000        | 367   | 100                 |
-+--------------------+-------+---------------------+
-| GPU titanrtx       | 8     | 100                 |
-+--------------------+-------+---------------------+
-| **GPU in total**   | 8     | 100                 |
-+--------------------+-------+---------------------+
+There are a lot of commonalities between the Mila cluster
+and the clusters from Compute Canada (CC).
+At the time being, the CC clusters where we have a large allocation of resources
+are `beluga`, `cedar` and `graham`.
+We also have comparable computational resources in the Mila cluster,
+with more to come.
 
-TODO : Maybe add FP32 performance in there?
+The main distinguishing factor is that more have more control over
+our own cluster than we have over the ones at Compute Canada.
+Notably, also, the compute nodes in the Mila cluster all have
+unrestricted access to the Internet, which is not the case in general
+for CC clusters (although `cedar` does allow it).
+
+At the current time of this writing (June 2021), Mila students are advised
+to use a healthy diet of a mix of Mila and CC clusters.
+This is especially true in times when your favorite cluster is oversubscribed,
+because you can easily switch over to a different one if you are used to it.
 
