@@ -4,12 +4,9 @@ Overview of available computing resources at Mila
 The Mila cluster is to be used for regular development and relatively small
 number of jobs (< 5). It is an heterogeneous cluster. It uses :ref:`SLURM<slurmpage>` to schedule jobs.
 
-<<<<<<< HEAD
 Mila cluster versus Compute Canada clusters
 -------------------------------------------
 
-=======
->>>>>>> sprint_1
 There are a lot of commonalities between the Mila cluster
 and the clusters from Compute Canada (CC).
 At the time being, the CC clusters where we have a large allocation of resources
