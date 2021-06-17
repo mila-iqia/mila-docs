@@ -31,11 +31,14 @@ if you with to use ``Python 3.7`` you can simply do:
 On using containers
 -------------------
 
-Another option for portable code might also be :ref:`Using containers`.
+Containers are a popular approach at deploying applications
+by packaging a lot of the required dependencies together.
 
-One popular mechanism for containerisation on a computational cluster is called
-`singularity`. This is the recommended approach for running containers on the
-Mila cluster.
+The most popular tool for this is Docker, but Docker cannot
+be used on the Mila cluster (nor the other clusters from Compute Canada).
 
-.. include:: singularity/index.rst
+The alternative is to use `Singularity <https://singularity-docs.readthedocs.io/en/latest/>`_.
+See section :ref:`Singularity` for more details.
+This is the recommended solution for running containers on the Mila cluster,
+it works very well, and it supports GPUs (much like Docker does).
 
