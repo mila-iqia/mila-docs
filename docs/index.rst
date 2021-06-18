@@ -13,6 +13,7 @@ Welcome to Mila's technical documentation. See contents below.
    :maxdepth: 2
 
    Purpose
+   Getting_started
    Theory_cluster
    Information
    Userguide
