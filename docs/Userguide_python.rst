@@ -1,5 +1,25 @@
 .. _python:
 
+Virtual environments
+--------------------
+
+A virtual environment in Python is a local, isolated environment in which you
+can install or uninstall Python packages without interfering with the global
+environment (or other virtual environments). It usually lives in a directory
+(location varies depending on whether you use venv, conda or poetry). In order
+to use a virtual environment, you have to **activate** it. Activating an
+environment essentially sets environment variables in your shell so that:
+
+* ``python`` points to the right Python version for that environment (different
+  virtual environments can use different versions of Python!)
+* ``python`` looks for packages in the virtual environment
+* ``pip install`` installs packages into the virtual environment
+* Any shell commands installed via ``pip install`` are made available
+
+To run experiments within a virtual environment, you can simply activate it
+in the script given to ``sbatch``.
+
+
 Pip/Virtualenv
 ^^^^^^^^^^^^^^
 
@@ -14,7 +34,7 @@ First, load the python module you want to use:
 
 .. prompt:: bash $
 
-   module load python/3.6
+   module load python/3.9
 
 Then, create a virtual environment in your ``home`` directory:
 
@@ -41,13 +61,14 @@ or `Tensorflow <https://www.tensorflow.org/install/gpu>`_:
 
    pip install tensorflow-gpu
 
+
 Conda
 ^^^^^
 
 Another solution for Python is to use `miniconda
 <https://docs.conda.io/en/latest/miniconda.html>`_ or `anaconda
 <https://docs.anaconda.com>`_ which are also available through the ``module``
-command: (the use of conda is not recommended for Compute Canada Clusters due to
+command: (the use of conda is not recommended for the Compute Canada cluster due to
 the availability of custom-built packages for pip)
 
 .. prompt:: bash $, auto
@@ -56,22 +77,13 @@ the availability of custom-built packages for pip)
    [=== Module miniconda/3 loaded ===]
    To enable conda environment functions, first use:
 
-   $ conda-activate
-
-Then like advised, if you want to enable ``conda activate/deactivate``
-functions, start the following alias once
-
-.. prompt:: bash $
-
-   conda-activate
-
 To create an environment (see `here
 <https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html>`_
-for details) do:
+for details) using a specific Python version, you may write:
 
 .. prompt:: bash $
 
-   conda create -n <env> python=3.6
+   conda create -n <env> python=3.9
 
 where ``<env>`` is the name of your environment. You can now activate it by doing:
 
@@ -87,7 +99,8 @@ you want on `pytorch's website <https://pytorch.org/get-started/locally>`_, e.g:
 
    conda install pytorch torchvision cudatoolkit=10.0 -c pytorch
 
-Don't forget to clean the environment after each install:
+If you make a lot of environments and install/uninstall a lot of packages, it
+can be good to periodically clean up Conda's cache:
 
 .. prompt:: bash (<env>)$
 
