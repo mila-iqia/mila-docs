@@ -26,6 +26,13 @@ Note that these options are not mutually exclusive and both can be used.
 We do host Mila datasets using Academic Torrent and we also offer Google Drive
 space.
 
+.. note::
+   * Avoid mentioning *dataset* in the name of the dataset
+   * Avoid capital letters, special charaters (including spaces) in files and
+     directories names. Spaces can be replaced by hyphens (``-``).
+   * Multiple archives can be provided to spread the data (e.g. dataset splits,
+     raw data, extra data, ...)
+
 
 Academic Torrent
 ^^^^^^^^^^^^^^^^
@@ -60,12 +67,6 @@ the following informations:
   the submission process)
 * instructions to know if the dataset needs to be ``unzip``\ed, ``untar``\ed or
   else before uploading to Google Drive
-
-.. note::
-   * Avoid mentioning *dataset* in the name of the dataset
-   * Avoid capital letters and special charaters in files and directories names
-   * Multiple archives can be provided to spread the data (e.g. dataset splits,
-     raw data, extra data, ...)
 
 
 Digital Object Identifier (DOI)
