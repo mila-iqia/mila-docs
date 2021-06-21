@@ -61,8 +61,11 @@ the following informations:
 * instructions to know if the dataset needs to be ``unzip``\ed, ``untar``\ed or
   else before uploading to Google Drive
 
-.. note:: Multiple archives can be provided to spread the data (e.g. dataset
-   splits, raw data, extra data, ...)
+.. note::
+   * Avoid mentioning *dataset* in the name of the dataset
+   * Avoid capital letters and special charaters in files and directories names
+   * Multiple archives can be provided to spread the data (e.g. dataset splits,
+     raw data, extra data, ...)
 
 
 Digital Object Identifier (DOI)
