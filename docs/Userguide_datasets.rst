@@ -52,12 +52,17 @@ which requires to first drop the dataset in ``/miniscratch/transit_datasets``.
 Then, contact `Mila's helpdesk <https://it-support.mila.quebec>`_ and provide
 the following informations:
 
-* directory containing the dataset in ``/miniscratch/transit_datasets``
+* directory containing the archived dataset (zip is favored) in
+  ``/miniscratch/transit_datasets``
 * the name of the dataset
+* md5 checksum of the archive
 * the arXiv and GitHub urls (those can be sent later if the article is still in
   the submission process)
 * instructions to know if the dataset needs to be ``unzip``\ed, ``untar``\ed or
   else before uploading to Google Drive
+
+.. note:: Multiple archives can be provided to spread the data (e.g. dataset
+   splits, raw data, extra data, ...)
 
 
 Digital Object Identifier (DOI)
