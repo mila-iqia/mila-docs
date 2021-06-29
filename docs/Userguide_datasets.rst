@@ -23,16 +23,6 @@ Mila offers two ways to publicly share a Mila dataset:
 
 Note that these options are not mutually exclusive and both can be used.
 
-We do host Mila datasets using Academic Torrent and we also offer Google Drive
-space.
-
-.. note::
-   * Avoid mentioning *dataset* in the name of the dataset
-   * Avoid capital letters, special charaters (including spaces) in files and
-     directories names. Spaces can be replaced by hyphens (``-``).
-   * Multiple archives can be provided to spread the data (e.g. dataset splits,
-     raw data, extra data, ...)
-
 
 Academic Torrent
 ^^^^^^^^^^^^^^^^
@@ -48,6 +38,13 @@ the dataset does not reside on the Mila clusterm, only the Academic Torrent url
 would be needed to proceed with the initial download. Then you can delete /
 stop sharing your copy.
 
+.. note::
+   * Avoid mentioning *dataset* in the name of the dataset
+   * Avoid capital letters, special charaters (including spaces) in files and
+     directories names. Spaces can be replaced by hyphens (``-``).
+   * Multiple archives can be provided to spread the data (e.g. dataset splits,
+     raw data, extra data, ...)
+
 
 Google Drive
 ^^^^^^^^^^^^
@@ -62,11 +59,19 @@ the following informations:
 * directory containing the archived dataset (zip is favored) in
   ``/miniscratch/transit_datasets``
 * the name of the dataset
+* a licence in ``.txt`` format. One of the `the creative common <https://creativecommons.org/about/cclicenses/>`_ licenses can be used. It is recommended to at least have the *Attribution* option. The *No Derivatives* option is discouraged unless the dataset should not be modified by others.
 * md5 checksum of the archive
 * the arXiv and GitHub urls (those can be sent later if the article is still in
   the submission process)
 * instructions to know if the dataset needs to be ``unzip``\ed, ``untar``\ed or
   else before uploading to Google Drive
+
+.. note::
+   * Avoid mentioning *dataset* in the name of the dataset
+   * Avoid capital letters, special charaters (including spaces) in files and
+     directories names. Spaces can be replaced by hyphens (``-``).
+   * Multiple archives can be provided to spread the data (e.g. dataset splits,
+     raw data, extra data, ...)
 
 
 Digital Object Identifier (DOI)
