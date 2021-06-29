@@ -5,13 +5,50 @@ Compute Canada Clusters
 =======================
 
 The clusters Beluga, Cedar, Graham, Helios and Niagara are clusters provided by
-Compute Canada on which we have allocations. These are to be used for many jobs,
-multi-nodes and/or multi-GPU jobs as well as long running jobs
+Compute Canada. These are to be used for many jobs,
+multi-nodes and/or multi-GPU jobs as well as long running jobs.
 
 Current allocation description
 ------------------------------
 
-TODO
+Clusters of Compute Canada are shared with researchers across all the country.
+Allocations
+are given by Compute Canada to selected research groups to ensure to a minimal amount of
+computational ressources throughout the year.
+
+Depending on your affiliation, you will have access to different allocations. If you are a student
+at UdeM, you can have access to the ``rrg-bengioy-ad`` allocation described below. For students from
+other universities, you should ask your advisor to know which allocations you could have access to.
+
+From Compute Canada's documentation;
+`An allocation is an amount of resources that a research group can target for use for a period of time, usually a year.`
+To be clear, it is not a maximal amount of resources that can be used simultaneously, it is a
+weighting factor of the job scheduler to balance jobs.
+For instance,
+even though we are allocated 150 GPU-years on a cluster, we can use more or less than 150 GPUs
+simultaneously depending on the history of usage from our group and other groups using the cluster
+at a given perioud of time. Please see Compute Canada's
+`documentation <https://docs.computecanada.ca/wiki/Allocations_and_resource_scheduling>`__
+for more information on how allocations and resource scheduling.
+
+Table below provides as an example the allocation for ``rrg-bengioy-ad``. Note that there are no
+special allocations for CPUs on Cedar and Graham and therefore jobs without GPUs should be submitted
+with the account ``def-bengioy``.
+
+
++------------------------+-----------------------+--------------------------------------------------------+
+| Cluster                | CPUs                  | GPUs                                                   |
+|                        +------+----------------+----------+-----+----------------------+----------------+
+|                        |  #   | account        | Model    | #   | Slurm type specifier | account        |
++------------------------+------+----------------+----------+-----+----------------------+----------------+
+| :ref:`Beluga <beluga>` |  185 | rrg-bengioy-ad | V100     | 150 |  v100                | rrg-bengioy-ad |
++------------------------+------+----------------+----------+-----+----------------------+----------------+
+| :ref:`Cedar <cedar>`   | --   | def-bengioy    |  V100    | 40  | v100                 | rrg-bengioy-ad |
++------------------------+------+----------------+----------+-----+----------------------+----------------+
+| :ref:`Graham <graham>` | --   | def-bengioy    |  T4      | 60  | t4                   | rrg-bengioy-ad |
++------------------------+------+----------------+----------+-----+----------------------+----------------+
+
+
 
 Account Creation
 ----------------
@@ -30,6 +67,29 @@ You will need to **wait** for your sponsor to accept before being able to login 
 
 Clusters
 --------
+
+Beluga:
+   (:ref:`Mila doc <beluga>`)
+   (`Compute Canada doc <https://docs.computecanada.ca/wiki/B%C3%A9luga/en>`__)
+
+   For most students, Beluga is the best choice for both CPU and GPU jobs because
+   of larger allocations on this cluster.
+Graham:
+   (:ref:`Mila doc <graham>`)
+   (`Compute Canada doc <https://docs.computecanada.ca/wiki/Graham/en>`__)
+
+   Graham has recent T4 GPUs. It can be a good alternative to Beluga with similar characteristics.
+Cedar:
+   (:ref:`Mila doc <cedar>`)
+   (`Compute Canada doc <https://docs.computecanada.ca/wiki/Cedar/en>`__)
+
+   Cedar is a good alternative to Beluga if you absolutely need to have an internet connection
+   on the compute nodes.
+Niagara:
+   (:ref:`Mila doc <niagara>`)
+   (`Compute Canada doc <https://docs.computecanada.ca/wiki/Niagara/en>`__)
+
+   We do not have allocations on Niagara anymore but it remains a good alternative for CPU jobs.
 
 .. _beluga:
 
@@ -50,12 +110,17 @@ Where ``<user>`` is the username you created previously (see `Account Creation`_
 Launching Jobs
 """"""""""""""
 
+
 Users must specify the resource allocation Group Name using the flag ``--account=rrg-bengioy-ad``.
 To launch a CPU-only job:
 
 .. prompt:: bash $
 
     sbatch --time=1:0:0 --account=rrg-bengioy-ad job.sh
+
+.. note::
+
+   The account name will differ based on your affiliation.
 
 To launch a GPU job:
 
@@ -189,7 +254,7 @@ the necessary servers for using CometML and Wandb ("Weights and Biases").
 
     module load httpproxy
 
-More documentation about this can be found at `https://docs.computecanada.ca/wiki/Weights_%26_Biases_(wandb)`.
+More documentation about this can be found `here <https://docs.computecanada.ca/wiki/Weights_%26_Biases_(wandb)>`__.
 
 
 .. _graham:
@@ -231,6 +296,25 @@ Since its structure is similar to `Beluga`, please look at the `Beluga`_ documen
 
 .. note:: However, we don't have any CPU priority on Cedar, in this case you can use ``--account=def-bengioy`` for CPU. Thus, it might take some time before they start.
 
+
+.. _niagara:
+
+Niagara
+^^^^^^^
+
+Niagara is a cluster located at University of Toronto. It uses SLURM to schedule jobs. Its full documentation can be found `here <https://docs.computecanada.ca/wiki/Niagara>`__, and its current status `here <http://status.computecanada.ca>`__.
+
+You can access Niagara via ssh:
+
+.. prompt:: bash $
+
+    ssh <user>@niagara.computecanada.ca
+
+Where ``<user>`` is the username you created previously (see `Account Creation`_).
+
+Since its structure is similar to `Beluga`, please look at the `Beluga`_ documentation, as well as
+relevant parts of the
+`Compute Canada Documentation <https://docs.computecanada.ca/wiki/Niagara_Quickstart>`__.
 
 
 FAQ
