@@ -14,7 +14,6 @@ It is currently available for Mila clusters and some Compute Canada clusters
 Cluster        Address                                       Login type
 ============== ============================================= ============
 Mila Local     https://jupyterhub.server.mila.quebec         Google Oauth
-Mila Cloud GCP https://jupyterhub.gcp.mila.quebec            Google Oauth
 Compute Canada https://docs.computecanada.ca/wiki/JupyterHub CC login
 ============== ============================================= ============
 

@@ -64,7 +64,6 @@ The following table summarizes the different preemption mode and grace periods:
 Cluster            Signal(s)       Grace Period  Requeued
 ================== =============== ============  ========
 local              SIGCONT/SIGTERM 120s          No
-Google Gloud (GCP) SIGCONT/SIGTERM 30s           Yes
 Amazon (AWS)       SIGCONT/SIGTERM 120s          Yes
 Azure              -               -             -
 ================== =============== ============  ========
