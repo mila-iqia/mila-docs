@@ -13,7 +13,9 @@ knowledge, tips and tricks and example commands.
 .. include:: Userguide_login.rst
 .. include:: Userguide_running_code.rst
 .. include:: Userguide_portability.rst
-.. include:: Userguide_containers.rst
+.. Nope, not that one, because we'll talk about singularity instead.
+  .. include:: Userguide_containers.rst
+.. include:: Userguide_singularity.rst
 .. include:: Userguide_datasets.rst
 .. include:: Userguide_data_transfer.rst
 .. include:: Userguide_jupyterhub.rst
