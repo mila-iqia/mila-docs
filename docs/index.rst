@@ -9,15 +9,40 @@ Welcome to Mila's technical documentation. See contents below.
 .. Link to chapters below.
 
 .. toctree::
-   :numbered:
+   :caption: Purpose
    :maxdepth: 2
 
    Purpose
+
+.. toctree::
+   :caption: Cluster Theory
+   :maxdepth: 2
+
    Theory_cluster
+
+.. toctree::
+   :caption: Information
+   :maxdepth: 2
+
    Information
-   Userguide
-   Handbook
    Extra_compute
+
+.. toctree::
+   :caption: User Guide
+   :maxdepth: 2
+
+   Userguide
+
+.. toctree::
+   :caption: Handbook
+   :maxdepth: 2
+
+   Handbook
+
+.. toctree::
+   :caption: Extras
+   :maxdepth: 2
+
    Audio_video
    IDT
 

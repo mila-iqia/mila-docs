@@ -86,3 +86,18 @@ There are no heading levels assigned to certain characters as the structure is d
    This is a long
    long long note
 ```
+
+### Collapsible boxes
+
+This is a local extension, not part of Sphinx itself.  It works like this:
+
+```reST
+.. container:: toggle
+
+    .. container:: header
+
+        **Show/Hide Code**
+
+    .. code-block:: <type>
+       ...
+```
