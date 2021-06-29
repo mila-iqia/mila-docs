@@ -41,7 +41,7 @@ can use the ``ln -s`` command:
 
 .. code-block:: bash
 
-    ln -s /network/datasets $HOME
+   ln -s /network/datasets $HOME
 
 Note that ``$SLURM_TMPDIR`` is a directory that is dinamycaly created for each
 job so you would need to recreate the symbolic link everytime you start a
@@ -49,4 +49,4 @@ JupyterHub session:
 
 .. code-block:: bash
 
-    ln -sf $SLURM_TMPDIR $HOME
+   ln -sf $SLURM_TMPDIR $HOME
