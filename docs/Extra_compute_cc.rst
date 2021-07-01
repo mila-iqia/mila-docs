@@ -1,12 +1,16 @@
 .. highlight:: bash
 .. _cc_clusters:
 
+
 Compute Canada Clusters
 =======================
 
-The clusters Beluga, Cedar, Graham, Helios and Niagara are clusters provided by
-Compute Canada. These are to be used for many jobs, multi-nodes and/or multi-GPU
-jobs as well as long running jobs.
+The clusters which are named `Beluga`, `Cedar`, `Graham`, `Helios` and `Niagara`
+are clusters provided by the `Compute Canada organisation
+<https://www.computecanada.ca>`_. For Mila researchers, these clusters are to be
+used for larger experiments having many jobs, multi-node computation and/or
+multi-GPU jobs as well as long running jobs.
+
 
 Current allocation description
 ------------------------------
@@ -30,11 +34,16 @@ use more or less than 150 GPUs simultaneously depending on the history of usage
 from our group and other groups using the cluster at a given period of time.
 Please see Compute Canada's `documentation
 <https://docs.computecanada.ca/wiki/Allocations_and_resource_scheduling>`__ for
-more information on how allocations and resource scheduling.
+more information on how allocations and resource scheduling are configured for
+these installations.
 
-Table below provides as an example the allocation for ``rrg-bengioy-ad``. Note
-that there are no special allocations for CPUs on Cedar and Graham and therefore
-jobs without GPUs should be submitted with the account ``def-bengioy``.
+.. Il est possiblement dangeureux de donner le nom de compte de Yoshua sur un
+   site publiquement disponible.
+
+The table below provides information on the allocation for ``rrg-bengioy-ad`` for
+the period which spans from April 2021 to April 2022. Note that there are no
+special allocations for CPUs on Cedar and Graham and therefore jobs without GPUs
+should be submitted with the account ``def-bengioy``.
 
 
 +------------------------+-----------------------+--------------------------------------------------------+
@@ -75,6 +84,7 @@ sponsor to get the CCRI.
 You will need to **wait** for your sponsor to accept before being able to login
 to the CC clusters.
 
+
 Clusters
 --------
 
@@ -101,6 +111,7 @@ Niagara:
 
    We do not have allocations on Niagara anymore but it remains a good alternative for CPU jobs.
 
+
 Beluga
 ^^^^^^
 
@@ -120,7 +131,6 @@ Where ``<user>`` is the username you created previously (see `Account Creation`_
 
 Launching Jobs
 """"""""""""""
-
 
 Users must specify the resource allocation Group Name using the flag
 ``--account=rrg-bengioy-ad``.  To launch a CPU-only job:
@@ -166,6 +176,7 @@ The GPU nodes consist of:
 
 
 .. _cc_storage:
+
 
 Beluga Storage
 """"""""""""""
@@ -282,6 +293,7 @@ Here is a ``sbatch`` script that follows good practices on Beluga:
 
     # 5. Copy whatever you want to save on $SCRATCH
     cp $SLURM_TMPDIR/<to_save> $SCRATCH
+
 
 Using CometML and Wandb
 """""""""""""""""""""""
