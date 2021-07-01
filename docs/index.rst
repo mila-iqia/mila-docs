@@ -46,7 +46,6 @@ Welcome to Mila's technical documentation. See contents below.
    Audio_video
    IDT
 
-
 :Support: To reach the Mila infrastructure support, please file a ticket
    at https://it-support.mila.quebec/
 

@@ -43,7 +43,7 @@ operation requires **memory and high cpu usage**.
 
 
 * If you **can't install singularity** on your laptop and you **don't need
-  apt-get**, you can reserve a **cpu node on the mila cluster** to build your
+  apt-get**, you can reserve a **cpu node on the Mila cluster** to build your
   container.
 
 

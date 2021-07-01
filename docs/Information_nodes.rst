@@ -85,7 +85,7 @@ as on a regular node.
 
 .. .. prompt:: bash $, auto
 ..
-..     # on mila cluster's login node
+..     # on Mila cluster's login node
 ..     $ srun -c 1 --reservation=power9 --pty bash
 ..
 ..     # setup anaconda

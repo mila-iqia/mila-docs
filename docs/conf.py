@@ -29,7 +29,7 @@ release = 'latest'
 htmlhelp_basename = 'mila-docs'
 file_insertion_enabled = False
 latex_documents = [
-  ('index', 'mila-docs.tex', u'MILA Docs Documentation',
+  ('index', 'mila-docs.tex', u'Mila technical Documentation',
    u'', 'manual'),
 ]
 
