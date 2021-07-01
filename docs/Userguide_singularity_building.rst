@@ -154,7 +154,7 @@ Testing
 """""""
 
 If you have some code that you want to test before finalizing your container,
-you have two choices.  You can either log into your container and run python
+you have two choices.  You can either log into your container and run Python
 code inside it with:
 
 .. prompt:: bash $
@@ -165,7 +165,7 @@ Or you can execute your command directly with
 
 .. prompt:: bash $
 
-   singularity exec --nv pytorch python YOUR_CODE.py
+   singularity exec --nv pytorch Python YOUR_CODE.py
 
 .. tip:: ---nv allows the container to use gpus. You don't need this if you
    don't plan to use a gpu.
@@ -334,7 +334,7 @@ in `/ai/apps/mujoco/license/mjkey.txt` to your current directory.
            export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/Gym/.mujoco/mujoco200/bin
            export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/bin
            cp /mjkey.txt /Gym/.mujoco/mjkey.txt
-           # Install python dependencies
+           # Install Python dependencies
            wget https://raw.githubusercontent.com/openai/mujoco-py/master/requirements.txt
            pip install -r requirements.txt
            # Install Gym and MuJoCo
@@ -413,7 +413,7 @@ Here is the same recipe but written for TensorFlow:
            export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/bin
            cp /mjkey.txt /Gym/.mujoco/mjkey.txt
 
-           # Install python dependencies
+           # Install Python dependencies
            wget https://raw.githubusercontent.com/openai/mujoco-py/master/requirements.txt
            pip install -r requirements.txt
            # Install Gym and MuJoCo

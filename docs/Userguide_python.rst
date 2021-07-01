@@ -10,7 +10,7 @@ for them to be stored.  The preferred solution (as it is the preferred solution
 on Compute Canada clusters) is to use `virtual environments
 <https://virtualenv.pypa.io/en/stable/>`_.
 
-First, load the python module you want to use:
+First, load the Python module you want to use:
 
 .. prompt:: bash $
 
@@ -28,7 +28,7 @@ Where ``<env>`` is the name of your environment. Finally, activate the environme
 
    source $HOME/<env>/bin/activate
 
-You can now install any python package you wish using the ``pip`` command, e.g.
+You can now install any Python package you wish using the ``pip`` command, e.g.
 `pytorch <https://pytorch.org/get-started/locally>`_:
 
 .. prompt:: bash (<env>)$
@@ -79,7 +79,7 @@ Where ``<env>`` is the name of your environment. You can now activate it by doin
 
    conda activate <env>
 
-You are now ready to install any python package you want in this environment.
+You are now ready to install any Python package you want in this environment.
 For instance, to install PyTorch, you can find the Conda command of any version
 you want on `pytorch's website <https://pytorch.org/get-started/locally>`_, e.g:
 
