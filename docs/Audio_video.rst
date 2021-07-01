@@ -1,5 +1,6 @@
 Audio and video resources at Mila
 *********************************
 
-This section seeks to provide information on audio and video systems made
-available at Mila.
+See
+`https://sites.google.com/mila.quebec/mila-intranet/it-infrastructure/audiovisual-tools?authuser=0`_
+for complete information on audio and video systems made available at Mila.

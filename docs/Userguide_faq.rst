@@ -42,7 +42,7 @@ How can I reset my cluster password ?
 
 To reset your password, please submit a support ticket.
 
-**Warning**: your cluster password is the same as your Google GSuite account. So,
+**Warning**: your cluster password is the same as your Google Workspace account. So,
 after reset, you must use the new password for all your Google services.
 
 srun: error: --mem and --mem-per-cpu are mutually exclusive

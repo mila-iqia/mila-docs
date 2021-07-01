@@ -8,8 +8,10 @@ Node profile description
    :format: html
 
 ..
-   Je trouve cela un peu futile de maintenir cette documentation à jour manuellement.
-   Peut-être pourrions nous créer dans ce dossier des sripts qui pourraient créer une entrée RST et qui pourraient être exécutés sur un noeud au Mila pour les mises à jour.
+   Je trouve cela un peu futile de maintenir cette documentation à jour
+   manuellement.  Peut-être pourrions nous créer dans ce dossier des sripts qui
+   pourraient créer une entrée RST et qui pourraient être exécutés sur un noeud
+   au Mila pour les mises à jour.
 
 
 +---------------------------------------+----------------------------+------+---------+--------------+--------------+-------------+--------------+--------+---------------------+

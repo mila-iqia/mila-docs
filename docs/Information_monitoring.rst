@@ -5,7 +5,7 @@ Every compute node on the Mila cluster has a `netdata <https://www.netdata.cloud
 monitoring daemon allowing you to get a sense of the state of the node.
 This information is exposed in two ways:
 
-* For every node, there is a web interface from netdata itself at ``<node>.server.mila.quebec:19999``.
+* For every node, there is a web interface from Netdata itself at ``<node>.server.mila.quebec:19999``.
   This is accessible only when present at Mila (or connected remotely).
 * The Mila dashboard at `dashboard.server.mila.quebec <https://dashboard.server.mila.quebec/>`_
   exposes aggregated statistics with the use of `grafana <https://grafana.com/>`_.
@@ -16,18 +16,20 @@ but they provide valuable insight into the state of the whole cluster
 or the individual nodes.
 One of the important uses is to collect data about the health
 of the Mila cluster and to sound the alarm if outages occur
-(e.g. if the nodes crash or if GPUs mysteriously become unavailable for slurm).
+(e.g. if the nodes crash or if GPUs mysteriously become unavailable for SLURM).
 
-Example with netdata on eos1
-----------------------------
 
-For example, if we have a job running on ``eos1``,
-we can type ``eos1.server.mila.quebec:19999`` and
+Example with Netdata on cn_c001
+-------------------------------
+
+For example, if we have a job running on ``cn_c001``,
+we can type ``cn_c001.server.mila.quebec:19999`` and
 the following page will appear.
 
 .. image:: monitoring.png
     :align: center
     :alt: monitoring.png
+
 
 Example watching the CPU/RAM/GPU usage
 --------------------------------------
@@ -43,7 +45,7 @@ used in its full capacity.
 Given how expensive the GPUs are, it generally makes sense to try to
 make sure that this resources is always kept busy.
 
-TODO : Vérifier que, effectivement, on peut regarder un GPU spécifique.
+.. TODO:: Vérifier que, effectivement, on peut regarder un GPU spécifique.
 
 * CPU
     * iowait (pink line): High values means your model is waiting on IO a lot (disk or network).

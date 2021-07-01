@@ -3,7 +3,7 @@
 Users Guide
 ***********
 
-or IDT's list of opinionated howtos.
+...or *IDT's list of opinionated howtos*
 
 This section seeks to provide users of the Mila infrastructure with practical
 knowledge, tips and tricks and example commands.

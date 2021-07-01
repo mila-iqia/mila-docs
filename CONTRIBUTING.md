@@ -1,6 +1,7 @@
 # Contributing to the Mila Docs
 
-Thank you for your interest into making a better documentation for all at Mila. Here are some gidelines to help bring your contribbutions to life.
+Thank you for your interest into making a better documentation for all at Mila.
+Here are some gidelines to help bring your contribbutions to life.
 
 ## What could be included
 
@@ -15,7 +16,9 @@ Thank you for your interest into making a better documentation for all at Mila. 
 
 ### Issues
 
-Issues can be used to report any error in the documentation, missing or unclear sections, broken tools or other suggestions to improve the overall documentation.
+Issues can be used to report any error in the documentation, missing or unclear
+sections, broken tools or other suggestions to improve the overall
+documentation.
 
 ### Pull Requests
 
@@ -33,15 +36,22 @@ python3 -m pip install -r docs/requirements.txt
 sphinx-build -b html docs/ docs/_build/
 ```
 
-This will produce the html version of the documentation which you can navigate by opening `docs/_build/index.html`.
+This will produce the html version of the documentation which you can navigate
+by opening `docs/_build/index.html`.
 
-If you have any touble building the docs, don't hesitate to open an issue to request help or simply provide the content you would like to add in markdown if that is simpler for you.
+If you have any touble building the docs, don't hesitate to open an issue to
+request help or simply provide the content you would like to add in markdown if
+that is simpler for you.
 
 ## Sphinx / reStructuredText (reST)
 
-The markup language used for the Mila Docs is [reStructuredText](http://docutils.sourceforge.net/rst.html) and we follow the [Python’s Style Guide for documenting](https://docs.python.org/devguide/documenting.html#style-guide).
+The markup language used for the Mila Docs is
+[reStructuredText](http://docutils.sourceforge.net/rst.html) and we follow the
+[Python’s Style Guide for
+documenting](https://docs.python.org/devguide/documenting.html#style-guide).
 
-Here are some of reST syntax useful to know (more can be found in [Sphinx's reST Primer](https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html)):
+Here are some of reST syntax useful to know (more can be found in [Sphinx's reST
+Primer](https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html)):
 
 ### Inline markup
 
@@ -70,7 +80,9 @@ This is a heading
 =================
 ```
 
-There are no heading levels assigned to certain characters as the structure is determined from the succession of headings. However, the Python documentation is suggesting the following convention:
+There are no heading levels assigned to certain characters as the structure is
+determined from the succession of headings. However, the Python documentation is
+suggesting the following convention:
 
     * `#` with overline, for parts
     * `*` with overline, for chapters

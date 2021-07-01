@@ -2,7 +2,7 @@
 
 .. _slurmpage:
 
-Slurm
+SLURM
 -----
 
 Resource sharing on a supercomputer/cluster is orchestrated by a resource

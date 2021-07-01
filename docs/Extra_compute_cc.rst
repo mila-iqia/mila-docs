@@ -14,11 +14,12 @@ Current allocation description
 Clusters of Compute Canada are shared with researchers across all the country.
 Allocations
 are given by Compute Canada to selected research groups to ensure to a minimal amount of
-computational ressources throughout the year.
+computational resources throughout the year.
 
 Depending on your affiliation, you will have access to different allocations. If you are a student
-at UdeM, you can have access to the ``rrg-bengioy-ad`` allocation described below. For students from
-other universities, you should ask your advisor to know which allocations you could have access to.
+at University of Montreal, you can have access to the ``rrg-bengioy-ad``
+allocation described below. For students from other universities, you should ask
+your advisor to know which allocations you could have access to.
 
 From Compute Canada's documentation;
 `An allocation is an amount of resources that a research group can target for use for a period of time, usually a year.`
@@ -27,7 +28,7 @@ weighting factor of the job scheduler to balance jobs.
 For instance,
 even though we are allocated 150 GPU-years on a cluster, we can use more or less than 150 GPUs
 simultaneously depending on the history of usage from our group and other groups using the cluster
-at a given perioud of time. Please see Compute Canada's
+at a given period of time. Please see Compute Canada's
 `documentation <https://docs.computecanada.ca/wiki/Allocations_and_resource_scheduling>`__
 for more information on how allocations and resource scheduling.
 
@@ -39,7 +40,7 @@ with the account ``def-bengioy``.
 +------------------------+-----------------------+--------------------------------------------------------+
 | Cluster                | CPUs                  | GPUs                                                   |
 |                        +------+----------------+----------+-----+----------------------+----------------+
-|                        |  #   | account        | Model    | #   | Slurm type specifier | account        |
+|                        |  #   | account        | Model    | #   | SLURM type specifier | account        |
 +------------------------+------+----------------+----------+-----+----------------------+----------------+
 | :ref:`Beluga <beluga>` |  185 | rrg-bengioy-ad | V100     | 150 |  v100                | rrg-bengioy-ad |
 +------------------------+------+----------------+----------+-----+----------------------+----------------+
@@ -90,8 +91,6 @@ Niagara:
    (`Compute Canada doc <https://docs.computecanada.ca/wiki/Niagara/en>`__)
 
    We do not have allocations on Niagara anymore but it remains a good alternative for CPU jobs.
-
-.. _beluga:
 
 Beluga
 ^^^^^^
@@ -257,8 +256,6 @@ the necessary servers for using CometML and Wandb ("Weights and Biases").
 More documentation about this can be found `here <https://docs.computecanada.ca/wiki/Weights_%26_Biases_(wandb)>`__.
 
 
-.. _graham:
-
 Graham
 ^^^^^^
 
@@ -277,8 +274,6 @@ Since its structure is similar to `Beluga`, please look at the `Beluga`_ documen
 .. note:: For GPU jobs the ressource allocation Group Name is the same as Beluga, so you should use the flag ``--account=rrg-bengioy-ad`` for GPU jobs.
 
 
-.. _cedar:
-
 Cedar
 ^^^^^
 
@@ -296,8 +291,6 @@ Since its structure is similar to `Beluga`, please look at the `Beluga`_ documen
 
 .. note:: However, we don't have any CPU priority on Cedar, in this case you can use ``--account=def-bengioy`` for CPU. Thus, it might take some time before they start.
 
-
-.. _niagara:
 
 Niagara
 ^^^^^^^

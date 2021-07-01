@@ -14,7 +14,6 @@ good practices on data.
 Publicly share a Mila dataset
 -----------------------------
 
-
 Mila offers two ways to publicly share a Mila dataset:
 
 * `Academic Torrent <https://academictorrents.com>`_
@@ -27,14 +26,13 @@ Note that these options are not mutually exclusive and both can be used.
 Academic Torrent
 ^^^^^^^^^^^^^^^^
 
-
 Mila hosts/seeds some datasets created by the Mila community through `Academic
 Torrent <https://academictorrents.com>`_. The first step is to create `an
 account and a torrent file <https://academictorrents.com/upload.php>`_.
 
 Then drop the dataset in ``/miniscratch/transit_datasets`` and send the
-Academic Torrent url to `Mila's helpdesk <https://it-support.mila.quebec>`_. If
-the dataset does not reside on the Mila clusterm, only the Academic Torrent url
+Academic Torrent URL to `Mila's helpdesk <https://it-support.mila.quebec>`_. If
+the dataset does not reside on the Mila cluster, only the Academic Torrent URL
 would be needed to proceed with the initial download. Then you can delete /
 stop sharing your copy.
 
@@ -49,7 +47,6 @@ stop sharing your copy.
 Google Drive
 ^^^^^^^^^^^^
 
-
 Only a member of the staff team can upload to `Mila's Google Drive
 <https://drive.google.com/drive/folders/1peJ6VF9wQ-LeETgcdGxu1e4fo28JbtUt>`_
 which requires to first drop the dataset in ``/miniscratch/transit_datasets``.
@@ -59,9 +56,12 @@ the following informations:
 * directory containing the archived dataset (zip is favored) in
   ``/miniscratch/transit_datasets``
 * the name of the dataset
-* a licence in ``.txt`` format. One of the `the creative common <https://creativecommons.org/about/cclicenses/>`_ licenses can be used. It is recommended to at least have the *Attribution* option. The *No Derivatives* option is discouraged unless the dataset should not be modified by others.
-* md5 checksum of the archive
-* the arXiv and GitHub urls (those can be sent later if the article is still in
+* a licence in ``.txt`` format. One of the `the creative common
+  <https://creativecommons.org/about/cclicenses/>`_ licenses can be used. It is
+  recommended to at least have the *Attribution* option. The *No Derivatives*
+  option is discouraged unless the dataset should not be modified by others.
+* MD5 checksum of the archive
+* the arXiv and GitHub URLs (those can be sent later if the article is still in
   the submission process)
 * instructions to know if the dataset needs to be ``unzip``\ed, ``untar``\ed or
   else before uploading to Google Drive
@@ -77,9 +77,8 @@ the following informations:
 Digital Object Identifier (DOI)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-
 It is recommended to get a DOI to reference the dataset. A DOI is a permanent
-id/url which prevents losing references of online scientific data.
+id/URL which prevents losing references of online scientific data.
 https://figshare.com can be used to create a DOI:
 
 * Go in `My Data`

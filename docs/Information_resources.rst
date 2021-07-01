@@ -2,7 +2,9 @@ Overview of available computing resources at Mila
 =================================================
 
 The Mila cluster is to be used for regular development and relatively small
-number of jobs (< 5). It is an heterogeneous cluster. It uses :ref:`SLURM<slurmpage>` to schedule jobs.
+number of jobs (< 5). It is an heterogeneous cluster. It uses
+:ref:`SLURM<slurmpage>` to schedule jobs.
+
 
 Mila cluster versus Compute Canada clusters
 -------------------------------------------
@@ -25,15 +27,16 @@ to use a healthy diet of a mix of Mila and CC clusters.
 This is especially true in times when your favorite cluster is oversubscribed,
 because you can easily switch over to a different one if you are used to it.
 
+
 Guarantees about one GPU as absolute minimum
 --------------------------------------------
 
 There are certain guarantees that the Mila cluster tries to honor
 when it comes to giving *at minimum* one GPU per student, all the time,
-to be used in interactive mode. This is strictly better than 
+to be used in interactive mode. This is strictly better than
 "one GPU per student on average" because it's a floor meaning that,
 at any time, you should be able to ask for your GPU, right now,
-and get it (although it might take a minute 
+and get it (although it might take a minute
 for the request to be processed by SLURM).
 
 Interactive sessions are possible on the CC clusters,

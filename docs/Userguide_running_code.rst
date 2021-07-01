@@ -67,7 +67,7 @@ submit an interactive jobs where the main executable is a shell with the
 
     salloc
 
-will start an interactive job on the first node available with the default
+Will start an interactive job on the first node available with the default
 resources set in SLURM (1 task/1 CPU).  ``srun`` accepts the same arguments as
 ``sbatch`` with the exception that the environment is not passed.
 
@@ -232,7 +232,7 @@ To display available *nodes* and their status, you can use
     node[10-15]     6 batch     idle      2    246    16000     0  (null)   (null)
     ...
 
-and to get statistics on a job running or terminated, use ``sacct`` with some of
+And to get statistics on a job running or terminated, use ``sacct`` with some of
 the fields you want to display
 
 .. prompt:: bash $, auto
@@ -244,7 +244,7 @@ the fields you want to display
     username 2399         run_extra+ azureComp+    RUNNING 130-05:00+ 2019-03-26T08:51:38             Unknown 2-10:49:59        1         16 node9         /home/mila/username+
 
 
-or to get the list of all your previous jobs, use the ``--start=####`` flag
+Or to get the list of all your previous jobs, use the ``--start=####`` flag
 
 .. prompt:: bash
 
@@ -284,7 +284,7 @@ provide specific information on a job (currently running or recently terminated)
     StdOut=/home/mila/my_username/slurm-43123.out
     Power=
 
-or more info on a node and its resources
+Or more info on a node and its resources
 
 .. prompt:: bash $, auto
 

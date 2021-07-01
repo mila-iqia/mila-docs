@@ -37,7 +37,7 @@ Path                                        Performance Usage                   
 * ``data1`` should only contain **compressed** datasets. `Now deprecated and
   replaced by the` ``datasets`` `space.`
 * ``miniscratch`` can be used to store processed datasets, work in progress
-  datasets or temporary job results. Its blocksize is optimized for small files
+  datasets or temporary job results. Its block size is optimized for small files
   which minimizes the performance hit of working on extracted datasets. It
   supports ACL which can be used to share data between users. This space is
   cleared weekly and files older then 90 days will be deleted.
