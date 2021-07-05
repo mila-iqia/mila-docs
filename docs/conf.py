@@ -39,6 +39,7 @@ exclude_patterns = ['_build',
                     'Information_*',
                     'Purpose_*',
                     'Extra_compute_*',
+                    'IDT_*',
                     'singularity/*']
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'
