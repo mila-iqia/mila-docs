@@ -59,9 +59,9 @@ Here are some of reST syntax useful to know (more can be found in
 
 ### Inline markup
 
-* one asterisk: `*text*` for emphasis (italics),
-* two asterisks: `**text**` for strong emphasis (boldface), and
-* backquotes: ` ``text`` ` for code samples, and
+* one asterisk: `*text*` for *emphasis* (italics),
+* two asterisks: `**text**` for **strong emphasis** (boldface), and
+* backquotes: ` ``text`` ` for `code samples`, and
 * external links: `` `Link text <http://target>`_ ``.
 
 ### Lists
