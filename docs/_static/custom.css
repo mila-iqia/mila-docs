@@ -30,3 +30,8 @@ pre.highlight span[class^="prompt"] {
 .toggle .header.open:after {
     content: " ▼";
 }
+
+.wy-side-nav-search {
+    background-color: #FFFFFF;
+    color: #000000;
+}
