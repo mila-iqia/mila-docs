@@ -1,6 +1,7 @@
 # Python Packages
 sphinx>=4.0.2
 recommonmark>=0.7.1
+sphinx-theme>=1.0
 
 # Sphinx Extensions
 sphinx-copybutton>=0.3.1
