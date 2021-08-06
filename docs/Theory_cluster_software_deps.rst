@@ -1,6 +1,9 @@
-
 Software on the cluster
 =======================
+
+This section aims to raise awareness to problems one can encounter when trying
+to run a software on different computers and how this is dealt with on typical
+computation clusters.
 
 The Mila cluster and the Compute Canada cluster both provide various useful
 software and computing environments, which can be activated through the module
