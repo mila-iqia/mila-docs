@@ -2,7 +2,7 @@ Using containers
 ================
 
 Docker containers are now available on the local cluster with a root-less
-system called Shifter integrated into Slurm.
+system called Shifter integrated into SLURM.
 *It is still in beta and be careful with this usage*
 
 Initialising your Containers
@@ -28,7 +28,7 @@ For now, every image is pulled to a common registry but access-control will soon
 be implemented.
 
 
-Using in Slurm
+Using in SLURM
 --------------
 
 Containerized Batch job
@@ -39,7 +39,7 @@ the container to use. Once the container is mounted, you are not yet
 inside the container's file-system, you must use the ``shifter`` command
 to execute a command in the chroot environment of the container.
 
-e.g.:
+For example:
 
 .. code-block:: bash
     :linenos:
@@ -63,7 +63,7 @@ Using the salloc command, you can request the image while getting the allocation
     salloc -c2 --mem=16g --image=docker:image_name:latest
 
 
-and once in the job, you can activate the container's environment with the
+Once in the job, you can activate the container's environment with the
 ``shifter`` command
 
 .. prompt:: bash

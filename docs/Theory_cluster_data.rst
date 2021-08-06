@@ -1,10 +1,10 @@
+
 Processing data
 ===============
 
 For processing large amounts of data common for deep learning, either
 for dataset preprocessing or training, several techniques exist. Each
 has typical uses and limitations.
-
 
 Data parallelism
 ----------------
@@ -85,9 +85,13 @@ different filesystems.  Usually there will be names such as 'home',
 
 The reason for having different filesystems available instead of a
 single giant one is to provide for different uses cases. For example,
-then 'datasets' filesystem would be optimized for fast reads but have
+the 'datasets' filesystem would be optimized for fast reads but have
 slow write performance. This is because datasets are usually written
 once and then read very often for training.
+
+Different file systems have different performance levels. For instance, backed
+up file-systems (such as ``$PROJECT`` in CC clusters) provide more space and can handle large
+files but cannot sustain highly parallel accesses typically required for high speed model training.
 
 The set of filesystems provided by the cluster you are using should be
 detailed in the documentation for that cluster and the names can
