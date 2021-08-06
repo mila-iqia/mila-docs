@@ -1,7 +1,7 @@
 Parts of a computing cluster
 ============================
 
-In order to provide high performance computation capabilities, clusters can
+To provide high performance computation capabilities, clusters can
 combine hundreds to thousands of computers, called *nodes*, which are all
 inter-connected with a high-performance communication network. Most nodes are
 designed for high-performance computations, but clusters can also use
