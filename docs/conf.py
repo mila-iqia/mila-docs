@@ -9,13 +9,13 @@ import sphinx_theme
 extensions = [
             'sphinx-prompt',
             'sphinx_copybutton',
-            'recommonmark',
+            # 'recommonmark',
             'sphinx.ext.autosectionlabel',
             'sphinx.ext.todo',
             'myst_parser']
 
 templates_path = ['templates', '_templates', '.templates']
-source_suffix = ['.rst']
+source_suffix = ['.rst', '.md']
 master_doc = 'index'
 project = u'MILA Technical Documentation'
 copyright = str(datetime.now().year)
