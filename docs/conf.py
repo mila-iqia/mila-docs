@@ -15,7 +15,7 @@ extensions = [
             'myst_parser']
 
 templates_path = ['templates', '_templates', '.templates']
-source_suffix = ['.rst', '.md']
+source_suffix = ['.rst']
 master_doc = 'index'
 project = u'MILA Technical Documentation'
 copyright = str(datetime.now().year)
