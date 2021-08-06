@@ -19,7 +19,7 @@ source_parsers = {
             '.md': CommonMarkParser,
         }
 master_doc = 'index'
-project = u'MILA Docs'
+project = u'MILA Technical Documentation'
 copyright = str(datetime.now().year)
 version = 'latest'
 release = 'latest'
@@ -27,7 +27,7 @@ release = 'latest'
 htmlhelp_basename = 'mila-docs'
 file_insertion_enabled = False
 latex_documents = [
-  ('index', 'mila-docs.tex', u'MILA Docs Documentation',
+  ('index', 'mila-docs.tex', u'Mila technical Documentation',
    u'', 'manual'),
 ]
 
@@ -37,6 +37,7 @@ exclude_patterns = ['_build',
                     'Information_*',
                     'Purpose_*',
                     'Extra_compute_*',
+                    'IDT_*',
                     'singularity/*']
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'
@@ -51,7 +52,9 @@ pygments_style = 'sphinx'
 # further.  For a list of options available for each theme, see the
 # documentation.
 #
-# html_theme_options = {}
+html_theme_options = {
+    'logo_only': True
+    }
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -70,7 +73,10 @@ html_js_files = ['documentation_options.js', 'documentation_options_fix.js']
 #
 # html_sidebars = {}
 #---sphinx-themes-----
-html_theme = 'sphinx_rtd_theme'
+html_theme = 'neo_rtd_theme'
+html_theme_path = [sphinx_theme.get_html_theme_path()]
+html_logo = '_static/image.png'
+
 html_context = {
     # Enable the "Edit in GitHub link within the header of each page.
     'display_github': True,

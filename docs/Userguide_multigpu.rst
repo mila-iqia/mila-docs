@@ -64,7 +64,6 @@ The following table summarizes the different preemption mode and grace periods:
 Cluster            Signal(s)       Grace Period  Requeued
 ================== =============== ============  ========
 local              SIGCONT/SIGTERM 120s          No
-Google Gloud (GCP) SIGCONT/SIGTERM 30s           Yes
 Amazon (AWS)       SIGCONT/SIGTERM 120s          Yes
 Azure              -               -             -
 ================== =============== ============  ========
@@ -89,12 +88,12 @@ allocated resources (see srun) SLURM batch script
    #SBATCH --mem=18G
    srun -l --output=myjob_output_%t.out python script args
 
-this will run python 2 times, each process with 4 CPUs with the same arguments
+This will run Python 2 times, each process with 4 CPUs with the same arguments
 ``--output=myjob_output_%t.out`` will create 2 output files appending the task
 id (``%t``) to the filename and 1 global log file for things happening outside
 the ``srun`` command.
 
-Knowing that, if you want to have 2 different arguments to the python program,
+Knowing that, if you want to have 2 different arguments to the Python program,
 you can use a multi-prog configuration file: ``srun -l --multi-prog silly.conf``
 
 .. code-block::
@@ -102,13 +101,13 @@ you can use a multi-prog configuration file: ``srun -l --multi-prog silly.conf``
    0  python script firstarg
    1  python script secondarg
 
-or by specifying a range of tasks
+Or by specifying a range of tasks
 
 .. code-block::
 
    0-1  python script %t
 
-%t being the taskid that your python script will parse.  Note the ``-l`` on the
+%t being the taskid that your Python script will parse.  Note the ``-l`` on the
 ``srun`` command: this will prepend each line with the taskid (0:, 1:)
 
 Sharing a node with multiple GPU 1process/GPU

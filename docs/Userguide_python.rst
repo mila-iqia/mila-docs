@@ -30,7 +30,7 @@ for them to be stored.  The preferred solution (as it is the preferred solution
 on Compute Canada clusters) is to use `virtual environments
 <https://virtualenv.pypa.io/en/stable/>`_.
 
-First, load the python module you want to use:
+First, load the Python module you want to use:
 
 .. prompt:: bash $
 
@@ -42,20 +42,20 @@ Then, create a virtual environment in your ``home`` directory:
 
    virtualenv $HOME/<env>
 
-where ``<env>`` is the name of your environment. Finally, activate the environment:
+Where ``<env>`` is the name of your environment. Finally, activate the environment:
 
 .. prompt:: bash $
 
    source $HOME/<env>/bin/activate
 
-You can now install any python package you wish using the ``pip`` command, e.g.
+You can now install any Python package you wish using the ``pip`` command, e.g.
 `pytorch <https://pytorch.org/get-started/locally>`_:
 
 .. prompt:: bash (<env>)$
 
    pip install torch torchvision
 
-or `Tensorflow <https://www.tensorflow.org/install/gpu>`_:
+Or `Tensorflow <https://www.tensorflow.org/install/gpu>`_:
 
 .. prompt:: bash (<env>)$
 
@@ -68,7 +68,7 @@ Conda
 Another solution for Python is to use `miniconda
 <https://docs.conda.io/en/latest/miniconda.html>`_ or `anaconda
 <https://docs.anaconda.com>`_ which are also available through the ``module``
-command: (the use of conda is not recommended for the Compute Canada cluster due to
+command: (the use of Conda is not recommended for Compute Canada Clusters due to
 the availability of custom-built packages for pip)
 
 .. prompt:: bash $, auto
@@ -85,14 +85,14 @@ for details) using a specific Python version, you may write:
 
    conda create -n <env> python=3.9
 
-where ``<env>`` is the name of your environment. You can now activate it by doing:
+Where ``<env>`` is the name of your environment. You can now activate it by doing:
 
 .. prompt:: bash $
 
    conda activate <env>
 
-You are now ready to install any python package you want in this environment.
-For instance, to install pytorch, you can find the conda command of any version
+You are now ready to install any Python package you want in this environment.
+For instance, to install PyTorch, you can find the Conda command of any version
 you want on `pytorch's website <https://pytorch.org/get-started/locally>`_, e.g:
 
 .. prompt:: bash (<env>)$

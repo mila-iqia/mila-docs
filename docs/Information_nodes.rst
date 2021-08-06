@@ -8,8 +8,10 @@ Node profile description
    :format: html
 
 ..
-   Je trouve cela un peu futile de maintenir cette documentation à jour manuellement.
-   Peut-être pourrions nous créer dans ce dossier des sripts qui pourraient créer une entrée RST et qui pourraient être exécutés sur un noeud au Mila pour les mises à jour.
+   Je trouve cela un peu futile de maintenir cette documentation à jour
+   manuellement.  Peut-être pourrions nous créer dans ce dossier des sripts qui
+   pourraient créer une entrée RST et qui pourraient être exécutés sur un noeud
+   au Mila pour les mises à jour.
 
 
 +---------------------------------------+----------------------------+------+---------+--------------+--------------+-------------+--------------+--------+---------------------+
@@ -83,7 +85,7 @@ as on a regular node.
 
 .. .. prompt:: bash $, auto
 ..
-..     # on mila cluster's login node
+..     # on Mila cluster's login node
 ..     $ srun -c 1 --reservation=power9 --pty bash
 ..
 ..     # setup anaconda

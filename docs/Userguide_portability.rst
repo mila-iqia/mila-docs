@@ -26,6 +26,13 @@ To achieve this, try to always keep in mind the following aspects:
   you work on project B!) Isolation can be achieved using :ref:`Python Virtual
   environments` and :ref:`containers`.
 
+.. Creating a list of your software's dependencies
+.. -----------------------------------------------
+.. TODO
+
+
+Managing your environments
+--------------------------
 
 .. include:: Userguide_python.rst
 
@@ -47,11 +54,14 @@ if you wish to use ``Python 3.7`` you can simply do:
 On using containers
 -------------------
 
-Another option for portable code is :ref:`Using containers`.
+Another option for creating portable code is :ref:`Using containers`.
+
+Containers are a popular approach at deploying applications
+by packaging a lot of the required dependencies together. The most popular 
+tool for this is Docker, but Docker cannot be used on the Mila cluster 
+(nor the other clusters from Compute Canada).
 
 One popular mechanism for containerisation on a computational cluster is called
-``singularity``. This is the recommended approach for running containers on the
-Mila cluster.
-
-.. include:: singularity/index.rst
-
+`Singularity <https://singularity-docs.readthedocs.io/en/latest/>`_. 
+This is the recommended approach for running containers on the
+Mila cluster. See section :ref:`Singularity` for more details.
