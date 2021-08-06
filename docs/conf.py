@@ -6,6 +6,8 @@ from datetime import datetime
 
 from recommonmark.parser import CommonMarkParser
 
+import sphinx_theme
+
 extensions = [
             'sphinx-prompt',
             'sphinx_copybutton',
