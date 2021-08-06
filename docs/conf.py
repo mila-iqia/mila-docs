@@ -4,8 +4,6 @@ from __future__ import division, print_function, unicode_literals
 
 from datetime import datetime
 
-from recommonmark.parser import CommonMarkParser
-
 import sphinx_theme
 
 extensions = [
@@ -13,13 +11,11 @@ extensions = [
             'sphinx_copybutton',
             'recommonmark',
             'sphinx.ext.autosectionlabel',
-            'sphinx.ext.todo']
+            'sphinx.ext.todo',
+            'myst_parser']
 
 templates_path = ['templates', '_templates', '.templates']
 source_suffix = ['.rst', '.md']
-source_parsers = {
-            '.md': CommonMarkParser,
-        }
 master_doc = 'index'
 project = u'MILA Technical Documentation'
 copyright = str(datetime.now().year)
