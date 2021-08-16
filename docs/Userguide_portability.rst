@@ -2,9 +2,9 @@ Portability concerns and solutions
 ==================================
 
 When working on a software project, it is important to be aware of all the
-software and libraries the project rely on and to list them explicitly and
-*under version control* in such a way that they can easily be installed and made
-available on different systems. The upsides are significant:
+software and libraries the project relies on and to list them explicitly and
+*under a version control system* in such a way that they can easily be
+installed and made available on different systems. The upsides are significant:
 
 * Easily install and run on the cluster
 * Ease of collaboration
