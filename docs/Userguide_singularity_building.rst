@@ -14,8 +14,8 @@ recommended if you need to figure out how things will be compiled or if you want
 to install packages on the fly. We'll refer to this procedure as singularity
 sandboxes.
 
-The second one way is more like you know what you want, so you write a list of
-everything you need, you sent it to singularity and it will install everything
+The second way is more like you know what you want, so you write a list of
+everything you need, you send it to singularity and it will install everything
 for you. Those lists are called singularity recipes.
 
 
