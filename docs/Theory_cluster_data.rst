@@ -61,7 +61,7 @@ end.
 
 In general for data parallelism tasks or tasks that communicate
 infrequently it doesn't make a lot of difference where the processes
-sit because the communcation bandwitdth and latency will not have a
+sit because the communcation bandwidth and latency will not have a
 lot of impact on the time it takes to complete the job.  The
 individual tasks can generally be scheduled indepandantly.
 
