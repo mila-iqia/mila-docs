@@ -133,7 +133,7 @@ You should install your stuff in /usr/local instead.
 Creating useful directories
 """""""""""""""""""""""""""
 
-One of the benefit of containers is that you'll be able to use them across
+One of the benefits of containers is that you'll be able to use them across
 different clusters. However for each cluster the dataset and experiment folder
 location can be different. In order to be invariant to those locations, we will
 create some useful mount points inside the container:
