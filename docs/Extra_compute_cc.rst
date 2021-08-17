@@ -198,15 +198,15 @@ different uses:
 
 * The ``$HOME`` folder on NFS is appropriate for codes and libraries which are
   small and read once. **Do not write experiemental results here!**
-* The ``/projects`` folder should only contain **compressed raw** datasets
+* The ``$HOME/projects`` folder should only contain **compressed raw** datasets
   (**processed** datasets should go in ``$SCRATCH``). We have a limit on the
-  size and number of file in ``/projects``, so do not put anything else there.
-  If you add a new dataset there (make sure it is readable by every member of
-  the group using ``chgrp -R rpp-bengioy <dataset>``).
+  size and number of file in ``$HOME/projects``, so do not put anything else
+  there.  If you add a new dataset there (make sure it is readable by every
+  member of the group using ``chgrp -R rpp-bengioy <dataset>``).
 * The ``$SCRATCH`` space can be used for short term storage. It has good
-  performance and large quotas, but is purged regularly (every file that has not
-  been used in the last 3 months gets deleted, but you receive an email before
-  this happens).
+  performance and large quotas, but is purged regularly (every file that has
+  not been used in the last 3 months gets deleted, but you receive an email
+  before this happens).
 * ``$SLURM_TMPDIR`` points to the local disk of the node on which a job is
   running. It should be used to copy the data on the node at the beginning of
   the job and write intermediate checkpoints. This folder is cleared after each
