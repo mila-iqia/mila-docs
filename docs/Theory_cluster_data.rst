@@ -1,4 +1,3 @@
-
 Processing data
 ===============
 
@@ -89,8 +88,8 @@ the 'datasets' filesystem would be optimized for fast reads but have
 slow write performance. This is because datasets are usually written
 once and then read very often for training.
 
-Different file systems have different performance levels. For instance, backed
-up file-systems (such as ``$PROJECT`` in Compute Canada clusters) provide more
+Different filesystems have different performance levels. For instance, backed
+up filesystems (such as ``$PROJECT`` in Compute Canada clusters) provide more
 space and can handle large files but cannot sustain highly parallel accesses
 typically required for high speed model training.
 
