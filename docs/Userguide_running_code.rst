@@ -311,43 +311,38 @@ Or more info on a node and its resources
 Useful Commands
 ---------------
 
-
-+----------------------------------------------------+------------------------------------------------------------------+
-| Command                                            | Description                                                      |
-+====================================================+==================================================================+
-| salloc                                             | Get an interactive job and give you a shell. (ssh like) CPU only |
-+----------------------------------------------------+------------------------------------------------------------------+
-| salloc --gres=gpu -c 2 --mem=12000                 | Get an interactive job with one GPU, 2 CPUs and 12000 MB RAM     |
-+----------------------------------------------------+------------------------------------------------------------------+
-| sbatch                                             | start a batch job (same options as salloc)                       |
-+----------------------------------------------------+------------------------------------------------------------------+
-| sattach --pty <jobid>.0                            | Re-attach a dropped interactive job                              |
-+----------------------------------------------------+------------------------------------------------------------------+
-| sinfo                                              | status of all nodes                                              |
-+----------------------------------------------------+------------------------------------------------------------------+
-| sinfo -Ogres:27,nodelist,features -tidle,mix,alloc | List GPU type and FEATURES that you can request                  |
-+----------------------------------------------------+------------------------------------------------------------------+
-| savail                                             | (Custom) List available gpu                                      |
-+----------------------------------------------------+------------------------------------------------------------------+
-| scancel <jobid>                                    | Cancel a job                                                     |
-+----------------------------------------------------+------------------------------------------------------------------+
-| squeue                                             | summary status of all active jobs                                |
-+----------------------------------------------------+------------------------------------------------------------------+
-| squeue -u $USER                                    | summary status of all YOUR active jobs                           |
-+----------------------------------------------------+------------------------------------------------------------------+
-| squeue -j <jobid>                                  | summary status of a specific job                                 |
-+----------------------------------------------------+------------------------------------------------------------------+
-| squeue -Ojobid,name,username,partition,            |  status of all jobs including requested                          |
-| state,timeused,nodelist,gres,tres                  |  resources (see the SLURM squeue doc for all output options)     |
-+----------------------------------------------------+------------------------------------------------------------------+
-| scontrol show job <jobid>                          | Detailed status of a running job                                 |
-+----------------------------------------------------+------------------------------------------------------------------+
-| sacct -j <job_id> -o NodeList                      | Get the node where a finished job ran                            |
-+----------------------------------------------------+------------------------------------------------------------------+
-| sacct -u $USER -S <start_time> -E <stop_time>      | Find info about old jobs                                         |
-+----------------------------------------------------+------------------------------------------------------------------+
-| sacct -oJobID,JobName,User,Partition,Node,State    | List of current and recent jobs                                  |
-+----------------------------------------------------+------------------------------------------------------------------+
+salloc
+        Get an interactive job and give you a shell. (ssh like) CPU only
+salloc \--gres=gpu -c 2 \--mem=12000
+        Get an interactive job with one GPU, 2 CPUs and 12000 MB RAM
+sbatch
+        start a batch job (same options as salloc)
+sattach \--pty <jobid>.0
+        Re-attach a dropped interactive job
+sinfo
+        status of all nodes
+sinfo -Ogres:27,nodelist,features -tidle,mix,alloc
+        List GPU type and FEATURES that you can request
+savail
+        (Custom) List available gpu
+scancel <jobid>
+        Cancel a job
+squeue
+        summary status of all active jobs
+squeue -u $USER
+        summary status of all YOUR active jobs
+squeue -j <jobid>
+        summary status of a specific job
+squeue -Ojobid,name,username,partition,state,timeused,nodelist,gres,tres
+        status of all jobs including requested resources (see the SLURM squeue doc for all output options)
+scontrol show job <jobid>
+        Detailed status of a running job
+sacct -j <job_id> -o NodeList
+        Get the node where a finished job ran
+sacct -u $USER -S <start_time> -E <stop_time>
+        Find info about old jobs
+sacct -oJobID,JobName,User,Partition,Node,State
+        List of current and recent jobs
 
 
 
@@ -415,4 +410,3 @@ Here is a ``sbatch`` script that follows good practices on the Mila cluster:
 
    # 5. Copy whatever you want to save on $SCRATCH
    cp $SLURM_TMPDIR/<to_save> /network/tmp1/<user>/
-
