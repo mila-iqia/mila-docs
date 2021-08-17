@@ -122,8 +122,9 @@ Then you'll need the following command to log inside the container.
 Once you get into the container, you can use pip and install anything you need
 (Or with ``apt-get`` if you built the container with sudo).
 
-.. warning:: Singularity mount your home, so if you install things into the
-   $HOME of your container, they will be installed in your real $HOME !
+.. warning:: Singularity mounts your home folder, so if you install things into
+   the ``$HOME`` of your container, they will be installed in your real
+   ``$HOME``!
 
 
 You should install your stuff in /usr/local instead.
