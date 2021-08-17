@@ -22,9 +22,9 @@ of the Mila cluster and to sound the alarm if outages occur
 Example with Netdata on cn_c001
 -------------------------------
 
-For example, if we have a job running on ``cn_c001``,
-we can type ``cn_c001.server.mila.quebec:19999`` and
-the following page will appear.
+For example, if we have a job running on ``cn_c001``, we can type
+``cn_c001.server.mila.quebec:19999`` in a browser address bar and the following
+page will appear.
 
 .. image:: monitoring.png
     :align: center
