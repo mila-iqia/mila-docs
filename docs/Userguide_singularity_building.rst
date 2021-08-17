@@ -1,10 +1,9 @@
-
 Building the containers
 -----------------------
 
 Building a container is like creating a new environment except that containers
-are much more powerful since they are self-contain systems.  With singularity,
-there are two ways to build containers.
+are much more powerful since they are self-contained systems.  With
+singularity, there are two ways to build containers.
 
 The first one is by yourself, it's like when you got a new Linux laptop and you
 don't really know what you need, if you see that something is missing, you
