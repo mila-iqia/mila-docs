@@ -23,7 +23,7 @@ Compute Canada https://docs.computecanada.ca/wiki/JupyterHub CC login
 
 .. note:: **For Mila Clusters:**
 
-   *mila.quebec* account's credential should be used to login and start a
+   *mila.quebec* account credentials should be used to login and start a
    **JupyterLab** session.
 
 
