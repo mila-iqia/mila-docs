@@ -8,7 +8,6 @@ It does not require any ssh tunnel or port redirection, the hub acts as a proxy
 server that will redirect you to a session as soon as it is available.
 
 It is currently available for Mila clusters and some Compute Canada clusters
-(under PBS)
 
 ============== ============================================= ============
 Cluster        Address                                       Login type
