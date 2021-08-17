@@ -98,9 +98,9 @@ The first step is to transform your read only container
 ``pytorch-1.0.1-cuda10.0-cudnn7-runtime.simg`` in a writable version that will
 allow you to add packages.
 
-.. warning:: Depending of the version of singularity you are using, singularity
-   will build a container with the extension .simg or .sif. If you got .sif
-   files, replace every occurences of .simg by .sif.
+.. warning:: Depending on the version of singularity you are using, singularity
+   will build a container with the extension .simg or .sif. If you're using
+   .sif files, replace every occurences of .simg by .sif.
 
 .. tip:: If you want to use **apt-get** you have to put **sudo** ahead of the
    following commands
