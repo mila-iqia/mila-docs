@@ -60,8 +60,8 @@ Different nodes for different uses
 ----------------------------------
 
 It is important to note here the difference in intended uses between the
-compute nodes and the login nodes. While the Compute Nodes are meant for heavy
-computation, the Login Nodes are not.
+compute nodes and the login nodes. While the compute nodes are meant for heavy
+computation, the login nodes are not.
 
 The login nodes however are used by everyone who uses the cluster and care must
 be taken not to overburden these nodes. Consequently, only very short and light
