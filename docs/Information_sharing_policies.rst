@@ -1,10 +1,10 @@
-Data Sharing Policies
+Data sharing policies
 =====================
 
 
-`/miniscratch <Information.html#storage>`_ supports ACL to allows collaborative
-work on rapidly changing data, i.g. work in process datasets, model
-checkpoints, etc...
+`/miniscratch <Information.html#storage>`_ supports Access Control Lists (ACL)
+to allows collaborative work on rapidly changing data, e.g. work in process
+datasets, model checkpoints, etc...
 
 `/network/projects <Information.html#storage>`_ aims to offer a collaborative
 space for long-term projects. Data that should be kept for a longer period then
