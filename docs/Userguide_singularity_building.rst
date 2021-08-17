@@ -258,11 +258,17 @@ singularity-hub account to your GitHub account, then:
 
 .. _singularity-hub: https://www.singularity-hub.org/
 
-   1) Create a new github repository.
-   2) Add a collection on `singularity-hub`_ and select the github repository your created.
-   3) Clone the github repository on your computer.
-   4) Write the singularity recipe and save it as a file nammed **Singularity**.
-   5) Git add **Singularity**, commit and push on the master branch.
+   #. Create a new github repository.
+   #. Add a collection on `singularity-hub`_ and select the github repository your created.
+   #. Clone the github repository on your computer.
+      ::
+         $ git clone <url>
+   #. Write the singularity recipe and save it as a file named **Singularity**.
+   #. Git add **Singularity**, commit and push on the master branch
+      ::
+         $ git add Singularity
+         $ git commit
+         $ git push origin master
 
 At this point, robots from singularity-hub will build the container for you, you
 will be able to download your container from the website or directly with:
