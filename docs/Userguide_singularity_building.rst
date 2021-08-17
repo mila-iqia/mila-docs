@@ -22,7 +22,7 @@ for you. Those lists are called singularity recipes.
 First way: Build and use a sandbox
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-You might ask yourself; *On which machine should I build a container ?*
+You might ask yourself: *On which machine should I build a container?*
 
 First of all, you need to choose where you'll build your container. This
 operation requires **memory and high cpu usage**.
