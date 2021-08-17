@@ -27,10 +27,10 @@ jobs and even if each job would run for a reasonable amount of time
 until the amount of jobs is in the low hundreds at most.
 
 Finally another thing to keep in mind is that the transfer bandwidth
-is limited between the filesystems and the compute nodes and if you
-run too many jobs using too much data at once they may end up not
-being any faster because they will spend their time waiting for data
-to arrive.
+is limited between the filesystems (see :ref:`Filesystem concerns`)
+and the compute nodes and if you run too many jobs using too much data
+at once they may end up not being any faster because they will spend
+their time waiting for data to arrive.
 
 
 Model parallelism
