@@ -42,9 +42,9 @@ mostly when a single instance of a model will not fit in a computing
 resource (such as the GPU memory being too small for all the
 parameters).
 
-In this case the model is split across layer (or some other logical
-arrangement) and the tasks must communicate intermediate results with
-each other to arrive at a final result.
+In this case, the model is split into its constituent parts, each
+processed independently and their intermediate results communicated
+with each other to arrive at a final result.
 
 This is generally harder but necessary to work with larger, more
 powerful models like GPT.
