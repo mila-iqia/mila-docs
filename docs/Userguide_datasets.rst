@@ -8,7 +8,8 @@ to `/network/datasets <Information.html#storage>`_.
 
 Those datasets can be mirrored to the Béluga cluster in
 ``~/projects/rrg-bengioy-ad/data/curated/`` if they follow Compute Canada's
-good practices on data.
+`good practices on data
+<https://docs.computecanada.ca/wiki/AI_and_Machine_Learning#Managing_your_datasets>`_.
 
 
 Publicly share a Mila dataset
