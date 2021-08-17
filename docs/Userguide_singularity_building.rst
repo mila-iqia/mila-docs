@@ -281,10 +281,10 @@ will be able to download your container from the website or directly with:
 Example: Recipe with OpenAI gym, MuJoCo and Miniworld
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
-Here is an example on how you can use singularity recipe to install complex
-environment as OpenAI gym, MuJoCo and Miniworld on a PyTorch based container.
-In order to use MuJoCo, you'll need to copy the key stored on the Mila cluster
-in `/ai/apps/mujoco/license/mjkey.txt` to your current directory.
+Here is an example on how you can use a singularity recipe to install complex
+environment such as OpenAI gym, MuJoCo and Miniworld on a PyTorch based
+container. In order to use MuJoCo, you'll need to copy the key stored on the
+Mila cluster in `/ai/apps/mujoco/license/mjkey.txt` to your current directory.
 
 .. code-block:: bash
 
