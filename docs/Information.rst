@@ -1,7 +1,7 @@
 .. _infra_info:
 
-Mila research computing infrastructure information and policies
-***************************************************************
+Computing infrastructure and policies
+*************************************
 
 This section seeks to provide factual information and policies on the Mila cluster computing environments.
 
