@@ -42,7 +42,7 @@ for nodes, this is not always possible in the field of artificial intelligence
 as the hardware evolve rapidly as is being complemented by new hardware and so
 on. Hence, you will often read about computational node classes. Some of which
 might have different GPU models or even no GPU at all. For the Mila cluster you
-will find thins information in the :ref:`Node profile description` section. For
+will find this information in the :ref:`Node profile description` section. For
 now, you should note that is important to keep in mind that you should be aware
 of *which* nodes your code is running on.  More on that later.
 
