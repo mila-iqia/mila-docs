@@ -6,8 +6,8 @@ Using containers on clusters
 How to use containers on clusters
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-On every cluster with SLURM, dataset and intermediate results should go in
-``$SLURM_TMPDIR`` while the final experiments results should go in ``$SCRATCH``.
+On every cluster with Slurm, datasets and intermediate results should go in
+``$SLURM_TMPDIR`` while the final experiment results should go in ``$SCRATCH``.
 In order to use the container you built, you need to copy it on the cluster you
 want to use.
 
