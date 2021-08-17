@@ -25,7 +25,7 @@ you are a student at University of Montreal, you can have access to the
 universities, you should ask your advisor to know which allocations you could
 have access to.
 
-From Compute Canada's documentation; `An allocation is an amount of resources
+From Compute Canada's documentation: `An allocation is an amount of resources
 that a research group can target for use for a period of time, usually a year.`
 To be clear, it is not a maximal amount of resources that can be used
 simultaneously, it is a weighting factor of the job scheduler to balance jobs.
@@ -53,9 +53,9 @@ should be submitted with the account ``def-bengioy``.
 +------------------------+------+----------------+----------+-----+----------------------+----------------+
 | :ref:`Beluga <beluga>` |  185 | rrg-bengioy-ad | V100     | 150 |  v100                | rrg-bengioy-ad |
 +------------------------+------+----------------+----------+-----+----------------------+----------------+
-| :ref:`Cedar <cedar>`   | --   | def-bengioy    |  V100    | 40  | v100                 | rrg-bengioy-ad |
+| :ref:`Cedar <cedar>`   | --   | def-bengioy    | V100     | 40  | v100                 | rrg-bengioy-ad |
 +------------------------+------+----------------+----------+-----+----------------------+----------------+
-| :ref:`Graham <graham>` | --   | def-bengioy    |  T4      | 60  | t4                   | rrg-bengioy-ad |
+| :ref:`Graham <graham>` | --   | def-bengioy    | T4       | 60  | t4                   | rrg-bengioy-ad |
 +------------------------+------+----------------+----------+-----+----------------------+----------------+
 
 
