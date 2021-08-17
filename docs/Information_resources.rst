@@ -14,7 +14,7 @@ Compute Canada (CC).  At the time being, the CC clusters where we have a large
 allocation of resources are `beluga`, `cedar` and `graham`.  We also have
 comparable computational resources in the Mila cluster, with more to come.
 
-The main distinguishing factor is that more have more control over our own
+The main distinguishing factor is that we have more control over our own
 cluster than we have over the ones at Compute Canada.  Notably, also, the
 compute nodes in the Mila cluster all have unrestricted access to the Internet,
 which is not the case in general for CC clusters (although `cedar` does allow
