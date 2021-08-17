@@ -84,7 +84,7 @@ different filesystems.  Usually there will be names such as 'home',
 'scratch', 'datasets', 'projects', 'tmp'.
 
 The reason for having different filesystems available instead of a
-single giant one is to provide for different uses cases. For example,
+single giant one is to provide for different use cases. For example,
 the 'datasets' filesystem would be optimized for fast reads but have
 slow write performance. This is because datasets are usually written
 once and then read very often for training.
