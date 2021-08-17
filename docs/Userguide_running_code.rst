@@ -24,18 +24,18 @@ In order to submit a batch job, you have to create a script containing the main
 command(s) you would like to execute on the allocated resources/nodes.
 
 .. code-block:: bash
-    :linenos:
+   :linenos:
 
-    #!/bin/bash
-    #SBATCH --job-name=test
-    #SBATCH --output=job_output.txt
-    #SBATCH --error=job_error.txt
-    #SBATCH --ntasks=1
-    #SBATCH --time=10:00
-    #SBATCH --mem=100Gb
+   #!/bin/bash
+   #SBATCH --job-name=test
+   #SBATCH --output=job_output.txt
+   #SBATCH --error=job_error.txt
+   #SBATCH --ntasks=1
+   #SBATCH --time=10:00
+   #SBATCH --mem=100Gb
 
-    module load python/3.5
-    python my_script.py
+   module load python/3.5
+   python my_script.py
 
 
 Your job script is then submitted to SLURM with ``sbatch`` (`ref.
@@ -44,7 +44,7 @@ Your job script is then submitted to SLURM with ``sbatch`` (`ref.
 .. prompt:: bash $, auto
 
    $ sbatch job_script
-   sbatch: Submitted batch job 4323674
+    sbatch: Submitted batch job 4323674
 
 The *working directory* of the job will be the one where your executed ``sbatch``.
 
@@ -65,7 +65,7 @@ submit an interactive jobs where the main executable is a shell with the
 
 .. prompt:: bash $
 
-    salloc
+   salloc
 
 Will start an interactive job on the first node available with the default
 resources set in SLURM (1 task/1 CPU).  ``srun`` accepts the same arguments as
@@ -109,7 +109,7 @@ To display *jobs* currently in queue, use ``squeue`` and to get only your jobs t
 
 .. prompt:: bash $, auto
 
-    $ squeue -u $USER
+   $ squeue -u $USER
     JOBID   USER          NAME    ST  START_TIME         TIME NODES CPUS TRES_PER_NMIN_MEM NODELIST (REASON) COMMENT
     133     my_username   myjob   R   2019-03-28T18:33   0:50     1    2        N/A  7000M c1-8g-tiny1 (None) (null)
 
@@ -121,7 +121,7 @@ To cancel your job simply use ``scancel``
 
 .. prompt:: bash $
 
-    scancel 4323674
+   scancel 4323674
 
 
 
@@ -149,13 +149,13 @@ For instance, to request an unkillable job with 1 GPU, 4 CPUs, 10G of RAM and
 
 .. prompt:: bash $
 
-    sbatch --gres=gpu:1 -c 4 --mem=10G -t 12:00:00 --partition=unkillable <job.sh>
+   sbatch --gres=gpu:1 -c 4 --mem=10G -t 12:00:00 --partition=unkillable <job.sh>
 
 You can also make it an interactive job using ``salloc``:
 
 .. prompt:: bash $
 
-    salloc --gres=gpu:1 -c 4 --mem=10G -t 12:00:00 --partition=unkillable
+   salloc --gres=gpu:1 -c 4 --mem=10G -t 12:00:00 --partition=unkillable
 
 
 The Mila cluster has many different types of nodes/GPUs. To request a specific
@@ -172,14 +172,14 @@ To request a Power9 machine
 
 .. prompt:: bash $
 
-    sbatch -c 4 --constraint=power9
+   sbatch -c 4 --constraint=power9
 
 
 To request a machine with 2 GPUs using NVLink, you can use
 
 .. prompt:: bash $
 
-    sbatch -c 4 --gres=gpu:2 --constraint=nvlink
+   sbatch -c 4 --gres=gpu:2 --constraint=nvlink
 
 
 ======================================== =====================================================================
@@ -213,7 +213,7 @@ To display available *partitions*, simply use
 
 .. prompt:: bash $, auto
 
-    $ sinfo
+   $ sinfo
     PARTITION AVAIL TIMELIMIT NODES STATE  NODELIST
     batch     up     infinite     2 alloc  node[1,3,5-9]
     batch     up     infinite     6 idle   node[10-15]
@@ -225,7 +225,7 @@ To display available *nodes* and their status, you can use
 
 .. prompt:: bash $, auto
 
-    $ sinfo -N -l
+   $ sinfo -N -l
     NODELIST    NODES PARTITION STATE  CPUS MEMORY TMP_DISK WEIGHT FEATURES REASON
     node[1,3,5-9]   2 batch     allocated 2    246    16000     0  (null)   (null)
     node[2,4]       2 batch     drain     2    246    16000     0  (null)   (null)
@@ -237,18 +237,18 @@ the fields you want to display
 
 .. prompt:: bash $, auto
 
-    $ sacct --format=User,JobID,Jobname,partition,state,time,start,end,elapsed,nnodes,ncpus,nodelist,workdir -u username
-     User        JobID    JobName  Partition      State  Timelimit               Start                 End    Elapsed   NNodes      NCPUS        NodeList              WorkDir
+   $ sacct --format=User,JobID,Jobname,partition,state,time,start,end,elapsed,nnodes,ncpus,nodelist,workdir -u username
+         User        JobID    JobName  Partition      State  Timelimit               Start                 End    Elapsed   NNodes      NCPUS        NodeList              WorkDir
     --------- ------------ ---------- ---------- ---------- ---------- ------------------- ------------------- ---------- -------- ---------- --------------- --------------------
-    username 2398         run_extra+ azureComp+    RUNNING 130-05:00+ 2019-03-27T18:33:43             Unknown 1-01:07:54        1         16 node9         /home/mila/username+
-    username 2399         run_extra+ azureComp+    RUNNING 130-05:00+ 2019-03-26T08:51:38             Unknown 2-10:49:59        1         16 node9         /home/mila/username+
+    username  2398         run_extra+ azureComp+    RUNNING 130-05:00+ 2019-03-27T18:33:43             Unknown 1-01:07:54        1         16 node9           /home/mila/username+
+    username  2399         run_extra+ azureComp+    RUNNING 130-05:00+ 2019-03-26T08:51:38             Unknown 2-10:49:59        1         16 node9           /home/mila/username+
 
 
 Or to get the list of all your previous jobs, use the ``--start=####`` flag
 
 .. prompt:: bash
 
-    sacct -u my_username --start=20190101
+   sacct -u my_username --start=20190101
 
 
 ``scontrol`` (`ref. <https://slurm.schedmd.com/scontrol.html>`__) can be used to
@@ -256,7 +256,7 @@ provide specific information on a job (currently running or recently terminated)
 
 .. prompt:: bash $, auto
 
-    $ scontrol show job 43123
+   $ scontrol show job 43123
     JobId=43123 JobName=python_script.py
     UserId=my_username(1500000111) GroupId=student(1500000000) MCS_label=N/A
     Priority=645895 Nice=0 Account=my_username QOS=normal
@@ -288,7 +288,7 @@ Or more info on a node and its resources
 
 .. prompt:: bash $, auto
 
-    $ scontrol show node node9
+   $ scontrol show node node9
     NodeName=node9 Arch=x86_64 CoresPerSocket=4
     CPUAlloc=16 CPUTot=16 CPULoad=1.38
     AvailableFeatures=(null)
@@ -390,29 +390,29 @@ Example script
 Here is a ``sbatch`` script that follows good practices on the Mila cluster:
 
 .. code-block:: bash
-    :linenos:
+   :linenos:
 
-    #!/bin/bash
-    #SBATCH --partition=unkillable                      # Ask for unkillable job
-    #SBATCH --cpus-per-task=2                     # Ask for 2 CPUs
-    #SBATCH --gres=gpu:1                          # Ask for 1 GPU
-    #SBATCH --mem=10G                             # Ask for 10 GB of RAM
-    #SBATCH --time=3:00:00                        # The job will run for 3 hours
-    #SBATCH -o /network/tmp1/<user>/slurm-%j.out  # Write the log on tmp1
+   #!/bin/bash
+   #SBATCH --partition=unkillable                      # Ask for unkillable job
+   #SBATCH --cpus-per-task=2                     # Ask for 2 CPUs
+   #SBATCH --gres=gpu:1                          # Ask for 1 GPU
+   #SBATCH --mem=10G                             # Ask for 10 GB of RAM
+   #SBATCH --time=3:00:00                        # The job will run for 3 hours
+   #SBATCH -o /network/tmp1/<user>/slurm-%j.out  # Write the log on tmp1
 
-    # 1. Load the required modules
-    module --quiet load anaconda/3
+   # 1. Load the required modules
+   module --quiet load anaconda/3
 
-    # 2. Load your environment
-    conda activate <env_name>
+   # 2. Load your environment
+   conda activate <env_name>
 
-    # 3. Copy your dataset on the compute node
-    cp /network/data/<dataset> $SLURM_TMPDIR
+   # 3. Copy your dataset on the compute node
+   cp /network/data/<dataset> $SLURM_TMPDIR
 
-    # 4. Launch your job, tell it to save the model in $SLURM_TMPDIR
-    #    and look for the dataset into $SLURM_TMPDIR
-    python main.py --path $SLURM_TMPDIR --data_path $SLURM_TMPDIR
+   # 4. Launch your job, tell it to save the model in $SLURM_TMPDIR
+   #    and look for the dataset into $SLURM_TMPDIR
+   python main.py --path $SLURM_TMPDIR --data_path $SLURM_TMPDIR
 
-    # 5. Copy whatever you want to save on $SCRATCH
-    cp $SLURM_TMPDIR/<to_save> /network/tmp1/<user>/
+   # 5. Copy whatever you want to save on $SCRATCH
+   cp $SLURM_TMPDIR/<to_save> /network/tmp1/<user>/
 
