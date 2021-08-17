@@ -15,7 +15,7 @@ You can access the Mila cluster via ssh:
 
     ssh <user>@login.server.mila.quebec -p 2222
 
-Four login nodes are available and accessible behind a Load-Balancer. At each
+Four login nodes are available and accessible behind a load balancer. At each
 connection, you will be redirected to the least loaded login-node. Each login
 node can be directly accessed via: ``login-X.login.server.mila.quebec`` on port
 ``2222``.
