@@ -13,7 +13,7 @@ The first technique is called **data parallelism** (aka task
 parallelism in formal computer science). You simply run lots of
 processes each handling a portion of the data you want to
 process. This is by far the easiest technique to use and should be
-priviledged whenever possible. A common example of this is
+favored whenever possible. A common example of this is
 hyperparameter optimisation.
 
 For really small computations the time to setup multiple processes
