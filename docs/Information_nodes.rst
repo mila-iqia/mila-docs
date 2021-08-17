@@ -67,13 +67,13 @@ Power9
 
 .. _power9_nodes:
 
-Power9_ servers are using a different processor instruction set than Intel and
-AMD (x86_64) based servers. As such you need to setup your environment again
+Power9_ nodes are using a different processor instruction set than Intel and
+AMD (x86_64) based nodes. As such you need to setup your environment again
 for those nodes specifically.
 
-* Power9 Machines have 128 threads. (2 processors / 16 cores / 4 way SMT)
+* Power9 nodes have 128 threads. (2 processors / 16 cores / 4 way SMT)
 * 4 x V100 SMX2 (16 GB) with NVLink
-* In a Power9 machine GPUs and CPUs communicate with each other using NVLink
+* In a Power9 node GPUs and CPUs communicate with each other using NVLink
   instead of PCIe.
 
 This allow them to communicate quickly between each other. More on LMS_
