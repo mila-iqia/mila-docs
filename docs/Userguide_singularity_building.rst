@@ -252,8 +252,8 @@ Build recipe on singularity hub
 """""""""""""""""""""""""""""""
 
 Singularity hub allows users to build containers from recipes directly on
-singularity-hub's cloud meaning that you don't need anymore to build containers
-by yourself.  You need to register on `singularity-hub`_ and link your
+singularity-hub's cloud meaning that you don't need to build containers by
+yourself.  You need to register on `singularity-hub`_ and link your
 singularity-hub account to your GitHub account, then :
 
 .. _singularity-hub: https://www.singularity-hub.org/
