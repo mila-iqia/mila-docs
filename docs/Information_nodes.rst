@@ -77,8 +77,8 @@ for those nodes specifically.
   instead of PCIe. This allow them to communicate quickly between each other.
   More on Large Model Support (LMS_)
 
-Power9 have the same software stack as the regular nodes and each software
-should be included to deploy your environment as on a regular node.
+Power9 nodes have the same software stack as the regular nodes and each
+software should be included to deploy your environment as on a regular node.
 
 
 .. _LMS: https://developer.ibm.com/articles/performance-results-with-lmstf2/
