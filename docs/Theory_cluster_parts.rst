@@ -50,9 +50,9 @@ of *which* nodes your code is running on.  More on that later.
 The storage nodes
 -----------------
 
-Some computers on a cluster will have one function only which is to serve files.
-While the name of these computers might matter to some, as a user, you'll only
-be concerned about the path to the data. More on that in the :ref:`Processing
+Some computers on a cluster function to only store and serve files.  While the
+name of these computers might matter to some, as a user, you'll only be
+concerned about the path to the data. More on that in the :ref:`Processing
 data` section.
 
 
