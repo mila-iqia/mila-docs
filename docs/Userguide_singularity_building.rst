@@ -243,7 +243,9 @@ should use:
 
    sudo singularity build <NAME_CONTAINER> <YOUR_RECIPE_FILES>
 
-.. warning:: You always need to use sudo when you build a container from a recipe.
+.. warning:: You always need to use sudo when you build a container from a
+   recipe. As there is no access to sudo on the cluster, a personal computer or
+   the use singularity hub is needed to build a container
 
 
 Build recipe on singularity hub
