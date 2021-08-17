@@ -181,17 +181,17 @@ Each GPU node consists of:
 Beluga Storage
 """"""""""""""
 
-============== ==================== =========================
-Storage        Path                 Usage
-============== ==================== =========================
-$HOME          /home/<user>/        * Code
-                                    * Specific libraries
-$HOME/projects /project/rpp-bengioy * Compressed raw datasets
-$SCRATCH       /scratch/<user>      * Processed datasets
-                                    * Experimental results
-                                    * Logs of experiments
-$SLURM_TMPDIR                       * Temporary job results
-============== ==================== =========================
+================== ==================== =========================
+Storage            Path                 Usage
+================== ==================== =========================
+``$HOME``          /home/<user>/        * Code
+                                        * Specific libraries
+``$HOME/projects`` /project/rpp-bengioy * Compressed raw datasets
+``$SCRATCH``       /scratch/<user>      * Processed datasets
+                                        * Experimental results
+                                        * Logs of experiments
+``$SLURM_TMPDIR``                       * Temporary job results
+================== ==================== =========================
 
 They are roughly listed in order of increasing performance and optimized for
 different uses:
