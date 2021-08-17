@@ -107,8 +107,9 @@ AMD
 
 .. warning::
 
-    As of August 20 the GPUs had to return back to AMD.
-    Mila will get more samples. You can join the amd_ slack channels to get the latest information
+    As of August 20 2019 the GPUs had to return back to AMD.  Mila will get
+    more samples. You can join the amd_ slack channels to get the latest
+    information
 
 .. _amd: https://mila-umontreal.slack.com/archives/CKV5YKEP6/p1561471261000500
 
