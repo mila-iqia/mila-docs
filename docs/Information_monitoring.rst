@@ -1,7 +1,7 @@
 Monitoring
 ==========
 
-Every compute node on the Mila cluster has a `netdata <https://www.netdata.cloud/>`_
+Every compute node on the Mila cluster has a `Netdata <https://www.netdata.cloud/>`_
 monitoring daemon allowing you to get a sense of the state of the node.
 This information is exposed in two ways:
 
@@ -67,7 +67,7 @@ make sure that this resources is always kept busy.
     :alt: monitoring_ram.png
 
 * GPU
-    * Monitors the GPU usage using an `nvidia-smi plugin for netdata <https://learn.netdata.cloud/docs/agent/collectors/python.d.plugin/nvidia_smi/>`_.
+    * Monitors the GPU usage using an `nvidia-smi plugin for Netdata <https://learn.netdata.cloud/docs/agent/collectors/python.d.plugin/nvidia_smi/>`_.
     * You should make sure you use the GPUs to their fullest capacity.
     * Select the biggest batch size if possible to increase GPU memory usage and
       the GPU computational load.
