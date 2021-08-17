@@ -14,7 +14,7 @@ We will overview the different types of nodes which you can encounter on a
 typical cluster.
 
 
-The Login Nodes
+The login nodes
 ---------------
 
 To execute computing processes on a cluster, you must first connect to a
@@ -31,7 +31,7 @@ your laptop, to a remote computer's terminal shell. You might already know what
 a terminal shell is if you ever used the command line.
 
 
-The Compute Nodes
+The compute nodes
 -----------------
 
 In the field of artificial intelligence, you will usually be on the hunt for
@@ -47,7 +47,7 @@ now, you should note that is important to keep in mind that you should be aware
 of *which* nodes your code is running on.  More on that later.
 
 
-The Storage nodes
+The storage nodes
 -----------------
 
 Some computers on a cluster will have one function only which is to serve files.
