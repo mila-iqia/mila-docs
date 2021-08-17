@@ -94,8 +94,8 @@ Default package location
 
 Python by default uses the user site package first and packages provided by
 ``module`` last to not interfere with your installation.  If you want to skip
-packages installed in your site package (in your /home folder), you have to
-start Python with the ``-s`` flag.
+packages installed in your site-packages folder (in your /home directory), you
+have to start Python with the ``-s`` flag.
 
 To check which package is loaded at import, you can print ``package.__file__``
 to get the full path of the package.
