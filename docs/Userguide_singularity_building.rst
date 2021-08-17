@@ -192,8 +192,8 @@ Second way: Use recipes
 A singularity recipe is a file including specifics about installation software,
 environment variables, files to add, and container metadata.  It is a starting
 point for designing any custom container. Instead of pulling a container and
-install your packages manually, you can specify in this file the packages you
-want and then build your container from this file.
+installing your packages manually, you can specify in this file the packages
+you want and then build your container from this file.
 
 Here is a toy example of a singularity recipe installing some stuff:
 
