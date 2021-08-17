@@ -159,7 +159,7 @@ The full documentation for jobs launching on Beluga can be found `here
 <https://docs.computecanada.ca/wiki/Running_jobs>`__.
 
 
-Beluga Nodes description
+Beluga nodes description
 """"""""""""""""""""""""
 
 The GPU nodes consist of:
