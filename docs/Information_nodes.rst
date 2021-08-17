@@ -67,17 +67,19 @@ Power9
 
 .. _power9_nodes:
 
-Power9_ servers are using a different processor instruction set than Intel and AMD (x86_64).
-As such you need to setup your environment again for those nodes specifically.
+Power9_ servers are using a different processor instruction set than Intel and
+AMD (x86_64) based servers. As such you need to setup your environment again
+for those nodes specifically.
 
 * Power9 Machines have 128 threads. (2 processors / 16 cores / 4 way SMT)
 * 4 x V100 SMX2 (16 GB) with NVLink
-* In a Power9 machine GPUs and CPUs communicate with each other using NVLink instead of PCIe.
+* In a Power9 machine GPUs and CPUs communicate with each other using NVLink
+  instead of PCIe.
 
 This allow them to communicate quickly between each other. More on LMS_
 
-Power9 have the same software stack as the regular nodes and each software should be included to deploy your environment
-as on a regular node.
+Power9 have the same software stack as the regular nodes and each software
+should be included to deploy your environment as on a regular node.
 
 
 .. _LMS: https://developer.ibm.com/linuxonpower/2019/05/17/performance-results-with-tensorflow-large-model-support-v2/
