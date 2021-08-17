@@ -74,15 +74,14 @@ for those nodes specifically.
 * Power9 nodes have 128 threads. (2 processors / 16 cores / 4 way SMT)
 * 4 x V100 SMX2 (16 GB) with NVLink
 * In a Power9 node GPUs and CPUs communicate with each other using NVLink
-  instead of PCIe.
-
-This allow them to communicate quickly between each other. More on LMS_
+  instead of PCIe. This allow them to communicate quickly between each other.
+  More on Large Model Support (LMS_)
 
 Power9 have the same software stack as the regular nodes and each software
 should be included to deploy your environment as on a regular node.
 
 
-.. _LMS: https://developer.ibm.com/linuxonpower/2019/05/17/performance-results-with-tensorflow-large-model-support-v2/
+.. _LMS: https://developer.ibm.com/articles/performance-results-with-lmstf2/
 .. _Power9: https://en.wikipedia.org/wiki/POWER9
 
 .. .. prompt:: bash $, auto
