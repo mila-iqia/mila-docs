@@ -50,6 +50,6 @@ Path                                        Performance Usage                   
 .. note:: **Auto-cleanup** is applied on files not read or modified during the
    specified period
 
-.. warning:: Currently there are no backup system in the lab. Storage local to
-   personal computers, Google Drive and other related solutions should be used
-   to backup important data
+.. warning:: Currently there is no backup system for the Mila cluster. Storage
+   local to personal computers, Google Drive and other related solutions should
+   be used to backup important data
