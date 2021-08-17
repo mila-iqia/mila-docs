@@ -162,7 +162,7 @@ The full documentation for jobs launching on Beluga can be found `here
 Beluga nodes description
 """"""""""""""""""""""""
 
-The GPU nodes consist of:
+Each GPU node consists of:
 
 * 40 CPU cores
 * 186 GB RAM
@@ -170,9 +170,9 @@ The GPU nodes consist of:
 
 .. tip:: You should ask for max 10 CPU cores and 32 GB of RAM per GPU you are
    requesting (as explained `here
-   <https://docs.computecanada.ca/wiki/Allocations_and_resource_scheduling>`__),
-   otherwise, your job will count for more than 1 allocation, and will take more
-   time to get scheduled.
+   <https://docs.computecanada.ca/wiki/Allocations_and_resource_scheduling>`_),
+   otherwise, your job will count for more than 1 allocation, and will take
+   more time to get scheduled.
 
 
 .. _cc_storage:
