@@ -22,7 +22,7 @@ cluster and this is accomplished through a *login node*. These so-called
 login nodes are the entry point to most clusters.
 
 Another entry point to some clusters such as the Mila cluster is the JupyterHub
-WEB interface, but we'll read about that later. For now let's return to the
+web interface, but we'll read about that later. For now let's return to the
 subject of this section; Login nodes. To connect to these, you would typically
 use a remote shell connection. The most usual tool to do so is SSH. You'll hear
 and read a lot about this tool. Imagine it as a very long (and somewhat
