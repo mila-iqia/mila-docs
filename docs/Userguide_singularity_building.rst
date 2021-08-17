@@ -86,7 +86,7 @@ Or the latest TensorFlow:
 
         singularity pull docker://tensorflow/tensorflow:latest-gpu-py3
 
-Currently the pulled image ``pytorch.simg`` or ``tensorflow.simg`` is read only
+Currently the pulled image ``pytorch.simg`` or ``tensorflow.simg`` is read-only
 meaning that you won't be able to install anything on it.  Starting now, PyTorch
 will be taken as example. If you use TensorFlow, simply replace every
 **pytorch** occurrences by **tensorflow**.
