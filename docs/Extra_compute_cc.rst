@@ -5,19 +5,19 @@
 Compute Canada Clusters
 =======================
 
-The clusters which are named `Beluga`, `Cedar`, `Graham`, `Helios` and `Niagara`
-are clusters provided by the `Compute Canada organisation
-<https://www.computecanada.ca>`_. For Mila researchers, these clusters are to be
-used for larger experiments having many jobs, multi-node computation and/or
+The clusters which are named `Beluga`, `Cedar`, `Graham`, `Helios` and
+`Niagara` are clusters provided by the `Compute Canada organisation
+<https://www.computecanada.ca>`_. For Mila researchers, these clusters are to
+be used for larger experiments having many jobs, multi-node computation and/or
 multi-GPU jobs as well as long running jobs.
 
 
 Current allocation description
 ------------------------------
 
-Clusters of Compute Canada are shared with researchers across all the country.
-Allocations are given by Compute Canada to selected research groups to ensure to
-a minimal amount of computational resources throughout the year.
+Clusters of Compute Canada are shared with researchers across the country.
+Allocations are given by Compute Canada to selected research groups to ensure
+to a minimal amount of computational resources throughout the year.
 
 Depending on your affiliation, you will have access to different allocations. If
 you are a student at University of Montreal, you can have access to the
