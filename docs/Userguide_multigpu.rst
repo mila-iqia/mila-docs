@@ -14,7 +14,7 @@ There are 2 types of preemption:
 - **On the cloud clusters:** virtual machines can be preempted as a limitation
   of less expensive virtual machines (spot/low priority)
 
-On the local cluster, the default preemption mechanism is to killed and re-queue
+On the local cluster, the default preemption mechanism is to kill and re-queue
 the job automatically without any notice. To allow a different preemption
 mechanism, every partition have been duplicated (i.e. have the same
 characteristics as their counterparts) allowing a **120sec** grace period before
