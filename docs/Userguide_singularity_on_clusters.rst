@@ -1,3 +1,4 @@
+.. _Using containers:
 
 Using containers on clusters
 ----------------------------

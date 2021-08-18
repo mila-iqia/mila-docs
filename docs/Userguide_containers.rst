@@ -1,3 +1,5 @@
+.. _Using containers:
+
 Using containers
 ================
 

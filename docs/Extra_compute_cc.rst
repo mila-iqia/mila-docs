@@ -117,8 +117,8 @@ Beluga
 
 Beluga is a cluster located at `ÉTS <https://www.etsmtl.ca/>`_ in Montreal. It
 uses _slurmpage to schedule jobs. Its full documentation can be found `here
-<https://docs.computecanada.ca/wiki/Béluga/en>`_, and its current status `here
-<http://status.computecanada.ca>`_.
+<https://docs.computecanada.ca/wiki/Béluga/en>`__, and its current status `here
+<http://status.computecanada.ca>`__.
 
 You can access Beluga via ssh:
 
@@ -170,7 +170,7 @@ Each GPU node consists of:
 
 .. tip:: You should ask for max 10 CPU cores and 32 GB of RAM per GPU you are
    requesting (as explained `here
-   <https://docs.computecanada.ca/wiki/Allocations_and_resource_scheduling>`_),
+   <https://docs.computecanada.ca/wiki/Allocations_and_resource_scheduling>`__),
    otherwise, your job will count for more than 1 allocation, and will take
    more time to get scheduled.
 

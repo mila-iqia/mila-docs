@@ -261,11 +261,16 @@ singularity-hub account to your GitHub account, then:
    #. Create a new github repository.
    #. Add a collection on `singularity-hub`_ and select the github repository your created.
    #. Clone the github repository on your computer.
+
       ::
+
          $ git clone <url>
+
    #. Write the singularity recipe and save it as a file named **Singularity**.
    #. Git add **Singularity**, commit and push on the master branch
+
       ::
+
          $ git add Singularity
          $ git commit
          $ git push origin master
