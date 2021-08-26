@@ -39,9 +39,9 @@ Path                                        Performance Usage                   
 * ``miniscratch`` can be used to store processed datasets, work in progress
   datasets or temporary job results. Its block size is optimized for small
   files which minimizes the performance hit of working on extracted datasets.
-  It supports Access Control Lists (ACLs) which can be used to share data
+  It aims to support Access Control Lists (ACLs) which can be used to share data
   between users. This space is cleared weekly and files older then 90 days will
-  be deleted.
+  be deleted. See :ref:`note on ACL availability above <no_acl_note>`.
 * ``$SLURM_TMPDIR`` points to the local disk of the node on which a job is
   running. It should be used to copy the data on the node at the beginning of
   the job and write intermediate checkpoints. This folder is cleared after each

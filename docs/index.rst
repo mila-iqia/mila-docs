@@ -15,6 +15,12 @@ Welcome to Mila's technical documentation. See contents below.
    Purpose
 
 .. toctree::
+   :caption: Getting Started
+   :maxdepth: 2
+
+   Getting_started
+
+.. toctree::
    :caption: Cluster Theory
    :maxdepth: 2
 
@@ -48,6 +54,7 @@ Welcome to Mila's technical documentation. See contents below.
 
 :Support: To reach the Mila infrastructure support, please file a ticket
    at https://it-support.mila.quebec/
+
 
 :Contribution: If you find any errors in the documentation, missing or unclear
    sections, or would simply like to contribute, please open an

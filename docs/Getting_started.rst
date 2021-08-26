@@ -1,4 +1,11 @@
 
+
+.. It seems this section would need to be broken up into the current existing
+  sections (cluster theory and / or user_guide), hence I am not reactivating this
+  section just yet.
+
+
+
 Getting started
 ===============
 
@@ -7,7 +14,7 @@ username should look like the first six letters of your last name and the first
 letter of your first name, but this may vary.
 
 
-Connect to the cluster 
+Connect to the cluster
 ----------------------
 
 First, make sure you have an ``ssh`` client installed. There should be one
@@ -160,7 +167,7 @@ For simplicity, let's download an example script from the Internet:
     wget TODO/example.py
 
 That script uses PyTorch. The cluster comes with appropriate modules to use it,
-for instance in this case we can load miniconda and then pytorch 1.7: 
+for instance in this case we can load miniconda and then pytorch 1.7:
 
 .. code-block:: bash
 
