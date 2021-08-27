@@ -1,5 +1,5 @@
 UNIX
-====
+****
 
 All clusters typically run on GNU/Linux distributions. Hence a minimum
 knowledge of GNU/Linux and BASH is usually required to use them. See the

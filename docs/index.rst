@@ -9,40 +9,30 @@ Welcome to Mila's technical documentation. See contents below.
 .. Link to chapters below.
 
 .. toctree::
-   :caption: Purpose
+   :caption: Introduction
    :maxdepth: 2
 
    Purpose
 
 .. toctree::
-   :caption: Getting Started
-   :maxdepth: 2
-
-   Getting_started
-
-.. toctree::
-   :caption: Cluster Theory
+   :caption: General theory
    :maxdepth: 2
 
    Theory_cluster
 
 .. toctree::
-   :caption: Information
+   :caption: Systems and services
    :maxdepth: 2
 
    Information
    Extra_compute
 
 .. toctree::
-   :caption: User Guide
+   :caption: How-tos and Guides
    :maxdepth: 2
 
+   Getting_started
    Userguide
-
-.. toctree::
-   :caption: Handbook
-   :maxdepth: 2
-
    Handbook
 
 .. toctree::

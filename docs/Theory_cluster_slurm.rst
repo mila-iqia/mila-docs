@@ -3,7 +3,7 @@
 .. _slurmpage:
 
 Slurm
------
+=====
 
 Resource sharing on a supercomputer/cluster is orchestrated by a resource
 manager/job scheduler.  Users submit jobs, which are scheduled and allocated

@@ -1,12 +1,12 @@
 Processing data
-===============
+***************
 
 For processing large amounts of data common for deep learning, either
 for dataset preprocessing or training, several techniques exist. Each
 has typical uses and limitations.
 
 Data parallelism
-----------------
+================
 
 The first technique is called **data parallelism** (aka task
 parallelism in formal computer science). You simply run lots of
@@ -33,7 +33,7 @@ their time waiting for data to arrive.
 
 
 Model parallelism
------------------
+=================
 
 The second technique is called **model parallelism** (which doesn't
 have a single equivalent in formal computer science). It is used
@@ -49,7 +49,7 @@ This is generally harder but necessary to work with larger, more
 powerful models like GPT.
 
 Communication concerns
-----------------------
+======================
 
 The main difference of these two approaches is the need for
 communication between the multiple processes. Some common training
@@ -76,7 +76,7 @@ support (such as `InfiniBand <https://en.wikipedia.org/wiki/InfiniBand>`_,
 
 
 Filesystem concerns
--------------------
+===================
 
 When working on a cluster, you will generally encounter several
 different filesystems.  Usually there will be names such as 'home',

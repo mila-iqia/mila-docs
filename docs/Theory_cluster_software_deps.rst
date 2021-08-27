@@ -1,5 +1,5 @@
 Software on the cluster
-=======================
+***********************
 
 This section aims to raise awareness to problems one can encounter when trying
 to run a software on different computers and how this is dealt with on typical
@@ -15,7 +15,7 @@ Python packages in isolation.
 
 
 Cluster software modules
-------------------------
+========================
 
 Modules are small files which modify your environment variables to point to
 specific versions of various software and libraries. For instance, a module
@@ -27,7 +27,7 @@ For more information, see :ref:`The module command`.
 
 
 Containers
-----------
+==========
 
 Containers are a special form of isolation of software and its dependencies. A
 container is essentially a lightweight virtual machine: it encapsulates a
@@ -43,7 +43,7 @@ For more information, see :ref:`Using containers`.
 
 
 Python Virtual environments
----------------------------
+===========================
 
 A virtual environment in Python is a local, isolated environment in which you
 can install or uninstall Python packages without interfering with the global

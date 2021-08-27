@@ -1,5 +1,5 @@
 The batch scheduler
-===================
+*******************
 
 Once connected to a login node, presumably with SSH, you can issue a job
 execution request to what is called the job scheduler. The job scheduler used

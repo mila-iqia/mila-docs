@@ -1,5 +1,5 @@
 Parts of a computing cluster
-============================
+****************************
 
 To provide high performance computation capabilities, clusters can
 combine hundreds to thousands of computers, called *nodes*, which are all
@@ -15,7 +15,7 @@ typical cluster.
 
 
 The login nodes
----------------
+===============
 
 To execute computing processes on a cluster, you must first connect to a
 cluster and this is accomplished through a *login node*. These so-called
@@ -32,7 +32,7 @@ a terminal shell is if you ever used the command line.
 
 
 The compute nodes
------------------
+=================
 
 In the field of artificial intelligence, you will usually be on the hunt for
 GPUs. In most clusters, the compute nodes are the ones with GPU capacity.
@@ -48,7 +48,7 @@ of *which* nodes your code is running on.  More on that later.
 
 
 The storage nodes
------------------
+=================
 
 Some computers on a cluster function to only store and serve files.  While the
 name of these computers might matter to some, as a user, you'll only be
@@ -57,7 +57,7 @@ data` section.
 
 
 Different nodes for different uses
-----------------------------------
+==================================
 
 It is important to note here the difference in intended uses between the
 compute nodes and the login nodes. While the compute nodes are meant for heavy

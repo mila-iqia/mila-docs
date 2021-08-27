@@ -1,7 +1,7 @@
 .. _userguide:
 
-Users Guide
-***********
+User's guide
+************
 
 ...or *IDT's list of opinionated howtos*
 
