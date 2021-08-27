@@ -248,13 +248,13 @@ Check on the status of your jobs with:
     evaluated locally before ssh is even executed).
 
 
-Best practices
---------------
+.. Best practices
+   --------------
 
-TODO: Links to how to handle datasets, how to create Python projects, etc.
+   TODO: Links to how to handle datasets, how to create Python projects, etc.
 
 
-Other resources
----------------
+   Other resources
+   ---------------
 
-TODO: Links to whatever may be useful to beginners
+   TODO: Links to whatever may be useful to beginners
