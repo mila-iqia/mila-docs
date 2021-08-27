@@ -248,7 +248,7 @@ Or to get the list of all your previous jobs, use the ``--start=####`` flag
 
 .. prompt:: bash
 
-   sacct -u my_username --start=20190101
+   sacct -u my_username --start=2019-01-01
 
 
 ``scontrol`` (`ref. <https://slurm.schedmd.com/scontrol.html>`__) can be used to
@@ -313,7 +313,7 @@ Useful Commands
 
 salloc
         Get an interactive job and give you a shell. (ssh like) CPU only
-salloc \--gres=gpu -c 2 \--mem=12000
+salloc \--gres=gpu:1 -c 2 \--mem=12000
         Get an interactive job with one GPU, 2 CPUs and 12000 MB RAM
 sbatch
         start a batch job (same options as salloc)
