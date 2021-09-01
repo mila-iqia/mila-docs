@@ -1,0 +1,5 @@
+syntax: glob
+
+docs/_build/*
+env/*
+*/*.swp

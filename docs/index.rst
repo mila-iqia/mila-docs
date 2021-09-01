@@ -1,50 +1,53 @@
-Mila documentation
-------------------
+Mila technical documentation
+############################
 
-This documentation aims to cover the information required to run scientific
-and data-intensive computing tasks at Mila and the available resources for its
-members. It is targeted towards Mila researchers and students.
+.. First and only part to the documentation.
 
-:Support: To reach the Mila infrastructure support, please file a ticket
-   at https://it-support.mila.quebec/
+Welcome to Mila's technical documentation. See contents below.
 
-:Contribution: If you find any error in the documentation, missing or unclear
-   sections, or would simply like to contribute, please open an
-   issue or make a pull request on the `github page
-   <https://github.com/mila-iqia/mila-docs>`_.
 
+.. Link to chapters below.
 
 .. toctree::
    :caption: Introduction
    :maxdepth: 2
 
-   cluster_intro
+   Purpose
 
 .. toctree::
-   :caption: The batch scheduler: Slurm
+   :caption: General theory
    :maxdepth: 2
 
-   slurm/index
-   slurm/advanced
+   Theory_cluster
 
 .. toctree::
-   :caption: Computing Clusters
-   :maxdepth: 1
-
-   mila-cluster/index
-   compute-canada-cluster/index
-
-.. toctree::
-   :caption: Software
+   :caption: Systems and services
    :maxdepth: 2
 
-   software/index
-   software/python
-   software/tools
+   Information
+   Extra_compute
 
 .. toctree::
-   :caption: Containers
+   :caption: How-tos and Guides
    :maxdepth: 2
 
-   docker/index
-   singularity/index
+   Getting_started
+   Userguide
+   Handbook
+
+.. toctree::
+   :caption: Extras
+   :maxdepth: 2
+
+   Audio_video
+   IDT
+
+:Support: To reach the Mila infrastructure support, please file a ticket
+   at https://it-support.mila.quebec/
+
+
+:Contribution: If you find any errors in the documentation, missing or unclear
+   sections, or would simply like to contribute, please open an
+   issue or make a pull request on the `github page
+   <https://github.com/mila-iqia/mila-docs>`_.
+

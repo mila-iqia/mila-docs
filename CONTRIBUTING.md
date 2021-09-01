@@ -1,6 +1,7 @@
 # Contributing to the Mila Docs
 
 Thank you for your interest into making a better documentation for all at Mila.
+
 Here are some guidelines to help bring your contributions to life.
 
 ## What should be included in the Mila Docs
@@ -46,7 +47,12 @@ This will produce the html version of the documentation which you can navigate
 by opening the local file `docs/_build/index.html`.
 
 If you have any trouble building the docs, don't hesitate to open an issue to
-request help.
+request help. 
+
+Regarding the restructured text format, you can simply provide the content 
+you would like to add in markdown or plain text format if more convenient 
+for you and someone down the line should take responsibility to convert 
+the format.
 
 ## Sphinx / reStructuredText (reST)
 
@@ -54,8 +60,10 @@ The markup language used for the Mila Docs is
 [reStructuredText](http://docutils.sourceforge.net/rst.html) and we follow the
 [Python’s Style Guide for documenting](https://docs.python.org/devguide/documenting.html#style-guide).
 
-Here are some of reST syntax useful to know (more can be found in
+Here are some of reST syntax directives which are useful to know :
+(more can be found in
 [Sphinx's reST Primer](https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html)):
+
 
 ### Inline markup
 
@@ -100,4 +108,19 @@ suggesting the following convention:
 ```reST
 .. note:: This is a long
    long long note
+```
+
+### Collapsible boxes
+
+This is a local extension, not part of Sphinx itself.  It works like this:
+
+```reST
+.. container:: toggle
+
+    .. container:: header
+
+        **Show/Hide Code**
+
+    .. code-block:: <type>
+       ...
 ```
