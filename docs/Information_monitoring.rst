@@ -19,11 +19,11 @@ of the Mila cluster and to sound the alarm if outages occur
 (e.g. if the nodes crash or if GPUs mysteriously become unavailable for SLURM).
 
 
-Example with Netdata on cn_c001
+Example with Netdata on cn-c001
 -------------------------------
 
-For example, if we have a job running on ``cn_c001``, we can type
-``cn_c001.server.mila.quebec:19999`` in a browser address bar and the following
+For example, if we have a job running on ``cn-c001``, we can type
+``cn-c001.server.mila.quebec:19999`` in a browser address bar and the following
 page will appear.
 
 .. image:: monitoring.png
