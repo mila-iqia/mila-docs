@@ -111,7 +111,7 @@ To display *jobs* currently in queue, use ``squeue`` and to get only your jobs t
 
    $ squeue -u $USER
     JOBID   USER          NAME    ST  START_TIME         TIME NODES CPUS TRES_PER_NMIN_MEM NODELIST (REASON) COMMENT
-    133     my_username   myjob   R   2019-03-28T18:33   0:50     1    2        N/A  7000M c1-8g-tiny1 (None) (null)
+    133     my_username   myjob   R   2019-03-28T18:33   0:50     1    2        N/A  7000M node1 (None) (null)
 
 
 Removing a job
@@ -237,18 +237,18 @@ the fields you want to display
 
 .. prompt:: bash $, auto
 
-   $ sacct --format=User,JobID,Jobname,partition,state,time,start,end,elapsed,nnodes,ncpus,nodelist,workdir -u username
+   $ sacct --format=User,JobID,Jobname,partition,state,time,start,end,elapsed,nnodes,ncpus,nodelist,workdir -u $USER
          User        JobID    JobName  Partition      State  Timelimit               Start                 End    Elapsed   NNodes      NCPUS        NodeList              WorkDir
     --------- ------------ ---------- ---------- ---------- ---------- ------------------- ------------------- ---------- -------- ---------- --------------- --------------------
-    username  2398         run_extra+ azureComp+    RUNNING 130-05:00+ 2019-03-27T18:33:43             Unknown 1-01:07:54        1         16 node9           /home/mila/username+
-    username  2399         run_extra+ azureComp+    RUNNING 130-05:00+ 2019-03-26T08:51:38             Unknown 2-10:49:59        1         16 node9           /home/mila/username+
+    my_usern+ 2398         run_extra+      batch    RUNNING 130-05:00+ 2019-03-27T18:33:43             Unknown 1-01:07:54        1         16 node9           /home/mila/my_usern+
+    my_usern+ 2399         run_extra+      batch    RUNNING 130-05:00+ 2019-03-26T08:51:38             Unknown 2-10:49:59        1         16 node9           /home/mila/my_usern+
 
 
 Or to get the list of all your previous jobs, use the ``--start=####`` flag
 
 .. prompt:: bash
 
-   sacct -u my_username --start=2019-01-01
+   sacct -u $USER --start=2019-01-01
 
 
 ``scontrol`` (`ref. <https://slurm.schedmd.com/scontrol.html>`__) can be used to
@@ -388,7 +388,7 @@ Here is a ``sbatch`` script that follows good practices on the Mila cluster:
    :linenos:
 
    #!/bin/bash
-   #SBATCH --partition=unkillable                      # Ask for unkillable job
+   #SBATCH --partition=unkillable                # Ask for unkillable job
    #SBATCH --cpus-per-task=2                     # Ask for 2 CPUs
    #SBATCH --gres=gpu:1                          # Ask for 1 GPU
    #SBATCH --mem=10G                             # Ask for 10 GB of RAM
