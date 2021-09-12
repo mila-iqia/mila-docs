@@ -10,8 +10,9 @@ Getting started
 ===============
 
 **Before starting:** get your Mila cluster account ready. Typically, your
-username should look like the first six letters of your last name and the first
-letter of your first name, but this may vary.
+username is identical to your Mila account (the part before ``@mila.quebec``).
+In some special cases, it may look like the first seven letters of your last
+name and the first letter of your first name, but this may vary.
 
 
 Connect to the cluster
