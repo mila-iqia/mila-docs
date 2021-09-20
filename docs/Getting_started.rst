@@ -15,6 +15,19 @@ In some special cases, it may look like the first seven letters of your last
 name and the first letter of your first name, but this may vary.
 
 
+.. tip::
+    The milatools_ package defines a ``mila init`` command which will walk you
+    through several of the steps defined below. You can install it with ``pip``
+    and use it, provided your Python version is at least 3.8:
+
+    .. code-block:: bash
+
+        $ pip install milatools
+        $ mila init
+
+.. _milatools: https://github.com/mila-iqia/milatools
+
+
 Connect to the cluster
 ----------------------
 

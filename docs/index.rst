@@ -40,6 +40,7 @@ Welcome to Mila's technical documentation. See contents below.
    :maxdepth: 2
 
    Audio_video
+   VSCode
    IDT
 
 :Support: To reach the Mila infrastructure support, please file a ticket
