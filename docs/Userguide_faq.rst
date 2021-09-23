@@ -34,7 +34,7 @@ How can I get an interactive shell on the cluster ?
 Use ``salloc [--slurm_options]`` without any executable at the end of the
 command, this will launch your default shell on an interactive session. Remember
 that an interactive session is bound to the login node where you start it so you
-could risk loosing your job if the login node becomes unreachable.
+could risk losing your job if the login node becomes unreachable.
 
 
 How can I reset my cluster password ?
