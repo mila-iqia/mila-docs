@@ -3,15 +3,9 @@ Data sharing policies
 
 .. _no_acl_note:
 
-.. note:: `/miniscratch <Information.html#storage>`_ aims to support Access
-   Control Lists (ACL) to allows collaborative work on rapidly changing data, e.g.
-   work in process datasets, model checkpoints, etc...
-
-
-   As of august 2021, licensing issues on our filesystem keeps us from
-   activating ACL functionalities. To benefit from sharing functionalities,
-   please contact the IT support who will configure the UNIX groups according to
-   your needs.
+.. note:: To benefit from sharing functionalities on ``/network/scratch``,
+   please contact the IT support who will configure the UNIX groups according
+   to your needs.
 
 
 `/network/projects <Information.html#storage>`_ aims to offer a collaborative
