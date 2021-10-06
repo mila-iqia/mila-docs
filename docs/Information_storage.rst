@@ -15,11 +15,9 @@ Path                                        Performance Usage                   
                                                         * Long-term project storage
 ``/network/data1/``                         High        * Raw datasets (read only)
 ``/network/datasets/``                      High        * Curated raw datasets (read only)
-``/miniscratch/``                           High        * Temporary job results                                    90 days
+``/network/scratch/``                       High        * Temporary job results                                    90 days
                                                         * Processed datasets
                                                         * Optimized for small Files
-                                                        * Supports ACL to help share the
-                                                          data with others
 ``$SLURM_TMPDIR``                           Highest     * High speed disk for temporary job    4T/-                at job end
                                                           results
 =========================================== =========== ====================================== =================== ============
@@ -36,12 +34,10 @@ Path                                        Performance Usage                   
   <https://forms.gle/vDVwD2rZBmYHENgZA>`_.
 * ``data1`` should only contain **compressed** datasets. `Now deprecated and
   replaced by the` ``datasets`` `space.`
-* ``miniscratch`` can be used to store processed datasets, work in progress
+* ``scratch`` can be used to store processed datasets, work in progress
   datasets or temporary job results. Its block size is optimized for small
   files which minimizes the performance hit of working on extracted datasets.
-  It aims to support Access Control Lists (ACLs) which can be used to share data
-  between users. This space is cleared weekly and files older then 90 days will
-  be deleted. See :ref:`note on ACL availability above <no_acl_note>`.
+  This space is cleared weekly and files older then 90 days will be deleted.
 * ``$SLURM_TMPDIR`` points to the local disk of the node on which a job is
   running. It should be used to copy the data on the node at the beginning of
   the job and write intermediate checkpoints. This folder is cleared after each
