@@ -145,7 +145,7 @@ If you wish, you may also add the following wildcard rule in your ``.ssh/config`
 
     Host *.server.mila.quebec
         HostName %h
-        User breuleuo
+        User YOUR-USERNAME
         ProxyJump mila
 
 This will let you connect to a compute node with ``ssh <node>.server.mila.quebec``.
