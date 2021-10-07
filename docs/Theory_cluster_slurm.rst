@@ -5,10 +5,11 @@
 Slurm
 =====
 
-Resource sharing on a supercomputer/cluster is orchestrated by a resource
-manager/job scheduler.  Users submit jobs, which are scheduled and allocated
-resources (CPU time, memory, GPUs, etc.) by the resource manager. If the
-resources are available the job can start otherwise it will be placed in queue.
+Resource sharing on a supercomputer/cluster is orchestrated by a
+workload manager. Users submit jobs, which are scheduled and allocated
+resources (CPU time, memory, GPUs, etc.) by the workload manager. If
+the resources are available the job can start otherwise it will be
+placed in queue.
 
 On a cluster, users don't have direct access to the compute nodes but instead
 connect to a login node to pass the commands they would like to execute in a
