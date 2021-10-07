@@ -25,25 +25,27 @@ you are a student at University of Montreal, you can have access to the
 universities, you should ask your advisor to know which allocations you could
 have access to.
 
-From Compute Canada's documentation: `An allocation is an amount of resources
-that a research group can target for use for a period of time, usually a year.`
-To be clear, it is not a maximal amount of resources that can be used
-simultaneously, it is a weighting factor of the job scheduler to balance jobs.
-For instance, even though we are allocated 150 GPU-years on a cluster, we can
-use more or less than 150 GPUs simultaneously depending on the history of usage
-from our group and other groups using the cluster at a given period of time.
+From Compute Canada's documentation: `An allocation is an amount of
+resources that a research group can target for use for a period of
+time, usually a year.` To be clear, it is not a maximal amount of
+resources that can be used simultaneously, it is a weighting factor of
+the workload manager to balance jobs.  For instance, even though we
+are allocated 150 GPU-years on a cluster, we can use more or less than
+150 GPUs simultaneously depending on the history of usage from our
+group and other groups using the cluster at a given period of time.
 Please see Compute Canada's `documentation
-<https://docs.computecanada.ca/wiki/Allocations_and_resource_scheduling>`__ for
-more information on how allocations and resource scheduling are configured for
-these installations.
+<https://docs.computecanada.ca/wiki/Allocations_and_resource_scheduling>`__
+for more information on how allocations and resource scheduling are
+configured for these installations.
 
 .. Il est possiblement dangeureux de donner le nom de compte de Yoshua sur un
    site publiquement disponible.
 
-The table below provides information on the allocation for ``rrg-bengioy-ad`` for
-the period which spans from April 2021 to April 2022. Note that there are no
-special allocations for CPUs on Cedar and Graham and therefore jobs without GPUs
-should be submitted with the account ``def-bengioy``.
+The table below provides information on the allocation for
+``rrg-bengioy-ad`` for the period which spans from April 2021 to
+April 2022. Note that there are no special allocations for CPUs on
+Cedar and Graham and therefore jobs without GPUs should be submitted
+with the account ``def-bengioy``.
 
 
 +------------------------+-----------------------+--------------------------------------------------------+

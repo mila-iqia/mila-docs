@@ -66,7 +66,7 @@ individual tasks can generally be scheduled indepandantly.
 
 On the contrary for model parallelism you need to pay more attention
 to where your tasks are.  In this case it is usually required to use
-the facilities of the job scheduler to group the tasks so that they
+the facilities of the workload manager to group the tasks so that they
 are on the same machine or machines that are closely linked to ensure
 optimal communication.  What is the best allocation depends on the
 specific cluster architecture available and the technologies it
