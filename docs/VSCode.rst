@@ -50,3 +50,28 @@ executable for your environment.
     If you already have the environment activated in a terminal session, you can run the command
     ``which python`` to get the path for this environment. This path can be pasted into the
     interpreter selection prompt in VSCode to use that same environment.
+
+
+Troubleshooting
+---------------
+
+"Cannot reconnect"
+^^^^^^^^^^^^^^^^^^
+
+When connecting to multiple compute nodes (and/or from multiple computers), some instances may crash with that message because of conflicts in the lock files VSCode installs in ``~/.vscode-server`` (which is shared on all compute nodes through NFS). To fix this issue, you can change this setting in your ``settings.json`` file:
+
+.. code-block:: json
+
+    "remote.SSH.lockfilesInTmp": true
+
+This will store the necessary lockfiles in ``/tmp`` on the compute nodes (which are not shared through NFS).
+
+
+Debugger timeouts
+^^^^^^^^^^^^^^^^^
+
+Sometimes, slowness on the compute node or the networked filesystem might cause the VSCode debugger to timeout when starting a remote debug process. As a quick fix, you can add this to your ``~/.bashrc`` or ``~/.profile`` or equivalent resource file for your preferred shell, to increase the timeout delay to 500 seconds:
+
+.. code-block:: bash
+
+    export DEBUGPY_PROCESS_SPAWN_TIMEOUT=500
