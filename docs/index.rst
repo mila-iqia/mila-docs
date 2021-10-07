@@ -31,7 +31,6 @@ Welcome to Mila's technical documentation. See contents below.
    :caption: How-tos and Guides
    :maxdepth: 2
 
-   Getting_started
    Userguide
    Handbook
 
