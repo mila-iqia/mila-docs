@@ -57,10 +57,9 @@ mila init
 ---------
 
 To make it easier to set up a productive environment, Mila publishes the
-milatools_ package, which defines
-a ``mila init`` command which will automatically perform some of the below steps
-for you. You can install it with ``pip`` and use it, provided your Python
-version is at least 3.8:
+milatools_ package, which defines a ``mila init`` command which will
+automatically perform some of the below steps for you. You can install it with
+``pip`` and use it, provided your Python version is at least 3.8:
 
 .. code-block:: bash
 
