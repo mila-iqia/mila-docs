@@ -58,13 +58,13 @@ Troubleshooting
 "Cannot reconnect"
 ^^^^^^^^^^^^^^^^^^
 
-When connecting to multiple compute nodes (and/or from multiple computers), some instances may crash with that message because of conflicts in the lock files VSCode installs in ``~/.vscode-server`` (which is shared on all compute nodes through NFS). To fix this issue, you can change this setting in your ``settings.json`` file:
+When connecting to multiple compute nodes (and/or from multiple computers), some instances may crash with that message because of conflicts in the lock files VSCode installs in ``~/.vscode-server`` (which is shared on all compute nodes). To fix this issue, you can change this setting in your ``settings.json`` file:
 
 .. code-block:: json
 
     "remote.SSH.lockfilesInTmp": true
 
-This will store the necessary lockfiles in ``/tmp`` on the compute nodes (which are not shared through NFS).
+This will store the necessary lockfiles in ``/tmp`` on the compute nodes (which are local to the node).
 
 
 Debugger timeouts
