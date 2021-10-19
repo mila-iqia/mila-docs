@@ -92,7 +92,7 @@ only until some other job needs the resources.
 Admin policy will determine what those exact limits are for a
 particular cluster or user and whether they are hard or soft limits.
 
-They way soft limits are enforced is using preemption, which means
+The way soft limits are enforced is using preemption, which means
 that when another job needs the resources that your job is using your
 job will receive a singal that it needs to save its state and exit.
 It will be given a certain amount of time to do this (the grace
