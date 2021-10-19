@@ -62,7 +62,7 @@ queue.
 About partitions
 ----------------
 
-The workload manger will divide the cluster into partitions according
+The workload manager will divide the cluster into partitions according
 to the configuration set by the admins. A partition is a set of
 machines typically reserved for a particular purpose. An example might
 be CPU-only machines for preprocessing setup as a separate partition.
