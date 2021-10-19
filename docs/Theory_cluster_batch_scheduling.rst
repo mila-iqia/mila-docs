@@ -110,7 +110,7 @@ will need (RAM, CPUs, GPUs, ...). Some of those may have default
 values and not explicitely defined. For certain types of devices, like
 GPUs, access to units over your job limit is made unavailable. For
 others, like RAM, usage is monitored and your job will be terminated
-if it goes too much over.  This makes it important to ensure you
+if it goes too much over. This makes it important to ensure you
 estimate resource usage accurately.
 
 
