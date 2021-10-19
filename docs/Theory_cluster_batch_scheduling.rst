@@ -83,7 +83,7 @@ compatible with all of it (for example x86 and POWER cpus).
 Exceding limits (preemption and grace periods)
 ----------------------------------------------
 
-To ensure a fair share of the computing resources for all the workload
+To ensure a fair share of the computing resources for all, the workload
 manager establishes limits on the amount of resources that a single
 user can use at once. These can be hard limits which prevent running
 jobs when you go over or soft limits which will let you run jobs, but
