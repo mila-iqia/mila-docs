@@ -13,7 +13,7 @@ Anatomy of a job
 
 A job is comprised of a number of steps that will run one after the
 other. This is done so that you can schedule a sequence of processes
-that can use the results of the previous steps without haveing to
+that can use the results of the previous steps without having to
 manually interact with the scheduler.
 
 Each step can have any number of task which are groups of processes
