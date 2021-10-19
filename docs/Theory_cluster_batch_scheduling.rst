@@ -5,7 +5,7 @@ On a cluster, users don't have direct access to the compute nodes but
 instead connect to a login node and add jobs to the workload manager
 queue. Whenever there are resources available to execute these jobs
 they will be allocated to a compute node and run, which can be
-immediatly or wait for several days.
+immediately or after a wait of up to several days.
 
 
 Anatomy of a job
@@ -92,26 +92,26 @@ only until some other job needs the resources.
 Admin policy will determine what those exact limits are for a
 particular cluster or user and whether they are hard or soft limits.
 
-The way soft limits are enforced is using preemption, which means
-that when another job needs the resources that your job is using your
-job will receive a signal that it needs to save its state and exit.
-It will be given a certain amount of time to do this (the grace
-period, which may be 0s) and then forcefully terminated if it is still
-running.
+The way soft limits are enforced is using preemption, which means that
+when another job with higher priority needs the resources that your
+job is using your job will receive a signal that it needs to save its
+state and exit. It will be given a certain amount of time to do this
+(the grace period, which may be 0s) and then forcefully terminated if
+it is still running.
 
 Depending on the workload manager in use and the cluster configuration
 a job that is preempted like this may be automatically rescheduled to
 have a chance to finish or it may be up to the job to reschedule
 itself.
 
-The other limit you can encounter with a job that goes over job
-limits. When you schedule a job, you declare how much resources it
-will need (RAM, CPUs, GPUs, ...). Some of those may have default
-values and not explicitely defined. For certain types of devices, like
-GPUs, access to units over your job limit is made unavailable. For
-others, like RAM, usage is monitored and your job will be terminated
-if it goes too much over. This makes it important to ensure you
-estimate resource usage accurately.
+The other limit you can encounter with a job that goes over its
+declared limits. When you schedule a job, you declare how much
+resources it will need (RAM, CPUs, GPUs, ...). Some of those may have
+default values and not be explicitely defined. For certain types of
+devices, like GPUs, access to units over your job limit is made
+unavailable. For others, like RAM, usage is monitored and your job
+will be terminated if it goes too much over. This makes it important
+to ensure you estimate resource usage accurately.
 
 
 .. This should be somewhere else, but I don't know where.
