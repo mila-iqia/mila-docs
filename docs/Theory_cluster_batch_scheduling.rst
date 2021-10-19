@@ -16,7 +16,7 @@ other. This is done so that you can schedule a sequence of processes
 that can use the results of the previous steps without having to
 manually interact with the scheduler.
 
-Each step can have any number of task which are groups of processes
+Each step can have any number of tasks which are groups of processes
 that can be scheduled independently on the cluster but can run in
 parallel if there are resources available. The distinction between
 steps and tasks is that multiple tasks, if they are part of the same
