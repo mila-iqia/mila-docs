@@ -94,7 +94,7 @@ particular cluster or user and whether they are hard or soft limits.
 
 The way soft limits are enforced is using preemption, which means that
 when another job with higher priority needs the resources that your
-job is using your job will receive a signal that it needs to save its
+job is using, your job will receive a signal that it needs to save its
 state and exit. It will be given a certain amount of time to do this
 (the grace period, which may be 0s) and then forcefully terminated if
 it is still running.
