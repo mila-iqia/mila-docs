@@ -20,7 +20,7 @@ Each step can have any number of tasks which are groups of processes
 that can be scheduled independently on the cluster but can run in
 parallel if there are resources available. The distinction between
 steps and tasks is that multiple tasks, if they are part of the same
-step, cannot depend on results of other task because there are no
+step, cannot depend on results of other tasks because there are no
 guarantees on the order in which they will be executed.
 
 Finally each process group is the basic unit that is scheduled in the
