@@ -31,7 +31,6 @@ Welcome to Mila's technical documentation. See contents below.
    :caption: How-tos and Guides
    :maxdepth: 2
 
-   Getting_started
    Userguide
    Handbook
 
@@ -40,6 +39,7 @@ Welcome to Mila's technical documentation. See contents below.
    :maxdepth: 2
 
    Audio_video
+   VSCode
    IDT
 
 :Support: To reach the Mila infrastructure support, please file a ticket
