@@ -389,12 +389,12 @@ Here is a ``sbatch`` script that follows good practices on the Mila cluster:
 
    #!/bin/bash
 
-   #SBATCH --partition=unkillable                        # Ask for unkillable job
-   #SBATCH --cpus-per-task=2                             # Ask for 2 CPUs
-   #SBATCH --gres=gpu:1                                  # Ask for 1 GPU
-   #SBATCH --mem=10G                                     # Ask for 10 GB of RAM
-   #SBATCH --time=3:00:00                                # The job will run for 3 hours
-   #SBATCH -o /miniscratch/<u>/<username>/slurm-%j.out   # Write the log on scratch
+   #SBATCH --partition=unkillable                           # Ask for unkillable job
+   #SBATCH --cpus-per-task=2                                # Ask for 2 CPUs
+   #SBATCH --gres=gpu:1                                     # Ask for 1 GPU
+   #SBATCH --mem=10G                                        # Ask for 10 GB of RAM
+   #SBATCH --time=3:00:00                                   # The job will run for 3 hours
+   #SBATCH -o /network/scratch/<u>/<username>/slurm-%j.out  # Write the log on scratch
 
    # 1. Load the required modules
    module --quiet load anaconda/3
@@ -410,4 +410,4 @@ Here is a ``sbatch`` script that follows good practices on the Mila cluster:
    python main.py --path $SLURM_TMPDIR --data_path $SLURM_TMPDIR
 
    # 5. Copy whatever you want to save on $SCRATCH
-   cp $SLURM_TMPDIR/<to_save> /miniscratch/<u>/<username>/
+   cp $SLURM_TMPDIR/<to_save> /network/scratch/<u>/<username>/
