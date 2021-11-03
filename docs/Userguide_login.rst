@@ -142,7 +142,7 @@ If you wish, you may also add the following wildcard rule in your ``.ssh/config`
 
 .. code-block::
 
-    Host *.server.mila.quebec
+    Host *.server.mila.quebec !*login.server.mila.quebec
         HostName %h
         User YOUR-USERNAME
         ProxyJump mila
