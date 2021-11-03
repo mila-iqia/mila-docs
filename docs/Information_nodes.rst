@@ -62,6 +62,20 @@ Node profile description
 Special nodes and outliers
 --------------------------
 
+DGX A100
+^^^^^^^^
+
+.. _dgx_a100_nodes:
+
+DGX A100 nodes are NVIDIA appliances with 8 NVIDIA A100 Tensor Core GPUs. Each
+GPU has 40 GB of memory, for a total of 320 GB per appliance. The GPUs are
+interconnected via 6 NVSwitches which allows 4.8 TB/s bi-directional bandwidth.
+
+In order to run jobs on a DGX A100, add the flags below to your Slurm
+commands::
+
+    --gres=gpu:a100:<number> --reservation=DGXA100
+
 Power9
 ^^^^^^
 
