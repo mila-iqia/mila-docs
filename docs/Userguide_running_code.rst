@@ -115,7 +115,7 @@ To display *jobs* currently in queue, use ``squeue`` and to get only your jobs t
 
 .. note::
 
-   The maximum number of jobs able to be submitted to the system per user is 1000 ( MaxSubmitJobs=1000) 
+   The maximum number of jobs able to be submitted to the system per user is 1000 (MaxSubmitJobs=1000) 
    at any given time from the given association. If this limit is reached, new submission requests 
    will be denied until existing jobs in this association complete.
 
