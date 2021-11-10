@@ -113,6 +113,12 @@ To display *jobs* currently in queue, use ``squeue`` and to get only your jobs t
     JOBID   USER          NAME    ST  START_TIME         TIME NODES CPUS TRES_PER_NMIN_MEM NODELIST (REASON) COMMENT
     133     my_username   myjob   R   2019-03-28T18:33   0:50     1    2        N/A  7000M node1 (None) (null)
 
+.. note::
+
+   The maximum number of jobs able to be submitted to the system per user is 1000 (MaxSubmitJobs=1000) 
+   at any given time from the given association. If this limit is reached, new submission requests 
+   will be denied until existing jobs in this association complete.
+
 
 Removing a job
 ^^^^^^^^^^^^^^
