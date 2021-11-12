@@ -118,7 +118,7 @@ Beluga
 ^^^^^^
 
 Beluga is a cluster located at `ÉTS <https://www.etsmtl.ca/>`_ in Montreal. It
-uses _slurmpage to schedule jobs. Its full documentation can be found `here
+uses SLURM to schedule jobs. Its full documentation can be found `here
 <https://docs.computecanada.ca/wiki/Béluga/en>`__, and its current status `here
 <http://status.computecanada.ca>`__.
 

@@ -17,7 +17,7 @@ hyperparameter optimisation.
 
 For really small computations the time to setup multiple processes
 might be longer than the processing time and lead to waste. This can
-be addressed by bunching up some of the processes toghether by doing
+be addressed by bunching up some of the processes together by doing
 sequential processing of sub-partitions of the data.
 
 For the cluster systems it is also inadvisable to launch thousands of
@@ -60,9 +60,9 @@ end.
 
 In general for data parallelism tasks or tasks that communicate
 infrequently it doesn't make a lot of difference where the processes
-sit because the communcation bandwidth and latency will not have a
+sit because the communication bandwidth and latency will not have a
 lot of impact on the time it takes to complete the job.  The
-individual tasks can generally be scheduled indepandantly.
+individual tasks can generally be scheduled independently.
 
 On the contrary for model parallelism you need to pay more attention
 to where your tasks are.  In this case it is usually required to use
@@ -107,7 +107,7 @@ for, and are there backups.
 
 Some filesystems will have a limit on how long they keep their
 files. Typically the limit is some number of days (like 90 days) but
-can also be 'as long as the jub runs' for some.
+can also be 'as long as the job runs' for some.
 
 As for backups, some filesystems will not have a limit for data, but
 will also not have backups. For those it is important to maintain a
