@@ -8,7 +8,7 @@ Storage
 =========================================== =========== ====================================== =================== ============
 Path                                        Performance Usage                                  Quota (Space/Files) Auto-cleanup
 =========================================== =========== ====================================== =================== ============
-``$HOME`` or ``/home/mila/<u>/<username>/`` Low         * Personal user space                  200G/1000K
+``$HOME`` or ``/home/mila/<u>/<username>/`` Low         * Personal user space                  100G/1000K
                                                         * Specific libraries, code, binaries
 ``/network/projects/<groupname>/``          Fair        * Shared space to facilitate           200G/1000K
                                                           collaboration between researchers
