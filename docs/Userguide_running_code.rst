@@ -250,7 +250,7 @@ the fields you want to display
     my_usern+ 2399         run_extra+      batch    RUNNING 130-05:00+ 2019-03-26T08:51:38             Unknown 2-10:49:59        1         16 node9           /home/mila/my_usern+
 
 
-Or to get the list of all your previous jobs, use the ``--start=####`` flag
+Or to get the list of all your previous jobs, use the ``--start=YYYY-MM-DD`` flag. You can check ``sacct(1)`` for further information about additional time formats.
 
 .. prompt:: bash
 
