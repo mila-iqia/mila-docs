@@ -1,6 +1,19 @@
 Hyperparameter Optimization
 ===========================
 
+Hyperparameter optimization is very easy to parallelize as each trial (unique set of hyperparameters) are
+independant of each other. The easiest way is to launch as many jobs as possible each trying a different
+set of hyperparameters and reporting their results back to a synchronized location (database).
+
+You will need to estimate how much resources your training requires and update the provided example to fit.
+In the example below we use 100 tasks with each 4 CPU cores and one GPU.
+Each task will run 4 training in parallel on the same GPU to maximize its utilization.
+
+This means there could be 400 set of hyperparameters being worked on in parallel across 100 GPUs.
+
+
+.. image:: _static/hpo_diagram.png
+
 
 .. code-block:: bash
 
@@ -32,7 +45,7 @@ Hyperparameter Optimization
            max_broken: 10
   
        worker:
-           n_workers: $SLURM_CPUS_ON_NODE
+           n_workers: $SBATCH_CPUS_PER_GPU
            pool_size: 0
            executor: joblib
            heartbeat: 120
