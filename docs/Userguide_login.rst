@@ -6,7 +6,7 @@ Mila systems administrators if you don't have it already. Our IT support service
 is available here: https://it-support.mila.quebec/
 
 You will also need to complete and return an IT Onboarding Training to get
-access to the cluster.  Please refer to the MILA Intranet for more
+access to the cluster.  Please refer to the Mila Intranet for more
 informations:
 https://sites.google.com/mila.quebec/mila-intranet/it-infrastructure/it-onboarding-training
 
