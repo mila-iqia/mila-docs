@@ -64,7 +64,7 @@ on Academic Torrent.
 
 .. warning::
    * The creation of a `DATASET_NAME.torrent` file requires the computation of
-     the checksums of the dataset content which can quickly be CPU heavy. This
+     checksums for the dataset content which can quickly become CPU-heavy. This
      process should *not* be executed on a login node
 
 Download a dataset from Academic Torrent
