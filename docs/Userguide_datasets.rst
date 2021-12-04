@@ -44,6 +44,42 @@ stop sharing your copy.
    * Multiple archives can be provided to spread the data (e.g. dataset splits,
      raw data, extra data, ...)
 
+Generate a .torrent file to be uploaded to Academic Torrent
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+The command line / Python utility `torrentool
+<https://github.com/idlesign/torrentool>`_ can be used to create a
+`DATASET_NAME.torrent` file:
+
+.. code-block:: sh
+
+   # Install torrentool
+   python3 -m pip install torrentool click
+   # Change Directory to the location of the dataset to be hosted by Mila
+   cd /network/scratch/.transit_datasets
+   torrent create --tracker https://academictorrents.com/announce.php DATASET_NAME
+
+The resulting `DATASET_NAME.torrent` can then be used to register a new dataset
+on Academic Torrent.
+
+.. warning::
+   * The creation of a `DATASET_NAME.torrent` file requires the computation of
+     the checksums of the dataset content which can quickly be CPU heavy. This
+     process should *not* be executed on a login node
+
+Download a dataset from Academic Torrent
+""""""""""""""""""""""""""""""""""""""""
+
+Academic Torrent provides a `Python API
+<https://github.com/academictorrents/at-python>`_ to easily download a dataset
+from it's registered list:
+
+.. code-block:: python
+
+   # Install the Python API with:
+   # python3 -m pip install academictorrents
+   import academictorrents as at
+   mnist_path = at.get("323a0048d87ca79b68f12a6350a57776b6a3b7fb", datastore="~/scratch/.academictorrents-datastore") # Download the mnist dataset
 
 Google Drive
 ^^^^^^^^^^^^
@@ -74,6 +110,41 @@ which requires to first drop the dataset in
    * Multiple archives can be provided to spread the data (e.g. dataset splits,
      raw data, extra data, ...)
 
+Download a dataset from Mila's Google Drive with  ``gdown``
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+The utility gdown is a simple utility to download data from Google Drive. A
+limitation however is that it uses a shared client id which can cause a quota
+block when too many users uses it in the same day. It is described in a `GitHub
+issue <https://github.com/wkentaro/gdown/issues/43#issuecomment-642182100>`_.
+If this is not too big as an issue, a download is very simple, can be done in a
+command line shell or in a Python script and requires no setup.
+
+Download a dataset from Mila's Google Drive with ``rclone``
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+Rclone allows to specify a client id to avoid sharing with other users which
+avoid quota limits. Rclone describes the creation of a `client id in its
+documentaton <https://rclone.org/drive/#making-your-own-client-id>`_. Once this
+is done, a remote for Mila's Google Drive can be configured from the command
+line:
+
+.. code-block:: sh
+
+   rclone config create mila-gdrive drive client_id XXXXXXXXXXXX-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.apps.googleusercontent.com \
+       client_secret XXXXXXXXXXXXX-XXXXXXXXXX \
+       scope 'drive.readonly' \
+       root_folder_id 1peJ6VF9wQ-LeETgcdGxu1e4fo28JbtUt \
+       config_is_local false \
+       config_refresh_token false
+
+Once configured, the remote can then be used to download a dataset:
+
+.. code-block:: sh
+
+   rclone copy --progress mila-gdrive:DATASET_NAME/ ~/scratch/datasets/DATASET_NAME/
+
+Rclone is available in the `conda channel conda-forge <https://anaconda.org/conda-forge/rclone>`_.
 
 Digital Object Identifier (DOI)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
