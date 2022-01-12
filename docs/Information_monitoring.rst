@@ -7,6 +7,9 @@ This information is exposed in two ways:
 
 * For every node, there is a web interface from Netdata itself at ``<node>.server.mila.quebec:19999``.
   This is accessible only when using the Mila wifi or through SSH tunnelling.
+
+  * SSH tunnelling: on your local machine, run ``ssh -L19999:<node>.server.mila.quebec:19999 -p 2222 login.server.mila.quebec``,
+    then open http://localhost:19999 in your browser.
 * The Mila dashboard at `dashboard.server.mila.quebec <https://dashboard.server.mila.quebec/>`_
   exposes aggregated statistics with the use of `grafana <https://grafana.com/>`_.
   These are collected internally to an instance of `prometheus <https://prometheus.io/>`_.

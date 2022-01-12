@@ -550,12 +550,15 @@ If you don't experience those problems with ``pyglet``, you probably don't need 
 Mila cluster
 """"""""""""
 
-On the Mila cluster ``$SCRATCH`` is not yet defined, you should add the experiment results you want to keep in ``/network/tmp1/$USER/``.
-In order to use the sbatch script above and to match other cluster environment's names, you can define ``$SCRATCH`` as an alias for ``/network/tmp1/$USER`` with:
+On the Mila cluster ``$SCRATCH`` is not yet defined, you should add the
+experiment results you want to keep in ``/network/scratch/<u>/<username>/``. In
+order to use the sbatch script above and to match other cluster environment's
+names, you can define ``$SCRATCH`` as an alias for
+``/network/scratch/<u>/<username>`` with:
 
 .. prompt:: bash $
 
-        echo "export SCRATCH=/network/tmp1/$USER" >> ~/.bashrc
+        echo "export SCRATCH=/network/scratch/${USER:0:1}/$USER" >> ~/.bashrc
 
 Then, you can follow the general procedure explained above.
 

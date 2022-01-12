@@ -31,7 +31,7 @@ Mila hosts/seeds some datasets created by the Mila community through `Academic
 Torrent <https://academictorrents.com>`_. The first step is to create `an
 account and a torrent file <https://academictorrents.com/upload.php>`_.
 
-Then drop the dataset in ``/miniscratch/transit_datasets`` and send the
+Then drop the dataset in ``/network/scratch/.transit_datasets`` and send the
 Academic Torrent URL to `Mila's helpdesk <https://it-support.mila.quebec>`_. If
 the dataset does not reside on the Mila cluster, only the Academic Torrent URL
 would be needed to proceed with the initial download. Then you can delete /
@@ -50,12 +50,12 @@ Google Drive
 
 Only a member of the staff team can upload to `Mila's Google Drive
 <https://drive.google.com/drive/folders/1peJ6VF9wQ-LeETgcdGxu1e4fo28JbtUt>`_
-which requires to first drop the dataset in ``/miniscratch/transit_datasets``.
-Then, contact `Mila's helpdesk <https://it-support.mila.quebec>`_ and provide
-the following informations:
+which requires to first drop the dataset in
+``/network/scratch/.transit_datasets``. Then, contact `Mila's helpdesk
+<https://it-support.mila.quebec>`_ and provide the following informations:
 
 * directory containing the archived dataset (zip is favored) in
-  ``/miniscratch/transit_datasets``
+  ``/network/scratch/.transit_datasets``
 * the name of the dataset
 * a licence in ``.txt`` format. One of the `the creative common
   <https://creativecommons.org/about/cclicenses/>`_ licenses can be used. It is
