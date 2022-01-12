@@ -42,7 +42,8 @@ Welcome to Mila's technical documentation. See contents below.
    VSCode
    IDT
 
-:Support: To reach the Mila infrastructure support, please `submit a support ticket. <https://milaquebec.freshdesk.com/a/tickets/new>`_
+:Support: To reach the Mila infrastructure support, please `submit 
+          a support ticket. <https://milaquebec.freshdesk.com/a/tickets/new>`_
 
 
 :Contribution: If you find any errors in the documentation, missing or unclear
