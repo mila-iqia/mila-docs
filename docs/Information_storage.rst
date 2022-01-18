@@ -37,7 +37,8 @@ Path                                        Performance Usage                   
 * ``scratch`` can be used to store processed datasets, work in progress
   datasets or temporary job results. Its block size is optimized for small
   files which minimizes the performance hit of working on extracted datasets.
-  This space is cleared weekly and files older then 90 days will be deleted.
+  This space is cleared on a weekly basis, files not used for more than 90 days
+  will be deleted.
 * ``$SLURM_TMPDIR`` points to the local disk of the node on which a job is
   running. It should be used to copy the data on the node at the beginning of
   the job and write intermediate checkpoints. This folder is cleared after each
