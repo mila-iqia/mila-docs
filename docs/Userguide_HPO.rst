@@ -11,9 +11,6 @@ Each task will run 4 training in parallel on the same GPU to maximize its utiliz
 
 This means there could be 400 set of hyperparameters being worked on in parallel across 100 GPUs.
 
-
-.. image:: _static/hpo_diagram.png
-
 The easiest way to run an hyperparameter search on the cluster is simply to use a job array,
 which will launch the same job n times. Your HPO library will generate different parameters to try
 for each instances.
@@ -22,15 +19,11 @@ for each instances.
 
     sbatch --array=0-100 --gres=gpu:1 --cpus-per-gpu=2 --mem-per-gpu=16G scripts/hpo_launcher.sh train.py
 
-Orion
------
-
-Mila has developped its own hyper parameter search library named Orion.
-
 Configure Orion
 ^^^^^^^^^^^^^^^
 
-Orion saves all the results of its optimization process in a database,
+Orion is a hyperparameter search library that is developped at Mila.
+It saves all the results of its optimization process in a database,
 by default it is using a local database on a shared filesystem named ``pickleddb``.
 You will need to specify its location and the name of your experiment.
 Optionally you can configure workers which will run on parallel to maximize resource usage.
