@@ -22,8 +22,13 @@ for each instances.
 Configure Orion
 ^^^^^^^^^^^^^^^
 
-Orion is a hyperparameter search library that is developped at Mila.
-It saves all the results of its optimization process in a database,
+`Orion <https://orion.readthedocs.io/en/stable/?badge=stable>`_
+is an asynchronous framework for black-box function optimization developped at Mila.
+
+Its purpose is to serve as a meta-optimizer for machine learning models and training,
+as well as a flexible experimentation platform for large scale asynchronous optimization procedures.
+
+Orion saves all the results of its optimization process in a database,
 by default it is using a local database on a shared filesystem named ``pickleddb``.
 You will need to specify its location and the name of your experiment.
 Optionally you can configure workers which will run on parallel to maximize resource usage.
