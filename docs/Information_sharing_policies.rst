@@ -1,11 +1,13 @@
 Data sharing policies
 =====================
 
-.. _no_acl_note:
+.. _acl_note:
 
-.. note:: To benefit from sharing functionalities on ``/network/scratch``,
-   please contact the IT support who will configure the UNIX groups according
-   to your needs.
+.. note:: `/network/scratch <Information.html#storage>`_ aims to support
+   `Access Control Lists (ACLs)
+   <https://cl-cheat-sheet.readthedocs.io/en/latest/#setfacl>`_
+   to allow collaborative work on rapidly changing data, e.g. work in process
+   datasets, model checkpoints, etc...
 
 
 `/network/projects <Information.html#storage>`_ aims to offer a collaborative
