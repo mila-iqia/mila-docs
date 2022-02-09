@@ -31,7 +31,7 @@ as well as a flexible experimentation platform for large scale asynchronous opti
 Orion saves all the results of its optimization process in a database,
 by default it is using a local database on a shared filesystem named ``pickleddb``.
 You will need to specify its location and the name of your experiment.
-Optionally you can configure workers which will run on parallel to maximize resource usage.
+Optionally you can configure workers which will run in parallel to maximize resource usage.
 
 .. code-block:: bash
 
