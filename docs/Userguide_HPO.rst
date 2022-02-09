@@ -89,7 +89,7 @@ which will start training with a different set of hyper parameters for each work
 
 .. note::
 
-    Do not forget to move orion database out of ``scratch`` once the experiment is done.
+   Do not forget to move orion database out of ``scratch`` once the experiment is done.
 
 
 Full Example
