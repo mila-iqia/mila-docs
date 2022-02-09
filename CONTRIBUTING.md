@@ -13,7 +13,7 @@ Here are some guidelines to help bring your contributions to life.
 * Software development good practices
 * Useful tools
 
-**_NOTE_**: Examples should aime to not consume much more than 1 GPU/hour and 2 CPU/hour
+**_NOTE_**: Examples should aim to not consume much more than 1 GPU/hour and 2 CPU/hour
 
 ## Issues / Pull Requests
 
