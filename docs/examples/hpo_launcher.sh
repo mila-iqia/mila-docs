@@ -20,7 +20,6 @@ conda activate py39
 export EXPERIMENT_NAME="MyExperiment"
 
 # Constant
-export SCRATCH=~/scratch
 export DATASET_DEST=$SLURM_TMPDIR/dataset
 export CHECKPOINT_PATH=$SCRATCH/checkpoint
 export ORION_CONFIG=$SLURM_TMPDIR/orion-config.yml
