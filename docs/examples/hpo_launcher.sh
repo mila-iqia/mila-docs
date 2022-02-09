@@ -9,8 +9,6 @@ set -v
 # Slurm configuration
 # ===================
 
-#SBATCH --exclude=kepler4,kepler3
-
 # Python
 # ===================
 
