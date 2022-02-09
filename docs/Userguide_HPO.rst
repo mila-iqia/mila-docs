@@ -65,7 +65,7 @@ You find below an example of a common set of hyperparameters.
 
 .. code-block:: bash
 
-   # Define your hyper parameter search space
+   # Define your hyperparameter search space
    cat > $SPACE_CONFIG <<- EOM
       {
          "epochs": "orion~fidelity(1, 100, base=2)",
@@ -79,7 +79,7 @@ Run Orion hunt
 ^^^^^^^^^^^^^^
 
 Now that Orion is configured and has a search space we can execute orion-hunt
-which will start training with a different set of hyper parameters for each worker.
+which will start training with a different set of hyperparameters for each worker.
 
 
 .. code-block:: bash
@@ -106,5 +106,5 @@ Full Example
 
 .. note::
 
-   Network Architecture Search (NAS) is a subset of hyperparameter optimization where hyper-parameters
+   Network Architecture Search (NAS) is a subset of hyperparameter optimization where hyperparameters
    are used to generate a network. You can use the same technique for both NAS and HPO.
