@@ -96,7 +96,7 @@ This is a heading
 
 There are no heading levels assigned to certain characters as the structure is
 determined from the succession of headings. However, the Python documentation
-suggestes the following convention:
+suggests the following convention:
 
     * `#` with overline, for parts
     * `*` with overline, for chapters
