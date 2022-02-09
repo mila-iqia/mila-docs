@@ -78,7 +78,7 @@ You find below an example of a common set of hyperparameters.
 Run Orion hunt
 ^^^^^^^^^^^^^^
 
-Now that orion is configured and has a search space we can execute orion-hunt
+Now that Orion is configured and has a search space we can execute orion-hunt
 which will start training with a different set of hyper parameters for each worker.
 
 
