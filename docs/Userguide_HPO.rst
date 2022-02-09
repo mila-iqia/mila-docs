@@ -17,7 +17,7 @@ for each instances.
 
 .. code-block
 
-    sbatch --array=0-100 --gres=gpu:1 --cpus-per-gpu=2 --mem-per-gpu=16G scripts/hpo_launcher.sh train.py
+    sbatch --array=1-100 --gres=gpu:1 --cpus-per-gpu=2 --mem-per-gpu=16G scripts/hpo_launcher.sh train.py
 
 Configure Orion
 ^^^^^^^^^^^^^^^
