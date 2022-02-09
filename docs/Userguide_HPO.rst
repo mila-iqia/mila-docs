@@ -7,7 +7,7 @@ set of hyperparameters and reporting their results back to a synchronized locati
 
 You will need to estimate how much resources your training requires and update the provided example to fit.
 In the example below we use 100 tasks with each 4 CPU cores and one GPU.
-Each task will run 4 training in parallel on the same GPU to maximize its utilization.
+Each task will run 4 trainings in parallel on the same GPU to maximize its utilization.
 
 This means there could be 400 set of hyperparameters being worked on in parallel across 100 GPUs.
 
