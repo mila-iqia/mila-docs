@@ -54,7 +54,7 @@ cat > $ORION_CONFIG <<- EOM
         type: pickleddb
 EOM
 
-# Define your hyper parameter search space
+# Define your hyperparameter search space
 cat > $SPACE_CONFIG <<- EOM
     {
         "epochs": "orion~fidelity(1, 100, base=2)",
