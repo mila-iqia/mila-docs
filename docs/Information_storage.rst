@@ -5,22 +5,22 @@ Storage
 =======
 
 
-=========================================== =========== ====================================== =================== ============
-Path                                        Performance Usage                                  Quota (Space/Files) Auto-cleanup
-=========================================== =========== ====================================== =================== ============
-``$HOME`` or ``/home/mila/<u>/<username>/`` Low         * Personal user space                  100G/1000K
-                                                        * Specific libraries, code, binaries
-``/network/projects/<groupname>/``          Fair        * Shared space to facilitate           200G/1000K
-                                                          collaboration between researchers
-                                                        * Long-term project storage
-``/network/data1/``                         High        * Raw datasets (read only)
-``/network/datasets/``                      High        * Curated raw datasets (read only)
-``/network/scratch/``                       High        * Temporary job results                                    90 days
-                                                        * Processed datasets
-                                                        * Optimized for small Files
-``$SLURM_TMPDIR``                           Highest     * High speed disk for temporary job    4T/-                at job end
-                                                          results
-=========================================== =========== ====================================== =================== ============
+====================================================== =========== ====================================== =================== ============
+Path                                                   Performance Usage                                  Quota (Space/Files) Auto-cleanup
+====================================================== =========== ====================================== =================== ============
+``$HOME`` or ``/home/mila/<u>/<username>/``            Low         * Personal user space                  100G/1000K
+                                                                   * Specific libraries, code, binaries
+``/network/projects/<groupname>/``                     Fair        * Shared space to facilitate           200G/1000K
+                                                                     collaboration between researchers
+                                                                   * Long-term project storage
+``/network/data1/``                                    High        * Raw datasets (read only)
+``/network/datasets/``                                 High        * Curated raw datasets (read only)
+``$SCRATCH`` or ``/network/scratch/<u>/<username>/``   High        * Temporary job results                                    90 days
+                                                                   * Processed datasets
+                                                                   * Optimized for small Files
+``$SLURM_TMPDIR``                                      Highest     * High speed disk for temporary job    4T/-                at job end
+                                                                     results
+====================================================== =========== ====================================== =================== ============
 
 * ``$HOME`` is appropriate for codes and libraries which are small and read
   once, as well as the experimental results that would be needed at a later
