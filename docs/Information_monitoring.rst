@@ -10,8 +10,10 @@ This information is exposed in two ways:
 
   * SSH tunnelling: on your local machine, run 
     
-    * ``ssh -L 19999:<node>.server.mila.quebec:19999 -p 2222 login.server.mila.quebec`` 
-    * or ``ssh -L 19999:<node>.server.mila.quebec:19999 mila`` if you have already setup your :ref:`SSH Login`,
+    * ``ssh -L 19999:<node>.server.mila.quebec:19999 -p 2222 
+      login.server.mila.quebec`` 
+    * or ``ssh -L 19999:<node>.server.mila.quebec:19999 mila`` if you have 
+      already setup your :ref:`SSH Login`,
   * then open http://localhost:19999 in your browser.
 * The Mila dashboard at `dashboard.server.mila.quebec <https://dashboard.server.mila.quebec/>`_
   exposes aggregated statistics with the use of `grafana <https://grafana.com/>`_.
