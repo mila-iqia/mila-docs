@@ -69,7 +69,10 @@ make sure that this resources is always kept busy.
 
 * GPU
     * Monitors the GPU usage using an `nvidia-smi plugin for Netdata <https://learn.netdata.cloud/docs/agent/collectors/python.d.plugin/nvidia_smi/>`_.
-    * Under the plugin interface, select the GPU number which was allocated to you. You can figure this out by running ``echo $SLURM_JOB_GPUS`` on the allocated node or, if you have the job ID, ``scontrol show -d job YOUR_JOB_ID | grep 'GRES'`` and looking for ``IDX``
+    * Under the plugin interface, select the GPU number which was allocated to
+      you. You can figure this out by running ``echo $SLURM_JOB_GPUS`` on the 
+      allocated node or, if you have the job ID, 
+      ``scontrol show -d job YOUR_JOB_ID | grep 'GRES'`` and checking ``IDX``
     * You should make sure you use the GPUs to their fullest capacity.
     * Select the biggest batch size if possible to increase GPU memory usage and
       the GPU computational load.
