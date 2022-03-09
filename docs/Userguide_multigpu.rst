@@ -6,20 +6,16 @@ Handling preemption
 
 .. _advanced_preemption:
 
-There are 2 types of preemption:
+On the Mila cluster, jobs can preempt one-another depending on their priority
+(unkillable>high>low) (See the `Slurm documentation
+<https://slurm.schedmd.com/preempt.html>`_)
 
-- **On the local cluster:** jobs can preempt one-another depending on their
-  priority (unkillable>high>low) (See the `Slurm documentation
-  <https://slurm.schedmd.com/preempt.html>`_)
-- **On the cloud clusters:** virtual machines can be preempted as a limitation
-  of less expensive virtual machines (spot/low priority)
-
-On the local cluster, the default preemption mechanism is to kill and re-queue
-the job automatically without any notice. To allow a different preemption
-mechanism, every partition have been duplicated (i.e. have the same
-characteristics as their counterparts) allowing a **120sec** grace period before
-killing your job *but don't requeue it automatically*: those partitions are
-referred by the suffix: ``-grace`` (``main-grace, low-grace, cpu_jobs-grace``).
+The default preemption mechanism is to kill and re-queue the job automatically
+without any notice. To allow a different preemption mechanism, every partition
+have been duplicated (i.e. have the same characteristics as their counterparts)
+allowing a **120sec** grace period before killing your job *but don't requeue
+it automatically*: those partitions are referred by the suffix: ``-grace``
+(``main-grace, low-grace, cpu_jobs-grace``).
 
 When using a partition with a grace period, a series of signals consisting of
 first ``SIGCONT`` and ``SIGTERM`` then ``SIGKILL`` will be sent to the SLURM
@@ -51,22 +47,12 @@ The easiest way to handle preemption is by trapping the ``SIGTERM`` signal
 
 .. note::
    | **Requeuing**:
-   | The local Slurm cluster does not allow a grace period before preempting a
-   | job while requeuing it automatically, therefore your job will be cancelled at
-   | the end of the grace period.
+   | The Slurm scheduler on the cluster does not allow a grace period before
+   | preempting a job while requeuing it automatically, therefore your job will
+   | be cancelled at the end of the grace period.
    | To automatically requeue it, you can just add the ``sbatch`` command inside
    | your ``exit_script`` function.
 
-
-The following table summarizes the different preemption mode and grace periods:
-
-================== =============== ============  ========
-Cluster            Signal(s)       Grace Period  Requeued
-================== =============== ============  ========
-local              SIGCONT/SIGTERM 120s          No
-Amazon (AWS)       SIGCONT/SIGTERM 120s          Yes
-Azure              -               -             -
-================== =============== ============  ========
 
 Packing jobs
 ------------
