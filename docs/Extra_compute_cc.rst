@@ -5,8 +5,8 @@
 Compute Canada Clusters
 =======================
 
-The clusters which are named `Beluga`, `Cedar`, `Graham`, `Helios` and
-`Niagara` are clusters provided by the `Compute Canada organisation
+The clusters named `Beluga`, `Cedar`, `Graham`, `Narval` and `Niagara` are
+clusters provided by the `Compute Canada organisation
 <https://www.computecanada.ca>`_. For Mila researchers, these clusters are to
 be used for larger experiments having many jobs, multi-node computation and/or
 multi-GPU jobs as well as long running jobs.
@@ -30,8 +30,8 @@ resources that a research group can target for use for a period of
 time, usually a year.` To be clear, it is not a maximal amount of
 resources that can be used simultaneously, it is a weighting factor of
 the workload manager to balance jobs.  For instance, even though we
-are allocated 150 GPU-years on a cluster, we can use more or less than
-150 GPUs simultaneously depending on the history of usage from our
+are allocated 400 GPU-years across all clusters, we can use more or less than
+400 GPUs simultaneously depending on the history of usage from our
 group and other groups using the cluster at a given period of time.
 Please see Compute Canada's `documentation
 <https://docs.computecanada.ca/wiki/Allocations_and_resource_scheduling>`__
@@ -42,23 +42,25 @@ configured for these installations.
    site publiquement disponible.
 
 The table below provides information on the allocation for
-``rrg-bengioy-ad`` for the period which spans from April 2021 to
-April 2022. Note that there are no special allocations for CPUs on
-Cedar and Graham and therefore jobs without GPUs should be submitted
-with the account ``def-bengioy``.
+``rrg-bengioy-ad`` for the period which spans from April 2022 to
+April 2023. Note that there are no special allocations for GPUs on
+Graham and therefore jobs with GPUs should be submitted with the
+account ``def-bengioy``.
 
 
-+------------------------+-----------------------+--------------------------------------------------------+
-| Cluster                | CPUs                  | GPUs                                                   |
-|                        +------+----------------+----------+-----+----------------------+----------------+
-|                        |  #   | account        | Model    | #   | SLURM type specifier | account        |
-+------------------------+------+----------------+----------+-----+----------------------+----------------+
-| :ref:`Beluga <beluga>` |  185 | rrg-bengioy-ad | V100     | 150 |  v100                | rrg-bengioy-ad |
-+------------------------+------+----------------+----------+-----+----------------------+----------------+
-| :ref:`Cedar <cedar>`   | --   | def-bengioy    | V100     | 40  | v100                 | rrg-bengioy-ad |
-+------------------------+------+----------------+----------+-----+----------------------+----------------+
-| :ref:`Graham <graham>` | --   | def-bengioy    | T4       | 60  | t4                   | rrg-bengioy-ad |
-+------------------------+------+----------------+----------+-----+----------------------+----------------+
++------------------------+-----------------------+---------------------------------------------------------+
+| Cluster                | CPUs                  | GPUs                                                    |
+|                        +------+----------------+-----------+-----+----------------------+----------------+
+|                        |  #   | account        | Model     | #   | SLURM type specifier | account        |
++------------------------+------+----------------+-----------+-----+----------------------+----------------+
+| :ref:`Beluga <beluga>` |  238 | rrg-bengioy-ad | V100-16G  | 77  | ``v100``             | rrg-bengioy-ad |
++------------------------+------+----------------+-----------+-----+----------------------+----------------+
+| :ref:`Cedar <cedar>`   |   34 | rrg-bengioy-ad | V100-32G  | 138 | ``v100l``            | rrg-bengioy-ad |
++------------------------+------+----------------+-----------+-----+----------------------+----------------+
+| :ref:`Graham <graham>` |   34 | rrg-bengioy-ad | *various* | --  | --                   | def-bengioy    |
++------------------------+------+----------------+-----------+-----+----------------------+----------------+
+| :ref:`Narval <narval>` |   34 | rrg-bengioy-ad | A100-40G  | 185 | ``a100``             | rrg-bengioy-ad |
++------------------------+------+----------------+-----------+-----+----------------------+----------------+
 
 
 
