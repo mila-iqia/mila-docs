@@ -127,3 +127,33 @@ You exceeded the limit of 2000 tasks/PIDs in your job, it probably means there
 is an issue with a sub-process spawning too many processes in your script. For
 any help with your software, please `submit a support ticket. 
 <https://milaquebec.freshdesk.com/a/tickets/new>`_
+
+
+PyTorch issues
+--------------
+
+
+I randomly get ``INTERNAL ASSERT FAILED at "../aten/src/ATen/MapAllocator.cpp":263``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+You are using PyTorch 1.10.x and hitting `#67864
+<https://github.com/pytorch/pytorch/issues/67864>`_,
+for which the solution is `PR #72232
+<https://github.com/pytorch/pytorch/pull/72232>`_
+merged in PyTorch 1.11.x. For an immediate fix, consider the following compilable Gist:
+`hack.cpp
+<https://gist.github.com/obilaniu/b133470cb70410d841faca819d3921e5>`_.
+Compile the patch to ``hack.so`` and then ``export LD_PRELOAD=/absolute/path/to/hack.so``
+before executing the Python process that ``import torch`` a broken PyTorch 1.10.
+
+For Hydra users who are using the submitit launcher plug-in, the ``env_set`` key cannot
+be used to set ``LD_PRELOAD`` in the environment as it does so too late at runtime. The
+dynamic loader reads ``LD_PRELOAD`` only once and very early during the startup of any
+process, before the variable can be set from inside the process. The hack must therefore
+be injected using the ``setup`` key in Hydra YAML config file::
+
+  hydra:
+    launcher:
+      setup:
+        - export LD_PRELOAD=/absolute/path/to/hack.so
+
