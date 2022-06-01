@@ -146,7 +146,7 @@ resources are available. (To leverage a different preemption mechanism, see the
 Flag                         Max Resource Usage       Max Time     Note
 ========================== ========================== ============ ============
 --partition=unkillable       1 GPU, 6 CPUs, mem=32G     2 days
---partition=main             2 GPUs, 8 CPUs, mem=48G    2 days
+--partition=main             2 GPUs, 8 CPUs, mem=48G    5 days
 --partition=long             no limit of resources      7 days
 ========================== ========================== ============ ============
 
