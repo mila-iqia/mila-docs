@@ -49,7 +49,7 @@ As an illustrative example, to allow ``$USER`` to share with ``$USER2`` in
 
 | In order to access a file, all folders from the root (``/``) down to the
   parent folder in question must be searchable (``+x``) by the concerned user.
-  This is already the case for all users for folders such as ``/``, `/network`
+  This is already the case for all users for folders such as ``/``, ``/network``
   and ``/network/scratch``, but users must explicitly grant access to some or
   all users by adding ACLs for ``/network/scratch/$USER``, ``$HOME`` and
   subfolders.
