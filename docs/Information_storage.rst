@@ -21,9 +21,14 @@ Path                                                   Performance Usage        
 ``/network/datasets/``                                 High        * Curated raw datasets (read only)
 ====================================================== =========== ====================================== =================== ============
 
-.. warning:: Currently there is no backup system for the Mila cluster. Storage
-   local to personal computers, Google Drive and other related solutions should
-   be used to backup important data
+.. note:: The ``$HOME`` file system is backed up once a day. For any file
+   restoration request, file a request to `Mila's IT support
+   <https://it-support.mila.quebec>`_ with the path to the file or directory to
+   restore, with the required date.
+
+.. warning:: Currently there is no backup system for any other file systems of
+   the Mila cluster. Storage local to personal computers, Google Drive and other
+   related solutions should be used to backup important data
 
 $HOME
 -----
