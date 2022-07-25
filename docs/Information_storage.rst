@@ -82,8 +82,8 @@ datasets
 To request the addition of a dataset or a preprocessed dataset you think could
 benefit the research of others, you can fill `this form
 <https://forms.gle/vDVwD2rZBmYHENgZA>`_. Datasets in ``datasets/restricted``
-are restricted and require an explicite request to gain access. Please `submit
-a support ticket <https://milaquebec.freshdesk.com/a/tickets/new>`_ mentionning
+are restricted and require an explicit request to gain access. Please `submit
+a support ticket <https://milaquebec.freshdesk.com/a/tickets/new>`_ mentioning
 the dataset's access group (ex.: ``scannet_users``) and your cluster's
 username. You can find the dataset's access group by listing the content of
 ``/network/datasets/restricted`` with the `ls command
