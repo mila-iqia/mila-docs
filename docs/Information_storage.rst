@@ -5,21 +5,22 @@ Storage
 =======
 
 
-====================================================== =========== ====================================== =================== ============
-Path                                                   Performance Usage                                  Quota (Space/Files) Auto-cleanup
-====================================================== =========== ====================================== =================== ============
-``$HOME`` or ``/home/mila/<u>/<username>/``            Low         * Personal user space                  100G/1000K
+====================================================== =========== ====================================== =================== ====== ============
+Path                                                   Performance Usage                                  Quota (Space/Files) Backup Auto-cleanup
+====================================================== =========== ====================================== =================== ====== ============
+``/network/datasets/``                                 High        * Curated raw datasets (read only)
+``$HOME`` or ``/home/mila/<u>/<username>/``            Low         * Personal user space                  100GB/1000K         Daily  no
                                                                    * Specific libraries, code, binaries
-``$SCRATCH`` or ``/network/scratch/<u>/<username>/``   High        * Temporary job results                                    90 days
+``$SCRATCH`` or ``/network/scratch/<u>/<username>/``   High        * Temporary job results                no                  no     90 days
                                                                    * Processed datasets
                                                                    * Optimized for small Files
-``$SLURM_TMPDIR``                                      Highest     * High speed disk for temporary job    4T/-                at job end
+``$SLURM_TMPDIR``                                      Highest     * High speed disk for temporary job    4TB/-               no     at job end
                                                                      results
-``/network/projects/<groupname>/``                     Fair        * Shared space to facilitate           200G/1000K
+``/network/projects/<groupname>/``                     Fair        * Shared space to facilitate           200GB/1000K         Daily  no
                                                                      collaboration between researchers
                                                                    * Long-term project storage
-``/network/datasets/``                                 High        * Curated raw datasets (read only)
-====================================================== =========== ====================================== =================== ============
+``$ARCHIVE`` or ``/network/archive/<u>/<username>/``   Low         * Long-term personal storage           500GB               no     no
+====================================================== =========== ====================================== =================== ====== ============
 
 .. note:: The ``$HOME`` file system is backed up once a day. For any file
    restoration request, file a request to `Mila's IT support
@@ -74,6 +75,34 @@ of files (inodes). The limits for blocks and inodes are respectively 200GiB and
 
 .. note:: It is possible to request higher quota limits if the project requires
    it. File a request to `Mila's IT support <https://it-support.mila.quebec>`_.
+
+$ARCHIVE
+--------
+
+``$ARCHIVE`` purpose is to store data other than datasets that has to be kept
+long-term (e.g.  generated samples, logs, data relevant for paper submission).
+
+``$ARCHIVE`` is only available on the **login** nodes. Because this file system
+is tuned for large files, it is recommended to archive your directories. For
+example, to archive the results of an experiment in
+``$SCRATCH/my_experiment_results/``, run the commands below from a login node:
+
+.. prompt:: bash $
+
+   cd $SCRATCH
+   tar cJf $ARCHIVE/my_experiment_results.tar.xz --xattrs my_experiment_results
+
+Disk capacity quotas are enabled on ``$ARCHIVE``. The soft limit per user is
+500GB, the hard limit is 550GB. The grace time is 7 days. This means that one
+can use more than 500GB for 7 days before the file system enforces quota.
+However, it is not possible to use more than 550GB.
+The command to check the quota usage from a login node is `df`:
+
+.. prompt:: bash $
+
+   df -h $ARCHIVE
+
+.. note:: There is **NO** backup of this file system.
 
 datasets
 --------
