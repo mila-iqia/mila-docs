@@ -10,7 +10,7 @@ I'm getting ``connection refused`` while trying to connect to a login node
 
 Login nodes are protected against brute force attacks and might ban your IP if
 it detects too many connections/failures. You will be automatically unbanned
-after 1 hour. For any further problem, please `submit a support ticket. 
+after 1 hour. For any further problem, please `submit a support ticket.
 <https://milaquebec.freshdesk.com/a/tickets/new>`_
 
 
@@ -21,7 +21,7 @@ How do I change my shell ?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 By default you will be assigned ``/bin/bash`` as a shell. If you would like to
-change for another one, please `submit a support ticket. 
+change for another one, please `submit a support ticket.
 <https://milaquebec.freshdesk.com/a/tickets/new>`_
 
 
@@ -42,7 +42,7 @@ could risk losing your job if the login node becomes unreachable.
 How can I reset my cluster password ?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-To reset your password, please `submit a support ticket. 
+To reset your password, please `submit a support ticket.
 <https://milaquebec.freshdesk.com/a/tickets/new>`_
 
 **Warning**: your cluster password is the same as your Google Workspace account. So,
@@ -65,7 +65,7 @@ To get more info on a running job, try ``scontrol show job #JOBID``
 Unable to allocate resources: Invalid account or account/partition combination specified
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Chances are your account is not setup properly. You should `submit a support ticket. 
+Chances are your account is not setup properly. You should `submit a support ticket.
 <https://milaquebec.freshdesk.com/a/tickets/new>`_
 
 
@@ -125,7 +125,7 @@ fork: retry: Resource temporarily unavailable
 
 You exceeded the limit of 2000 tasks/PIDs in your job, it probably means there
 is an issue with a sub-process spawning too many processes in your script. For
-any help with your software, please `submit a support ticket. 
+any help with your software, please `submit a support ticket.
 <https://milaquebec.freshdesk.com/a/tickets/new>`_
 
 

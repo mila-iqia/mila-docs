@@ -70,7 +70,7 @@ To fix this issue, you can change this setting in your ``settings.json`` file:
 
 .. code-block:: json
 
-    "remote.SSH.lockfilesInTmp": true
+   { "remote.SSH.lockfilesInTmp": true }
 
 This will store the necessary lockfiles in ``/tmp`` on the compute nodes (which
 are local to the node).

@@ -115,8 +115,8 @@ To display *jobs* currently in queue, use ``squeue`` and to get only your jobs t
 
 .. note::
 
-   The maximum number of jobs able to be submitted to the system per user is 1000 (MaxSubmitJobs=1000) 
-   at any given time from the given association. If this limit is reached, new submission requests 
+   The maximum number of jobs able to be submitted to the system per user is 1000 (MaxSubmitJobs=1000)
+   at any given time from the given association. If this limit is reached, new submission requests
    will be denied until existing jobs in this association complete.
 
 
@@ -406,10 +406,10 @@ Here is a ``sbatch`` script that follows good practices on the Mila cluster:
    module --quiet load anaconda/3
 
    # 2. Load your environment
-   conda activate <env_name>
+   conda activate "<env_name>"
 
    # 3. Copy your dataset on the compute node
-   cp /network/data/<dataset> $SLURM_TMPDIR
+   cp /network/datasets/<dataset> $SLURM_TMPDIR
 
    # 4. Launch your job, tell it to save the model in $SLURM_TMPDIR
    #    and look for the dataset into $SLURM_TMPDIR
