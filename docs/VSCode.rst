@@ -25,7 +25,7 @@ run:
 
 .. code-block:: bash
 
-    mila code path/to/code
+    mila code path/on/cluster
 
 Note that the above command requires your SSH config to be organized in a
 certain way, so you should run ``mila init`` prior to using ``mila code`` for
