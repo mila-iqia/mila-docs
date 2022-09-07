@@ -20,6 +20,7 @@ knowledge, tips and tricks and example commands.
 .. include:: Userguide_data_transfer.rst
 .. include:: Userguide_jupyterhub.rst
 .. include:: Userguide_multigpu.rst
+.. include:: Userguide_multinode.rst
 .. include:: Userguide_debugging.rst
 .. include:: Userguide_faq.rst
 
