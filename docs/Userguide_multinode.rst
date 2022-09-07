@@ -11,109 +11,154 @@ Request 3 nodes with each at least 4 GPUs each.
 .. code-block:: bash
    :linenos:
 
-    # Number of Nodes
-    #SBATCH --nodes=3
+   #!/bin/bash
 
-    # Number of tasks. 3 (1 per node)
-    #SBATCH --ntasks=3
+   # Number of Nodes
+   #SBATCH --nodes=3
 
-    # Number of GPU per node
-    #SBATCH --gres=gpu:4
-    #SBATCH --gpus-per-node=4
+   # Number of tasks. 3 (1 per node)
+   #SBATCH --ntasks=3
 
-    # 16 CPUs per node
-    #SBATCH --cpus-per-gpu=4
+   # Number of GPU per node
+   #SBATCH --gres=gpu:4
+   #SBATCH --gpus-per-node=4
 
-    # 16Go per nodes (4Go per GPU)
-    #SBATCH --mem=16Go
+   # 16 CPUs per node
+   #SBATCH --cpus-per-gpu=4
 
-    # we need all nodes to be ready at the same time
-    #SBATCH --wait-all-nodes=1
+   # 16Go per nodes (4Go per GPU)
+   #SBATCH --mem=16Go
 
-    # Total resources:
-    #   CPU: 16 * 3 = 48
-    #   RAM: 16 * 3 = 48 Go
-    #   GPU:  4 * 3 = 12
+   # we need all nodes to be ready at the same time
+   #SBATCH --wait-all-nodes=1
 
-    # Setup our rendez-vous point
-    RDV_ADDR=$(hostname)
-    WORLD_SIZE=$SLURM_JOB_NUM_NODES
-    # -----
+   # Total resources:
+   #   CPU: 16 * 3 = 48
+   #   RAM: 16 * 3 = 48 Go
+   #   GPU:  4 * 3 = 12
 
-    srun -l torchrun \
-        --nproc_per_node=$SLURM_GPUS_PER_NODE\
-        --nnodes=$WORLD_SIZE\
-        --rdzv_id=$SLURM_JOB_ID\
-        --rdzv_backend=c10d\
-        --rdzv_endpoint=$RDV_ADDR\
-        training_script.py
+   # Setup our rendez-vous point
+   RDV_ADDR=$(hostname)
+   WORLD_SIZE=$SLURM_JOB_NUM_NODES
+   # -----
+
+   srun -l torchrun \
+      --nproc_per_node=$SLURM_GPUS_PER_NODE\
+      --nnodes=$WORLD_SIZE\
+      --rdzv_id=$SLURM_JOB_ID\
+      --rdzv_backend=c10d\
+      --rdzv_endpoint=$RDV_ADDR\
+      training_script.py
+
+
+You can find below a pytorch script outline on what a multi-node trainer could look like.
 
 
 .. code-block:: python
+   :name: Training script outline for multi node training
 
-    import os
-    import torch.distributed as dist
+   import os
+   import torch.distributed as dist
 
+   class Trainer:
+      def __init__(self):
+         self.local_rank = None
+         self.chk_path = ...
+         self.model = ...
 
-    class Trainer:
-        def __init__(self):
-            self.local_rank = None
-            self.chk_path = None
+      @property
+      def device_id(self):
+         return self.local_rank
 
-        @property
-        def device_id(self):
-            return self.local_rank
+      def load_checkpoint(self, path):
+         self.chk_path = path
+         # ...
 
-        def load_checkpoint(self, path):
-            self.chk_path = path
-            # ...
+      def should_checkpoint(self):
+         # Note: only one worker saves its weights
+         return self.global_rank == 0 and self.local_rank == 0
 
-        def initialize(self):
-            self.local_rank = int(os.environ.get("LOCAL_RANK", -1))
-            if self.local_rank < 0:
-                raise RuntimeError(f"Could not find LOCAL_RANK")
+      def save_checkpoint(self):
+         if self.chk_path is None:
+               return
 
-            dist.init_process_group(backend="gloo|nccl")
+         # Save your states here
+         # Note: you should save the weights of self.model not ddp_model
+         # ...
 
-        def dataset(self):
-            train_sampler = ElasticDistributedSampler(train_dataset)
-            train_loader = DataLoader(
-                train_dataset,
-                batch_size=batch_size,
-                num_workers=4,
-                pin_memory=True,
-                sampler=train_sampler,
-            )
-            return train_loader
+      def initialize(self):
+         self.global_rank = int(os.environ.get("RANK", -1))
+         self.local_rank = int(os.environ.get("LOCAL_RANK", -1))
 
-        def save_checkpoint(self):
-            if self.chk_path is None:
-                return
+         assert self.global_rank >= 0, 'Global rank should be set (Only Rank 0 can save checkpoints)'
+         ssert self.local_rank >= 0, 'Local rank should be set'
 
-        def train_step(self):
-            pass
+         dist.init_process_group(backend="gloo|nccl")
 
-        def train(self):
-            model = torch.nn.parallel.DistributedDataParallel(
-                model,
-                device_ids=[self.device_id],
-                output_device=self.device_id
-            )
+      def sync_weights(self, resuming=False):
+         if resuming:
+               # in the case of resuming all workers need to load the same checkpoint
+               self.load_checkpoint()
 
-            dataset = self.dataset()
+               # Wait for everybody to finish loading the checkpoint
+               dist.barrier()
+               return
 
-            for epoch in range(100):
-                for batch in iter(dataset):
-                    self.train_step(batch)
+         # Make sure all workers have the same initial weight
+         # This make the leader save his weight
+         if self.should_checkpoint():
+               self.save_checkpoint()
 
-                    if should_checkpoint:
-                        self.save_checkpoint()
+         # All workers wait for the leader to finish
+         dist.barrier()
 
-    def main():
-        trainer = Trainer()
-        trainer.load_checkpoint(path)
-        tainer.initialize()
-        trainer.train()
+         # All follower load the leader's weight
+         if not self.should_checkpoint():
+               self.load_checkpoint()
+
+         # Leader waits for the follower to load the weights
+         dist.barrier()
+
+      def dataloader(self, dataset, batch_size):
+         train_sampler = ElasticDistributedSampler(dataset)
+         train_loader = DataLoader(
+               dataset,
+               batch_size=batch_size,
+               num_workers=4,
+               pin_memory=True,
+               sampler=train_sampler,
+         )
+         return train_loader
+
+      def train_step(self):
+         # Your batch processing step here
+         # ...
+
+      def train(self, dataset, batch_size):
+         self.sync_weights()
+
+         ddp_model = torch.nn.parallel.DistributedDataParallel(
+               self.model,
+               device_ids=[self.device_id],
+               output_device=self.device_id
+         )
+
+         loader = self.dataloader(dataset, batch_size)
+
+         for epoch in range(100):
+               for batch in iter(loader):
+                  self.train_step(batch)
+
+                  if self.should_checkpoint():
+                     self.save_checkpoint()
+
+   def main():
+      trainer = Trainer()
+      trainer.load_checkpoint(path)
+      tainer.initialize()
+
+      trainer.train(dataset, batch_size)
+
 
 .. note::
 
