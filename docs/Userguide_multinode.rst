@@ -6,7 +6,7 @@ Data Parallel
 
 .. image:: _static/dataparallel.png
 
-Request 3 nodes with each at least 4 GPUs each.
+Request 3 nodes with at least 4 GPUs each.
 
 .. code-block:: bash
    :linenos:
@@ -27,7 +27,7 @@ Request 3 nodes with each at least 4 GPUs each.
    #SBATCH --cpus-per-gpu=4
 
    # 16Go per nodes (4Go per GPU)
-   #SBATCH --mem=16Go
+   #SBATCH --mem=16G
 
    # we need all nodes to be ready at the same time
    #SBATCH --wait-all-nodes=1
@@ -104,15 +104,15 @@ You can find below a pytorch script outline on what a multi-node trainer could l
                dist.barrier()
                return
 
-         # Make sure all workers have the same initial weight
-         # This make the leader save his weight
+         # Make sure all workers have the same initial weights
+         # This makes the leader save his weights
          if self.should_checkpoint():
                self.save_checkpoint()
 
          # All workers wait for the leader to finish
          dist.barrier()
 
-         # All follower load the leader's weight
+         # All followers load the leader's weights
          if not self.should_checkpoint():
                self.load_checkpoint()
 
