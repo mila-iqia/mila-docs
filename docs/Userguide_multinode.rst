@@ -25,7 +25,7 @@ Request 3 nodes with at least 4 GPUs each.
     #SBATCH --cpus-per-gpu=4
 
     # 16Go per nodes (4Go per GPU)
-    #SBATCH --mem=16Go
+    #SBATCH --mem=16G
 
     # we need all nodes to be ready at the same time
     #SBATCH --wait-all-nodes=1
