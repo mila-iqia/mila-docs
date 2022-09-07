@@ -6,7 +6,7 @@ Data Parallel
 
 .. image:: _static/dataparallel.png
 
-Request 3 nodes with each at least 4 GPUs each.
+Request 3 nodes with at least 4 GPUs each.
 
 .. code-block:: bash
    :linenos:
