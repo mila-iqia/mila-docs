@@ -62,6 +62,6 @@ of the required dependencies together. The most popular tool for this is
 cluster (nor the other clusters from Compute Canada).
 
 One popular mechanism for containerisation on a computational cluster is called
-`Singularity <https://singularity-docs.readthedocs.io/en/latest/>`_. 
+`Singularity <https://singularity-docs.readthedocs.io/en/latest/>`_.
 This is the recommended approach for running containers on the
 Mila cluster. See section :ref:`Singularity` for more details.

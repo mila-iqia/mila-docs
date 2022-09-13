@@ -523,7 +523,7 @@ You can also create a ``sbatch`` script:
                 -B $SLURM_TMPDIR:/tmp_log/ \
                 -B $SCRATCH:/final_log/ \
                 $SLURM_TMPDIR/<YOUR_CONTAINER> \
-                python <YOUR_CODE>
+                python "<YOUR_CODE>"
         # 4. Copy whatever you want to save on $SCRATCH
         rsync -avz $SLURM_TMPDIR/<to_save> $SCRATCH
 
@@ -596,6 +596,6 @@ Here is an example of a ``sbatch`` script using singularity on compute Canada cl
                 -B $SLURM_TMPDIR:/tmp_log/ \
                 -B $SCRATCH:/final_log/ \
                 $SLURM_TMPDIR/<YOUR_CONTAINER> \
-                python <YOUR_CODE>
+                python "<YOUR_CODE>"
         # 5. Copy whatever you want to save on $SCRATCH
         rsync -avz $SLURM_TMPDIR/<to_save> $SCRATCH
