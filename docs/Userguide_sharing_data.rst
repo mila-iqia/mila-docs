@@ -66,8 +66,8 @@ search and delete each others' files:
    setfacl -Rm  user:$USER2:rwx /network/scratch/${USER:0:1}/$USER/X/Y/Z/
 
 .. note::
-   The purpose of granting permissions first for _future_ files and then for
-   _existing_ files is to prevent a **race condition** whereby after the first
+   The purpose of granting permissions first for *future* files and then for
+   *existing* files is to prevent a **race condition** whereby after the first
    ``setfacl`` command the other person could create files to which the
    second ``setfacl`` command does not apply.
 
