@@ -105,7 +105,7 @@ search and delete each others' files:
 .. note::
   For more information on ``setfacl`` and path resolution/access checking,
   consider the following documentation viewing commands:
-  
+
   * ``man setfacl``
   * ``man path_resolution``
 
