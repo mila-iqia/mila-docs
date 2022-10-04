@@ -31,7 +31,7 @@ search and delete each others' files:
 
 .. code-block:: bash
 
-   setfacl -Rdm user:$USER:rwx  /network/scratch/${USER:0:1}/$USER/X/Y/Z/
+   setfacl -Rdm user:${USER}:rwx  /network/scratch/${USER:0:1}/$USER/X/Y/Z/
 
 ----
 
@@ -51,7 +51,7 @@ search and delete each others' files:
 
 .. code-block:: bash
 
-   setfacl -Rdm user:$USER2:rwx /network/scratch/${USER:0:1}/$USER/X/Y/Z/
+   setfacl -Rdm user:${USER2}:rwx /network/scratch/${USER:0:1}/$USER/X/Y/Z/
 
 ----
 
@@ -63,7 +63,7 @@ search and delete each others' files:
 
 .. code-block:: bash
 
-   setfacl -Rm  user:$USER2:rwx /network/scratch/${USER:0:1}/$USER/X/Y/Z/
+   setfacl -Rm  user:${USER2}:rwx /network/scratch/${USER:0:1}/$USER/X/Y/Z/
 
 .. note::
    The purpose of granting permissions first for *future* files and then for
@@ -82,9 +82,9 @@ search and delete each others' files:
 
 .. code-block:: bash
 
-   setfacl -m   user:$USER2:x   /network/scratch/${USER:0:1}/$USER/X/Y/
-   setfacl -m   user:$USER2:x   /network/scratch/${USER:0:1}/$USER/X/
-   setfacl -m   user:$USER2:x   /network/scratch/${USER:0:1}/$USER/
+   setfacl -m   user:${USER2}:x   /network/scratch/${USER:0:1}/$USER/X/Y/
+   setfacl -m   user:${USER2}:x   /network/scratch/${USER:0:1}/$USER/X/
+   setfacl -m   user:${USER2}:x   /network/scratch/${USER:0:1}/$USER/
 
 .. note::
    In order to access a file, all folders from the root (``/``) down to the
