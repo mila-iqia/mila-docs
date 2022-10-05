@@ -16,6 +16,7 @@ knowledge, tips and tricks and example commands.
 .. Nope, not that one, because we'll talk about singularity instead.
   .. include:: Userguide_containers.rst
 .. include:: Userguide_singularity.rst
+.. include:: Userguide_sharing_data.rst
 .. include:: Userguide_datasets.rst
 .. include:: Userguide_data_transfer.rst
 .. include:: Userguide_jupyterhub.rst
@@ -23,4 +24,3 @@ knowledge, tips and tricks and example commands.
 .. include:: Userguide_multinode.rst
 .. include:: Userguide_debugging.rst
 .. include:: Userguide_faq.rst
-

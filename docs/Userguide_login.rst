@@ -1,9 +1,21 @@
 Logging in to the cluster
 =========================
 
-To access the Mila Cluster clusters, you will need an account. Please contact
+To access the Mila Cluster clusters, you will need a Mila account. Please contact
 Mila systems administrators if you don't have it already. Our IT support service
 is available here: https://it-support.mila.quebec/
+
+You will also need to complete and return an IT Onboarding Training to get
+access to the cluster.  Please refer to the Mila Intranet for more
+informations:
+https://sites.google.com/mila.quebec/mila-intranet/it-infrastructure/it-onboarding-training
+
+**IMPORTANT** : Your access to the Cluster is granted based on your status at
+Mila (for students, your status is the same as your main supervisor' status),
+and on the duration of your stay, set during the creation of your account. The
+following have access to the cluster : **Current Students of Core Professors -
+Core Professors - Staff**
+
 
 
 SSH Login
@@ -22,12 +34,11 @@ You can access the Mila cluster via ssh:
 Four login nodes are available and accessible behind a load balancer. At each
 connection, you will be redirected to the least loaded login-node.
 
-The RSA, DSA and ECDSA fingerprints for Mila's login nodes are:
+The ECDSA, RSA and ED25519 fingerprints for Mila's login nodes are:
 
 .. code-block:: bash
 
     SHA256:baEGIa311fhnxBWsIZJ/zYhq2WfCttwyHRKzAb8zlp8 (ECDSA)
-    SHA256:XvukABPjV75guEgJX1rNxlDlaEg+IqQzUnPiGJ4VRMM (DSA)
     SHA256:Xr0/JqV/+5DNguPfiN5hb8rSG+nBAcfVCJoSyrR0W0o (RSA)
     SHA256:gfXZzaPiaYHcrPqzHvBi6v+BWRS/lXOS/zAjOKeoBJg (ED25519)
 

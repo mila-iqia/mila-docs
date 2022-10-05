@@ -25,7 +25,7 @@ run:
 
 .. code-block:: bash
 
-    mila code path/to/code
+    mila code path/on/cluster
 
 Note that the above command requires your SSH config to be organized in a
 certain way, so you should run ``mila init`` prior to using ``mila code`` for
@@ -70,7 +70,7 @@ To fix this issue, you can change this setting in your ``settings.json`` file:
 
 .. code-block:: json
 
-    "remote.SSH.lockfilesInTmp": true
+   { "remote.SSH.lockfilesInTmp": true }
 
 This will store the necessary lockfiles in ``/tmp`` on the compute nodes (which
 are local to the node).

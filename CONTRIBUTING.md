@@ -13,6 +13,8 @@ Here are some guidelines to help bring your contributions to life.
 * Software development good practices
 * Useful tools
 
+**_NOTE_**: Examples should aim to not consume much more than 1 GPU/hour and 2 CPU/hour
+
 ## Issues / Pull Requests
 
 ### Issues
@@ -87,14 +89,14 @@ Here are some of reST syntax directives which are useful to know :
 ### Sections
 
 ```reST
-=================
+#################
 This is a heading
-=================
+#################
 ```
 
 There are no heading levels assigned to certain characters as the structure is
-determined from the succession of headings. However, the Python documentation is
-suggesting the following convention:
+determined from the succession of headings. However, the Python documentation
+suggests the following convention:
 
     * `#` with overline, for parts
     * `*` with overline, for chapters

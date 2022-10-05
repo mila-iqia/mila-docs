@@ -8,8 +8,13 @@ This information is exposed in two ways:
 * For every node, there is a web interface from Netdata itself at ``<node>.server.mila.quebec:19999``.
   This is accessible only when using the Mila wifi or through SSH tunnelling.
 
-  * SSH tunnelling: on your local machine, run ``ssh -L19999:<node>.server.mila.quebec:19999 -p 2222 login.server.mila.quebec``,
-    then open http://localhost:19999 in your browser.
+  * SSH tunnelling: on your local machine, run
+
+    * ``ssh -L 19999:<node>.server.mila.quebec:19999 -p 2222
+      login.server.mila.quebec``
+    * or ``ssh -L 19999:<node>.server.mila.quebec:19999 mila`` if you have
+      already setup your :ref:`SSH Login`,
+  * then open http://localhost:19999 in your browser.
 * The Mila dashboard at `dashboard.server.mila.quebec <https://dashboard.server.mila.quebec/>`_
   exposes aggregated statistics with the use of `grafana <https://grafana.com/>`_.
   These are collected internally to an instance of `prometheus <https://prometheus.io/>`_.
@@ -48,8 +53,6 @@ used in its full capacity.
 Given how expensive the GPUs are, it generally makes sense to try to
 make sure that this resources is always kept busy.
 
-.. TODO:: Vérifier que, effectivement, on peut regarder un GPU spécifique.
-
 * CPU
     * iowait (pink line): High values means your model is waiting on IO a lot (disk or network).
 
@@ -71,6 +74,10 @@ make sure that this resources is always kept busy.
 
 * GPU
     * Monitors the GPU usage using an `nvidia-smi plugin for Netdata <https://learn.netdata.cloud/docs/agent/collectors/python.d.plugin/nvidia_smi/>`_.
+    * Under the plugin interface, select the GPU number which was allocated to
+      you. You can figure this out by running ``echo $SLURM_JOB_GPUS`` on the
+      allocated node or, if you have the job ID,
+      ``scontrol show -d job YOUR_JOB_ID | grep 'GRES'`` and checking ``IDX``
     * You should make sure you use the GPUs to their fullest capacity.
     * Select the biggest batch size if possible to increase GPU memory usage and
       the GPU computational load.
