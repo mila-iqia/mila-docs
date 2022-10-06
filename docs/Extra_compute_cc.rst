@@ -7,9 +7,11 @@ Compute Canada Clusters
 
 The clusters named `Beluga`, `Cedar`, `Graham`, `Narval` and `Niagara` are
 clusters provided by the `Compute Canada organisation
-<https://www.computecanada.ca>`_. For Mila researchers, these clusters are to
+<https://alliancecan.ca/>`_. For Mila researchers, these clusters are to
 be used for larger experiments having many jobs, multi-node computation and/or
-multi-GPU jobs as well as long running jobs.
+multi-GPU jobs as well as long running jobs. If you use these resources for your
+research, please remember to `acknowledge their use in your papers
+<https://alliancecan.ca/en/services/advanced-research-computing/acknowledging-alliance>`_.
 
 
 Current allocation description
