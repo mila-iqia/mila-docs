@@ -7,13 +7,14 @@ session as a batch job then connects it when the allocation has been granted.
 It does not require any ssh tunnel or port redirection, the hub acts as a proxy
 server that will redirect you to a session as soon as it is available.
 
-It is currently available for Mila clusters and some Compute Canada clusters
+It is currently available for Mila clusters and some Digital Research Alliance
+of Canada (Alliance) clusters.
 
 ============== ============================================= ============
 Cluster        Address                                       Login type
 ============== ============================================= ============
 Mila Local     https://jupyterhub.server.mila.quebec         Google Oauth
-Compute Canada https://docs.computecanada.ca/wiki/JupyterHub CC login
+Alliance       https://docs.alliancecan.ca/wiki/JupyterHub   DRAC login
 ============== ============================================= ============
 
 .. warning:: Do not forget to close the JupyterLab session! Closing the window leaves

@@ -119,10 +119,10 @@ to ensure you estimate resource usage accurately.
 Mila information
 ----------------
 
-**Mila** as well as `Compute Canada
-<https://docs.computecanada.ca/wiki/Compute_Canada_Documentation>`_ use the
-workload manager `Slurm <https://slurm.schedmd.com/documentation.html>`_ to
-schedule and allocate resources on their infrastructure.
+**Mila** as well as `Digital Research Alliance of Canada
+<https://docs.alliancecan.ca/wiki/Technical_documentation>`_ use the workload
+manager `Slurm <https://slurm.schedmd.com/documentation.html>`_ to schedule and
+allocate resources on their infrastructure.
 
 **Slurm** client commands are available on the login nodes for you to submit
 jobs to the main controller and add your job to the queue. Jobs are of 2 types:

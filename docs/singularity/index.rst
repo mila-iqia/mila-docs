@@ -564,11 +564,12 @@ Then, you can follow the general procedure explained above.
 
 
 
-Compute Canada
-""""""""""""""
+Digital Research Alliance of Canada
+"""""""""""""""""""""""""""""""""""
 
-Using singularity on Compute Canada is similar except that you need to add Yoshua's account name and load singularity.
-Here is an example of a ``sbatch`` script using singularity on compute Canada cluster:
+Using singularity on Digital Research Alliance of Canada is similar except that
+you need to add Yoshua's account name and load singularity.  Here is an example
+of a ``sbatch`` script using singularity on compute Canada cluster:
 
 .. warning:: You should use singularity/2.6 or singularity/3.4. There is a bug in singularity/3.2 which makes gpu unusable.
 

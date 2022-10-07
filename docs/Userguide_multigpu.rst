@@ -99,9 +99,9 @@ Or by specifying a range of tasks
 Sharing a node with multiple GPU 1process/GPU
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-On Compute Canada, several nodes, especially nodes with ``largeGPU`` (P100) are
-reserved for jobs requesting the whole node, therefore packing multiple
-processes in a single job can leverage faster GPU.
+On Digital Research Alliance of Canada, several nodes, especially nodes with
+``largeGPU`` (P100) are reserved for jobs requesting the whole node, therefore
+packing multiple processes in a single job can leverage faster GPU.
 
 If you want different tasks to access different GPUs in a single allocation you
 need to create an allocation requesting a whole node and using ``srun`` with a

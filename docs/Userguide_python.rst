@@ -27,8 +27,8 @@ Pip is the preferred package manager for Python and each cluster provides
 several Python versions through the associated module which comes with pip. In
 order to install new packages, you will first have to create a personal space
 for them to be stored.  The preferred solution (as it is the preferred solution
-on Compute Canada clusters) is to use `virtual environments
-<https://virtualenv.pypa.io/en/stable/>`_.
+on Digital Research Alliance of Canada clusters) is to use `virtual
+environments <https://virtualenv.pypa.io/en/stable/>`_.
 
 First, load the Python module you want to use:
 
@@ -68,8 +68,8 @@ Conda
 Another solution for Python is to use `miniconda
 <https://docs.conda.io/en/latest/miniconda.html>`_ or `anaconda
 <https://docs.anaconda.com>`_ which are also available through the ``module``
-command: (the use of Conda is not recommended for Compute Canada Clusters due to
-the availability of custom-built packages for pip)
+command: (the use of Conda is not recommended for Digital Research Alliance of
+Canada clusters due to the availability of custom-built packages for pip)
 
 .. prompt:: bash $, auto
 

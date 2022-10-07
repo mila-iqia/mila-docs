@@ -89,9 +89,9 @@ slow write performance. This is because datasets are usually written
 once and then read very often for training.
 
 Different filesystems have different performance levels. For instance, backed
-up filesystems (such as ``$PROJECT`` in Compute Canada clusters) provide more
-space and can handle large files but cannot sustain highly parallel accesses
-typically required for high speed model training.
+up filesystems (such as ``$PROJECT`` in Digital Research Alliance of Canada
+clusters) provide more space and can handle large files but cannot sustain
+highly parallel accesses typically required for high speed model training.
 
 The set of filesystems provided by the cluster you are using should be
 detailed in the documentation for that cluster and the names can

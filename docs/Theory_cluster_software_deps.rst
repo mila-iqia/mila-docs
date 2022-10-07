@@ -5,10 +5,10 @@ This section aims to raise awareness to problems one can encounter when trying
 to run a software on different computers and how this is dealt with on typical
 computation clusters.
 
-The Mila cluster and the Compute Canada cluster both provide various useful
-software and computing environments, which can be activated through the module
-system. Alternatively, you may build containers with your desired software and
-run them on compute nodes.
+The Mila cluster and the Digital Research Alliance of Canada clusters both
+provide various useful software and computing environments, which can be
+activated through the module system. Alternatively, you may build containers
+with your desired software and run them on compute nodes.
 
 Regarding Python development, we recommend using virtual environments to install
 Python packages in isolation.
