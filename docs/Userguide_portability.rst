@@ -59,7 +59,7 @@ Another option for creating portable code is :ref:`Using containers`.
 Containers are a popular approach at deploying applications by packaging a lot
 of the required dependencies together. The most popular tool for this is
 `Docker <https://www.docker.com/>`_, but Docker cannot be used on the Mila
-cluster (nor the other clusters from Compute Canada).
+cluster (nor the other clusters from Digital Research Alliance of Canada).
 
 One popular mechanism for containerisation on a computational cluster is called
 `Singularity <https://singularity-docs.readthedocs.io/en/latest/>`_.

@@ -7,7 +7,7 @@ Here are some guidelines to help bring your contributions to life.
 ## What should be included in the Mila Docs
 
 * Mila cluster usage
-* Compute Canada cluster usage
+* Digital Research Alliance of Canada cluster usage
 * Job management tips / tricks
 * Research good practices
 * Software development good practices
@@ -49,11 +49,11 @@ This will produce the html version of the documentation which you can navigate
 by opening the local file `docs/_build/index.html`.
 
 If you have any trouble building the docs, don't hesitate to open an issue to
-request help. 
+request help.
 
-Regarding the restructured text format, you can simply provide the content 
-you would like to add in markdown or plain text format if more convenient 
-for you and someone down the line should take responsibility to convert 
+Regarding the restructured text format, you can simply provide the content
+you would like to add in markdown or plain text format if more convenient
+for you and someone down the line should take responsibility to convert
 the format.
 
 ## Sphinx / reStructuredText (reST)
