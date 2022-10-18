@@ -91,7 +91,7 @@ You can find below a pytorch script outline on what a multi-node trainer could l
          self.local_rank = int(os.environ.get("LOCAL_RANK", -1))
 
          assert self.global_rank >= 0, 'Global rank should be set (Only Rank 0 can save checkpoints)'
-         ssert self.local_rank >= 0, 'Local rank should be set'
+         assert self.local_rank >= 0, 'Local rank should be set'
 
          dist.init_process_group(backend="gloo|nccl")
 
@@ -133,6 +133,7 @@ You can find below a pytorch script outline on what a multi-node trainer could l
       def train_step(self):
          # Your batch processing step here
          # ...
+         pass
 
       def train(self, dataset, batch_size):
          self.sync_weights()
