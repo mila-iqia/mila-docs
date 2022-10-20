@@ -14,6 +14,14 @@ these resources for your research, please remember to `acknowledge their use in
 your papers
 <https://alliancecan.ca/en/services/advanced-research-computing/acknowledging-alliance>`_.
 
+.. note::
+
+   Compute Canada ceased its operational responsibilities for supporting Canada’s
+   national advanced research computing (ARC) platform on March 31, 2022. The services
+   will be supported by the new Digital Research Alliance of Canada.
+
+   https://ace-net.ca/compute-canada-operations-move-to-the-digital-research-alliance-of-canada-(the-alliance).html
+
 
 Current allocation description
 ------------------------------
