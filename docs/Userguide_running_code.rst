@@ -174,13 +174,6 @@ accessed :ref:`Node profile description`.
 
 *Example:*
 
-To request a Power9 machine
-
-.. prompt:: bash $
-
-   sbatch -c 4 --constraint=power9
-
-
 To request a machine with 2 GPUs using NVLink, you can use
 
 .. prompt:: bash $
@@ -192,7 +185,6 @@ To request a machine with 2 GPUs using NVLink, you can use
 Feature                                  Particularities
 ======================================== =====================================================================
 x86_64 (Default)                         Regular nodes
-Power9                                   :ref:`Power9 <power9_nodes>` CPUs (incompatible with x86_64 software)
 12GB/16GB/24GB/32GB/48GB                 Request a specific amount of *GPU* memory
 maxwell/pascal/volta/tesla/turing/kepler Request a specific *GPU* architecture
 nvlink                                   Machine with GPUs using the NVLink technology

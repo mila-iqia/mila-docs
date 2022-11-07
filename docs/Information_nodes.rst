@@ -43,10 +43,6 @@ Node profile description
 +---------------------------------------+----------+---+------+---------+--------------+--------------+-------------+--------------+--------+---------------------+
 | rtx[1,3-5,7]                          | titanrtx | 2 |  20  |    1    |      10      |       2      |     128     |      0.93    | x86_64 |     turing,24gb     |
 +---------------------------------------+----------+---+------+---------+--------------+--------------+-------------+--------------+--------+---------------------+
-| :h:`<h5 style="margin: 5px 0 0 0;">POWER9</h5>`                                                                                                                 |
-+---------------------------------------+----------+---+------+---------+--------------+--------------+-------------+--------------+--------+---------------------+
-| power9[1-2]                           | V100     | 4 |  128 |    2    |      16      |       4      |     586     |      0.88    | power9 |  volta,nvlink,16gb  |
-+---------------------------------------+----------+---+------+---------+--------------+--------------+-------------+--------------+--------+---------------------+
 
 
 Special nodes and outliers
@@ -65,46 +61,6 @@ In order to run jobs on a DGX A100, add the flags below to your Slurm
 commands::
 
     --gres=gpu:a100:<number> --reservation=DGXA100
-
-Power9
-^^^^^^
-
-.. _power9_nodes:
-
-Power9_ nodes are using a different processor instruction set than Intel and
-AMD (x86_64) based nodes. As such you need to setup your environment again
-for those nodes specifically.
-
-* Power9 nodes have 128 threads. (2 processors / 16 cores / 4 way SMT)
-* 4 x V100 SMX2 (16 GB) with NVLink
-* In a Power9 node GPUs and CPUs communicate with each other using NVLink
-  instead of PCIe. This allow them to communicate quickly between each other.
-  More on Large Model Support (LMS_)
-
-Power9 nodes have the same software stack as the regular nodes and each
-software should be included to deploy your environment as on a regular node.
-
-
-.. _LMS: https://developer.ibm.com/articles/performance-results-with-lmstf2/
-.. _Power9: https://en.wikipedia.org/wiki/POWER9
-
-.. .. prompt:: bash $, auto
-..
-..     # on Mila cluster's login node
-..     $ srun -c 1 --reservation=power9 --pty bash
-..
-..     # setup anaconda
-..     $ wget https://repo.anaconda.com/archive/Anaconda3-2019.07-Linux-ppc64le.sh
-..     $ chmod +x Anaconda3-2019.07-Linux-ppc64le.sh
-..     $ module load anaconda/3
-..
-..     $ conda config --add channels https://public.dhe.ibm.com/ibmdl/export/pub/software/server/ibm-ai/conda/
-..     $ conda create -n p9 python=3.6
-..     $ conda activate p9
-..     $ conda install powerai=1.6.0
-..
-..     # setup is done!
-
 
 AMD
 ^^^
