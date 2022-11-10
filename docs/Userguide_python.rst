@@ -34,13 +34,13 @@ First, load the Python module you want to use:
 
 .. prompt:: bash $
 
-   module load python/3.9
+   module load python/3.8
 
 Then, create a virtual environment in your ``home`` directory:
 
 .. prompt:: bash $
 
-   virtualenv $HOME/<env>
+   python -m venv $HOME/<env>
 
 Where ``<env>`` is the name of your environment. Finally, activate the environment:
 
