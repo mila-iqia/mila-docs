@@ -15,7 +15,7 @@ without any notice. To allow a different preemption mechanism, every partition
 have been duplicated (i.e. have the same characteristics as their counterparts)
 allowing a **120sec** grace period before killing your job *but don't requeue
 it automatically*: those partitions are referred by the suffix: ``-grace``
-(``main-grace, low-grace, cpu_jobs-grace``).
+(``main-grace, long-grace, main-cpu-grace, long-cpu-grace``).
 
 When using a partition with a grace period, a series of signals consisting of
 first ``SIGCONT`` and ``SIGTERM`` then ``SIGKILL`` will be sent to the SLURM
