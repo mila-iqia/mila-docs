@@ -142,17 +142,17 @@ killed without notice and is automatically re-queued on the same partition until
 resources are available. (To leverage a different preemption mechanism, see the
 :ref:`Handling preemption <advanced_preemption>`)
 
-============================ ========================== ============ ====================
-Flag                         Max Resource Usage         Max Time     Note
-============================ ========================== ============ ====================
---partition=unkillable       6  CPUs, mem=32G,  1 GPU   2 days
---partition=unkillable-cpu   2  CPUs, mem=16G           2 days       CPU-only jobs
---partition=short-unkillable 24 CPUs, mem=128G, 4 GPUs  3 hours (!)  Large but short jobs
---partition=main             8  CPUs, mem=48G,  2 GPUs  5 days
---partition=main-cpu         8  CPUs, mem=64G           5 days       CPU-only jobs
---partition=long             no limit of resources      7 days
---partition=long-cpu         no limit of resources      7 days       CPU-only jobs
-============================ ========================== ============ ====================
+============================= ========================== ============ ====================
+Flag                          Max Resource Usage         Max Time     Note
+============================= ========================== ============ ====================
+\--partition=unkillable       6  CPUs, mem=32G,  1 GPU   2 days
+\--partition=unkillable-cpu   2  CPUs, mem=16G           2 days       CPU-only jobs
+\--partition=short-unkillable 24 CPUs, mem=128G, 4 GPUs  3 hours (!)  Large but short jobs
+\--partition=main             8  CPUs, mem=48G,  2 GPUs  5 days
+\--partition=main-cpu         8  CPUs, mem=64G           5 days       CPU-only jobs
+\--partition=long             no limit of resources      7 days
+\--partition=long-cpu         no limit of resources      7 days       CPU-only jobs
+============================= ========================== ============ ====================
 
 .. warning ::
 
