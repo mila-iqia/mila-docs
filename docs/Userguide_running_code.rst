@@ -142,13 +142,37 @@ killed without notice and is automatically re-queued on the same partition until
 resources are available. (To leverage a different preemption mechanism, see the
 :ref:`Handling preemption <advanced_preemption>`)
 
-========================== ========================== ============ ============
-Flag                         Max Resource Usage       Max Time     Note
-========================== ========================== ============ ============
---partition=unkillable       1 GPU, 6 CPUs, mem=32G     2 days
---partition=main             2 GPUs, 8 CPUs, mem=48G    5 days
---partition=long             no limit of resources      7 days
-========================== ========================== ============ ============
+============================= ========================== ============ ====================
+Flag                          Max Resource Usage         Max Time     Note
+============================= ========================== ============ ====================
+\--partition=unkillable       6  CPUs, mem=32G,  1 GPU   2 days
+\--partition=unkillable-cpu   2  CPUs, mem=16G           2 days       CPU-only jobs
+\--partition=short-unkillable 24 CPUs, mem=128G, 4 GPUs  3 hours (!)  Large but short jobs
+\--partition=main             8  CPUs, mem=48G,  2 GPUs  5 days
+\--partition=main-cpu         8  CPUs, mem=64G           5 days       CPU-only jobs
+\--partition=long             no limit of resources      7 days
+\--partition=long-cpu         no limit of resources      7 days       CPU-only jobs
+============================= ========================== ============ ====================
+
+.. warning ::
+
+   Historically, before the 2022 introduction of CPU-only nodes (e.g. the ``cn-f``
+   series), CPU jobs ran side-by-side with the GPU jobs on GPU nodes. To prevent
+   them obstructing any GPU job, they were always lowest-priority and preemptible.
+   This was implemented by automatically assigning them to one of the now-obsolete
+   partitions ``cpu_jobs``, ``cpu_jobs_low`` or ``cpu_jobs_low-grace``.
+   **Do not use these partition names anymore**. Prefer the ``*-cpu`` partition
+   names defined above.
+
+   For backwards-compatibility purposes, the legacy partition names are translated
+   to their effective equivalent ``long-cpu``, but they will eventually be removed
+   entirely.
+
+.. note ::
+   *As a convenience*, should you request the ``unkillable``, ``main`` or ``long``
+   partition for a CPU-only job, the partition will be translated to its ``-cpu``
+   equivalent automatically.
+
 
 For instance, to request an unkillable job with 1 GPU, 4 CPUs, 10G of RAM and
 12h of computation do:
@@ -184,17 +208,11 @@ To request a machine with 2 GPUs using NVLink, you can use
 ======================================== =====================================================================
 Feature                                  Particularities
 ======================================== =====================================================================
-x86_64 (Default)                         Regular nodes
 12GB/16GB/24GB/32GB/48GB                 Request a specific amount of *GPU* memory
-maxwell/pascal/volta/tesla/turing/kepler Request a specific *GPU* architecture
-nvlink                                   Machine with GPUs using the NVLink technology
+volta/turing/ampere                      Request a specific *GPU* architecture
+nvlink                                   Machine with GPUs using the NVLink interconnect technology
 ======================================== =====================================================================
 
-
-.. note::
-
-   You don't need to specify *x86_64* when you add a constraint as it is added
-   by default ( ``nvlink`` -> ``x86_64&nvlink`` )
 
 
 Information on partitions/nodes
@@ -350,7 +368,6 @@ Special GPU requirements
 Specific GPU *architecture* and *memory* can be easily requested through the
 ``--gres`` flag by using either
 
-* ``--gres=gpu:architecture:memory:number``
 * ``--gres=gpu:architecture:number``
 * ``--gres=gpu:memory:number``
 * ``--gres=gpu:model:number``
@@ -358,23 +375,13 @@ Specific GPU *architecture* and *memory* can be easily requested through the
 
 *Example:*
 
-To request a Tesla GPU with *at least* 16GB of memory use
+To request 1 GPU with *at least* 16GB of memory use
 
 .. prompt:: bash $
 
-    sbatch -c 4 --gres=gpu:tesla:16gb:1
+    sbatch -c 4 --gres=gpu:16gb:1
 
 The full list of GPU and their features can be accessed :ref:`here <node_list>`.
-
-
-CPU-only jobs
--------------
-
-Since the priority is given to the usage of GPUs, CPU-only jobs have a low
-priority and can only consume **4 cpus maximum per node**.  The partition for
-CPU-only jobs is named ``cpu_jobs`` and you can request it with ``-p cpu_jobs``
-or if you don't specify any GPU, you will be automatically rerouted to this
-partition.
 
 
 Example script
