@@ -38,6 +38,7 @@ Welcome to Mila's technical documentation. See contents below.
    :caption: Extras
    :maxdepth: 2
 
+   Mila Datasets <https://datasets.server.mila.quebec/>
    Audio_video
    VSCode
    IDT
