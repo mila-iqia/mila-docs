@@ -108,22 +108,32 @@ Beluga:
 
    For most students, Beluga is the best choice for both CPU and GPU jobs because
    of larger allocations on this cluster.
-Graham:
-   (:ref:`Mila doc <graham>`)
-   (`Digital Research Alliance of Canada doc <https://docs.alliancecan.ca/wiki/Graham/en>`__)
+Narval:
+   (:ref:`Mila doc <narval>`)
+   (`Digital Research Alliance of Canada doc <https://docs.alliancecan.ca/wiki/Narval/en>`__)
 
-   Graham has recent T4 GPUs. It can be a good alternative to Beluga with similar characteristics.
+   Narval is the newest cluster, and contains the most powerful GPUs (A100). If your
+   job can benefit from the A100's features, such as TF32 floating-point math, Narval
+   is the best choice.
 Cedar:
    (:ref:`Mila doc <cedar>`)
    (`Digital Research Alliance of Canada doc <https://docs.alliancecan.ca/wiki/Cedar/en>`__)
 
    Cedar is a good alternative to Beluga if you absolutely need to have an internet connection
    on the compute nodes.
+Graham:
+   (:ref:`Mila doc <graham>`)
+   (`Digital Research Alliance of Canada doc <https://docs.alliancecan.ca/wiki/Graham/en>`__)
+
+   We do not have a GPU allocation on Graham anymore but it remains an alternative for CPU jobs.
 Niagara:
    (:ref:`Mila doc <niagara>`)
    (`Digital Research Alliance of Canada doc <https://docs.alliancecan.ca/wiki/Niagara/en>`__)
 
-   We do not have allocations on Niagara anymore but it remains a good alternative for CPU jobs.
+   Niagara is not recommended for most students. It is a CPU-only cluster with unusual
+   configurations. Access is not automatic; It is opt-in and must be requested via
+   CCDB manually. Compute resources in Niagara are not assigned to jobs on a per-CPU,
+   but on a per-node basis.
 
 
 Beluga
