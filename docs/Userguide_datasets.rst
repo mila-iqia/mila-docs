@@ -6,11 +6,6 @@ If a dataset could help the research of others at Mila, `this form
 <https://forms.gle/vDVwD2rZBmYHENgZA>`_ can be filled to request its addition
 to `/network/datasets <Information.html#storage>`_.
 
-Those datasets can be mirrored to the Béluga cluster in
-``~/projects/rrg-bengioy-ad/data/curated/`` if they follow Digital Research
-Alliance of Canada's `good practices on data
-<https://docs.alliancecan.ca/wiki/AI_and_Machine_Learning#Managing_your_datasets>`_.
-
 
 Publicly share a Mila dataset
 -----------------------------

@@ -120,3 +120,15 @@ access group (ex.: ``scannet_users``), your cluster's username and the
 approbation of the group owner. You can find the dataset's access group by
 listing the content of ``/network/datasets/restricted`` with the `ls command
 <https://cli-cheatsheet.readthedocs.io/en/latest/#ls>`_.
+
+Those datasets are mirrored to the :ref:`Alliance clusters
+<_drac_clusters#current-allocation-description>` in
+``~/projects/rrg-bengioy-ad/data/curated/`` if they follow Digital Research
+Alliance of Canada's `good practices on data
+<https://docs.alliancecan.ca/wiki/AI_and_Machine_Learning#Managing_your_datasets>`_.
+To list the local datasets on an Alliance cluster, you can execute the
+following command:
+
+.. prompt:: bash $
+
+   ssh [CLUSTER_LOGIN] -C "projects/rrg-bengioy-ad/data/curated/list_datasets_cc.sh"
