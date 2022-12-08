@@ -70,6 +70,60 @@ commands::
 
     --gres=gpu:a100:<number> --reservation=DGXA100
 
+MIG
+^^^
+
+.. _mig_nodes:
+
+MIG (`Multi-Instance GPU <https://www.nvidia.com/en-us/technologies/multi-instance-gpu/>`_)
+is an NVIDIA technology allowing certain GPUs to be
+partitioned into multiple *instances*, each of which has a roughly proportional
+amount of compute resources, device memory and bandwidth to that memory.
+
+NVIDIA supports MIG on its A100 GPUs and allows slicing the A100 into up to 7
+instances. Although this can theoretically be done dynamically, the SLURM job
+scheduler does not support doing so in practice as it does not model
+reconfigurable resources very well. Therefore, the A100s must currently be
+statically partitioned into the required number of instances of every size
+expected to be used.
+
+The ``cn-g`` series of nodes include A100-80GB GPUs. One third have been
+configured to offer regular (non-MIG mode) ``a100l`` GPUs. The other two-thirds
+have been configured in MIG mode, and offer the following profiles:
+
++-----------------------------+----------------------------------------+--------------+
+|          Name               |     GPU                                | Cluster-wide |
+|                             +----------+---------------+-------------+--------------+
+|                             |   Model  |     Memory    |   Compute   |      #       |
++=============================+==========+===============+=============+==============+
+| ``a100l.1g.10gb``:h:`<p>`   |          | 10GB :h:`<p>` | 1/7th       |     72       |
+| ``a100l.1``                 | A100     | (1/8th)       | *of full*   |              |
++-----------------------------+----------+---------------+-------------+--------------+
+| ``a100l.2g.20gb``:h:`<p>`   |          | 20GB :h:`<p>` | 2/7th       |     108      |
+| ``a100l.2``                 | A100     | (2/8th)       | *of full*   |              |
++-----------------------------+----------+---------------+-------------+--------------+
+| ``a100l.3g.40gb``:h:`<p>`   |          | 40GB :h:`<p>` | 3/7th       |     72       |
+| ``a100l.3``                 | A100     | (4/8th)       | *of full*   |              |
++-----------------------------+----------+---------------+-------------+--------------+
+
+And can be requested using a SLURM flag such as ``--gres=gpu:a100l.1``
+
+The partitioning may be revised as needs and SLURM capabilities evolve. Other
+MIG profiles exist and could be introduced.
+
+
+.. warning::
+
+    MIG has a number of `important limitations <https://docs.nvidia.com/datacenter/tesla/mig-user-guide/index.html#app-considerations>`_,
+    most notably that a GPU in MIG mode does not support graphics APIs
+    (OpenGL/Vulkan), nor P2P over NVLink and PCIe. We have therefore chosen to
+    limit every MIG job to exactly one MIG slice and no more. Thus,
+    ``--gres=gpu:a100l.3`` will work (*and request a size-3 slice of an*
+    ``a100l`` *GPU*) but ``--gres=gpu:a100l.1:3`` (*with* ``:3`` *requesting
+    three size-1 slices*) **will not**.
+
+
+
 AMD
 ^^^
 
