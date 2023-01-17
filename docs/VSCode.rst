@@ -20,23 +20,10 @@ time.
 Therefore, to use VSCode on the cluster, you first need to allocate a compute
 node, then connect to that node.
 
-The milatools_ package provides a command to make the operation easier. Simply
-run:
-
-.. code-block:: bash
-
-    mila code path/on/cluster
-
-Note that the above command requires your SSH config to be organized in a
-certain way, so you should run ``mila init`` prior to using ``mila code`` for
-the first time.
-
-If you already have an allocation, or you want to run VSCode on the same node as
-one of your running jobs, the ``--node name`` and ``--job jobid`` options can be
-used.
+The milatools_ package provides a command to make the operation easier. More
+info can be found :ref:`here <mila_code>`.
 
 .. _milatools: https://github.com/mila-iqia/milatools
-
 
 Activating an environment
 -------------------------

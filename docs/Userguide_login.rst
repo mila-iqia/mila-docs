@@ -1,3 +1,5 @@
+.. _logging_in:
+
 Logging in to the cluster
 =========================
 
@@ -63,6 +65,8 @@ The ECDSA, RSA and ED25519 fingerprints for Mila's login nodes are:
         computationally expensive, when many people do it, they add up! See
         :ref:`Visual Studio Code` for specific instructions.
 
+
+.. _mila_init:
 
 mila init
 ---------

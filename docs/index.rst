@@ -3,7 +3,8 @@ Mila technical documentation
 
 .. First and only part to the documentation.
 
-Welcome to Mila's technical documentation. See contents below.
+Welcome to Mila's technical documentation. See contents below and have a look
+into the :ref:`short quick start <mila_code>`.
 
 
 .. Link to chapters below.
@@ -15,10 +16,11 @@ Welcome to Mila's technical documentation. See contents below.
    Purpose
 
 .. toctree::
-   :caption: General theory
+   :caption: How-tos and Guides
    :maxdepth: 2
 
-   Theory_cluster
+   Userguide
+   Handbook
 
 .. toctree::
    :caption: Systems and services
@@ -28,11 +30,10 @@ Welcome to Mila's technical documentation. See contents below.
    Extra_compute
 
 .. toctree::
-   :caption: How-tos and Guides
+   :caption: General theory
    :maxdepth: 2
 
-   Userguide
-   Handbook
+   Theory_cluster
 
 .. toctree::
    :caption: Extras
