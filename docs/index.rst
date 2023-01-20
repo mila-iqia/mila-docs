@@ -5,7 +5,7 @@ Mila technical documentation
 
 Welcome to Mila's technical documentation. If this is your first time here, we
 recommend you start by checking out the :ref:`short quick start guide
-<mila_code>`.
+<quick_start>`.
 
 
 .. Link to chapters below.
