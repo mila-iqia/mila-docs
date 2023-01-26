@@ -21,11 +21,11 @@ the ``mila code`` command will allow you to use `VSCode
 
    mila code path/on/cluster
 
-The details of the command can be found on the `github page of the package
+The details of the command can be found in the `mila code section of github page
 <https://github.com/mila-iqia/milatools#mila-code>`_. Note that you need to
 first setup your ssh configuration using ``mila init`` before the ``mila code``
 command can be used. The initialisation of the ssh configuration is explained
-:ref:`here <mila_init>` and on the `github page of the package
+:ref:`here <mila_init>` and in the `mila init section of github page
 <https://github.com/mila-iqia/milatools#mila-init>`_.
 
 .. _milatools: https://github.com/mila-iqia/milatools
