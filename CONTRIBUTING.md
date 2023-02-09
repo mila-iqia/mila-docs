@@ -40,8 +40,16 @@ If you would like to contribute directly in the code of the documentation, keep
 the lines width to 80 characters or less. You can attempt to build the docs
 yourself to see if the formating is right:
 
+#### pip installation
 ```console
 python3 -m pip install -r docs/requirements.txt
+sphinx-build -b html docs/ docs/_build/
+```
+
+#### conda installation
+```console
+conda env create --file docs/environment.yaml
+conda activate mila-docs
 sphinx-build -b html docs/ docs/_build/
 ```
 
