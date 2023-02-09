@@ -145,4 +145,4 @@ You can create it if it doesn't exist. You can also run:
 
 .. prompt:: bash $
 
-   $ conda config --set solver libmamba
+   conda config --set solver libmamba
