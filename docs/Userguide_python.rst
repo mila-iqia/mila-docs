@@ -122,13 +122,13 @@ To install and set the ``libmamba`` solver, run the following commands:
 
 .. prompt:: bash $, auto
 
-   # Install miniconda
-   # (you can not use the preinstalled anaconda/miniconda as installing libmamba
-   #  requires ownership over the anaconda/miniconda install directory)
+   \# Install miniconda
+   \# (you can not use the preinstalled anaconda/miniconda as installing libmamba
+   \#  requires ownership over the anaconda/miniconda install directory)
    $ wget https://repo.anaconda.com/miniconda/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh
    $ bash Miniconda3-py310_22.11.1-1-Linux-x86_64.sh
 
-   # Install libmamba
+   \# Install libmamba
    $ conda install -n base conda-libmamba-solver
 
 By default, conda uses the built-in solver when installing packages, even after 
