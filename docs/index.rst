@@ -7,6 +7,8 @@ Welcome to Mila's technical documentation. If this is your first time here, we
 recommend you start by checking out the :ref:`short quick start guide
 <quick_start>`.
 
+.. include:: Acknowledgement_text.rst
+
 
 .. Link to chapters below.
 
@@ -40,13 +42,14 @@ recommend you start by checking out the :ref:`short quick start guide
    :caption: Extras
    :maxdepth: 2
 
+   Acknowledgement
    Mila Datasets <https://datasets.server.mila.quebec/>
    Audio_video
    VSCode
    IDT
 
 :Support: To reach the Mila infrastructure support, please `submit
-          a support ticket. <https://milaquebec.freshdesk.com/a/tickets/new>`_
+   a support ticket. <https://milaquebec.freshdesk.com/a/tickets/new>`_
 
 
 :Contribution: If you find any errors in the documentation, missing or unclear

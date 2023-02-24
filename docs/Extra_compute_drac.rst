@@ -9,10 +9,13 @@ The clusters named `Beluga`, `Cedar`, `Graham`, `Narval` and `Niagara` are
 clusters provided by the `Digital Research Alliance of Canada organisation
 <https://alliancecan.ca/>`_ (the Alliance). For Mila researchers, these
 clusters are to be used for larger experiments having many jobs, multi-node
-computation and/or multi-GPU jobs as well as long running jobs. If you use
-these resources for your research, please remember to `acknowledge their use in
-your papers
-<https://alliancecan.ca/en/services/advanced-research-computing/acknowledging-alliance>`_.
+computation and/or multi-GPU jobs as well as long running jobs.
+
+.. note::
+
+   If you use DRAC resources for your research, please remember to `acknowledge
+   their use in your papers
+   <https://alliancecan.ca/en/services/advanced-research-computing/acknowledging-alliance>`_
 
 .. note::
 
@@ -21,7 +24,6 @@ your papers
    will be supported by the new Digital Research Alliance of Canada.
 
    https://ace-net.ca/compute-canada-operations-move-to-the-digital-research-alliance-of-canada-(the-alliance).html
-
 
 Current allocation description
 ------------------------------
