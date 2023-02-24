@@ -6,11 +6,8 @@
    important case for long-term and sustainable funding of Mila and our
    operations. Examples include the use, either in whole or in part, of:
 
-   * Training Models
-   * Exploring Datasets
    * Computing, visualization or storage hardware
-   * Software
-   * Collaboration facilities
+   * Software from `<https://github.com/mila-iqia>`_
    * Staff expertise / consultation
 
    The exact wording of the acknowledgment may vary, but please ensure that
