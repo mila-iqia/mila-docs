@@ -36,6 +36,13 @@ recommend you start by checking out the :ref:`short quick start guide
 
    Theory_cluster
 
+
+.. toctree::
+   :caption: Minimal Examples
+   :maxdepth: 2
+
+   Minimal_examples
+
 .. toctree::
    :caption: Extras
    :maxdepth: 2
@@ -53,4 +60,3 @@ recommend you start by checking out the :ref:`short quick start guide
    sections, or would simply like to contribute, please open an
    issue or make a pull request on the `github page
    <https://github.com/mila-iqia/mila-docs>`_.
-
