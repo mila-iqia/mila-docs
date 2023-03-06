@@ -14,7 +14,7 @@
 
    If you find useful some of the software developed at Mila or the technical
    help you can get from our experts you can also mention it in the
-   acknowledgment: 
+   acknowledgment:
 
       *"This research was enabled in part by compute resources, software and
       technical help provided by Mila (mila.quebec)."*
