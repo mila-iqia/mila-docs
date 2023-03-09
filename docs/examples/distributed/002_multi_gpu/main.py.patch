@@ -252,11 +252,11 @@ index f859e9f..9cc7ef1 100644
 +        torch.distributed.barrier()
      train_dataset = CIFAR10(
 -        root=dataset_path, transform=transforms.ToTensor(), download=True, train=True
-+        dataset_path, transform=transforms.ToTensor(), download=is_master, train=True
++        root=dataset_path, transform=transforms.ToTensor(), download=is_master, train=True
      )
      test_dataset = CIFAR10(
 -        root=dataset_path, transform=transforms.ToTensor(), download=True, train=False
-+        dataset_path, transform=transforms.ToTensor(), download=is_master, train=False
++        root=dataset_path, transform=transforms.ToTensor(), download=is_master, train=False
      )
 +    if is_master:
 +        # Join the workers waiting in the barrier above. They can now load the datasets from disk.
