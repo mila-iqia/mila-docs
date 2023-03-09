@@ -4,17 +4,17 @@
 
 Prerequisites:
 
-* :ref:`001 - PyTorch Setup`
+* :ref:`pytorch_setup`
 * :ref:`001 - Single GPU Job`
 
 Other interesting resources:
 * `https://sebarnold.net/dist_blog/`
 * `https://lambdalabs.com/blog/multi-node-pytorch-distributed-training-guide`
 
-.. literalinclude:: /examples/distributed/002-multi-gpu/job.sh
+.. literalinclude:: /examples/distributed/002_multi_gpu/job.sh
     :language: bash
 
-.. literalinclude:: /examples/distributed/002-multi-gpu/main.py
+.. literalinclude:: /examples/distributed/002_multi_gpu/main.py
     :language: python
 
 

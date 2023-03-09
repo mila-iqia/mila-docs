@@ -5,18 +5,18 @@
 **Prerequisites**
 Make sure to read the following sections of the documentation before using this example:
 
-* :ref:`001 - PyTorch Setup`
+* :ref:`pytorch_setup`
 
 **job.sh**
 
 
-.. literalinclude:: /examples/distributed/001-single-gpu/job.sh
+.. literalinclude:: /examples/distributed/001_single_gpu/job.sh
     :language: bash
 
 **main.py**
 
 
-.. literalinclude:: /examples/distributed/001-single-gpu/main.py
+.. literalinclude:: /examples/distributed/001_single_gpu/main.py
     :language: python
 
 

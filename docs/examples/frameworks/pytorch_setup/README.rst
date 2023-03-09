@@ -1,3 +1,5 @@
+.. _pytorch_setup:
+
 PyTorch Setup
 ===================
 
