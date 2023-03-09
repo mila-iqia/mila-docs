@@ -2,6 +2,7 @@
 import logging
 import os
 
+import rich.logging
 import torch
 from torch import Tensor, nn
 from torch.nn import functional as F
@@ -25,8 +26,7 @@ def main():
     # Setup logging (optional, but much better than using print statements)
     logging.basicConfig(
         level=logging.INFO,
-        # Very pretty but requires the `rich` package:
-        # handlers=[rich.logging.RichHandler(markup=True)],
+        handlers=[rich.logging.RichHandler(markup=True)],  # Very pretty, uses the `rich` package.
     )
 
     logger = logging.getLogger(__name__)

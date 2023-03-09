@@ -2,6 +2,7 @@
 #SBATCH --gpus-per-task=rtx8000:1
 #SBATCH --cpus-per-task=1
 #SBATCH --ntasks-per-node=4
+#SBATCH --nodes=2
 #SBATCH --mem=16G
 #SBATCH --time=00:15:00
 
@@ -26,12 +27,14 @@ module load anaconda/3
 # Activate pre-existing environment.
 conda activate pytorch
 
-# Stage dataset into $SLURM_TMPDIR
-cp -a /network/datasets/cifar10.var/cifar10_torchvision $SLURM_TMPDIR
+
+# Stage dataset into $SLURM_TMPDIR (only on the first worker of each node)
+srun --ntasks=$SLURM_JOB_NUM_NODES --ntasks-per-node=1 bash -c \
+    'cp -a /network/datasets/cifar10.var/cifar10_torchvision $SLURM_TMPDIR'
 
 # Get a unique port for this job based on the job ID
 export MASTER_PORT=$(expr 10000 + $(echo -n $SLURM_JOBID | tail -c 4))
-export MASTER_ADDR="127.0.0.1"
+export MASTER_ADDR=$(scontrol show hostnames "$SLURM_JOB_NODELIST" | head -n 1)
 
 # Execute Python script in distributed fashion
 srun python main.py
