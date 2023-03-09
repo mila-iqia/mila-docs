@@ -1,5 +1,5 @@
 diff --git a/docs/examples/distributed/002_multi_gpu/job.sh b/docs/examples/distributed/003_multi_node/job.sh
-index 41eed45..90c9e7f 100644
+index 89bbf9d..7cb1d99 100644
 --- a/docs/examples/distributed/002_multi_gpu/job.sh
 +++ b/docs/examples/distributed/003_multi_node/job.sh
 @@ -2,6 +2,7 @@
@@ -26,5 +26,5 @@ index 41eed45..90c9e7f 100644
 -export MASTER_ADDR="127.0.0.1"
 +export MASTER_ADDR=$(scontrol show hostnames "$SLURM_JOB_NODELIST" | head -n 1)
 
- # Execute Python script in distributed fashion
+ # Execute Python script in each task (one per GPU)
  srun python main.py

@@ -3,7 +3,6 @@
 # NOTE: I (@lebrice) wouldn't recommend editing the files directly, since it might break things
 # that depend on it.
 
-set -e
 
 git diff --no-index \
     docs/examples/distributed/001_single_gpu/job.sh \
