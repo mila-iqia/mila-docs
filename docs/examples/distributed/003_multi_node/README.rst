@@ -13,7 +13,7 @@ Other interesting resources:
 * `https://lambdalabs.com/blog/multi-node-pytorch-distributed-training-guide`
 
 
-Click here to see `the full source code for this example <https://github.com/lebrice/mila-docs/tree/pytorch_distributed_training_examples/docs/examples/distributed/003_multi_node>`_
+Click here to see `the source code for this example <https://github.com/lebrice/mila-docs/tree/pytorch_distributed_training_examples/docs/examples/distributed/003_multi_node>`_
 
 **Job.sh**
 

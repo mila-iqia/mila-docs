@@ -7,15 +7,15 @@ Make sure to read the following sections of the documentation before using this 
 
 * :ref:`pytorch_setup`
 
-**job.sh**
+The full source code for this example is available on `the mila-docs GitHub repository. <https://github.com/lebrice/mila-docs/tree/pytorch_distributed_training_examples/docs/examples/distributed/001_single_gpu>`_
 
+**job.sh**
 
 .. literalinclude:: examples/distributed/001_single_gpu/job.sh
     :language: bash
 
 
 **main.py**
-
 
 .. literalinclude:: examples/distributed/001_single_gpu/main.py
     :language: python
