@@ -12,11 +12,25 @@ Other interesting resources:
 * `https://sebarnold.net/dist_blog/`
 * `https://lambdalabs.com/blog/multi-node-pytorch-distributed-training-guide`
 
-.. literalinclude:: /examples/distributed/003_multi_node/job.sh
-    :language: bash
 
-.. literalinclude:: /examples/distributed/003_multi_node/main.py
-    :language: python
+Click here to see `the full source code for this example <https://github.com/lebrice/mila-docs/tree/pytorch_distributed_training_examples/docs/examples/distributed/003_multi_node>`_
+
+**Job.sh**
+
+.. literalinclude:: /examples/distributed/003_multi_node/job.sh.diff
+    :language: diff
+
+**main.py**
+
+.. literalinclude:: /examples/distributed/003_multi_node/main.py.diff
+    :language: diff
+
+
+.. .. literalinclude:: /examples/distributed/003_multi_node/job.sh
+..     :language: bash
+
+.. .. literalinclude:: /examples/distributed/003_multi_node/main.py
+..     :language: python
 
 
 **Running this example**

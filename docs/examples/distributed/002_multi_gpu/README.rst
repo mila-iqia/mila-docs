@@ -8,14 +8,26 @@ Prerequisites:
 * :ref:`001 - Single GPU Job`
 
 Other interesting resources:
-* `https://sebarnold.net/dist_blog/`
-* `https://lambdalabs.com/blog/multi-node-pytorch-distributed-training-guide`
 
-.. literalinclude:: /examples/distributed/002_multi_gpu/job.sh
-    :language: bash
+* `<https://sebarnold.net/dist_blog/>`_
+* `<https://lambdalabs.com/blog/multi-node-pytorch-distributed-training-guide>`_
 
-.. literalinclude:: /examples/distributed/002_multi_gpu/main.py
-    :language: python
+Click here to see `the full source code for this example <https://github.com/lebrice/mila-docs/tree/pytorch_distributed_training_examples/docs/examples/distributed/002_multi_gpu>`_
+
+**Job.sh**
+
+.. literalinclude:: ../docs/_build/examples/distributed/002_multi_gpu/job.sh.diff
+    :language: diff
+
+.. literalinclude:: ../docs/_build/examples/distributed/002_multi_gpu/main.py.diff
+    :language: diff
+
+
+.. .. literalinclude:: /examples/distributed/002_multi_gpu/job.sh
+..     :language: bash
+
+.. .. literalinclude:: /examples/distributed/002_multi_gpu/main.py
+..     :language: python
 
 
 **Running this example**
