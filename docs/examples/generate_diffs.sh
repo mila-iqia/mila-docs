@@ -16,7 +16,7 @@ generate_diff() {
 
     # Write a diff file to be shown in the documentation.
     
-    built_example_diffs_folder="built_example_diffs"
+    built_example_diffs_folder="_build/example_diffs"
     mkdir -p $(dirname "$built_example_diffs_folder/$2.diff")
 
     echo "# $1 -> $2" > $built_example_diffs_folder/$2.diff

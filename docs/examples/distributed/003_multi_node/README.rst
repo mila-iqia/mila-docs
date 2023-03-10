@@ -1,4 +1,4 @@
-003 - Multi-Node-Multi-GPU (DDP) Job
+003 - Multi-Node (DDP) Job
 =====================================
 
 
@@ -17,12 +17,12 @@ Click here to see `the full source code for this example <https://github.com/leb
 
 **Job.sh**
 
-.. literalinclude:: /built_example_diffs/distributed/003_multi_node/job.sh.diff
+.. literalinclude:: _build/example_diffs/distributed/003_multi_node/job.sh.diff
     :language: diff
 
 **main.py**
 
-.. literalinclude:: /built_example_diffs/distributed/003_multi_node/main.py.diff
+.. literalinclude:: _build/example_diffs/distributed/003_multi_node/main.py.diff
     :language: diff
 
 
