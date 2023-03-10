@@ -16,10 +16,10 @@ Click here to see `the full source code for this example <https://github.com/leb
 
 **Job.sh**
 
-.. literalinclude:: ../docs/_build/examples/distributed/002_multi_gpu/job.sh.diff
+.. literalinclude:: /built_example_diffs/distributed/002_multi_gpu/job.sh.diff
     :language: diff
 
-.. literalinclude:: ../docs/_build/examples/distributed/002_multi_gpu/main.py.diff
+.. literalinclude:: /built_example_diffs/distributed/002_multi_gpu/main.py.diff
     :language: diff
 
 

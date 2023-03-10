@@ -17,12 +17,12 @@ Click here to see `the full source code for this example <https://github.com/leb
 
 **Job.sh**
 
-.. literalinclude:: /examples/distributed/003_multi_node/job.sh.diff
+.. literalinclude:: /built_example_diffs/distributed/003_multi_node/job.sh.diff
     :language: diff
 
 **main.py**
 
-.. literalinclude:: /examples/distributed/003_multi_node/main.py.diff
+.. literalinclude:: /built_example_diffs/distributed/003_multi_node/main.py.diff
     :language: diff
 
 

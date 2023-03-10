@@ -15,12 +15,16 @@ generate_diff() {
         > examples/$2.diff
 
     # Write a diff file to be shown in the documentation.
-    mkdir -p $(dirname "_build/examples/$2.diff")
+    
+    built_example_diffs_folder="built_example_diffs"
+    mkdir -p $(dirname "$built_example_diffs_folder/$2.diff")
+
+    echo "# $1 -> $2" > $built_example_diffs_folder/$2.diff
     git diff --no-index -U9999 \
         "examples/$1" \
         "examples/$2" \
-        | grep -Ev "^--- |^\+\+\+ |^@@ |^index |^diff --git " \
-        > _build/examples/$2.diff
+        | grep -Ev "^--- |^\+\+\+ |^@@ |^index |^diff --git" \
+        >> $built_example_diffs_folder/$2.diff
 }
 
 # single_gpu -> multi_gpu

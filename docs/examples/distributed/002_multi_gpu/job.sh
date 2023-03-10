@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --gpus-per-task=rtx8000:1
-#SBATCH --cpus-per-task=1
+#SBATCH --cpus-per-task=4
 #SBATCH --ntasks-per-node=4
 #SBATCH --mem=16G
 #SBATCH --time=00:15:00

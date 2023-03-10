@@ -1,9 +1,11 @@
 diff --git a/examples/distributed/002_multi_gpu/job.sh b/examples/distributed/003_multi_node/job.sh
 --- a/examples/distributed/002_multi_gpu/job.sh
 +++ b/examples/distributed/003_multi_node/job.sh
-@@ -2,6 +2,7 @@
+@@ -1,7 +1,8 @@
+ #!/bin/bash
  #SBATCH --gpus-per-task=rtx8000:1
- #SBATCH --cpus-per-task=1
+-#SBATCH --cpus-per-task=4
++#SBATCH --cpus-per-task=1
  #SBATCH --ntasks-per-node=4
 +#SBATCH --nodes=2
  #SBATCH --mem=16G
