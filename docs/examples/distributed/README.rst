@@ -1,6 +1,6 @@
-*****************************
-Distributed Training Examples
-*****************************
+********************
+Distributed Training
+********************
 
 .. include:: /examples/distributed/001_single_gpu/README.rst
 .. include:: /examples/distributed/002_multi_gpu/README.rst
