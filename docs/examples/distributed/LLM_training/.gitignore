@@ -1,0 +1,3 @@
+output
+slurm-*.txt
+.deepspeed_env

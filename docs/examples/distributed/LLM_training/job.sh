@@ -8,11 +8,9 @@
 
 set -e  # exit on error.
 
-
 # Echo time and hostname into log
 echo "Date:     $(date)"
 echo "Hostname: $(hostname)"
-
 
 # Ensure only anaconda/3 module loaded.
 module purge
@@ -48,11 +46,10 @@ set -x  # print commands.
 # Get a unique port for this job based on the job ID
 export MASTER_PORT=$(expr 10000 + $(echo -n $SLURM_JOBID | tail -c 4))
 export MASTER_ADDR=$(scontrol show hostnames "$SLURM_JOB_NODELIST" | head -n 1)
-export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:=4}
+# export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:=4}
 # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/
 # export CPATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/include/
 
-# ACCELERATE_CONFIG="gabriele_config.yaml"
 ACCELERATE_CONFIG=${ACCELERATE_CONFIG:="gabriele_config.yaml"}
 
 # TODO: Load the dataset in-memory:
@@ -67,15 +64,15 @@ output_dir=$SCRATCH/logs/llm_training/$SLURM_JOB_ID
 mkdir -p $output_dir
 
 # TODO: This should be run once per node with `srun --ntasks-per-node=1 bash -c '...'`
-srun --tasks-per-node=1 \
-    accelerate launch \
-        --config_file=$ACCELERATE_CONFIG \
-        --machine_rank=$SLURM_NODEID \
-        --num_cpu_threads_per_process=$SLURM_CPUS_PER_TASK \
-        --main_process_ip=$MASTER_ADDR \
-        --main_process_port=$MASTER_PORT \
-        --num_processes=$SLURM_NTASKS_PER_NODE \
-        deepspeed_with_config_support.py \
-        --config_name=facebook/opt-2.7b --tokenizer_name=facebook/opt-2.7b \
-        --dataset_name=wikitext --dataset_config_name wikitext-103-v1 \
-        --per_device_train_batch_size=1 --max_train_steps=10 --output_dir=$output_dir
+srun --ntasks=$SLURM_JOB_NUM_NODES --ntasks-per-node=1 bash -c 'accelerate launch \
+    --config_file='$ACCELERATE_CONFIG' \
+    --machine_rank=$SLURM_NODEID \
+    --num_cpu_threads_per_process='$SLURM_CPUS_PER_TASK' \
+    --main_process_ip='$MASTER_ADDR' \
+    --main_process_port='$MASTER_PORT' \
+    --num_processes='$SLURM_NTASKS_PER_NODE' \
+    deepspeed_with_config_support.py \
+    --output_dir='$output_dir' \
+    --config_name=facebook/opt-2.7b --tokenizer_name=facebook/opt-2.7b \
+    --dataset_name=wikitext --dataset_config_name wikitext-103-v1 \
+    --per_device_train_batch_size=1 --max_train_steps=1000'
