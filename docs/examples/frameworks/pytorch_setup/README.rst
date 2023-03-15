@@ -27,11 +27,11 @@ PyTorch Setup
 
 **Running this example**
 
-This assumes that you already created a conda environment named "pytorch".
-To create this environment, we first request resources for an interactive job.
-Note that we are requesting a GPU for this job, even though we're only going to install packages.
-This is because we want PyTorch to be installed with GPU support, and to have all the required
-libraries.
+This assumes that you already created a conda environment named "pytorch". To
+create this environment, we first request resources for an interactive job.
+Note that we are requesting a GPU for this job, even though we're only going to
+install packages. This is because we want PyTorch to be installed with GPU
+support, and to have all the required libraries.
 
 .. code-block:: bash
 
@@ -53,8 +53,8 @@ libraries.
     $ # Activate the environment:
     $ conda activate pytorch
 
-Exit the interactive job once the environment has been created.
-Then, the example can be launched to confirm that everything works:
+Exit the interactive job once the environment has been created. Then, the
+example can be launched to confirm that everything works:
 
 .. code-block:: bash
 
