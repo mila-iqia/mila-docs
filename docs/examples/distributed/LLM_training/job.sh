@@ -63,12 +63,14 @@ ACCELERATE_CONFIG=${ACCELERATE_CONFIG:="gabriele_config.yaml"}
 # srun --ntasks=$SLURM_JOB_NUM_NODES --ntasks-per-node=1 bash -c 'cp -a $SCRATCH/cache/huggingface/datasets $SLURM_TMPDIR/datasets'
 # export HF_DATASETS_CACHE="$SLURM_TMPDIR/datasets"
 
+output_dir=$SCRATCH/logs/llm_training/$SLURM_JOB_ID
+mkdir -p $output_dir
+
 # TODO: This should be run once per node with `srun --ntasks-per-node=1 bash -c '...'`
 srun --tasks-per-node=1 \
     accelerate launch \
         --config_file=$ACCELERATE_CONFIG \
         --machine_rank=$SLURM_NODEID \
-        --num_machines=$SLURM_JOB_NUM_NODES \
         --num_cpu_threads_per_process=$SLURM_CPUS_PER_TASK \
         --main_process_ip=$MASTER_ADDR \
         --main_process_port=$MASTER_PORT \
@@ -76,4 +78,4 @@ srun --tasks-per-node=1 \
         deepspeed_with_config_support.py \
         --config_name=facebook/opt-2.7b --tokenizer_name=facebook/opt-2.7b \
         --dataset_name=wikitext --dataset_config_name wikitext-103-v1 \
-        --per_device_train_batch_size=1 --max_train_steps=10 --output_dir=output
+        --per_device_train_batch_size=1 --max_train_steps=10 --output_dir=$output_dir
