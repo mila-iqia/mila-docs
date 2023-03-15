@@ -1,7 +1,16 @@
 
-# Launching a multi-GPU job on a single node, without any parameter offloading: 
+# Launching the example:
 
-sbatch --reservation=milabench --nodes=2 --ntasks-per-node=2 --export=ALL,ACCELERATE_CONFIG=ds_level2.yaml job.sh
+
+```bash
+sbatch --reservation=milabench --nodes=2 --ntasks-per-node=2 job.sh
+sbatch --reservation=milabench --nodes=1 --ntasks-per-node=4 job.sh
+sbatch --reservation=milabench --nodes=2 --ntasks-per-node=2 \
+    --export=ALL,ACCELERATE_CONFIG=ds_level3.yaml job.sh
+sbatch --reservation=milabench --nodes=1 --ntasks-per-node=4 \
+    --export=ALL,ACCELERATE_CONFIG=ds_level3.yaml job.sh
+```
+
 
 ## TOTAL VRAM required to train each model
 
