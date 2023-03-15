@@ -652,7 +652,12 @@ def main():
     num_update_steps_per_epoch = math.ceil(
         len(train_dataloader) / args.gradient_accumulation_steps
     )
-    args.max_train_steps = args.num_train_epochs * num_update_steps_per_epoch
+    # BUG: Overwrites `max_train_steps` when `max_train_steps` < 1 epoch!
+    # args.max_train_steps = args.num_train_epochs * num_update_steps_per_epoch
+    if args.max_train_steps < len(train_dataloader):
+        args.max_train_steps = args.max_train_steps * args.gradient_accumulation_steps
+    else:
+        args.max_train_steps = args.num_train_epochs * num_update_steps_per_epoch
 
     # Figure out how many steps we should save the Accelerator states
     if hasattr(args.checkpointing_steps, "isdigit"):
