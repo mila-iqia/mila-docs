@@ -63,7 +63,7 @@ srun --nodes=$SLURM_JOB_NUM_NODES --ntasks=$SLURM_JOB_NUM_NODES --ntasks-per-nod
     --num_cpu_threads_per_process='$SLURM_CPUS_PER_TASK' \
     --main_process_ip='$MASTER_ADDR' \
     --main_process_port='$MASTER_PORT' \
-    --num_processes='$SLURM_NTASKS_PER_NODE' \
+    --num_processes='$WORLD_SIZE' \
     deepspeed_with_config_support.py \
     --output_dir='$output_dir' \
     --config_name=facebook/opt-2.7b --tokenizer_name=facebook/opt-2.7b \
