@@ -77,6 +77,10 @@ require_version(
 MODEL_CONFIG_CLASSES = list(MODEL_MAPPING.keys())
 MODEL_TYPES = tuple(conf.model_type for conf in MODEL_CONFIG_CLASSES)
 
+# Note: These are only used in setting the wandb run name and group, if they are set.
+JOB_ID: Optional[str] = os.environ.get("JOB_ID", os.environ.get("SLURM_JOB_ID"))
+NODEID: Optional[str] = os.environ.get("NODEID", os.environ.get("SLURM_NODEID"))
+
 
 @dataclass
 class Args:
@@ -190,7 +194,7 @@ class Args:
     load_best_model: bool = False
     """Whether to load the best model at the end of training."""
 
-    with_tracking: bool = False
+    with_tracking: bool = True
     """Whether to enable experiment trackers for logging."""
 
     report_to: str = "all"
@@ -314,6 +318,7 @@ def main():
 
     MASTER_ADDR = os.environ["MASTER_ADDR"]
     MASTER_PORT = os.environ["MASTER_PORT"]
+
     # assert "RANK" not in os.environ, os.environ["RANK"]
     # os.environ["RANK"] = os.environ["SLURM_PROCID"]
     # RANK = os.environ["RANK"]
@@ -526,7 +531,7 @@ def main():
             num_proc=args.preprocessing_num_workers,
             load_from_cache_file=not args.overwrite_cache,
             # TODO: See if this works (i.e. makes things faster and doesn't invalidate the cache)
-            keep_in_memory=True,
+            # keep_in_memory=True,
             desc=f"Grouping texts in chunks of {block_size}",
         )
 
@@ -643,18 +648,17 @@ def main():
 
     # We need to initialize the trackers we use, and also store our configuration.
     # The trackers initializes automatically on the main process.
-    if args.with_tracking:
+    if accelerator.is_local_main_process and args.with_tracking:
         experiment_config = vars(args)
         # TensorBoard cannot log Enums, need the raw value
         experiment_config["lr_scheduler_type"] = experiment_config["lr_scheduler_type"].value
 
-        if accelerator.is_local_main_process:
-            wandb.init(
-                project="llm_training",
-                config=experiment_config,
-                name=f"{os.environ['SLURM_JOB_ID']}_{os.environ['SLURM_NODEID']}",
-                group=os.environ["SLURM_JOB_ID"],
-            )
+        wandb.init(
+            project="llm_training",
+            config=experiment_config,
+            name=f"{JOB_ID}_{NODEID}" if JOB_ID is not None else None,
+            group=JOB_ID if JOB_ID is not None else None,
+        )
         # accelerator.init_trackers(
         #     "llm_training",
         #     experiment_config,
@@ -703,7 +707,7 @@ def main():
         starting_epoch = resume_step // len(train_dataloader)
         resume_step -= starting_epoch * len(train_dataloader)
 
-    start_time: float = time.time()
+    start_time: Optional[float] = None
     last_log_time: Optional[float] = None
     n_updates_since_start_of_run: int = 0
     n_updates_since_last_log: int = 0
@@ -748,34 +752,41 @@ def main():
                     accelerator.save_state(output_dir)
 
             if accelerator.is_local_main_process and completed_steps % args.log_every_n_steps == 0:
-                seconds_since_start = time.time() - start_time
-                seconds_since_last_log = time.time() - (last_log_time or start_time)
+                if start_time is None:
+                    # The first time we get here (first logging call), we've never logged before,
+                    # so we can't calculate the throughput. Only save the start time for the next
+                    # call.
+                    start_time = time.time()
+                else:
+                    seconds_since_start = time.time() - start_time
+                    seconds_since_last_log = time.time() - (last_log_time or start_time)
 
-                # TODO: Not 100% sure, but seems like we're only logging values on the first node,
-                # so we assume that one update here = one update on all nodes = total_batch_size
-                # samples.
-                n_samples_since_start = n_updates_since_start_of_run * total_batch_size
-                n_samples_since_last_log = n_updates_since_last_log * total_batch_size
+                    # TODO: Not 100% sure, but seems like we're only logging values on the first node,
+                    # so we assume that one update here = one update on all nodes = total_batch_size
+                    # samples.
+                    n_samples_since_start = n_updates_since_start_of_run * total_batch_size
+                    n_samples_since_last_log = n_updates_since_last_log * total_batch_size
 
-                throughput_samples_per_sec = n_samples_since_last_log / seconds_since_last_log
-                throughput_samples_per_sec_since_start = (
-                    n_samples_since_start / seconds_since_start
-                )
+                    throughput_samples_per_sec = n_samples_since_last_log / seconds_since_last_log
+                    throughput_samples_per_sec_since_start = (
+                        n_samples_since_start / seconds_since_start
+                    )
 
-                # TODO: Use `wandb.log` directly instead, and make sure that each node has a
-                # process logging stuff.
-                # accelerator.log(
-                wandb.log(
-                    {
-                        "train_loss": loss.detach().item(),
-                        "samples_per_sec": throughput_samples_per_sec,
-                        "avg_samples_per_sec": throughput_samples_per_sec_since_start,
-                        "epoch": epoch,
-                        "step": completed_steps,
-                        "n_samples": completed_steps * total_batch_size,
-                    },
-                    step=completed_steps,
-                )
+                    # TODO: Use `wandb.log` directly instead, and make sure that each node has a
+                    # process logging stuff.
+                    # accelerator.log(
+                    wandb.log(
+                        {
+                            "train_loss": loss.detach().item(),
+                            "samples_per_sec": throughput_samples_per_sec,
+                            "avg_samples_per_sec": throughput_samples_per_sec_since_start,
+                            "epoch": epoch,
+                            "step": completed_steps,
+                            "n_samples": completed_steps * total_batch_size,
+                        },
+                        step=completed_steps,
+                    )
+
                 last_log_time = time.time()
                 n_samples_since_last_log = 0
                 n_updates_since_last_log = 0

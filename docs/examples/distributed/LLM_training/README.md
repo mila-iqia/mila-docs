@@ -1,24 +1,20 @@
-
 # Launching the example:
 
-
 ```bash
-sbatch --reservation=milabench --nodes=2 --ntasks-per-node=2 job.sh
-sbatch --reservation=milabench --nodes=1 --ntasks-per-node=4 job.sh \
-    --config_name=facebook/opt-2.7b --tokenizer_name=facebook/opt-2.7b \
-    --dataset_name=wikitext --dataset_config_name wikitext-103-v1 \
-    --per_device_train_batch_size=2 --max_train_steps=1000
-
-sbatch --reservation=milabench --nodes=2 --ntasks-per-node=2 \
-    --export=ALL,ACCELERATE_CONFIG=ds_level3.yaml job.sh
-sbatch --reservation=milabench --nodes=1 --ntasks-per-node=4 \
-    --export=ALL,ACCELERATE_CONFIG=ds_level3.yaml job.sh
+sbatch --nodes=2 --ntasks-per-node=1 --gpus-per-task=a100:2 job.sh
+sbatch --nodes=2 --ntasks-per-node=1 --gpus-per-task=a100:4 job.sh
+sbatch --nodes=1 --ntasks-per-node=1 --gpus-per-task=a100:8 job.sh
 ```
 
 ## TODOS
 
-- Pass the arguments to the python script with $@ instead of hard-coding them into the job.sh script
-- Add wandb reporting
+- Add instructions on how to run the example outside a SLURM cluster
+  - Need to set the `MASTER_ADDR` and `MASTER_PORT`, `WORLD_SIZE`, etc. environment variables manually, and call `accelerate launch` once per node with the right `--machine_index`.
+- Look into: "overlap_comm": true
+- Run the job using different configurations:
+  - Changing models
+  - Changing the accelerate config: ds_level2 (current), ds_level3, fsdp
+  - Changing the batch size per device.
 
 ## TOTAL VRAM required to train each model
 
@@ -33,9 +29,3 @@ sbatch --reservation=milabench --nodes=1 --ntasks-per-node=4 \
 | OPT-30B  | 740.67 GB  |
 | OPT-66B  | 1629.47 GB |
 | OPT-175B | 4320.56 GB |
-
-# NOTE: about `generate` with DeepSpeed level=3
-- Need to pass syneced_gpus=True to `.generate()` method, otherwise there's a stall
-  
-
-- Look into: "overlap_comm": true,

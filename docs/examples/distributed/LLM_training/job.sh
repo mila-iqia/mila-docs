@@ -21,9 +21,10 @@ module --quiet purge
 module load anaconda/3
 module load cuda/11.7
 
-
+# NOTE: Use a temporary directory if you want to re-create the environment from scratch each time.
 # CONDA_ENV_PREFIX=$SLURM_TMPDIR/env
 CONDA_ENV_PREFIX=$SCRATCH/conda/llm_training
+
 
 
 if [ ! -d $CONDA_ENV_PREFIX ]; then
@@ -43,22 +44,24 @@ else
     conda activate $CONDA_ENV_PREFIX
 fi
 
-output_dir=$SCRATCH/logs/llm_training/$SLURM_JOB_ID
-mkdir -p $output_dir
-conda env export > $output_dir/environment.yml
 
 set -x  # print commands.
 
-# Get a unique port for this job based on the job ID
-export MASTER_PORT=$(expr 10000 + $(echo -n $SLURM_JOBID | tail -c 4))
-export MASTER_ADDR=$(scontrol show hostnames "$SLURM_JOB_NODELIST" | head -n 1)
-export WORLD_SIZE=$(($SLURM_JOB_NUM_NODES * $SLURM_GPUS_ON_NODE))
-export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
-
-gpus_per_task=$(($WORLD_SIZE / $SLURM_NTASKS))
-cpus_per_gpu=$(($SLURM_CPUS_PER_TASK / $gpus_per_task))
-
 ACCELERATE_CONFIG=${ACCELERATE_CONFIG:="configs/ds_level2.yaml"}
+MODEL_NAME=${MODEL_NAME:="facebook/opt-2.7b"}
+PER_GPU_BATCH_SIZE=${PER_GPU_BATCH_SIZE:="1"}
+OUTPUT_DIR=${OUTPUT_DIR:=$SCRATCH/logs/llm_training/$SLURM_JOB_ID}
+
+mkdir -p $OUTPUT_DIR
+conda env export > $OUTPUT_DIR/environment.yml
+
+# Get a unique port for this job based on the job ID
+export MASTER_PORT=${MASTER_PORT:=$(expr 10000 + $(echo -n $SLURM_JOBID | tail -c 4))}
+export MASTER_ADDR=${MASTER_ADDR:=$(scontrol show hostnames "$SLURM_JOB_NODELIST" | head -n 1)}
+export WORLD_SIZE=${WORLD_SIZE:=$(($SLURM_JOB_NUM_NODES * $SLURM_GPUS_ON_NODE))}
+# TODO: Make sure this works correctly even with odd numbers of cpus / gpus / nodes (e.g. never zero).
+CPUS_PER_GPU=${CPUS_PER_GPU:=$(($SLURM_CPUS_PER_TASK * SLURM_NTASKS / $WORLD_SIZE))}
+export OMP_NUM_THREADS=$CPUS_PER_GPU
 
 # mem_limit_in_bytes=$(cat /sys/fs/cgroup/memory/slurm/uid_"$(id -u)"/job_"${SLURM_JOBID}"/memory.limit_in_bytes)
 # Enable storing the dataset in-memory.
@@ -66,31 +69,17 @@ ACCELERATE_CONFIG=${ACCELERATE_CONFIG:="configs/ds_level2.yaml"}
 # export HF_DATASETS_IN_MEMORY_MAX_SIZE=$mem_limit_in_bytes
 
 
-# Run `accelerate launch (...)` on each node:
-cmd=(accelerate launch
-        --config_file="$ACCELERATE_CONFIG"
-        --machine_rank='$SLURM_NODEID'
-        --num_cpu_threads_per_process="$cpus_per_gpu"
-        --main_process_ip="$MASTER_ADDR"
-        --main_process_port="$MASTER_PORT"
-        --num_processes="$WORLD_SIZE"
-        main.py
-        --output_dir="$output_dir"
-        "$@")
-
+# NOTE: Uses `srun` to launch `accelerate launch` on each node with the right `--machine_rank`.
 srun --nodes=$SLURM_JOB_NUM_NODES --ntasks=$SLURM_JOB_NUM_NODES --ntasks-per-node=1 --output=logs/slurm-%j_%t.out \
-    bash -c "$(for a in "${cmd[@]}" ; do echo -n \"$a\" "" ; done)"
-
-# Run `accelerate launch (...)` on each node:
-# srun --nodes=$SLURM_JOB_NUM_NODES --ntasks=$SLURM_JOB_NUM_NODES --ntasks-per-node=1 bash -c 'accelerate launch \
-#     --config_file='$ACCELERATE_CONFIG' \
-#     --machine_rank=$SLURM_NODEID \
-#     --num_cpu_threads_per_process='$SLURM_CPUS_PER_TASK' \
-#     --main_process_ip='$MASTER_ADDR' \
-#     --main_process_port='$MASTER_PORT' \
-#     --num_processes='$WORLD_SIZE' \
-#     main.py \
-#     --output_dir='$output_dir' \
-#     --config_name=facebook/opt-2.7b --tokenizer_name=facebook/opt-2.7b \
-#     --dataset_name=wikitext --dataset_config_name wikitext-103-v1 \
-#     --per_device_train_batch_size=1 --max_train_steps=1000 --with_tracking --report_to=wandb'
+    bash -c 'accelerate launch \
+    --config_file='$ACCELERATE_CONFIG' \
+    --machine_rank=$SLURM_NODEID \
+    --num_cpu_threads_per_process='$CPUS_PER_GPU' \
+    --main_process_ip='$MASTER_ADDR' \
+    --main_process_port='$MASTER_PORT' \
+    --num_processes='$WORLD_SIZE' \
+    main.py \
+    --output_dir='$OUTPUT_DIR' \
+    --config_name='$MODEL_NAME' --tokenizer_name='$MODEL_NAME' \
+    --dataset_name=wikitext --dataset_config_name wikitext-103-v1 \
+    --per_device_train_batch_size='$PER_GPU_BATCH_SIZE' --max_train_steps=1000 --with_tracking --report_to=wandb'
