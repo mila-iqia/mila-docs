@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# coding=utf-8
 # Copyright 2022 The HuggingFace Inc. team. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,9 +12,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""
-Fine-tuning the library models for causal language modeling (GPT, GPT-2, CTRL, ...)
-on a text file or a dataset without using HuggingFace Trainer.
+"""Fine-tuning the library models for causal language modeling (GPT, GPT-2, CTRL, ...) on a text
+file or a dataset without using HuggingFace Trainer.
 
 Here is the full list of checkpoints on the hub that can be fine-tuned by this script:
 https://huggingface.co/models?filter=text-generation
@@ -29,26 +27,32 @@ OMP_NUM_THREADS=6 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/ \
     docs/examples/distributed/LLM_training/deepspeed_with_config_support.py \
     --model_name_or_path=gpt2 --dataset_name=wikitext --dataset_config_name wikitext-103-v1 \
     --per_device_train_batch_size=8 --max_train_steps=100
-
-
 """
 # You can also adapt this script on your own causal language modeling task. Pointers for this are left as comments.
-
-import argparse
-from dataclasses import dataclass
 import json
 import logging
 import math
 import os
-import random
+import time
+from dataclasses import dataclass
+from datetime import timedelta
 from itertools import chain
 from pathlib import Path
+from typing import Optional
 
 import datasets
+import rich.logging
+import simple_parsing
 import torch
 import transformers
+import wandb
+from accelerate import Accelerator, DistributedType
+from accelerate.logging import get_logger
+from accelerate.utils import DummyOptim, DummyScheduler, set_seed
+from accelerate.utils.dataclasses import InitProcessGroupKwargs
 from datasets import load_dataset
 from huggingface_hub import Repository
+from simple_parsing import field
 from torch.utils.data import DataLoader
 from tqdm.auto import tqdm
 from transformers import (
@@ -64,11 +68,6 @@ from transformers import (
 from transformers.utils import get_full_repo_name
 from transformers.utils.versions import require_version
 
-from accelerate import Accelerator, DistributedType
-from accelerate.logging import get_logger
-from accelerate.utils import DummyOptim, DummyScheduler, set_seed
-
-
 logger = get_logger(__name__)
 
 require_version(
@@ -79,241 +78,173 @@ MODEL_CONFIG_CLASSES = list(MODEL_MAPPING.keys())
 MODEL_TYPES = tuple(conf.model_type for conf in MODEL_CONFIG_CLASSES)
 
 
-def parse_args():
-    parser = argparse.ArgumentParser(
-        description="Finetune a transformers model on a causal language modeling task"
-    )
-    parser.add_argument(
-        "--dataset_name",
-        type=str,
-        default=None,
-        help="The name of the dataset to use (via the datasets library).",
-    )
-    parser.add_argument(
-        "--dataset_config_name",
-        type=str,
-        default=None,
-        help="The configuration name of the dataset to use (via the datasets library).",
-    )
-    parser.add_argument(
-        "--train_file",
-        type=str,
-        default=None,
-        help="A csv or a json file containing the training data.",
-    )
-    parser.add_argument(
-        "--validation_file",
-        type=str,
-        default=None,
-        help="A csv or a json file containing the validation data.",
-    )
-    parser.add_argument(
-        "--validation_split_percentage",
-        default=5,
-        help="The percentage of the train set used as validation set in case there's no validation split",
-    )
-    parser.add_argument(
-        "--model_name_or_path",
-        type=str,
-        help="Path to pretrained model or model identifier from huggingface.co/models.",
-        required=False,
-    )
-    parser.add_argument(
-        "--config_name",
-        type=str,
-        default=None,
-        help="Pretrained config name or path if not the same as model_name",
-    )
-    parser.add_argument(
-        "--tokenizer_name",
-        type=str,
-        default=None,
-        help="Pretrained tokenizer name or path if not the same as model_name",
-    )
-    parser.add_argument(
-        "--use_slow_tokenizer",
-        action="store_true",
-        help="If passed, will use a slow tokenizer (not backed by the 🤗 Tokenizers library).",
-    )
-    parser.add_argument(
-        "--per_device_train_batch_size",
-        type=int,
-        default=8,
-        help="Batch size (per device) for the training dataloader.",
-    )
-    parser.add_argument(
-        "--per_device_eval_batch_size",
-        type=int,
-        default=8,
-        help="Batch size (per device) for the evaluation dataloader.",
-    )
-    parser.add_argument(
-        "--learning_rate",
-        type=float,
-        default=5e-5,
-        help="Initial learning rate (after the potential warmup period) to use.",
-    )
-    parser.add_argument("--weight_decay", type=float, default=0.0, help="Weight decay to use.")
-    parser.add_argument(
-        "--num_train_epochs",
-        type=int,
-        default=3,
-        help="Total number of training epochs to perform.",
-    )
-    parser.add_argument(
-        "--max_train_steps",
-        type=int,
-        default=None,
-        help="Total number of training steps to perform. If provided, overrides num_train_epochs.",
-    )
-    parser.add_argument(
-        "--gradient_accumulation_steps",
-        type=int,
-        default=1,
-        help="Number of updates steps to accumulate before performing a backward/update pass.",
-    )
-    parser.add_argument(
-        "--lr_scheduler_type",
-        type=SchedulerType,
-        default="linear",
-        help="The scheduler type to use.",
-        choices=[
-            "linear",
-            "cosine",
-            "cosine_with_restarts",
-            "polynomial",
-            "constant",
-            "constant_with_warmup",
-        ],
-    )
-    parser.add_argument(
-        "--num_warmup_steps",
-        type=int,
-        default=0,
-        help="Number of steps for the warmup in the lr scheduler.",
-    )
-    parser.add_argument(
-        "--output_dir", type=str, default=None, help="Where to store the final model."
-    )
-    parser.add_argument("--seed", type=int, default=None, help="A seed for reproducible training.")
-    parser.add_argument(
-        "--model_type",
-        type=str,
-        default=None,
-        help="Model type to use if training from scratch.",
-        choices=MODEL_TYPES,
-    )
-    parser.add_argument(
-        "--block_size",
-        type=int,
-        default=None,
-        help=(
-            "Optional input sequence length after tokenization. The training dataset will be truncated in block of"
-            " this size for training. Default to the model max input length for single sentence inputs (take into"
-            " account special tokens)."
-        ),
-    )
-    parser.add_argument(
-        "--preprocessing_num_workers",
-        type=int,
-        default=None,
-        help="The number of processes to use for the preprocessing.",
-    )
-    parser.add_argument(
-        "--overwrite_cache",
-        type=bool,
-        default=False,
-        help="Overwrite the cached training and evaluation sets",
-    )
-    parser.add_argument(
-        "--no_keep_linebreaks",
-        action="store_true",
-        help="Do not keep line breaks when using TXT files.",
-    )
-    parser.add_argument(
-        "--push_to_hub", action="store_true", help="Whether or not to push the model to the Hub."
-    )
-    parser.add_argument(
-        "--hub_model_id",
-        type=str,
-        help="The name of the repository to keep in sync with the local `output_dir`.",
-    )
-    parser.add_argument("--hub_token", type=str, help="The token to use to push to the Model Hub.")
-    parser.add_argument(
-        "--checkpointing_steps",
-        type=str,
-        default=None,
-        help="Whether the various states should be saved at the end of every n steps, or 'epoch' for each epoch.",
-    )
-    parser.add_argument(
-        "--resume_from_checkpoint",
-        type=str,
-        default=None,
-        help="If the training should continue from a checkpoint folder.",
-    )
-    # New Code #
-    # Whether to load the best model at the end of training
-    parser.add_argument(
-        "--load_best_model",
-        action="store_true",
-        help="Whether to load the best model at the end of training",
-    )
-    parser.add_argument(
-        "--with_tracking",
-        action="store_true",
-        help="Whether to enable experiment trackers for logging.",
-    )
-    parser.add_argument(
-        "--report_to",
-        type=str,
-        default="all",
-        help=(
-            'The integration to report the results and logs to. Supported platforms are `"tensorboard"`,'
-            ' `"wandb"` and `"comet_ml"`. Use `"all"` (default) to report to all integrations.'
-            "Only applicable when `--with_tracking` is passed."
-        ),
-    )
+@dataclass
+class Args:
+    output_dir: str
+    """Where to store the logs and final model."""
+
+    dataset_name: Optional[str] = None
+    """The name of the dataset to use (via the datasets library)."""
+
+    dataset_config_name: Optional[str] = None
+    """The configuration name of the dataset to use (via the datasets library)."""
+
+    train_file: Optional[str] = None
+    """A csv or a json file containing the training data."""
+
+    validation_file: Optional[str] = None
+    """A csv or a json file containing the validation data."""
+
+    validation_split_percentage: int = 5
+    """The percentage of the train set used as validation set in case there's no validation
+    split."""
+
+    model_name_or_path: Optional[str] = None
+    """Path to pretrained model or model identifier from huggingface.co/models."""
+
+    config_name: Optional[str] = None
+    """Pretrained config name or path if not the same as model_name."""
+
+    tokenizer_name: Optional[str] = None
+    """Pretrained tokenizer name or path if not the same as model_name."""
+
+    use_slow_tokenizer: bool = False
+    """If passed, will use a slow tokenizer (not backed by the 🤗 Tokenizers library)."""
+
+    per_device_train_batch_size: int = 8
+    """Batch size (per device) for the training dataloader."""
+
+    per_device_eval_batch_size: int = 8
+    """Batch size (per device) for the evaluation dataloader."""
+
+    learning_rate: float = 5e-5
+    """Initial learning rate (after the potential warmup period) to use."""
+
+    weight_decay: float = 0.0
+    """Weight decay to use."""
+
+    num_train_epochs: int = 3
+    """Total number of training epochs to perform."""
+
+    max_train_steps: Optional[int] = None
+    """Total number of training steps to perform.
+
+    If provided, overrides num_train_epochs.
+    """
+
+    gradient_accumulation_steps: int = 1
+    """Number of updates steps to accumulate before performing a backward/update pass."""
+
+    lr_scheduler_type: SchedulerType = SchedulerType.LINEAR
+    """The scheduler type to use."""
+    # choices=[
+    #     "linear",
+    #     "cosine",
+    #     "cosine_with_restarts",
+    #     "polynomial",
+    #     "constant",
+    #     "constant_with_warmup",
+    # ],
+
+    num_warmup_steps: int = 0
+    """Number of steps for the warmup in the lr scheduler."""
+
+    seed: Optional[int] = None
+    """A seed for reproducible training."""
+
+    model_type: Optional[str] = field(default=None, choices=MODEL_TYPES)
+    """Model type to use if training from scratch."""
+
+    block_size: Optional[int] = None
+    """Optional input sequence length after tokenization.
+
+    The training dataset will be truncated in block of this size for training. Default to the model
+    max input length for single sentence inputs (take into account special tokens).
+    """
+
+    preprocessing_num_workers: Optional[int] = None
+    """The number of processes to use for the preprocessing."""
+
+    overwrite_cache: bool = False
+    """Overwrite the cached training and evaluation sets."""
+
+    no_keep_linebreaks: bool = False
+    """Do not keep line breaks when using TXT files."""
+
+    push_to_hub: bool = False
+    """Whether or not to push the model to the Hub."""
+
+    hub_model_id: str = ""
+    """The name of the repository to keep in sync with the local `output_dir`."""
+
+    hub_token: str = ""
+    """The token to use to push to the Model Hub."""
+
+    checkpointing_steps: Optional[str] = None
+    """Whether the various states should be saved at the end of every n steps, or 'epoch' for each
+    epoch."""
+
+    resume_from_checkpoint: Optional[str] = None
+    """If the training should continue from a checkpoint folder."""
+
+    load_best_model: bool = False
+    """Whether to load the best model at the end of training."""
+
+    with_tracking: bool = False
+    """Whether to enable experiment trackers for logging."""
+
+    report_to: str = "all"
+    """The integration to report the results and logs to.
+
+    Supported platforms are `"tensorboard"`, `"wandb"` and `"comet_ml"`. Use `"all"` (default) to
+    report to all integrations. Only applicable when `--with_tracking` is passed.
+    """
+
     # ADDED:
-    parser.add_argument(
-        "--log_every_n_steps",
-        type=int,
-        default=100,
-        help="Logging interval when using trackers (when `--with_tracking` is passed)."
+    log_every_n_steps: int = 10
+    """Logging interval when using trackers (when `--with_tracking` is passed)."""
+
+    def __post_init__(self):
+        # Sanity checks
+        if self.dataset_name is None and self.train_file is None and self.validation_file is None:
+            raise ValueError("Need either a dataset name or a training/validation file.")
+        else:
+            if self.train_file is not None:
+                extension = self.train_file.split(".")[-1]
+                assert extension in [
+                    "csv",
+                    "json",
+                    "txt",
+                ], "`train_file` should be a csv, json or txt file."
+            if self.validation_file is not None:
+                extension = self.validation_file.split(".")[-1]
+                assert extension in [
+                    "csv",
+                    "json",
+                    "txt",
+                ], "`validation_file` should be a csv, json or txt file."
+
+        if self.push_to_hub:
+            assert (
+                self.output_dir is not None
+            ), "Need an `output_dir` to create a repo when `--push_to_hub` is passed."
+
+
+def parse_args() -> Args:
+    parser = simple_parsing.ArgumentParser(
+        description="Train or Finetune a transformers model on a causal language modeling task"
     )
-    args = parser.parse_args()
-
-    # Sanity checks
-    if args.dataset_name is None and args.train_file is None and args.validation_file is None:
-        raise ValueError("Need either a dataset name or a training/validation file.")
-    else:
-        if args.train_file is not None:
-            extension = args.train_file.split(".")[-1]
-            assert extension in [
-                "csv",
-                "json",
-                "txt",
-            ], "`train_file` should be a csv, json or txt file."
-        if args.validation_file is not None:
-            extension = args.validation_file.split(".")[-1]
-            assert extension in [
-                "csv",
-                "json",
-                "txt",
-            ], "`validation_file` should be a csv, json or txt file."
-
-    if args.push_to_hub:
-        assert (
-            args.output_dir is not None
-        ), "Need an `output_dir` to create a repo when `--push_to_hub` is passed."
-
+    # parser = simple_parsing.parse(Args, description="Train or Finetune a transformers model on a causal language modeling task")
+    parser.add_arguments(Args, dest="config")
+    namespace = parser.parse_args()
+    args: Args = namespace.config
     return args
 
 
 # New Code #
 def checkpoint_model(checkpoint_folder, ckpt_id, model, epoch, last_global_step, **kwargs):
-    """Utility function for checkpointing model + optimizer dictionaries
-    The main purpose for this is to be able to resume training from that instant again
-    """
+    """Utility function for checkpointing model + optimizer dictionaries The main purpose for this
+    is to be able to resume training from that instant again."""
     checkpoint_state_dict = {
         "epoch": epoch,
         "last_global_step": last_global_step,
@@ -332,9 +263,8 @@ def checkpoint_model(checkpoint_folder, ckpt_id, model, epoch, last_global_step,
 
 # New Code #
 def load_training_checkpoint(model, load_dir, tag=None, **kwargs):
-    """Utility function for checkpointing model + optimizer dictionaries
-    The main purpose for this is to be able to resume training from that instant again
-    """
+    """Utility function for checkpointing model + optimizer dictionaries The main purpose for this
+    is to be able to resume training from that instant again."""
     _, checkpoint_state_dict = model.load_checkpoint(load_dir, tag=tag, **kwargs)
     epoch = checkpoint_state_dict["epoch"]
     last_global_step = checkpoint_state_dict["last_global_step"]
@@ -343,7 +273,7 @@ def load_training_checkpoint(model, load_dir, tag=None, **kwargs):
 
 
 # New Code #
-def evaluate(args, model, eval_dataloader, accelerator, eval_dataset):
+def evaluate(args: Args, model, eval_dataloader, accelerator, eval_dataset):
     model.eval()
     losses = []
     for step, batch in enumerate(eval_dataloader):
@@ -368,49 +298,49 @@ def main():
     # Initialize the accelerator. We will let the accelerator handle device placement for us in this example.
     # If we're using tracking, we also need to initialize it here and it will by default pick up all supported trackers
     # in the environment
-    
-    from accelerate.utils.dataclasses import InitProcessGroupKwargs
-    from datetime import timedelta
-    from typing import Optional
-    from torch.distributed import Store, TCPStore, FileStore
+
     # https://pytorch.org/docs/master/distributed.html#torch.distributed.TCPStore
+
     @dataclass
     class CustomInitProcessGroupKwargs(InitProcessGroupKwargs):
         # IDEA: `InitProcessGroupKwargs` only has `init_method` and `timeout` entries. I'd add `store` too.
         init_method: Optional[str] = None
         timeout: timedelta = timedelta(seconds=60)
-        store: Optional[Store] = None
+
+        # store: Optional[Store] = None
+
         rank: Optional[int] = None
         world_size: Optional[int] = None
-        
+
     MASTER_ADDR = os.environ["MASTER_ADDR"]
     MASTER_PORT = os.environ["MASTER_PORT"]
     # assert "RANK" not in os.environ, os.environ["RANK"]
     # os.environ["RANK"] = os.environ["SLURM_PROCID"]
     # RANK = os.environ["RANK"]
-    
+
     init_process_group_kwargs = CustomInitProcessGroupKwargs(
         init_method=f"tcp://{MASTER_ADDR}:{MASTER_PORT}",
         timeout=timedelta(seconds=60),
         rank=int(os.environ["RANK"]),
         world_size=int(os.environ["WORLD_SIZE"]),
     )
-    
-    accelerator = (
-        Accelerator(log_with=args.report_to, project_dir=args.output_dir, kwargs_handlers=[init_process_group_kwargs])
-        if args.with_tracking
-        else Accelerator(project_dir=args.output_dir, kwargs_handlers=[init_process_group_kwargs])
+
+    accelerator = Accelerator(
+        log_with=[args.report_to] if args.with_tracking else None,
+        project_dir=args.output_dir,
+        kwargs_handlers=[init_process_group_kwargs],
     )
-    print(accelerator.state)
     # Make one log on every process with the configuration for debugging.
-    import rich.logging
 
     logging.basicConfig(
         level=logging.INFO,
         format=f"[{accelerator.process_index}/{accelerator.num_processes}] %(name)s - %(message)s ",
-        handlers=[rich.logging.RichHandler(markup=True, tracebacks_width=120)],  # Very pretty, uses the `rich` package.
+        handlers=[
+            rich.logging.RichHandler(markup=True, tracebacks_width=120)
+        ],  # Very pretty, uses the `rich` package.
     )
     logger.info(accelerator.state, main_process_only=False)
+
     if accelerator.is_local_main_process:
         datasets.utils.logging.set_verbosity_warning()
         transformers.utils.logging.set_verbosity_info()
@@ -595,6 +525,8 @@ def main():
             batched=True,
             num_proc=args.preprocessing_num_workers,
             load_from_cache_file=not args.overwrite_cache,
+            # TODO: See if this works (i.e. makes things faster and doesn't invalidate the cache)
+            keep_in_memory=True,
             desc=f"Grouping texts in chunks of {block_size}",
         )
 
@@ -622,12 +554,18 @@ def main():
     optimizer_grouped_parameters = [
         {
             "params": [
-                p for n, p in model.named_parameters() if not any(nd in n for nd in no_decay)
+                p
+                for n, p in model.named_parameters()
+                if not any(no_decay_str in n for no_decay_str in no_decay)
             ],
             "weight_decay": args.weight_decay,
         },
         {
-            "params": [p for n, p in model.named_parameters() if any(nd in n for nd in no_decay)],
+            "params": [
+                p
+                for n, p in model.named_parameters()
+                if any(no_decay_str in n for no_decay_str in no_decay)
+            ],
             "weight_decay": 0.0,
         },
     ]
@@ -688,7 +626,7 @@ def main():
     num_update_steps_per_epoch = math.ceil(
         len(train_dataloader) / args.gradient_accumulation_steps
     )
-    # BUG: Overwrites `max_train_steps` when `max_train_steps` < 1 epoch!
+    # BUG: (@lebrice): Overwrites `max_train_steps` when `max_train_steps` < 1 epoch!
     # args.max_train_steps = args.num_train_epochs * num_update_steps_per_epoch
     if args.max_train_steps < len(train_dataloader):
         args.max_train_steps = args.max_train_steps * args.gradient_accumulation_steps
@@ -696,7 +634,7 @@ def main():
         args.max_train_steps = args.num_train_epochs * num_update_steps_per_epoch
 
     # Figure out how many steps we should save the Accelerator states
-    if hasattr(args.checkpointing_steps, "isdigit"):
+    if isinstance(args.checkpointing_steps, str):
         checkpointing_steps = args.checkpointing_steps
         if args.checkpointing_steps.isdigit():
             checkpointing_steps = int(args.checkpointing_steps)
@@ -709,7 +647,24 @@ def main():
         experiment_config = vars(args)
         # TensorBoard cannot log Enums, need the raw value
         experiment_config["lr_scheduler_type"] = experiment_config["lr_scheduler_type"].value
-        accelerator.init_trackers("clm_no_trainer", experiment_config)
+
+        if accelerator.is_local_main_process:
+            wandb.init(
+                project="llm_training",
+                config=experiment_config,
+                name=f"{os.environ['SLURM_JOB_ID']}_{os.environ['SLURM_NODEID']}",
+                group=os.environ["SLURM_JOB_ID"],
+            )
+        # accelerator.init_trackers(
+        #     "llm_training",
+        #     experiment_config,
+        #     init_kwargs={
+        #         "wandb": {
+        #             "name": f"{os.environ['SLURM_JOB_ID']}_{os.environ['RANK']}",
+        #             "group": os.environ["SLURM_JOB_ID"],
+        #         }
+        #     },
+        # )
 
     # Train!
     total_batch_size = (
@@ -748,6 +703,13 @@ def main():
         starting_epoch = resume_step // len(train_dataloader)
         resume_step -= starting_epoch * len(train_dataloader)
 
+    start_time: float = time.time()
+    last_log_time: Optional[float] = None
+    n_updates_since_start_of_run: int = 0
+    n_updates_since_last_log: int = 0
+    throughput_samples_per_sec: float = 0.0  # instantaneous throughput
+    throughput_samples_per_sec_since_start: float = 0.0  # Average throughput since start of run
+
     for epoch in range(starting_epoch, args.num_train_epochs):
         model.train()
         if args.with_tracking:
@@ -758,6 +720,7 @@ def main():
                 if resume_step is not None and step < resume_step:
                     completed_steps += 1
                     continue
+
             outputs = model(**batch)
             loss = outputs.loss
             # We keep track of the loss at each epoch
@@ -765,6 +728,7 @@ def main():
                 total_loss += loss.detach().float()
             loss = loss / args.gradient_accumulation_steps
             accelerator.backward(loss)
+
             if (step + 1) % args.gradient_accumulation_steps == 0 or step == len(
                 train_dataloader
             ) - 1:
@@ -773,6 +737,8 @@ def main():
                 optimizer.zero_grad()
                 progress_bar.update(1)
                 completed_steps += 1
+                n_updates_since_start_of_run += 1
+                n_updates_since_last_log += 1
 
             if isinstance(checkpointing_steps, int):
                 if completed_steps % checkpointing_steps == 0:
@@ -780,30 +746,53 @@ def main():
                     if args.output_dir is not None:
                         output_dir = os.path.join(args.output_dir, output_dir)
                     accelerator.save_state(output_dir)
-            
-            
-            if completed_steps % args.log_every_n_steps == 0:
-                accelerator.log(
+
+            if accelerator.is_local_main_process and completed_steps % args.log_every_n_steps == 0:
+                seconds_since_start = time.time() - start_time
+                seconds_since_last_log = time.time() - (last_log_time or start_time)
+
+                # TODO: Not 100% sure, but seems like we're only logging values on the first node,
+                # so we assume that one update here = one update on all nodes = total_batch_size
+                # samples.
+                n_samples_since_start = n_updates_since_start_of_run * total_batch_size
+                n_samples_since_last_log = n_updates_since_last_log * total_batch_size
+
+                throughput_samples_per_sec = n_samples_since_last_log / seconds_since_last_log
+                throughput_samples_per_sec_since_start = (
+                    n_samples_since_start / seconds_since_start
+                )
+
+                # TODO: Use `wandb.log` directly instead, and make sure that each node has a
+                # process logging stuff.
+                # accelerator.log(
+                wandb.log(
                     {
                         "train_loss": loss.detach().item(),
+                        "samples_per_sec": throughput_samples_per_sec,
+                        "avg_samples_per_sec": throughput_samples_per_sec_since_start,
                         "epoch": epoch,
                         "step": completed_steps,
+                        "n_samples": completed_steps * total_batch_size,
                     },
                     step=completed_steps,
                 )
-            
+                last_log_time = time.time()
+                n_samples_since_last_log = 0
+                n_updates_since_last_log = 0
+
             if completed_steps >= args.max_train_steps:
                 break
 
         perplexity, eval_loss = evaluate(args, model, eval_dataloader, accelerator, eval_dataset)
         logger.info(f"epoch {epoch}: perplexity: {perplexity} eval_loss: {eval_loss}")
 
-        if args.with_tracking:
-            accelerator.log(
+        if accelerator.is_local_main_process and args.with_tracking:
+            # accelerator.log(
+            wandb.log(
                 {
                     "perplexity": perplexity,
                     "eval_loss": eval_loss,
-                    "train_loss": total_loss.item() / len(train_dataloader),
+                    "train_epoch_loss": total_loss.item() / len(train_dataloader),
                     "epoch": epoch,
                     "step": completed_steps,
                 },

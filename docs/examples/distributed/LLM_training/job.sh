@@ -6,6 +6,7 @@
 #SBATCH --mem=512G
 #SBATCH --time=01:00:00
 #SBATCH --job-name=llm_training
+#SBATCH --output=logs/slurm-%j.out
 
 set -e  # exit on error.
 
@@ -37,7 +38,7 @@ if [ ! -d $CONDA_ENV_PREFIX ]; then
     # Install other conda packages:
     # conda install -y rich -c conda-forge
     # Install other pip packages:
-    pip install rich transformers datasets evaluate accelerate deepspeed
+    pip install transformers datasets evaluate accelerate deepspeed rich simple-parsing
 else
     conda activate $CONDA_ENV_PREFIX
 fi
@@ -59,37 +60,37 @@ cpus_per_gpu=$(($SLURM_CPUS_PER_TASK / $gpus_per_task))
 
 ACCELERATE_CONFIG=${ACCELERATE_CONFIG:="configs/ds_level2.yaml"}
 
-# memory_available=
-mem_limit_in_bytes=$(cat /sys/fs/cgroup/memory/slurm/uid_"$(id -u)"/job_"${SLURM_JOBID}"/memory.limit_in_bytes)
-# TODO: Load the dataset in-memory:
-export HF_DATASETS_IN_MEMORY_MAX_SIZE=$mem_limit_in_bytes
+# mem_limit_in_bytes=$(cat /sys/fs/cgroup/memory/slurm/uid_"$(id -u)"/job_"${SLURM_JOBID}"/memory.limit_in_bytes)
+# Enable storing the dataset in-memory.
+# TODO: Turning this on actually seems to invalidate the cache dir, which sucks!
+# export HF_DATASETS_IN_MEMORY_MAX_SIZE=$mem_limit_in_bytes
 
 
 # Run `accelerate launch (...)` on each node:
-# cmd=(accelerate launch
-#         --config_file="$ACCELERATE_CONFIG"
-#         --machine_rank="$SLURM_NODEID"
-#         --num_cpu_threads_per_process="$cpus_per_gpu"
-#         --main_process_ip="$MASTER_ADDR"
-#         --main_process_port="$MASTER_PORT"
-#         --num_processes="$WORLD_SIZE"
-#         main.py
-#         --output_dir="$output_dir"
-#         "$@")
+cmd=(accelerate launch
+        --config_file="$ACCELERATE_CONFIG"
+        --machine_rank='$SLURM_NODEID'
+        --num_cpu_threads_per_process="$cpus_per_gpu"
+        --main_process_ip="$MASTER_ADDR"
+        --main_process_port="$MASTER_PORT"
+        --num_processes="$WORLD_SIZE"
+        main.py
+        --output_dir="$output_dir"
+        "$@")
 
-# srun --nodes=$SLURM_JOB_NUM_NODES --ntasks=$SLURM_JOB_NUM_NODES --ntasks-per-node=1 \
-#     bash -c "$(for a in "${cmd[@]}" ; do echo -n \"$a\" "" ; done)"
+srun --nodes=$SLURM_JOB_NUM_NODES --ntasks=$SLURM_JOB_NUM_NODES --ntasks-per-node=1 --output=logs/slurm-%j_%t.out \
+    bash -c "$(for a in "${cmd[@]}" ; do echo -n \"$a\" "" ; done)"
 
 # Run `accelerate launch (...)` on each node:
-srun --nodes=$SLURM_JOB_NUM_NODES --ntasks=$SLURM_JOB_NUM_NODES --ntasks-per-node=1 bash -c 'accelerate launch \
-    --config_file='$ACCELERATE_CONFIG' \
-    --machine_rank=$SLURM_NODEID \
-    --num_cpu_threads_per_process='$SLURM_CPUS_PER_TASK' \
-    --main_process_ip='$MASTER_ADDR' \
-    --main_process_port='$MASTER_PORT' \
-    --num_processes='$WORLD_SIZE' \
-    main.py \
-    --output_dir='$output_dir' \
-    --config_name=facebook/opt-2.7b --tokenizer_name=facebook/opt-2.7b \
-    --dataset_name=wikitext --dataset_config_name wikitext-103-v1 \
-    --per_device_train_batch_size=1 --max_train_steps=1000 --with_tracking --report_to=wandb'
+# srun --nodes=$SLURM_JOB_NUM_NODES --ntasks=$SLURM_JOB_NUM_NODES --ntasks-per-node=1 bash -c 'accelerate launch \
+#     --config_file='$ACCELERATE_CONFIG' \
+#     --machine_rank=$SLURM_NODEID \
+#     --num_cpu_threads_per_process='$SLURM_CPUS_PER_TASK' \
+#     --main_process_ip='$MASTER_ADDR' \
+#     --main_process_port='$MASTER_PORT' \
+#     --num_processes='$WORLD_SIZE' \
+#     main.py \
+#     --output_dir='$output_dir' \
+#     --config_name=facebook/opt-2.7b --tokenizer_name=facebook/opt-2.7b \
+#     --dataset_name=wikitext --dataset_config_name wikitext-103-v1 \
+#     --per_device_train_batch_size=1 --max_train_steps=1000 --with_tracking --report_to=wandb'
