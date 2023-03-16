@@ -194,7 +194,7 @@ class Args:
     load_best_model: bool = False
     """Whether to load the best model at the end of training."""
 
-    with_tracking: bool = True
+    with_tracking: bool = False
     """Whether to enable experiment trackers for logging."""
 
     report_to: str = "all"
