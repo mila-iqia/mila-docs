@@ -1,3 +1,4 @@
 output
 slurm-*.out
 .deepspeed_env
+wandb

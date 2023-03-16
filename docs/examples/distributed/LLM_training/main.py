@@ -35,6 +35,7 @@ OMP_NUM_THREADS=6 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/ \
 # You can also adapt this script on your own causal language modeling task. Pointers for this are left as comments.
 
 import argparse
+from dataclasses import dataclass
 import json
 import logging
 import math
@@ -272,6 +273,13 @@ def parse_args():
             "Only applicable when `--with_tracking` is passed."
         ),
     )
+    # ADDED:
+    parser.add_argument(
+        "--log_every_n_steps",
+        type=int,
+        default=100,
+        help="Logging interval when using trackers (when `--with_tracking` is passed)."
+    )
     args = parser.parse_args()
 
     # Sanity checks
@@ -357,22 +365,50 @@ def evaluate(args, model, eval_dataloader, accelerator, eval_dataset):
 
 def main():
     args = parse_args()
-
     # Initialize the accelerator. We will let the accelerator handle device placement for us in this example.
     # If we're using tracking, we also need to initialize it here and it will by default pick up all supported trackers
     # in the environment
-    accelerator = (
-        Accelerator(log_with=args.report_to, logging_dir=args.output_dir)
-        if args.with_tracking
-        else Accelerator()
+    
+    from accelerate.utils.dataclasses import InitProcessGroupKwargs
+    from datetime import timedelta
+    from typing import Optional
+    from torch.distributed import Store, TCPStore, FileStore
+    # https://pytorch.org/docs/master/distributed.html#torch.distributed.TCPStore
+    @dataclass
+    class CustomInitProcessGroupKwargs(InitProcessGroupKwargs):
+        # IDEA: `InitProcessGroupKwargs` only has `init_method` and `timeout` entries. I'd add `store` too.
+        init_method: Optional[str] = None
+        timeout: timedelta = timedelta(seconds=60)
+        store: Optional[Store] = None
+        rank: Optional[int] = None
+        world_size: Optional[int] = None
+        
+    MASTER_ADDR = os.environ["MASTER_ADDR"]
+    MASTER_PORT = os.environ["MASTER_PORT"]
+    # assert "RANK" not in os.environ, os.environ["RANK"]
+    # os.environ["RANK"] = os.environ["SLURM_PROCID"]
+    # RANK = os.environ["RANK"]
+    
+    init_process_group_kwargs = CustomInitProcessGroupKwargs(
+        init_method=f"tcp://{MASTER_ADDR}:{MASTER_PORT}",
+        timeout=timedelta(seconds=60),
+        rank=int(os.environ["RANK"]),
+        world_size=int(os.environ["WORLD_SIZE"]),
     )
+    
+    accelerator = (
+        Accelerator(log_with=args.report_to, project_dir=args.output_dir, kwargs_handlers=[init_process_group_kwargs])
+        if args.with_tracking
+        else Accelerator(project_dir=args.output_dir, kwargs_handlers=[init_process_group_kwargs])
+    )
+    print(accelerator.state)
     # Make one log on every process with the configuration for debugging.
     import rich.logging
 
     logging.basicConfig(
         level=logging.INFO,
         format=f"[{accelerator.process_index}/{accelerator.num_processes}] %(name)s - %(message)s ",
-        handlers=[rich.logging.RichHandler(markup=True)],  # Very pretty, uses the `rich` package.
+        handlers=[rich.logging.RichHandler(markup=True, tracebacks_width=120)],  # Very pretty, uses the `rich` package.
     )
     logger.info(accelerator.state, main_process_only=False)
     if accelerator.is_local_main_process:
@@ -744,6 +780,18 @@ def main():
                     if args.output_dir is not None:
                         output_dir = os.path.join(args.output_dir, output_dir)
                     accelerator.save_state(output_dir)
+            
+            
+            if completed_steps % args.log_every_n_steps == 0:
+                accelerator.log(
+                    {
+                        "train_loss": loss.detach().item(),
+                        "epoch": epoch,
+                        "step": completed_steps,
+                    },
+                    step=completed_steps,
+                )
+            
             if completed_steps >= args.max_train_steps:
                 break
 

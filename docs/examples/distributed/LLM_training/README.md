@@ -15,6 +15,10 @@ sbatch --reservation=milabench --nodes=1 --ntasks-per-node=4 \
     --export=ALL,ACCELERATE_CONFIG=ds_level3.yaml job.sh
 ```
 
+## TODOS
+
+- Pass the arguments to the python script with $@ instead of hard-coding them into the job.sh script
+- Add wandb reporting
 
 ## TOTAL VRAM required to train each model
 
