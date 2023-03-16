@@ -4,7 +4,11 @@
 
 ```bash
 sbatch --reservation=milabench --nodes=2 --ntasks-per-node=2 job.sh
-sbatch --reservation=milabench --nodes=1 --ntasks-per-node=4 job.sh
+sbatch --reservation=milabench --nodes=1 --ntasks-per-node=4 job.sh \
+    --config_name=facebook/opt-2.7b --tokenizer_name=facebook/opt-2.7b \
+    --dataset_name=wikitext --dataset_config_name wikitext-103-v1 \
+    --per_device_train_batch_size=2 --max_train_steps=1000
+
 sbatch --reservation=milabench --nodes=2 --ntasks-per-node=2 \
     --export=ALL,ACCELERATE_CONFIG=ds_level3.yaml job.sh
 sbatch --reservation=milabench --nodes=1 --ntasks-per-node=4 \

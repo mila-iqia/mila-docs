@@ -5,6 +5,7 @@
 #SBATCH --gpus-per-task=a100:1
 #SBATCH --mem=512G
 #SBATCH --time=01:00:00
+#SBATCH --job-name=llm_training
 
 set -e  # exit on error.
 
@@ -48,7 +49,7 @@ export MASTER_ADDR=$(scontrol show hostnames "$SLURM_JOB_NODELIST" | head -n 1)
 export WORLD_SIZE=$(($SLURM_JOB_NUM_NODES * $SLURM_NTASKS_PER_NODE))
 export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
 
-ACCELERATE_CONFIG=${ACCELERATE_CONFIG:="ds_level2.yaml"}
+ACCELERATE_CONFIG=${ACCELERATE_CONFIG:="configs/ds_level2.yaml"}
 
 # TODO: Load the dataset in-memory:
 # export HF_DATASETS_IN_MEMORY_MAX_SIZE=$SLURM_MEM_PER_NODE
@@ -64,7 +65,7 @@ srun --nodes=$SLURM_JOB_NUM_NODES --ntasks=$SLURM_JOB_NUM_NODES --ntasks-per-nod
     --main_process_ip='$MASTER_ADDR' \
     --main_process_port='$MASTER_PORT' \
     --num_processes='$WORLD_SIZE' \
-    deepspeed_with_config_support.py \
+    main.py \
     --output_dir='$output_dir' \
     --config_name=facebook/opt-2.7b --tokenizer_name=facebook/opt-2.7b \
     --dataset_name=wikitext --dataset_config_name wikitext-103-v1 \
