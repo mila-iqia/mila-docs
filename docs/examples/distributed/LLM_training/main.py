@@ -18,15 +18,9 @@ file or a dataset without using HuggingFace Trainer.
 Here is the full list of checkpoints on the hub that can be fine-tuned by this script:
 https://huggingface.co/models?filter=text-generation
 
-TODO:
+Old bug (fixed with the solution in the last reply to the thread):
 - Fix bug: fatal error: cusolverDn.h: No such file or directory
 https://github.com/microsoft/DeepSpeed/issues/2684
-
-OMP_NUM_THREADS=6 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/ \
-    accelerate launch --config_file=docs/examples/distributed/LLM_training/accelerate_config.yaml \
-    docs/examples/distributed/LLM_training/deepspeed_with_config_support.py \
-    --model_name_or_path=gpt2 --dataset_name=wikitext --dataset_config_name wikitext-103-v1 \
-    --per_device_train_batch_size=8 --max_train_steps=100
 """
 # You can also adapt this script on your own causal language modeling task. Pointers for this are left as comments.
 import json
@@ -309,7 +303,7 @@ def main():
     class CustomInitProcessGroupKwargs(InitProcessGroupKwargs):
         # IDEA: `InitProcessGroupKwargs` only has `init_method` and `timeout` entries. I'd add `store` too.
         init_method: Optional[str] = None
-        timeout: timedelta = timedelta(seconds=60)
+        timeout: timedelta = timedelta(seconds=1800)
 
         # store: Optional[Store] = None
 
@@ -325,6 +319,7 @@ def main():
 
     init_process_group_kwargs = CustomInitProcessGroupKwargs(
         init_method=f"tcp://{MASTER_ADDR}:{MASTER_PORT}",
+        # Reduced the timeout here, so the job fails quicker if there's a communication problem between nodes.
         timeout=timedelta(seconds=60),
         rank=int(os.environ["RANK"]),
         world_size=int(os.environ["WORLD_SIZE"]),
@@ -359,6 +354,7 @@ def main():
 
     # Handle the repository creation
     if accelerator.is_main_process:
+        # TODO: Remove, never used:
         if args.push_to_hub:
             if args.hub_model_id is None:
                 repo_name = get_full_repo_name(Path(args.output_dir).name, token=args.hub_token)
@@ -399,6 +395,7 @@ def main():
                 split=f"train[{args.validation_split_percentage}%:]",
             )
     else:
+        # TODO: Only used if dataset is a local (e.g. csv/json) file
         data_files = {}
         dataset_args = {}
         if args.train_file is not None:
@@ -592,6 +589,9 @@ def main():
 
     # New Code
     # Get gradient accumulation steps from deepspeed config if available
+
+    # TODO: Probably worth removing the `gradient_accumulation_steps` argument in favor of the one
+    # in the accelerate / deepspeed configs
     if accelerator.state.deepspeed_plugin is not None:
         args.gradient_accumulation_steps = accelerator.state.deepspeed_plugin.deepspeed_config[
             "gradient_accumulation_steps"
@@ -659,14 +659,16 @@ def main():
             name=f"{JOB_ID}_{NODEID}" if JOB_ID is not None else None,
             group=JOB_ID if JOB_ID is not None else None,
         )
+        # NOTE: IF you want to use tensorboard instead of wandb, use `init_trackers` instead.
+        # I (@lebrice) decided to use wandb directly to get the metrics from all nodes.
         # accelerator.init_trackers(
         #     "llm_training",
         #     experiment_config,
         #     init_kwargs={
-        #         "wandb": {
-        #             "name": f"{os.environ['SLURM_JOB_ID']}_{os.environ['RANK']}",
-        #             "group": os.environ["SLURM_JOB_ID"],
-        #         }
+        #         "wandb": dict(
+        #             name=f"{JOB_ID}_{NODEID}" if JOB_ID is not None else None,
+        #             group=JOB_ID if JOB_ID is not None else None,
+        #         ),
         #     },
         # )
 
@@ -707,12 +709,15 @@ def main():
         starting_epoch = resume_step // len(train_dataloader)
         resume_step -= starting_epoch * len(train_dataloader)
 
+    # NOTE (@lebrice): Added these for the throughput metrics below.
     start_time: Optional[float] = None
     last_log_time: Optional[float] = None
     n_updates_since_start_of_run: int = 0
     n_updates_since_last_log: int = 0
     throughput_samples_per_sec: float = 0.0  # instantaneous throughput
     throughput_samples_per_sec_since_start: float = 0.0  # Average throughput since start of run
+
+    total_loss = 0.0
 
     for epoch in range(starting_epoch, args.num_train_epochs):
         model.train()
@@ -741,6 +746,7 @@ def main():
                 optimizer.zero_grad()
                 progress_bar.update(1)
                 completed_steps += 1
+                # NOTE: Added (@lebrice) for throughput metrics
                 n_updates_since_start_of_run += 1
                 n_updates_since_last_log += 1
 
@@ -772,8 +778,7 @@ def main():
                         n_samples_since_start / seconds_since_start
                     )
 
-                    # TODO: Use `wandb.log` directly instead, and make sure that each node has a
-                    # process logging stuff.
+                    # TODO: If we want to use tensorboard, use `accelerator.log` instead.
                     # accelerator.log(
                     wandb.log(
                         {
@@ -788,7 +793,6 @@ def main():
                     )
 
                 last_log_time = time.time()
-                n_samples_since_last_log = 0
                 n_updates_since_last_log = 0
 
             if completed_steps >= args.max_train_steps:
@@ -810,11 +814,9 @@ def main():
                 step=completed_steps,
             )
 
-        # New Code #
         # Save the DeepSpeed checkpoint to the specified path
         checkpoint_model(args.output_dir, epoch, model, epoch, completed_steps)
 
-        # New Code #
         # Tracks the best checkpoint and best metric
         if best_metric is None or best_metric > perplexity:
             best_metric = perplexity
@@ -822,7 +824,6 @@ def main():
             accelerator.print(f"New best metric: {best_metric} at epoch {epoch}")
             accelerator.print(f"best_metric_checkpoint: {best_metric_checkpoint}")
 
-    # New Code #
     # Loads the best checkpoint after the training is finished
     if args.load_best_model:
         _, last_global_step = load_training_checkpoint(
@@ -832,7 +833,6 @@ def main():
             **{"load_optimizer_states": True, "load_lr_scheduler_states": True},
         )
 
-    # New Code #
     # Evaluates using the best checkpoint
     perplexity, eval_loss = evaluate(args, model, eval_dataloader, accelerator, eval_dataset)
     logger.info(f"Best model metrics: perplexity: {perplexity} eval_loss: {eval_loss}")

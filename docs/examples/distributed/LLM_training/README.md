@@ -1,9 +1,8 @@
 # Launching the example:
 
 ```bash
-sbatch --nodes=2 --ntasks-per-node=1 --gpus-per-task=a100:2 job.sh
-sbatch --nodes=2 --ntasks-per-node=1 --gpus-per-task=a100:4 job.sh
-sbatch --nodes=1 --ntasks-per-node=1 --gpus-per-task=a100:8 job.sh
+sbatch --nodes=2 --ntasks-per-node=1 --gpus-per-task=a100:4 --cpus-per-task=64 --reservation=milabench2 job.sh
+sbatch --nodes=2 --ntasks-per-node=1 --gpus-per-task=a100:2 --cpus-per-task=32 --reservation=milabench2 job.sh
 ```
 
 ## TODOS
@@ -18,14 +17,14 @@ sbatch --nodes=1 --ntasks-per-node=1 --gpus-per-task=a100:8 job.sh
 
 ## TOTAL VRAM required to train each model
 
-| Model    | VRAM       |
-| -------- | ---------- |
-| OPT-125m | 3.14 GB    |
-| OPT-350m | 8.32 GB    |
-| OPT-1.3B | 33.07 GB   |
-| OPT-2.7B | 66.66 GB   |
-| OPT-6.7B | 167.42 GB  |
-| OPT-13B  | 320.96 GB  |
-| OPT-30B  | 740.67 GB  |
-| OPT-66B  | 1629.47 GB |
-| OPT-175B | 4320.56 GB |
+| Model    | VRAM  (params + optimizer + activations) (fp16 precision) |
+| -------- | --------------------------------------------------------- |
+| OPT-125m | 3.14 GB                                                   |
+| OPT-350m | 8.32 GB                                                   |
+| OPT-1.3B | 33.07 GB                                                  |
+| OPT-2.7B | 66.66 GB                                                  |
+| OPT-6.7B | 167.42 GB                                                 |
+| OPT-13B  | 320.96 GB                                                 |
+| OPT-30B  | 740.67 GB                                                 |
+| OPT-66B  | 1629.47 GB                                                |
+| OPT-175B | 4320.56 GB                                                |
