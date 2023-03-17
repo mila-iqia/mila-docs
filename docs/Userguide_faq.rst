@@ -161,13 +161,15 @@ be injected using the ``setup`` key in Hydra YAML config file::
 I am told my PyTorch job abuses the filesystem with extreme amounts of IOPS
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-A fairly common issue in PyTorch is::
+A fairly common issue in PyTorch is:
 
-    RuntimeError: one of the variables needed for gradient computation has
-    been modified by an inplace operation: [torch.cuda.FloatTensor [1, 50, 300]],
-    which is output 0 of SplitBackward, is at version 2; expected version 0
-    instead. Hint: enable anomaly detection to find the operation that failed to
-    compute its gradient, with torch.autograd.set_detect_anomaly(True).
+.. code:: none
+
+   RuntimeError: one of the variables needed for gradient computation has been
+   modified by an inplace operation: [torch.cuda.FloatTensor [1, 50, 300]],
+   which is output 0 of SplitBackward, is at version 2; expected version 0
+   instead. Hint: enable anomaly detection to find the operation that failed to
+   compute its gradient, with torch.autograd.set_detect_anomaly(True).
 
 PyTorch's autograd engine contains an "anomaly detection mode", which detects
 such things as NaN/infinities being created, and helps debugging in-place
@@ -175,7 +177,7 @@ Tensor modifications. It is activated with
 
 .. code:: python
 
-    torch.autograd.set_detect_anomaly(True)
+   torch.autograd.set_detect_anomaly(True)
 
 PyTorch's implementation of the anomaly-detection mode tracks where every Tensor
 was created in the program. This involves the collection of the backtrace at the
