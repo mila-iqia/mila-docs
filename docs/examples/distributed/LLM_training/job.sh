@@ -14,16 +14,7 @@ set -e  # exit on error.
 echo "Date:     $(date)"
 echo "Hostname: $(hostname)"
 
-# Ensure only anaconda/3 module loaded.
 module --quiet purge
-# This example uses Conda to manage package dependencies.
-# See https://docs.mila.quebec/Userguide.html#conda for more information.
-module load anaconda/3
-module load cuda/11.7
-
-# NOTE: Use a temporary directory if you want to re-create the environment from scratch each time.
-# CONDA_ENV_PREFIX=$SLURM_TMPDIR/env
-CONDA_ENV_PREFIX=$SCRATCH/conda/llm_training
 
 ACCELERATE_CONFIG=${ACCELERATE_CONFIG:="configs/ds_level2.yaml"}
 MODEL_NAME=${MODEL_NAME:="facebook/opt-2.7b"}
@@ -31,24 +22,10 @@ PER_GPU_BATCH_SIZE=${PER_GPU_BATCH_SIZE:="1"}
 OUTPUT_DIR=${OUTPUT_DIR:=$SCRATCH/logs/llm_training/$SLURM_JOB_ID}
 mkdir -p $OUTPUT_DIR
 
-
-if [ ! -d $CONDA_ENV_PREFIX ]; then
-    # Create a conda environment and use the libmamba solver:
-    conda create -y -p $CONDA_ENV_PREFIX python=3.9 conda conda-libmamba-solver -c conda-forge
-    conda activate $CONDA_ENV_PREFIX
-    export CONDA_EXE="$(hash -r; which conda)"
-    conda config --set solver libmamba
-
-    # Install pytorch:
-    conda install -y pytorch torchvision torchaudio pytorch-cuda=11.7 -c pytorch -c nvidia
-    # Install other conda packages:
-    # conda install -y rich -c conda-forge
-    # Install other pip packages:
-    pip install transformers datasets evaluate accelerate deepspeed rich simple-parsing
-else
-    conda activate $CONDA_ENV_PREFIX
-fi
-
+# 'setup_env.sh' sould be called before launching the job to create the
+# environment and install packages only once in an environment where internet is
+# accessible
+source setup_env.sh
 
 set -x  # print commands.
 
@@ -78,6 +55,8 @@ export OMP_NUM_THREADS=$CPUS_PER_GPU
 # TODO: When `--with_tracking` is passed, the `WANDB_API_KEY` environment variable must be set.
 
 # NOTE: Uses `srun` to launch `accelerate launch` on each node with the right `--machine_rank`.
+export HF_DATASETS_OFFLINE=1
+export HF_HUB_OFFLINE=1
 srun --nodes=$SLURM_JOB_NUM_NODES --ntasks=$SLURM_JOB_NUM_NODES --ntasks-per-node=1 --output=logs/slurm-%j_%t.out \
     bash -c 'accelerate launch \
     --machine_rank=$SLURM_NODEID \
