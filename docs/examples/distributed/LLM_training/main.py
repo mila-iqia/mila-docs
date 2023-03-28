@@ -199,7 +199,7 @@ class Args:
     """
 
     # ADDED:
-    log_every_n_steps: int = 10
+    log_every_n_steps: int = 1
     """Logging interval when using trackers (when `--with_tracking` is passed)."""
 
     def __post_init__(self):
@@ -634,7 +634,9 @@ def main():
     # BUG: (@lebrice): Overwrites `max_train_steps` when `max_train_steps` < 1 epoch!
     # args.max_train_steps = args.num_train_epochs * num_update_steps_per_epoch
     if args.max_train_steps < len(train_dataloader):
-        args.max_train_steps = args.max_train_steps * args.gradient_accumulation_steps
+        # TODO: Unsure how to modify this here when using gradient accumulation: do we keep the
+        # number of updates constant? Or the number of "used samples" constant?
+        args.max_train_steps = args.max_train_steps
     else:
         args.max_train_steps = args.num_train_epochs * num_update_steps_per_epoch
 
