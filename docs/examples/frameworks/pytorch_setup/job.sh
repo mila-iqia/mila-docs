@@ -21,7 +21,7 @@ module load anaconda/3
 # Activate the environment:
 conda activate pytorch
 
-# Fixes issues with MIG-ed GPUs.
+# Fixes issues with MIG-ed GPUs with versions of PyTorch < 2.0
 unset CUDA_VISIBLE_DEVICES
 
 python main.py
