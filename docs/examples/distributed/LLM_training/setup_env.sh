@@ -48,10 +48,19 @@ fi
 # Download dataset
 export HF_DATASETS_CACHE=$SCRATCH/cache/huggingface/datasets
 export HUGGINGFACE_HUB_CACHE=$SCRATCH/cache/huggingface/hub
-MODEL_NAME=${MODEL_NAME:="facebook/opt-2.7b"}
+
 python3 -c "import datasets ; datasets.load_dataset('wikitext', 'wikitext-103-v1')"
-python3 -c "import transformers ; transformers.AutoConfig.from_pretrained('$MODEL_NAME')"
-python3 -c "import transformers ; transformers.AutoTokenizer.from_pretrained('$MODEL_NAME', use_fast=True)"
+
+function download_model {
+    python3 -c "import transformers ; transformers.AutoConfig.from_pretrained('$1')"
+    python3 -c "import transformers ; transformers.AutoTokenizer.from_pretrained('$1', use_fast=True)"
+}
+
+for model_name in "facebook/opt-125m" "facebook/opt-350m" "facebook/opt-1.3b" "facebook/opt-2.7b" "facebook/opt-6.7b" "facebook/opt-13b" "facebook/opt-30b" "facebook/opt-66b"
+do
+    echo "Downloading model and tokenizer $model_name"
+    download_model $model_name
+done
 
 # Load httpproxy last since it blocks access to HF
 ! module load httpproxy
