@@ -677,7 +677,7 @@ def main():
     # Train!
     total_batch_size = (
         args.per_device_train_batch_size
-        * accelerator.num_processes
+        # * accelerator.num_processes  # NOTE: If the model is split between 8 GPUs, the batch size is still 1!
         * args.gradient_accumulation_steps
     )
 
