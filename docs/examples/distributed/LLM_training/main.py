@@ -593,9 +593,9 @@ def main():
     # TODO: Probably worth removing the `gradient_accumulation_steps` argument in favor of the one
     # in the accelerate / deepspeed configs
     if accelerator.state.deepspeed_plugin is not None:
-        args.gradient_accumulation_steps = accelerator.state.deepspeed_plugin.deepspeed_config[
-            "gradient_accumulation_steps"
-        ]
+        args.gradient_accumulation_steps = max(
+            1, accelerator.state.deepspeed_plugin.deepspeed_config["gradient_accumulation_steps"]
+        )
 
     num_update_steps_per_epoch = math.ceil(
         len(train_dataloader) / args.gradient_accumulation_steps
