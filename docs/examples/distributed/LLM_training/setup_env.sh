@@ -3,15 +3,15 @@ set -o errexit
 
 # Install miniconda if 'conda' is not available
 function install_miniconda {
-        wget "https://repo.anaconda.com/miniconda/Miniconda3-py310_23.1.0-1-Linux-x86_64.sh" -O $HOME/Miniconda3-py310_23.1.0-1-Linux-x86_64.sh
-        echo "32d73e1bc33fda089d7cd9ef4c1be542616bd8e437d1f77afeeaf7afdb019787  $HOME/Miniconda3-py310_23.1.0-1-Linux-x86_64.sh" | sha256sum -c -
-        bash $HOME/Miniconda3-py310_23.1.0-1-Linux-x86_64.sh -u -p "$CONDA_INSTALL_PREFIX"
+	wget "https://repo.anaconda.com/miniconda/Miniconda3-py310_23.1.0-1-Linux-x86_64.sh" -O $HOME/Miniconda3-py310_23.1.0-1-Linux-x86_64.sh
+	echo "32d73e1bc33fda089d7cd9ef4c1be542616bd8e437d1f77afeeaf7afdb019787  $HOME/Miniconda3-py310_23.1.0-1-Linux-x86_64.sh" | sha256sum -c -
+	bash $HOME/Miniconda3-py310_23.1.0-1-Linux-x86_64.sh -u -p "$CONDA_INSTALL_PREFIX"
 }
 
 CONDA_INSTALL_PREFIX="$HOME/miniconda3"
 export PATH="$PATH:$CONDA_INSTALL_PREFIX/condabin"
 
-which conda >/dev/null || module load miniconda/3 || module load anaconda/3 || install_miniconda
+which conda >/dev/null || module load anaconda/3 || install_miniconda
 module load cuda/11.7
 
 (conda activate base 2>/dev/null) || eval "$(conda shell.bash hook)"
@@ -19,49 +19,48 @@ module load cuda/11.7
 # NOTE: Use a temporary directory if you want to re-create the environment from scratch each time.
 # CONDA_ENV_PREFIX=$SLURM_TMPDIR/env
 CONDA_ENV_PREFIX=${CONDA_ENV_PREFIX:=$HOME/conda/llm_training}
+
 echo "Using conda environment at $CONDA_ENV_PREFIX"
 
 if [ ! -d $CONDA_ENV_PREFIX ]; then
-        # Create a conda environment and use the libmamba solver:
-        conda create -y -p $CONDA_ENV_PREFIX python=3.9 conda conda-libmamba-solver -c conda-forge
-        conda activate $CONDA_ENV_PREFIX
-        while read f
-        do
-                if [[ -e "$f" ]]
-                then
-                        export CONDA_EXE="$f"
-                        break
-                fi
-        done < <(hash -r; which -a conda)
-        conda config --set solver libmamba
+	# Create a conda environment and use the libmamba solver:
+	conda create --solver=classic -y -p $CONDA_ENV_PREFIX python=3.9 conda conda-libmamba-solver -c conda-forge
+	conda activate $CONDA_ENV_PREFIX
+	while read f
+	do
+		if [[ -e "$f" ]]
+		then
+			export CONDA_EXE="$f"
+			break
+		fi
+	done < <(hash -r; which -a conda)
+	conda config --set solver libmamba
 
-        # Install pytorch:
-        conda install -y pytorch torchvision torchaudio pytorch-cuda=11.7 transformers datasets evaluate accelerate rich simple-parsing wandb -c pytorch -c nvidia
-        # Install other conda packages:
-        # conda install -y rich -c conda-forge
-        # Install other pip packages:
-        pip install "deepspeed>=0.8.2"
+	# Install pytorch:
+	conda install -y pytorch torchvision torchaudio pytorch-cuda=11.7 transformers datasets evaluate accelerate rich simple-parsing wandb -c pytorch -c nvidia
+	# Install other conda packages:
+	# conda install -y rich -c conda-forge
+	# Install other pip packages:
+	pip install "deepspeed>=0.8.2"
 else
-        conda activate $CONDA_ENV_PREFIX
+	conda activate $CONDA_ENV_PREFIX
 fi
 
 # Download dataset
 export HF_DATASETS_CACHE=$SCRATCH/cache/huggingface/datasets
 export HUGGINGFACE_HUB_CACHE=$SCRATCH/cache/huggingface/hub
-ALL_MODELS=(
-        "facebook/opt-125m"
-        "facebook/opt-350m"
-        "facebook/opt-1.3B"
-        "facebook/opt-2.7B"
-        "facebook/opt-6.7B"
-        "facebook/opt-13B"
-        "facebook/opt-30B"
-        "facebook/opt-66B")
+
 python3 -c "import datasets ; datasets.load_dataset('wikitext', 'wikitext-103-v1')"
-for m in "${ALL_MODELS[@]}"
+
+function download_model {
+    python3 -c "import transformers ; transformers.AutoConfig.from_pretrained('$1')"
+    python3 -c "import transformers ; transformers.AutoTokenizer.from_pretrained('$1', use_fast=True)"
+}
+
+for model_name in "facebook/opt-125m" "facebook/opt-350m" "facebook/opt-1.3b" "facebook/opt-2.7b" "facebook/opt-6.7b" "facebook/opt-13b" "facebook/opt-30b" "facebook/opt-66b"
 do
-        python3 -c "import transformers ; transformers.AutoConfig.from_pretrained('$m')"
-        python3 -c "import transformers ; transformers.AutoTokenizer.from_pretrained('$m', use_fast=True)"
+    echo "Downloading model and tokenizer $model_name if needed."
+    download_model $model_name
 done
 
 # Load httpproxy last since it blocks access to HF
