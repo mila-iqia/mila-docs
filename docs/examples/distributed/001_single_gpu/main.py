@@ -66,7 +66,7 @@ def main():
     for epoch in range(training_epochs):
         logger.debug(f"Starting epoch {epoch}/{training_epochs}")
 
-        # Set the model in training mode (this is important for e.g. BatchNorm and Dropout layers)
+        # Set the model in training mode (important for e.g. BatchNorm and Dropout layers)
         model.train()
 
         # NOTE: using a progress bar from tqdm because it's nicer than using `print`.

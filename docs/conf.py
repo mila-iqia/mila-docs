@@ -92,7 +92,6 @@ html_context = {
 html_extra_path = ['CNAME']
 
 
-
 # Generate the diffs that are shown in the examples.
 file_dir = Path(__file__).parent / "examples/generate_diffs.sh"
 try:

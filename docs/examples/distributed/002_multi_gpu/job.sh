@@ -26,6 +26,7 @@ module load anaconda/3
 # Activate pre-existing environment.
 conda activate pytorch
 
+
 # Stage dataset into $SLURM_TMPDIR
 cp -a /network/datasets/cifar10.var/cifar10_torchvision $SLURM_TMPDIR
 
