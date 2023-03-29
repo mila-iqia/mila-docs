@@ -51,18 +51,17 @@ NUM_NODES=${NUM_NODES:=$SLURM_JOB_NUM_NODES}
 
 # TODO: When `--with_tracking` is passed, the `WANDB_API_KEY` environment variable must be set.
 
-
+export HF_HOME=$SCRATCH/cache/huggingface
 export HF_DATASETS_CACHE=$SCRATCH/cache/huggingface/datasets
 export HUGGINGFACE_HUB_CACHE=$SCRATCH/cache/huggingface/hub
 
 srun --nodes=$SLURM_JOB_NUM_NODES --ntasks=$SLURM_JOB_NUM_NODES --ntasks-per-node=1 bash -c '\
-    mkdir -p $SLURM_TMPDIR/cache/huggingface && \
-    cp -r '$HF_DATASETS_CACHE' $SLURM_TMPDIR/cache/huggingface/datasets && \
-    cp -r '$HUGGINGFACE_HUB_CACHE' $SLURM_TMPDIR/cache/huggingface/hub'
+    mkdir -p $SLURM_TMPDIR/cache && \
+    cp -r '$HF_HOME' $SLURM_TMPDIR/cache/huggingface' 
 
-unset HF_DATASETS_CACHE
-unset HUGGINGFACE_HUB_CACHE
-unset HF_HOME
+# unset HF_DATASETS_CACHE
+# unset HUGGINGFACE_HUB_CACHE
+# unset HF_HOME
 
 # NOTE: Uses `srun` to launch `accelerate launch` on each node with the right `--machine_rank`.
 export HF_DATASETS_OFFLINE=1
