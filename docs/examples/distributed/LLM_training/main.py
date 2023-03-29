@@ -75,6 +75,13 @@ MODEL_TYPES = tuple(conf.model_type for conf in MODEL_CONFIG_CLASSES)
 JOB_ID: Optional[str] = os.environ.get("JOB_ID", os.environ.get("SLURM_JOB_ID"))
 NODEID: Optional[str] = os.environ.get("NODEID", os.environ.get("SLURM_NODEID"))
 
+os.environ.setdefault(
+    "HF_DATASETS_CACHE", os.environ.get("SLURM_TMPDIR", "") + "/cache/huggingface/datasets"
+)
+os.environ.setdefault(
+    "HUGGINGFACE_HUB_CACHE", os.environ.get("SLURM_TMPDIR", "") + "/cache/huggingface/hub"
+)
+
 
 @dataclass
 class Args:
