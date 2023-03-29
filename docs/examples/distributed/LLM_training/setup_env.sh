@@ -57,7 +57,7 @@ function download_model {
     python3 -c "import transformers ; transformers.AutoTokenizer.from_pretrained('$1', use_fast=True)"
 }
 
-for model_name in "facebook/opt-125m" "facebook/opt-350m" "facebook/opt-1.3b" "facebook/opt-2.7b" "facebook/opt-6.7b" "facebook/opt-13b" "facebook/opt-30b" "facebook/opt-66b"
+for model_name in "facebook/opt-125m" "facebook/opt-350m" "facebook/opt-1.3b" "facebook/opt-2.7b" "facebook/opt-6.7b" "facebook/opt-13b" "facebook/opt-30b" "facebook/opt-66b" "bigscience/bloom"
 do
     echo "Downloading model and tokenizer $model_name if needed."
     download_model $model_name
