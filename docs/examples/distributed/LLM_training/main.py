@@ -76,10 +76,10 @@ JOB_ID: Optional[str] = os.environ.get("JOB_ID", os.environ.get("SLURM_JOB_ID"))
 NODEID: Optional[str] = os.environ.get("NODEID", os.environ.get("SLURM_NODEID"))
 
 # TODO: Remove when not running on a SLURM cluster.
-os.environ["HF_DATASETS_CACHE"] = (
-    os.environ.get("SLURM_TMPDIR", "") + "/cache/huggingface/datasets"
-)
-os.environ["HUGGINGFACE_HUB_CACHE"] = os.environ.get("SLURM_TMPDIR", "") + "/cache/huggingface/hub"
+SLURM_TMPDIR = os.environ.get("SLURM_TMPDIR", "")
+os.environ["HF_DATASETS_CACHE"] = SLURM_TMPDIR + "/cache/huggingface/datasets"
+os.environ["HUGGINGFACE_HUB_CACHE"] = SLURM_TMPDIR + "/cache/huggingface/hub"
+os.environ["HF_HOME"] = SLURM_TMPDIR + "/cache/huggingface"
 
 
 @dataclass

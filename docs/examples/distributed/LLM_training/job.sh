@@ -62,6 +62,7 @@ srun --nodes=$SLURM_JOB_NUM_NODES --ntasks=$SLURM_JOB_NUM_NODES --ntasks-per-nod
 
 unset HF_DATASETS_CACHE
 unset HUGGINGFACE_HUB_CACHE
+unset HF_HOME
 
 # NOTE: Uses `srun` to launch `accelerate launch` on each node with the right `--machine_rank`.
 export HF_DATASETS_OFFLINE=1
