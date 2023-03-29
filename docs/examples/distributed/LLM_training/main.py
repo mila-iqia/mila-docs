@@ -271,7 +271,7 @@ def load_training_checkpoint(model, load_dir, tag=None, **kwargs):
 
 
 # New Code #
-def evaluate(args: Args, model, eval_dataloader, accelerator, eval_dataset):
+def evaluate(args: Args, model, eval_dataloader, accelerator: Accelerator, eval_dataset):
     model.eval()
     losses = []
     for step, batch in enumerate(eval_dataloader):
@@ -430,7 +430,7 @@ def main():
     # In distributed training, the .from_pretrained methods guarantee that only one local process can concurrently
     # download model & vocab.
     if args.config_name:
-        config = AutoConfig.from_pretrained(args.config_name, use_auth_token=True)
+        config = AutoConfig.from_pretrained(args.config_name)
     elif args.model_name_or_path:
         config = AutoConfig.from_pretrained(args.model_name_or_path)
     else:
