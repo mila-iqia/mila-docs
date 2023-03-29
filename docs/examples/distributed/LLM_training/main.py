@@ -666,6 +666,8 @@ def main():
         )
         # NOTE: IF you want to use tensorboard instead of wandb, use `init_trackers` instead.
         # I (@lebrice) decided to use wandb directly to get the metrics from all nodes.
+        # TODO: It seems like the trackers from wandb should actually log from each node, but I
+        # don't have time to test it out.
         # accelerator.init_trackers(
         #     "llm_training",
         #     experiment_config,
@@ -791,6 +793,9 @@ def main():
                             "train_loss": loss.detach().item(),
                             "samples_per_sec": throughput_samples_per_sec,
                             "avg_samples_per_sec": throughput_samples_per_sec_since_start,
+                            "updates_per_sec": n_updates_since_last_log / seconds_since_last_log,
+                            "avg_updates_per_sec": n_updates_since_start_of_run
+                            / seconds_since_start,
                             "epoch": epoch,
                             "step": completed_steps,
                             "n_samples": completed_steps * total_batch_size,

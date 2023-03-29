@@ -1,6 +1,8 @@
 #!/bin/bash
 set -o errexit
 
+# BUG: If a conda environment is already activated, this fails with `ModuleNotFoundError: No module named 'datasets'`
+
 # Install miniconda if 'conda' is not available
 function install_miniconda {
 	wget "https://repo.anaconda.com/miniconda/Miniconda3-py310_23.1.0-1-Linux-x86_64.sh" -O $HOME/Miniconda3-py310_23.1.0-1-Linux-x86_64.sh
