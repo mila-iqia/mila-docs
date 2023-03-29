@@ -56,6 +56,7 @@ export HF_DATASETS_CACHE=$SCRATCH/cache/huggingface/datasets
 export HUGGINGFACE_HUB_CACHE=$SCRATCH/cache/huggingface/hub
 
 srun --nodes=$SLURM_JOB_NUM_NODES --ntasks=$SLURM_JOB_NUM_NODES --ntasks-per-node=1 bash -c '\
+    mkdir -p $SLURM_TMPDIR/cache/huggingface && \
     cp -r '$HF_DATASETS_CACHE' $SLURM_TMPDIR/cache/huggingface/datasets && \
     cp -r '$HUGGINGFACE_HUB_CACHE' $SLURM_TMPDIR/cache/huggingface/hub'
 
