@@ -521,7 +521,7 @@ def main():
     # To speed up this part, we use multiprocessing. See the documentation of the map method for more information:
     # https://huggingface.co/docs/datasets/package_reference/main_classes.html#datasets.Dataset.map
 
-    with accelerator.local_main_process_first():
+    with accelerator.main_process_first():
         lm_datasets = tokenized_datasets.map(
             group_texts,
             batched=True,
@@ -531,6 +531,9 @@ def main():
             # keep_in_memory=True,
             desc=f"Grouping texts in chunks of {block_size}",
         )
+        # TODO: Load the dataset in memory to speed up training (if dataloading is a bottleneck)
+        # lm_dataset.save_to_disk(some_shared_dir_between_runs)
+        # lm_dataset = load_from_disk(some_shared_dir_between_runs, keep_in_memory=True)
 
     train_dataset = lm_datasets["train"]
     eval_dataset = lm_datasets["validation"]
