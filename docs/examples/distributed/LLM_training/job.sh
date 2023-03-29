@@ -20,7 +20,6 @@ ACCELERATE_CONFIG=${ACCELERATE_CONFIG:="configs/ds_level2.yaml"}
 MODEL_NAME=${MODEL_NAME:="facebook/opt-2.7b"}
 PER_GPU_BATCH_SIZE=${PER_GPU_BATCH_SIZE:="1"}
 OUTPUT_DIR=${OUTPUT_DIR:=$SCRATCH/logs/llm_training/$SLURM_JOB_ID}
-mkdir -p $OUTPUT_DIR
 
 # 'setup_env.sh' should be called before launching the job to create the
 # environment and install packages only once in an environment where internet is
@@ -29,7 +28,6 @@ source setup_env.sh
 
 set -x  # print commands.
 
-conda env export > $OUTPUT_DIR/environment.yml
 
 # Get a unique port for this job based on the job ID
 export MASTER_PORT=${MASTER_PORT:=$(expr 10000 + $(echo -n $SLURM_JOBID | tail -c 4))}
