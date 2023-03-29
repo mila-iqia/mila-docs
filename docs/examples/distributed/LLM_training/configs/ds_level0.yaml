@@ -2,8 +2,9 @@ compute_environment: LOCAL_MACHINE
 deepspeed_config:
   deepspeed_multinode_launcher: standard
   gradient_accumulation_steps: 1
-  zero3_init_flag: true
   zero_stage: 0
+  zero3_init_flag: true
+  zero3_save_16bit_model: True
 distributed_type: DEEPSPEED
 downcast_bf16: 'no'
 machine_rank: 0

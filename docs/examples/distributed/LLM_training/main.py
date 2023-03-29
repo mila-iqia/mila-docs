@@ -675,9 +675,10 @@ def main():
         # )
 
     # Train!
+    # TODO: Double-check that this is indeed correct, since it impacts our calculation for the throughput.
     total_batch_size = (
         args.per_device_train_batch_size
-        # * accelerator.num_processes  # NOTE: If the model is split between 8 GPUs, the batch size is still 1!
+        * accelerator.num_processes
         * args.gradient_accumulation_steps
     )
 
