@@ -70,4 +70,4 @@ srun --nodes=$SLURM_JOB_NUM_NODES --ntasks=$SLURM_JOB_NUM_NODES --ntasks-per-nod
     --config_name='$MODEL_NAME' --tokenizer_name='$MODEL_NAME' \
     --dataset_name=wikitext --dataset_config_name wikitext-103-v1 \
     --per_device_train_batch_size='$PER_GPU_BATCH_SIZE' --per_device_eval_batch_size='$PER_GPU_BATCH_SIZE' \
-    --max_train_steps=50 --with_tracking'
+    --max_train_steps=10 --with_tracking'
