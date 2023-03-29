@@ -37,7 +37,7 @@ export MASTER_ADDR=${MASTER_ADDR:=$(scontrol show hostnames "$SLURM_JOB_NODELIST
 export WORLD_SIZE=${WORLD_SIZE:=$(($SLURM_JOB_NUM_NODES * $SLURM_GPUS_ON_NODE))}
 
 # TODO: Make sure this works correctly even with odd numbers of cpus / gpus / nodes (e.g. never zero).
-CPUS_PER_GPU=${CPUS_PER_GPU:=$(($SLURM_CPUS_PER_TASK * SLURM_NTASKS / $WORLD_SIZE))}
+CPUS_PER_GPU=${CPUS_PER_GPU:=$(($SLURM_CPUS_PER_TASK * $SLURM_NTASKS / $WORLD_SIZE))}
 # NOTE: Setting this because `openmp` (called by `torch.distributed.run`, called by `accelerate launch`)
 # otherwise sets it to 1, which might be bad for performance.
 export OMP_NUM_THREADS=$CPUS_PER_GPU
