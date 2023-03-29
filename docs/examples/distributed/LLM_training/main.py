@@ -483,7 +483,9 @@ def main():
     def tokenize_function(examples):
         return tokenizer(examples[text_column_name])
 
-    with accelerator.main_process_first():
+    # NOTE: Use `local_main_process_first` if the dataset is on a node-local filesystem (e.g.
+    # SLURM_TMPDIR), `main_process_first` otherwise.
+    with accelerator.local_main_process_first():
         tokenized_datasets = raw_datasets.map(
             tokenize_function,
             batched=True,
@@ -533,7 +535,7 @@ def main():
     # To speed up this part, we use multiprocessing. See the documentation of the map method for more information:
     # https://huggingface.co/docs/datasets/package_reference/main_classes.html#datasets.Dataset.map
 
-    with accelerator.main_process_first():
+    with accelerator.local_main_process_first():
         lm_datasets = tokenized_datasets.map(
             group_texts,
             batched=True,
