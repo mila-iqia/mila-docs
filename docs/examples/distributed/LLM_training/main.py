@@ -349,6 +349,7 @@ def main():
         ],  # Very pretty, uses the `rich` package.
     )
     logger.info(accelerator.state, main_process_only=False)
+    logger.info(f"HF_HOME={os.environ['HF_HOME']}")
     logger.info(f"HF_DATASETS_CACHE={os.environ['HF_DATASETS_CACHE']}")
     logger.info(f"HUGGINGFACE_HUB_CACHE={os.environ['HUGGINGFACE_HUB_CACHE']}")
 
