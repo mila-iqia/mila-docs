@@ -75,12 +75,11 @@ MODEL_TYPES = tuple(conf.model_type for conf in MODEL_CONFIG_CLASSES)
 JOB_ID: Optional[str] = os.environ.get("JOB_ID", os.environ.get("SLURM_JOB_ID"))
 NODEID: Optional[str] = os.environ.get("NODEID", os.environ.get("SLURM_NODEID"))
 
-os.environ.setdefault(
-    "HF_DATASETS_CACHE", os.environ.get("SLURM_TMPDIR", "") + "/cache/huggingface/datasets"
+# TODO: Remove when not running on a SLURM cluster.
+os.environ["HF_DATASETS_CACHE"] = (
+    os.environ.get("SLURM_TMPDIR", "") + "/cache/huggingface/datasets"
 )
-os.environ.setdefault(
-    "HUGGINGFACE_HUB_CACHE", os.environ.get("SLURM_TMPDIR", "") + "/cache/huggingface/hub"
-)
+os.environ["HUGGINGFACE_HUB_CACHE"] = os.environ.get("SLURM_TMPDIR", "") + "/cache/huggingface/hub"
 
 
 @dataclass
@@ -347,6 +346,8 @@ def main():
         ],  # Very pretty, uses the `rich` package.
     )
     logger.info(accelerator.state, main_process_only=False)
+    logger.info(f"HF_DATASETS_CACHE={os.environ['HF_DATASETS_CACHE']}")
+    logger.info(f"HUGGINGFACE_HUB_CACHE={os.environ['HUGGINGFACE_HUB_CACHE']}")
 
     if accelerator.is_local_main_process:
         datasets.utils.logging.set_verbosity_warning()
