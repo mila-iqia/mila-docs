@@ -669,7 +669,7 @@ def main():
         experiment_config = vars(args)
         # TensorBoard cannot log Enums, need the raw value
         experiment_config["lr_scheduler_type"] = experiment_config["lr_scheduler_type"].value
-
+        experiment_config["env"] = os.environ.copy()
         wandb.init(
             project="llm_training",
             config=experiment_config,
