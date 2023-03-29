@@ -22,11 +22,20 @@ Old bug (fixed with the solution in the last reply to the thread):
 - Fix bug: fatal error: cusolverDn.h: No such file or directory
 https://github.com/microsoft/DeepSpeed/issues/2684
 """
+
+
+import os
+
+# TODO: Remove when not running on a SLURM cluster.
+SLURM_TMPDIR = os.environ["SLURM_TMPDIR"]
+os.environ["HF_DATASETS_CACHE"] = SLURM_TMPDIR + "/cache/huggingface/datasets"
+os.environ["HUGGINGFACE_HUB_CACHE"] = SLURM_TMPDIR + "/cache/huggingface/hub"
+os.environ["HF_HOME"] = SLURM_TMPDIR + "/cache/huggingface"
+
 # You can also adapt this script on your own causal language modeling task. Pointers for this are left as comments.
 import json
 import logging
 import math
-import os
 import time
 from dataclasses import dataclass
 from datetime import timedelta
@@ -74,12 +83,6 @@ MODEL_TYPES = tuple(conf.model_type for conf in MODEL_CONFIG_CLASSES)
 # Note: These are only used in setting the wandb run name and group, if they are set.
 JOB_ID: Optional[str] = os.environ.get("JOB_ID", os.environ.get("SLURM_JOB_ID"))
 NODEID: Optional[str] = os.environ.get("NODEID", os.environ.get("SLURM_NODEID"))
-
-# TODO: Remove when not running on a SLURM cluster.
-SLURM_TMPDIR = os.environ.get("SLURM_TMPDIR", "")
-os.environ["HF_DATASETS_CACHE"] = SLURM_TMPDIR + "/cache/huggingface/datasets"
-os.environ["HUGGINGFACE_HUB_CACHE"] = SLURM_TMPDIR + "/cache/huggingface/hub"
-os.environ["HF_HOME"] = SLURM_TMPDIR + "/cache/huggingface"
 
 
 @dataclass
