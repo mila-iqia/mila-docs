@@ -386,11 +386,44 @@ Canada Documentation <https://docs.alliancecan.ca/wiki/Cedar>`__.
   they start.
 
 
+Narval
+^^^^^^
+
+Narval is a cluster located at the ÉTS (École de Technologie Supérieure) in
+Montreal. It uses SLURM to schedule jobs. Its full documentation can be found `here
+<https://docs.alliancecan.ca/wiki/Narval>`__, and its current status `here
+<http://status.alliancecan.ca>`__.
+
+You can access Narval via ssh:
+
+.. prompt:: bash $
+
+    ssh <user>@narval.computecanada.ca
+
+Where ``<user>`` is the username you created previously (see `Account Creation`_).
+
+While Narval has a filesystem organization similar to the above clusters, and the
+newest GPUs in the fleet (A100s), it differs from the other clusters in that it
+uses AMD CPUs (Zen 2/3) rather than Intel (Broadwell/Skylake). This *may* (but is
+not guaranteed to) result in performance or behaviour differences, up to and
+including hangs.
+
+.. warning::
+
+    A very notable difference in the feature-set of Narval's CPUs is that the
+    AMD CPUs of this cluster do **not** support the AVX-512 vector extensions,
+    while the Intel CPUs of the older clusters **do**. This makes it unsafe to
+    run *compiled* CPU code from the Intel-based clusters to Narval, but the
+    opposite (although ill-advised) will work. The symptom of attempting to
+    execute AVX-512 code on Narval's CPUs is that the program fatally aborts
+    with signal ``SIGILL`` and messages such as ``Illegal instruction``.
+
+
 Niagara
 ^^^^^^^
 
-Niagara is a cluster located at University of Toronto. It uses SLURM to schedule
-jobs. Its full documentation can be found `here
+Niagara is a cluster located at the University of Toronto. It uses SLURM to
+schedule jobs. Its full documentation can be found `here
 <https://docs.alliancecan.ca/wiki/Niagara>`__, and its current status `here
 <http://status.alliancecan.ca>`__.
 
@@ -402,10 +435,12 @@ You can access Niagara via ssh:
 
 Where ``<user>`` is the username you created previously (see `Account Creation`_).
 
-Since its structure is similar to `Beluga`, please look at the `Beluga`_
-documentation, as well as relevant parts of the `Digital Research Alliance of
-Canada Documentation <https://docs.alliancecan.ca/wiki/Niagara_Quickstart>`__.
-
+Niagara is completely unlike the previous clusters, as mentioned above. Access
+to it is opt-in, it has no GPUs, allocations are *only* per-**node** and *never*
+per-CPU-core, and the software environment is different. You are very unlikely
+to need this cluster and are strongly encouraged to peruse its documentation
+if you have a strong reason to use it regardless. Do not expect to be able to
+schedule and run CPU jobs on Niagara exactly the same way as on all other clusters.
 
 FAQ
 ---
