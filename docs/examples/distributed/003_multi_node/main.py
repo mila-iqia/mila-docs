@@ -260,8 +260,11 @@ def make_datasets(
         # Join the workers waiting in the barrier above. They can now load the datasets from disk.
         torch.distributed.barrier()
     # Split the training dataset into a training and validation set.
+    n_samples = len(train_dataset)
+    n_valid = int(val_split * n_samples)
+    n_train = n_samples - n_valid
     train_dataset, valid_dataset = random_split(
-        train_dataset, ((1 - val_split), val_split), torch.Generator().manual_seed(val_split_seed)
+        train_dataset, (n_train, n_valid), torch.Generator().manual_seed(val_split_seed)
     )
     return train_dataset, valid_dataset, test_dataset
 
