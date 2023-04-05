@@ -9,10 +9,13 @@ The clusters named `Beluga`, `Cedar`, `Graham`, `Narval` and `Niagara` are
 clusters provided by the `Digital Research Alliance of Canada organisation
 <https://alliancecan.ca/>`_ (the Alliance). For Mila researchers, these
 clusters are to be used for larger experiments having many jobs, multi-node
-computation and/or multi-GPU jobs as well as long running jobs. If you use
-these resources for your research, please remember to `acknowledge their use in
-your papers
-<https://alliancecan.ca/en/services/advanced-research-computing/acknowledging-alliance>`_.
+computation and/or multi-GPU jobs as well as long running jobs.
+
+.. note::
+
+   If you use DRAC resources for your research, please remember to `acknowledge
+   their use in your papers
+   <https://alliancecan.ca/en/services/advanced-research-computing/acknowledging-alliance>`_
 
 .. note::
 
@@ -21,7 +24,6 @@ your papers
    will be supported by the new Digital Research Alliance of Canada.
 
    https://ace-net.ca/compute-canada-operations-move-to-the-digital-research-alliance-of-canada-(the-alliance).html
-
 
 Current allocation description
 ------------------------------
@@ -40,8 +42,8 @@ From the Alliance's documentation: `An allocation is an amount of resources
 that a research group can target for use for a period of time, usually a year.`
 To be clear, it is not a maximal amount of resources that can be used
 simultaneously, it is a weighting factor of the workload manager to balance
-jobs. For instance, even though we are allocated 400 GPU-years across all
-clusters, we can use more or less than 400 GPUs simultaneously depending on the
+jobs. For instance, even though we are allocated 408 GPU-years across all
+clusters, we can use more or less than 408 GPUs simultaneously depending on the
 history of usage from our group and other groups using the cluster at a given
 period of time. Please see the Alliance's `documentation
 <https://docs.alliancecan.ca/wiki/Allocations_and_resource_scheduling>`__ for
@@ -63,13 +65,11 @@ account ``def-bengioy``.
 |                        +------+----------------+-----------+-----+----------------------+----------------+
 |                        |  #   | account        | Model     | #   | SLURM type specifier | account        |
 +------------------------+------+----------------+-----------+-----+----------------------+----------------+
-| :ref:`Beluga <beluga>` |  238 | rrg-bengioy-ad | V100-16G  | 77  | ``v100``             | rrg-bengioy-ad |
+| :ref:`Beluga <beluga>` |  197 | rrg-bengioy-ad | V100-16G  | 127 | ``v100``             | rrg-bengioy-ad |
 +------------------------+------+----------------+-----------+-----+----------------------+----------------+
-| :ref:`Cedar <cedar>`   |   34 | rrg-bengioy-ad | V100-32G  | 138 | ``v100l``            | rrg-bengioy-ad |
+| :ref:`Cedar <cedar>`   |  197 | rrg-bengioy-ad | V100-32G  | 127 | ``v100l``            | rrg-bengioy-ad |
 +------------------------+------+----------------+-----------+-----+----------------------+----------------+
-| :ref:`Graham <graham>` |   34 | rrg-bengioy-ad | *various* | --  | --                   | def-bengioy    |
-+------------------------+------+----------------+-----------+-----+----------------------+----------------+
-| :ref:`Narval <narval>` |   34 | rrg-bengioy-ad | A100-40G  | 185 | ``a100``             | rrg-bengioy-ad |
+| :ref:`Narval <narval>` |  917 | rrg-bengioy-ad | A100-40G  | 154 | ``a100``             | rrg-bengioy-ad |
 +------------------------+------+----------------+-----------+-----+----------------------+----------------+
 
 
@@ -98,23 +98,28 @@ sponsor to get the CCRI.
 You will need to **wait** for your sponsor to accept before being able to login
 to the Alliance clusters.
 
+You should apply to a ``role`` using this form **for each allocation you can have access to**. If, for instance,
+your supervisor is member of the ``rrg-bengioy-ad`` allocation, you should apply using Yoshua Bengio's CCRI, and
+you should apply separately using your supervisor's CCRI to have access to ``def-<yoursupervisor>``. Ask your supervisor
+to share these CCRI with you.
 
 Clusters
 --------
 
-Beluga:
-   (:ref:`Mila doc <beluga>`)
-   (`Digital Research Alliance of Canada doc <https://docs.alliancecan.ca/wiki/B%C3%A9luga/en>`__)
-
-   For most students, Beluga is the best choice for both CPU and GPU jobs because
-   of larger allocations on this cluster.
 Narval:
    (:ref:`Mila doc <narval>`)
    (`Digital Research Alliance of Canada doc <https://docs.alliancecan.ca/wiki/Narval/en>`__)
 
-   Narval is the newest cluster, and contains the most powerful GPUs (A100). If your
+   For most students, Narval is the best choice for both CPU and GPU jobs because
+   of larger allocations on this cluster.
+   Narval is also the newest cluster, and contains the most powerful GPUs (A100). If your
    job can benefit from the A100's features, such as TF32 floating-point math, Narval
    is the best choice.
+Beluga:
+   (:ref:`Mila doc <beluga>`)
+   (`Digital Research Alliance of Canada doc <https://docs.alliancecan.ca/wiki/B%C3%A9luga/en>`__)
+
+   Beluga is a good alternative for CPU and GPU jobs.
 Cedar:
    (:ref:`Mila doc <cedar>`)
    (`Digital Research Alliance of Canada doc <https://docs.alliancecan.ca/wiki/Cedar/en>`__)
@@ -125,7 +130,8 @@ Graham:
    (:ref:`Mila doc <graham>`)
    (`Digital Research Alliance of Canada doc <https://docs.alliancecan.ca/wiki/Graham/en>`__)
 
-   We do not have a GPU allocation on Graham anymore but it remains an alternative for CPU jobs.
+   We do not have any CPU or GPU allocation on Graham anymore, but you can use it with `def-<supervisor>`
+   if other clusters are overcrowded. (where `<supervisor> is the DRAC account name of your supervisor`)
 Niagara:
    (:ref:`Mila doc <niagara>`)
    (`Digital Research Alliance of Canada doc <https://docs.alliancecan.ca/wiki/Niagara/en>`__)
@@ -335,6 +341,13 @@ the necessary servers for using CometML and Wandb ("Weights and Biases").
 More documentation about this can be found `here
 <https://docs.alliancecan.ca/wiki/Weights_%26_Biases_(wandb)>`__.
 
+.. note::
+
+   Be careful when using Wandb with `httpproxy`. It does not support sending
+   artifacts and wandb's logger will hang in the background when your training
+   is completed, wasting ressources until the job times out. It is recommended
+   to use the offline mode with wandb instead to avoid such waste.
+
 
 Graham
 ^^^^^^
@@ -384,11 +397,44 @@ Canada Documentation <https://docs.alliancecan.ca/wiki/Cedar>`__.
   they start.
 
 
+Narval
+^^^^^^
+
+Narval is a cluster located at the ÉTS (École de Technologie Supérieure) in
+Montreal. It uses SLURM to schedule jobs. Its full documentation can be found `here
+<https://docs.alliancecan.ca/wiki/Narval>`__, and its current status `here
+<http://status.alliancecan.ca>`__.
+
+You can access Narval via ssh:
+
+.. prompt:: bash $
+
+    ssh <user>@narval.computecanada.ca
+
+Where ``<user>`` is the username you created previously (see `Account Creation`_).
+
+While Narval has a filesystem organization similar to the above clusters, and the
+newest GPUs in the fleet (A100s), it differs from the other clusters in that it
+uses AMD CPUs (Zen 2/3) rather than Intel (Broadwell/Skylake). This *may* (but is
+not guaranteed to) result in performance or behaviour differences, up to and
+including hangs.
+
+.. warning::
+
+    A very notable difference in the feature-set of Narval's CPUs is that the
+    AMD CPUs of this cluster do **not** support the AVX-512 vector extensions,
+    while the Intel CPUs of the older clusters **do**. This makes it unsafe to
+    run *compiled* CPU code from the Intel-based clusters to Narval, but the
+    opposite (although ill-advised) will work. The symptom of attempting to
+    execute AVX-512 code on Narval's CPUs is that the program fatally aborts
+    with signal ``SIGILL`` and messages such as ``Illegal instruction``.
+
+
 Niagara
 ^^^^^^^
 
-Niagara is a cluster located at University of Toronto. It uses SLURM to schedule
-jobs. Its full documentation can be found `here
+Niagara is a cluster located at the University of Toronto. It uses SLURM to
+schedule jobs. Its full documentation can be found `here
 <https://docs.alliancecan.ca/wiki/Niagara>`__, and its current status `here
 <http://status.alliancecan.ca>`__.
 
@@ -400,10 +446,12 @@ You can access Niagara via ssh:
 
 Where ``<user>`` is the username you created previously (see `Account Creation`_).
 
-Since its structure is similar to `Beluga`, please look at the `Beluga`_
-documentation, as well as relevant parts of the `Digital Research Alliance of
-Canada Documentation <https://docs.alliancecan.ca/wiki/Niagara_Quickstart>`__.
-
+Niagara is completely unlike the previous clusters, as mentioned above. Access
+to it is opt-in, it has no GPUs, allocations are *only* per-**node** and *never*
+per-CPU-core, and the software environment is different. You are very unlikely
+to need this cluster and are strongly encouraged to peruse its documentation
+if you have a strong reason to use it regardless. Do not expect to be able to
+schedule and run CPU jobs on Niagara exactly the same way as on all other clusters.
 
 FAQ
 ---
