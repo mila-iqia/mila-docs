@@ -7,15 +7,8 @@ generate_diff() {
     echo "Generating diff for docs/examples/$1 -> docs/examples/$2"
     # NOTE: Assuming that this gets run from the `docs` folder (as is the case when building the docs).
 
-    # TODO: Create a diff file that can then be used to make writing new examples easier.
-    git diff --no-index \
-        "examples/$1" \
-        "examples/$2" \
-        | grep -Ev "^index" \
-        > examples/$2.diff
-
     # Write a diff file to be shown in the documentation.
-    
+
     built_example_diffs_folder="_build/example_diffs"
     mkdir -p $(dirname "$built_example_diffs_folder/$2.diff")
 
