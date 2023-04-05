@@ -158,6 +158,25 @@ be injected using the ``setup`` key in Hydra YAML config file::
         - export LD_PRELOAD=/absolute/path/to/hack.so
 
 
+On MIG GPUs, I get ``torch.cuda.device_count() == 0`` despite ``torch.cuda.is_available()``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+You are using PyTorch 1.13.x and hitting `#90543
+<https://github.com/pytorch/pytorch/issues/90543>`_,
+for which the solution is `PR #92315
+<https://github.com/pytorch/pytorch/pull/92315>`_
+merged in PyTorch 2.0.
+
+To avoid thus problem, update to PyTorch 2.0. If PyTorch 1.13.x is required, a
+workaround is to add the following to your script:
+
+.. code:: bash
+
+   unset CUDA_VISIBLE_DEVICES
+
+But this is no longer necessary with PyTorch >= 2.0.
+
+
 I am told my PyTorch job abuses the filesystem with extreme amounts of IOPS
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
