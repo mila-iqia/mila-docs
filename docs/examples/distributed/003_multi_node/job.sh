@@ -27,10 +27,10 @@ module load anaconda/3
 # Activate pre-existing environment.
 conda activate pytorch
 
-
 # Stage dataset into $SLURM_TMPDIR (only on the first worker of each node)
 srun --ntasks=$SLURM_JOB_NUM_NODES --ntasks-per-node=1 bash -c \
-    'cp -a /network/datasets/cifar10.var/cifar10_torchvision $SLURM_TMPDIR'
+   'mkdir -p $SLURM_TMPDIR/data && \
+    cp -r --target-directory $SLURM_TMPDIR/data/ /network/datasets/cifar10.var/cifar10_torchvision/*'
 
 # Get a unique port for this job based on the job ID
 export MASTER_PORT=$(expr 10000 + $(echo -n $SLURM_JOBID | tail -c 4))

@@ -28,8 +28,8 @@ conda activate pytorch
 
 
 # Stage dataset into $SLURM_TMPDIR
-cp -a /network/datasets/cifar10.var/cifar10_torchvision $SLURM_TMPDIR
-
+mkdir -p $SLURM_TMPDIR/data
+cp -rt $SLURM_TMPDIR/data/ /network/datasets/cifar10.var/cifar10_torchvision/*
 
 # Execute Python script
 python main.py

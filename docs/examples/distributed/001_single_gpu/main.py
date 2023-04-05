@@ -1,6 +1,7 @@
 """Single-GPU training example."""
 import logging
 import os
+from pathlib import Path
 
 import rich.logging
 import torch
@@ -39,8 +40,8 @@ def main():
 
     # Setup CIFAR10
     num_workers = get_num_workers()
-    dataset_path = os.environ.get("SLURM_TMPDIR", "../dataset")
-    train_dataset, valid_dataset, test_dataset = make_datasets(dataset_path)
+    dataset_path = Path(os.environ.get("SLURM_TMPDIR", ".")) / "data"
+    train_dataset, valid_dataset, test_dataset = make_datasets(str(dataset_path))
     train_dataloader = DataLoader(
         train_dataset,
         batch_size=batch_size,

@@ -28,7 +28,8 @@ conda activate pytorch
 
 
 # Stage dataset into $SLURM_TMPDIR
-cp -a /network/datasets/cifar10.var/cifar10_torchvision $SLURM_TMPDIR
+mkdir -p $SLURM_TMPDIR/data
+cp -r --target-directory $SLURM_TMPDIR/data/ /network/datasets/cifar10.var/cifar10_torchvision/*
 
 # Get a unique port for this job based on the job ID
 export MASTER_PORT=$(expr 10000 + $(echo -n $SLURM_JOBID | tail -c 4))

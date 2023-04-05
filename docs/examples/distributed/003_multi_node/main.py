@@ -1,7 +1,9 @@
 """Multi-GPU Training example."""
 import logging
 import os
+from pathlib import Path
 
+import rich.logging
 import torch
 import torch.distributed
 from torch import Tensor, nn
@@ -26,7 +28,6 @@ def main():
     is_master = rank == 0
     is_local_master = local_rank == 0
     device = torch.device("cuda", local_rank)
-    import rich.logging
 
     # Setup logging (optional, but much better than using print statements)
     logging.basicConfig(
@@ -52,9 +53,10 @@ def main():
 
     # Setup CIFAR10
     num_workers = get_num_workers()
-    dataset_path = os.environ.get("SLURM_TMPDIR", "../dataset")
+
+    dataset_path = Path(os.environ.get("SLURM_TMPDIR", ".")) / "data"
     train_dataset, valid_dataset, test_dataset = make_datasets(
-        dataset_path, is_master=is_local_master
+        str(dataset_path), is_master=is_local_master
     )
 
     # Restricts data loading to a subset of the dataset exclusive to the current process
