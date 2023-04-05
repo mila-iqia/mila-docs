@@ -512,7 +512,7 @@ def main():
         block_size = min(args.block_size, tokenizer.model_max_length)
 
     # Main data processing function that will concatenate all texts from our dataset and generate chunks of block_size.
-    def group_texts(examples):
+    def group_texts(examples: dict, block_size: int):
         # Concatenate all texts.
         concatenated_examples = {k: list(chain(*examples[k])) for k in examples.keys()}
         total_length = len(concatenated_examples[list(examples.keys())[0]])
@@ -539,6 +539,7 @@ def main():
         lm_datasets = tokenized_datasets.map(
             group_texts,
             batched=True,
+            fn_kwargs={"block_size": block_size},
             num_proc=args.preprocessing_num_workers,
             load_from_cache_file=not args.overwrite_cache,
             # TODO: See if this works (i.e. makes things faster and doesn't invalidate the cache)

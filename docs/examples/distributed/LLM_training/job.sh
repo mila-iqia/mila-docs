@@ -57,7 +57,7 @@ export HUGGINGFACE_HUB_CACHE=$SCRATCH/cache/huggingface/hub
 
 srun --nodes=$SLURM_JOB_NUM_NODES --ntasks=$SLURM_JOB_NUM_NODES --ntasks-per-node=1 bash -c '\
     mkdir -p $SLURM_TMPDIR/cache && \
-    cp -r '$HF_HOME' $SLURM_TMPDIR/cache/huggingface' 
+    cp -r '$HF_HOME' $SLURM_TMPDIR/cache/huggingface'
 
 # unset HF_DATASETS_CACHE
 # unset HUGGINGFACE_HUB_CACHE
@@ -80,4 +80,5 @@ srun --nodes=$SLURM_JOB_NUM_NODES --ntasks=$SLURM_JOB_NUM_NODES --ntasks-per-nod
     --config_name='$MODEL_NAME' --tokenizer_name='$MODEL_NAME' \
     --dataset_name=wikitext --dataset_config_name wikitext-103-v1 \
     --per_device_train_batch_size='$PER_GPU_BATCH_SIZE' --per_device_eval_batch_size='$PER_GPU_BATCH_SIZE' \
+    --block_size=1024 \
     --max_train_steps=100 --with_tracking'
