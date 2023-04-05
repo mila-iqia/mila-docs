@@ -36,5 +36,8 @@ srun --ntasks=$SLURM_JOB_NUM_NODES --ntasks-per-node=1 bash -c \
 export MASTER_PORT=$(expr 10000 + $(echo -n $SLURM_JOBID | tail -c 4))
 export MASTER_ADDR=$(scontrol show hostnames "$SLURM_JOB_NODELIST" | head -n 1)
 
+# Fixes issues with MIG-ed GPUs with versions of PyTorch < 2.0
+unset CUDA_VISIBLE_DEVICES
+
 # Execute Python script in each task (one per GPU)
 srun python main.py

@@ -35,5 +35,8 @@ cp -r --target-directory $SLURM_TMPDIR/data/ /network/datasets/cifar10.var/cifar
 export MASTER_PORT=$(expr 10000 + $(echo -n $SLURM_JOBID | tail -c 4))
 export MASTER_ADDR="127.0.0.1"
 
+# Fixes issues with MIG-ed GPUs with versions of PyTorch < 2.0
+unset CUDA_VISIBLE_DEVICES
+
 # Execute Python script in each task (one per GPU)
 srun python main.py

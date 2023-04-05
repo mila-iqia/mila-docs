@@ -31,5 +31,8 @@ conda activate pytorch
 mkdir -p $SLURM_TMPDIR/data
 cp -rt $SLURM_TMPDIR/data/ /network/datasets/cifar10.var/cifar10_torchvision/*
 
+# Fixes issues with MIG-ed GPUs with versions of PyTorch < 2.0
+unset CUDA_VISIBLE_DEVICES
+
 # Execute Python script
 python main.py
