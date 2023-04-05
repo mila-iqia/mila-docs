@@ -7,6 +7,7 @@ import rich.logging
 import torch
 import torch.distributed
 from torch import Tensor, nn
+from torch.distributed import ReduceOp
 from torch.nn import functional as F
 from torch.utils.data import DataLoader, random_split
 from torch.utils.data.distributed import DistributedSampler
@@ -131,13 +132,14 @@ def main():
             # "global" metrics: calculated with the results from all workers
             # NOTE: Creating new tensors to hold the "global" values, but this isn't required.
             n_correct_predictions = local_n_correct_predictions.clone()
-            torch.distributed.reduce(n_correct_predictions, op=torch.distributed.ReduceOp.SUM)
+            # Reduce the local metrics across all workers, sending the result to rank 0.
+            torch.distributed.reduce(n_correct_predictions, dst=0, op=ReduceOp.SUM)
             # Actual (global) batch size for this step.
             n_samples = torch.as_tensor(local_n_samples, device=device)
-            torch.distributed.reduce(n_samples, op=torch.distributed.ReduceOp.SUM)
+            torch.distributed.reduce(n_samples, dst=0, op=ReduceOp.SUM)
             # Will store the average loss across all workers.
             loss = local_loss.clone()
-            torch.distributed.reduce(loss, op=torch.distributed.ReduceOp.SUM)
+            torch.distributed.reduce(loss, dst=0, op=ReduceOp.SUM)
             loss.div_(world_size)  # Report the average loss across all workers.
 
             accuracy = n_correct_predictions / n_samples
