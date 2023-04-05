@@ -22,7 +22,7 @@ module load anaconda/3
 # conda create -y -n pytorch python=3.9 pytorch torchvision torchaudio \
 #     pytorch-cuda=11.6 -c pytorch -c nvidia
 # Other conda packages:
-# conda install -y -n pytorch -c conda-forge rich
+# conda install -y -n pytorch -c conda-forge rich tqdm
 
 # Activate pre-existing environment.
 conda activate pytorch
