@@ -203,28 +203,22 @@ def setup():
     print(f"    NCCL: {torch.distributed.is_nccl_available()}")
     print(f"    MPI:  {torch.distributed.is_mpi_available()}")
 
-    if "SLURM_PROCID" in os.environ:
-        # DDP Job is being run via `srun` on a slurm cluster.
-        rank = int(os.environ["SLURM_PROCID"])
-        world_size = int(os.environ["SLURM_NTASKS"])
+    # DDP Job is being run via `srun` on a slurm cluster.
+    rank = int(os.environ["SLURM_PROCID"])
+    world_size = int(os.environ["SLURM_NTASKS"])
 
-        # SLURM var -> torch.distributed vars in case needed
-        # NOTE: Setting these values isn't exactly necessary, but some code might assume it's
-        # being run via torchrun or torch.distributed.launch, so setting these can be a good idea.
-        os.environ["RANK"] = str(rank)
-        os.environ["WORLD_SIZE"] = str(world_size)
+    # SLURM var -> torch.distributed vars in case needed
+    # NOTE: Setting these values isn't exactly necessary, but some code might assume it's
+    # being run via torchrun or torch.distributed.launch, so setting these can be a good idea.
+    os.environ["RANK"] = str(rank)
+    os.environ["WORLD_SIZE"] = str(world_size)
 
-        torch.distributed.init_process_group(
-            backend="nccl",
-            init_method="env://",
-            world_size=world_size,
-            rank=rank,
-        )
-    else:
-        # DDP via torchrun, torch.distributed.launch
-        torch.distributed.init_process_group(backend="nccl", init_method="env://")
-        rank = torch.distributed.get_rank()
-        world_size = torch.distributed.get_world_size()
+    torch.distributed.init_process_group(
+        backend="nccl",
+        init_method="env://",
+        world_size=world_size,
+        rank=rank,
+    )
     return rank, world_size
 
 

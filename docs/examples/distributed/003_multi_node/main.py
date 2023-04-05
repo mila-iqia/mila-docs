@@ -1,6 +1,7 @@
 """Multi-GPU Training example."""
 import logging
 import os
+from datetime import timedelta
 from pathlib import Path
 
 import rich.logging
@@ -207,31 +208,35 @@ def setup():
     print(f"    NCCL: {torch.distributed.is_nccl_available()}")
     print(f"    MPI:  {torch.distributed.is_mpi_available()}")
 
-    if "SLURM_PROCID" in os.environ:
-        # DDP Job is being run via `srun` on a slurm cluster.
-        rank = int(os.environ["SLURM_PROCID"])
-        local_rank = int(os.environ["SLURM_LOCALID"])
-        world_size = int(os.environ["SLURM_NTASKS"])
+    # NOTE: the env:// init method uses FileLocks, which sometimes causes deadlocks due to the
+    # distributed filesystem configuration on the Mila cluster.
+    # For multi-node jobs, use the TCP init method instead.
+    master_addr = os.environ["MASTER_ADDR"]
+    master_port = os.environ["MASTER_PORT"]
 
-        # SLURM var -> torch.distributed vars in case needed
-        # NOTE: Setting these values isn't exactly necessary, but some code might assume it's
-        # being run via torchrun or torch.distributed.launch, so setting these can be a good idea.
-        os.environ["RANK"] = str(rank)
-        os.environ["LOCAL_RANK"] = str(local_rank)
-        os.environ["WORLD_SIZE"] = str(world_size)
+    # Default timeout is 30 minutes. Reducing the timeout here, so the job fails quicker if there's
+    # a communication problem between nodes.
+    timeout = timedelta(seconds=60)
 
-        torch.distributed.init_process_group(
-            backend="nccl",
-            init_method="env://",
-            world_size=world_size,
-            rank=rank,
-        )
-    else:
-        # DDP via torchrun, torch.distributed.launch
-        torch.distributed.init_process_group(backend="nccl", init_method="env://")
-        rank = torch.distributed.get_rank()
-        local_rank = rank % torch.cuda.device_count()
-        world_size = torch.distributed.get_world_size()
+    # DDP Job is being run via `srun` on a slurm cluster.
+    rank = int(os.environ["SLURM_PROCID"])
+    local_rank = int(os.environ["SLURM_LOCALID"])
+    world_size = int(os.environ["SLURM_NTASKS"])
+
+    # SLURM var -> torch.distributed vars in case needed
+    # NOTE: Setting these values isn't exactly necessary, but some code might assume it's
+    # being run via torchrun or torch.distributed.launch, so setting these can be a good idea.
+    os.environ["RANK"] = str(rank)
+    os.environ["LOCAL_RANK"] = str(local_rank)
+    os.environ["WORLD_SIZE"] = str(world_size)
+
+    torch.distributed.init_process_group(
+        backend="nccl",
+        init_method=f"tcp://{master_addr}:{master_port}",
+        timeout=timeout,
+        world_size=world_size,
+        rank=rank,
+    )
     return rank, world_size, local_rank
 
 
