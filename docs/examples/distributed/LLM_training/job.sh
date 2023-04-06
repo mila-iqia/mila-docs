@@ -55,9 +55,9 @@ export HF_HOME=$SCRATCH/cache/huggingface
 export HF_DATASETS_CACHE=$SCRATCH/cache/huggingface/datasets
 export HUGGINGFACE_HUB_CACHE=$SCRATCH/cache/huggingface/hub
 
-srun --nodes=$SLURM_JOB_NUM_NODES --ntasks=$SLURM_JOB_NUM_NODES --ntasks-per-node=1 bash -c '\
-    mkdir -p $SLURM_TMPDIR/cache && \
-    cp -r '$HF_HOME' $SLURM_TMPDIR/cache/huggingface'
+srun --nodes=$SLURM_JOB_NUM_NODES --ntasks=$SLURM_JOB_NUM_NODES --ntasks-per-node=1 bash -c "\
+    mkdir -p \$SLURM_TMPDIR/cache && \
+    cp -r $HF_HOME \$SLURM_TMPDIR/cache/huggingface"
 
 # unset HF_DATASETS_CACHE
 # unset HUGGINGFACE_HUB_CACHE
@@ -67,18 +67,17 @@ srun --nodes=$SLURM_JOB_NUM_NODES --ntasks=$SLURM_JOB_NUM_NODES --ntasks-per-nod
 export HF_DATASETS_OFFLINE=1
 export HF_HUB_OFFLINE=1
 srun --nodes=$SLURM_JOB_NUM_NODES --ntasks=$SLURM_JOB_NUM_NODES --ntasks-per-node=1 --output=logs/slurm-%j_%t.out \
-    bash -c 'accelerate launch \
-    --machine_rank=$SLURM_NODEID \
-    --config_file='$ACCELERATE_CONFIG' \
-    --num_cpu_threads_per_process='$CPUS_PER_GPU' \
-    --main_process_ip='$MASTER_ADDR' \
-    --main_process_port='$MASTER_PORT' \
-    --num_processes='$WORLD_SIZE' \
-    --num_machines='$NUM_NODES' \
+    bash -c "accelerate launch \
+    --machine_rank=\$SLURM_NODEID \
+    --config_file=$ACCELERATE_CONFIG \
+    --num_cpu_threads_per_process=$CPUS_PER_GPU \
+    --main_process_ip=$MASTER_ADDR \
+    --main_process_port=$MASTER_PORT \
+    --num_processes=$WORLD_SIZE \
+    --num_machines=$NUM_NODES \
     main.py \
-    --output_dir='$OUTPUT_DIR' \
-    --config_name='$MODEL_NAME' --tokenizer_name='$MODEL_NAME' \
+    --output_dir=$OUTPUT_DIR \
+    --config_name=$MODEL_NAME --tokenizer_name=$MODEL_NAME \
     --dataset_name=wikitext --dataset_config_name wikitext-103-v1 \
-    --per_device_train_batch_size='$PER_GPU_BATCH_SIZE' --per_device_eval_batch_size='$PER_GPU_BATCH_SIZE' \
-    --block_size=1024 \
-    --max_train_steps=100 --with_tracking'
+    --per_device_train_batch_size=$PER_GPU_BATCH_SIZE --per_device_eval_batch_size=$PER_GPU_BATCH_SIZE \
+    --max_train_steps=100 --with_tracking $@"

@@ -211,7 +211,13 @@ class Args:
     log_every_n_steps: int = 1
     """Logging interval when using trackers (when `--with_tracking` is passed)."""
 
+    wandb_tags: list[str] = field(default_factory=list)
+
     def __post_init__(self):
+        self.wandb_tags = sum([tag.split(",") for tag in self.wandb_tags], [])
+        if self.tokenizer_name is None and self.config_name is not None:
+            self.tokenizer_name = self.config_name
+
         # Sanity checks
         if self.dataset_name is None and self.train_file is None and self.validation_file is None:
             raise ValueError("Need either a dataset name or a training/validation file.")
@@ -329,7 +335,7 @@ def main():
     init_process_group_kwargs = CustomInitProcessGroupKwargs(
         init_method=f"tcp://{MASTER_ADDR}:{MASTER_PORT}",
         # Reduced the timeout here, so the job fails quicker if there's a communication problem between nodes.
-        timeout=timedelta(seconds=60),
+        timeout=timedelta(seconds=120),
         rank=int(os.environ["RANK"]),
         world_size=int(os.environ["WORLD_SIZE"]),
     )
@@ -678,6 +684,7 @@ def main():
             config=experiment_config,
             name=f"{JOB_ID}_{NODEID}" if JOB_ID is not None else None,
             group=JOB_ID if JOB_ID is not None else None,
+            tags=args.wandb_tags,
         )
         # NOTE: IF you want to use tensorboard instead of wandb, use `init_trackers` instead.
         # I (@lebrice) decided to use wandb directly to get the metrics from all nodes.
