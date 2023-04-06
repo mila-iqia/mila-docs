@@ -17,8 +17,6 @@ echo "Hostname: $(hostname)"
 module --quiet purge
 
 ACCELERATE_CONFIG=${ACCELERATE_CONFIG:="configs/ds_level2.yaml"}
-MODEL_NAME=${MODEL_NAME:="facebook/opt-2.7b"}
-PER_GPU_BATCH_SIZE=${PER_GPU_BATCH_SIZE:="1"}
 OUTPUT_DIR=${OUTPUT_DIR:=$SCRATCH/logs/llm_training/$SLURM_JOB_ID}
 
 # 'setup_env.sh' should be called before launching the job to create the
@@ -66,18 +64,33 @@ srun --nodes=$SLURM_JOB_NUM_NODES --ntasks=$SLURM_JOB_NUM_NODES --ntasks-per-nod
 # NOTE: Uses `srun` to launch `accelerate launch` on each node with the right `--machine_rank`.
 export HF_DATASETS_OFFLINE=1
 export HF_HUB_OFFLINE=1
+
+
+cmd=(
+    accelerate launch
+    --machine_rank=\$SLURM_NODEID
+    --config_file=$ACCELERATE_CONFIG
+    --num_cpu_threads_per_process=$CPUS_PER_GPU
+    --main_process_ip=$MASTER_ADDR
+    --main_process_port=$MASTER_PORT
+    --num_processes=$WORLD_SIZE
+    --num_machines=$NUM_NODES
+    main.py
+    --output_dir=$OUTPUT_DIR
+    --max_train_steps=100 --with_tracking "$@"
+)
 srun --nodes=$SLURM_JOB_NUM_NODES --ntasks=$SLURM_JOB_NUM_NODES --ntasks-per-node=1 --output=logs/slurm-%j_%t.out \
-    bash -c "accelerate launch \
-    --machine_rank=\$SLURM_NODEID \
-    --config_file=$ACCELERATE_CONFIG \
-    --num_cpu_threads_per_process=$CPUS_PER_GPU \
-    --main_process_ip=$MASTER_ADDR \
-    --main_process_port=$MASTER_PORT \
-    --num_processes=$WORLD_SIZE \
-    --num_machines=$NUM_NODES \
-    main.py \
-    --output_dir=$OUTPUT_DIR \
-    --config_name=$MODEL_NAME --tokenizer_name=$MODEL_NAME \
-    --dataset_name=wikitext --dataset_config_name wikitext-103-v1 \
-    --per_device_train_batch_size=$PER_GPU_BATCH_SIZE --per_device_eval_batch_size=$PER_GPU_BATCH_SIZE \
-    --max_train_steps=100 --with_tracking $@"
+    bash -c "echo $(for a in "${cmd[@]}" ; do echo -n \"$a\" "" ; done)"
+
+# srun --nodes=$SLURM_JOB_NUM_NODES --ntasks=$SLURM_JOB_NUM_NODES --ntasks-per-node=1 --output=logs/slurm-%j_%t.out \
+#    bash -c accelerate launch \
+#     --machine_rank=\$SLURM_NODEID \
+#     --config_file=$ACCELERATE_CONFIG \
+#     --num_cpu_threads_per_process=$CPUS_PER_GPU \
+#     --main_process_ip=$MASTER_ADDR \
+#     --main_process_port=$MASTER_PORT \
+#     --num_processes=$WORLD_SIZE \
+#     --num_machines=$NUM_NODES \
+#     main.py \
+#     --output_dir=$OUTPUT_DIR \
+#     --max_train_steps=100 --with_tracking "$@"

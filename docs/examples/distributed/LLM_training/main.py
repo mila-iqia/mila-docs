@@ -90,10 +90,10 @@ class Args:
     output_dir: str
     """Where to store the logs and final model."""
 
-    dataset_name: Optional[str] = None
+    dataset_name: Optional[str] = "wikitext"
     """The name of the dataset to use (via the datasets library)."""
 
-    dataset_config_name: Optional[str] = None
+    dataset_config_name: Optional[str] = "wikitext-103-v1"
     """The configuration name of the dataset to use (via the datasets library)."""
 
     train_file: Optional[str] = None
@@ -118,10 +118,10 @@ class Args:
     use_slow_tokenizer: bool = False
     """If passed, will use a slow tokenizer (not backed by the 🤗 Tokenizers library)."""
 
-    per_device_train_batch_size: int = 8
+    per_device_train_batch_size: int = 1
     """Batch size (per device) for the training dataloader."""
 
-    per_device_eval_batch_size: int = 8
+    per_device_eval_batch_size: int = 1
     """Batch size (per device) for the evaluation dataloader."""
 
     learning_rate: float = 5e-5
@@ -215,8 +215,6 @@ class Args:
 
     def __post_init__(self):
         self.wandb_tags = sum([tag.split(",") for tag in self.wandb_tags], [])
-        if self.tokenizer_name is None and self.config_name is not None:
-            self.tokenizer_name = self.config_name
 
         # Sanity checks
         if self.dataset_name is None and self.train_file is None and self.validation_file is None:
@@ -344,6 +342,8 @@ def main():
         log_with=[args.report_to] if args.with_tracking else None,
         project_dir=args.output_dir,
         kwargs_handlers=[init_process_group_kwargs],
+        gradient_accumulation_steps=args.gradient_accumulation_steps,
+        step_scheduler_with_optimizer=True,
     )
     # Make one log on every process with the configuration for debugging.
 
@@ -354,6 +354,7 @@ def main():
             rich.logging.RichHandler(markup=True, tracebacks_width=120)
         ],  # Very pretty, uses the `rich` package.
     )
+    logger.info(args, main_process_only=True)
     logger.info(accelerator.state, main_process_only=False)
     logger.info(f"HF_HOME={os.environ['HF_HOME']}")
     logger.info(f"HF_DATASETS_CACHE={os.environ['HF_DATASETS_CACHE']}")
@@ -463,6 +464,11 @@ def main():
         tokenizer = AutoTokenizer.from_pretrained(
             args.model_name_or_path, use_fast=not args.use_slow_tokenizer
         )
+    elif args.config_name:
+        # Use the tokenizer with the same name as the model.
+        tokenizer = AutoTokenizer.from_pretrained(
+            args.config_name, use_fast=not args.use_slow_tokenizer
+        )
     else:
         raise ValueError(
             "You are instantiating a new tokenizer from scratch. This is not supported by this script."
@@ -548,13 +554,15 @@ def main():
             fn_kwargs={"block_size": block_size},
             num_proc=args.preprocessing_num_workers,
             load_from_cache_file=not args.overwrite_cache,
-            # TODO: See if this works (i.e. makes things faster and doesn't invalidate the cache)
+            # TODO: See if this makes things faster. (invalidates the cache atm)
             # keep_in_memory=True,
             desc=f"Grouping texts in chunks of {block_size}",
         )
         # TODO: Load the dataset in memory to speed up training (if dataloading is a bottleneck)
-        # lm_dataset.save_to_disk(some_shared_dir_between_runs)
-        # lm_dataset = load_from_disk(some_shared_dir_between_runs, keep_in_memory=True)
+        # fast_local_dir = Path(SLURM_TMPDIR) / "data"
+        # lm_datasets.save_to_disk(str(fast_local_dir))
+        # from datasets import load_from_disk
+        # lm_datasets = load_from_disk(str(fast_local_dir), keep_in_memory=True)
 
     train_dataset = lm_datasets["train"]
     eval_dataset = lm_datasets["validation"]
@@ -596,7 +604,8 @@ def main():
         },
     ]
     # New Code #
-    # Creates Dummy Optimizer if `optimizer` was specified in the config file else creates Adam Optimizer
+    # Creates Dummy Optimizer if `optimizer` was specified in the config file else creates AdamW
+    # Optimizer
     optimizer_cls = (
         torch.optim.AdamW
         if accelerator.state.deepspeed_plugin is None
@@ -611,19 +620,12 @@ def main():
 
     # Scheduler and math around the number of training steps.
 
-    # New Code
-    # Get gradient accumulation steps from deepspeed config if available
-
-    # TODO: Probably worth removing the `gradient_accumulation_steps` argument in favor of the one
-    # in the accelerate / deepspeed configs
-    if accelerator.state.deepspeed_plugin is not None:
-        args.gradient_accumulation_steps = max(
-            1, accelerator.state.deepspeed_plugin.deepspeed_config["gradient_accumulation_steps"]
-        )
-
+    # NOTE: When passing the gradient accumulation steps to the Accelerator constructor, it already
+    # takes care of updating the value in the DeepSpeed plugin.
     num_update_steps_per_epoch = math.ceil(
-        len(train_dataloader) / args.gradient_accumulation_steps
+        len(train_dataloader) / accelerator.gradient_accumulation_steps
     )
+
     if args.max_train_steps is None:
         args.max_train_steps = args.num_train_epochs * num_update_steps_per_epoch
     else:
@@ -653,7 +655,7 @@ def main():
 
     # We need to recalculate our total training steps as the size of the training dataloader may have changed.
     num_update_steps_per_epoch = math.ceil(
-        len(train_dataloader) / args.gradient_accumulation_steps
+        len(train_dataloader) / accelerator.gradient_accumulation_steps
     )
     # BUG: (@lebrice): Overwrites `max_train_steps` when `max_train_steps` < 1 epoch!
     # args.max_train_steps = args.num_train_epochs * num_update_steps_per_epoch
@@ -706,7 +708,7 @@ def main():
     total_batch_size = (
         args.per_device_train_batch_size
         * accelerator.num_processes
-        * args.gradient_accumulation_steps
+        * accelerator.gradient_accumulation_steps
     )
 
     logger.info("***** Running training *****")
@@ -716,7 +718,7 @@ def main():
     logger.info(
         f"  Total train batch size (w. parallel, distributed & accumulation) = {total_batch_size}"
     )
-    logger.info(f"  Gradient Accumulation steps = {args.gradient_accumulation_steps}")
+    logger.info(f"  Gradient Accumulation steps = {accelerator.gradient_accumulation_steps}")
     logger.info(f"  Total optimization steps = {args.max_train_steps}")
     # Only show the progress bar once on each machine.
     progress_bar = tqdm(range(args.max_train_steps), disable=not accelerator.is_local_main_process)
@@ -725,6 +727,7 @@ def main():
     best_metric = None
     best_metric_checkpoint = None
 
+    resume_step = None
     # Potentially load in the weights and states from a previous save
     if args.resume_from_checkpoint:
         # New Code #
@@ -760,23 +763,26 @@ def main():
                     completed_steps += 1
                     continue
 
-            outputs = model(**batch)
-            loss = outputs.loss
-            # We keep track of the loss at each epoch
+            with accelerator.accumulate(model):
+                outputs = model(**batch)
+                loss = outputs.loss
+                # We keep track of the loss at each epoch
+                accelerator.backward(loss)
+                optimizer.step()
+
+            if not accelerator.optimizer_step_was_skipped:
+                lr_scheduler.step()
+            optimizer.zero_grad()
+
+            progress_bar.update(1)
+            if not accelerator.optimizer_step_was_skipped:
+                completed_steps += 1
+
             if args.with_tracking:
                 total_loss += loss.detach().float()
-            loss = loss / args.gradient_accumulation_steps
-            accelerator.backward(loss)
 
-            if (step + 1) % args.gradient_accumulation_steps == 0 or step == len(
-                train_dataloader
-            ) - 1:
-                optimizer.step()
-                lr_scheduler.step()
-                optimizer.zero_grad()
-                progress_bar.update(1)
-                completed_steps += 1
-                # NOTE: Added (@lebrice) for throughput metrics
+            if accelerator.sync_gradients:  # True when performing the update.
+                # NOTE: Added (@lebrice) for throughput metrics.
                 n_updates_since_start_of_run += 1
                 n_updates_since_last_log += 1
 
@@ -788,7 +794,9 @@ def main():
                     accelerator.save_state(output_dir)
 
             if accelerator.is_local_main_process and completed_steps % args.log_every_n_steps == 0:
-                if start_time is None:
+                if accelerator.optimizer_step_was_skipped:
+                    start_time = time.time()
+                elif start_time is None:
                     # The first time we get here (first logging call), we've never logged before,
                     # so we can't calculate the throughput. Only save the start time for the next
                     # call.

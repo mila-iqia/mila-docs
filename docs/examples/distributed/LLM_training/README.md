@@ -1,8 +1,10 @@
 # Launching the example:
 
 ```bash
-sbatch --nodes=2 --ntasks-per-node=1 --gpus-per-task=a100:4 --cpus-per-task=64 --reservation=milabench2 job.sh
-sbatch --nodes=2 --ntasks-per-node=1 --gpus-per-task=a100:2 --cpus-per-task=32 --reservation=milabench2 job.sh
+sbatch --nodes=2 --ntasks-per-node=1 --gpus-per-task=a100:4 --cpus-per-task=64 \
+  --reservation=milabench-"$(date +%d)" --mem=1400G --export=ALL,ACCELERATE_CONFIG=configs/ds_level2.yaml \
+  job.sh \
+  --wandb_tags=mila --config_name=facebook/opt-13b --per_device_train_batch_size=1
 ```
 
 ## TODOS
