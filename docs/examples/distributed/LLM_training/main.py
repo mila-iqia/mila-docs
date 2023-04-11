@@ -28,9 +28,9 @@ import os
 
 # TODO: Remove when not running on a SLURM cluster.
 SLURM_TMPDIR = os.environ["SLURM_TMPDIR"]
+os.environ["HF_HOME"] = SLURM_TMPDIR + "/cache/huggingface"
 os.environ["HF_DATASETS_CACHE"] = SLURM_TMPDIR + "/cache/huggingface/datasets"
 os.environ["HUGGINGFACE_HUB_CACHE"] = SLURM_TMPDIR + "/cache/huggingface/hub"
-os.environ["HF_HOME"] = SLURM_TMPDIR + "/cache/huggingface"
 
 # You can also adapt this script on your own causal language modeling task. Pointers for this are left as comments.
 import json
@@ -47,6 +47,7 @@ import datasets
 import rich.logging
 import simple_parsing
 import torch
+import torch.distributed
 import transformers
 import wandb
 from accelerate import Accelerator, DistributedType
@@ -347,7 +348,7 @@ def main():
         # if we want to change the backend used, we need to initialize the process group ourselves.
         torch.distributed.init_process_group(
             backend=args.init_process_group_backend,
-            **init_process_group_kwargs.asdict(),
+            **init_process_group_kwargs.to_kwargs(),
         )
 
     accelerator = Accelerator(
