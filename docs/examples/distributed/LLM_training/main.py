@@ -170,7 +170,7 @@ class Args:
     max input length for single sentence inputs (take into account special tokens).
     """
 
-    preprocessing_num_workers: Optional[int] = None
+    preprocessing_num_workers: Optional[int] = int(os.environ.get("CPUS_PER_GPU", 8))
     """The number of processes to use for the preprocessing."""
 
     overwrite_cache: bool = False
@@ -511,6 +511,7 @@ def main():
     # NOTE: Use `local_main_process_first` if the dataset is on a node-local filesystem (e.g.
     # SLURM_TMPDIR), `main_process_first` otherwise.
     with accelerator.local_main_process_first():
+        logger.info("Tokenizing! HF_HOME:", os.environ["HF_HOME"])
         tokenized_datasets = raw_datasets.map(
             tokenize_function,
             batched=True,
@@ -561,6 +562,7 @@ def main():
     # https://huggingface.co/docs/datasets/package_reference/main_classes.html#datasets.Dataset.map
 
     with accelerator.local_main_process_first():
+        logger.info(f"Grouping! HF_HOME: {os.environ['HF_HOME']}")
         lm_datasets = tokenized_datasets.map(
             group_texts,
             batched=True,
@@ -786,9 +788,11 @@ def main():
                 if not accelerator.optimizer_step_was_skipped:
                     lr_scheduler.step()
 
+            if accelerator.optimizer_step_was_skipped:
+                continue
+
+            completed_steps += 1
             progress_bar.update(1)
-            if not accelerator.optimizer_step_was_skipped:
-                completed_steps += 1
 
             if args.with_tracking:
                 total_loss += loss.detach().float()
