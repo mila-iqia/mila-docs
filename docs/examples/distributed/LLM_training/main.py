@@ -827,17 +827,21 @@ def main():
                     throughput_samples_per_sec_since_start = (
                         n_samples_since_start / seconds_since_start
                     )
-
+                    updates_per_sec = n_updates_since_last_log / seconds_since_last_log
+                    updates_per_sec_since_start = (
+                        n_updates_since_start_of_run / seconds_since_start
+                    )
                     # TODO: If we want to use tensorboard, use `accelerator.log` instead.
                     # accelerator.log(
                     wandb.log(
                         {
                             "train_loss": loss.detach().item(),
                             "samples_per_sec": throughput_samples_per_sec,
+                            "secs_per_sample": 1 / throughput_samples_per_sec,
                             "avg_samples_per_sec": throughput_samples_per_sec_since_start,
-                            "updates_per_sec": n_updates_since_last_log / seconds_since_last_log,
-                            "avg_updates_per_sec": n_updates_since_start_of_run
-                            / seconds_since_start,
+                            "updates_per_sec": updates_per_sec,
+                            "secs_per_update": 1 / updates_per_sec,
+                            "avg_updates_per_sec": updates_per_sec_since_start,
                             "epoch": epoch,
                             "step": completed_steps,
                             "n_samples": completed_steps * total_batch_size,
