@@ -777,15 +777,14 @@ def main():
                     continue
 
             with accelerator.accumulate(model):
+                optimizer.zero_grad()
                 outputs = model(**batch)
                 loss = outputs.loss
                 # We keep track of the loss at each epoch
                 accelerator.backward(loss)
                 optimizer.step()
-
-            if not accelerator.optimizer_step_was_skipped:
-                lr_scheduler.step()
-            optimizer.zero_grad()
+                if not accelerator.optimizer_step_was_skipped:
+                    lr_scheduler.step()
 
             progress_bar.update(1)
             if not accelerator.optimizer_step_was_skipped:
