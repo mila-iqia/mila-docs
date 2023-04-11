@@ -1,6 +1,6 @@
 compute_environment: LOCAL_MACHINE
 deepspeed_config:
-  deepspeed_config_file: ds_level3_custom.json
+  deepspeed_config_file: configs/ds_level3_custom.json
   zero3_init_flag: true
 distributed_type: DEEPSPEED
 downcast_bf16: 'no'

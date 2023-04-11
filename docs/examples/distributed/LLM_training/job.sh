@@ -80,7 +80,7 @@ cmd=(
     --max_train_steps=100 --with_tracking "$@"
 )
 srun --nodes=$SLURM_JOB_NUM_NODES --ntasks=$SLURM_JOB_NUM_NODES --ntasks-per-node=1 --output=logs/slurm-%j_%t.out \
-    bash -c "echo $(for a in "${cmd[@]}" ; do echo -n \"$a\" "" ; done)"
+    bash -c "$(for a in "${cmd[@]}" ; do echo -n \"$a\" "" ; done)"
 
 # srun --nodes=$SLURM_JOB_NUM_NODES --ntasks=$SLURM_JOB_NUM_NODES --ntasks-per-node=1 --output=logs/slurm-%j_%t.out \
 #    bash -c accelerate launch \

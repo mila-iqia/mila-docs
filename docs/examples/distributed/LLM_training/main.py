@@ -41,7 +41,7 @@ from dataclasses import dataclass
 from datetime import timedelta
 from itertools import chain
 from pathlib import Path
-from typing import Optional
+from typing import Literal, Optional
 
 import datasets
 import rich.logging
@@ -213,6 +213,8 @@ class Args:
 
     wandb_tags: list[str] = field(default_factory=list)
 
+    init_process_group_backend: Literal["nccl", "gloo"] = "nccl"
+
     def __post_init__(self):
         self.wandb_tags = sum([tag.split(",") for tag in self.wandb_tags], [])
 
@@ -318,6 +320,7 @@ def main():
         init_method: Optional[str] = None
         timeout: timedelta = timedelta(seconds=1800)
 
+        # backend: Literal["nccl", "gloo"] = "nccl"
         # store: Optional[Store] = None
 
         rank: Optional[int] = None
@@ -336,7 +339,16 @@ def main():
         timeout=timedelta(seconds=120),
         rank=int(os.environ["RANK"]),
         world_size=int(os.environ["WORLD_SIZE"]),
+        # backend=args.init_process_group_backend,
     )
+    if args.init_process_group_backend != "nccl":
+        # NOTE: In `state.py` of Accelerate, line 117, it checks if the process group is already
+        # initialized, and if not, it does init_process_group(backend="nccl", **kwargs). Therefore,
+        # if we want to change the backend used, we need to initialize the process group ourselves.
+        torch.distributed.init_process_group(
+            backend=args.init_process_group_backend,
+            **init_process_group_kwargs.asdict(),
+        )
 
     accelerator = Accelerator(
         log_with=[args.report_to] if args.with_tracking else None,
