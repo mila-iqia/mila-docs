@@ -79,7 +79,7 @@ cmd=(
     --output_dir=$OUTPUT_DIR
     --max_train_steps=100 --with_tracking "$@"
 )
-srun --nodes=$SLURM_JOB_NUM_NODES --ntasks=$SLURM_JOB_NUM_NODES --ntasks-per-node=1 --output=logs/slurm-%j_%t.out \
+srun --kill-on-bad-exit=1 --nodes=$SLURM_JOB_NUM_NODES --ntasks=$SLURM_JOB_NUM_NODES --ntasks-per-node=1 --output=logs/slurm-%j_%t.out \
     bash -c "$(for a in "${cmd[@]}" ; do echo -n \"$a\" "" ; done)"
 
 # Move any preprocessed dataset files back over to $SCRATCH so we don't have to recompute them every time.
