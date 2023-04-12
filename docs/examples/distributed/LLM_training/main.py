@@ -912,16 +912,17 @@ def main():
         # `zero3_save_16bit_model` is True in DeepSpeed Plugin.
         # For Zero Stages 1 and 2, models are saved as usual in the output directory.
         # The model name saved is `pytorch_model.bin`
-        unwrapped_model.save_pretrained(
-            args.output_dir,
-            is_main_process=accelerator.is_main_process,
-            save_function=accelerator.save,
-            state_dict=accelerator.get_state_dict(model),
-        )
-        if accelerator.is_main_process:
-            tokenizer.save_pretrained(args.output_dir)
-            if args.push_to_hub:
-                repo.push_to_hub(commit_message="End of training", auto_lfs_prune=True)
+        # NOTE: Removing, since it causes OOM issues often.
+        # unwrapped_model.save_pretrained(
+        #     args.output_dir,
+        #     is_main_process=accelerator.is_main_process,
+        #     save_function=accelerator.save,
+        #     state_dict=accelerator.get_state_dict(model),
+        # )
+        # if accelerator.is_main_process:
+        #     tokenizer.save_pretrained(args.output_dir)
+        #     if args.push_to_hub:
+        #         repo.push_to_hub(commit_message="End of training", auto_lfs_prune=True)
 
         with open(os.path.join(args.output_dir, "all_results.json"), "w") as f:
             json.dump({"perplexity": perplexity, "eval_loss": eval_loss.item()}, f)
