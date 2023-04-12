@@ -511,7 +511,7 @@ def main():
     # NOTE: Use `local_main_process_first` if the dataset is on a node-local filesystem (e.g.
     # SLURM_TMPDIR), `main_process_first` otherwise.
     with accelerator.local_main_process_first():
-        logger.info("Tokenizing! HF_HOME:", os.environ["HF_HOME"])
+        logger.info(f"Tokenizing! HF_HOME: {os.environ['HF_HOME']}")
         tokenized_datasets = raw_datasets.map(
             tokenize_function,
             batched=True,
