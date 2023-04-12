@@ -511,7 +511,7 @@ def main():
     # NOTE: Use `local_main_process_first` if the dataset is on a node-local filesystem (e.g.
     # SLURM_TMPDIR), `main_process_first` otherwise.
     with accelerator.local_main_process_first():
-        logger.info(f"Tokenizing! HF_HOME: {os.environ['HF_HOME']}")
+        logger.info(f"Tokenizing! HF_HOME: {os.environ['HF_HOME']}", main_process_only=False)
         tokenized_datasets = raw_datasets.map(
             tokenize_function,
             batched=True,
@@ -562,7 +562,7 @@ def main():
     # https://huggingface.co/docs/datasets/package_reference/main_classes.html#datasets.Dataset.map
 
     with accelerator.local_main_process_first():
-        logger.info(f"Grouping! HF_HOME: {os.environ['HF_HOME']}")
+        logger.info(f"Grouping! HF_HOME: {os.environ['HF_HOME']}", main_process_only=False)
         lm_datasets = tokenized_datasets.map(
             group_texts,
             batched=True,
