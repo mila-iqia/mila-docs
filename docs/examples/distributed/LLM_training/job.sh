@@ -77,7 +77,7 @@ cmd=(
     --num_machines=$NUM_NODES
     main.py
     --output_dir=$OUTPUT_DIR
-    --max_train_steps=100 --with_tracking "$@"
+    --with_tracking "$@"
 )
 srun --kill-on-bad-exit=1 --nodes=$SLURM_JOB_NUM_NODES --ntasks=$SLURM_JOB_NUM_NODES --ntasks-per-node=1 --output=logs/slurm-%j_%t.out \
     bash -c "$(for a in "${cmd[@]}" ; do echo -n \"$a\" "" ; done)"
