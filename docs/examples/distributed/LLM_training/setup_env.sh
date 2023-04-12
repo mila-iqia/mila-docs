@@ -5,9 +5,9 @@ set -o errexit
 
 # Install miniconda if 'conda' is not available
 function install_miniconda {
-    wget "https://repo.anaconda.com/miniconda/Miniconda3-py310_23.1.0-1-Linux-x86_64.sh" -O $HOME/Miniconda3-py310_23.1.0-1-Linux-x86_64.sh
-    echo "32d73e1bc33fda089d7cd9ef4c1be542616bd8e437d1f77afeeaf7afdb019787  $HOME/Miniconda3-py310_23.1.0-1-Linux-x86_64.sh" | sha256sum -c -
-    bash $HOME/Miniconda3-py310_23.1.0-1-Linux-x86_64.sh -u -p "$CONDA_INSTALL_PREFIX"
+	wget "https://repo.anaconda.com/miniconda/Miniconda3-py310_23.1.0-1-Linux-x86_64.sh" -O $HOME/Miniconda3-py310_23.1.0-1-Linux-x86_64.sh
+	echo "32d73e1bc33fda089d7cd9ef4c1be542616bd8e437d1f77afeeaf7afdb019787  $HOME/Miniconda3-py310_23.1.0-1-Linux-x86_64.sh" | sha256sum -c -
+	bash $HOME/Miniconda3-py310_23.1.0-1-Linux-x86_64.sh -u -p "$CONDA_INSTALL_PREFIX"
 }
 
 CONDA_INSTALL_PREFIX="$HOME/miniconda3"
@@ -24,49 +24,28 @@ CONDA_ENV_PREFIX=${CONDA_ENV_PREFIX:=$HOME/conda/llm_training}
 
 echo "Using conda environment at $CONDA_ENV_PREFIX"
 
-# NOTE: Use a temporary directory if you want to re-create the environment from scratch each time.
-# CONDA_ENV_PREFIX=$SLURM_TMPDIR/env
-CONDA_ENV_PREFIX=${CONDA_ENV_PREFIX:=$HOME/conda/llm_training}
-PACK_ENV=$(basename $CONDA_ENV_PREFIX).tar.gz
+if [ ! -d $CONDA_ENV_PREFIX ]; then
+	# Create a conda environment and use the libmamba solver:
+	conda create --solver=classic -y -p $CONDA_ENV_PREFIX python=3.9 conda conda-libmamba-solver -c conda-forge
+	conda activate $CONDA_ENV_PREFIX
+	while read f
+	do
+		if [[ -e "$f" ]]
+		then
+			export CONDA_EXE="$f"
+			break
+		fi
+	done < <(hash -r; which -a conda)
+	conda config --set solver libmamba
 
-
-if [ ! -d $CONDA_ENV_PREFIX ] || [ ! -f "$PACK_ENV" ]; then
-    # Create a conda environment and use the libmamba solver:
-    conda create -y -p $CONDA_ENV_PREFIX python=3.9 conda conda-libmamba-solver conda-pack -c conda-forge
-    conda activate $CONDA_ENV_PREFIX
-    while read f
-    do
-            if [[ -e "$f" ]]
-            then
-                    export CONDA_EXE="$f"
-                    break
-            fi
-    done < <(hash -r; which -a conda)
-
-    # Install pytorch:
-    conda install --solver=libmamba -y pytorch torchvision torchaudio pytorch-cuda=11.7 transformers datasets evaluate accelerate rich simple-parsing wandb -c pytorch -c nvidia
-    # Install other conda packages:
-    # conda install -y rich -c conda-forge
-    # Install other pip packages:
-    pip install "deepspeed>=0.8.2"
-
-    # Pack the environment into an archive using conda-pack.
-    conda pack -p $CONDA_ENV_PREFIX
-elif [ -z "$SLURM_TMPDIR" ]
-then
-    conda activate $CONDA_ENV_PREFIX
+	# Install pytorch:
+	conda install -y pytorch torchvision torchaudio pytorch-cuda=11.7 transformers datasets evaluate accelerate rich simple-parsing wandb -c pytorch -c nvidia
+	# Install other conda packages:
+	# conda install -y rich -c conda-forge
+	# Install other pip packages:
+	pip install "deepspeed>=0.8.2"
 else
-    # Extract the conda env archive to $SLURM_TMPDIR
-    if [ ! -d "$SLURM_TMPDIR"/env ]
-    then
-        echo unpacking tar
-        mkdir -p "$SLURM_TMPDIR"/env
-        tar -xzf llm_training.tar.gz -C "$SLURM_TMPDIR"/env
-    fi
-    echo source activate
-    source "$SLURM_TMPDIR"/env/bin/activate
-    echo conda-unpack
-    conda-unpack
+	conda activate $CONDA_ENV_PREFIX
 fi
 
 # Download dataset
