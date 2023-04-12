@@ -32,6 +32,8 @@ os.environ["HF_HOME"] = SLURM_TMPDIR + "/cache/huggingface"
 os.environ["HF_DATASETS_CACHE"] = SLURM_TMPDIR + "/cache/huggingface/datasets"
 os.environ["HUGGINGFACE_HUB_CACHE"] = SLURM_TMPDIR + "/cache/huggingface/hub"
 
+import contextlib
+
 # You can also adapt this script on your own causal language modeling task. Pointers for this are left as comments.
 import json
 import logging
@@ -52,6 +54,7 @@ import transformers
 import wandb
 from accelerate import Accelerator, DistributedType
 from accelerate.logging import get_logger
+from accelerate.state import PartialState
 from accelerate.utils import DummyOptim, DummyScheduler, set_seed
 from accelerate.utils.dataclasses import InitProcessGroupKwargs
 from datasets import load_dataset
@@ -307,6 +310,18 @@ def evaluate(args: Args, model, eval_dataloader, accelerator: Accelerator, eval_
     return perplexity, eval_loss
 
 
+@contextlib.contextmanager
+def local_main_process_first():
+    with PartialState().local_main_process_first():
+        yield
+
+
+@contextlib.contextmanager
+def main_process_first():
+    with PartialState().main_process_first():
+        yield
+
+
 def main():
     args = parse_args()
     # Initialize the accelerator. We will let the accelerator handle device placement for us in this example.
@@ -358,8 +373,8 @@ def main():
         gradient_accumulation_steps=args.gradient_accumulation_steps,
         step_scheduler_with_optimizer=True,
     )
-    # Make one log on every process with the configuration for debugging.
 
+    # Make one log on every process with the configuration for debugging.
     logging.basicConfig(
         level=logging.INFO,
         format=f"[{accelerator.process_index}/{accelerator.num_processes}] %(name)s - %(message)s ",
@@ -510,7 +525,7 @@ def main():
 
     # NOTE: Use `local_main_process_first` if the dataset is on a node-local filesystem (e.g.
     # SLURM_TMPDIR), `main_process_first` otherwise.
-    with accelerator.local_main_process_first():
+    with local_main_process_first():
         logger.info(f"Tokenizing! HF_HOME: {os.environ['HF_HOME']}", main_process_only=False)
         tokenized_datasets = raw_datasets.map(
             tokenize_function,
@@ -561,7 +576,7 @@ def main():
     # To speed up this part, we use multiprocessing. See the documentation of the map method for more information:
     # https://huggingface.co/docs/datasets/package_reference/main_classes.html#datasets.Dataset.map
 
-    with accelerator.local_main_process_first():
+    with local_main_process_first():
         logger.info(f"Grouping! HF_HOME: {os.environ['HF_HOME']}", main_process_only=False)
         lm_datasets = tokenized_datasets.map(
             group_texts,
