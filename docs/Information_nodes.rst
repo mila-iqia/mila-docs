@@ -58,13 +58,21 @@ DGX A100
 .. _dgx_a100_nodes:
 
 DGX A100 nodes are NVIDIA appliances with 8 NVIDIA A100 Tensor Core GPUs. Each
-GPU has 40 GB of memory, for a total of 320 GB per appliance. The GPUs are
-interconnected via 6 NVSwitches which allows 4.8 TB/s bi-directional bandwidth.
+GPU has either 40 GB or 80 GB of memory, for a total of 320 GB or 640 GB per
+appliance. The GPUs are interconnected via 6 NVSwitches which allow for 600
+GB/s point-to-point bandwidth (unidirectional) and a full bisection bandwidth
+of 4.8 TB/s (bidirectional). See the table above for the specifications of each
+appliance.
 
-In order to run jobs on a DGX A100, add the flags below to your Slurm
-commands::
+In order to run jobs on a DGX A100 with 40GB GPUs, add the flags below to your
+Slurm commands::
 
-    --gres=gpu:a100:<number> --reservation=DGXA100
+    --gres=gpu:a100:<number> --constraint="dgx&ampere"
+
+In order to run jobs on a DGX A100 with 80GB GPUs, add the flags below to your
+Slurm commands::
+
+    --gres=gpu:a100l:<number> --constraint="dgx&ampere"
 
 MIG
 ^^^
