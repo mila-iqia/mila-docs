@@ -196,7 +196,7 @@ To access those special nodes you need to request them explicitly by adding the
 flag ``--constraint=<name>``.  The full list of nodes in the Mila Cluster can be
 accessed :ref:`Node profile description`.
 
-*Example:*
+*Examples:*
 
 To request a machine with 2 GPUs using NVLink, you can use
 
@@ -204,13 +204,19 @@ To request a machine with 2 GPUs using NVLink, you can use
 
    sbatch -c 4 --gres=gpu:2 --constraint=nvlink
 
+To request a DGX system with 8 A100 GPUs, you can use
+
+.. prompt:: bash $
+
+   sbatch -c 16 --gres=gpu:8 --constraint="dgx&ampere"
 
 ======================================== =====================================================================
 Feature                                  Particularities
 ======================================== =====================================================================
-12GB/16GB/24GB/32GB/48GB                 Request a specific amount of *GPU* memory
+12gb/32gb/40gb/48gb/80gb                 Request a specific amount of *GPU* memory
 volta/turing/ampere                      Request a specific *GPU* architecture
 nvlink                                   Machine with GPUs using the NVLink interconnect technology
+dgx                                      NVIDIA *DGX* system with DGX OS
 ======================================== =====================================================================
 
 
