@@ -78,13 +78,13 @@ Account Creation
 ----------------
 
 To access the Alliance clusters you have to first create an account at
-https://ccdb.computecanada.ca. Use a password with at least 8 characters, mixed
+https://ccdb.alliancecan.ca. Use a password with at least 8 characters, mixed
 case letters, digits and special characters. Later you will be asked to create
 another password with those rules, and it’s really convenient that the two
 password are the same.
 
 Then, you have to apply for a ``role`` at
-https://ccdb.computecanada.ca/me/add_role, which basically means telling the
+https://ccdb.alliancecan.ca/me/add_role, which basically means telling the
 Alliance that you are part of the lab so they know which cluster you can have
 access to, and track your usage.
 
