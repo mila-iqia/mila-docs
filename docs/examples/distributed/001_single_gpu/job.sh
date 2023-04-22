@@ -30,7 +30,11 @@ conda activate pytorch
 
 # Stage dataset into $SLURM_TMPDIR
 mkdir -p $SLURM_TMPDIR/data
-ln -s /network/datasets/cifar10/cifar-10-python.tar.gz $SLURM_TMPDIR/data/
+cp /network/datasets/cifar10/cifar-10-python.tar.gz $SLURM_TMPDIR/data/
+# General-purpose alternatives combining copy and unpack:
+#     unzip   /network/datasets/some/file.zip -d $SLURM_TMPDIR/data/
+#     tar -xf /network/datasets/some/file.tar -C $SLURM_TMPDIR/data/
+
 
 # Fixes issues with MIG-ed GPUs with versions of PyTorch < 2.0
 unset CUDA_VISIBLE_DEVICES
