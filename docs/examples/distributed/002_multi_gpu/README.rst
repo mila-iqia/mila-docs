@@ -12,7 +12,7 @@ Other interesting resources:
 * `<https://sebarnold.net/dist_blog/>`_
 * `<https://lambdalabs.com/blog/multi-node-pytorch-distributed-training-guide>`_
 
-Click here to see `the code for this example <https://github.com/mila-iqia/mila-docs/tree/pytorch_distributed_training_examples/docs/examples/distributed/002_multi_gpu>`_
+Click here to see `the code for this example <https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/distributed/002_multi_gpu>`_
 
 **Job.sh**
 
