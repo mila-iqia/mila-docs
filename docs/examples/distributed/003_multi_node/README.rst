@@ -9,8 +9,9 @@ Prerequisites:
 * :ref:`002 - Multi-GPU Job`
 
 Other interesting resources:
-* `https://sebarnold.net/dist_blog/`
-* `https://lambdalabs.com/blog/multi-node-pytorch-distributed-training-guide`
+
+* `<https://sebarnold.net/dist_blog/>`_
+* `<https://lambdalabs.com/blog/multi-node-pytorch-distributed-training-guide>`_
 
 
 Click here to see `the source code for this example <https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/distributed/003_multi_node>`_
