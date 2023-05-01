@@ -31,6 +31,10 @@ generate_diff distributed/001_single_gpu/main.py distributed/002_multi_gpu/main.
 generate_diff distributed/002_multi_gpu/job.sh distributed/003_multi_node/job.sh
 generate_diff distributed/002_multi_gpu/main.py distributed/003_multi_node/main.py
 
+# single_gpu -> huggingface
+generate_diff distributed/001_single_gpu/job.sh data/hf/job.sh
+generate_diff distributed/001_single_gpu/main.py data/hf/main.py
+
 # single_gpu -> torchvision
 generate_diff distributed/001_single_gpu/job.sh data/torchvision/job.sh
 generate_diff distributed/001_single_gpu/main.py data/torchvision/main.py
