@@ -1,7 +1,7 @@
-.. ***************************
+.. ****************
 .. Minimal Examples
-.. ***************************
+.. ****************
 
 
-.. include:: examples/frameworks/README.rst
-.. include:: examples/distributed/README.rst
+.. include:: examples/frameworks/index.rst
+.. include:: examples/distributed/index.rst

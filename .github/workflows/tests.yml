@@ -1,0 +1,22 @@
+name: Tests
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  generate_files:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v1
+
+    - name: Install dependencies
+      run:  python3 -m pip install -r docs/requirements.txt
+
+    - name: Run files generation tests
+      run:  pre-commit run --all-files && [[ -z "$(git status -s)" ]]
