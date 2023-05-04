@@ -91,18 +91,5 @@ html_context = {
 # Include CNAME file so GitHub Pages can set Custom Domain name
 html_extra_path = ['CNAME']
 
-
-# Generate the diffs that are shown in the examples.
-file_dir = Path(__file__).parent / "examples/generate_diffs.sh"
-try:
-    proc = subprocess.run(str(file_dir), shell=True, capture_output=True, check=True)
-except subprocess.CalledProcessError as err:
-    raise RuntimeError(
-        "Could not build the diff files for the examples:\n"
-        + str(err.output, encoding="utf-8")
-        + str(err.stderr, encoding="utf-8")
-    )
-
-
 def setup(app):
     app.add_css_file('custom.css')
