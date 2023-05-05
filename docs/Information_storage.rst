@@ -9,6 +9,7 @@ Storage
 Path                                                   Performance Usage                                  Quota (Space/Files) Backup Auto-cleanup
 ====================================================== =========== ====================================== =================== ====== ============
 ``/network/datasets/``                                 High        * Curated raw datasets (read only)
+``/network/weights/``                                  High        * Curated models weights (read only)
 ``$HOME`` or ``/home/mila/<u>/<username>/``            Low         * Personal user space                  100GB/1000K         Daily  no
                                                                    * Specific libraries, code, binaries
 ``$SCRATCH`` or ``/network/scratch/<u>/<username>/``   High        * Temporary job results                no                  no     90 days
@@ -131,3 +132,19 @@ following command:
 .. prompt:: bash $
 
    ssh [CLUSTER_LOGIN] -C "projects/rrg-bengioy-ad/data/curated/list_datasets_cc.sh"
+
+weights
+-------
+
+``weights`` contains curated models weights to the benefit of the Mila community.
+To request the addition of a dataset or a preprocessed dataset you think could
+benefit the research of others, you can fill `this form
+<https://forms.gle/HLeBkJBozjC3jG2D9>`_.
+
+Weights in ``datasets/restricted`` are restricted and require an explicit
+request to gain access. Please `submit a support ticket
+<https://milaquebec.freshdesk.com/a/tickets/new>`_ mentioning the weights's
+access group (ex.: ``NAME_OF_A_RESTRICTED_MODEL_WEIGHTS_users``), your cluster's username and the
+approbation of the group owner. You can find the weights's access group by
+listing the content of ``/network/weights/restricted`` with the `ls command
+<https://cli-cheatsheet.readthedocs.io/en/latest/#ls>`_.
