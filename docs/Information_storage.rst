@@ -110,7 +110,7 @@ datasets
 
 ``datasets`` contains curated datasets to the benefit of the Mila community.
 To request the addition of a dataset or a preprocessed dataset you think could
-benefit the research of others, you can fill `this form
+benefit the research of others, you can fill `the datasets form
 <https://forms.gle/vDVwD2rZBmYHENgZA>`_. Datasets can also be browsed from the
 web : `Mila Datasets <https://datasets.server.mila.quebec/>`_
 
@@ -136,15 +136,16 @@ following command:
 weights
 -------
 
-``weights`` contains curated models weights to the benefit of the Mila community.
-To request the addition of a weight or a preprocessed weight you think could
-benefit the research of others, you can fill `this form
+``weights`` contains curated models weights to the benefit of the Mila
+community.  To request the addition of a weight you think could benefit the
+research of others, you can fill `the weights form
 <https://forms.gle/HLeBkJBozjC3jG2D9>`_.
 
 Weights in ``weights/restricted`` are restricted and require an explicit
 request to gain access. Please `submit a support ticket
 <https://milaquebec.freshdesk.com/a/tickets/new>`_ mentioning the weights's
-access group (ex.: ``NAME_OF_A_RESTRICTED_MODEL_WEIGHTS_users``), your cluster's username and the
-approbation of the group owner. You can find the weights's access group by
-listing the content of ``/network/weights/restricted`` with the `ls command
+access group (ex.: ``NAME_OF_A_RESTRICTED_MODEL_WEIGHTS_users``), your
+cluster's username and the approbation of the group owner. You can find the
+weights's access group by listing the content of
+``/network/weights/restricted`` with the `ls command
 <https://cli-cheatsheet.readthedocs.io/en/latest/#ls>`_.
