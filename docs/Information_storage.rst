@@ -141,7 +141,7 @@ To request the addition of a weight or a preprocessed weight you think could
 benefit the research of others, you can fill `this form
 <https://forms.gle/HLeBkJBozjC3jG2D9>`_.
 
-Weights in ``datasets/restricted`` are restricted and require an explicit
+Weights in ``weights/restricted`` are restricted and require an explicit
 request to gain access. Please `submit a support ticket
 <https://milaquebec.freshdesk.com/a/tickets/new>`_ mentioning the weights's
 access group (ex.: ``NAME_OF_A_RESTRICTED_MODEL_WEIGHTS_users``), your cluster's username and the
