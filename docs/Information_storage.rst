@@ -137,7 +137,7 @@ weights
 -------
 
 ``weights`` contains curated models weights to the benefit of the Mila community.
-To request the addition of a dataset or a preprocessed dataset you think could
+To request the addition of a weight or a preprocessed weight you think could
 benefit the research of others, you can fill `this form
 <https://forms.gle/HLeBkJBozjC3jG2D9>`_.
 
