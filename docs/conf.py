@@ -5,6 +5,7 @@ from __future__ import division, print_function, unicode_literals
 from datetime import datetime
 from pathlib import Path
 import subprocess
+import sys
 import sphinx_theme
 
 extensions = [
@@ -98,7 +99,7 @@ try:
     _proc = subprocess.run(["python3", str(pyscript)], capture_output=True, check=True)
 except subprocess.CalledProcessError as err:
     raise RuntimeError(
-        "Could not generate github README's:\n"
+        "Could not generate github README's and/or diff files:\n"
         + str(err.output or b"", encoding="utf-8")
         + str(err.stderr or b"", encoding="utf-8")
     )

@@ -12,6 +12,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Generate diff files
+        run: python3 docs/examples/preprocess.py
+        shell: bash
+
+      - name: Toggle skip error checks on generate_diffs.sh
+        run: ./docs/examples/toggle_skip_generate_diffs_err_check.sh
+        shell: bash
+
       - uses: buildthedocs/btd@v0
         with:
           token: ${{ github.token }}

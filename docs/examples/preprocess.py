@@ -6,6 +6,7 @@ from glob import glob
 from pathlib import Path
 import shutil
 import subprocess
+import sys
 
 
 def preprocess():
@@ -14,11 +15,21 @@ def preprocess():
     try:
         _proc = subprocess.run(str(script), shell=True, check=True)
     except subprocess.CalledProcessError as err:
-        raise RuntimeError(
+        exc = RuntimeError(
             "Could not build the diff files for the examples:\n"
             + str(err.output or b"", encoding="utf-8")
             + str(err.stderr or b"", encoding="utf-8")
         )
+        # It's useful to have the genration of files in the docs compilation
+        # process but it fails and throws an error related to
+        # /src/docs/examples/generate_diffs.sh during the build the docs github
+        # action. This hack allows to pass the exception should it happen in the
+        # build the docs process. Checks are still made in
+        # .github/workflows/tests.yml.
+        if script.with_name(f"{script.name}_err_ok").exists():
+            print(str(exc), file=sys.stderr)
+        else:
+            raise exc
 
     for _f in glob(str(docs_root / "examples/**/_index.rst"), recursive=True):
         _f = Path(_f)
