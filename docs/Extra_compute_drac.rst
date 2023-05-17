@@ -142,21 +142,37 @@ Niagara:
    but on a per-node basis.
 
 
-Beluga
+Narval
 ^^^^^^
 
-Beluga is a cluster located at `ÉTS <https://www.etsmtl.ca/>`_ in Montreal. It
-uses SLURM to schedule jobs. Its full documentation can be found `here
-<https://docs.alliancecan.ca/wiki/B%C3%A9luga/en>`__, and its current status
+Narval is a cluster located at `ÉTS <https://www.etsmtl.ca/>`_ in Montreal. It
+uses SLURM to schedule jobs. Its full documentation can be found
+`here <https://docs.alliancecan.ca/wiki/Narval>`__, and its current status
 `here <http://status.alliancecan.ca>`__.
 
-You can access Beluga via ssh:
+You can access Narval via ssh:
 
 .. prompt:: bash $
 
-   ssh <user>@beluga.computecanada.ca
+    ssh <user>@narval.computecanada.ca
 
 Where ``<user>`` is the username you created previously (see `Account Creation`_).
+
+While Narval has a filesystem organization similar to the other clusters, and the
+newest GPUs in the fleet (A100s), it differs from the other clusters in that it
+uses AMD CPUs (Zen 2/3) rather than Intel (Broadwell/Skylake). This *may* (but is
+not guaranteed to) result in performance or behaviour differences, up to and
+including hangs.
+
+.. warning::
+
+    A very notable difference in the feature-set of Narval's CPUs is that the
+    AMD CPUs of this cluster do **not** support the AVX-512 vector extensions,
+    while the Intel CPUs of the older clusters **do**. This makes it unsafe to
+    run *compiled* CPU code from older Intel-based clusters to Narval, but the
+    opposite (although ill-advised) will work. The symptom of attempting to
+    execute AVX-512 code on Narval's CPUs is that the program fatally aborts
+    with signal ``SIGILL`` and messages such as ``Illegal instruction``.
 
 
 Launching Jobs
@@ -167,7 +183,7 @@ Users must specify the resource allocation Group Name using the flag
 
 .. prompt:: bash $
 
-   sbatch --time=1:0:0 --account=rrg-bengioy-ad job.sh
+   sbatch --time=1:00:00 --account=rrg-bengioy-ad job.sh
 
 .. note::
 
@@ -177,28 +193,28 @@ To launch a GPU job:
 
 .. prompt:: bash $
 
-    sbatch --time=1:0:0 --account=rrg-bengioy-ad --gres=gpu:1 job.sh
+    sbatch --time=1:00:00 --account=rrg-bengioy-ad --gres=gpu:1 job.sh
 
 And to get an interactive session, use the ``salloc`` command:
 
 .. prompt:: bash $
 
-    salloc --time=1:0:0 --account=rrg-bengioy-ad --gres=gpu:1
+    salloc --time=1:00:00 --account=rrg-bengioy-ad --gres=gpu:1
 
-The full documentation for jobs launching on Beluga can be found `here
-<https://docs.alliancecan.ca/wiki/Running_jobs>`__.
+The full documentation for jobs launching on Alliance clusters can be found
+`here <https://docs.alliancecan.ca/wiki/Running_jobs>`__.
 
 
-Beluga nodes description
+Narval nodes description
 """"""""""""""""""""""""
 
 Each GPU node consists of:
 
-* 40 CPU cores
-* 186 GB RAM
-* 4 GPU NVIDIA V100 (16GB)
+* 48 CPU cores
+* 498 GB RAM
+* 4 GPU NVIDIA A100 (40GB)
 
-.. tip:: You should ask for max 10 CPU cores and 32 GB of RAM per GPU you are
+.. tip:: You should ask for max 12 CPU cores and 124 GB of RAM per GPU you are
    requesting (as explained `here
    <https://docs.alliancecan.ca/wiki/Allocations_and_resource_scheduling>`__),
    otherwise, your job will count for more than 1 allocation, and will take
@@ -208,26 +224,26 @@ Each GPU node consists of:
 .. _drac_storage:
 
 
-Beluga Storage
+Narval Storage
 """"""""""""""
 
-================== ==================== =========================
-Storage            Path                 Usage
-================== ==================== =========================
-``$HOME``          /home/<user>/        * Code
-                                        * Specific libraries
-``$HOME/projects`` /project/rpp-bengioy * Compressed raw datasets
-``$SCRATCH``       /scratch/<user>      * Processed datasets
-                                        * Experimental results
-                                        * Logs of experiments
-``$SLURM_TMPDIR``                       * Temporary job results
-================== ==================== =========================
+================== ======================= =========================
+Storage            Path                    Usage
+================== ======================= =========================
+``$HOME``          /home/<user>/           * Code
+                                           * Specific libraries
+``$HOME/projects`` /project/rrg-bengioy-ad * Compressed raw datasets
+``$SCRATCH``       /scratch/<user>         * Processed datasets
+                                           * Experimental results
+                                           * Logs of experiments
+``$SLURM_TMPDIR``                          * Temporary job results
+================== ======================= =========================
 
 They are roughly listed in order of increasing performance and optimized for
 different uses:
 
-* The ``$HOME`` folder on NFS is appropriate for codes and libraries which are
-  small and read once. **Do not write experiemental results here!**
+* The ``$HOME`` folder on Lustre is appropriate for code and libraries, which
+  are small and read once. **Do not write experiemental results here!**
 * The ``$HOME/projects`` folder should only contain **compressed raw** datasets
   (**processed** datasets should go in ``$SCRATCH``). We have a limit on the
   size and number of file in ``$HOME/projects``, so do not put anything else
@@ -240,13 +256,13 @@ different uses:
 * ``$SLURM_TMPDIR`` points to the local disk of the node on which a job is
   running. It should be used to copy the data on the node at the beginning of
   the job and write intermediate checkpoints. This folder is cleared after each
-  job.
+  job, so results there must be copied to ``$SCRATCH`` at the end of a job.
 
-When an experiment is finished, results should be transferred back to Mila
-servers.
+When a series of experiments is finished, results should be transferred back
+to Mila servers.
 
 More details on storage can be found `here
-<https://docs.alliancecan.ca/wiki/B%C3%A9luga/en#Storage>`__.
+<https://docs.alliancecan.ca/wiki/Narval/en#Storage>`__.
 
 
 Modules
@@ -329,8 +345,8 @@ Here is a ``sbatch`` script that follows good practices on Beluga:
 Using CometML and Wandb
 """""""""""""""""""""""
 
-The compute nodes for Beluga don't have access to the internet,
-but there is a special module that can be loaded in order to allow
+The compute nodes for Narval, Graham and Beluga don't have access to the
+internet, but there is a special module that can be loaded in order to allow
 training scripts to access some specific servers, which includes
 the necessary servers for using CometML and Wandb ("Weights and Biases").
 
@@ -349,6 +365,39 @@ More documentation about this can be found `here
    to use the offline mode with wandb instead to avoid such waste.
 
 
+Beluga
+^^^^^^
+
+Beluga is a cluster located at the ÉTS (École de Technologie Supérieure) in
+Montreal. It uses SLURM to schedule jobs. Its full documentation can be found
+`here <https://docs.alliancecan.ca/wiki/B%C3%A9luga/en>`__, and its current
+status `here <http://status.alliancecan.ca>`__.
+
+You can access Beluga via ssh:
+
+.. prompt:: bash $
+
+   ssh <user>@beluga.computecanada.ca
+
+Where ``<user>`` is the username you created previously (see `Account Creation`_).
+
+
+Beluga nodes description
+""""""""""""""""""""""""
+
+Each GPU node consists of:
+
+* 40 CPU cores
+* 186 GB RAM
+* 4 GPU NVIDIA V100 (16GB)
+
+.. tip:: You should ask for max 10 CPU cores and 32 GB of RAM per GPU you are
+   requesting (as explained `here
+   <https://docs.alliancecan.ca/wiki/Allocations_and_resource_scheduling>`__),
+   otherwise, your job will count for more than 1 allocation, and will take
+   more time to get scheduled.
+
+
 Graham
 ^^^^^^
 
@@ -365,11 +414,6 @@ You can access Graham via ssh:
 
 Where ``<user>`` is the username you created previously (see `Account Creation`_).
 
-Since its structure is similar to `Beluga`, please look at the `Beluga`_
-documentation, as well as relevant parts of the `Digital Research Alliance of
-Canada Documentation <https://docs.alliancecan.ca/wiki/Graham>`__.
-
-.. note:: For GPU jobs the ressource allocation Group Name is the same as Beluga, so you should use the flag ``--account=rrg-bengioy-ad`` for GPU jobs.
 
 
 Cedar
@@ -388,46 +432,6 @@ You can access Cedar via ssh:
 
 Where ``<user>`` is the username you created previously (see `Account Creation`_).
 
-Since its structure is similar to `Beluga`, please look at the `Beluga`_
-documentation, as well as relevant parts of the `Digital Research Alliance of
-Canada Documentation <https://docs.alliancecan.ca/wiki/Cedar>`__.
-
-.. note:: However, we don't have any CPU priority on Cedar, in this case you can
-  use ``--account=def-bengioy`` for CPU. Thus, it might take some time before
-  they start.
-
-
-Narval
-^^^^^^
-
-Narval is a cluster located at the ÉTS (École de Technologie Supérieure) in
-Montreal. It uses SLURM to schedule jobs. Its full documentation can be found `here
-<https://docs.alliancecan.ca/wiki/Narval>`__, and its current status `here
-<http://status.alliancecan.ca>`__.
-
-You can access Narval via ssh:
-
-.. prompt:: bash $
-
-    ssh <user>@narval.computecanada.ca
-
-Where ``<user>`` is the username you created previously (see `Account Creation`_).
-
-While Narval has a filesystem organization similar to the above clusters, and the
-newest GPUs in the fleet (A100s), it differs from the other clusters in that it
-uses AMD CPUs (Zen 2/3) rather than Intel (Broadwell/Skylake). This *may* (but is
-not guaranteed to) result in performance or behaviour differences, up to and
-including hangs.
-
-.. warning::
-
-    A very notable difference in the feature-set of Narval's CPUs is that the
-    AMD CPUs of this cluster do **not** support the AVX-512 vector extensions,
-    while the Intel CPUs of the older clusters **do**. This makes it unsafe to
-    run *compiled* CPU code from the Intel-based clusters to Narval, but the
-    opposite (although ill-advised) will work. The symptom of attempting to
-    execute AVX-512 code on Narval's CPUs is that the program fatally aborts
-    with signal ``SIGILL`` and messages such as ``Illegal instruction``.
 
 
 Niagara
@@ -452,6 +456,7 @@ per-CPU-core, and the software environment is different. You are very unlikely
 to need this cluster and are strongly encouraged to peruse its documentation
 if you have a strong reason to use it regardless. Do not expect to be able to
 schedule and run CPU jobs on Niagara exactly the same way as on all other clusters.
+
 
 FAQ
 ---
