@@ -1,6 +1,10 @@
 #!/bin/bash
 # Use this to update the diffs based on the contents of the files.
 
+pushd `dirname "${BASH_SOURCE[0]}"` >/dev/null
+_SCRIPT_DIR=`pwd -P`
+popd >/dev/null
+
 set -e
 
 generate_diff() {
@@ -9,16 +13,15 @@ generate_diff() {
 
     # Write a diff file to be shown in the documentation.
 
-    built_example_diffs_folder="_build/example_diffs"
-    mkdir -p $(dirname "$built_example_diffs_folder/$2.diff")
-
-    echo "# $1 -> $2" > $built_example_diffs_folder/$2.diff
+    echo " # $1 -> $2" > "$2.diff"
     git diff --no-index -U9999 \
-        "examples/$1" \
-        "examples/$2" \
+        "$1" \
+        "$2" \
         | grep -Ev "^--- |^\+\+\+ |^@@ |^index |^diff --git" \
-        >> $built_example_diffs_folder/$2.diff
+        >> "$2.diff"
 }
+
+pushd "${_SCRIPT_DIR}"
 
 # single_gpu -> multi_gpu
 generate_diff distributed/001_single_gpu/job.sh distributed/002_multi_gpu/job.sh
@@ -27,3 +30,5 @@ generate_diff distributed/001_single_gpu/main.py distributed/002_multi_gpu/main.
 # multi_gpu -> multi_node
 generate_diff distributed/002_multi_gpu/job.sh distributed/003_multi_node/job.sh
 generate_diff distributed/002_multi_gpu/main.py distributed/003_multi_node/main.py
+
+popd

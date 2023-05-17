@@ -13,65 +13,15 @@ PyTorch Setup
 **job.sh**
 
 
-.. code:: bash
-
-   #!/bin/bash
-   #SBATCH --gres=gpu:1
-   #SBATCH --cpus-per-task=1
-   #SBATCH --mem=16G
-   #SBATCH --time=00:15:00
-   #SBATCH --partition=unkillable
-
-   set -e  # exit on error.
-   echo "Date:     $(date)"
-   echo "Hostname: $(hostname)"
-
-   module purge
-   # This example uses Conda to manage package dependencies.
-   # See https://docs.mila.quebec/Userguide.html#conda for more information.
-   module load anaconda/3
-
-   # Creating the environment for the first time:
-   # conda create -y -n pytorch python=3.9 pytorch torchvision torchaudio \
-   #     pytorch-cuda=11.6 -c pytorch -c nvidia
-   # Other conda packages:
-   # conda install -y -n pytorch -c conda-forge rich
-
-   # Activate the environment:
-   conda activate pytorch
-
-   # Fixes issues with MIG-ed GPUs with versions of PyTorch < 2.0
-   unset CUDA_VISIBLE_DEVICES
-
-   python main.py
+.. literalinclude:: examples/frameworks/pytorch_setup/job.sh
+    :language: bash
 
 
 **main.py**
 
 
-.. code:: python
-
-   import torch
-   import torch.backends.cuda
-
-
-   def main():
-       cuda_built = torch.backends.cuda.is_built()
-       cuda_avail = torch.cuda.is_available()
-       device_count = torch.cuda.device_count()
-
-       print(f"PyTorch built with CUDA:         {cuda_built}")
-       print(f"PyTorch detects CUDA available:  {cuda_avail}")
-       print(f"PyTorch-detected #GPUs:          {device_count}")
-       if device_count == 0:
-           print("    No GPU detected, not printing devices' names.")
-       else:
-           for i in range(device_count):
-               print(f"    GPU {i}:      {torch.cuda.get_device_name(i)}")
-
-
-   if __name__ == "__main__":
-       main()
+.. literalinclude:: examples/frameworks/pytorch_setup/main.py
+    :language: python
 
 
 **Running this example**

@@ -1,0 +1,8 @@
+repos:
+- repo: local
+  hooks:
+    - id: preprocess-py
+      name: preprocess-py
+      entry: python3 docs/examples/preprocess.py
+      language: python
+      pass_filenames: false

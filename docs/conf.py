@@ -3,8 +3,9 @@
 from __future__ import division, print_function, unicode_literals
 
 from datetime import datetime
-import subprocess
 from pathlib import Path
+import subprocess
+import sys
 import sphinx_theme
 
 extensions = [
@@ -90,6 +91,19 @@ html_context = {
 
 # Include CNAME file so GitHub Pages can set Custom Domain name
 html_extra_path = ['CNAME']
+
+
+docs_root = Path(__file__).absolute().parent
+pyscript = docs_root / "examples/preprocess.py"
+try:
+    _proc = subprocess.run(["python3", str(pyscript)], capture_output=True, check=True)
+except subprocess.CalledProcessError as err:
+    raise RuntimeError(
+        "Could not generate github README's and/or diff files:\n"
+        + str(err.output or b"", encoding="utf-8")
+        + str(err.stderr or b"", encoding="utf-8")
+    )
+
 
 def setup(app):
     app.add_css_file('custom.css')

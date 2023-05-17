@@ -43,6 +43,7 @@ yourself to see if the formating is right:
 #### pip installation
 ```console
 python3 -m pip install -r docs/requirements.txt
+pre-commit install
 sphinx-build -b html docs/ docs/_build/
 ```
 

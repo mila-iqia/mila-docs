@@ -9,7 +9,7 @@ immediately or after a wait of up to several days.
 
 
 Anatomy of a job
-----------------
+================
 
 A job is comprised of a number of steps that will run one after the
 other. This is done so that you can schedule a sequence of processes
@@ -41,7 +41,7 @@ jobs with a single step, a single task and a single process.
 
 
 Understanding the queue
------------------------
+=======================
 
 The available resources on the cluster are not infinite and it is the
 workload manager's job to allocate them. Whenever a job request comes
@@ -60,7 +60,7 @@ queue.
 
 
 About partitions
-----------------
+================
 
 The workload manager will divide the cluster into partitions according
 to the configuration set by the admins. A partition is a set of
@@ -81,7 +81,7 @@ compatible with all of it (for example x86 and POWER cpus).
 
 
 Exceding limits (preemption and grace periods)
-----------------------------------------------
+==============================================
 
 To ensure a fair share of the computing resources for all, the workload
 manager establishes limits on the amount of resources that a single
@@ -117,7 +117,7 @@ to ensure you estimate resource usage accurately.
 .. This should be somewhere else, but I don't know where.
 
 Mila information
-----------------
+================
 
 **Mila** as well as `Digital Research Alliance of Canada
 <https://docs.alliancecan.ca/wiki/Technical_documentation>`_ use the workload

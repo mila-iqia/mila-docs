@@ -1,4 +1,5 @@
 # Python Packages
+pre-commit
 sphinx>=4.0.2
 urllib3<2           # temporary fix ImportError: urllib3 v2.0 only supports OpenSSL 1.1.1+
 
