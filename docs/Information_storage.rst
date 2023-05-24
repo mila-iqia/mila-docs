@@ -17,7 +17,7 @@ Path                                                   Performance Usage        
                                                                    * Optimized for small Files
 ``$SLURM_TMPDIR``                                      Highest     * High speed disk for temporary job    4TB/-               no     at job end
                                                                      results
-``/network/projects/<groupname>/``                     Fair        * Shared space to facilitate           200GB/1000K         Daily  no
+``/network/projects/<groupname>/``                     Fair        * Shared space to facilitate           1TB/1000K           Daily  no
                                                                      collaboration between researchers
                                                                    * Long-term project storage
 ``$ARCHIVE`` or ``/network/archive/<u>/<username>/``   Low         * Long-term personal storage           500GB               no     no
@@ -27,10 +27,6 @@ Path                                                   Performance Usage        
    restoration request, file a request to `Mila's IT support
    <https://it-support.mila.quebec>`_ with the path to the file or directory to
    restore, with the required date.
-
-.. warning:: Currently there is no backup system for any other file systems of
-   the Mila cluster. Storage local to personal computers, Google Drive and other
-   related solutions should be used to backup important data
 
 $HOME
 -----
@@ -71,7 +67,7 @@ projects
 sharing of data between users working on a long-term project.
 
 Quotas are enabled on ``projects`` for both disk capacity (blocks) and number
-of files (inodes). The limits for blocks and inodes are respectively 200GiB and
+of files (inodes). The limits for blocks and inodes are respectively 1TiB and
 1 million per user and per group.
 
 .. note:: It is possible to request higher quota limits if the project requires
