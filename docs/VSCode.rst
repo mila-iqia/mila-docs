@@ -20,8 +20,13 @@ time.
 Therefore, to use VSCode on the cluster, you first need to allocate a compute
 node, then connect to that node.
 
-The milatools_ package provides a command to make the operation easier. More
-info can be found :ref:`here <mila_code>`.
+The simplest way to do so is to install milatools_ on your local machine and run the
+``mila init`` command. This will add a ``mila-cpu`` entry to your SSH configuration
+that automatically allocates a CPU on a compute node for you. Then you can simply
+choose ``mila-cpu`` in the dropdown menu for remote SSH connection.
+
+The milatools_ package also provides the :ref:`mila code command <mila_code>` which
+gives you greater flexibility by letting you allocate more cores, RAM and/or GPUs.
 
 .. _milatools: https://github.com/mila-iqia/milatools
 

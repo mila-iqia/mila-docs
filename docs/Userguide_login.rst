@@ -83,6 +83,11 @@ automatically perform some of the below steps for you. You can install it with
 
 .. _milatools: https://github.com/mila-iqia/milatools
 
+.. note::
+    This guide is current for ``milatools >= 0.0.17``. If you have installed an older
+    version previously, run ``pip install -U milatools`` to upgrade and re-run
+    ``mila init`` in order to apply new features or bug fixes.
+
 
 SSH Config
 ----------
@@ -163,3 +168,24 @@ If you wish, you may also add the following wildcard rule in your ``.ssh/config`
         ProxyJump mila
 
 This will let you connect to a compute node with ``ssh <node>.server.mila.quebec``.
+
+
+Auto-allocation with mila-cpu
+-----------------------------
+
+If you install milatools_ and run ``mila init``, then you can automatically allocate
+a CPU on a compute node and connect to it by running:
+
+.. code-block:: bash
+
+    ssh mila-cpu
+
+And that's it! Multiple connections to ``mila-cpu`` will all reuse the same job, so
+you can use it liberally. It also works transparently with VSCode's Remote SSH feature.
+
+We recommend using this for light work that is too heavy for a login node but does not
+require a lot of resources: editing via VSCode, building conda environments, tests, etc.
+
+The ``mila-cpu`` entry should be in your ``.ssh/config``. Changes are at your own risk.
+While it is possible to tweak it to allocate a GPU, doing so will prevent simultaneous
+connections to it (until Slurm is upgraded to version 22.05 or later).
