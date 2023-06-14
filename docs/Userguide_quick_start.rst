@@ -21,7 +21,7 @@ initialisation of the ssh configuration is explained
 <https://github.com/mila-iqia/milatools#mila-init>`_.
 
 Once that is done, you may run `VSCode <https://code.visualstudio.com/>`_
-on the cluster simply by `using the Remote-SSH extension <https://code.visualstudio.com/docs/remote/ssh#_connect-to-a-remote-host>`
+on the cluster simply by `using the Remote-SSH extension <https://code.visualstudio.com/docs/remote/ssh#_connect-to-a-remote-host>`_
 and selecting ``mila-cpu`` as the host (in step 2).
 
 ``mila-cpu`` allocates a single CPU and 8 GB of RAM. If you need more
