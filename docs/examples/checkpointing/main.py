@@ -2,7 +2,9 @@
 import logging
 import os
 from pathlib import Path
+import random
 import shutil
+import numpy
 
 import rich.logging
 import torch
@@ -13,9 +15,17 @@ from torchvision import transforms
 from torchvision.datasets import CIFAR10
 from torchvision.models import resnet18
 from tqdm import tqdm
+from logging import getLogger as get_logger
 
 
-_CHECKPOINTS_DIR = Path(os.environ.get("SCRATCH", "..")) / "checkpoints"
+SCRATCH = Path(os.environ["SCRATCH"])
+SLURM_TMPDIR = Path(os.environ["SLURM_TMPDIR"])
+SLURM_JOBID = int(os.environ["SLURM_JOBID"])
+
+_CHECKPOINTS_DIR = SCRATCH / "checkpoints"
+
+logger = get_logger(__name__)
+
 
 
 def main():
@@ -23,7 +33,7 @@ def main():
     learning_rate = 5e-4
     weight_decay = 1e-4
     batch_size = 128
-    resume_file = _CHECKPOINTS_DIR / "resnet18_cifar10" / "checkpoint.pth.tar"
+    checkpoint_file = _CHECKPOINTS_DIR / SLURM_JOBID / "checkpoint.pth"
     start_epoch = 0
     best_acc = 0
 
@@ -37,8 +47,6 @@ def main():
         handlers=[rich.logging.RichHandler(markup=True)],  # Very pretty, uses the `rich` package.
     )
 
-    logger = logging.getLogger(__name__)
-
     # Create a model.
     model = resnet18(num_classes=10)
 
@@ -48,27 +56,35 @@ def main():
     optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate, weight_decay=weight_decay)
 
     # Resume from a checkpoint
-    if os.path.isfile(resume_file):
-        logger.debug(f"loading checkpoint '{resume_file}'")
+    if "SLURM_RESTART_COUNT" in os.environ:
+        restart_count = int(os.environ["SLURM_RESTART_COUNT"])
+        logger.info(f"This job has been restarted {restart_count} times.")
+
+    if checkpoint_file.exists():
+        logger.debug(f"loading checkpoint '{checkpoint_file}'")
         # Map model to be loaded to gpu.
-        checkpoint = torch.load(resume_file, map_location="cuda:0")
+        checkpoint = torch.load(checkpoint_file, map_location=device)
         start_epoch = checkpoint["epoch"]
         best_acc = checkpoint["best_acc"]
         # best_acc may be from a checkpoint from a different GPU
         best_acc = best_acc.to(device)
         model.load_state_dict(checkpoint["state_dict"])
         optimizer.load_state_dict(checkpoint["optimizer"])
-        logger.debug(f"loaded checkpoint '{resume_file}' (epoch {checkpoint['epoch']})")
+
+        random.setstate(checkpoint["random_state"])
+        numpy.random.set_state(checkpoint["numpy_random_state"])
+        torch.random.set_rng_state(checkpoint["torch_random_state"])
+        torch.cuda.random.set_rng_state_all(checkpoint["torch_cuda_random_state"])
+
+        logger.info(f"loaded checkpoint '{checkpoint_file}' (Starting at epoch {start_epoch})")
     else:
-        logger.debug(f"no checkpoint found at '{resume_file}'")
+        logger.info(f"no checkpoint found at '{checkpoint_file}', starting training from scratch.")
 
     # Setup CIFAR10
     num_workers = get_num_workers()
-    if "SLURM_TMPDIR" in os.environ:
-        dataset_path = f"{os.environ['SLURM_TMPDIR']}/data"
-    else:
-        dataset_path = "../dataset"
-    train_dataset, valid_dataset, test_dataset = make_datasets(dataset_path)
+    dataset_path = (SLURM_TMPDIR or Path("..")) / "data"
+
+    train_dataset, valid_dataset, test_dataset = make_datasets(str(dataset_path))
     train_dataloader = DataLoader(
         train_dataset,
         batch_size=batch_size,
@@ -137,16 +153,22 @@ def main():
         is_best = val_accuracy > best_acc
         best_acc = max(val_accuracy, best_acc)
 
-        save_checkpoint(
+        checkpoint_file.parent.mkdir(parents=True, exist_ok=True)
+        torch.save(
             {
                 "epoch": epoch + 1,
-                "arch": "resnet18",
                 "state_dict": model.state_dict(),
                 "best_acc": best_acc,
                 "optimizer": optimizer.state_dict(),
+                "random_state": random.getstate(),
+                "numpy_random_state": numpy.random.get_state(),
+                "torch_random_state": torch.random.get_rng_state(),
+                "torch_cuda_random_state": torch.cuda.random.get_rng_state_all(),
             },
-            is_best,
+            checkpoint_file,
         )
+        if is_best:
+            shutil.copyfile(checkpoint_file, checkpoint_file.parent / "model_best.pth")
 
     print("Done!")
 
@@ -160,14 +182,14 @@ def validation_loop(model: nn.Module, dataloader: DataLoader, device: torch.devi
     correct_predictions = 0
 
     for batch in dataloader:
-        batch = tuple(item.to(device) for item in batch)
+        batch: tuple[Tensor, Tensor] = tuple(item.to(device) for item in batch)
         x, y = batch
 
         logits: Tensor = model(x)
         loss = F.cross_entropy(logits, y)
 
-        batch_n_samples = x.shape[0]
-        batch_correct_predictions = logits.argmax(-1).eq(y).sum()
+        batch_n_samples = x.size(0)
+        batch_correct_predictions = logits.argmax(-1).eq(y).sum().item()
 
         total_loss += loss.item()
         n_samples += batch_n_samples
@@ -213,12 +235,24 @@ def get_num_workers() -> int:
 def save_checkpoint(
     state: dict, is_best: bool, filename: str = f"{_CHECKPOINTS_DIR}/checkpoint.pth.tar"
 ) -> None:
-    filepath = Path(filename)
-    filepath.parent.mkdir(parents=True, exist_ok=True)
-    torch.save(state, filepath)
-    if is_best:
-        _dir = filepath.parent
-        shutil.copyfile(filepath, f"{_dir}/model_best.pth.tar")
+    ...
+
+
+def load_checkpoint(
+    checkpoint_file: Path, model: nn.Module, optimizer: torch.optim.Optimizer, device: torch.device
+):
+    # Map model to be loaded to gpu.
+    checkpoint = torch.load(checkpoint_file, map_location=device)
+    start_epoch = checkpoint["epoch"]
+    best_acc = checkpoint["best_acc"]
+    model.load_state_dict(checkpoint["state_dict"])
+    optimizer.load_state_dict(checkpoint["optimizer"])
+
+    random.setstate(checkpoint["random_state"])
+    numpy.random.set_state(checkpoint["numpy_random_state"])
+    torch.random.set_rng_state(checkpoint["torch_random_state"])
+    torch.cuda.random.set_rng_state_all(checkpoint["torch_cuda_random_state"])
+    return start_epoch, best_acc
 
 
 if __name__ == "__main__":
