@@ -1,6 +1,7 @@
 """Single-GPU training example."""
 import logging
 import os
+from pathlib import Path
 import shutil
 
 import rich.logging
@@ -14,10 +15,7 @@ from torchvision.models import resnet18
 from tqdm import tqdm
 
 
-try:
-    _CHECKPTS_DIR = f"{os.environ['SCRATCH']}/checkpoints"
-except KeyError:
-    _CHECKPTS_DIR = "../checkpoints"
+_CHECKPOINTS_DIR = Path(os.environ.get("SCRATCH", "..")) / "checkpoints"
 
 
 def main():
@@ -25,7 +23,7 @@ def main():
     learning_rate = 5e-4
     weight_decay = 1e-4
     batch_size = 128
-    resume_file = f"{_CHECKPTS_DIR}/resnet18_cifar10/checkpoint.pth.tar"
+    resume_file = _CHECKPOINTS_DIR / "resnet18_cifar10" / "checkpoint.pth.tar"
     start_epoch = 0
     best_acc = 0
 
@@ -44,9 +42,14 @@ def main():
     # Create a model.
     model = resnet18(num_classes=10)
 
+    # Move the model to the GPU.
+    model.to(device=device)
+
+    optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate, weight_decay=weight_decay)
+
     # Resume from a checkpoint
     if os.path.isfile(resume_file):
-        logger.debug(f"=> loading checkpoint '{resume_file}'")
+        logger.debug(f"loading checkpoint '{resume_file}'")
         # Map model to be loaded to gpu.
         checkpoint = torch.load(resume_file, map_location="cuda:0")
         start_epoch = checkpoint["epoch"]
@@ -55,14 +58,9 @@ def main():
         best_acc = best_acc.to(device)
         model.load_state_dict(checkpoint["state_dict"])
         optimizer.load_state_dict(checkpoint["optimizer"])
-        logger.debug(f"=> loaded checkpoint '{resume_file}' (epoch {checkpoint['epoch']})")
+        logger.debug(f"loaded checkpoint '{resume_file}' (epoch {checkpoint['epoch']})")
     else:
-        logger.debug(f"=> no checkpoint found at '{resume_file}'")
-
-    # Move the model to the GPU.
-    model.to(device=device)
-
-    optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate, weight_decay=weight_decay)
+        logger.debug(f"no checkpoint found at '{resume_file}'")
 
     # Setup CIFAR10
     num_workers = get_num_workers()
@@ -139,13 +137,16 @@ def main():
         is_best = val_accuracy > best_acc
         best_acc = max(val_accuracy, best_acc)
 
-        save_checkpoint({
-            "epoch": epoch + 1,
-            "arch": "resnet18",
-            "state_dict": model.state_dict(),
-            "best_acc": best_acc,
-            "optimizer": optimizer.state_dict(),
-        }, is_best)
+        save_checkpoint(
+            {
+                "epoch": epoch + 1,
+                "arch": "resnet18",
+                "state_dict": model.state_dict(),
+                "best_acc": best_acc,
+                "optimizer": optimizer.state_dict(),
+            },
+            is_best,
+        )
 
     print("Done!")
 
@@ -209,11 +210,15 @@ def get_num_workers() -> int:
     return torch.multiprocessing.cpu_count()
 
 
-def save_checkpoint(state: dict, is_best: bool, filename: str=f"{_CHECKPOINTS_DIR}/checkpoint.pth.tar") -> None:
-    torch.save(state, filename)
+def save_checkpoint(
+    state: dict, is_best: bool, filename: str = f"{_CHECKPOINTS_DIR}/checkpoint.pth.tar"
+) -> None:
+    filepath = Path(filename)
+    filepath.parent.mkdir(parents=True, exist_ok=True)
+    torch.save(state, filepath)
     if is_best:
-        _dir = os.path.dirname(filename)
-        shutil.copyfile(filename, f"{_dir}/model_best.pth.tar")
+        _dir = filepath.parent
+        shutil.copyfile(filepath, f"{_dir}/model_best.pth.tar")
 
 
 if __name__ == "__main__":

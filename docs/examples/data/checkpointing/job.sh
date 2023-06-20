@@ -8,8 +8,9 @@
                             # min before its time ends to give it a chance for
                             # better cleanup. If you cancel the job manually,
                             # make sure that you specify the signal as TERM like
-                            # so scancel --signal=TERM <jobid>.
+                            # so `scancel --signal=TERM <jobid>`.
                             # https://dhruveshp.com/blog/2021/signal-propagation-on-slurm/
+#SBATCH --requeue
 
 # trap the signal to the main BATCH script here.
 sig_handler()
@@ -56,4 +57,4 @@ cp /network/datasets/cifar10/cifar-10-python.tar.gz $SLURM_TMPDIR/data/
 unset CUDA_VISIBLE_DEVICES
 
 # Execute Python script
-python main.py
+srun python main.py
