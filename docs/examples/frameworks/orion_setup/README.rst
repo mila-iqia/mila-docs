@@ -68,15 +68,19 @@ The full documentation for Oríon is available `on Oríon's ReadTheDocs page
 
    -# Execute Python script
    -python main.py
+   +# =============
    +# Execute Orion
-   +# Specify an experiment name with `-n`, which could be reused to display results (see below)
-   +# Specify max trials (here 10) to prevent a too-long run.
-   +# Then you can specify a search space for each `main.py`'s script parameter you want to optimize.
-   +# Here we optimize only the learning rate.
-   +orion hunt -n orion-example --exp-max-trials 10 python main.py --learning-rate~'loguniform(1e-5, 1.0)'
+   +# =============
    +
-   +# Display Orion results
-   +orion info -n orion-example
+   +# Specify an experiment name with `-n`,
+   +# which could be reused to display results (see section "Running example" below)
+   +
+   +# Specify max trials (here 10) to prevent a too-long run.
+   +
+   +# Then you can specify a search space for each `main.py`'s script parameter
+   +# you want to optimize. Here we optimize only the learning rate.
+   +
+   +orion hunt -n orion-example --exp-max-trials 10 python main.py --learning-rate~'loguniform(1e-5, 1.0)'
 
 .. .. literalinclude:: examples/frameworks/orion_setup/job.sh
 ..     :language: bash
@@ -295,7 +299,28 @@ The full documentation for Oríon is available `on Oríon's ReadTheDocs page
 
 **Running this example**
 
+This assumes you already created a conda environment named "pytorch" as in
+Pytorch example:
+
+* :ref:`pytorch_setup`
+
+Oríon must be installed inside the "pytorch" environment using following command:
+
+.. code-block:: bash
+
+    pip install orion[profet]
+
+Exit the interactive job once the environment has been created and Oríon installed.
+You can then launch the example:
 
 .. code-block:: bash
 
     $ sbatch job.sh
+
+To get more information about the optimization run, activate "pytorch" environment
+and run ``orion info`` with the experiment name:
+
+.. code-block:: bash
+
+    $ conda activate pytorch
+    $ orion info -n orion-example

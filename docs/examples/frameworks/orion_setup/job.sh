@@ -41,12 +41,16 @@ cp /network/datasets/cifar10/cifar-10-python.tar.gz $SLURM_TMPDIR/data/
 # Fixes issues with MIG-ed GPUs with versions of PyTorch < 2.0
 unset CUDA_VISIBLE_DEVICES
 
+# =============
 # Execute Orion
-# Specify an experiment name with `-n`, which could be reused to display results (see below)
-# Specify max trials (here 10) to prevent a too-long run.
-# Then you can specify a search space for each `main.py`'s script parameter you want to optimize. 
-# Here we optimize only the learning rate.
-orion hunt -n orion-example --exp-max-trials 10 python main.py --learning-rate~'loguniform(1e-5, 1.0)'
+# =============
 
-# Display Orion results
-orion info -n orion-example
+# Specify an experiment name with `-n`,
+# which could be reused to display results (see section "Running example" below)
+
+# Specify max trials (here 10) to prevent a too-long run.
+
+# Then you can specify a search space for each `main.py`'s script parameter
+# you want to optimize. Here we optimize only the learning rate.
+
+orion hunt -n orion-example --exp-max-trials 10 python main.py --learning-rate~'loguniform(1e-5, 1.0)'

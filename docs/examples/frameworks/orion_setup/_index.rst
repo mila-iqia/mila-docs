@@ -36,7 +36,28 @@ The full documentation for Oríon is available `on Oríon's ReadTheDocs page
 
 **Running this example**
 
+This assumes you already created a conda environment named "pytorch" as in
+Pytorch example:
+
+* :ref:`pytorch_setup`
+
+Oríon must be installed inside the "pytorch" environment using following command:
+
+.. code-block:: bash
+
+    pip install orion[profet]
+
+Exit the interactive job once the environment has been created and Oríon installed.
+You can then launch the example:
 
 .. code-block:: bash
 
     $ sbatch job.sh
+
+To get more information about the optimization run, activate "pytorch" environment
+and run ``orion info`` with the experiment name:
+
+.. code-block:: bash
+
+    $ conda activate pytorch
+    $ orion info -n orion-example
