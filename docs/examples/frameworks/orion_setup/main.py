@@ -1,6 +1,8 @@
 """Single-GPU training example."""
+import argparse
 import logging
 import os
+import sys
 from pathlib import Path
 
 import rich.logging
@@ -13,12 +15,22 @@ from torchvision.datasets import CIFAR10
 from torchvision.models import resnet18
 from tqdm import tqdm
 
+from orion.client import report_objective
+
 
 def main():
-    training_epochs = 10
-    learning_rate = 5e-4
-    weight_decay = 1e-4
-    batch_size = 128
+    # Add an argument parser so that we can pass hyperparameters from command line.
+    parser = argparse.ArgumentParser(prog=sys.argv[0], description="Training parameters")
+    parser.add_argument('-e', '--epochs', type=int, default=10)
+    parser.add_argument('-l', '--learning-rate', type=float, default=5e-4)
+    parser.add_argument('-w', '--weight-decay', type=float, default=1e-4)
+    parser.add_argument('-n', '--batch-size', type=int, default=128)
+    args = parser.parse_args(sys.argv[1:])
+
+    training_epochs = args.epochs
+    learning_rate = args.learning_rate
+    weight_decay = args.weight_decay
+    batch_size = args.batch_size
 
     # Check that the GPU is available
     assert torch.cuda.is_available() and torch.cuda.device_count() > 0
@@ -31,6 +43,8 @@ def main():
     )
 
     logger = logging.getLogger(__name__)
+
+    logger.info(f"epochs {training_epochs}, learning rate {learning_rate}, weight decay {weight_decay}, batch size {batch_size}")
 
     # Create a model and move it to the GPU.
     model = resnet18(num_classes=10)
@@ -63,6 +77,8 @@ def main():
 
     # Checkout the "checkpointing and preemption" example for more info!
     logger.debug("Starting training from scratch.")
+
+    training_accuracy = 0.0
 
     for epoch in range(training_epochs):
         logger.debug(f"Starting epoch {epoch}/{training_epochs}")
@@ -106,6 +122,11 @@ def main():
 
         val_loss, val_accuracy = validation_loop(model, valid_dataloader, device)
         logger.info(f"Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%}")
+        # Save latest accuracy
+        training_accuracy = val_accuracy.item()
+
+    # We report to Orion the objective that we want to minimize, which is 1 - training_accuracy.
+    report_objective(1 - training_accuracy)
 
     print("Done!")
 

@@ -1,5 +1,5 @@
-001 - Single GPU Job
-====================
+Orion example on single GPU Job
+===============================
 
 
 **Prerequisites**
@@ -8,20 +8,26 @@ example:
 
 * :ref:`pytorch_setup`
 
-The full source code for this example is available on `the mila-docs GitHub
-repository.
-<https://github.com/mila-iqia/mila-docs/tree/pytorch_distributed_training_examples/docs/examples/distributed/001_single_gpu>`_
+The full documentation for Oríon is available `here
+<https://orion.readthedocs.io/en/stable/index.html>`_
+
 
 **job.sh**
 
-.. literalinclude:: examples/distributed/001_single_gpu/job.sh
-    :language: bash
+.. literalinclude:: examples/frameworks/orion_setup/job.sh.diff
+    :language: diff
+
+.. .. literalinclude:: examples/frameworks/orion_setup/job.sh
+..     :language: bash
 
 
 **main.py**
 
-.. literalinclude:: examples/distributed/001_single_gpu/main.py
-    :language: python
+.. literalinclude:: examples/frameworks/orion_setup/main.py.diff
+    :language: diff
+
+.. .. literalinclude:: examples/frameworks/orion_setup/main.py
+..     :language: python
 
 
 **Running this example**
