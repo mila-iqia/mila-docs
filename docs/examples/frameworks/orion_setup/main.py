@@ -1,4 +1,4 @@
-"""Single-GPU training example."""
+"""Hyper-parameter optimization using Oríon."""
 import argparse
 import logging
 import os
@@ -20,7 +20,7 @@ from orion.client import report_objective
 
 def main():
     # Add an argument parser so that we can pass hyperparameters from command line.
-    parser = argparse.ArgumentParser(prog=sys.argv[0], description="Training parameters")
+    parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--epochs', type=int, default=10)
     parser.add_argument('--learning-rate', type=float, default=5e-4)
     parser.add_argument('--weight-decay', type=float, default=1e-4)
