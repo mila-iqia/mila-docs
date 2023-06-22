@@ -9,7 +9,7 @@ example:
 * :ref:`pytorch_setup`
 
 The full documentation for Oríon is available `here
-<https://orion.readthedocs.io/en/stable/index.html>`_
+<https://orion.readthedocs.io/en/stable/index.html>`_.
 
 
 **job.sh**
