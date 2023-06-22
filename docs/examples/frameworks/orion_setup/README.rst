@@ -118,10 +118,10 @@ The full documentation for Oríon is available `on Oríon's ReadTheDocs page
    -    batch_size = 128
    +    # Add an argument parser so that we can pass hyperparameters from command line.
    +    parser = argparse.ArgumentParser(prog=sys.argv[0], description="Training parameters")
-   +    parser.add_argument('-e', '--epochs', type=int, default=10)
-   +    parser.add_argument('-l', '--learning-rate', type=float, default=5e-4)
-   +    parser.add_argument('-w', '--weight-decay', type=float, default=1e-4)
-   +    parser.add_argument('-n', '--batch-size', type=int, default=128)
+   +    parser.add_argument('--epochs', type=int, default=10)
+   +    parser.add_argument('--learning-rate', type=float, default=5e-4)
+   +    parser.add_argument('--weight-decay', type=float, default=1e-4)
+   +    parser.add_argument('--batch-size', type=int, default=128)
    +    args = parser.parse_args(sys.argv[1:])
    +
    +    training_epochs = args.epochs
