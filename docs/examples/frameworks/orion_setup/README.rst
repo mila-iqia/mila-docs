@@ -176,7 +176,7 @@ The full documentation for Oríon is available `on Oríon's ReadTheDocs page
         # Checkout the "checkpointing and preemption" example for more info!
         logger.debug("Starting training from scratch.")
 
-   +    training_accuracy = 0.0
+   +    training_loss = 0.0
    +
         for epoch in range(training_epochs):
             logger.debug(f"Starting epoch {epoch}/{training_epochs}")
@@ -220,11 +220,11 @@ The full documentation for Oríon is available `on Oríon's ReadTheDocs page
 
             val_loss, val_accuracy = validation_loop(model, valid_dataloader, device)
             logger.info(f"Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%}")
-   +        # Save latest accuracy
-   +        training_accuracy = val_accuracy.item()
+   +        # Save latest val_loss
+   +        training_loss = val_loss
    +
-   +    # We report to Orion the objective that we want to minimize, which is 1 - training_accuracy.
-   +    report_objective(1 - training_accuracy)
+   +    # We report to Orion the objective that we want to minimize, which is latest val_loss.
+   +    report_objective(training_loss)
 
         print("Done!")
 
