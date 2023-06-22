@@ -123,7 +123,7 @@ The full documentation for Oríon is available `on Oríon's ReadTheDocs page
    +    parser.add_argument('--learning-rate', type=float, default=5e-4)
    +    parser.add_argument('--weight-decay', type=float, default=1e-4)
    +    parser.add_argument('--batch-size', type=int, default=128)
-   +    args = parser.parse_args(sys.argv[1:])
+   +    args = parser.parse_args()
    +
    +    training_epochs = args.epochs
    +    learning_rate = args.learning_rate
