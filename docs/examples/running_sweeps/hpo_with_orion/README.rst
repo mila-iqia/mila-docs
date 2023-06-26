@@ -1,5 +1,5 @@
-Hyper-Parameter Optimization using Oríon
-========================================
+Hyper-Parameter Optimization with Oríon
+=======================================
 
 There are frameworks that allow to do hyper-parameters optimization, like
 `wandb <https://wandb.ai/>`_,
@@ -20,7 +20,7 @@ The full documentation for Oríon is available `on Oríon's ReadTheDocs page
 
 .. code:: diff
 
-    # distributed/001_single_gpu/job.sh -> frameworks/orion_setup/job.sh
+    # distributed/001_single_gpu/job.sh -> running_sweeps/hpo_with_orion/job.sh
    old mode 100644
    new mode 100755
     #!/bin/bash
@@ -82,7 +82,7 @@ The full documentation for Oríon is available `on Oríon's ReadTheDocs page
    +
    +orion hunt -n orion-example --exp-max-trials 10 python main.py --learning-rate~'loguniform(1e-5, 1.0)'
 
-.. .. literalinclude:: examples/frameworks/orion_setup/job.sh
+.. .. literalinclude:: examples/running_sweeps/hpo_with_orion/job.sh
 ..     :language: bash
 
 
@@ -90,7 +90,7 @@ The full documentation for Oríon is available `on Oríon's ReadTheDocs page
 
 .. code:: diff
 
-    # distributed/001_single_gpu/main.py -> frameworks/orion_setup/main.py
+    # distributed/001_single_gpu/main.py -> running_sweeps/hpo_with_orion/main.py
    -"""Single-GPU training example."""
    +"""Hyper-parameter optimization using Oríon."""
    +import argparse
@@ -152,7 +152,8 @@ The full documentation for Oríon is available `on Oríon's ReadTheDocs page
 
         # Setup CIFAR10
         num_workers = get_num_workers()
-        dataset_path = Path(os.environ.get("SLURM_TMPDIR", ".")) / "data"
+   -    dataset_path = Path(os.environ.get("SLURM_TMPDIR", ".")) / "data"
+   +    dataset_path = Path(os.environ.get("SLURM_TMPDIR", "")) / "data"
         train_dataset, valid_dataset, test_dataset = make_datasets(str(dataset_path))
         train_dataloader = DataLoader(
             train_dataset,
@@ -290,7 +291,7 @@ The full documentation for Oríon is available `on Oríon's ReadTheDocs page
     if __name__ == "__main__":
         main()
 
-.. .. literalinclude:: examples/frameworks/orion_setup/main.py
+.. .. literalinclude:: examples/running_sweeps/hpo_with_orion/main.py
 ..     :language: python
 
 

@@ -1,5 +1,5 @@
-Hyper-Parameter Optimization using Oríon
-========================================
+Hyper-Parameter Optimization with Oríon
+=======================================
 
 There are frameworks that allow to do hyper-parameters optimization, like
 `wandb <https://wandb.ai/>`_,
@@ -18,19 +18,19 @@ The full documentation for Oríon is available `on Oríon's ReadTheDocs page
 
 **job.sh**
 
-.. literalinclude:: examples/frameworks/orion_setup/job.sh.diff
+.. literalinclude:: examples/running_sweeps/hpo_with_orion/job.sh.diff
     :language: diff
 
-.. .. literalinclude:: examples/frameworks/orion_setup/job.sh
+.. .. literalinclude:: examples/running_sweeps/hpo_with_orion/job.sh
 ..     :language: bash
 
 
 **main.py**
 
-.. literalinclude:: examples/frameworks/orion_setup/main.py.diff
+.. literalinclude:: examples/running_sweeps/hpo_with_orion/main.py.diff
     :language: diff
 
-.. .. literalinclude:: examples/frameworks/orion_setup/main.py
+.. .. literalinclude:: examples/running_sweeps/hpo_with_orion/main.py
 ..     :language: python
 
 
