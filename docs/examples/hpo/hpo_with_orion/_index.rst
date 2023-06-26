@@ -1,7 +1,7 @@
-Hyper-Parameter Optimization with Oríon
-=======================================
+Hyperparameter Optimization with Oríon
+======================================
 
-There are frameworks that allow to do hyper-parameters optimization, like
+There are frameworks that allow to do hyperparameter optimization, like
 `wandb <https://wandb.ai/>`_,
 and `Oríon <https://orion.readthedocs.io/en/stable/index.html>`_.
 Here we provide an example for Oríon, the HPO framework developped at Mila.

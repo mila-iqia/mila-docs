@@ -1,4 +1,4 @@
-"""Hyper-parameter optimization using Oríon."""
+"""Hyperparameter optimization using Oríon."""
 import argparse
 import logging
 import os
