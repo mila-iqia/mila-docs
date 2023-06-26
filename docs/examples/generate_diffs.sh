@@ -36,7 +36,7 @@ generate_diff distributed/001_single_gpu/job.sh good_practices/checkpointing/job
 generate_diff distributed/001_single_gpu/main.py good_practices/checkpointing/main.py
 
 # single_gpu -> hpo_with_orion
-generate_diff distributed/001_single_gpu/job.sh running_sweeps/hpo_with_orion/job.sh
-generate_diff distributed/001_single_gpu/main.py running_sweeps/hpo_with_orion/main.py
+generate_diff distributed/001_single_gpu/job.sh hpo/hpo_with_orion/job.sh
+generate_diff distributed/001_single_gpu/main.py hpo/hpo_with_orion/main.py
 
 popd

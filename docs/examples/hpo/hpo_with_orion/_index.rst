@@ -18,19 +18,19 @@ The full documentation for Oríon is available `on Oríon's ReadTheDocs page
 
 **job.sh**
 
-.. literalinclude:: examples/running_sweeps/hpo_with_orion/job.sh.diff
+.. literalinclude:: examples/hpo/hpo_with_orion/job.sh.diff
     :language: diff
 
-.. .. literalinclude:: examples/running_sweeps/hpo_with_orion/job.sh
+.. .. literalinclude:: examples/hpo/hpo_with_orion/job.sh
 ..     :language: bash
 
 
 **main.py**
 
-.. literalinclude:: examples/running_sweeps/hpo_with_orion/main.py.diff
+.. literalinclude:: examples/hpo/hpo_with_orion/main.py.diff
     :language: diff
 
-.. .. literalinclude:: examples/running_sweeps/hpo_with_orion/main.py
+.. .. literalinclude:: examples/hpo/hpo_with_orion/main.py
 ..     :language: python
 
 
