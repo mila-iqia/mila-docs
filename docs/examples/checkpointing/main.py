@@ -86,12 +86,7 @@ def main():
     optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate, weight_decay=weight_decay)
 
     # Try to resume from a checkpoint, if one exists.
-    restart_count = int(os.environ.get("SLURM_RESTART_COUNT", 0))
-    if restart_count:
-        logger.info(f"This job has been restarted {restart_count} times by SLURM.")
-    checkpoint: RunState | None = load_checkpoint(
-        checkpoint_dir=checkpoint_dir, map_location=device
-    )
+    checkpoint: RunState | None = load_checkpoint(checkpoint_dir, map_location=device)
     if checkpoint:
         start_epoch = checkpoint["epoch"] + 1  # +1 to start at the next epoch.
         best_acc = checkpoint["best_acc"]
@@ -104,10 +99,6 @@ def main():
         torch.cuda.random.set_rng_state_all(t.cpu() for t in checkpoint["torch_cuda_random_state"])
         logger.info(f"Resuming training at epoch {start_epoch} (best_acc={best_acc:.2%}).")
     else:
-        if restart_count:
-            logger.warning(
-                f"This job has been restarted {restart_count} times, but no checkpoint was found!"
-            )
         logger.info(f"No checkpoints found in {checkpoint_dir}. Training from scratch.")
 
     # Setup the dataset
@@ -268,6 +259,11 @@ def load_checkpoint(checkpoint_dir: Path, **torch_load_kwargs) -> RunState | Non
     """Loads the latest checkpoint if possible, otherwise returns `None`."""
     checkpoint_file = checkpoint_dir / CHECKPOINT_FILE_NAME
     backup = checkpoint_file.with_suffix(".backup")
+
+    restart_count = int(os.environ.get("SLURM_RESTART_COUNT", 0))
+    if restart_count:
+        logger.info(f"NOTE: This job has been restarted {restart_count} times by SLURM.")
+
     state: RunState | None = None
     if backup.exists():
         logger.debug(f"Job was interrupted while saving. Loading from the backup at {backup}")
@@ -278,6 +274,13 @@ def load_checkpoint(checkpoint_dir: Path, **torch_load_kwargs) -> RunState | Non
         state = torch.load(checkpoint_file, **torch_load_kwargs)
     else:
         logger.debug(f"No checkpoint found in checkpoints dir ({checkpoint_dir}).")
+        if restart_count:
+            logger.warning(
+                f"This job has been restarted {restart_count} times by SLURM, but no checkpoint "
+                f"was found! This either means that your checkpointing code is broken, or that "
+                "the job did not reach the checkpointing portion of your training loop."
+            )
+
     return state
 
 
