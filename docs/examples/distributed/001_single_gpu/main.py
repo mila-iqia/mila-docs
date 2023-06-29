@@ -27,6 +27,7 @@ def main():
     # Setup logging (optional, but much better than using print statements)
     logging.basicConfig(
         level=logging.INFO,
+        format="%(message)s",
         handlers=[rich.logging.RichHandler(markup=True)],  # Very pretty, uses the `rich` package.
     )
 
@@ -70,13 +71,16 @@ def main():
         # Set the model in training mode (important for e.g. BatchNorm and Dropout layers)
         model.train()
 
-        # NOTE: using a progress bar from tqdm because it's nicer than using `print`.
+        # NOTE: using a progress bar from tqdm (much nicer than using `print`s).
         progress_bar = tqdm(
             total=len(train_dataloader),
             desc=f"Train epoch {epoch}",
+            unit_scale=train_dataloader.batch_size or 1,
+            unit=" Samples",
         )
 
         # Training loop
+        batch: tuple[Tensor, Tensor]
         for batch in train_dataloader:
             # Move the batch to the GPU before we pass it to the model
             batch = tuple(item.to(device) for item in batch)
@@ -99,7 +103,7 @@ def main():
             logger.debug(f"Accuracy: {accuracy.item():.2%}")
             logger.debug(f"Average Loss: {loss.item()}")
 
-            # Advance the progress bar one step, and update the "postfix" () the progress bar. (nicer than just)
+            # Advance the progress bar one step, and update the text displayed in the progress bar.
             progress_bar.update(1)
             progress_bar.set_postfix(loss=loss.item(), accuracy=accuracy.item())
         progress_bar.close()
@@ -118,6 +122,7 @@ def validation_loop(model: nn.Module, dataloader: DataLoader, device: torch.devi
     n_samples = 0
     correct_predictions = 0
 
+    batch: tuple[Tensor, Tensor]
     for batch in dataloader:
         batch = tuple(item.to(device) for item in batch)
         x, y = batch
@@ -125,8 +130,8 @@ def validation_loop(model: nn.Module, dataloader: DataLoader, device: torch.devi
         logits: Tensor = model(x)
         loss = F.cross_entropy(logits, y)
 
-        batch_n_samples = x.shape[0]
-        batch_correct_predictions = logits.argmax(-1).eq(y).sum()
+        batch_n_samples = x.size(0)
+        batch_correct_predictions = logits.argmax(-1).eq(y).sum().item()
 
         total_loss += loss.item()
         n_samples += batch_n_samples
@@ -164,7 +169,7 @@ def make_datasets(
 
 
 def get_num_workers() -> int:
-    """Gets the optimal number of DatLoader workers to use in the current job."""
+    """Gets the optimal number of DataLoader workers to use in the current job."""
     if "SLURM_CPUS_PER_TASK" in os.environ:
         return int(os.environ["SLURM_CPUS_PER_TASK"])
     if hasattr(os, "sched_getaffinity"):

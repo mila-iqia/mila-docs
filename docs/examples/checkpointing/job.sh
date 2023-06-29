@@ -1,16 +1,16 @@
 #!/bin/bash
-#SBATCH --gpus-per-task=rtx8000:1
+#SBATCH --gpus-per-task=1
 #SBATCH --cpus-per-task=4
 #SBATCH --ntasks-per-node=1
 #SBATCH --mem=16G
 #SBATCH --time=00:15:00
+#SBATCH --requeue
 #SBATCH --signal=B:TERM@300 # tells the controller to send SIGTERM to the job 5
                             # min before its time ends to give it a chance for
                             # better cleanup. If you cancel the job manually,
                             # make sure that you specify the signal as TERM like
                             # so `scancel --signal=TERM <jobid>`.
                             # https://dhruveshp.com/blog/2021/signal-propagation-on-slurm/
-#SBATCH --requeue
 
 # trap the signal to the main BATCH script here.
 sig_handler()
