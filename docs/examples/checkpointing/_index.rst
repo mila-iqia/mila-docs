@@ -17,13 +17,13 @@ repository.
 
 **job.sh**
 
-.. literalinclude:: examples/data/checkpointing/job.sh.diff
+.. literalinclude:: examples/checkpointing/job.sh.diff
    :language: diff
 
 
 **main.py**
 
-.. literalinclude:: examples/data/checkpointing/main.py.diff
+.. literalinclude:: examples/checkpointing/main.py.diff
    :language: diff
 
 

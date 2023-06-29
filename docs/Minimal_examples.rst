@@ -5,4 +5,4 @@
 
 .. include:: examples/frameworks/index.rst
 .. include:: examples/distributed/index.rst
-.. include:: examples/data/checkpointing/_index.rst
+.. include:: examples/checkpointing/_index.rst
