@@ -130,9 +130,8 @@ repository.
    +class RunState(TypedDict):
    +    """Typed dictionary containing the state of the training run which is saved at each epoch.
    +
-   +    Using type hints helps prevent bugs and makes your code easy for humans and machines (Copilot)
-   +    to read, leading to better code suggestions and less time spent debugging. Using type hints
-   +    also removes the need for redundant documentation.
+   +    Using type hints helps prevent bugs and makes your code easier to read for both humans and
+   +    machines (e.g. Copilot). This leads to less time spent debugging and better code suggestions.
    +    """
    +
    +    epoch: int
