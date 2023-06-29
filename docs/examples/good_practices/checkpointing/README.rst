@@ -12,14 +12,14 @@ example:
 
 The full source code for this example is available on `the mila-docs GitHub
 repository.
-<https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/data/checkpointing>`_
+<https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/good_practices/checkpointing>`_
 
 
 **job.sh**
 
 .. code:: diff
 
-    # distributed/001_single_gpu/job.sh -> checkpointing/job.sh
+    # distributed/001_single_gpu/job.sh -> good_practices/checkpointing/job.sh
    old mode 100644
    new mode 100755
     #!/bin/bash
@@ -93,7 +93,7 @@ repository.
 
 .. code:: diff
 
-    # distributed/001_single_gpu/main.py -> checkpointing/main.py
+    # distributed/001_single_gpu/main.py -> good_practices/checkpointing/main.py
    -"""Single-GPU training example."""
    +"""Checkpointing example."""
    +from __future__ import annotations

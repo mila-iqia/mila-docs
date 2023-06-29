@@ -32,7 +32,7 @@ generate_diff distributed/002_multi_gpu/job.sh distributed/003_multi_node/job.sh
 generate_diff distributed/002_multi_gpu/main.py distributed/003_multi_node/main.py
 
 # single_gpu -> checkpointing
-generate_diff distributed/001_single_gpu/job.sh checkpointing/job.sh
-generate_diff distributed/001_single_gpu/main.py checkpointing/main.py
+generate_diff distributed/001_single_gpu/job.sh good_practices/checkpointing/job.sh
+generate_diff distributed/001_single_gpu/main.py good_practices/checkpointing/main.py
 
 popd

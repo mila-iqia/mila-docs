@@ -12,18 +12,18 @@ example:
 
 The full source code for this example is available on `the mila-docs GitHub
 repository.
-<https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/data/checkpointing>`_
+<https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/good_practices/checkpointing>`_
 
 
 **job.sh**
 
-.. literalinclude:: examples/checkpointing/job.sh.diff
+.. literalinclude:: examples/good_practices/checkpointing/job.sh.diff
    :language: diff
 
 
 **main.py**
 
-.. literalinclude:: examples/checkpointing/main.py.diff
+.. literalinclude:: examples/good_practices/checkpointing/main.py.diff
    :language: diff
 
 
