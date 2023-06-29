@@ -54,7 +54,6 @@ recommend you start by checking out the :ref:`short quick start guide
    Audio_video
    VSCode
    IDT
-   Chatbot
 
 :Support: To reach the Mila infrastructure support, please `submit
    a support ticket. <https://milaquebec.freshdesk.com/a/tickets/new>`_
