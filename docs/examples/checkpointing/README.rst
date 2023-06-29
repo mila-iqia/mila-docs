@@ -74,6 +74,7 @@ repository.
     # Stage dataset into $SLURM_TMPDIR
     mkdir -p $SLURM_TMPDIR/data
    -cp /network/datasets/cifar10/cifar-10-python.tar.gz $SLURM_TMPDIR/data/
+   +# Use --update to only copy newer files (since this might have already been executed)
    +cp --update /network/datasets/cifar10/cifar-10-python.tar.gz $SLURM_TMPDIR/data/
     # General-purpose alternatives combining copy and unpack:
     #     unzip   /network/datasets/some/file.zip -d $SLURM_TMPDIR/data/
@@ -96,16 +97,17 @@ repository.
    -"""Single-GPU training example."""
    +"""Checkpointing example."""
    +from __future__ import annotations
+   +
    +import contextlib
     import logging
     import os
-    from pathlib import Path
    +import random
-   +from re import I
    +import shutil
+   +from logging import getLogger as get_logger
+    from pathlib import Path
    +from typing import Any, TypedDict
-   +import numpy
 
+   +import numpy
     import rich.logging
     import torch
     from torch import Tensor, nn
@@ -115,9 +117,7 @@ repository.
     from torchvision.datasets import CIFAR10
     from torchvision.models import resnet18
     from tqdm import tqdm
-   +from logging import getLogger as get_logger
-   +
-   +
+
    +SCRATCH = Path(os.environ["SCRATCH"])
    +SLURM_TMPDIR = Path(os.environ["SLURM_TMPDIR"])
    +SLURM_JOBID = os.environ["SLURM_JOBID"]
@@ -144,7 +144,7 @@ repository.
    +    numpy_random_state: dict[str, Any]
    +    torch_random_state: Tensor
    +    torch_cuda_random_state: list[Tensor]
-
+   +
 
     def main():
    -    training_epochs = 10
@@ -256,7 +256,7 @@ repository.
                 total=len(train_dataloader),
                 desc=f"Train epoch {epoch}",
    +            unit_scale=train_dataloader.batch_size or 1,
-   +            unit=" samples",
+   +            unit="samples",
             )
 
             # Training loop
@@ -323,7 +323,6 @@ repository.
         n_samples = 0
         correct_predictions = 0
 
-   +    batch: tuple[Tensor, Tensor]
         for batch in dataloader:
             batch = tuple(item.to(device) for item in batch)
             x, y = batch
@@ -331,14 +330,14 @@ repository.
             logits: Tensor = model(x)
             loss = F.cross_entropy(logits, y)
 
-   -        batch_n_samples = x.shape[0]
+            batch_n_samples = x.shape[0]
    -        batch_correct_predictions = logits.argmax(-1).eq(y).sum()
-   +        batch_n_samples = x.size(0)
    +        batch_correct_predictions = logits.argmax(-1).eq(y).sum().item()
 
             total_loss += loss.item()
             n_samples += batch_n_samples
-            correct_predictions += batch_correct_predictions
+   -        correct_predictions += batch_correct_predictions
+   +        correct_predictions += int(batch_correct_predictions)
 
         accuracy = correct_predictions / n_samples
         return total_loss, accuracy

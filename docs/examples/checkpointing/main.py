@@ -1,15 +1,16 @@
 """Checkpointing example."""
 from __future__ import annotations
+
 import contextlib
 import logging
 import os
-from pathlib import Path
 import random
-from re import I
 import shutil
+from logging import getLogger as get_logger
+from pathlib import Path
 from typing import Any, TypedDict
-import numpy
 
+import numpy
 import rich.logging
 import torch
 from torch import Tensor, nn
@@ -19,8 +20,6 @@ from torchvision import transforms
 from torchvision.datasets import CIFAR10
 from torchvision.models import resnet18
 from tqdm import tqdm
-from logging import getLogger as get_logger
-
 
 SCRATCH = Path(os.environ["SCRATCH"])
 SLURM_TMPDIR = Path(os.environ["SLURM_TMPDIR"])
@@ -148,7 +147,7 @@ def main():
             total=len(train_dataloader),
             desc=f"Train epoch {epoch}",
             unit_scale=train_dataloader.batch_size or 1,
-            unit=" samples",
+            unit="samples",
         )
 
         # Training loop
@@ -214,7 +213,6 @@ def validation_loop(model: nn.Module, dataloader: DataLoader, device: torch.devi
     n_samples = 0
     correct_predictions = 0
 
-    batch: tuple[Tensor, Tensor]
     for batch in dataloader:
         batch = tuple(item.to(device) for item in batch)
         x, y = batch
@@ -222,12 +220,12 @@ def validation_loop(model: nn.Module, dataloader: DataLoader, device: torch.devi
         logits: Tensor = model(x)
         loss = F.cross_entropy(logits, y)
 
-        batch_n_samples = x.size(0)
+        batch_n_samples = x.shape[0]
         batch_correct_predictions = logits.argmax(-1).eq(y).sum().item()
 
         total_loss += loss.item()
         n_samples += batch_n_samples
-        correct_predictions += batch_correct_predictions
+        correct_predictions += int(batch_correct_predictions)
 
     accuracy = correct_predictions / n_samples
     return total_loss, accuracy
