@@ -12,16 +12,6 @@
                             # so `scancel --signal=TERM <jobid>`.
                             # https://dhruveshp.com/blog/2021/signal-propagation-on-slurm/
 
-# trap the signal to the main BATCH script here.
-sig_handler()
-{
-	echo "BATCH interrupted"
-	wait # wait for all children, this is important!
-}
-
-trap 'sig_handler' SIGINT SIGTERM SIGCONT
-
-
 # Echo time and hostname into log
 echo "Date:     $(date)"
 echo "Hostname: $(hostname)"

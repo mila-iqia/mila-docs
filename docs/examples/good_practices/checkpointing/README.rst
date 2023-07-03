@@ -29,6 +29,7 @@ repository.
     #SBATCH --ntasks-per-node=1
     #SBATCH --mem=16G
     #SBATCH --time=00:15:00
+   -
    +#SBATCH --requeue
    +#SBATCH --signal=B:TERM@300 # tells the controller to send SIGTERM to the job 5
    +                            # min before its time ends to give it a chance for
@@ -36,16 +37,6 @@ repository.
    +                            # make sure that you specify the signal as TERM like
    +                            # so `scancel --signal=TERM <jobid>`.
    +                            # https://dhruveshp.com/blog/2021/signal-propagation-on-slurm/
-   +
-   +# trap the signal to the main BATCH script here.
-   +sig_handler()
-   +{
-   +    echo "BATCH interrupted"
-   +    wait # wait for all children, this is important!
-   +}
-   +
-   +trap 'sig_handler' SIGINT SIGTERM SIGCONT
-
 
     # Echo time and hostname into log
     echo "Date:     $(date)"
@@ -103,8 +94,10 @@ repository.
     import os
    +import random
    +import shutil
+   +import signal
    +from logging import getLogger as get_logger
     from pathlib import Path
+   +from types import FrameType
    +from typing import Any, TypedDict
 
    +import numpy
@@ -230,8 +223,22 @@ repository.
 
    -    # Checkout the "checkpointing and preemption" example for more info!
    -    logger.debug("Starting training from scratch.")
-   -
+   +    def signal_handler(signum: int, frame: FrameType | None):
+   +        """Called before the job gets pre-empted or reaches the time-limit.
+   +
+   +        This should run quickly. Performing a full checkpoint here mid-epoch is not recommended.
+   +        """
+   +        signal_enum = signal.Signals(signum)
+   +        logger.error(f"Job received a {signal_enum.name} signal!")
+   +        # Perform quick actions that will help the job resume later.
+   +        # If you use Weights & Biases: https://docs.wandb.ai/guides/runs/resuming#preemptible-sweeps
+   +        # if wandb.run:
+   +        #     wandb.mark_preempting()
+
    -    for epoch in range(training_epochs):
+   +    signal.signal(signal.SIGTERM, signal_handler)  # Before getting pre-empted and requeued.
+   +    signal.signal(signal.SIGUSR1, signal_handler)  # Before reaching the end of the time limit.
+   +
    +    for epoch in range(start_epoch, training_epochs):
             logger.debug(f"Starting epoch {epoch}/{training_epochs}")
 

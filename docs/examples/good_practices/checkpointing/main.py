@@ -6,8 +6,10 @@ import logging
 import os
 import random
 import shutil
+import signal
 from logging import getLogger as get_logger
 from pathlib import Path
+from types import FrameType
 from typing import Any, TypedDict
 
 import numpy
@@ -125,6 +127,21 @@ def main():
         num_workers=num_workers,
         shuffle=False,
     )
+
+    def signal_handler(signum: int, frame: FrameType | None):
+        """Called before the job gets pre-empted or reaches the time-limit.
+
+        This should run quickly. Performing a full checkpoint here mid-epoch is not recommended.
+        """
+        signal_enum = signal.Signals(signum)
+        logger.error(f"Job received a {signal_enum.name} signal!")
+        # Perform quick actions that will help the job resume later.
+        # If you use Weights & Biases: https://docs.wandb.ai/guides/runs/resuming#preemptible-sweeps
+        # if wandb.run:
+        #     wandb.mark_preempting()
+
+    signal.signal(signal.SIGTERM, signal_handler)  # Before getting pre-empted and requeued.
+    signal.signal(signal.SIGUSR1, signal_handler)  # Before reaching the end of the time limit.
 
     for epoch in range(start_epoch, training_epochs):
         logger.debug(f"Starting epoch {epoch}/{training_epochs}")
