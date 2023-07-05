@@ -1,26 +1,28 @@
-001 - Single GPU Job
-====================
+.. _single_gpu_job:
+
+Single GPU Job
+**************
 
 
 **Prerequisites**
 Make sure to read the following sections of the documentation before using this
 example:
 
-* :ref:`pytorch_setup`
+* :doc:`/examples/frameworks/pytorch_setup/index`
 
 The full source code for this example is available on `the mila-docs GitHub
 repository.
-<https://github.com/mila-iqia/mila-docs/tree/pytorch_distributed_training_examples/docs/examples/distributed/001_single_gpu>`_
+<https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/distributed/single_gpu>`_
 
 **job.sh**
 
-.. literalinclude:: examples/distributed/001_single_gpu/job.sh
+.. literalinclude:: job.sh
     :language: bash
 
 
 **main.py**
 
-.. literalinclude:: examples/distributed/001_single_gpu/main.py
+.. literalinclude:: main.py
     :language: python
 
 

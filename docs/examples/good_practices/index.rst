@@ -1,6 +1,13 @@
-**************
-Good Practices
-**************
+*******************
+Good practices
+*******************
 
-.. include:: /examples/good_practices/checkpointing/_index.rst
-.. include:: /examples/good_practices/hpo_with_orion/_index.rst
+Work-in-progress: This section will contain minimal examples illustrating various good practices
+that should be observed when using the Mila cluster.
+
+
+.. toctree::
+    :maxdepth: 1
+    :glob:
+
+    */index

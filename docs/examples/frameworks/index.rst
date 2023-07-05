@@ -2,5 +2,14 @@
 Software Frameworks
 *******************
 
+(Work-in-progress): This section shows how to setup a development environment for various
+frameworks.
 
-.. include:: examples/frameworks/pytorch_setup/_index.rst
+.. toctree::
+    :maxdepth: 1
+    :glob:
+
+    */index
+
+* Jax (Coming soon!)
+* TensorFlow (Coming soon!)

@@ -1,12 +1,12 @@
-003 - Multi-Node (DDP) Job
-=====================================
+Multi-Node (DDP) Job
+********************
 
 
 Prerequisites:
 
-* :ref:`pytorch_setup`
-* :ref:`001 - Single GPU Job`
-* :ref:`002 - Multi-GPU Job`
+* :doc:`/examples/frameworks/pytorch_setup/index`
+* :doc:`/examples/distributed/single_gpu/index`
+* :doc:`/examples/distributed/multi_gpu/index`
 
 Other interesting resources:
 
@@ -15,16 +15,16 @@ Other interesting resources:
 
 
 Click here to see `the source code for this example
-<https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/distributed/003_multi_node>`_
+<https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/distributed/multi_node>`_
 
-**Job.sh**
+**job.sh**
 
-.. literalinclude:: examples/distributed/003_multi_node/job.sh.diff
+.. literalinclude:: job.sh.diff
     :language: diff
 
 **main.py**
 
-.. literalinclude:: examples/distributed/003_multi_node/main.py.diff
+.. literalinclude:: main.py.diff
     :language: diff
 
 
