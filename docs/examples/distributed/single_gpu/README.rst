@@ -12,7 +12,7 @@ Single GPU Job
 Make sure to read the following sections of the documentation before using this
 example:
 
-* :doc:`/examples/frameworks/pytorch_setup/index`
+* `examples/frameworks/pytorch_setup <https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/frameworks/pytorch_setup>`_
 
 The full source code for this example is available on `the mila-docs GitHub
 repository.

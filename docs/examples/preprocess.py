@@ -31,12 +31,15 @@ def preprocess():
 
     for example_readme_template_path in docs_root.rglob("examples/*/*/**/index.rst"):
         # Make sure that all the examples contain a link to the example source code on GitHub.
+        logger.debug(f"{example_readme_template_path}")
         check_github_links(example_readme_template_path)
 
         new_content = inline_docs_for_github_viewing(example_readme_template_path)
-
+        new_content = make_links_github_friendly(
+            example_readme_template_path, new_content.splitlines()
+        )
         example_readme_path = example_readme_template_path.with_name("README.rst")
-        example_readme_path.write_text(new_content)
+        example_readme_path.write_text("\n".join(new_content) + "\n")
 
 
 def check_github_links(example_readme_template_path: Path):
@@ -80,9 +83,8 @@ def generate_diffs(docs_root: Path):
             raise exc
 
 
-def make_links_github_friendly(
-    relative_readme_template_path: Path, content_lines: list[str]
-) -> list[str]:
+def make_links_github_friendly(readme_template_path: Path, content_lines: list[str]) -> list[str]:
+    relative_readme_template_path = readme_template_path.relative_to(docs_root)
     result = content_lines.copy()
     # # TODO: Change refs to Prerequisites from rst format into GitHub-friendly links.
     # NOTE: Seems pretty hard to do, because the link location is something like "Quick Start",

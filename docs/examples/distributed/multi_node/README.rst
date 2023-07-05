@@ -8,9 +8,9 @@ Multi-Node (DDP) Job
 
 Prerequisites:
 
-* :doc:`/examples/frameworks/pytorch_setup/index`
-* :doc:`/examples/distributed/single_gpu/index`
-* :doc:`/examples/distributed/multi_gpu/index`
+* `examples/frameworks/pytorch_setup <https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/frameworks/pytorch_setup>`_
+* `examples/distributed/single_gpu <https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/distributed/single_gpu>`_
+* `examples/distributed/multi_gpu <https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/distributed/multi_gpu>`_
 
 Other interesting resources:
 
