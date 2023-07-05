@@ -10,4 +10,4 @@ information with this purpose can be found in the following section:
 However, we also aim to provide more general information which can be useful
 outside the scope of using the Mila cluster. For instance, more general theory
 on computational considerations and such. In this perspective, we hope the
-documentation can be of use for all of Mila members.
+documentation can be of use for all AI researchers.
