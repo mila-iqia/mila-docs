@@ -10,7 +10,7 @@ CO2 emissions for power consumption
 -----------------------------------
 
 The hardware for the Mila cluster is hosted in the province of Quebec,
-where the electricity is produced by Hydro Quebec, almost exclusively
+where the electricity is produced by Hydro-Québec, almost exclusively
 from hydroelectricity. The CO2 emissions are therefore very low,
 and we can find the exact values in `CO₂ Emissions and Hydro-Québec Electricity,
 1990-2021 <https://www.hydroquebec.com/data/developpement-durable/pdf/d-5647-affiche-co2-2021-an-vf.pdf>`_.
