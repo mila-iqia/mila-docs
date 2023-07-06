@@ -89,12 +89,13 @@ repository.
    +"""Checkpointing example."""
    +from __future__ import annotations
    +
-   +import contextlib
     import logging
     import os
    +import random
    +import shutil
    +import signal
+   +import uuid
+   +import warnings
    +from logging import getLogger as get_logger
     from pathlib import Path
    +from types import FrameType
@@ -214,7 +215,8 @@ repository.
             shuffle=False,
    +        # generator=torch.Generator().manual_seed(random_seed),
         )
-        test_dataloader = DataLoader(  # NOTE: Not used in this example.
+   -    test_dataloader = DataLoader(  # NOTE: Not used in this example.
+   +    test_dataloader = DataLoader(  # NOTE: Not used in this example.  # noqa
             test_dataset,
             batch_size=batch_size,
             num_workers=num_workers,
@@ -380,29 +382,37 @@ repository.
    +def load_checkpoint(checkpoint_dir: Path, **torch_load_kwargs) -> RunState | None:
    +    """Loads the latest checkpoint if possible, otherwise returns `None`."""
    +    checkpoint_file = checkpoint_dir / CHECKPOINT_FILE_NAME
-   +    backup = checkpoint_file.with_suffix(".backup")
-   +
    +    restart_count = int(os.environ.get("SLURM_RESTART_COUNT", 0))
    +    if restart_count:
    +        logger.info(f"NOTE: This job has been restarted {restart_count} times by SLURM.")
    +
-   +    state: RunState | None = None
-   +    if backup.exists():
-   +        logger.debug(f"Job was interrupted while saving. Loading from the backup at {backup}")
-   +        state = torch.load(checkpoint_file, **torch_load_kwargs)
-   +    elif checkpoint_file.exists():
-   +        # There is no backup file and the checkpoint file exists, so it should be good to load.
-   +        logger.debug(f"Resuming from the checkpoint file at {checkpoint_file}")
-   +        state = torch.load(checkpoint_file, **torch_load_kwargs)
-   +    else:
+   +    if not checkpoint_file.exists():
    +        logger.debug(f"No checkpoint found in checkpoints dir ({checkpoint_dir}).")
    +        if restart_count:
    +            logger.warning(
-   +                f"This job has been restarted {restart_count} times by SLURM, but no checkpoint "
-   +                f"was found! This either means that your checkpointing code is broken, or that "
-   +                "the job did not reach the checkpointing portion of your training loop."
+   +                RuntimeWarning(
+   +                    f"This job has been restarted {restart_count} times by SLURM, but no "
+   +                    "checkpoint was found! This either means that your checkpointing code is "
+   +                    "broken, or that the job did not reach the checkpointing portion of your "
+   +                    "training loop."
+   +                )
    +            )
+   +        return None
    +
+   +    checkpoint_state: dict = torch.load(checkpoint_file, **torch_load_kwargs)
+   +
+   +    missing_keys = set(checkpoint_state.keys()) - RunState.__required_keys__
+   +    if missing_keys:
+   +        warnings.warn(
+   +            RuntimeWarning(
+   +                f"Checkpoint at {checkpoint_file} is missing the following keys: {missing_keys}. "
+   +                f"Ignoring this checkpoint."
+   +            )
+   +        )
+   +        return None
+   +
+   +    logger.debug(f"Resuming from the checkpoint file at {checkpoint_file}")
+   +    state: RunState = checkpoint_state  # type: ignore
    +    return state
    +
    +
@@ -420,28 +430,18 @@ repository.
    +    checkpoint_dir.mkdir(parents=True, exist_ok=True)
    +    checkpoint_file = checkpoint_dir / CHECKPOINT_FILE_NAME
    +
-   +    # Make temporary backups of existing checkpoint files, in case our job gets interrupted while
-   +    # saving, we can restart using the backups.
-   +    with make_temporary_backup_if_exists(checkpoint_file):
-   +        torch.save(state, checkpoint_file)
+   +    # Use a unique ID to avoid any potential collisions.
+   +    unique_id = uuid.uuid1()
+   +    temp_checkpoint_file = checkpoint_file.with_suffix(f".temp{unique_id}")
+   +
+   +    torch.save(state, temp_checkpoint_file)
+   +    os.replace(temp_checkpoint_file, checkpoint_file)
    +
    +    if is_best:
-   +        best_checkpoint = checkpoint_file.with_name("model_best.pth")
-   +        with make_temporary_backup_if_exists(best_checkpoint):
-   +            shutil.copyfile(checkpoint_file, best_checkpoint)
-   +
-   +
-   +@contextlib.contextmanager
-   +def make_temporary_backup_if_exists(file: Path, backup: Path | None = None):
-   +    """If the file exists, makes a temporary backup of it at `backup` and enters the "with" block.
-   +
-   +    Removes the backup when exiting the "with" block.
-   +    """
-   +    backup = backup or file.with_suffix(".backup")
-   +    if file.exists():
-   +        file.rename(backup)
-   +    yield
-   +    backup.unlink(missing_ok=True)
+   +        best_checkpoint_file = checkpoint_file.with_name("model_best.pth")
+   +        temp_best_checkpoint_file = best_checkpoint_file.with_suffix(f".temp{unique_id}")
+   +        shutil.copyfile(checkpoint_file, temp_best_checkpoint_file)
+   +        os.replace(temp_best_checkpoint_file, best_checkpoint_file)
    +
    +
     if __name__ == "__main__":
