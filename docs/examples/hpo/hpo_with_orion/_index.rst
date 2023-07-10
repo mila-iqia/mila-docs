@@ -45,7 +45,7 @@ Oríon must be installed inside the "pytorch" environment using following comman
 
 .. code-block:: bash
 
-    pip install orion[profet]
+    pip install orion
 
 Exit the interactive job once the environment has been created and Oríon installed.
 You can then launch the example:
