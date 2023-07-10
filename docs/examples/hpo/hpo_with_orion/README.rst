@@ -322,3 +322,12 @@ and run ``orion info`` with the experiment name:
 
     $ conda activate pytorch
     $ orion info -n orion-example
+
+You can also generate a plot to visualize the optimization run. For example:
+
+.. code-block:: bash
+
+    $ orion plot regret -n orion-example
+
+More info about Oríon plots in `Oríon documentation
+<https://orion.readthedocs.io/en/stable/auto_examples/plot_4_partial_dependencies.html>`_.
