@@ -329,5 +329,5 @@ You can also generate a plot to visualize the optimization run. For example:
 
     $ orion plot regret -n orion-example
 
-More info about Oríon plots in `Oríon documentation
+For more complex and useful plots, see `Oríon documentation
 <https://orion.readthedocs.io/en/stable/auto_examples/plot_4_partial_dependencies.html>`_.
