@@ -49,7 +49,7 @@ The full documentation for Oríon is available `on Oríon's ReadTheDocs page
     # Other conda packages:
     # conda install -y -n pytorch -c conda-forge rich tqdm
    +# Orion package:
-   +# pip install orion[profet]
+   +# pip install orion
 
     # Activate pre-existing environment.
     conda activate pytorch
@@ -220,8 +220,8 @@ The full documentation for Oríon is available `on Oríon's ReadTheDocs page
             val_loss, val_accuracy = validation_loop(model, valid_dataloader, device)
             logger.info(f"Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%}")
 
-   +    # We report to Orion the objective that we want to minimize, which is latest val_loss.
-   +    report_objective(val_loss)
+   +    # We report to Orion the objective that we want to minimize.
+   +    report_objective(1 - val_accuracy.item())
    +
         print("Done!")
 

@@ -24,7 +24,7 @@ module load cuda/11.7
 # Other conda packages:
 # conda install -y -n pytorch -c conda-forge rich tqdm
 # Orion package:
-# pip install orion[profet]
+# pip install orion
 
 # Activate pre-existing environment.
 conda activate pytorch
