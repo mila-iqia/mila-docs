@@ -20,7 +20,7 @@ The full documentation for Oríon is available `on Oríon's ReadTheDocs page
 
 .. code:: diff
 
-    # distributed/001_single_gpu/job.sh -> hpo/hpo_with_orion/job.sh
+    # distributed/001_single_gpu/job.sh -> good_practices/hpo_with_orion/job.sh
    old mode 100644
    new mode 100755
     #!/bin/bash
@@ -82,7 +82,7 @@ The full documentation for Oríon is available `on Oríon's ReadTheDocs page
    +
    +orion hunt -n orion-example --exp-max-trials 10 python main.py --learning-rate~'loguniform(1e-5, 1.0)'
 
-.. .. literalinclude:: examples/hpo/hpo_with_orion/job.sh
+.. .. literalinclude:: examples/good_practices/hpo_with_orion/job.sh
 ..     :language: bash
 
 
@@ -90,7 +90,7 @@ The full documentation for Oríon is available `on Oríon's ReadTheDocs page
 
 .. code:: diff
 
-    # distributed/001_single_gpu/main.py -> hpo/hpo_with_orion/main.py
+    # distributed/001_single_gpu/main.py -> good_practices/hpo_with_orion/main.py
    -"""Single-GPU training example."""
    +"""Hyperparameter optimization using Oríon."""
    +import argparse
@@ -291,7 +291,7 @@ The full documentation for Oríon is available `on Oríon's ReadTheDocs page
     if __name__ == "__main__":
         main()
 
-.. .. literalinclude:: examples/hpo/hpo_with_orion/main.py
+.. .. literalinclude:: examples/good_practices/hpo_with_orion/main.py
 ..     :language: python
 
 
