@@ -27,12 +27,6 @@ repository.
    :language: diff
 
 
-**data.sh**
-
-.. literalinclude:: examples/data/torchvision/data.sh
-   :language: bash
-
-
 **data.py**
 
 .. literalinclude:: examples/data/torchvision/data.py

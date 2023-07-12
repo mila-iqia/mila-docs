@@ -69,7 +69,7 @@ repository.
    +# Copy the dataset to $SLURM_TMPDIR so it is close to the GPUs for
    +# faster training
    +srun --ntasks=$SLURM_JOB_NUM_NODES --ntasks-per-node=1 \
-   +    time -p bash data.sh "/network/datasets/inat" ${_DATA_PREP_WORKERS}
+   +    time -p bash data.py "/network/datasets/inat" ${_DATA_PREP_WORKERS}
 
 
     # Fixes issues with MIG-ed GPUs with versions of PyTorch < 2.0
@@ -293,67 +293,64 @@ repository.
         main()
 
 
-**data.sh**
-
-.. code:: bash
-
-   #!/bin/bash
-   set -o errexit
-
-   function ln_files {
-       # Clone the dataset structure of `src` to `dest` with symlinks and using
-       # `workers` numbre of workers (defaults to 4)
-       local src=$1
-       local dest=$2
-       local workers=${3:-4}
-
-       (cd "${src}" && find -L * -type f) | while read f
-       do
-           mkdir --parents "${dest}/$(dirname "$f")"
-           # echo source first so it is matched to the ln's '-T' argument
-           readlink --canonicalize "${src}/$f"
-           # echo output last so ln understands it's the output file
-           echo "${dest}/$f"
-       done | xargs -n2 -P${workers} ln --symbolic --force -T
-   }
-
-   _SRC=$1
-   _WORKERS=$2
-   # Referencing $SLURM_TMPDIR here instead of job.sh makes sure that the
-   # environment variable will only be resolved on the worker node (i.e. not
-   # referencing the $SLURM_TMPDIR of the master node)
-   _DEST=$SLURM_TMPDIR/data
-
-   ln_files "${_SRC}" "${_DEST}" ${_WORKERS}
-
-   # Reorganise the files if needed
-   (
-       cd "${_DEST}"
-       # Torchvision expects these names
-       mv train.tar.gz 2021_train.tgz
-       mv val.tar.gz 2021_valid.tgz
-   )
-
-   # Extract and prepare the data
-   python3 data.py "${_DEST}"
-
-
 **data.py**
 
 .. code:: python
 
    """Make sure the data is available"""
+   import os
+   import shutil
    import sys
    import time
+   from multiprocessing import Pool
+   from pathlib import Path
 
    from torchvision.datasets import INaturalist
 
 
-   start_time = time.time()
-   INaturalist(root=sys.argv[1], version="2021_train", download=True)
-   INaturalist(root=sys.argv[1], version="2021_valid", download=True)
-   seconds_spent = time.time() - start_time
-   print(f"Prepared data in {seconds_spent/60:.2f}m")
+   def link_file(src:str, dest:str):
+       Path(src).symlink_to(dest)
+
+
+   def link_files(src:str, dest:str, workers=4):
+       src = Path(src)
+       dest = Path(dest)
+       os.makedirs(dest, exist_ok=True)
+       with Pool(processes=workers) as pool:
+           for path, dnames, fnames in os.walk(str(src)):
+               rel_path = Path(path).relative_to(src)
+               fnames = map(lambda _f: rel_path / _f, fnames)
+               dnames = map(lambda _d: rel_path / _d, dnames)
+               for d in dnames:
+                   os.makedirs(str(dest / d), exist_ok=True)
+               pool.starmap(
+                   link_file,
+                   [(src / _f, dest / _f) for _f in fnames]
+               )
+
+
+   if __name__ == "__main__":
+       src = Path(sys.argv[1])
+       workers = int(sys.argv[2])
+       # Referencing $SLURM_TMPDIR here instead of job.sh makes sure that the
+       # environment variable will only be resolved on the worker node (i.e. not
+       # referencing the $SLURM_TMPDIR of the master node)
+       dest = Path(os.environ["SLURM_TMPDIR"]) / "dest"
+
+       start_time = time.time()
+
+       link_files(src, dest, workers)
+
+       # Torchvision expects these names
+       shutil.move(dest / "train.tar.gz", dest / "2021_train.tgz")
+       shutil.move(dest / "val.tar.gz", dest / "2021_valid.tgz")
+
+       INaturalist(root=dest, version="2021_train", download=True)
+       INaturalist(root=dest, version="2021_valid", download=True)
+
+       seconds_spent = time.time() - start_time
+
+       print(f"Prepared data in {seconds_spent/60:.2f}m")
 
 
 **Running this example**

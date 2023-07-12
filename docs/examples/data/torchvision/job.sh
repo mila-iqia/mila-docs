@@ -39,7 +39,7 @@ mkdir -p "$SLURM_TMPDIR/data"
 # Copy the dataset to $SLURM_TMPDIR so it is close to the GPUs for
 # faster training
 srun --ntasks=$SLURM_JOB_NUM_NODES --ntasks-per-node=1 \
-	time -p bash data.sh "/network/datasets/inat" ${_DATA_PREP_WORKERS}
+	time -p bash data.py "/network/datasets/inat" ${_DATA_PREP_WORKERS}
 
 
 # Fixes issues with MIG-ed GPUs with versions of PyTorch < 2.0
