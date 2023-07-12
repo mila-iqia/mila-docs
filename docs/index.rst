@@ -55,6 +55,7 @@ recommend you start by checking out the :ref:`short quick start guide
    VSCode
    IDT
    Chatbot
+   Environmental_impact
 
 :Support: To reach the Mila infrastructure support, please `submit
    a support ticket. <https://milaquebec.freshdesk.com/a/tickets/new>`_
