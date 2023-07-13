@@ -21,8 +21,6 @@ The full documentation for Oríon is available `on Oríon's ReadTheDocs page
 .. code:: diff
 
     # distributed/001_single_gpu/job.sh -> good_practices/hpo_with_orion/job.sh
-   old mode 100644
-   new mode 100755
     #!/bin/bash
     #SBATCH --gpus-per-task=rtx8000:1
     #SBATCH --cpus-per-task=4
