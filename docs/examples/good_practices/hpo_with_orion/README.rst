@@ -150,8 +150,7 @@ The full documentation for Oríon is available `on Oríon's ReadTheDocs page
 
         # Setup CIFAR10
         num_workers = get_num_workers()
-   -    dataset_path = Path(os.environ.get("SLURM_TMPDIR", ".")) / "data"
-   +    dataset_path = Path(os.environ.get("SLURM_TMPDIR", "")) / "data"
+        dataset_path = Path(os.environ.get("SLURM_TMPDIR", ".")) / "data"
         train_dataset, valid_dataset, test_dataset = make_datasets(str(dataset_path))
         train_dataloader = DataLoader(
             train_dataset,
