@@ -104,16 +104,16 @@ The command to check the quota usage from a login node is `df`:
 datasets
 --------
 
-``datasets`` contains curated datasets to the benefit of the Mila community.
-To request the addition of a dataset or a preprocessed dataset you think could
+``datasets`` contains curated datasets to the benefit of the Mila community. To
+request the addition of a dataset or a preprocessed dataset you think could
 benefit the research of others, you can fill `the datasets form
 <https://forms.gle/vDVwD2rZBmYHENgZA>`_. Datasets can also be browsed from the
 web : `Mila Datasets <https://datasets.server.mila.quebec/>`_
 
 Datasets in ``datasets/restricted`` are restricted and require an explicit
 request to gain access. Please `submit a support ticket
-<https://milaquebec.freshdesk.com/a/tickets/new>`_ mentioning the dataset's
-access group (ex.: ``scannet_users``), your cluster's username and the
+<https://mila-iqia.atlassian.net/servicedesk/customer/portals>`_ mentioning the
+dataset's access group (ex.: ``scannet_users``), your cluster's username and the
 approbation of the group owner. You can find the dataset's access group by
 listing the content of ``/network/datasets/restricted`` with the `ls command
 <https://cli-cheatsheet.readthedocs.io/en/latest/#ls>`_.
@@ -122,8 +122,8 @@ Those datasets are mirrored to the :ref:`Alliance clusters <drac_clusters>` in
 ``~/projects/rrg-bengioy-ad/data/curated/`` if they follow Digital Research
 Alliance of Canada's `good practices on data
 <https://docs.alliancecan.ca/wiki/AI_and_Machine_Learning#Managing_your_datasets>`_.
-To list the local datasets on an Alliance cluster, you can execute the
-following command:
+To list the local datasets on an Alliance cluster, you can execute the following
+command:
 
 .. prompt:: bash $
 
@@ -137,11 +137,10 @@ community.  To request the addition of a weight you think could benefit the
 research of others, you can fill `the weights form
 <https://forms.gle/HLeBkJBozjC3jG2D9>`_.
 
-Weights in ``weights/restricted`` are restricted and require an explicit
-request to gain access. Please `submit a support ticket
-<https://milaquebec.freshdesk.com/a/tickets/new>`_ mentioning the weights's
-access group (ex.: ``NAME_OF_A_RESTRICTED_MODEL_WEIGHTS_users``), your
+Weights in ``weights/restricted`` are restricted and require an explicit request
+to gain access. Please `submit a support ticket
+<https://mila-iqia.atlassian.net/servicedesk/customer/portals>`_ mentioning the
+weights's access group (ex.: ``NAME_OF_A_RESTRICTED_MODEL_WEIGHTS_users``), your
 cluster's username and the approbation of the group owner. You can find the
-weights's access group by listing the content of
-``/network/weights/restricted`` with the `ls command
-<https://cli-cheatsheet.readthedocs.io/en/latest/#ls>`_.
+weights's access group by listing the content of ``/network/weights/restricted``
+with the `ls command <https://cli-cheatsheet.readthedocs.io/en/latest/#ls>`_.

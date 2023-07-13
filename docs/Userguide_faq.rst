@@ -25,7 +25,6 @@ change for another one, please `submit a support ticket.
 <https://mila-iqia.atlassian.net/servicedesk/customer/portals>`_
 
 
-
 SLURM issues
 ------------
 
@@ -65,8 +64,8 @@ To get more info on a running job, try ``scontrol show job #JOBID``
 Unable to allocate resources: Invalid account or account/partition combination specified
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Chances are your account is not setup properly. You should `submit a support ticket.
-<https://mila-iqia.atlassian.net/servicedesk/customer/portals>`_
+Chances are your account is not setup properly. You should `submit a support
+ticket. <https://mila-iqia.atlassian.net/servicedesk/customer/portals>`_
 
 
 How do I cancel a job?
@@ -99,7 +98,6 @@ I'm getting ``Permission denied (publickey)`` while trying to connect to a node
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 See previous question
-
 
 
 Where do I put my data during a job ?

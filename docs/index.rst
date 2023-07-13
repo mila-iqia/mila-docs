@@ -57,7 +57,8 @@ recommend you start by checking out the :ref:`short quick start guide
    Chatbot
 
 :Support: To reach the Mila infrastructure support, please `submit
-   a support ticket. <https://milaquebec.freshdesk.com/a/tickets/new>`_
+   a support ticket.
+   <https://mila-iqia.atlassian.net/servicedesk/customer/portals>`_
 
 
 :Contribution: If you find any errors in the documentation, missing or unclear
