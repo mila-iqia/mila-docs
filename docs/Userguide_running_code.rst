@@ -381,11 +381,11 @@ Specific GPU *architecture* and *memory* can be easily requested through the
 
 *Example:*
 
-To request 1 GPU with *at least* 16GB of memory use
+To request 1 GPU with *at least* 48GB of memory use
 
 .. prompt:: bash $
 
-    sbatch -c 4 --gres=gpu:16gb:1
+    sbatch -c 4 --gres=gpu:48gb:1
 
 The full list of GPU and their features can be accessed :ref:`here <node_list>`.
 
