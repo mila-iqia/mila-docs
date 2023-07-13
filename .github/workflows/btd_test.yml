@@ -20,7 +20,7 @@ jobs:
         run: ./docs/examples/toggle_skip_generate_diffs_err_check.sh
         shell: bash
 
-      - uses: buildthedocs/btd@v0
+      - uses: buildthedocs/btd@67180e0ca49e3619f2475686946997cb4a478bc1
         with:
           token: ${{ github.token }}
           skip-deploy: true
