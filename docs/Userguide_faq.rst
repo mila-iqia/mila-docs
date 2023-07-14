@@ -11,7 +11,7 @@ I'm getting ``connection refused`` while trying to connect to a login node
 Login nodes are protected against brute force attacks and might ban your IP if
 it detects too many connections/failures. You will be automatically unbanned
 after 1 hour. For any further problem, please `submit a support ticket.
-<https://milaquebec.freshdesk.com/a/tickets/new>`_
+<https://mila-iqia.atlassian.net/servicedesk/customer/portals>`_
 
 
 Shell issues
@@ -22,8 +22,7 @@ How do I change my shell ?
 
 By default you will be assigned ``/bin/bash`` as a shell. If you would like to
 change for another one, please `submit a support ticket.
-<https://milaquebec.freshdesk.com/a/tickets/new>`_
-
+<https://mila-iqia.atlassian.net/servicedesk/customer/portals>`_
 
 
 SLURM issues
@@ -43,7 +42,7 @@ How can I reset my cluster password ?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 To reset your password, please `submit a support ticket.
-<https://milaquebec.freshdesk.com/a/tickets/new>`_
+<https://mila-iqia.atlassian.net/servicedesk/customer/portals>`_
 
 **Warning**: your cluster password is the same as your Google Workspace account. So,
 after reset, you must use the new password for all your Google services.
@@ -65,8 +64,8 @@ To get more info on a running job, try ``scontrol show job #JOBID``
 Unable to allocate resources: Invalid account or account/partition combination specified
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Chances are your account is not setup properly. You should `submit a support ticket.
-<https://milaquebec.freshdesk.com/a/tickets/new>`_
+Chances are your account is not setup properly. You should `submit a support
+ticket. <https://mila-iqia.atlassian.net/servicedesk/customer/portals>`_
 
 
 How do I cancel a job?
@@ -101,7 +100,6 @@ I'm getting ``Permission denied (publickey)`` while trying to connect to a node
 See previous question
 
 
-
 Where do I put my data during a job ?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -126,7 +124,7 @@ fork: retry: Resource temporarily unavailable
 You exceeded the limit of 2000 tasks/PIDs in your job, it probably means there
 is an issue with a sub-process spawning too many processes in your script. For
 any help with your software, please `submit a support ticket.
-<https://milaquebec.freshdesk.com/a/tickets/new>`_
+<https://mila-iqia.atlassian.net/servicedesk/customer/portals>`_
 
 
 PyTorch issues
