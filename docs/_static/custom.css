@@ -35,3 +35,7 @@ pre.highlight span[class^="prompt"] {
     background-color: #343131;
     color: #000000;
 }
+
+.wy-nav-content {
+    max-width: 98%; // The width of the content adjusts to the window (could be 100% if we do not want the right margin)
+}
