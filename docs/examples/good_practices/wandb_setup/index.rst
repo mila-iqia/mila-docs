@@ -4,8 +4,8 @@ WANDB Setup
 
 Prerequisites:
 
-* :doc:`/examples/frameworks/pytorch_setup`
-* :doc:`/examples/distributed/single_gpu`
+* :doc:`/examples/frameworks/pytorch_setup/`
+* :doc:`/examples/distributed/single_gpu/`
 
 Make sure to create a WANDB account, then you can either :
 - Set your WANDB_API_KEY environment variable
@@ -28,10 +28,12 @@ Click here to see `the source code for this example
 .. literalinclude:: examples/good_practices/wandb_setup/job.sh.diff
     :language: diff
 
+
 **main.py**
 
 .. literalinclude:: examples/good_practices/wandb_setup/main.py.diff
     :language: diff
+
 
 **Running this example**
 Note : On DRAC clusters you will need to run `wandb off` to log your data as offline mode. 
