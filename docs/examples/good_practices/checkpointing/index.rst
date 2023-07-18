@@ -15,7 +15,7 @@ repository.
 <https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/good_practices/checkpointing>`_
 
 
-**job.sh**
+**Job.sh**
 
 .. literalinclude:: job.sh.diff
    :language: diff

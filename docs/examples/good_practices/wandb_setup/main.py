@@ -36,10 +36,14 @@ def main():
     run = wandb.init(
     # Set the project where this run will be logged
     project="awesome-wandb-example",
+    name=os.environ.get("SLURM_JOB_ID"),
+    resume="allow", # See https://docs.wandb.ai/guides/runs/resuming
     # Track hyperparameters and run metadata
     config={
         "learning_rate": learning_rate,
         "epochs": training_epochs,
+        "weight_decay": weight_decay,
+        "batch_size": batch_size,
     })
 
     # Create a model and move it to the GPU.
@@ -110,7 +114,7 @@ def main():
             logger.debug(f"Average Loss: {loss.item()}")
 
             #Log metrics with wandb
-            wandb.log({"accuracy": accuracy, "loss": loss})
+            wandb.log({"train/accuracy": accuracy, "train/loss": loss})
 
             # Advance the progress bar one step, and update the "postfix" () the progress bar. (nicer than just)
             progress_bar.update(1)
@@ -118,6 +122,7 @@ def main():
         progress_bar.close()
 
         val_loss, val_accuracy = validation_loop(model, valid_dataloader, device)
+        wandb.log({"val/accuracy": val_accuracy, "val/loss": val_loss})
         logger.info(f"Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%}")
 
     print("Done!")
