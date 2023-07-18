@@ -1,5 +1,5 @@
 Multi-GPU Job
-*************
+=============
 
 
 Prerequisites:

@@ -3,4 +3,4 @@ _build
 .idea
 **/__pycache__
 /docs/examples/**/*.diff
-docs/examples/**/slurm-*.out
+/docs/examples/**/slurm-*.out

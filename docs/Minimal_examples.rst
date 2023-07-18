@@ -10,8 +10,7 @@ Examples has the following structured:
 * ``job.sh``: SLURM ``sbatch`` script. Can be launched with ``sbatch job.sh``.
 * ``main.py``: Example python script.
 
-Some examples (for example :doc:`this one <examples/distributed/multi_gpu/_index>`) are displayed in terms of the difference
-between some "base" example and the "new" example.
+Some examples are displayed as a difference with respect to a "base" example. For instance, the :doc:`multi-gpu example <examples/distributed/multi_gpu/index>` is shown as a difference with respect to the :doc:`single-gpu example <examples/distributed/single_gpu/index>`.
 
 
 

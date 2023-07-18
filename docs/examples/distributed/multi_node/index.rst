@@ -1,5 +1,5 @@
 Multi-Node (DDP) Job
-********************
+====================
 
 
 Prerequisites:
