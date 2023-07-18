@@ -35,4 +35,8 @@ generate_diff distributed/002_multi_gpu/main.py distributed/003_multi_node/main.
 generate_diff distributed/001_single_gpu/job.sh good_practices/checkpointing/job.sh
 generate_diff distributed/001_single_gpu/main.py good_practices/checkpointing/main.py
 
+# single_gpu -> hpo_with_orion
+generate_diff distributed/001_single_gpu/job.sh good_practices/hpo_with_orion/job.sh
+generate_diff distributed/001_single_gpu/main.py good_practices/hpo_with_orion/main.py
+
 popd
