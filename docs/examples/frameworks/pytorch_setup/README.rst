@@ -30,13 +30,13 @@ repository.
    #SBATCH --cpus-per-task=1
    #SBATCH --mem=16G
    #SBATCH --time=00:15:00
-   #SBATCH --partition=unkillable
 
    set -e  # exit on error.
    echo "Date:     $(date)"
    echo "Hostname: $(hostname)"
 
-   module purge
+   # Ensure only anaconda/3 module loaded.
+   module --quiet purge
    # This example uses Conda to manage package dependencies.
    # See https://docs.mila.quebec/Userguide.html#conda for more information.
    module load anaconda/3
