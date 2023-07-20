@@ -103,6 +103,18 @@ your supervisor is member of the ``rrg-bengioy-ad`` allocation, you should apply
 you should apply separately using your supervisor's CCRI to have access to ``def-<yoursupervisor>``. Ask your supervisor
 to share these CCRI with you.
 
+Account Renewal
+---------------
+
+All user accounts (Sponsor & Sponsored) have to be renewed annually in order to keep up-to-date information on active accounts 
+and to deactivate unusued accounts.
+
+To find out how to renew your account or for any other questions regarding DRAC's accounts renewal, 
+please head over to their `FAQ <https://alliancecan.ca/en/services/advanced-research-computing/account-management/account-renewals/account-renewals-faq>`_.
+
+If the FAQ is of no help, you can contact DRAC renewal support team at ``renewals@tech.alliancecan.ca`` 
+or the general support team at ``support@tech.alliancecan.ca``.
+
 Clusters
 --------
 
