@@ -10,7 +10,7 @@ Here we provide an example for Oríon, the HPO framework developped at Mila.
 Make sure to read the following sections of the documentation before using this
 example:
 
-* :ref:`pytorch_setup`
+* :doc:`/examples/frameworks/pytorch_setup/index`
 
 The full documentation for Oríon is available `on Oríon's ReadTheDocs page
 <https://orion.readthedocs.io/en/stable/index.html>`_.
