@@ -3,7 +3,7 @@
 .. **DO NOT EDIT**
 
 Multi-Node (DDP) Job
-********************
+====================
 
 
 Prerequisites:

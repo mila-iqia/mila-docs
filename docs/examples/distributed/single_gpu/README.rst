@@ -5,7 +5,7 @@
 .. _single_gpu_job:
 
 Single GPU Job
-**************
+==============
 
 
 **Prerequisites**

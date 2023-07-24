@@ -3,7 +3,7 @@
 .. **DO NOT EDIT**
 
 Multi-GPU Job
-*************
+=============
 
 
 Prerequisites:
