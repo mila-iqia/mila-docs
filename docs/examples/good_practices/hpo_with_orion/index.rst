@@ -16,6 +16,12 @@ The full documentation for Oríon is available `on Oríon's ReadTheDocs page
 <https://orion.readthedocs.io/en/stable/index.html>`_.
 
 
+The full source code for this example is available on `the mila-docs GitHub repository.
+<https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/good_practices/hpo_with_orion>`_
+
+
+
+
 **job.sh**
 
 .. literalinclude:: examples/good_practices/hpo_with_orion/job.sh.diff
