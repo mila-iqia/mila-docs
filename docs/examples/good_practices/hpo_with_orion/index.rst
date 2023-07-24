@@ -22,21 +22,14 @@ The full source code for this example is available on `the mila-docs GitHub repo
 
 **job.sh**
 
-.. literalinclude:: examples/good_practices/hpo_with_orion/job.sh.diff
+.. literalinclude:: job.sh.diff
     :language: diff
-
-.. .. literalinclude:: examples/good_practices/hpo_with_orion/job.sh
-..     :language: bash
 
 
 **main.py**
 
-.. literalinclude:: examples/good_practices/hpo_with_orion/main.py.diff
+.. literalinclude:: main.py.diff
     :language: diff
-
-.. .. literalinclude:: examples/good_practices/hpo_with_orion/main.py
-..     :language: python
-
 
 **Running this example**
 

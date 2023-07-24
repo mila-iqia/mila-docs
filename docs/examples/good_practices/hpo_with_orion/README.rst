@@ -88,9 +88,6 @@ The full source code for this example is available on `the mila-docs GitHub repo
     +
     +orion hunt -n orion-example --exp-max-trials 10 python main.py --learning-rate~'loguniform(1e-5, 1.0)'
 
-.. .. literalinclude:: examples/good_practices/hpo_with_orion/job.sh
-..     :language: bash
-
 
 **main.py**
 
@@ -296,10 +293,6 @@ The full source code for this example is available on `the mila-docs GitHub repo
 
      if __name__ == "__main__":
          main()
-
-.. .. literalinclude:: examples/good_practices/hpo_with_orion/main.py
-..     :language: python
-
 
 **Running this example**
 
