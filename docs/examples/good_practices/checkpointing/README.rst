@@ -285,7 +285,7 @@ repository.
                  logger.debug(f"Accuracy: {accuracy.item():.2%}")
                  logger.debug(f"Average Loss: {loss.item()}")
 
-    -            # Advance the progress bar one step, and update the "postfix" () the progress bar. (nicer than just)
+    -            # Advance the progress bar one step and update the progress bar text.
     +            # Advance the progress bar one step, and update the text displayed in the progress bar.
                  progress_bar.update(1)
                  progress_bar.set_postfix(loss=loss.item(), accuracy=accuracy.item())
