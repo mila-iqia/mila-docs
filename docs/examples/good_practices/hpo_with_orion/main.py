@@ -1,5 +1,6 @@
 """Hyperparameter optimization using Oríon."""
 import argparse
+import json
 import logging
 import os
 import sys
@@ -44,7 +45,7 @@ def main():
 
     logger = logging.getLogger(__name__)
 
-    logger.info(f"epochs {training_epochs}, learning rate {learning_rate}, weight decay {weight_decay}, batch size {batch_size}")
+    logger.info(f"Args: {json.dumps(vars(args), indent=1)}")
 
     # Create a model and move it to the GPU.
     model = resnet18(num_classes=10)
