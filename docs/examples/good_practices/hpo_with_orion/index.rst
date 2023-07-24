@@ -20,8 +20,6 @@ The full source code for this example is available on `the mila-docs GitHub repo
 <https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/good_practices/hpo_with_orion>`_
 
 
-
-
 **job.sh**
 
 .. literalinclude:: examples/good_practices/hpo_with_orion/job.sh.diff
