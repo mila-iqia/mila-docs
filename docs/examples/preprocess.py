@@ -158,7 +158,11 @@ def inline_docs_for_github_viewing(example_readme_template_path: Path) -> str:
             del content_lines[i : i + 1 + j]
 
             insert = [f".. code:: {lang}", ""] + [
-                f"    {_l}".rstrip(" ") for _l in (docs_root / path).read_text().split("\n")
+                # NOTE: The code block in the .rst files is indented with 3 spaces, but the
+                # rendered code blocks in the README.rst on GitHub and in the online docs have the
+                # correct indented for a Python script (4 spaces).
+                f"   {_l}".rstrip(" ")
+                for _l in (docs_root / path).read_text().split("\n")
             ]
             content_lines = content_lines[:i] + insert + content_lines[i + 1 :]
             i += len(insert)
