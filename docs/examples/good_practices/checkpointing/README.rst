@@ -23,9 +23,7 @@ repository.
 
 .. code:: diff
 
-    # distributed/single_gpu/job.sh -> good_practices/checkpointing/job.sh
-   old mode 100644
-   new mode 100755
+    # distributed/001_single_gpu/job.sh -> good_practices/checkpointing/job.sh
     #!/bin/bash
    -#SBATCH --gpus-per-task=rtx8000:1
    +#SBATCH --gpus-per-task=1
@@ -55,14 +53,8 @@ repository.
     module load cuda/11.7
 
    +
-    # Creating the environment for the first time:
-    # conda create -y -n pytorch python=3.9 pytorch torchvision torchaudio \
-   -#     pytorch-cuda=11.7 -c pytorch -c nvidia
-   +#     pytorch-cuda=11.7 scipy -c pytorch -c nvidia
-    # Other conda packages:
-    # conda install -y -n pytorch -c conda-forge rich tqdm
-
     # Activate pre-existing environment.
+    # NOTE: Use the `make_env.sh` script to create the environment if you haven't already.
     conda activate pytorch
 
 

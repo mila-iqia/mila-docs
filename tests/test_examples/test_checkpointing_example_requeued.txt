@@ -1,0 +1,12 @@
+[(date) (time)] INFO     NOTE: This job has been restarted 1 times by SLURM.                                                                                                                                                                    main.py:293
+                    INFO     Resuming training at epoch 4 (best_acc=67.58%).                                                                                                                                                                        main.py:115
+Using downloaded and verified file: $SLURM_TMPDIR/data/cifar-10-python.tar.gz
+Extracting $SLURM_TMPDIR/data/cifar-10-python.tar.gz to $SLURM_TMPDIR/data
+Files already downloaded and verified
+[(date) (time)] INFO     Epoch 4: Val loss: 37.429 accuracy: 68.14%                                                                                                                                                                             main.py:204
+[(date) (time)] INFO     Epoch 5: Val loss: 40.469 accuracy: 66.78%                                                                                                                                                                             main.py:204
+[(date) (time)] INFO     Epoch 6: Val loss: 48.439 accuracy: 63.78%                                                                                                                                                                             main.py:204
+[(date) (time)] INFO     Epoch 7: Val loss: 38.182 accuracy: 71.46%                                                                                                                                                                             main.py:204
+[(date) (time)] INFO     Epoch 8: Val loss: 40.733 accuracy: 70.60%                                                                                                                                                                             main.py:204
+[(date) (time)] INFO     Epoch 9: Val loss: 44.822 accuracy: 69.96%                                                                                                                                                                             main.py:204
+Done!

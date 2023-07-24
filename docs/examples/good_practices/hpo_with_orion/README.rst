@@ -38,6 +38,8 @@ The full source code for this example is available on `the mila-docs GitHub repo
     #SBATCH --mem=16G
     #SBATCH --time=00:15:00
 
+   +# Exit on error
+   +set -e
 
     # Echo time and hostname into log
     echo "Date:     $(date)"
@@ -51,21 +53,19 @@ The full source code for this example is available on `the mila-docs GitHub repo
     module load anaconda/3
     module load cuda/11.7
 
-    # Creating the environment for the first time:
-    # conda create -y -n pytorch python=3.9 pytorch torchvision torchaudio \
-    #     pytorch-cuda=11.7 -c pytorch -c nvidia
-    # Other conda packages:
-    # conda install -y -n pytorch -c conda-forge rich tqdm
-   +# Orion package:
-   +# pip install orion
-
     # Activate pre-existing environment.
-    conda activate pytorch
+    # NOTE: Use the `make_env.sh` script to create the environment if you haven't already.
+   -conda activate pytorch
+   +ENV_PATH="$SCRATCH/conda/pytorch_orion"
+   +conda activate $ENV_PATH
+   +# Install the Orion package:
+   +# pip install orion
 
 
     # Stage dataset into $SLURM_TMPDIR
     mkdir -p $SLURM_TMPDIR/data
-    cp /network/datasets/cifar10/cifar-10-python.tar.gz $SLURM_TMPDIR/data/
+   -cp /network/datasets/cifar10/cifar-10-python.tar.gz $SLURM_TMPDIR/data/
+   +cp --update /network/datasets/cifar10/cifar-10-python.tar.gz $SLURM_TMPDIR/data/
     # General-purpose alternatives combining copy and unpack:
     #     unzip   /network/datasets/some/file.zip -d $SLURM_TMPDIR/data/
     #     tar -xf /network/datasets/some/file.tar -C $SLURM_TMPDIR/data/
@@ -88,7 +88,7 @@ The full source code for this example is available on `the mila-docs GitHub repo
    +# Then you can specify a search space for each `main.py`'s script parameter
    +# you want to optimize. Here we optimize only the learning rate.
    +
-   +orion hunt -n orion-example --exp-max-trials 10 python main.py --learning-rate~'loguniform(1e-5, 1.0)'
+   +orion --verbose hunt -n orion-example --exp-max-trials 10 python main.py --learning-rate~'loguniform(1e-5, 1.0)'
 
 
 **main.py**

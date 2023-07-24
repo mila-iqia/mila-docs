@@ -29,7 +29,7 @@ Click here to see `the source code for this example
     #!/bin/bash
     #SBATCH --gpus-per-task=rtx8000:1
     #SBATCH --cpus-per-task=4
-    #SBATCH --ntasks-per-node=4
+    #SBATCH --ntasks-per-node=2
    -#SBATCH --nodes=1
    +#SBATCH --nodes=2
     #SBATCH --mem=16G
@@ -48,13 +48,9 @@ Click here to see `the source code for this example
     module load anaconda/3
     module load cuda/11.7
 
-    # Creating the environment for the first time:
-    # conda create -y -n pytorch python=3.9 pytorch torchvision torchaudio \
-    #     pytorch-cuda=11.7 -c pytorch -c nvidia
-    # Other conda packages:
-    # conda install -y -n pytorch -c conda-forge rich tqdm
-
+   -
     # Activate pre-existing environment.
+    # NOTE: Use the `make_env.sh` script to create the environment if you haven't already.
     conda activate pytorch
 
    -

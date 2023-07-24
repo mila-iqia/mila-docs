@@ -1,0 +1,4 @@
+PyTorch built with CUDA:         True
+PyTorch detects CUDA available:  True
+PyTorch-detected #GPUs:          1
+    GPU 0:      NVIDIA A100-SXM4-80GB MIG 1g.10gb
