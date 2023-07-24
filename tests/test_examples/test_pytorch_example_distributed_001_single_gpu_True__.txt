@@ -1,0 +1,24 @@
+Using downloaded and verified file: $SLURM_TMPDIR/data/cifar-10-python.tar.gz
+Extracting $SLURM_TMPDIR/data/cifar-10-python.tar.gz to $SLURM_TMPDIR/data
+Files already downloaded and verified
+[(date) (time)] INFO     INFO:__main__:Epoch 0: Val loss: 50.314 main.py:121
+                             accuracy: 54.26%                                   
+[(date) (time)] INFO     INFO:__main__:Epoch 1: Val loss: 46.534 main.py:121
+                             accuracy: 59.04%                                   
+[(date) (time)] INFO     INFO:__main__:Epoch 2: Val loss: 42.161 main.py:121
+                             accuracy: 62.84%                                   
+[(date) (time)] INFO     INFO:__main__:Epoch 3: Val loss: 37.565 main.py:121
+                             accuracy: 67.58%                                   
+[(date) (time)] INFO     INFO:__main__:Epoch 4: Val loss: 37.429 main.py:121
+                             accuracy: 68.14%                                   
+[(date) (time)] INFO     INFO:__main__:Epoch 5: Val loss: 40.469 main.py:121
+                             accuracy: 66.78%                                   
+[(date) (time)] INFO     INFO:__main__:Epoch 6: Val loss: 48.439 main.py:121
+                             accuracy: 63.78%                                   
+[(date) (time)] INFO     INFO:__main__:Epoch 7: Val loss: 38.182 main.py:121
+                             accuracy: 71.46%                                   
+[(date) (time)] INFO     INFO:__main__:Epoch 8: Val loss: 40.733 main.py:121
+                             accuracy: 70.60%                                   
+[(date) (time)] INFO     INFO:__main__:Epoch 9: Val loss: 44.822 main.py:121
+                             accuracy: 69.96%                                   
+Done!

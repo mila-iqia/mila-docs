@@ -14,13 +14,8 @@ module --quiet purge
 # See https://docs.mila.quebec/Userguide.html#conda for more information.
 module load anaconda/3
 
-# Creating the environment for the first time:
-# conda create -y -n pytorch python=3.9 pytorch torchvision torchaudio \
-#     pytorch-cuda=11.6 -c pytorch -c nvidia
-# Other conda packages:
-# conda install -y -n pytorch -c conda-forge rich
-
 # Activate the environment:
+# NOTE: Use the `make_env.sh` script to create the environment if you haven't already.
 conda activate pytorch
 
 # Fixes issues with MIG-ed GPUs with versions of PyTorch < 2.0
