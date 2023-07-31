@@ -45,6 +45,7 @@ recommend you start by checking out the :ref:`short quick start guide
 
    Minimal_examples
 
+
 .. toctree::
    :caption: Extras
    :maxdepth: 2

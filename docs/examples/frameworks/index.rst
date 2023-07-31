@@ -1,6 +1,6 @@
-*******************
+===================
 Software Frameworks
-*******************
+===================
 
 (Work-in-progress): This section shows how to setup a development environment
 for various frameworks.

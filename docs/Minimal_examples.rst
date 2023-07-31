@@ -13,7 +13,6 @@ Each example has the following structure:
 Some examples are displayed as a difference with respect to a "base" example. For instance, the :doc:`multi-gpu example <examples/distributed/multi_gpu/index>` is shown as a difference with respect to the :doc:`single-gpu example <examples/distributed/single_gpu/index>`.
 
 
-
 .. toctree::
     :maxdepth: 1
 
