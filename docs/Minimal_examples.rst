@@ -5,7 +5,7 @@ Minimal Examples
 This section contains some minimal examples of how to run jobs on the Mila cluster.
 
 Each example is self-contained and can be run as-is directly on the cluster without error.
-Examples has the following structured:
+Each example has the following structure:
 
 * ``job.sh``: SLURM ``sbatch`` script. Can be launched with ``sbatch job.sh``.
 * ``main.py``: Example python script.
