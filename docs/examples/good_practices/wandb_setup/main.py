@@ -44,7 +44,8 @@ def main():
         "epochs": training_epochs,
         "weight_decay": weight_decay,
         "batch_size": batch_size,
-    })
+    },
+    )
 
     # Create a model and move it to the GPU.
     model = resnet18(num_classes=10)
