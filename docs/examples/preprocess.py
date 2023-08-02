@@ -171,7 +171,8 @@ def inline_docs_for_github_viewing(example_readme_template_path: Path) -> str:
         line = content_lines[line_index]
         # Using fullmatch with the spaces specified in the regex so that we don't match comments.
         # There is also no need to call .strip() or the result this way.
-        if not (include_block_match := re.fullmatch(literalinclude_pattern, line)):
+        include_block_match = re.fullmatch(literalinclude_pattern, line)
+        if not include_block_match:
             # This is just a normal text line in the doc. Add it and move to the next.
             new_content_lines.append(line)
             line_index += 1
@@ -179,7 +180,8 @@ def inline_docs_for_github_viewing(example_readme_template_path: Path) -> str:
 
         # Can't have a literalinclude on the last line
         assert line_index + 1 < len(content_lines)
-        if not (language_match := re.fullmatch(language_pattern, content_lines[line_index + 1])):
+        language_match = re.fullmatch(language_pattern, content_lines[line_index + 1])
+        if not language_match:
             # NOTE: Add 1 to line index so paths in logs are clickable for debugging purposes.
             raise RuntimeError(
                 f"Found a literalinclude block at "
