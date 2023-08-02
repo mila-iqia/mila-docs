@@ -88,11 +88,9 @@ def generate_diffs(docs_root: Path):
 
 
 def make_links_github_friendly(readme_template_path: Path, content_lines: list[str]) -> list[str]:
+    """Generates github links from :doc: refs in the example rst."""
     relative_readme_template_path = readme_template_path.relative_to(DOCS_ROOT)
     result = content_lines.copy()
-    # # TODO: Change refs to Prerequisites from rst format into GitHub-friendly links.
-    # NOTE: Seems pretty hard to do, because the link location is something like "Quick Start",
-    # which isn't a file name. Perhaps if we could use filenames for the refs, that might work.
     for i, line in enumerate(content_lines):
         if "* :doc:`" not in line:
             continue
@@ -188,6 +186,29 @@ def inline_docs_for_github_viewing(example_readme_template_path: Path) -> str:
                 f"{example_readme_template_path}:{line_index+1} but it's missing a "
                 f":language: directive on the following line."
             )
+
+        def _get_block_length() -> int:
+            length = 1
+            while (
+                line_index + length < len(content_lines)
+                and content_lines[line_index + length]
+                and not content_lines[line_index + length].isspace()
+            ):
+                length += 1
+            return length
+
+        block_length = _get_block_length()
+        if block_length != 2:
+            logger.warning(
+                RuntimeWarning(
+                    f"Found a literalinclude block at "
+                    f"{example_readme_template_path}:{line_index+1} but it has {block_length} "
+                    f"lines instead of 2. We don't know what to do with the other directives "
+                    f"than :language: so they won't be added in the README.rst that will be shown "
+                    f"on GitHub."
+                )
+            )
+
         file_name = include_block_match.group("file_path")
         file_path = _get_path_to_file(file_name)
         language = language_match.group("language")
@@ -205,9 +226,8 @@ def inline_docs_for_github_viewing(example_readme_template_path: Path) -> str:
         # usual for python scripts (4 spaces).
         inlined_block_lines = [f".. code:: {language}", ""]
         inlined_block_lines.extend(textwrap.indent(file_path.read_text(), " " * 3).splitlines())
-
         new_content_lines.extend(inlined_block_lines)
-        line_index += 2  # +2 so we go to the line following the :language: directive.
+        line_index += block_length  # go to the line after the block
 
     # Remove any trailing whitespace, if any:
     new_content_lines = [line.rstrip() for line in new_content_lines]
