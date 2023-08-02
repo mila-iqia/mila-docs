@@ -1,18 +1,22 @@
 """Generate GitHub README's from index.rst files
+
 GitHub doesn't support include of other files, even of the same type and
-location, so this file generates a README.rst with files content embedded
+location, so this file generates a README.rst with files content embedded.
 """
 from __future__ import annotations
-from pathlib import Path
+
+import argparse
+import logging
+import re
 import subprocess
 import sys
-import logging
-from logging import getLogger as get_logger
 import textwrap
+from logging import getLogger as get_logger
+from pathlib import Path
 
 logger = get_logger(__name__)
-docs_root = Path(__file__).absolute().parent.parent
-assert docs_root.name == "docs"
+DOCS_ROOT = Path(__file__).absolute().parent.parent
+assert DOCS_ROOT.name == "docs"
 
 
 def preprocess():
@@ -23,13 +27,13 @@ def preprocess():
     3. Makes a GitHub-friendly version of the example and saves it as a `README.rst` file.
     """
 
-    generate_diffs(docs_root)
+    generate_diffs(DOCS_ROOT)
 
     # NOTE: We require each example .rst file to include a link to the source file on GitHub.
     # Top-level files in a section (e.g. docs/examples/distributed/index.rst) are exempt
     # from this requirement since all the examples in that section will have links.
 
-    for example_readme_template_path in docs_root.rglob("examples/*/*/**/index.rst"):
+    for example_readme_template_path in DOCS_ROOT.rglob("examples/*/*/**/index.rst"):
         # Make sure that all the examples contain a link to the example source code on GitHub.
         logger.debug(f"{example_readme_template_path}")
         check_github_links(example_readme_template_path)
@@ -43,7 +47,7 @@ def preprocess():
 
 
 def check_github_links(example_readme_template_path: Path):
-    relative_readme_template_path = example_readme_template_path.relative_to(docs_root)
+    relative_readme_template_path = example_readme_template_path.relative_to(DOCS_ROOT)
     relative_readme_folder = relative_readme_template_path.parent
     github_link = (
         f"https://github.com/mila-iqia/mila-docs/tree/master/docs/{relative_readme_folder}"
@@ -84,7 +88,7 @@ def generate_diffs(docs_root: Path):
 
 
 def make_links_github_friendly(readme_template_path: Path, content_lines: list[str]) -> list[str]:
-    relative_readme_template_path = readme_template_path.relative_to(docs_root)
+    relative_readme_template_path = readme_template_path.relative_to(DOCS_ROOT)
     result = content_lines.copy()
     # # TODO: Change refs to Prerequisites from rst format into GitHub-friendly links.
     # NOTE: Seems pretty hard to do, because the link location is something like "Quick Start",
@@ -96,11 +100,11 @@ def make_links_github_friendly(readme_template_path: Path, content_lines: list[s
         reference = line.strip()[len("* :doc:`") :].split("`")[0]
         logger.debug(f"Example {relative_readme_template_path} has link to {reference}.")
         referenced_file = (
-            docs_root / reference[1:]
+            DOCS_ROOT / reference[1:]
             if reference.startswith("/examples")
             else relative_readme_template_path.parent / reference[1:]
         )
-        referenced_file = referenced_file.relative_to(docs_root)
+        referenced_file = referenced_file.relative_to(DOCS_ROOT)
         referenced_folder = referenced_file.parent
         github_link = (
             f"https://github.com/mila-iqia/mila-docs/tree/master/docs/{referenced_folder}"
@@ -112,11 +116,37 @@ def make_links_github_friendly(readme_template_path: Path, content_lines: list[s
 
 
 def inline_docs_for_github_viewing(example_readme_template_path: Path) -> str:
-    relative_readme_template_path = example_readme_template_path.relative_to(docs_root)
+    """Replaces a literalinclude block with the contents of the file it points to.
+
+    Replace this:
+    ```
+    .. literalinclude:: job.sh
+       :language: bash
+    ```
+    with this:
+    .. code-block:: bash
+       (...) # Contents of job.sh
+
+    """
+    relative_readme_template_path = example_readme_template_path.relative_to(DOCS_ROOT)
 
     content = example_readme_template_path.read_text()
     content_lines = content.splitlines()
-    content_lines = (
+
+    def _get_path_to_file(filename: str) -> Path:
+        if filename.startswith("examples/"):
+            # all good, the path is absolute already.
+            return Path(filename)
+        elif "/" not in filename:
+            # Path is like `job.sh.diff`, which is good.
+            return example_readme_template_path.parent / filename
+        else:
+            raise NotImplementedError(
+                f"Example {example_readme_template_path} uses a weird format in a "
+                f"literalinclude: {filename}"
+            )
+
+    new_content_lines: list[str] = (
         textwrap.dedent(
             f"""\
             .. NOTE: This file is auto-generated from {relative_readme_template_path}
@@ -125,60 +155,66 @@ def inline_docs_for_github_viewing(example_readme_template_path: Path) -> str:
             """
         ).splitlines()
         + [""]  # Need an empty line between this header and the content, otherwise rstcheck cries
-        + content_lines
     )
 
-    i = 0
-    end = len(content_lines)
-    while i < end:
-        line = content_lines[i]
-        if line.startswith(".. literalinclude:: "):
-            path = line[len(".. literalinclude:: ") :].strip(" ")
-            # TODO: This causes an issue when building the docs because the path to job.sh
-            if path.startswith("examples/"):
-                # all good, the path is absolute already.
-                # logger.debug(f"The path to source code is already absolute: {path}")
-                pass
-            elif path.count("/") == 0:
-                # logger.debug(f"The path to source code is relative: {path}")
-                path = str(example_readme_template_path.parent / path)
-            else:
-                raise NotImplementedError(
-                    f"Example {example_readme_template_path} uses a weird format in a "
-                    f"literalinclude: {path}"
-                )
-            lang = ""
-            j = 0
-            for j, line in enumerate(content_lines[i + 1 :]):
-                line = line.strip(" ")
-                if line.startswith(":language:"):
-                    lang = line[len(":language:") :].strip(" ")
-                elif line.startswith(".. literalinclude:: ") or not line:
-                    break
-            del content_lines[i : i + 1 + j]
+    # Matches a group of non-whitespace characters after the literalinclude directive, maybe
+    # followed by some whitespace.
+    literalinclude_pattern = r".. literalinclude::\s*(?P<file_path>[^\s]+)\s*"
 
-            insert = [f".. code:: {lang}", ""] + [
-                # NOTE: The code block in the .rst files is indented with 3 spaces, but the
-                # rendered code blocks in the README.rst on GitHub and in the online docs have the
-                # correct indented for a Python script (4 spaces).
-                f"   {_l}".rstrip(" ")
-                for _l in (docs_root / path).read_text().split("\n")
-            ]
-            content_lines = content_lines[:i] + insert + content_lines[i + 1 :]
-            i += len(insert)
-            end = len(content_lines)
-        else:
-            i += 1
+    # Matches some leading whitespace since it needs to be idented, (note: the number of spaces
+    # varies, usually 3 or 4), followed by a word and potentially some whitespace at the end.
+    language_pattern = r"\s+:language:\s*(?P<language>[^\s]+)\s*"
 
-    # Write out the new contents (template + inlined files) to a README.rst that is viewable
-    # from the GitHub page.
-    new_content = "\n".join(content_lines).replace("\t", " " * 4) + "\n"
+    line_index = 0
+    # Using a while loop here because we want to skip two lines whenever we find a match.
+    while line_index < len(content_lines):
+        line = content_lines[line_index]
+        # Using fullmatch with the spaces specified in the regex so that we don't match comments.
+        # There is also no need to call .strip() or the result this way.
+        if not (include_block_match := re.fullmatch(literalinclude_pattern, line)):
+            # This is just a normal text line in the doc. Add it and move to the next.
+            new_content_lines.append(line)
+            line_index += 1
+            continue
+
+        # Can't have a literalinclude on the last line
+        assert line_index + 1 < len(content_lines)
+        if not (language_match := re.fullmatch(language_pattern, content_lines[line_index + 1])):
+            # NOTE: Add 1 to line index so paths in logs are clickable for debugging purposes.
+            raise RuntimeError(
+                f"Found a literalinclude block at "
+                f"{example_readme_template_path}:{line_index+1} but it's missing a "
+                f":language: directive on the following line."
+            )
+        file_name = include_block_match.group("file_path")
+        file_path = _get_path_to_file(file_name)
+        language = language_match.group("language")
+        logger.debug(
+            f"Found a literalinclude block at {example_readme_template_path}:{line_index+1}"
+        )
+        if not file_path.exists():
+            raise RuntimeError(
+                f"The example at {example_readme_template_path} has a literalinclude of "
+                f"{file_name!r} which can't be found."
+            )
+        # Create the inline code block.
+        # NOTE: The code block in the .rst files is indented with 3 spaces, but the
+        # rendered code blocks in the README.rst on GitHub and in the online docs is indented as
+        # usual for python scripts (4 spaces).
+        inlined_block_lines = [f".. code:: {language}", ""]
+        inlined_block_lines.extend(textwrap.indent(file_path.read_text(), " " * 3).splitlines())
+
+        new_content_lines.extend(inlined_block_lines)
+        line_index += 2  # +2 so we go to the line following the :language: directive.
+
+    # Remove any trailing whitespace, if any:
+    new_content_lines = [line.rstrip() for line in new_content_lines]
+    # Replace tabs with 4 spaces (otherwise rstcheck complains):
+    new_content = "\n".join(new_content_lines).replace("\t", " " * 4)
     return new_content
 
 
 if __name__ == "__main__":
-    import argparse
-
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("-v", "--verbose", action="count", default=0)
     args = parser.parse_args()
