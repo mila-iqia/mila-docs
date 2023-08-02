@@ -177,6 +177,12 @@ def inline_docs_for_github_viewing(example_readme_template_path: Path) -> str:
 
 
 if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("-v", "--verbose", action="count", default=0)
+    args = parser.parse_args()
+
     handlers = []
     try:
         from rich.logging import RichHandler
@@ -184,5 +190,8 @@ if __name__ == "__main__":
         handlers.append(RichHandler(markup=True))
     except ImportError:
         pass
-    logging.basicConfig(level=logging.INFO, format="%(message)s", handlers=handlers)
+
+    level = logging.DEBUG if args.verbose > 0 else logging.INFO
+    logging.basicConfig(level=level, format="%(message)s", handlers=handlers)
+
     preprocess()
