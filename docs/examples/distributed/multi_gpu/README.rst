@@ -373,13 +373,6 @@ Click here to see `the code for this example
         main()
 
 
-.. .. literalinclude:: examples/distributed/002_multi_gpu/job.sh
-..     :language: bash
-
-.. .. literalinclude:: examples/distributed/002_multi_gpu/main.py
-..     :language: python
-
-
 **Running this example**
 
 .. code-block:: bash

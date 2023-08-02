@@ -28,13 +28,6 @@ Click here to see `the source code for this example
     :language: diff
 
 
-.. .. literalinclude:: examples/distributed/003_multi_node/job.sh
-..     :language: bash
-
-.. .. literalinclude:: examples/distributed/003_multi_node/main.py
-..     :language: python
-
-
 **Running this example**
 
 .. code-block:: bash
