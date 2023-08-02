@@ -136,7 +136,7 @@ def inline_docs_for_github_viewing(example_readme_template_path: Path) -> str:
     def _get_path_to_file(filename: str) -> Path:
         if filename.startswith("examples/"):
             # all good, the path is absolute already.
-            return Path(filename)
+            return DOCS_ROOT / filename
         elif "/" not in filename:
             # Path is like `job.sh.diff`, which is good.
             return example_readme_template_path.parent / filename
