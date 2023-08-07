@@ -122,6 +122,11 @@ def run_example(
         conda_env_path=conda_env,
         conda_env_name_in_script=conda_env_name_in_script,
     )
+    # TODO: Should we modify the job script file in-place here? Not doing so would keeps things
+    # "clean" but also make it harder to debug, since we can't just do `srun job.sh` from inside
+    # `tests/.submitit/<test_folder>`
+    job_script.write_text(job_script_content)
+
     example_lines_after_sbatch = [
         stripped_line
         for line in job_script_content.splitlines(keepends=False)
@@ -187,6 +192,7 @@ def run_pytorch_example(
     examples_dir: Path = EXAMPLES_DIR,
     make_reproducible: bool = True,
     submitit_dir: Path = SUBMITIT_DIR,
+    conda_env_name_in_script="pytorch",
     modify_job_script_before_running: Callable[[Path], None] | None = None,
 ) -> list[str]:
     """Runs a pytorch-base example with a main.py and job.sh file.
@@ -221,7 +227,7 @@ def run_pytorch_example(
         job_script,
         conda_env=pytorch_conda_env_location,
         sbatch_parameter_overrides=sbatch_parameter_overrides or {},
-        conda_env_name_in_script="pytorch",
+        conda_env_name_in_script=conda_env_name_in_script,
         wait_for_results=True,
     )
     # Filter out lines that may change between executions:
@@ -236,7 +242,7 @@ def copy_example_files_to_test_dir(
         dest = test_example_dir / file.name
         if dest.exists():
             dest.unlink()
-        shutil.copyfile(file, dest)
+        shutil.copy2(file, dest)
 
 
 def make_logging_use_wider_console(python_script_content: str) -> str:
@@ -299,13 +305,21 @@ def change_conda_env_used_in_job_script(
     job_script_content: str, conda_env_path: Path, conda_env_name_in_script: str
 ) -> str:
     """Modify some lines of the source job script before it is run in the unit test."""
-    return (
-        (job_script_content)
+
+    job_script_content = (
+        job_script_content.replace(
+            f"ENV_PATH=${{ENV_PATH:-{conda_env_name_in_script}}}",
+            f"ENV_PATH={conda_env_name_in_script}",
+        )
         .replace(f"conda activate {conda_env_name_in_script}", f"conda activate {conda_env_path}")
         .replace(f"-n {conda_env_name_in_script}", f"--prefix {conda_env_path}")
         .replace(f"--name {conda_env_name_in_script}", f"--prefix {conda_env_path}")
         .replace(f"-p {conda_env_name_in_script}", f"--prefix {conda_env_path}")
         .replace(f"--prefix {conda_env_name_in_script}", f"--prefix {conda_env_path}")
+    )
+    return "\n".join(
+        line if "ENV_PATH=" not in line else f"ENV_PATH={conda_env_path}"
+        for line in job_script_content.splitlines()
     )
 
 
