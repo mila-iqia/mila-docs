@@ -3,7 +3,7 @@
     .. container:: toggle
 
         .. container:: header
-        
+
             About these examples: (Click the arrow below to expand)
 
         This section contains some minimal examples of how to run jobs on the Mila
