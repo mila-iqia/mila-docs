@@ -1,3 +1,7 @@
+.. NOTE: This file is auto-generated from examples/good_practices/hpo_with_orion/index.rst
+.. This is done so this file can be easily viewed from the GitHub UI.
+.. **DO NOT EDIT**
+
 Hyperparameter Optimization with Oríon
 ======================================
 
@@ -10,17 +14,21 @@ Here we provide an example for Oríon, the HPO framework developped at Mila.
 Make sure to read the following sections of the documentation before using this
 example:
 
-* :ref:`pytorch_setup`
+* `examples/frameworks/pytorch_setup <https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/frameworks/pytorch_setup>`_
 
 The full documentation for Oríon is available `on Oríon's ReadTheDocs page
 <https://orion.readthedocs.io/en/stable/index.html>`_.
+
+
+The full source code for this example is available on `the mila-docs GitHub repository.
+<https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/good_practices/hpo_with_orion>`_
 
 
 **job.sh**
 
 .. code:: diff
 
-    # distributed/001_single_gpu/job.sh -> good_practices/hpo_with_orion/job.sh
+    # distributed/single_gpu/job.sh -> good_practices/hpo_with_orion/job.sh
     #!/bin/bash
     #SBATCH --gpus-per-task=rtx8000:1
     #SBATCH --cpus-per-task=4
@@ -80,18 +88,16 @@ The full documentation for Oríon is available `on Oríon's ReadTheDocs page
    +
    +orion hunt -n orion-example --exp-max-trials 10 python main.py --learning-rate~'loguniform(1e-5, 1.0)'
 
-.. .. literalinclude:: examples/good_practices/hpo_with_orion/job.sh
-..     :language: bash
-
 
 **main.py**
 
 .. code:: diff
 
-    # distributed/001_single_gpu/main.py -> good_practices/hpo_with_orion/main.py
+    # distributed/single_gpu/main.py -> good_practices/hpo_with_orion/main.py
    -"""Single-GPU training example."""
    +"""Hyperparameter optimization using Oríon."""
    +import argparse
+   +import json
     import logging
     import os
    +import sys
@@ -117,10 +123,10 @@ The full documentation for Oríon is available `on Oríon's ReadTheDocs page
    -    batch_size = 128
    +    # Add an argument parser so that we can pass hyperparameters from command line.
    +    parser = argparse.ArgumentParser(description=__doc__)
-   +    parser.add_argument('--epochs', type=int, default=10)
-   +    parser.add_argument('--learning-rate', type=float, default=5e-4)
-   +    parser.add_argument('--weight-decay', type=float, default=1e-4)
-   +    parser.add_argument('--batch-size', type=int, default=128)
+   +    parser.add_argument("--epochs", type=int, default=10)
+   +    parser.add_argument("--learning-rate", type=float, default=5e-4)
+   +    parser.add_argument("--weight-decay", type=float, default=1e-4)
+   +    parser.add_argument("--batch-size", type=int, default=128)
    +    args = parser.parse_args()
    +
    +    training_epochs = args.epochs
@@ -140,7 +146,7 @@ The full documentation for Oríon is available `on Oríon's ReadTheDocs page
 
         logger = logging.getLogger(__name__)
 
-   +    logger.info(f"epochs {training_epochs}, learning rate {learning_rate}, weight decay {weight_decay}, batch size {batch_size}")
+   +    logger.info(f"Args: {json.dumps(vars(args), indent=1)}")
    +
         # Create a model and move it to the GPU.
         model = resnet18(num_classes=10)
@@ -209,7 +215,7 @@ The full documentation for Oríon is available `on Oríon's ReadTheDocs page
                 logger.debug(f"Accuracy: {accuracy.item():.2%}")
                 logger.debug(f"Average Loss: {loss.item()}")
 
-                # Advance the progress bar one step, and update the "postfix" () the progress bar. (nicer than just)
+                # Advance the progress bar one step and update the progress bar text.
                 progress_bar.update(1)
                 progress_bar.set_postfix(loss=loss.item(), accuracy=accuracy.item())
             progress_bar.close()
@@ -287,10 +293,6 @@ The full documentation for Oríon is available `on Oríon's ReadTheDocs page
 
     if __name__ == "__main__":
         main()
-
-.. .. literalinclude:: examples/good_practices/hpo_with_orion/main.py
-..     :language: python
-
 
 **Running this example**
 

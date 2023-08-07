@@ -5,6 +5,12 @@ PyTorch Setup
 
 **Prerequisites**: (Make sure to read the following before using this example!)
 
+
+The full source code for this example is available on `the mila-docs GitHub
+repository.
+<https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/frameworks/pytorch_setup>`_
+
+
 * :ref:`Quick Start`
 * :ref:`Running your code`
 * :ref:`Conda`
@@ -13,14 +19,14 @@ PyTorch Setup
 **job.sh**
 
 
-.. literalinclude:: examples/frameworks/pytorch_setup/job.sh
+.. literalinclude:: job.sh
     :language: bash
 
 
 **main.py**
 
 
-.. literalinclude:: examples/frameworks/pytorch_setup/main.py
+.. literalinclude:: main.py
     :language: python
 
 

@@ -1,11 +1,15 @@
-002 - Multi-GPU Job
-====================
+.. NOTE: This file is auto-generated from examples/distributed/multi_gpu/index.rst
+.. This is done so this file can be easily viewed from the GitHub UI.
+.. **DO NOT EDIT**
+
+Multi-GPU Job
+=============
 
 
 Prerequisites:
 
-* :ref:`pytorch_setup`
-* :ref:`001 - Single GPU Job`
+* `examples/frameworks/pytorch_setup <https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/frameworks/pytorch_setup>`_
+* `examples/distributed/single_gpu <https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/distributed/single_gpu>`_
 
 Other interesting resources:
 
@@ -13,13 +17,13 @@ Other interesting resources:
 * `<https://lambdalabs.com/blog/multi-node-pytorch-distributed-training-guide>`_
 
 Click here to see `the code for this example
-<https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/distributed/002_multi_gpu>`_
+<https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/distributed/multi_gpu>`_
 
-**Job.sh**
+**job.sh**
 
 .. code:: diff
 
-    # distributed/001_single_gpu/job.sh -> distributed/002_multi_gpu/job.sh
+    # distributed/single_gpu/job.sh -> distributed/multi_gpu/job.sh
     #!/bin/bash
     #SBATCH --gpus-per-task=rtx8000:1
     #SBATCH --cpus-per-task=4
@@ -71,9 +75,11 @@ Click here to see `the code for this example
    +# Execute Python script in each task (one per GPU)
    +srun python main.py
 
+**main.py**
+
 .. code:: diff
 
-    # distributed/001_single_gpu/main.py -> distributed/002_multi_gpu/main.py
+    # distributed/single_gpu/main.py -> distributed/multi_gpu/main.py
    -"""Single-GPU training example."""
    +"""Multi-GPU Training example."""
     import logging
@@ -238,7 +244,7 @@ Click here to see `the code for this example
    +                logger.debug(f"Accuracy: {accuracy.item():.2%}")
    +                logger.debug(f"Average Loss: {loss.item()}")
 
-                # Advance the progress bar one step, and update the "postfix" () the progress bar. (nicer than just)
+                # Advance the progress bar one step and update the progress bar text.
                 progress_bar.update(1)
                 progress_bar.set_postfix(loss=loss.item(), accuracy=accuracy.item())
             progress_bar.close()
@@ -365,13 +371,6 @@ Click here to see `the code for this example
 
     if __name__ == "__main__":
         main()
-
-
-.. .. literalinclude:: examples/distributed/002_multi_gpu/job.sh
-..     :language: bash
-
-.. .. literalinclude:: examples/distributed/002_multi_gpu/main.py
-..     :language: python
 
 
 **Running this example**

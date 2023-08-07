@@ -10,29 +10,26 @@ Here we provide an example for Oríon, the HPO framework developped at Mila.
 Make sure to read the following sections of the documentation before using this
 example:
 
-* :ref:`pytorch_setup`
+* :doc:`/examples/frameworks/pytorch_setup/index`
 
 The full documentation for Oríon is available `on Oríon's ReadTheDocs page
 <https://orion.readthedocs.io/en/stable/index.html>`_.
 
 
+The full source code for this example is available on `the mila-docs GitHub repository.
+<https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/good_practices/hpo_with_orion>`_
+
+
 **job.sh**
 
-.. literalinclude:: examples/good_practices/hpo_with_orion/job.sh.diff
+.. literalinclude:: job.sh.diff
     :language: diff
-
-.. .. literalinclude:: examples/good_practices/hpo_with_orion/job.sh
-..     :language: bash
 
 
 **main.py**
 
-.. literalinclude:: examples/good_practices/hpo_with_orion/main.py.diff
+.. literalinclude:: main.py.diff
     :language: diff
-
-.. .. literalinclude:: examples/good_practices/hpo_with_orion/main.py
-..     :language: python
-
 
 **Running this example**
 

@@ -1,9 +1,19 @@
+.. NOTE: This file is auto-generated from examples/frameworks/pytorch_setup/index.rst
+.. This is done so this file can be easily viewed from the GitHub UI.
+.. **DO NOT EDIT**
+
 .. _pytorch_setup:
 
 PyTorch Setup
 =============
 
 **Prerequisites**: (Make sure to read the following before using this example!)
+
+
+The full source code for this example is available on `the mila-docs GitHub
+repository.
+<https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/frameworks/pytorch_setup>`_
+
 
 * :ref:`Quick Start`
 * :ref:`Running your code`

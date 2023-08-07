@@ -24,19 +24,19 @@ generate_diff() {
 pushd "${_SCRIPT_DIR}"
 
 # single_gpu -> multi_gpu
-generate_diff distributed/001_single_gpu/job.sh distributed/002_multi_gpu/job.sh
-generate_diff distributed/001_single_gpu/main.py distributed/002_multi_gpu/main.py
+generate_diff distributed/single_gpu/job.sh distributed/multi_gpu/job.sh
+generate_diff distributed/single_gpu/main.py distributed/multi_gpu/main.py
 
 # multi_gpu -> multi_node
-generate_diff distributed/002_multi_gpu/job.sh distributed/003_multi_node/job.sh
-generate_diff distributed/002_multi_gpu/main.py distributed/003_multi_node/main.py
+generate_diff distributed/multi_gpu/job.sh distributed/multi_node/job.sh
+generate_diff distributed/multi_gpu/main.py distributed/multi_node/main.py
 
 # single_gpu -> checkpointing
-generate_diff distributed/001_single_gpu/job.sh good_practices/checkpointing/job.sh
-generate_diff distributed/001_single_gpu/main.py good_practices/checkpointing/main.py
+generate_diff distributed/single_gpu/job.sh good_practices/checkpointing/job.sh
+generate_diff distributed/single_gpu/main.py good_practices/checkpointing/main.py
 
 # single_gpu -> hpo_with_orion
-generate_diff distributed/001_single_gpu/job.sh good_practices/hpo_with_orion/job.sh
-generate_diff distributed/001_single_gpu/main.py good_practices/hpo_with_orion/main.py
+generate_diff distributed/single_gpu/job.sh good_practices/hpo_with_orion/job.sh
+generate_diff distributed/single_gpu/main.py good_practices/hpo_with_orion/main.py
 
 popd

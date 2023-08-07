@@ -1,6 +1,7 @@
 """Multi-GPU Training example."""
 import logging
 import os
+from datetime import timedelta
 from pathlib import Path
 
 import rich.logging
@@ -25,9 +26,10 @@ def main():
 
     # Check that the GPU is available
     assert torch.cuda.is_available() and torch.cuda.device_count() > 0
-    rank, world_size = setup()
+    rank, world_size, local_rank = setup()
     is_master = rank == 0
-    device = torch.device("cuda", rank)
+    is_local_master = local_rank == 0
+    device = torch.device("cuda", local_rank)
 
     # Setup logging (optional, but much better than using print statements)
     logging.basicConfig(
@@ -37,7 +39,7 @@ def main():
     )
 
     logger = logging.getLogger(__name__)
-    logger.info(f"World size: {world_size}, global rank: {rank}")
+    logger.info(f"World size: {world_size}, global rank: {rank}, local rank: {local_rank}")
 
     # Create a model and move it to the GPU.
     model = resnet18(num_classes=10)
@@ -45,15 +47,18 @@ def main():
 
     # Wrap the model with DistributedDataParallel
     # (See https://pytorch.org/docs/stable/nn.html#torch.nn.parallel.DistributedDataParallel)
-    model = nn.parallel.DistributedDataParallel(model, device_ids=[rank], output_device=rank)
+    model = nn.parallel.DistributedDataParallel(
+        model, device_ids=[local_rank], output_device=local_rank
+    )
 
     optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate, weight_decay=weight_decay)
 
     # Setup CIFAR10
     num_workers = get_num_workers()
+
     dataset_path = Path(os.environ.get("SLURM_TMPDIR", ".")) / "data"
     train_dataset, valid_dataset, test_dataset = make_datasets(
-        str(dataset_path), is_master=is_master
+        str(dataset_path), is_master=is_local_master
     )
 
     # Restricts data loading to a subset of the dataset exclusive to the current process
@@ -151,7 +156,7 @@ def main():
                 logger.debug(f"Accuracy: {accuracy.item():.2%}")
                 logger.debug(f"Average Loss: {loss.item()}")
 
-            # Advance the progress bar one step, and update the "postfix" () the progress bar. (nicer than just)
+            # Advance the progress bar one step and update the progress bar text.
             progress_bar.update(1)
             progress_bar.set_postfix(loss=loss.item(), accuracy=accuracy.item())
         progress_bar.close()
@@ -203,23 +208,36 @@ def setup():
     print(f"    NCCL: {torch.distributed.is_nccl_available()}")
     print(f"    MPI:  {torch.distributed.is_mpi_available()}")
 
+    # NOTE: the env:// init method uses FileLocks, which sometimes causes deadlocks due to the
+    # distributed filesystem configuration on the Mila cluster.
+    # For multi-node jobs, use the TCP init method instead.
+    master_addr = os.environ["MASTER_ADDR"]
+    master_port = os.environ["MASTER_PORT"]
+
+    # Default timeout is 30 minutes. Reducing the timeout here, so the job fails quicker if there's
+    # a communication problem between nodes.
+    timeout = timedelta(seconds=60)
+
     # DDP Job is being run via `srun` on a slurm cluster.
     rank = int(os.environ["SLURM_PROCID"])
+    local_rank = int(os.environ["SLURM_LOCALID"])
     world_size = int(os.environ["SLURM_NTASKS"])
 
     # SLURM var -> torch.distributed vars in case needed
     # NOTE: Setting these values isn't exactly necessary, but some code might assume it's
     # being run via torchrun or torch.distributed.launch, so setting these can be a good idea.
     os.environ["RANK"] = str(rank)
+    os.environ["LOCAL_RANK"] = str(local_rank)
     os.environ["WORLD_SIZE"] = str(world_size)
 
     torch.distributed.init_process_group(
         backend="nccl",
-        init_method="env://",
+        init_method=f"tcp://{master_addr}:{master_port}",
+        timeout=timeout,
         world_size=world_size,
         rank=rank,
     )
-    return rank, world_size
+    return rank, world_size, local_rank
 
 
 def make_datasets(

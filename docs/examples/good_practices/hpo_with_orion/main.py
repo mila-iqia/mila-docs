@@ -1,5 +1,6 @@
 """Hyperparameter optimization using Oríon."""
 import argparse
+import json
 import logging
 import os
 import sys
@@ -21,10 +22,10 @@ from orion.client import report_objective
 def main():
     # Add an argument parser so that we can pass hyperparameters from command line.
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--epochs', type=int, default=10)
-    parser.add_argument('--learning-rate', type=float, default=5e-4)
-    parser.add_argument('--weight-decay', type=float, default=1e-4)
-    parser.add_argument('--batch-size', type=int, default=128)
+    parser.add_argument("--epochs", type=int, default=10)
+    parser.add_argument("--learning-rate", type=float, default=5e-4)
+    parser.add_argument("--weight-decay", type=float, default=1e-4)
+    parser.add_argument("--batch-size", type=int, default=128)
     args = parser.parse_args()
 
     training_epochs = args.epochs
@@ -44,7 +45,7 @@ def main():
 
     logger = logging.getLogger(__name__)
 
-    logger.info(f"epochs {training_epochs}, learning rate {learning_rate}, weight decay {weight_decay}, batch size {batch_size}")
+    logger.info(f"Args: {json.dumps(vars(args), indent=1)}")
 
     # Create a model and move it to the GPU.
     model = resnet18(num_classes=10)
@@ -113,7 +114,7 @@ def main():
             logger.debug(f"Accuracy: {accuracy.item():.2%}")
             logger.debug(f"Average Loss: {loss.item()}")
 
-            # Advance the progress bar one step, and update the "postfix" () the progress bar. (nicer than just)
+            # Advance the progress bar one step and update the progress bar text.
             progress_bar.update(1)
             progress_bar.set_postfix(loss=loss.item(), accuracy=accuracy.item())
         progress_bar.close()

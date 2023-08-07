@@ -43,7 +43,10 @@ recommend you start by checking out the :ref:`short quick start guide
    :caption: Minimal Examples
    :maxdepth: 2
 
-   Minimal_examples
+   examples/frameworks/index
+   examples/distributed/index
+   examples/good_practices/index
+
 
 .. toctree::
    :caption: Extras

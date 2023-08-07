@@ -1,16 +1,22 @@
-001 - Single GPU Job
-====================
+.. NOTE: This file is auto-generated from examples/distributed/single_gpu/index.rst
+.. This is done so this file can be easily viewed from the GitHub UI.
+.. **DO NOT EDIT**
+
+.. _single_gpu_job:
+
+Single GPU Job
+==============
 
 
 **Prerequisites**
 Make sure to read the following sections of the documentation before using this
 example:
 
-* :ref:`pytorch_setup`
+* `examples/frameworks/pytorch_setup <https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/frameworks/pytorch_setup>`_
 
 The full source code for this example is available on `the mila-docs GitHub
 repository.
-<https://github.com/mila-iqia/mila-docs/tree/pytorch_distributed_training_examples/docs/examples/distributed/001_single_gpu>`_
+<https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/distributed/single_gpu>`_
 
 **job.sh**
 
@@ -166,7 +172,7 @@ repository.
                logger.debug(f"Accuracy: {accuracy.item():.2%}")
                logger.debug(f"Average Loss: {loss.item()}")
 
-               # Advance the progress bar one step, and update the "postfix" () the progress bar. (nicer than just)
+               # Advance the progress bar one step and update the progress bar text.
                progress_bar.update(1)
                progress_bar.set_postfix(loss=loss.item(), accuracy=accuracy.item())
            progress_bar.close()

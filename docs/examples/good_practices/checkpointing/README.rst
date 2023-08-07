@@ -1,3 +1,7 @@
+.. NOTE: This file is auto-generated from examples/good_practices/checkpointing/index.rst
+.. This is done so this file can be easily viewed from the GitHub UI.
+.. **DO NOT EDIT**
+
 Checkpointing
 =============
 
@@ -7,8 +11,8 @@ Checkpointing
 Make sure to read the following sections of the documentation before using this
 example:
 
-* :ref:`pytorch_setup`
-* :ref:`001 - Single GPU Job`
+* `examples/frameworks/pytorch_setup <https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/frameworks/pytorch_setup>`_
+* `examples/distributed/single_gpu <https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/distributed/single_gpu>`_
 
 The full source code for this example is available on `the mila-docs GitHub
 repository.
@@ -19,7 +23,7 @@ repository.
 
 .. code:: diff
 
-    # distributed/001_single_gpu/job.sh -> good_practices/checkpointing/job.sh
+    # distributed/single_gpu/job.sh -> good_practices/checkpointing/job.sh
    old mode 100644
    new mode 100755
     #!/bin/bash
@@ -84,7 +88,7 @@ repository.
 
 .. code:: diff
 
-    # distributed/001_single_gpu/main.py -> good_practices/checkpointing/main.py
+    # distributed/single_gpu/main.py -> good_practices/checkpointing/main.py
    -"""Single-GPU training example."""
    +"""Checkpointing example."""
    +from __future__ import annotations
@@ -281,7 +285,7 @@ repository.
                 logger.debug(f"Accuracy: {accuracy.item():.2%}")
                 logger.debug(f"Average Loss: {loss.item()}")
 
-   -            # Advance the progress bar one step, and update the "postfix" () the progress bar. (nicer than just)
+   -            # Advance the progress bar one step and update the progress bar text.
    +            # Advance the progress bar one step, and update the text displayed in the progress bar.
                 progress_bar.update(1)
                 progress_bar.set_postfix(loss=loss.item(), accuracy=accuracy.item())
