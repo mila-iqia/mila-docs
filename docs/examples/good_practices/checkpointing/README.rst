@@ -23,7 +23,7 @@ repository.
 
 .. code:: diff
 
-    # distributed/001_single_gpu/job.sh -> good_practices/checkpointing/job.sh
+    # distributed/single_gpu/job.sh -> good_practices/checkpointing/job.sh
     #!/bin/bash
    -#SBATCH --gpus-per-task=rtx8000:1
    +#SBATCH --gpus-per-task=1
