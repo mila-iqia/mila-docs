@@ -54,8 +54,9 @@ gpu_types = [
 @pytest.fixture(scope="session", autouse=True)
 def setup_logging():
     """Setup logging (using a recipe from @JesseFarebro)"""
-
-    LOGLEVEL = os.environ.get("LOGLEVEL", "INFO").upper()
+    # Get the current logging level:
+    # NOTE: Pytest already sets the logging level with --log-level, so we don't do it here.
+    level = logger.getEffectiveLevel()
     console = rich.console.Console()
 
     _TRACEBACKS_EXCLUDES = [
@@ -69,7 +70,7 @@ def setup_logging():
 
     rich.traceback.install(console=console, suppress=_TRACEBACKS_EXCLUDES, show_locals=False)
     logging.basicConfig(
-        level=LOGLEVEL,
+        level=level,
         format="%(message)s",
         datefmt="[%X]",
         force=True,
@@ -105,7 +106,7 @@ def make_conda_env_for_test(
     )
     assert len(outputs) == 1
     output = outputs[0]
-    assert output.isspace(), output
+    assert not output or output.isspace(), output
     return env_path
 
 
@@ -378,14 +379,17 @@ def pytorch_orion_conda_env() -> Path:
     command_to_test_that_env_is_working = (
         f"conda run --prefix {env_path} python -c 'import torch, tqdm, rich, orion'"
     )
+
     try:
-        subprocess.check_call(shlex.split(command_to_test_that_env_is_working))
-    except subprocess.CalledProcessError:
-        logger.info(f"The {env_path} env has not already been created at {env_path}.")
-    else:
-        logger.info(
-            f"The {env_path} env has already been created with all required packages at {env_path}."
+        logger.debug(
+            f"Checking if the environment is already created at {env_path} by running "
+            f"{command_to_test_that_env_is_working!r}"
         )
+        subprocess.check_call(shlex.split(command_to_test_that_env_is_working))
+    except subprocess.CalledProcessError as err:
+        logger.info(f"The {env_path} env has not already been created: {err}")
+    else:
+        logger.info(f"The {env_path} env has already been created with all required packages.")
         return env_path
 
     make_conda_env_for_test(
@@ -417,6 +421,8 @@ def test_orion_example(pytorch_orion_conda_env: Path, file_regression: FileRegre
 
         example_dir = job_script_path.parent
         # TODO: Create an Orion config so that we can pass the path to the database to use.
+        # Otherwise it uses a config in ~/.local/shapre/orion.core/orion/orion_db.pkl
+        # TODO: Make the Orion suggestions reproducible by passing a seed to the algorithm.
         import yaml
 
         orion_config_path = example_dir / "orion_config.yaml"
@@ -435,7 +441,7 @@ def test_orion_example(pytorch_orion_conda_env: Path, file_regression: FileRegre
             )
 
         last_line = last_line.replace("--exp-max-trials 10", "--exp-max-trials 3")
-        last_line = last_line.replace("hunt", f"hunt --config {orion_config_path}")
+        last_line = last_line.replace("hunt", f"hunt --config={orion_config_path}")
 
         job_script_lines[-1] = last_line
         job_script_path.write_text("\n".join(job_script_lines))
@@ -448,6 +454,8 @@ def test_orion_example(pytorch_orion_conda_env: Path, file_regression: FileRegre
         examples_dir=EXAMPLES_DIR,
         submitit_dir=SUBMITIT_DIR,
         modify_job_script_before_running=modify_job_script_before_running,
+        conda_env_name_in_script="pytorch_orion",
     )
+
     assert len(filtered_job_outputs) == 1
     file_regression.check(filtered_job_outputs[0])
