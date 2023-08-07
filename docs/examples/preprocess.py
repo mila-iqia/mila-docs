@@ -187,26 +187,11 @@ def inline_docs_for_github_viewing(example_readme_template_path: Path) -> str:
                 f":language: directive on the following line."
             )
 
-        def _get_block_length() -> int:
-            length = 1
-            while (
-                line_index + length < len(content_lines)
-                and content_lines[line_index + length]
-                and not content_lines[line_index + length].isspace()
-            ):
-                length += 1
-            return length
-
-        block_length = _get_block_length()
-        if block_length != 2:
-            logger.warning(
-                RuntimeWarning(
-                    f"Found a literalinclude block at "
-                    f"{example_readme_template_path}:{line_index+1} but it has {block_length} "
-                    f"lines instead of 2. We don't know what to do with the other directives "
-                    f"than :language: so they won't be added in the README.rst that will be shown "
-                    f"on GitHub."
-                )
+        if line_index + 2 < len(content_lines) and content_lines[line_index + 2].strip() != "":
+            raise RuntimeError(
+                f"Expected the literalinclude block at "
+                f"{example_readme_template_path}:{line_index+1} to only have two lines, followed "
+                f"by an empty line."
             )
 
         file_name = include_block_match.group("file_path")
@@ -227,7 +212,7 @@ def inline_docs_for_github_viewing(example_readme_template_path: Path) -> str:
         inlined_block_lines = [f".. code:: {language}", ""]
         inlined_block_lines.extend(textwrap.indent(file_path.read_text(), " " * 3).splitlines())
         new_content_lines.extend(inlined_block_lines)
-        line_index += block_length  # go to the line after the block
+        line_index += 2  # go to the line after the block
 
     # Remove any trailing whitespace, if any:
     new_content_lines = [line.rstrip() for line in new_content_lines]
