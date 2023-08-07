@@ -183,10 +183,10 @@ def _test_id(arg: Path | bool | dict) -> str:
         ]
     ]
     + [
-        (EXAMPLES_DIR / "distributed" / "001_single_gpu", True, {}),
-        (EXAMPLES_DIR / "distributed" / "002_multi_gpu", True, {}),
+        (EXAMPLES_DIR / "distributed" / "single_gpu", True, {}),
+        (EXAMPLES_DIR / "distributed" / "multi_gpu", True, {}),
         pytest.param(
-            EXAMPLES_DIR / "distributed" / "003_multi_node",
+            EXAMPLES_DIR / "distributed" / "multi_node",
             True,
             {"partition": "long"},
             marks=[
