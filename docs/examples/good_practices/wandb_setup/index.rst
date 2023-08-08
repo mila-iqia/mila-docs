@@ -34,7 +34,7 @@ Click here to see `the source code for this example
 
 **Running this example**
 
-Note : On DRAC clusters you will need to run `wandb off` to log your data as offline mode. 
+Note : On DRAC clusters you will need to run `wandb off` to log your data as offline mode.
 You will then be able to upload your runs with the command `wandb sync --sync-all`
 .. code-block:: bash
 
