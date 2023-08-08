@@ -39,4 +39,8 @@ generate_diff distributed/single_gpu/main.py good_practices/checkpointing/main.p
 generate_diff distributed/single_gpu/job.sh good_practices/hpo_with_orion/job.sh
 generate_diff distributed/single_gpu/main.py good_practices/hpo_with_orion/main.py
 
+# single_gpu -> wandb_setup
+generate_diff distributed/single_gpu/job.sh good_practices/wandb_setup/job.sh
+generate_diff distributed/single_gpu/main.py good_practices/wandb_setup/main.py
+
 popd
