@@ -28,9 +28,7 @@ def main():
     # Setup logging (optional, but much better than using print statements)
     logging.basicConfig(
         level=logging.INFO,
-        handlers=[
-            rich.logging.RichHandler(markup=True)
-        ],  # Very pretty, uses the `rich` package.
+        handlers=[rich.logging.RichHandler(markup=True)],  # Very pretty, uses the `rich` package.
     )
 
     logger = logging.getLogger(__name__)
@@ -54,9 +52,7 @@ def main():
     model = resnet18(num_classes=10)
     model.to(device=device)
 
-    optimizer = torch.optim.AdamW(
-        model.parameters(), lr=learning_rate, weight_decay=weight_decay
-    )
+    optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate, weight_decay=weight_decay)
 
     # Setup CIFAR10
     num_workers = get_num_workers()
@@ -128,10 +124,8 @@ def main():
         progress_bar.close()
 
         val_loss, val_accuracy = validation_loop(model, valid_dataloader, device)
+        logger.info(f"Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%}")
         wandb.log({"val/accuracy": val_accuracy, "val/loss": val_loss})
-        logger.info(
-            f"Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%}"
-        )
 
     print("Done!")
 
