@@ -4,8 +4,8 @@ WANDB Setup
 
 Prerequisites:
 
-* :doc:`/examples/frameworks/pytorch_setup/`
-* :doc:`/examples/distributed/single_gpu/`
+* :doc:`/examples/frameworks/pytorch_setup/index`
+* :doc:`/examples/distributed/single_gpu/index`
 
 Make sure to create a WANDB account, then you can either :
 - Set your WANDB_API_KEY environment variable
