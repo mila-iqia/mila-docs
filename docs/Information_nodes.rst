@@ -95,26 +95,26 @@ reconfigurable resources very well. Therefore, the A100s must currently be
 statically partitioned into the required number of instances of every size
 expected to be used.
 
-The ``cn-g`` series of nodes include A100-80GB GPUs. One third have been
-configured to offer regular (non-MIG mode) ``a100l`` GPUs. The other two-thirds
-have been configured in MIG mode, and offer the following profiles:
+The ``cn-g`` series of nodes include A100-80GB GPUs. A subset have been
+configured to offer regular (non-MIG mode) ``a100l`` GPUs. The others have been
+configured in MIG mode, and offer the following profiles:
 
 +-----------------------------+----------------------------------------+--------------+
 |          Name               |     GPU                                | Cluster-wide |
 |                             +----------+---------------+-------------+--------------+
 |                             |   Model  |     Memory    |   Compute   |      #       |
 +=============================+==========+===============+=============+==============+
-| ``a100l.1g.10gb``:h:`<p>`   |          | 10GB :h:`<p>` | 1/7th       |     72       |
-| ``a100l.1``                 | A100     | (1/8th)       | *of full*   |              |
-+-----------------------------+----------+---------------+-------------+--------------+
-| ``a100l.2g.20gb``:h:`<p>`   |          | 20GB :h:`<p>` | 2/7th       |     108      |
+| ``a100l.2g.20gb``:h:`<p>`   |          | 20GB :h:`<p>` | 2/7th       |     48       |
 | ``a100l.2``                 | A100     | (2/8th)       | *of full*   |              |
 +-----------------------------+----------+---------------+-------------+--------------+
-| ``a100l.3g.40gb``:h:`<p>`   |          | 40GB :h:`<p>` | 3/7th       |     72       |
+| ``a100l.3g.40gb``:h:`<p>`   |          | 40GB :h:`<p>` | 3/7th       |     48       |
 | ``a100l.3``                 | A100     | (4/8th)       | *of full*   |              |
 +-----------------------------+----------+---------------+-------------+--------------+
+| ``a100l.4g.40gb``:h:`<p>`   |          | 40GB :h:`<p>` | 4/7th       |     24       |
+| ``a100l.4``                 | A100     | (4/8th)       | *of full*   |              |
++-----------------------------+----------+---------------+-------------+--------------+
 
-And can be requested using a SLURM flag such as ``--gres=gpu:a100l.1``
+And can be requested using a SLURM flag such as ``--gres=gpu:a100l.2``
 
 The partitioning may be revised as needs and SLURM capabilities evolve. Other
 MIG profiles exist and could be introduced.
@@ -127,7 +127,7 @@ MIG profiles exist and could be introduced.
     (OpenGL/Vulkan), nor P2P over NVLink and PCIe. We have therefore chosen to
     limit every MIG job to exactly one MIG slice and no more. Thus,
     ``--gres=gpu:a100l.3`` will work (*and request a size-3 slice of an*
-    ``a100l`` *GPU*) but ``--gres=gpu:a100l.1:3`` (*with* ``:3`` *requesting
+    ``a100l`` *GPU*) but ``--gres=gpu:a100l.2:3`` (*with* ``:3`` *requesting
     three size-1 slices*) **will not**.
 
 
