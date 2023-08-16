@@ -13,9 +13,7 @@ def link_file(src:str, dest:str):
     Path(src).symlink_to(dest)
 
 
-def link_files(src:str, dest:str, workers=4):
-    src = Path(src)
-    dest = Path(dest)
+def link_files(src: Path, dest: Path, workers: int = 4) -> None:
     os.makedirs(dest, exist_ok=True)
     with Pool(processes=workers) as pool:
         for path, dnames, fnames in os.walk(str(src)):
