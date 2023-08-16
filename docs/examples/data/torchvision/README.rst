@@ -1,3 +1,7 @@
+.. NOTE: This file is auto-generated from examples/data/torchvision/index.rst
+.. This is done so this file can be easily viewed from the GitHub UI.
+.. **DO NOT EDIT**
+
 Torchvision
 ===========
 
@@ -7,8 +11,8 @@ Torchvision
 Make sure to read the following sections of the documentation before using this
 example:
 
-* :ref:`pytorch_setup`
-* :ref:`001 - Single GPU Job`
+* `examples/frameworks/pytorch_setup <https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/frameworks/pytorch_setup>`_
+* `examples/distributed/single_gpu <https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/distributed/single_gpu>`_
 
 The full source code for this example is available on `the mila-docs GitHub
 repository.
@@ -19,7 +23,7 @@ repository.
 
 .. code:: diff
 
-    # distributed/001_single_gpu/job.sh -> data/torchvision/job.sh
+    # distributed/single_gpu/job.sh -> data/torchvision/job.sh
     #!/bin/bash
     #SBATCH --gpus-per-task=rtx8000:1
     #SBATCH --cpus-per-task=4
@@ -84,7 +88,7 @@ repository.
 
 .. code:: diff
 
-    # distributed/001_single_gpu/main.py -> data/torchvision/main.py
+    # distributed/single_gpu/main.py -> data/torchvision/main.py
    -"""Single-GPU training example."""
    +"""Torchvision training example."""
     import logging
@@ -198,7 +202,8 @@ repository.
                 logger.debug(f"Accuracy: {accuracy.item():.2%}")
                 logger.debug(f"Average Loss: {loss.item()}")
 
-                # Advance the progress bar one step, and update the "postfix" () the progress bar. (nicer than just)
+   -            # Advance the progress bar one step and update the progress bar text.
+   +            # Advance the progress bar one step, and update the "postfix" () the progress bar. (nicer than just)
                 progress_bar.update(1)
                 progress_bar.set_postfix(loss=loss.item(), accuracy=accuracy.item())
             progress_bar.close()
@@ -243,7 +248,8 @@ repository.
    -    """Returns the training, validation, and test splits for CIFAR10.
    +    """Returns the training, validation, and test splits for iNat.
 
-        NOTE: We don't use image transforms here for simplicity.
+   -    NOTE: We don't use image transforms here for simplicity.
+   +    NOTE: We use the same image transforms here for train/val/test just to keep things simple.
         Having different transformations for train and validation would complicate things a bit.
         Later examples will show how to do the train/val/test split properly when using transforms.
         """
@@ -308,13 +314,11 @@ repository.
    from torchvision.datasets import INaturalist
 
 
-   def link_file(src:str, dest:str):
-       Path(src).symlink_to(dest)
+   def link_file(src: Path, dest: Path) -> None:
+       src.symlink_to(dest)
 
 
-   def link_files(src:str, dest:str, workers=4):
-       src = Path(src)
-       dest = Path(dest)
+   def link_files(src: Path, dest: Path, workers: int = 4) -> None:
        os.makedirs(dest, exist_ok=True)
        with Pool(processes=workers) as pool:
            for path, dnames, fnames in os.walk(str(src)):

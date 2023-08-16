@@ -3,4 +3,4 @@ Data Handling during Training
 *****************************
 
 
-.. include:: examples/data/torchvision/_index.rst
+.. include:: torchvision/index.rst

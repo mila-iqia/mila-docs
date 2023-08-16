@@ -7,8 +7,8 @@ Torchvision
 Make sure to read the following sections of the documentation before using this
 example:
 
-* :ref:`pytorch_setup`
-* :ref:`001 - Single GPU Job`
+* :doc:`/examples/frameworks/pytorch_setup/index`
+* :doc:`/examples/distributed/single_gpu/index`
 
 The full source code for this example is available on `the mila-docs GitHub
 repository.
