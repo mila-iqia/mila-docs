@@ -33,6 +33,14 @@ def main():
 
     logger = logging.getLogger(__name__)
 
+    # To resume experiments with Wandb, we need to have code that can properly
+    # handle checkpointing (see other minimalist example about "checkpointing").
+    # We have to manage the `id` of the experiment that we are running so that
+    # it is unique and Wandb knows what previous run came before this one
+    # (i.e. what is being resumed). This is handled in the same way that saving
+    # model parameters is handled.
+    # This specific example here does not do that.
+
     # Setup Wandb
     run = wandb.init(
         # Set the project where this run will be logged
@@ -77,7 +85,7 @@ def main():
         shuffle=False,
     )
 
-    # Checkout the "checkpointing and preemption" example for more info!
+    # Check out the "checkpointing and preemption" example for more info!
     logger.debug("Starting training from scratch.")
 
     for epoch in range(training_epochs):
