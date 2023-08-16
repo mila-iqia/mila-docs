@@ -2,7 +2,7 @@
 .. This is done so this file can be easily viewed from the GitHub UI.
 .. **DO NOT EDIT**
 
-WANDB Setup
+Wandb Setup
 =====================================
 
 
@@ -11,13 +11,12 @@ Prerequisites:
 * `examples/frameworks/pytorch_setup <https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/frameworks/pytorch_setup>`_
 * `examples/distributed/single_gpu <https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/distributed/single_gpu>`_
 
-Make sure to create a WANDB account, then you can either :
-- Set your WANDB_API_KEY environment variable
-- Run `wandb login` from the command line
+Make sure to create a Wandb account, then you can either :
 
-* `<https://wandb.ai/site>`_
+* Set your ``WANDB_API_KEY`` environment variable
+* Run ``wandb login`` from the command line
 
-Other interesting resources:
+Other resources:
 
 * `<https://docs.wandb.ai/quickstart>`_
 
@@ -115,6 +114,14 @@ Click here to see `the source code for this example
 
         logger = logging.getLogger(__name__)
 
+   +    # To resume experiments with Wandb, we need to have code that can properly
+   +    # handle checkpointing (see other minimalist example about "checkpointing").
+   +    # We have to manage the `id` of the experiment that we are running so that
+   +    # it is unique and Wandb knows what previous run came before this one
+   +    # (i.e. what is being resumed). This is handled in the same way that saving
+   +    # model parameters is handled.
+   +    # This specific example here does not do that.
+   +
    +    # Setup Wandb
    +    run = wandb.init(
    +        # Set the project where this run will be logged
@@ -159,7 +166,8 @@ Click here to see `the source code for this example
             shuffle=False,
         )
 
-        # Checkout the "checkpointing and preemption" example for more info!
+   -    # Checkout the "checkpointing and preemption" example for more info!
+   +    # Check out the "checkpointing and preemption" example for more info!
         logger.debug("Starting training from scratch.")
 
         for epoch in range(training_epochs):
@@ -280,8 +288,9 @@ Click here to see `the source code for this example
 
 **Running this example**
 
-Note : On DRAC clusters you will need to run `wandb off` to log your data as offline mode.
-You will then be able to upload your runs with the command `wandb sync --sync-all`
+Note : On DRAC clusters you will need to run ``wandb off`` to log your data as offline mode.
+You will then be able to upload your runs with the command ``wandb sync --sync-all``
+
 .. code-block:: bash
 
     $ wandb login
