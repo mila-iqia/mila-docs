@@ -145,7 +145,7 @@ def make_datasets(
 ):
     """Returns the training, validation, and test splits for iNat.
 
-    NOTE: We don't use image transforms here for simplicity.
+    NOTE: We use the same image transforms here for train/val/test just to keep things simple.
     Having different transformations for train and validation would complicate things a bit.
     Later examples will show how to do the train/val/test split properly when using transforms.
     """
