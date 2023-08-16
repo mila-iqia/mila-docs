@@ -9,8 +9,8 @@ from pathlib import Path
 from torchvision.datasets import INaturalist
 
 
-def link_file(src:str, dest:str):
-    Path(src).symlink_to(dest)
+def link_file(src: Path, dest: Path) -> None:
+    src.symlink_to(dest)
 
 
 def link_files(src: Path, dest: Path, workers: int = 4) -> None:
