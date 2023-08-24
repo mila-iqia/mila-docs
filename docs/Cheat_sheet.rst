@@ -22,3 +22,4 @@ Errata
 ======
 
 Here is a list of the known errors in the cheat sheet that will have to be fixed in the next version.
+
