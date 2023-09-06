@@ -79,9 +79,9 @@ $ARCHIVE
 ``$ARCHIVE`` purpose is to store data other than datasets that has to be kept
 long-term (e.g.  generated samples, logs, data relevant for paper submission).
 
-``$ARCHIVE`` is only available on the **login** nodes. Because this file system
-is tuned for large files, it is recommended to archive your directories. For
-example, to archive the results of an experiment in
+``$ARCHIVE`` is only available on the **login** nodes and **CPU-only** nodes.
+Because this file system is tuned for large files, it is recommended to archive
+your directories. For example, to archive the results of an experiment in
 ``$SCRATCH/my_experiment_results/``, run the commands below from a login node:
 
 .. prompt:: bash $
