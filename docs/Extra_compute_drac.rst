@@ -107,10 +107,10 @@ Account Renewal
 ---------------
 
 All user accounts (Sponsor & Sponsored) have to be renewed annually in order to
-keep up-to-date information on active accounts and to deactivate unusued
+keep up-to-date information on active accounts and to deactivate unused
 accounts.
 
-To find out how to renew your account or for any other questions regarding
+To find out how to renew your account or for any other question regarding
 DRAC's accounts renewal, please head over to their `FAQ
 <https://alliancecan.ca/en/services/advanced-research-computing/account-management/account-renewals/account-renewals-faq>`_.
 
