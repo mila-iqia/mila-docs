@@ -1,4 +1,10 @@
-"""Single-GPU training example."""
+"""Single-GPU training example.
+
+This Jax example is heavily based on the following examples:
+
+* https://juliusruseckas.github.io/ml/flax-cifar10.html
+* https://github.com/fattorib/Flax-ResNets/blob/master/main_flax.py
+"""
 import logging
 import math
 import os

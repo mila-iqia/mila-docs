@@ -50,11 +50,8 @@ repository.
    -#     pytorch-cuda=11.7 -c pytorch -c nvidia
    -# Other conda packages:
    -# conda install -y -n pytorch -c conda-forge rich tqdm
-   -
-   -# Activate pre-existing environment.
-   -conda activate pytorch
-   +# conda create -y -n jax -c "nvidia/label/cuda-11.8.0" cuda python=3.9 virtualenv pip
-   +# conda activate jax
+   +# conda create -y -n jax_ex -c "nvidia/label/cuda-11.8.0" cuda python=3.9 virtualenv pip
+   +# conda activate jax_ex
    +# Install Jax using `pip`
    +# *Please note* that as soon as you install packages from `pip install`, you
    +# should not install any more packages using `conda install`
@@ -62,9 +59,11 @@ repository.
    +#    -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
    +# Other pip packages:
    +# pip install pillow optax rich torch torchvision flax tqdm
-   +
+
+   -# Activate pre-existing environment.
+   -conda activate pytorch
    +# Activate the environment:
-   +conda activate ~/CODE/mila-docs/.tmp/env/cp39/exjax_/
+   +conda activate jax_ex
 
 
     # Stage dataset into $SLURM_TMPDIR
@@ -75,9 +74,9 @@ repository.
     #     tar -xf /network/datasets/some/file.tar -C $SLURM_TMPDIR/data/
 
 
-    # Fixes issues with MIG-ed GPUs with versions of PyTorch < 2.0
-    unset CUDA_VISIBLE_DEVICES
-
+   -# Fixes issues with MIG-ed GPUs with versions of PyTorch < 2.0
+   -unset CUDA_VISIBLE_DEVICES
+   -
     # Execute Python script
     python main.py
 
@@ -87,7 +86,14 @@ repository.
 .. code:: diff
 
     # distributed/single_gpu/main.py -> frameworks/jax/main.py
-    """Single-GPU training example."""
+   -"""Single-GPU training example."""
+   +"""Single-GPU training example.
+   +
+   +This Jax example is heavily based on the following examples:
+   +
+   +* https://juliusruseckas.github.io/ml/flax-cifar10.html
+   +* https://github.com/fattorib/Flax-ResNets/blob/master/main_flax.py
+   +"""
     import logging
    +import math
     import os
@@ -244,10 +250,6 @@ repository.
    -            logits: Tensor = model(x)
    -
    -            loss = F.cross_entropy(logits, y)
-   -
-   -            optimizer.zero_grad()
-   -            loss.backward()
-   -            optimizer.step()
    +        for input, target in train_dataloader:
    +            batch = {
    +                'image': input,
@@ -255,13 +257,17 @@ repository.
    +            }
    +            state, loss, accuracy = train_step(state, batch, dropout_rng)
 
+   -            optimizer.zero_grad()
+   -            loss.backward()
+   -            optimizer.step()
+   +            logger.debug(f"Accuracy: {accuracy:.2%}")
+   +            logger.debug(f"Average Loss: {loss}")
+
    -            # Calculate some metrics:
    -            n_correct_predictions = logits.detach().argmax(-1).eq(y).sum()
    -            n_samples = y.shape[0]
    -            accuracy = n_correct_predictions / n_samples
-   +            logger.debug(f"Accuracy: {accuracy:.2%}")
-   +            logger.debug(f"Average Loss: {loss}")
-
+   -
    -            logger.debug(f"Accuracy: {accuracy.item():.2%}")
    -            logger.debug(f"Average Loss: {loss.item()}")
    -
@@ -287,18 +293,20 @@ repository.
    +    loss = optax.softmax_cross_entropy(logits=logits, labels=one_hot_labels)
    +    loss = jnp.mean(loss)
    +    return loss
-   +
 
    -    total_loss = 0.0
    -    n_samples = 0
    -    correct_predictions = 0
-   +@jax.jit
-   +def train_step(state, batch, dropout_rng):
-   +    dropout_rng = jax.random.fold_in(dropout_rng, state.step)
 
    -    for batch in dataloader:
    -        batch = tuple(item.to(device) for item in batch)
    -        x, y = batch
+   +@jax.jit
+   +def train_step(state, batch, dropout_rng):
+   +    dropout_rng = jax.random.fold_in(dropout_rng, state.step)
+
+   -        logits: Tensor = model(x)
+   -        loss = F.cross_entropy(logits, y)
    +    def loss_fn(params):
    +        variables = {'params': params, 'batch_stats': state.batch_stats}
    +        logits, new_model_state = state.apply_fn(variables, batch['image'], train=True,
@@ -307,18 +315,17 @@ repository.
    +        accuracy = jnp.sum(jnp.argmax(logits, -1) == batch['label'])
    +        return loss, (accuracy, new_model_state)
 
-   -        logits: Tensor = model(x)
-   -        loss = F.cross_entropy(logits, y)
+   -        batch_n_samples = x.shape[0]
+   -        batch_correct_predictions = logits.argmax(-1).eq(y).sum()
    +    (loss, (accuracy, new_model_state)), grads = jax.value_and_grad(loss_fn, has_aux=True)(state.params)
    +    new_state = state.apply_gradients(grads=grads, batch_stats=new_model_state['batch_stats'])
    +    return new_state, loss, accuracy
 
-   -        batch_n_samples = x.shape[0]
-   -        batch_correct_predictions = logits.argmax(-1).eq(y).sum()
-
    -        total_loss += loss.item()
    -        n_samples += batch_n_samples
    -        correct_predictions += batch_correct_predictions
+
+   -    accuracy = correct_predictions / n_samples
    +@jax.jit
    +def validation_step(state, batch):
    +    variables = {'params': state.params, 'batch_stats': state.batch_stats}
@@ -326,8 +333,7 @@ repository.
    +    loss = cross_entropy_loss(logits, batch['label'])
    +    batch_correct_predictions = jnp.sum(jnp.argmax(logits, -1) == batch['label'])
    +    return loss, batch_correct_predictions
-
-   -    accuracy = correct_predictions / n_samples
+   +
    +
    +@torch.no_grad()
    +def validation_loop(state, dataloader: DataLoader):

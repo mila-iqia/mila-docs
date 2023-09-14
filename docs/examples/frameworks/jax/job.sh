@@ -18,8 +18,8 @@ module --quiet purge
 module load anaconda/3
 
 # Creating the environment for the first time:
-# conda create -y -n jax -c "nvidia/label/cuda-11.8.0" cuda python=3.9 virtualenv pip
-# conda activate jax
+# conda create -y -n jax_ex -c "nvidia/label/cuda-11.8.0" cuda python=3.9 virtualenv pip
+# conda activate jax_ex
 # Install Jax using `pip`
 # *Please note* that as soon as you install packages from `pip install`, you
 # should not install any more packages using `conda install`
@@ -29,7 +29,7 @@ module load anaconda/3
 # pip install pillow optax rich torch torchvision flax tqdm
 
 # Activate the environment:
-conda activate ~/CODE/mila-docs/.tmp/env/cp39/exjax_/
+conda activate jax_ex
 
 
 # Stage dataset into $SLURM_TMPDIR
@@ -39,9 +39,6 @@ cp /network/datasets/cifar10/cifar-10-python.tar.gz $SLURM_TMPDIR/data/
 #     unzip   /network/datasets/some/file.zip -d $SLURM_TMPDIR/data/
 #     tar -xf /network/datasets/some/file.tar -C $SLURM_TMPDIR/data/
 
-
-# Fixes issues with MIG-ed GPUs with versions of PyTorch < 2.0
-unset CUDA_VISIBLE_DEVICES
 
 # Execute Python script
 python main.py

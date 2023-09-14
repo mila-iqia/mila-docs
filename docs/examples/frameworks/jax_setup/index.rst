@@ -22,8 +22,8 @@ repository.
 
 **main.py**
 
-.. literalinclude:: main.py.diff
-   :language: diff
+.. literalinclude:: main.py
+   :language: python
 
 
 **Running this example**
@@ -61,13 +61,15 @@ CUDA version is 11.8.XX
     salloc: Granted job allocation 2959785
     salloc: Waiting for resource configuration
     salloc: Nodes cn-g022 are ready for job
+    $ # Load anaconda
+    $ module load anaconda/3
     $ # Create the environment (see the example):
-    $ conda create -y -n jax -c "nvidia/label/cuda-11.8.0" cuda python=3.9 virtualenv pip
+    $ conda create -y -n jax_ex -c "nvidia/label/cuda-11.8.0" cuda python=3.9 virtualenv pip
     (...)
     $ # Press 'y' to accept if everything looks good.
     (...)
     $ # Activate the environment:
-    $ conda activate jax
+    $ conda activate jax_ex
     # Install Jax using `pip`
     # *Please note* that as soon as you install packages from `pip install`, you
     # should not install any more packages using `conda install`

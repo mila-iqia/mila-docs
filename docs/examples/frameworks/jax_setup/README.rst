@@ -44,8 +44,8 @@ repository.
    -#     pytorch-cuda=11.6 -c pytorch -c nvidia
    -# Other conda packages:
    -# conda install -y -n pytorch -c conda-forge rich
-   +# conda create -y -n jax -c "nvidia/label/cuda-11.8.0" cuda python=3.9 virtualenv pip
-   +# conda activate jax
+   +# conda create -y -n jax_ex -c "nvidia/label/cuda-11.8.0" cuda python=3.9 virtualenv pip
+   +# conda activate jax_ex
    +# Install Jax using `pip`
    +# *Please note* that as soon as you install packages from `pip install`, you
    +# should not install any more packages using `conda install`
@@ -54,48 +54,36 @@ repository.
 
     # Activate the environment:
    -conda activate pytorch
-   +conda activate ~/CODE/mila-docs/.tmp/env/cp39/exjax_/
+   +conda activate jax_ex
 
    -# Fixes issues with MIG-ed GPUs with versions of PyTorch < 2.0
-   +
-   +# Fixes issues with MIG-ed GPUs
-    unset CUDA_VISIBLE_DEVICES
+   -unset CUDA_VISIBLE_DEVICES
 
     python main.py
 
 
 **main.py**
 
-.. code:: diff
+.. code:: python
 
-    # frameworks/pytorch_setup/main.py -> frameworks/jax_setup/main.py
-   -import torch
-   -import torch.backends.cuda
-   +import jax
-   +from jax.lib import xla_bridge
+   import jax
+   from jax.lib import xla_bridge
 
 
-    def main():
-   -    cuda_built = torch.backends.cuda.is_built()
-   -    cuda_avail = torch.cuda.is_available()
-   -    device_count = torch.cuda.device_count()
-   +    device_count = len(jax.local_devices(backend="gpu"))
-   +    print(f"Jax default backend:         {xla_bridge.get_backend().platform}")
-   +    print(f"Jax-detected #GPUs:          {device_count}")
+   def main():
+       device_count = len(jax.local_devices(backend="gpu"))
+       print(f"Jax default backend:         {xla_bridge.get_backend().platform}")
+       print(f"Jax-detected #GPUs:          {device_count}")
 
-   -    print(f"PyTorch built with CUDA:         {cuda_built}")
-   -    print(f"PyTorch detects CUDA available:  {cuda_avail}")
-   -    print(f"PyTorch-detected #GPUs:          {device_count}")
-        if device_count == 0:
-            print("    No GPU detected, not printing devices' names.")
-        else:
-            for i in range(device_count):
-   -            print(f"    GPU {i}:      {torch.cuda.get_device_name(i)}")
-   +            print(f"    GPU {i}:      {jax.local_devices(backend='gpu')[0].device_kind}")
+       if device_count == 0:
+           print("    No GPU detected, not printing devices' names.")
+       else:
+           for i in range(device_count):
+               print(f"    GPU {i}:      {jax.local_devices(backend='gpu')[0].device_kind}")
 
 
-    if __name__ == "__main__":
-        main()
+   if __name__ == "__main__":
+       main()
 
 
 **Running this example**
@@ -133,13 +121,15 @@ CUDA version is 11.8.XX
     salloc: Granted job allocation 2959785
     salloc: Waiting for resource configuration
     salloc: Nodes cn-g022 are ready for job
+    $ # Load anaconda
+    $ module load anaconda/3
     $ # Create the environment (see the example):
-    $ conda create -y -n jax -c "nvidia/label/cuda-11.8.0" cuda python=3.9 virtualenv pip
+    $ conda create -y -n jax_ex -c "nvidia/label/cuda-11.8.0" cuda python=3.9 virtualenv pip
     (...)
     $ # Press 'y' to accept if everything looks good.
     (...)
     $ # Activate the environment:
-    $ conda activate jax
+    $ conda activate jax_ex
     # Install Jax using `pip`
     # *Please note* that as soon as you install packages from `pip install`, you
     # should not install any more packages using `conda install`

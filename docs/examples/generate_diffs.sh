@@ -25,7 +25,6 @@ pushd "${_SCRIPT_DIR}"
 
 # pytorch_setup -> jax_setup
 generate_diff frameworks/pytorch_setup/job.sh frameworks/jax_setup/job.sh
-generate_diff frameworks/pytorch_setup/main.py frameworks/jax_setup/main.py
 
 # single_gpu -> multi_gpu
 generate_diff distributed/single_gpu/job.sh distributed/multi_gpu/job.sh
