@@ -104,6 +104,8 @@ support, and to have all the required libraries.
     salloc: Granted job allocation 2959785
     salloc: Waiting for resource configuration
     salloc: Nodes cn-g022 are ready for job
+    $ # Load anaconda
+    $ module load anaconda/3
     $ # Create the environment (see the example):
     $ conda create -n pytorch python=3.9 pytorch torchvision torchaudio pytorch-cuda=11.7 -c pytorch -c nvidia
     (...)
