@@ -52,8 +52,8 @@ Click here to see `the source code for this example
     # conda create -y -n pytorch python=3.9 pytorch torchvision torchaudio \
     #     pytorch-cuda=11.7 -c pytorch -c nvidia
     # Other conda packages:
-    # conda install -y -n pytorch -c conda-forge rich tqdm
-   +# pip install wandb
+   -# conda install -y -n pytorch -c conda-forge rich tqdm
+   +# conda install -y -n pytorch -c conda-forge rich tqdm wandb
 
     # Activate pre-existing environment.
     conda activate pytorch
@@ -167,7 +167,6 @@ Click here to see `the source code for this example
         )
 
    -    # Checkout the "checkpointing and preemption" example for more info!
-   +    # Check out the "checkpointing and preemption" example for more info!
         logger.debug("Starting training from scratch.")
 
         for epoch in range(training_epochs):
