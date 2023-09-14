@@ -22,8 +22,7 @@ module load cuda/11.7
 # conda create -y -n pytorch python=3.9 pytorch torchvision torchaudio \
 #     pytorch-cuda=11.7 -c pytorch -c nvidia
 # Other conda packages:
-# conda install -y -n pytorch -c conda-forge rich tqdm
-# pip install wandb
+# conda install -y -n pytorch -c conda-forge rich tqdm wandb
 
 # Activate pre-existing environment.
 conda activate pytorch
