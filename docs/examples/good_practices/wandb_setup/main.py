@@ -85,7 +85,6 @@ def main():
         shuffle=False,
     )
 
-    # Check out the "checkpointing and preemption" example for more info!
     logger.debug("Starting training from scratch.")
 
     for epoch in range(training_epochs):
