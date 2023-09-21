@@ -1,4 +1,4 @@
-"""Torchvision training example."""
+"""Data example."""
 import logging
 import os
 

@@ -1,5 +1,5 @@
-Torchvision
-===========
+Data
+====
 
 
 **Prerequisites**
@@ -12,24 +12,24 @@ example:
 
 The full source code for this example is available on `the mila-docs GitHub
 repository.
-<https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/data/torchvision>`_
+<https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/good_practices/data>`_
 
 
 **job.sh**
 
-.. literalinclude:: examples/data/torchvision/job.sh.diff
+.. literalinclude:: job.sh.diff
    :language: diff
 
 
 **main.py**
 
-.. literalinclude:: examples/data/torchvision/main.py.diff
-   :language: diff
+.. literalinclude:: main.py
+   :language: python
 
 
 **data.py**
 
-.. literalinclude:: examples/data/torchvision/data.py
+.. literalinclude:: data.py
    :language: python
 
 

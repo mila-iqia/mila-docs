@@ -45,7 +45,6 @@ recommend you start by checking out the :ref:`short quick start guide
 
    examples/frameworks/index
    examples/distributed/index
-   examples/data/index
    examples/good_practices/index
 
 
