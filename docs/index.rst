@@ -57,6 +57,7 @@ recommend you start by checking out the :ref:`short quick start guide
    Audio_video
    VSCode
    IDT
+   Cheatsheet
    Chatbot
    Environmental_impact
 
