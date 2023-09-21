@@ -17,7 +17,7 @@ As an illustrative example, to use ACLs to allow ``$USER`` (**oneself**) to
 share with ``$USER2`` (**another person**) a "playground" folder hierarchy in
 Mila's scratch filesystem at a location
 
-    ``/network/scratch/${USER:0:1}/$USER/X/Y/Z/...``
+    ``$SCRATCH/X/Y/Z/...``
 
 in a safe and secure fashion that allows both users to read, write, execute,
 search and delete each others' files:
@@ -31,7 +31,7 @@ search and delete each others' files:
 
 .. code-block:: bash
 
-   setfacl -Rdm user:${USER}:rwx  /network/scratch/${USER:0:1}/$USER/X/Y/Z/
+   setfacl -Rdm user:${USER}:rwx  $SCRATCH/X/Y/Z/
 
 ----
 
@@ -51,7 +51,7 @@ search and delete each others' files:
 
 .. code-block:: bash
 
-   setfacl -Rdm user:${USER2}:rwx /network/scratch/${USER:0:1}/$USER/X/Y/Z/
+   setfacl -Rdm user:${USER2}:rwx $SCRATCH/X/Y/Z/
 
 ----
 
@@ -63,7 +63,7 @@ search and delete each others' files:
 
 .. code-block:: bash
 
-   setfacl -Rm  user:${USER2}:rwx /network/scratch/${USER:0:1}/$USER/X/Y/Z/
+   setfacl -Rm  user:${USER2}:rwx $SCRATCH/X/Y/Z/
 
 .. note::
    The purpose of granting permissions first for *future* files and then for
@@ -82,9 +82,9 @@ search and delete each others' files:
 
 .. code-block:: bash
 
-   setfacl -m   user:${USER2}:x   /network/scratch/${USER:0:1}/$USER/X/Y/
-   setfacl -m   user:${USER2}:x   /network/scratch/${USER:0:1}/$USER/X/
-   setfacl -m   user:${USER2}:x   /network/scratch/${USER:0:1}/$USER/
+   setfacl -m   user:${USER2}:x   $SCRATCH/X/Y/
+   setfacl -m   user:${USER2}:x   $SCRATCH/X/
+   setfacl -m   user:${USER2}:x   $SCRATCH
 
 .. note::
    In order to access a file, all folders from the root (``/``) down to the
@@ -92,15 +92,14 @@ search and delete each others' files:
    This is already the case for all users for folders such as ``/``,
    ``/network`` and ``/network/scratch``, but users must explicitly grant access
    to some or all users either through base permissions or by adding ACLs, for
-   at least ``/network/scratch/${USER:0:1}/$USER``, ``$HOME`` and subfolders.
+   at least ``/network/scratch/${USER:0:1}/$USER`` (= ``$SCRATCH``), ``$HOME`` and subfolders.
 
    To bluntly allow **all** users to search through a folder (**think twice!**),
    the following command can be used:
 
    .. code-block:: bash
 
-      chmod a+x /network/scratch/${USER:0:1}/$USER/
-
+      chmod a+x $SCRATCH
 
 .. note::
   For more information on ``setfacl`` and path resolution/access checking,
