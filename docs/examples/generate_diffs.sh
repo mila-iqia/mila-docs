@@ -21,7 +21,7 @@ generate_diff() {
         >> "$2.diff"
 }
 
-pushd "${_SCRIPT_DIR}"
+pushd "${_SCRIPT_DIR}" >/dev/null
 
 # single_gpu -> multi_gpu
 generate_diff distributed/single_gpu/job.sh distributed/multi_gpu/job.sh
@@ -35,6 +35,9 @@ generate_diff distributed/multi_gpu/main.py distributed/multi_node/main.py
 generate_diff distributed/single_gpu/job.sh good_practices/checkpointing/job.sh
 generate_diff distributed/single_gpu/main.py good_practices/checkpointing/main.py
 
+# single_gpu -> data
+generate_diff distributed/single_gpu/job.sh good_practices/data/job.sh
+
 # single_gpu -> hpo_with_orion
 generate_diff distributed/single_gpu/job.sh good_practices/hpo_with_orion/job.sh
 generate_diff distributed/single_gpu/main.py good_practices/hpo_with_orion/main.py
@@ -43,4 +46,4 @@ generate_diff distributed/single_gpu/main.py good_practices/hpo_with_orion/main.
 generate_diff distributed/single_gpu/job.sh good_practices/wandb_setup/job.sh
 generate_diff distributed/single_gpu/main.py good_practices/wandb_setup/main.py
 
-popd
+popd >/dev/null
