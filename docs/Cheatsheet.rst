@@ -6,9 +6,9 @@ A "cheat sheet" is available to provide you with information about the Mila and 
 We printed a few hundred copies on cardboard paper in Fall 2023 and distributed them around Mila.
 If you want to have a copy, you can always come to the IDT lab during office hours (usually Tuesday 3pm-5pm).
 
-.. _cheatsheet-link: /_static/2023-08-24_IDT_cheatsheet.pdf
+.. _cheatsheet-link: /_static/2023-09-07_IDT_cheatsheet.pdf
 
-The :download:`IDT Cheat Sheet pdf <2023-08-24_IDT_cheatsheet.pdf>` is available if you want to access it online.
+The :download:`IDT Cheat Sheet pdf <2023-09-07_IDT_cheatsheet.pdf>` is available if you want to access it online.
 The layout of the pdf has been set to be compatible with the printers at Mila
 so you can always print your own copy on regular paper
 (hint: set printer scale 100% with no margins).
