@@ -16,8 +16,45 @@
 #SBATCH --ntasks-per-node=1
 #SBATCH --mem=32G
 
-MODEL="$1"
-PATH="$2"
+usage() {
+  echo "Usage: $0 [-m] [-p] 
+  echo "  -h              Display this help message."
+  echo "  -m MODEL        Specify a file to process."
+  echo "  -p PATH         Specify a directory to work in."
+  echo "  ARGUMENT        Any additional argument you want to process."
+  exit 1
+}
+
+MODEL=""
+PATH=""
+ENV="./env"
+
+
+while getopts ":hf:d:" opt; do
+  case $opt in
+    h)
+      usage
+      ;;
+    m)
+      MODEL="$OPTARG"
+      ;;
+    p)
+      PATH="$OPTARG"
+      ;;
+    e)
+      ENV="$OPTARG"
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      usage
+      ;;
+    :)
+      echo "Option -$OPTARG requires an argument." >&2
+      usage
+      ;;
+  esac
+done
+
 
 export MILA_WEIGHTS="/network/weights/"
 
@@ -33,19 +70,19 @@ source $CONDA_BASE/../etc/profile.d/conda.sh
 #
 #   Create a new environment
 #
-conda create --prefix ./env python=3.9 -y 
-conda activate ./env
+if [ ! -d "$ENV" ]; then
+     conda create --prefix $ENV python=3.9 -y 
+fi
+conda activate $ENV
 pip install vllm
-
-#
-#   Save metadata for retrival
-#
 
 PORT=$(python -c "import socket; sock = socket.socket(); sock.bind(('', 0)); print(sock.getsockname()[1])")
 HOST="$(hostname)"
 NAME="$WEIGHTS/$MODEL"
 
-echo " -> $HOST:$PORT"
+#
+#   Save metadata for retrival
+#
 scontrol update job $SLURM_JOB_ID comment="model=$MODEL|host=$HOST|port=$PORT|shared=y"
 
 # 

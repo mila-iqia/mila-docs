@@ -1,5 +1,9 @@
 import openai
 
+
+#
+# Parse the server info from the job comment
+#
 def parse_meta(comment):
     data = dict()
     if comment != "(null)":
@@ -22,10 +26,12 @@ def get_job_comment(name="inference_server.sh"):
 
 server = parse_meta(get_job_comment())
 
+# Override OpenAPI API URL with out custom server
 openai.api_key = "EMPTY"
 openai.api_base = f"http://{server['host']}:{server['port']}/v1"
 
 
+# profit
 completion = openai.Completion.create(
     model=server['model'], 
     prompt=args.prompt
