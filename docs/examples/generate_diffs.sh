@@ -23,6 +23,9 @@ generate_diff() {
 
 pushd "${_SCRIPT_DIR}"
 
+# pytorch_setup -> jax_setup
+generate_diff frameworks/pytorch_setup/job.sh frameworks/jax_setup/job.sh
+
 # single_gpu -> multi_gpu
 generate_diff distributed/single_gpu/job.sh distributed/multi_gpu/job.sh
 generate_diff distributed/single_gpu/main.py distributed/multi_gpu/main.py
@@ -42,5 +45,9 @@ generate_diff distributed/single_gpu/main.py good_practices/hpo_with_orion/main.
 # single_gpu -> wandb_setup
 generate_diff distributed/single_gpu/job.sh good_practices/wandb_setup/job.sh
 generate_diff distributed/single_gpu/main.py good_practices/wandb_setup/main.py
+
+# single_gpu -> jax
+generate_diff distributed/single_gpu/job.sh frameworks/jax/job.sh
+generate_diff distributed/single_gpu/main.py frameworks/jax/main.py
 
 popd

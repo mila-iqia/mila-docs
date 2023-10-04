@@ -15,15 +15,16 @@ module --quiet purge
 module load anaconda/3
 
 # Creating the environment for the first time:
-# conda create -y -n pytorch python=3.9 pytorch torchvision torchaudio \
-#     pytorch-cuda=11.6 -c pytorch -c nvidia
-# Other conda packages:
-# conda install -y -n pytorch -c conda-forge rich
+# conda create -y -n jax_ex -c "nvidia/label/cuda-11.8.0" cuda python=3.9 virtualenv pip
+# conda activate jax_ex
+# Install Jax using `pip`
+# *Please note* that as soon as you install packages from `pip install`, you
+# should not install any more packages using `conda install`
+# pip install --upgrade "jax[cuda11_pip]" \
+#    -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
 
 # Activate the environment:
-conda activate pytorch
+conda activate jax_ex
 
-# Fixes issues with MIG-ed GPUs with versions of PyTorch < 2.0
-unset CUDA_VISIBLE_DEVICES
 
 python main.py

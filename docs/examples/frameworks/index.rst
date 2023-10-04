@@ -11,7 +11,8 @@ for various frameworks.
     :maxdepth: 1
     :glob:
 
-    */index
+    pytorch_setup/index
+    jax_setup/index
+    jax/index
 
-* Jax (Coming soon!)
 * TensorFlow (Coming soon!)
