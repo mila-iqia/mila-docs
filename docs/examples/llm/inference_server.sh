@@ -16,21 +16,22 @@
 #SBATCH --ntasks-per-node=1
 #SBATCH --mem=32G
 
-usage() {
-  echo "Usage: $0 [-m] [-p] 
+function usage() {
+  echo "Usage: $0 [-m] [-p]"
   echo "  -h              Display this help message."
   echo "  -m MODEL        Specify a file to process."
   echo "  -p PATH         Specify a directory to work in."
+  echo "  -e ENV          Specify the conda environementt to use."
   echo "  ARGUMENT        Any additional argument you want to process."
   exit 1
 }
 
 MODEL=""
-PATH=""
+MODEL_PATH=""
 ENV="./env"
 
 
-while getopts ":hf:d:" opt; do
+while getopts ":hm:p:e:" opt; do
   case $opt in
     h)
       usage
@@ -39,7 +40,7 @@ while getopts ":hf:d:" opt; do
       MODEL="$OPTARG"
       ;;
     p)
-      PATH="$OPTARG"
+      MODEL_PATH="$OPTARG"
       ;;
     e)
       ENV="$OPTARG"
@@ -55,9 +56,11 @@ while getopts ":hf:d:" opt; do
   esac
 done
 
+echo "model: $MODEL"
+echo " path: $MODEL_PATH"
+echo "  env: $ENV"
 
 export MILA_WEIGHTS="/network/weights/"
-
 cd $SLURM_TMPDIR
 
 #
@@ -65,12 +68,13 @@ cd $SLURM_TMPDIR
 #
 CONDA_EXEC="$(which conda)"
 CONDA_BASE=$(dirname $CONDA_EXEC)
+CONDA_ENVS="$CONDA_BASE/../envs"
 source $CONDA_BASE/../etc/profile.d/conda.sh
 
 #
 #   Create a new environment
 #
-if [ ! -d "$ENV" ]; then
+if [ ! -d "$ENV" ] && [ "$ENV" != "base" ] && [ ! -d "$CONDA_ENVS/$ENV" ]; then
      conda create --prefix $ENV python=3.9 -y 
 fi
 conda activate $ENV
@@ -85,12 +89,12 @@ NAME="$WEIGHTS/$MODEL"
 #
 scontrol update job $SLURM_JOB_ID comment="model=$MODEL|host=$HOST|port=$PORT|shared=y"
 
-# 
+#
 #   Launch Server
 #
 python -m vllm.entrypoints.openai.api_server       \
      --host $HOST                                  \
      --port $PORT                                  \
-     --model "$MODEL"                              \
+     --model "$MODEL_PATH"                         \
      --tensor-parallel-size $SLURM_NTASKS_PER_NODE \
      --served-model-name "$MODEL"

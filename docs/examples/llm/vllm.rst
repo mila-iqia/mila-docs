@@ -9,7 +9,7 @@ Server
 It is very easy to setup and supports a wide range of models through Huggingfaces.
 
 
-.. code-block:: 
+.. code-block::
 
    # sbatch inference_server.sh -m MODEL_NAME -p WEIGHT_PATH -e CONDA_ENV_NAME_TO_USE
    sbatch inference_server.sh -m Llama-2-7b-chat-hf -p /network/weights/llama.var/llama2/Llama-2-7b-chat-hf -e base
@@ -19,7 +19,7 @@ By default the script will launch the server on an rtx8000 for 15 minutes.
 You can override the defaults by specifying arguments to sbatch.
 
 
-.. code-block:: 
+.. code-block::
 
    sbatch --time=00:30:00 inference_server.sh -m Llama-2-7b-chat-hf -p /network/weights/llama.var/llama2/Llama-2-7b-chat-hf -e base
 
@@ -36,24 +36,28 @@ You can override the defaults by specifying arguments to sbatch.
 Client
 ------
 
-Becasue vLLM replicates OpenAI's API, the client side is quite straight forward.
-Own OpenAI's client can be reused. 
+Because vLLM replicates OpenAI's API, the client side is quite straight forward and
+own OpenAI's client can be reused.
 
 .. warning::
-   
+
    The server takes a while to setup you might to have to wait a few minutes
    before the server is ready for inference.
 
-   You can check the job log of the server.
-   Look for 
+   You can check the job log of the server using ``tail -f slurm-<JOB-ID>.out`` to
+   see the log as it is written.
+
+   Look for ``Uvicorn running on http://... (Press CTRL+C to quit)``
+   to know when the server is ready to receive requests.
 
 
 .. note::
 
-   We use squeue to look for the inference server job to configure the 
+   We use ``squeue`` to look for the inference server job to configure the
    url endpoint automatically.
 
    Make sure your job name is unique!
+
 
 .. literalinclude:: client.py
     :language: python

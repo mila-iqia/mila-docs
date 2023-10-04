@@ -1,3 +1,5 @@
+import subprocess
+
 import openai
 
 
@@ -33,8 +35,8 @@ openai.api_base = f"http://{server['host']}:{server['port']}/v1"
 
 # profit
 completion = openai.Completion.create(
-    model=server['model'], 
-    prompt=args.prompt
+    model=server['model'],
+    prompt="What is the square root of 25 ?"
 )
 
 print(completion)
