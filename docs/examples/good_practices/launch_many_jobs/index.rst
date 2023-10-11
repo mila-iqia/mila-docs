@@ -1,4 +1,4 @@
-.. _pytorch_setup:
+.. _launch_many_jobs:
 
 Launch many jobs from same shell script
 =======================================

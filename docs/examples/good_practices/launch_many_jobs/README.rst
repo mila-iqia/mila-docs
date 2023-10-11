@@ -2,7 +2,7 @@
 .. This is done so this file can be easily viewed from the GitHub UI.
 .. **DO NOT EDIT**
 
-.. _pytorch_setup:
+.. _launch_many_jobs:
 
 Launch many jobs from same shell script
 =======================================
