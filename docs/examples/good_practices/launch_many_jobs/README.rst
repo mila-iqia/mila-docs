@@ -7,6 +7,13 @@
 Launch many jobs from same shell script
 =======================================
 
+Sometimes you may want to run same script by changing just few values.
+
+Instead of "comment line, change value, and re-run" cycle, you can
+parameterize the script and then call it multiple times with different parameters.
+
+Here we provide an example, with Python script accepting parameters, and
+bash script just receiving and passing parameters to Python script.
 
 **Prerequisites**
 Make sure to read the following sections of the documentation before using this
