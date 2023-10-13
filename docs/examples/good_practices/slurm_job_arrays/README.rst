@@ -86,8 +86,10 @@ repository.
     """Single-GPU training example."""
     import logging
     import os
+   +import random
     from pathlib import Path
 
+   +import numpy
     import rich.logging
     import torch
     from torch import Tensor, nn
@@ -100,14 +102,20 @@ repository.
 
 
     def main():
-   -    training_epochs = 10
    +    array_task_id = os.environ["SLURM_ARRAY_TASK_ID"]
    +
-   +    training_epochs = int(array_task_id)
+        training_epochs = 10
         learning_rate = 5e-4
         weight_decay = 1e-4
         batch_size = 128
 
+   +    # Seed the random number generators as early as possible.
+   +    random_seed = int(array_task_id)
+   +    random.seed(random_seed)
+   +    numpy.random.seed(random_seed)
+   +    torch.random.manual_seed(random_seed)
+   +    torch.cuda.manual_seed_all(random_seed)
+   +
         # Check that the GPU is available
         assert torch.cuda.is_available() and torch.cuda.device_count() > 0
         device = torch.device("cuda", 0)
