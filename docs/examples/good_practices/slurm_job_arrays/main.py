@@ -15,7 +15,9 @@ from tqdm import tqdm
 
 
 def main():
-    training_epochs = 10
+    array_task_id = os.environ["SLURM_ARRAY_TASK_ID"]
+
+    training_epochs = int(array_task_id)
     learning_rate = 5e-4
     weight_decay = 1e-4
     batch_size = 128
@@ -31,6 +33,8 @@ def main():
     )
 
     logger = logging.getLogger(__name__)
+
+    logger.info(f"Slurm array task ID: {array_task_id}")
 
     # Create a model and move it to the GPU.
     model = resnet18(num_classes=10)

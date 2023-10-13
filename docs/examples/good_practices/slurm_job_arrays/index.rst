@@ -1,7 +1,15 @@
 .. _single_gpu_job:
 
-Single GPU Job
-==============
+Launch many jobs using SLURM job arrays
+=======================================
+
+Sometimes you may want to run many taks by changing just a single parameter.
+
+One way to do that is to use SLURM job arrays, which consists of launching an array of jobs using the same script.
+Each job will run with a specific environment variable called ``SLURM_ARRAY_TASK_ID``, containing the job index value inside job array.
+You can then slightly modify your script to choose appropriate parameter based on this variable.
+
+You can find more info about job arrays in `SLURM official documentation <https://slurm.schedmd.com/job_array.html>`_.
 
 
 **Prerequisites**
@@ -16,19 +24,29 @@ repository.
 
 **job.sh**
 
-.. literalinclude:: job.sh
-    :language: bash
+.. literalinclude:: job.sh.diff
+    :language: diff
 
 
 **main.py**
 
-.. literalinclude:: main.py
-    :language: python
+.. literalinclude:: main.py.diff
+    :language: diff
 
 
 **Running this example**
 
+This assumes you already created a conda environment named "pytorch" as in
+Pytorch example:
+
+* :ref:`pytorch_setup`
+
+Exit the interactive job once the environment has been created.
+You can then launch a job array using ``sbatch`` argument ``--array``.
 
 .. code-block:: bash
 
-    $ sbatch job.sh
+    $ sbatch --array=1-5 job.sh
+
+
+In this example, 5 jobs will be launched with indices (thereforce, values of ``SLURM_ARRAY_TASK_ID``) from 1 to 5.

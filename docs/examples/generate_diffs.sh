@@ -50,4 +50,8 @@ generate_diff distributed/single_gpu/main.py good_practices/wandb_setup/main.py
 generate_diff distributed/single_gpu/job.sh frameworks/jax/job.sh
 generate_diff distributed/single_gpu/main.py frameworks/jax/main.py
 
+# single_gpu -> slurm job arrays
+generate_diff distributed/single_gpu/job.sh good_practices/slurm_job_arrays/job.sh
+generate_diff distributed/single_gpu/main.py good_practices/slurm_job_arrays/main.py
+
 popd
