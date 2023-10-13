@@ -9,7 +9,7 @@ One way to do that is to use SLURM job arrays, which consists of launching an ar
 Each job will run with a specific environment variable called ``SLURM_ARRAY_TASK_ID``, containing the job index value inside job array.
 You can then slightly modify your script to choose appropriate parameter based on this variable.
 
-You can find more info about job arrays in `SLURM official documentation <https://slurm.schedmd.com/job_array.html>`_.
+You can find more info about job arrays in the `SLURM official documentation page <https://slurm.schedmd.com/job_array.html>`_.
 
 
 **Prerequisites**
