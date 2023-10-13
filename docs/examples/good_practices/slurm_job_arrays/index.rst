@@ -3,7 +3,7 @@
 Launch many jobs using SLURM job arrays
 =======================================
 
-Sometimes you may want to run many taks by changing just a single parameter.
+Sometimes you may want to run many tasks by changing just a single parameter.
 
 One way to do that is to use SLURM job arrays, which consists of launching an array of jobs using the same script.
 Each job will run with a specific environment variable called ``SLURM_ARRAY_TASK_ID``, containing the job index value inside job array.
@@ -24,8 +24,9 @@ repository.
 
 **job.sh**
 
-.. literalinclude:: job.sh.diff
-    :language: diff
+.. code-block::
+
+    Unchanged
 
 
 **main.py**
