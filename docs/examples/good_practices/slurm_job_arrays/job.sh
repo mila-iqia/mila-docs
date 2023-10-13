@@ -5,6 +5,8 @@
 #SBATCH --mem=16G
 #SBATCH --time=00:15:00
 
+# No need to change this file, as environment variables
+# will also be available in Python script called below.
 
 # Echo time and hostname into log
 echo "Date:     $(date)"

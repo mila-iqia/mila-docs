@@ -24,9 +24,8 @@ repository.
 
 **job.sh**
 
-.. code-block::
-
-    Unchanged
+.. literalinclude:: job.sh.diff
+    :language: diff
 
 
 **main.py**
