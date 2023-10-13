@@ -281,4 +281,4 @@ You can then launch a job array using ``sbatch`` argument ``--array``.
     $ sbatch --array=1-5 job.sh
 
 
-In this example, 5 jobs will be launched with indices (thereforce, values of ``SLURM_ARRAY_TASK_ID``) from 1 to 5.
+In this example, 5 jobs will be launched with indices (therefore, values of ``SLURM_ARRAY_TASK_ID``) from 1 to 5.
