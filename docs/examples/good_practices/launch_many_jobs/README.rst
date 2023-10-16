@@ -83,7 +83,8 @@ repository.
    -python main.py
    +# Call main.py with all arguments passed to this script.
    +# This allows you to call the script many times with different arguments.
-   +python main.py $@
+   +# Quotes around $@ prevent splitting of arguments that contain spaces.
+   +python main.py "$@"
 
 
 **main.py**
