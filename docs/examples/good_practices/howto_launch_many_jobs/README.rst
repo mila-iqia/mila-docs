@@ -1,4 +1,4 @@
-.. NOTE: This file is auto-generated from examples/good_practices/launch_many_jobs/index.rst
+.. NOTE: This file is auto-generated from examples/good_practices/howto_launch_many_jobs/index.rst
 .. This is done so this file can be easily viewed from the GitHub UI.
 .. **DO NOT EDIT**
 
@@ -31,13 +31,13 @@ example:
 
 The full source code for this example is available on `the mila-docs GitHub
 repository.
-<https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/good_practices/launch_many_jobs>`_
+<https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/good_practices/howto_launch_many_jobs>`_
 
 **job.sh**
 
 .. code:: diff
 
-    # distributed/single_gpu/job.sh -> good_practices/launch_many_jobs/job.sh
+    # distributed/single_gpu/job.sh -> good_practices/howto_launch_many_jobs/job.sh
     #!/bin/bash
     #SBATCH --gpus-per-task=rtx8000:1
     #SBATCH --cpus-per-task=4
@@ -91,7 +91,7 @@ repository.
 
 .. code:: diff
 
-    # distributed/single_gpu/main.py -> good_practices/launch_many_jobs/main.py
+    # distributed/single_gpu/main.py -> good_practices/howto_launch_many_jobs/main.py
     """Single-GPU training example."""
    +import argparse
     import logging
