@@ -100,7 +100,6 @@ The full source code for this example is available on `the mila-docs GitHub repo
    +import json
     import logging
     import os
-   +import sys
     from pathlib import Path
 
     import rich.logging
@@ -130,7 +129,7 @@ The full source code for this example is available on `the mila-docs GitHub repo
    -    learning_rate: float = args.learning_rate
    -    weight_decay: float = args.weight_decay
    -    batch_size: int = args.batch_size
-   +    training_epochs = args.epochs
+   +    epochs = args.epochs
    +    learning_rate = args.learning_rate
    +    weight_decay = args.weight_decay
    +    batch_size = args.batch_size
@@ -181,10 +180,8 @@ The full source code for this example is available on `the mila-docs GitHub repo
         # Checkout the "checkpointing and preemption" example for more info!
         logger.debug("Starting training from scratch.")
 
-   -    for epoch in range(epochs):
-   -        logger.debug(f"Starting epoch {epoch}/{epochs}")
-   +    for epoch in range(training_epochs):
-   +        logger.debug(f"Starting epoch {epoch}/{training_epochs}")
+        for epoch in range(epochs):
+            logger.debug(f"Starting epoch {epoch}/{epochs}")
 
             # Set the model in training mode (important for e.g. BatchNorm and Dropout layers)
             model.train()
