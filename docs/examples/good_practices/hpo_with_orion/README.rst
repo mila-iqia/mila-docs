@@ -96,7 +96,7 @@ The full source code for this example is available on `the mila-docs GitHub repo
     # distributed/single_gpu/main.py -> good_practices/hpo_with_orion/main.py
    -"""Single-GPU training example."""
    +"""Hyperparameter optimization using Oríon."""
-   +import argparse
+    import argparse
    +import json
     import logging
     import os
@@ -117,18 +117,19 @@ The full source code for this example is available on `the mila-docs GitHub repo
    +
 
     def main():
-   -    training_epochs = 10
-   -    learning_rate = 5e-4
-   -    weight_decay = 1e-4
-   -    batch_size = 128
+   -    # Use an argument parser so we can pass hyperparameters from the command line.
    +    # Add an argument parser so that we can pass hyperparameters from command line.
-   +    parser = argparse.ArgumentParser(description=__doc__)
-   +    parser.add_argument("--epochs", type=int, default=10)
-   +    parser.add_argument("--learning-rate", type=float, default=5e-4)
-   +    parser.add_argument("--weight-decay", type=float, default=1e-4)
-   +    parser.add_argument("--batch-size", type=int, default=128)
-   +    args = parser.parse_args()
-   +
+        parser = argparse.ArgumentParser(description=__doc__)
+        parser.add_argument("--epochs", type=int, default=10)
+        parser.add_argument("--learning-rate", type=float, default=5e-4)
+        parser.add_argument("--weight-decay", type=float, default=1e-4)
+        parser.add_argument("--batch-size", type=int, default=128)
+        args = parser.parse_args()
+
+   -    epochs: int = args.epochs
+   -    learning_rate: float = args.learning_rate
+   -    weight_decay: float = args.weight_decay
+   -    batch_size: int = args.batch_size
    +    training_epochs = args.epochs
    +    learning_rate = args.learning_rate
    +    weight_decay = args.weight_decay
@@ -180,8 +181,10 @@ The full source code for this example is available on `the mila-docs GitHub repo
         # Checkout the "checkpointing and preemption" example for more info!
         logger.debug("Starting training from scratch.")
 
-        for epoch in range(training_epochs):
-            logger.debug(f"Starting epoch {epoch}/{training_epochs}")
+   -    for epoch in range(epochs):
+   -        logger.debug(f"Starting epoch {epoch}/{epochs}")
+   +    for epoch in range(training_epochs):
+   +        logger.debug(f"Starting epoch {epoch}/{training_epochs}")
 
             # Set the model in training mode (important for e.g. BatchNorm and Dropout layers)
             model.train()
