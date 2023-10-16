@@ -17,19 +17,12 @@ from tqdm import tqdm
 
 
 def main():
-    array_task_id = os.environ["SLURM_ARRAY_TASK_ID"]
+    array_task_id = int(os.environ["SLURM_ARRAY_TASK_ID"])
 
     training_epochs = 10
-    learning_rate = 5e-4
-    weight_decay = 1e-4
-    batch_size = 128
-
-    # Seed the random number generators as early as possible.
-    random_seed = int(array_task_id)
-    random.seed(random_seed)
-    numpy.random.seed(random_seed)
-    torch.random.manual_seed(random_seed)
-    torch.cuda.manual_seed_all(random_seed)
+    learning_rate = array_task_id * 5e-4
+    weight_decay = array_task_id * 1e-4
+    batch_size = array_task_id * 50
 
     # Check that the GPU is available
     assert torch.cuda.is_available() and torch.cuda.device_count() > 0
