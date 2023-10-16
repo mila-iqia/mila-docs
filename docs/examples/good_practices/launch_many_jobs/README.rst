@@ -7,19 +7,20 @@
 Launch many jobs from same shell script
 =======================================
 
-Sometimes you may want to run the same job with different arguments. For example, you may want to launch an experiment using a few different values for a given parameter. 
+Sometimes you may want to run the same job with different arguments. For example, you may want to launch an experiment using a few different values for a given parameter.
 
 The naive way to do this would be to create multiple sbatch scripts, each with a different value for that parameter.
-Another might be to use a single sbatch script with multiple lines, each with a different parameter value, and to then uncomment a given line before submitting the job, then commenting and uncommenting a different line before submitting another job, etc. 
+Another might be to use a single sbatch script with multiple lines, each with a different parameter value, and to then uncomment a given line before submitting the job, then commenting and uncommenting a different line before submitting another job, etc.
 
-This example shows a  practical solution to this problem, allowing you to parameterize an job's sbatch script, allowing you to pass different values directly from the command-line when submitting the job.
+This example shows a  practical solution to this problem, allowing you to parameterize a job's sbatch script, and pass different values directly from the command-line when submitting the job.
 
-In this example, our job script is a slightly modified version of the Python script form the single-GPU example, with a bit of code added so that it is able to take in values form the command-line.
-The sbatch script uses the `$@` bash directive to pass the command-line arguments to the python script. This makes it very easy to submit multiple jobs, each with different values!
+In this example, our job script is a slightly modified version of the Python script from the single-GPU example, with a bit of code added so that it is able to take in values from the command-line.
+The sbatch script uses the ``$@`` bash directive to pass the command-line arguments to the python script. This makes it very easy to submit multiple jobs, each with different values!
 
 The next examples will then build on top of this one to illustrate good practices related to launching lots of jobs for hyper-parameter sweeps:
+
 * Using SLURM Job Arrays for Hyper-Parameter Sweeps (coming soon!)
-* :doc:`Running more effective Hyper-Parameter Sweeps with Orion </examples/good_practices/hpo_with_orion/index>` 
+* :ref:`Running more effective Hyper-Parameter Sweeps with Orion <hpo_with_orion>`
 
 
 **Prerequisites**
@@ -112,7 +113,7 @@ repository.
    -    learning_rate = 5e-4
    -    weight_decay = 1e-4
    -    batch_size = 128
-   +    # Add an argument parser so that we can pass hyperparameters from command line.
+   +    # Add an argument parser so that we can pass hyperparameters from the command line.
    +    parser = argparse.ArgumentParser(description=__doc__)
    +    parser.add_argument("--epochs", type=int, default=10)
    +    parser.add_argument("--learning-rate", type=float, default=5e-4)

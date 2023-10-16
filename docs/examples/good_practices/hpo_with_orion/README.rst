@@ -2,6 +2,8 @@
 .. This is done so this file can be easily viewed from the GitHub UI.
 .. **DO NOT EDIT**
 
+.. _hpo_with_orion:
+
 Hyperparameter Optimization with Oríon
 ======================================
 
