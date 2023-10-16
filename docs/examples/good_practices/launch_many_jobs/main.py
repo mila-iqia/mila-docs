@@ -16,7 +16,7 @@ from tqdm import tqdm
 
 
 def main():
-    # Add an argument parser so that we can pass hyperparameters from command line.
+    # Add an argument parser so that we can pass hyperparameters from the command line.
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--epochs", type=int, default=10)
     parser.add_argument("--learning-rate", type=float, default=5e-4)
