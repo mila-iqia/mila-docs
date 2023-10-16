@@ -7,13 +7,20 @@
 Launch many jobs from same shell script
 =======================================
 
-Sometimes you may want to run same script by changing just few values.
+Sometimes you may want to run the same job with different arguments. For example, you may want to launch an experiment using a few different values for a given parameter. 
 
-Instead of "comment line, change value, and re-run" cycle, you can
-parameterize the script and then call it multiple times with different parameters.
+The naive way to do this would be to create multiple sbatch scripts, each with a different value for that parameter.
+Another might be to use a single sbatch script with multiple lines, each with a different parameter value, and to then uncomment a given line before submitting the job, then commenting and uncommenting a different line before submitting another job, etc. 
 
-Here we provide an example, with Python script accepting parameters, and
-bash script just receiving and passing parameters to Python script.
+This example shows a  practical solution to this problem, allowing you to parameterize an job's sbatch script, allowing you to pass different values directly from the command-line when submitting the job.
+
+In this example, our job script is a slightly modified version of the Python script form the single-GPU example, with a bit of code added so that it is able to take in values form the command-line.
+The sbatch script uses the `$@` bash directive to pass the command-line arguments to the python script. This makes it very easy to submit multiple jobs, each with different values!
+
+The next examples will then build on top of this one to illustrate good practices related to launching lots of jobs for hyper-parameter sweeps:
+* Using SLURM Job Arrays for Hyper-Parameter Sweeps (coming soon!)
+* :doc:`Running more effective Hyper-Parameter Sweeps with Orion </examples/good_practices/hpo_with_orion/index>` 
+
 
 **Prerequisites**
 Make sure to read the following sections of the documentation before using this
