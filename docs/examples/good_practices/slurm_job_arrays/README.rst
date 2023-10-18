@@ -102,15 +102,18 @@ repository.
 
 
     def main():
+   +    # Use SLURM ARRAY TASK ID to create a random number generator.
    +    array_task_id = int(os.environ["SLURM_ARRAY_TASK_ID"])
+   +    gen = numpy.random.default_rng(seed=array_task_id)
    +
         training_epochs = 10
    -    learning_rate = 5e-4
    -    weight_decay = 1e-4
    -    batch_size = 128
-   +    learning_rate = array_task_id * 5e-4
-   +    weight_decay = array_task_id * 1e-4
-   +    batch_size = array_task_id * 50
+   +    # Use random number generator to generate hyper-parameters.
+   +    learning_rate = gen.random() * 1e-3
+   +    weight_decay = gen.random() * 1e-3
+   +    batch_size = gen.integers(16, 256)
 
         # Check that the GPU is available
         assert torch.cuda.is_available() and torch.cuda.device_count() > 0
