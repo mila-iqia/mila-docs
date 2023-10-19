@@ -16,18 +16,25 @@ repository.
 
 **job.sh**
 
-.. literalinclude:: job.sh
-    :language: bash
+.. literalinclude:: job.sh.diff
+    :language: diff
 
 
 **main.py**
 
-.. literalinclude:: main.py
-    :language: python
+.. literalinclude:: main.py.diff
+    :language: diff
 
 
 **Running this example**
 
+This assumes you already created a conda environment named "pytorch" as in
+Pytorch example:
+
+* :ref:`pytorch_setup`
+
+Exit the interactive job once the environment has been created and Oríon installed.
+You can then launch the example:
 
 .. code-block:: bash
 
