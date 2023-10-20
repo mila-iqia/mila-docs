@@ -70,14 +70,10 @@ repository.
 
    -# Execute Python script
    -python main.py
-   +# Execute Python script twice using srun to dispatch runs into tasks
-   +# As sbatch is configured to run 2 tasks, we allocate 1 task per run here using `--ntasks=1`
-   +# We launch tasks with "&" so that they run in parallel.
-   +srun --ntasks=1 python main.py --learning-rate 5e-4 &
-   +srun --ntasks=1 python main.py --learning-rate 2.5e-4 &
-   +
-   +# We then wait for all tasks to run before exiting script.
-   +wait
+   +# Execute Python script using srun.
+   +# Because of sbatch's `--ntasks=2` above, Python script will be launch twice.
+   +# Each run will receive specific environment variables, such as SLURM_PROCID.
+   +srun python main.py
 
 
 **main.py**
@@ -86,11 +82,11 @@ repository.
 
     # distributed/single_gpu/main.py -> good_practices/many_tasks_per_gpu/main.py
     """Single-GPU training example."""
-   +import argparse
     import logging
     import os
     from pathlib import Path
 
+   +import numpy
     import rich.logging
     import torch
     from torch import Tensor, nn
@@ -103,22 +99,18 @@ repository.
 
 
     def main():
-   -    training_epochs = 10
+   +    # Use SLURM_PROCID ID to create a random number generator.
+   +    slurm_procid = int(os.environ["SLURM_PROCID"])
+   +    gen = numpy.random.default_rng(seed=slurm_procid)
+   +
+        training_epochs = 10
    -    learning_rate = 5e-4
    -    weight_decay = 1e-4
    -    batch_size = 128
-   +    # Add an argument parser so that we can pass hyperparameters from command line.
-   +    parser = argparse.ArgumentParser(description=__doc__)
-   +    parser.add_argument("--epochs", type=int, default=10)
-   +    parser.add_argument("--learning-rate", type=float, default=5e-4)
-   +    parser.add_argument("--weight-decay", type=float, default=1e-4)
-   +    parser.add_argument("--batch-size", type=int, default=128)
-   +    args = parser.parse_args()
-   +
-   +    training_epochs = args.epochs
-   +    learning_rate = args.learning_rate
-   +    weight_decay = args.weight_decay
-   +    batch_size = args.batch_size
+   +    # Use random number generator to generate hyper-parameters.
+   +    learning_rate = gen.uniform(1e-6, 1e-2)
+   +    weight_decay = gen.uniform(1e-6, 1e-3)
+   +    batch_size = int(gen.integers(16, 256))
 
         # Check that the GPU is available
         assert torch.cuda.is_available() and torch.cuda.device_count() > 0
@@ -132,6 +124,8 @@ repository.
 
         logger = logging.getLogger(__name__)
 
+   +    logger.info(f"Slurm PROCID: {slurm_procid}, learning rate: {learning_rate}, weight decay: {weight_decay}, batch size: {batch_size}")
+   +
         # Create a model and move it to the GPU.
         model = resnet18(num_classes=10)
         model.to(device=device)
