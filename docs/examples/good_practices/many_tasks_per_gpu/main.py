@@ -16,7 +16,7 @@ from tqdm import tqdm
 
 
 def main():
-    # Use SLURM_PROCID ID to create a random number generator.
+    # Use SLURM_PROCID to create a random number generator.
     slurm_procid = int(os.environ["SLURM_PROCID"])
     gen = numpy.random.default_rng(seed=slurm_procid)
 
