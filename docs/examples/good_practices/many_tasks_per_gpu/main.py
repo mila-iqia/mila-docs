@@ -1,6 +1,7 @@
 """Single-GPU training example."""
 import logging
 import os
+import random
 from pathlib import Path
 
 import numpy
@@ -16,15 +17,18 @@ from tqdm import tqdm
 
 
 def main():
-    # Use SLURM_PROCID to create a random number generator.
-    slurm_procid = int(os.environ["SLURM_PROCID"])
-    gen = numpy.random.default_rng(seed=slurm_procid)
-
     training_epochs = 10
-    # Use random number generator to generate hyper-parameters.
-    learning_rate = gen.uniform(1e-6, 1e-2)
-    weight_decay = gen.uniform(1e-6, 1e-3)
-    batch_size = int(gen.integers(16, 256))
+    learning_rate = 5e-4
+    weight_decay = 1e-4
+    batch_size = 128
+
+    # Get SLURM_PROCID and use it as a random seed for the script.
+    random_seed = int(os.environ["SLURM_PROCID"])
+    # Seed the random number generators as early as possible.
+    random.seed(random_seed)
+    numpy.random.seed(random_seed)
+    torch.random.manual_seed(random_seed)
+    torch.cuda.manual_seed_all(random_seed)
 
     # Check that the GPU is available
     assert torch.cuda.is_available() and torch.cuda.device_count() > 0
@@ -37,8 +41,6 @@ def main():
     )
 
     logger = logging.getLogger(__name__)
-
-    logger.info(f"Slurm PROCID: {slurm_procid}, learning rate: {learning_rate}, weight decay: {weight_decay}, batch size: {batch_size}")
 
     # Create a model and move it to the GPU.
     model = resnet18(num_classes=10)
