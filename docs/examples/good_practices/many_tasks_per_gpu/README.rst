@@ -68,11 +68,15 @@ repository.
     # Fixes issues with MIG-ed GPUs with versions of PyTorch < 2.0
     unset CUDA_VISIBLE_DEVICES
 
-    # Execute Python script
+   -# Execute Python script
    -python main.py
+   +# Execute Python script twice using srun to dispatch runs into tasks
+   +# As sbatch is configured to run 2 tasks, we allocate 1 task per run here using `--ntasks=1`
+   +# We launch tasks with "&" so that they run in parallel.
    +srun --ntasks=1 python main.py --learning-rate 5e-4 &
    +srun --ntasks=1 python main.py --learning-rate 2.5e-4 &
    +
+   +# We then wait for all tasks to run before exiting script.
    +wait
 
 
