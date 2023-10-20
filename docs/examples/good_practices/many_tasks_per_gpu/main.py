@@ -1,5 +1,5 @@
-# Nothing to change here
 """Single-GPU training example."""
+import argparse
 import logging
 import os
 from pathlib import Path
@@ -16,10 +16,18 @@ from tqdm import tqdm
 
 
 def main():
-    training_epochs = 10
-    learning_rate = 5e-4
-    weight_decay = 1e-4
-    batch_size = 128
+    # Add an argument parser so that we can pass hyperparameters from command line.
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--epochs", type=int, default=10)
+    parser.add_argument("--learning-rate", type=float, default=5e-4)
+    parser.add_argument("--weight-decay", type=float, default=1e-4)
+    parser.add_argument("--batch-size", type=int, default=128)
+    args = parser.parse_args()
+
+    training_epochs = args.epochs
+    learning_rate = args.learning_rate
+    weight_decay = args.weight_decay
+    batch_size = args.batch_size
 
     # Check that the GPU is available
     assert torch.cuda.is_available() and torch.cuda.device_count() > 0

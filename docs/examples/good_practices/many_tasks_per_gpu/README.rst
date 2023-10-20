@@ -23,6 +23,8 @@ repository.
 .. code:: diff
 
     # distributed/single_gpu/job.sh -> good_practices/many_tasks_per_gpu/job.sh
+   old mode 100644
+   new mode 100755
     #!/bin/bash
    -#SBATCH --gpus-per-task=rtx8000:1
    -#SBATCH --cpus-per-task=4
@@ -67,7 +69,11 @@ repository.
     unset CUDA_VISIBLE_DEVICES
 
     # Execute Python script
-    python main.py
+   -python main.py
+   +srun --ntasks=1 python main.py --learning-rate 5e-4 &
+   +srun --ntasks=1 python main.py --learning-rate 2.5e-4 &
+   +
+   +wait
 
 
 **main.py**
@@ -75,8 +81,8 @@ repository.
 .. code:: diff
 
     # distributed/single_gpu/main.py -> good_practices/many_tasks_per_gpu/main.py
-   +# Nothing to change here
     """Single-GPU training example."""
+   +import argparse
     import logging
     import os
     from pathlib import Path
@@ -93,10 +99,22 @@ repository.
 
 
     def main():
-        training_epochs = 10
-        learning_rate = 5e-4
-        weight_decay = 1e-4
-        batch_size = 128
+   -    training_epochs = 10
+   -    learning_rate = 5e-4
+   -    weight_decay = 1e-4
+   -    batch_size = 128
+   +    # Add an argument parser so that we can pass hyperparameters from command line.
+   +    parser = argparse.ArgumentParser(description=__doc__)
+   +    parser.add_argument("--epochs", type=int, default=10)
+   +    parser.add_argument("--learning-rate", type=float, default=5e-4)
+   +    parser.add_argument("--weight-decay", type=float, default=1e-4)
+   +    parser.add_argument("--batch-size", type=int, default=128)
+   +    args = parser.parse_args()
+   +
+   +    training_epochs = args.epochs
+   +    learning_rate = args.learning_rate
+   +    weight_decay = args.weight_decay
+   +    batch_size = args.batch_size
 
         # Check that the GPU is available
         assert torch.cuda.is_available() and torch.cuda.device_count() > 0

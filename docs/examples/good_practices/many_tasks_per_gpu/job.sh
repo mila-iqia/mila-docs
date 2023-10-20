@@ -39,4 +39,7 @@ cp /network/datasets/cifar10/cifar-10-python.tar.gz $SLURM_TMPDIR/data/
 unset CUDA_VISIBLE_DEVICES
 
 # Execute Python script
-python main.py
+srun --ntasks=1 python main.py --learning-rate 5e-4 &
+srun --ntasks=1 python main.py --learning-rate 2.5e-4 &
+
+wait
