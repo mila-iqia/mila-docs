@@ -22,11 +22,6 @@ The full source code for this example is available on `the mila-docs GitHub
 repository.
 <https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/good_practices/slurm_job_arrays>`_
 
-**job.sh**
-
-.. literalinclude:: job.sh.diff
-    :language: diff
-
 
 **main.py**
 
