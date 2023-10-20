@@ -23,8 +23,8 @@ def main():
 
     training_epochs = 10
     # Use random number generator to generate hyper-parameters.
-    learning_rate = gen.random() * 1e-3
-    weight_decay = gen.random() * 1e-3
+    learning_rate = gen.uniform(1e-6, 1e-2)
+    weight_decay = gen.uniform(1e-6, 1e-3)
     batch_size = gen.integers(16, 256)
 
     # Check that the GPU is available
