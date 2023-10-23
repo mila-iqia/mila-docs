@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --gpus=1
-#SBATCH --ntasks=2
+#SBATCH --ntasks-per-gpu=2
 #SBATCH --mem=16G
 #SBATCH --time=00:15:00
 
@@ -39,6 +39,6 @@ cp /network/datasets/cifar10/cifar-10-python.tar.gz $SLURM_TMPDIR/data/
 unset CUDA_VISIBLE_DEVICES
 
 # Execute Python script using srun.
-# Because of sbatch's `--ntasks=2` above, Python script will be launch twice.
+# Because of sbatch's `--ntasks-per-gpu=2` above, Python script will be launch twice.
 # Each run will receive specific environment variables, such as SLURM_PROCID.
 srun python main.py

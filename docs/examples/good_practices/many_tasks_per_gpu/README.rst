@@ -11,7 +11,7 @@ If you want to use a powerful GPU efficiently, you can run many tasks on same GP
 using a combination of ``sbatch`` arguments. In your ``sbatch`` script:
 
 - Specify only 1 GPU to use, e.g. with ``--gpus=1``
-- Specify number of tasks to run on the selected GPU with ``--ntasks=N``
+- Specify number of tasks to run on the selected GPU with ``--ntasks-per-gpu=N``
 - Launch your job using ``srun main.py`` instead of just ``main.py``.
 
 ``srun`` will then launch ``main.py`` script ``N`` times.
@@ -40,7 +40,7 @@ repository.
    -#SBATCH --cpus-per-task=4
    -#SBATCH --ntasks-per-node=1
    +#SBATCH --gpus=1
-   +#SBATCH --ntasks=2
+   +#SBATCH --ntasks-per-gpu=2
     #SBATCH --mem=16G
     #SBATCH --time=00:15:00
 
@@ -81,7 +81,7 @@ repository.
    -# Execute Python script
    -python main.py
    +# Execute Python script using srun.
-   +# Because of sbatch's `--ntasks=2` above, Python script will be launch twice.
+   +# Because of sbatch's `--ntasks-per-gpu=2` above, Python script will be launch twice.
    +# Each run will receive specific environment variables, such as SLURM_PROCID.
    +srun python main.py
 
