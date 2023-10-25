@@ -12,7 +12,7 @@ Path                                                   Performance Usage        
 ``/network/weights/``                                  High        * Curated models weights (read only)
 ``$HOME`` or ``/home/mila/<u>/<username>/``            Low         * Personal user space                  100GB/1000K         Daily  no
                                                                    * Specific libraries, code, binaries
-``$SCRATCH`` or ``/network/scratch/<u>/<username>/``   High        * Temporary job results                no                  no     90 days
+``$SCRATCH`` or ``/network/scratch/<u>/<username>/``   High        * Temporary job results                20TB/no             no     90 days
                                                                    * Processed datasets
                                                                    * Optimized for small Files
 ``$SLURM_TMPDIR``                                      Highest     * High speed disk for temporary job    4TB/-               no     at job end
