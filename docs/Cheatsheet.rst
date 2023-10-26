@@ -36,11 +36,10 @@ The jobs from the `long` partition can be preempted to allow jobs in the `main` 
 but jobs in `main` are never going to be preempted to allow for other jobs in `main`, no matter how much
 of the "fair use" a user has already consumed.
 
-This is why it can be considered rude (or just bad practice) to queue a large number of jobs
-on `main` at midnight on the Mila cluster with a lot of free capacity.
-On the next day, those jobs might still be running and much of the compute capacity
-will be shared very unequally between the users, even though it seemed like a good strategy
-to schedule jobs when the cluster was idle.
+Jobs for the `unkillable` partition can preempt everything except other jobs on the `unkillable` partition.
+
+A good explanation of priorities and preemption will be added to the documentation,
+but the cheat sheet (or the cheat sheet errata) is not the place for this.
 
 Default accounts on DRAC oversimplified
 ---------------------------------------
