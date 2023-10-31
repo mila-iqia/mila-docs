@@ -23,6 +23,7 @@ def main():
     batch_size = 128
 
     # Get SLURM_PROCID and use it as a random seed for the script.
+    # This makes it so each task within a job uses a different initialization with the same hyper-parameters.
     random_seed = int(os.environ["SLURM_PROCID"])
     # Seed the random number generators as early as possible.
     random.seed(random_seed)

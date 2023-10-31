@@ -6,7 +6,7 @@ Launch many tasks on same GPU
 If you want to use a powerful GPU efficiently, you can run many tasks on same GPU
 using a combination of ``sbatch`` arguments. In your ``sbatch`` script:
 
-- Specify only 1 GPU to use, e.g. with ``--gpus=1``
+- Specify only 1 GPU to use, e.g. with ``--gres=gpu:rtx8000:1``
 - Specify number of tasks to run on the selected GPU with ``--ntasks-per-gpu=N``
 - Launch your job using ``srun main.py`` instead of just ``main.py``.
 

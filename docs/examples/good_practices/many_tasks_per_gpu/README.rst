@@ -10,7 +10,7 @@ Launch many tasks on same GPU
 If you want to use a powerful GPU efficiently, you can run many tasks on same GPU
 using a combination of ``sbatch`` arguments. In your ``sbatch`` script:
 
-- Specify only 1 GPU to use, e.g. with ``--gpus=1``
+- Specify only 1 GPU to use, e.g. with ``--gres=gpu:rtx8000:1``
 - Specify number of tasks to run on the selected GPU with ``--ntasks-per-gpu=N``
 - Launch your job using ``srun main.py`` instead of just ``main.py``.
 
@@ -37,9 +37,9 @@ repository.
    new mode 100755
     #!/bin/bash
    -#SBATCH --gpus-per-task=rtx8000:1
-   -#SBATCH --cpus-per-task=4
+   +#SBATCH --gres=gpu:rtx8000:1
+    #SBATCH --cpus-per-task=4
    -#SBATCH --ntasks-per-node=1
-   +#SBATCH --gpus=1
    +#SBATCH --ntasks-per-gpu=2
     #SBATCH --mem=16G
     #SBATCH --time=00:15:00
@@ -116,6 +116,7 @@ repository.
         batch_size = 128
 
    +    # Get SLURM_PROCID and use it as a random seed for the script.
+   +    # This makes it so each task within a job uses a different initialization with the same hyper-parameters.
    +    random_seed = int(os.environ["SLURM_PROCID"])
    +    # Seed the random number generators as early as possible.
    +    random.seed(random_seed)
