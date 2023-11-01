@@ -10,6 +10,29 @@ cluster.
 
 .. _mila_code:
 
+Windows
+-------
+
+If you are using Windows, here is how you should go about setting up access to the cluster:
+
+* Install the `Windows Subsystem for Linux (WSL) following this guide <https://learn.microsoft.com/en-us/windows/wsl/install>`_
+   * Open the Windows Store and search for "Ubuntu".
+   
+* Open the WSL shell and install Python
+* Install milatools_ and run ``mila init``
+
+   .. code-block:: console
+
+      $ pip install milatools
+      $ mila init
+* Install `Visual Studio Code <https://code.visualstudio.com/>`_ and the `Remote-WSL extension <https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl>`_
+   * Make sure that you're able to execute the ``code`` command within the WSL shell.
+
+
+.. * Download and install `Anaconda <https://www.anaconda.com/download#downloads>`_
+.. might also be relevant:
+.. https://code.visualstudio.com/docs/remote/wsl-tutorial
+
 mila code
 ---------
 
