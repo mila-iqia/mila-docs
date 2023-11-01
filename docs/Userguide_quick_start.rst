@@ -15,16 +15,44 @@ Windows
 
 If you are using Windows, here is how you should go about setting up access to the cluster:
 
-* Install the `Windows Subsystem for Linux (WSL) following this guide <https://learn.microsoft.com/en-us/windows/wsl/install>`_
-   * Open the Windows Store and search for "Ubuntu".
+* Install the Windows Subsystem for Linux
+   1. Open a command prompt (cmd)
+   2. Enter the following command and follow the prompts, choosing a username and password, etc.
    
-* Open the WSL shell and install Python
-* Install milatools_ and run ``mila init``
+         .. code-block:: console
+
+            $ wsl --install -d ubuntu
+   
+   If you encounter any difficulties, check out `the official guide for installing the Windows
+   Subsystem for Linux <https://learn.microsoft.com/en-us/windows/wsl/install>`_ 
+
+* Inside the WSL (ubuntu) shell, install Anaconda:
+
+   .. code-block:: console
+
+      $ # This will download the Anaconda installer.
+      $ wget https://repo.anaconda.com/archive/Anaconda3-2023.09-0-Linux-x86_64.sh
+      $ bash Anaconda3-2023.09-0-Linux-x86_64.sh
+   
+   * This will run the installer. Carefully press <Enter> until you see the prompt to accept 
+     the license agreement. Write "yes" and press enter.
+   * When asked where to install Anaconda, press <Enter> to accept the default location.
+
+
+* Activate the base environment and install the milatools_ python package:
+
+   .. code-block:: console
+
+      $ conda activate
+      $ pip install milatools
+
+* Run ``mila init`` to setup your SSH configuration.
 
    .. code-block:: console
 
       $ pip install milatools
       $ mila init
+
 * Install `Visual Studio Code <https://code.visualstudio.com/>`_ and the `Remote-WSL extension <https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl>`_
    * Make sure that you're able to execute the ``code`` command within the WSL shell.
 
