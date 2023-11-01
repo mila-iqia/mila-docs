@@ -38,7 +38,7 @@ connection, you will be redirected to the least loaded login-node.
 
 The ECDSA, RSA and ED25519 fingerprints for Mila's login nodes are:
 
-.. code-block:: bash
+.. code-block:: text
 
     SHA256:baEGIa311fhnxBWsIZJ/zYhq2WfCttwyHRKzAb8zlp8 (ECDSA)
     SHA256:Xr0/JqV/+5DNguPfiN5hb8rSG+nBAcfVCJoSyrR0W0o (RSA)
