@@ -3,7 +3,6 @@ import argparse
 import json
 import logging
 import os
-import sys
 from pathlib import Path
 
 import rich.logging
@@ -28,7 +27,7 @@ def main():
     parser.add_argument("--batch-size", type=int, default=128)
     args = parser.parse_args()
 
-    training_epochs = args.epochs
+    epochs = args.epochs
     learning_rate = args.learning_rate
     weight_decay = args.weight_decay
     batch_size = args.batch_size
@@ -79,8 +78,8 @@ def main():
     # Checkout the "checkpointing and preemption" example for more info!
     logger.debug("Starting training from scratch.")
 
-    for epoch in range(training_epochs):
-        logger.debug(f"Starting epoch {epoch}/{training_epochs}")
+    for epoch in range(epochs):
+        logger.debug(f"Starting epoch {epoch}/{epochs}")
 
         # Set the model in training mode (important for e.g. BatchNorm and Dropout layers)
         model.train()
