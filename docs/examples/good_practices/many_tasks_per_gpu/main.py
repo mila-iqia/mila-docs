@@ -1,8 +1,9 @@
 """Single-GPU training example."""
+import argparse
 import logging
 import os
+import random
 from pathlib import Path
-import argparse
 
 import numpy
 import rich.logging
@@ -17,37 +18,34 @@ from tqdm import tqdm
 
 
 def main():
-    # Use SLURM ARRAY TASK ID to seed a random number generator.
-    # This way, each job in the job array will have different hyper-parameters.
-    in_job_array = "SLURM_ARRAY_TASK_ID" in os.environ
-    if in_job_array:
-        array_task_id = int(os.environ["SLURM_ARRAY_TASK_ID"])
-        array_task_count = int(os.environ["SLURM_ARRAY_TASK_COUNT"])
-        print(f"This job is at index {array_task_id} in a job array of size {array_task_count}")
-
-        gen = numpy.random.default_rng(seed=array_task_id)
-        # Use random number generator to generate the default values of hyper-parameters.
-        # If a value is passed from the command-line, it will override this and be used instead.
-        default_learning_rate = gen.uniform(1e-6, 1e-2)
-        default_weight_decay = gen.uniform(1e-6, 1e-3)
-        default_batch_size = gen.integers(16, 256)
-    else:
-        default_learning_rate = 5e-4
-        default_weight_decay = 1e-4
-        default_batch_size = 128
-
     # Use an argument parser so we can pass hyperparameters from the command line.
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--epochs", type=int, default=10)
-    parser.add_argument("--learning-rate", type=float, default=default_learning_rate)
-    parser.add_argument("--weight-decay", type=float, default=default_weight_decay)
-    parser.add_argument("--batch-size", type=int, default=default_batch_size)
+    parser.add_argument("--learning-rate", type=float, default=5e-4)
+    parser.add_argument("--weight-decay", type=float, default=1e-4)
+    parser.add_argument("--batch-size", type=int, default=128)
+    # Get SLURM_PROCID and use it as a random seed for the script.
+    # This makes it so each task within a job uses a different initialization with the same
+    # hyper-parameters.
+    parser.add_argument(
+        "--random-seed",
+        type=int,
+        default=int(os.environ.get("SLURM_PROCID", 0)),
+        help="Random seed used for network initialization and the training loop.",
+    )
     args = parser.parse_args()
 
     epochs: int = args.epochs
     learning_rate: float = args.learning_rate
     weight_decay: float = args.weight_decay
     batch_size: int = args.batch_size
+    random_seed: int = args.random_seed
+
+    # Seed the random number generators as early as possible.
+    random.seed(random_seed)
+    numpy.random.seed(random_seed)
+    torch.random.manual_seed(random_seed)
+    torch.cuda.manual_seed_all(random_seed)
 
     # Check that the GPU is available
     assert torch.cuda.is_available() and torch.cuda.device_count() > 0
