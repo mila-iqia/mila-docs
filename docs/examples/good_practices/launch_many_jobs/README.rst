@@ -124,7 +124,6 @@ repository.
         weight_decay: float = args.weight_decay
         batch_size: int = args.batch_size
 
-
         # Check that the GPU is available
         assert torch.cuda.is_available() and torch.cuda.device_count() > 0
         device = torch.device("cuda", 0)

@@ -52,7 +52,6 @@ repository.
 
 
     def main():
-   -    # Use an argument parser so we can pass hyperparameters from the command line.
    +    # Use SLURM ARRAY TASK ID to seed a random number generator.
    +    # This way, each job in the job array will have different hyper-parameters.
    +    in_job_array = "SLURM_ARRAY_TASK_ID" in os.environ
@@ -72,7 +71,7 @@ repository.
    +        default_weight_decay = 1e-4
    +        default_batch_size = 128
    +
-   +    # Add an argument parser so that we can pass hyperparameters from the command line.
+        # Use an argument parser so we can pass hyperparameters from the command line.
         parser = argparse.ArgumentParser(description=__doc__)
         parser.add_argument("--epochs", type=int, default=10)
    -    parser.add_argument("--learning-rate", type=float, default=5e-4)

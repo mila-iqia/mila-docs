@@ -36,7 +36,7 @@ def main():
         default_weight_decay = 1e-4
         default_batch_size = 128
 
-    # Add an argument parser so that we can pass hyperparameters from the command line.
+    # Use an argument parser so we can pass hyperparameters from the command line.
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--epochs", type=int, default=10)
     parser.add_argument("--learning-rate", type=float, default=default_learning_rate)
