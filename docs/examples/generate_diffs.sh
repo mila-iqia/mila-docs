@@ -54,4 +54,8 @@ generate_diff distributed/single_gpu/main.py frameworks/jax/main.py
 # job.sh does not change.
 generate_diff distributed/single_gpu/main.py good_practices/slurm_job_arrays/main.py
 
+# single_gpu -> launch_many_jobs
+generate_diff distributed/single_gpu/job.sh good_practices/launch_many_jobs/job.sh
+generate_diff distributed/single_gpu/main.py good_practices/launch_many_jobs/main.py
+
 popd

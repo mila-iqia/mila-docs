@@ -1,3 +1,5 @@
+.. _hpo_with_orion:
+
 Hyperparameter Optimization with Oríon
 ======================================
 

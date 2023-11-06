@@ -79,7 +79,9 @@ Click here to see `the source code for this example
 .. code:: diff
 
     # distributed/single_gpu/main.py -> good_practices/wandb_setup/main.py
-    """Single-GPU training example."""
+   -"""Single-GPU training example."""
+   +"""Example job that uses Weights & Biases (wandb.ai)."""
+    import argparse
     import logging
     import os
     from pathlib import Path
@@ -97,10 +99,18 @@ Click here to see `the source code for this example
 
 
     def main():
-        training_epochs = 10
-        learning_rate = 5e-4
-        weight_decay = 1e-4
-        batch_size = 128
+   -    # Use an argument parser so we can pass hyperparameters from the command line.
+        parser = argparse.ArgumentParser(description=__doc__)
+        parser.add_argument("--epochs", type=int, default=10)
+        parser.add_argument("--learning-rate", type=float, default=5e-4)
+        parser.add_argument("--weight-decay", type=float, default=1e-4)
+        parser.add_argument("--batch-size", type=int, default=128)
+        args = parser.parse_args()
+
+        epochs: int = args.epochs
+        learning_rate: float = args.learning_rate
+        weight_decay: float = args.weight_decay
+        batch_size: int = args.batch_size
 
         # Check that the GPU is available
         assert torch.cuda.is_available() and torch.cuda.device_count() > 0
@@ -123,18 +133,13 @@ Click here to see `the source code for this example
    +    # This specific example here does not do that.
    +
    +    # Setup Wandb
-   +    run = wandb.init(
+   +    wandb.init(
    +        # Set the project where this run will be logged
    +        project="awesome-wandb-example",
    +        name=os.environ.get("SLURM_JOB_ID"),
    +        resume="allow",  # See https://docs.wandb.ai/guides/runs/resuming
    +        # Track hyperparameters and run metadata
-   +        config={
-   +            "learning_rate": learning_rate,
-   +            "epochs": training_epochs,
-   +            "weight_decay": weight_decay,
-   +            "batch_size": batch_size,
-   +        },
+   +        config=vars(args),
    +    )
    +
         # Create a model and move it to the GPU.
@@ -169,8 +174,8 @@ Click here to see `the source code for this example
    -    # Checkout the "checkpointing and preemption" example for more info!
         logger.debug("Starting training from scratch.")
 
-        for epoch in range(training_epochs):
-            logger.debug(f"Starting epoch {epoch}/{training_epochs}")
+        for epoch in range(epochs):
+            logger.debug(f"Starting epoch {epoch}/{epochs}")
 
             # Set the model in training mode (important for e.g. BatchNorm and Dropout layers)
             model.train()

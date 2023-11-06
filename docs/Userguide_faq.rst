@@ -92,6 +92,13 @@ password-less ssh either with a key present in your home or with an
     chmod 600 ~/.ssh/authorized_keys
     chmod 700 ~/.ssh
 
+The ECDSA, RSA and ED25519 fingerprints for Mila's compute nodes are:
+
+.. code-block:: text
+
+    SHA256:hGH64v72h/c0SfngAWB8WSyMj8WSAf5um3lqVsa7Cfk (ECDSA)
+    SHA256:4Es56W5ANNMQza2sW2O056ifkl8QBvjjNjfMqpB7/1U (RSA)
+    SHA256:gUQJw6l1lKjM1cCyennetPoQ6ST0jMhQAs/57LhfakA (ED25519)
 
 
 I'm getting ``Permission denied (publickey)`` while trying to connect to a node
