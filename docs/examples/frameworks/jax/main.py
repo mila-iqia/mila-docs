@@ -5,6 +5,7 @@ This Jax example is heavily based on the following examples:
 * https://juliusruseckas.github.io/ml/flax-cifar10.html
 * https://github.com/fattorib/Flax-ResNets/blob/master/main_flax.py
 """
+import argparse
 import logging
 import math
 import os
@@ -53,10 +54,19 @@ def numpy_collate(batch: Sequence):
 
 
 def main():
-    training_epochs = 10
-    learning_rate = 5e-4
-    weight_decay = 1e-4
-    batch_size = 128
+    # Use an argument parser so we can pass hyperparameters from the command line.
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--epochs", type=int, default=10)
+    parser.add_argument("--learning-rate", type=float, default=5e-4)
+    parser.add_argument("--weight-decay", type=float, default=1e-4)
+    parser.add_argument("--batch-size", type=int, default=128)
+    args = parser.parse_args()
+
+    epochs: int = args.epochs
+    learning_rate: float = args.learning_rate
+    weight_decay: float = args.weight_decay
+    # NOTE: This is the "local" batch size, per-GPU.
+    batch_size: int = args.batch_size
 
     # Check that the GPU is available
     assert torch.cuda.is_available() and torch.cuda.device_count() > 0
@@ -113,7 +123,7 @@ def main():
     )
 
     train_steps_per_epoch = math.ceil(len(train_dataset) / batch_size)
-    num_train_steps = train_steps_per_epoch * training_epochs
+    num_train_steps = train_steps_per_epoch * epochs
     shedule_fn = optax.cosine_onecycle_schedule(transition_steps=num_train_steps, peak_value=learning_rate)
     optimizer = optax.adamw(learning_rate=shedule_fn, weight_decay=weight_decay)
 
@@ -130,8 +140,8 @@ def main():
     # Checkout the "checkpointing and preemption" example for more info!
     logger.debug("Starting training from scratch.")
 
-    for epoch in range(training_epochs):
-        logger.debug(f"Starting epoch {epoch}/{training_epochs}")
+    for epoch in range(epochs):
+        logger.debug(f"Starting epoch {epoch}/{epochs}")
 
         # NOTE: using a progress bar from tqdm because it's nicer than using `print`.
         progress_bar = tqdm(

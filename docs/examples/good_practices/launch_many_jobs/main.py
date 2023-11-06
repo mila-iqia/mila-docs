@@ -1,6 +1,5 @@
-"""Hyperparameter optimization using Oríon."""
+"""Single-GPU training example."""
 import argparse
-import json
 import logging
 import os
 from pathlib import Path
@@ -15,11 +14,9 @@ from torchvision.datasets import CIFAR10
 from torchvision.models import resnet18
 from tqdm import tqdm
 
-from orion.client import report_objective
-
 
 def main():
-    # Add an argument parser so that we can pass hyperparameters from command line.
+    # Add an argument parser so that we can pass hyperparameters from the command line.
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--epochs", type=int, default=10)
     parser.add_argument("--learning-rate", type=float, default=5e-4)
@@ -27,7 +24,7 @@ def main():
     parser.add_argument("--batch-size", type=int, default=128)
     args = parser.parse_args()
 
-    epochs = args.epochs
+    training_epochs = args.epochs
     learning_rate = args.learning_rate
     weight_decay = args.weight_decay
     batch_size = args.batch_size
@@ -43,8 +40,7 @@ def main():
     )
 
     logger = logging.getLogger(__name__)
-
-    logger.info(f"Args: {json.dumps(vars(args), indent=1)}")
+    logger.info(f"Arguments: {args}")
 
     # Create a model and move it to the GPU.
     model = resnet18(num_classes=10)
@@ -78,8 +74,8 @@ def main():
     # Checkout the "checkpointing and preemption" example for more info!
     logger.debug("Starting training from scratch.")
 
-    for epoch in range(epochs):
-        logger.debug(f"Starting epoch {epoch}/{epochs}")
+    for epoch in range(training_epochs):
+        logger.debug(f"Starting epoch {epoch}/{training_epochs}")
 
         # Set the model in training mode (important for e.g. BatchNorm and Dropout layers)
         model.train()
@@ -120,9 +116,6 @@ def main():
 
         val_loss, val_accuracy = validation_loop(model, valid_dataloader, device)
         logger.info(f"Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%}")
-
-    # We report to Orion the objective that we want to minimize.
-    report_objective(1 - val_accuracy.item())
 
     print("Done!")
 

@@ -1,16 +1,27 @@
-.. NOTE: This file is auto-generated from examples/good_practices/hpo_with_orion/index.rst
+.. NOTE: This file is auto-generated from examples/good_practices/launch_many_jobs/index.rst
 .. This is done so this file can be easily viewed from the GitHub UI.
 .. **DO NOT EDIT**
 
-.. _hpo_with_orion:
+.. _launch_many_jobs:
 
-Hyperparameter Optimization with Oríon
-======================================
+Launch many jobs from same shell script
+=======================================
 
-There are frameworks that allow to do hyperparameter optimization, like
-`wandb <https://wandb.ai/>`_,
-and `Oríon <https://orion.readthedocs.io/en/stable/index.html>`_.
-Here we provide an example for Oríon, the HPO framework developped at Mila.
+Sometimes you may want to run the same job with different arguments. For example, you may want to launch an experiment using a few different values for a given parameter.
+
+The naive way to do this would be to create multiple sbatch scripts, each with a different value for that parameter.
+Another might be to use a single sbatch script with multiple lines, each with a different parameter value, and to then uncomment a given line before submitting the job, then commenting and uncommenting a different line before submitting another job, etc.
+
+This example shows a  practical solution to this problem, allowing you to parameterize a job's sbatch script, and pass different values directly from the command-line when submitting the job.
+
+In this example, our job script is a slightly modified version of the Python script from the single-GPU example, with a bit of code added so that it is able to take in values from the command-line.
+The sbatch script uses the ``$@`` bash directive to pass the command-line arguments to the python script. This makes it very easy to submit multiple jobs, each with different values!
+
+The next examples will then build on top of this one to illustrate good practices related to launching lots of jobs for hyper-parameter sweeps:
+
+* Using SLURM Job Arrays for Hyper-Parameter Sweeps (coming soon!)
+* :ref:`Running more effective Hyper-Parameter Sweeps with Orion <hpo_with_orion>`
+
 
 **Prerequisites**
 Make sure to read the following sections of the documentation before using this
@@ -18,19 +29,15 @@ example:
 
 * `examples/frameworks/pytorch_setup <https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/frameworks/pytorch_setup>`_
 
-The full documentation for Oríon is available `on Oríon's ReadTheDocs page
-<https://orion.readthedocs.io/en/stable/index.html>`_.
-
-
-The full source code for this example is available on `the mila-docs GitHub repository.
-<https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/good_practices/hpo_with_orion>`_
-
+The full source code for this example is available on `the mila-docs GitHub
+repository.
+<https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/good_practices/launch_many_jobs>`_
 
 **job.sh**
 
 .. code:: diff
 
-    # distributed/single_gpu/job.sh -> good_practices/hpo_with_orion/job.sh
+    # distributed/single_gpu/job.sh -> good_practices/launch_many_jobs/job.sh
     #!/bin/bash
     #SBATCH --gpus-per-task=rtx8000:1
     #SBATCH --cpus-per-task=4
@@ -56,8 +63,6 @@ The full source code for this example is available on `the mila-docs GitHub repo
     #     pytorch-cuda=11.7 -c pytorch -c nvidia
     # Other conda packages:
     # conda install -y -n pytorch -c conda-forge rich tqdm
-   +# Orion package:
-   +# pip install orion
 
     # Activate pre-existing environment.
     conda activate pytorch
@@ -76,30 +81,19 @@ The full source code for this example is available on `the mila-docs GitHub repo
 
    -# Execute Python script
    -python main.py
-   +# =============
-   +# Execute Orion
-   +# =============
-   +
-   +# Specify an experiment name with `-n`,
-   +# which could be reused to display results (see section "Running example" below)
-   +
-   +# Specify max trials (here 10) to prevent a too-long run.
-   +
-   +# Then you can specify a search space for each `main.py`'s script parameter
-   +# you want to optimize. Here we optimize only the learning rate.
-   +
-   +orion hunt -n orion-example --exp-max-trials 10 python main.py --learning-rate~'loguniform(1e-5, 1.0)'
+   +# Call main.py with all arguments passed to this script.
+   +# This allows you to call the script many times with different arguments.
+   +# Quotes around $@ prevent splitting of arguments that contain spaces.
+   +python main.py "$@"
 
 
 **main.py**
 
 .. code:: diff
 
-    # distributed/single_gpu/main.py -> good_practices/hpo_with_orion/main.py
-   -"""Single-GPU training example."""
-   +"""Hyperparameter optimization using Oríon."""
-    import argparse
-   +import json
+    # distributed/single_gpu/main.py -> good_practices/launch_many_jobs/main.py
+    """Single-GPU training example."""
+   +import argparse
     import logging
     import os
     from pathlib import Path
@@ -114,24 +108,21 @@ The full source code for this example is available on `the mila-docs GitHub repo
     from torchvision.models import resnet18
     from tqdm import tqdm
 
-   +from orion.client import report_objective
-   +
 
     def main():
-   -    # Use an argument parser so we can pass hyperparameters from the command line.
-   +    # Add an argument parser so that we can pass hyperparameters from command line.
-        parser = argparse.ArgumentParser(description=__doc__)
-        parser.add_argument("--epochs", type=int, default=10)
-        parser.add_argument("--learning-rate", type=float, default=5e-4)
-        parser.add_argument("--weight-decay", type=float, default=1e-4)
-        parser.add_argument("--batch-size", type=int, default=128)
-        args = parser.parse_args()
-
-   -    epochs: int = args.epochs
-   -    learning_rate: float = args.learning_rate
-   -    weight_decay: float = args.weight_decay
-   -    batch_size: int = args.batch_size
-   +    epochs = args.epochs
+   -    training_epochs = 10
+   -    learning_rate = 5e-4
+   -    weight_decay = 1e-4
+   -    batch_size = 128
+   +    # Add an argument parser so that we can pass hyperparameters from the command line.
+   +    parser = argparse.ArgumentParser(description=__doc__)
+   +    parser.add_argument("--epochs", type=int, default=10)
+   +    parser.add_argument("--learning-rate", type=float, default=5e-4)
+   +    parser.add_argument("--weight-decay", type=float, default=1e-4)
+   +    parser.add_argument("--batch-size", type=int, default=128)
+   +    args = parser.parse_args()
+   +
+   +    training_epochs = args.epochs
    +    learning_rate = args.learning_rate
    +    weight_decay = args.weight_decay
    +    batch_size = args.batch_size
@@ -147,9 +138,8 @@ The full source code for this example is available on `the mila-docs GitHub repo
         )
 
         logger = logging.getLogger(__name__)
+   +    logger.info(f"Arguments: {args}")
 
-   +    logger.info(f"Args: {json.dumps(vars(args), indent=1)}")
-   +
         # Create a model and move it to the GPU.
         model = resnet18(num_classes=10)
         model.to(device=device)
@@ -182,8 +172,8 @@ The full source code for this example is available on `the mila-docs GitHub repo
         # Checkout the "checkpointing and preemption" example for more info!
         logger.debug("Starting training from scratch.")
 
-        for epoch in range(epochs):
-            logger.debug(f"Starting epoch {epoch}/{epochs}")
+        for epoch in range(training_epochs):
+            logger.debug(f"Starting epoch {epoch}/{training_epochs}")
 
             # Set the model in training mode (important for e.g. BatchNorm and Dropout layers)
             model.train()
@@ -225,9 +215,6 @@ The full source code for this example is available on `the mila-docs GitHub repo
             val_loss, val_accuracy = validation_loop(model, valid_dataloader, device)
             logger.info(f"Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%}")
 
-   +    # We report to Orion the objective that we want to minimize.
-   +    report_objective(1 - val_accuracy.item())
-   +
         print("Done!")
 
 
@@ -296,6 +283,7 @@ The full source code for this example is available on `the mila-docs GitHub repo
     if __name__ == "__main__":
         main()
 
+
 **Running this example**
 
 This assumes you already created a conda environment named "pytorch" as in
@@ -303,32 +291,11 @@ Pytorch example:
 
 * :ref:`pytorch_setup`
 
-Oríon must be installed inside the "pytorch" environment using following command:
+Exit the interactive job once the environment has been created.
+You can then launch many jobs using same script with various args.
 
 .. code-block:: bash
 
-    pip install orion
-
-Exit the interactive job once the environment has been created and Oríon installed.
-You can then launch the example:
-
-.. code-block:: bash
-
-    $ sbatch job.sh
-
-To get more information about the optimization run, activate "pytorch" environment
-and run ``orion info`` with the experiment name:
-
-.. code-block:: bash
-
-    $ conda activate pytorch
-    $ orion info -n orion-example
-
-You can also generate a plot to visualize the optimization run. For example:
-
-.. code-block:: bash
-
-    $ orion plot regret -n orion-example
-
-For more complex and useful plots, see `Oríon documentation
-<https://orion.readthedocs.io/en/stable/auto_examples/plot_4_partial_dependencies.html>`_.
+    $ sbatch job.sh --learning-rate 0.1
+    $ sbatch job.sh --learning-rate 0.5
+    $ sbatch job.sh --weight-decay 1e-3

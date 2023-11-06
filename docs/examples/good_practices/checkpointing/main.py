@@ -1,6 +1,7 @@
 """Checkpointing example."""
 from __future__ import annotations
 
+import argparse
 import logging
 import os
 import random
@@ -52,13 +53,26 @@ class RunState(TypedDict):
 
 
 def main():
-    training_epochs = 10
-    learning_rate = 5e-4
-    weight_decay = 1e-4
-    batch_size = 128
-    run_dir = SCRATCH / "checkpointing_example" / SLURM_JOBID
+    # Use an argument parser so we can pass hyperparameters from the command line.
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--epochs", type=int, default=10)
+    parser.add_argument("--learning-rate", type=float, default=5e-4)
+    parser.add_argument("--weight-decay", type=float, default=1e-4)
+    parser.add_argument("--batch-size", type=int, default=128)
+    parser.add_argument(
+        "--run-dir", type=Path, default=SCRATCH / "checkpointing_example" / SLURM_JOBID
+    )
+    parser.add_argument("--random-seed", type=int, default=123)
+    args = parser.parse_args()
+
+    epochs: int = args.epochs
+    learning_rate: float = args.learning_rate
+    weight_decay: float = args.weight_decay
+    batch_size: int = args.batch_size
+    run_dir: Path = args.run_dir
+    random_seed: int = args.random_seed
+
     checkpoint_dir = run_dir / "checkpoints"
-    random_seed: int = 123
     start_epoch: int = 0
     best_acc: float = 0.0
 
@@ -144,8 +158,8 @@ def main():
     signal.signal(signal.SIGTERM, signal_handler)  # Before getting pre-empted and requeued.
     signal.signal(signal.SIGUSR1, signal_handler)  # Before reaching the end of the time limit.
 
-    for epoch in range(start_epoch, training_epochs):
-        logger.debug(f"Starting epoch {epoch}/{training_epochs}")
+    for epoch in range(start_epoch, epochs):
+        logger.debug(f"Starting epoch {epoch}/{epochs}")
 
         # Set the model in training mode (this is important for e.g. BatchNorm and Dropout layers)
         model.train()

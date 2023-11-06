@@ -50,8 +50,13 @@ generate_diff distributed/single_gpu/main.py good_practices/wandb_setup/main.py
 generate_diff distributed/single_gpu/job.sh frameworks/jax/job.sh
 generate_diff distributed/single_gpu/main.py frameworks/jax/main.py
 
+# single_gpu -> launch_many_jobs
+generate_diff distributed/single_gpu/job.sh good_practices/launch_many_jobs/job.sh
+generate_diff distributed/single_gpu/main.py good_practices/launch_many_jobs/main.py
+
 # single_gpu -> many_tasks_per_gpu
 generate_diff distributed/single_gpu/job.sh good_practices/many_tasks_per_gpu/job.sh
 generate_diff distributed/single_gpu/main.py good_practices/many_tasks_per_gpu/main.py
+
 
 popd

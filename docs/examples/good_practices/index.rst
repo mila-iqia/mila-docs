@@ -12,4 +12,8 @@ various good practices that should be observed when using the Mila cluster.
     :maxdepth: 1
     :glob:
 
+    checkpointing/index
+    wandb_setup/index
+    launch_many_jobs/index
+    hpo_with_orion/index
     */index
