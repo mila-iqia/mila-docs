@@ -1,26 +1,19 @@
-.. NOTE: This file is auto-generated from examples/good_practices/launch_many_jobs/index.rst
+.. NOTE: This file is auto-generated from examples/good_practices/slurm_job_arrays/index.rst
 .. This is done so this file can be easily viewed from the GitHub UI.
 .. **DO NOT EDIT**
 
-.. _launch_many_jobs:
+.. _single_gpu_job:
 
-Launch many jobs from same shell script
+Launch many jobs using SLURM job arrays
 =======================================
 
-Sometimes you may want to run the same job with different arguments. For example, you may want to launch an experiment using a few different values for a given parameter.
+Sometimes you may want to run many tasks by changing just a single parameter.
 
-The naive way to do this would be to create multiple sbatch scripts, each with a different value for that parameter.
-Another might be to use a single sbatch script with multiple lines, each with a different parameter value, and to then uncomment a given line before submitting the job, then commenting and uncommenting a different line before submitting another job, etc.
+One way to do that is to use SLURM job arrays, which consists of launching an array of jobs using the same script.
+Each job will run with a specific environment variable called ``SLURM_ARRAY_TASK_ID``, containing the job index value inside job array.
+You can then slightly modify your script to choose appropriate parameter based on this variable.
 
-This example shows a  practical solution to this problem, allowing you to parameterize a job's sbatch script, and pass different values directly from the command-line when submitting the job.
-
-In this example, our job script is a slightly modified version of the Python script from the single-GPU example, with a bit of code added so that it is able to take in values from the command-line.
-The sbatch script uses the ``$@`` bash directive to pass the command-line arguments to the python script. This makes it very easy to submit multiple jobs, each with different values!
-
-The next examples will then build on top of this one to illustrate good practices related to launching lots of jobs for hyper-parameter sweeps:
-
-* Using SLURM Job Arrays for Hyper-Parameter Sweeps (coming soon!)
-* :ref:`Running more effective Hyper-Parameter Sweeps with Orion <hpo_with_orion>`
+You can find more info about job arrays in the `SLURM official documentation page <https://slurm.schedmd.com/job_array.html>`_.
 
 
 **Prerequisites**
@@ -31,73 +24,22 @@ example:
 
 The full source code for this example is available on `the mila-docs GitHub
 repository.
-<https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/good_practices/launch_many_jobs>`_
-
-**job.sh**
-
-.. code:: diff
-
-    # distributed/single_gpu/job.sh -> good_practices/launch_many_jobs/job.sh
-    #!/bin/bash
-    #SBATCH --gpus-per-task=rtx8000:1
-    #SBATCH --cpus-per-task=4
-    #SBATCH --ntasks-per-node=1
-    #SBATCH --mem=16G
-    #SBATCH --time=00:15:00
-
-
-    # Echo time and hostname into log
-    echo "Date:     $(date)"
-    echo "Hostname: $(hostname)"
-
-
-    # Ensure only anaconda/3 module loaded.
-    module --quiet purge
-    # This example uses Conda to manage package dependencies.
-    # See https://docs.mila.quebec/Userguide.html#conda for more information.
-    module load anaconda/3
-    module load cuda/11.7
-
-    # Creating the environment for the first time:
-    # conda create -y -n pytorch python=3.9 pytorch torchvision torchaudio \
-    #     pytorch-cuda=11.7 -c pytorch -c nvidia
-    # Other conda packages:
-    # conda install -y -n pytorch -c conda-forge rich tqdm
-
-    # Activate pre-existing environment.
-    conda activate pytorch
-
-
-    # Stage dataset into $SLURM_TMPDIR
-    mkdir -p $SLURM_TMPDIR/data
-    cp /network/datasets/cifar10/cifar-10-python.tar.gz $SLURM_TMPDIR/data/
-    # General-purpose alternatives combining copy and unpack:
-    #     unzip   /network/datasets/some/file.zip -d $SLURM_TMPDIR/data/
-    #     tar -xf /network/datasets/some/file.tar -C $SLURM_TMPDIR/data/
-
-
-    # Fixes issues with MIG-ed GPUs with versions of PyTorch < 2.0
-    unset CUDA_VISIBLE_DEVICES
-
-   -# Execute Python script
-   -python main.py
-   +# Call main.py with all arguments passed to this script.
-   +# This allows you to call the script many times with different arguments.
-   +# Quotes around $@ prevent splitting of arguments that contain spaces.
-   +python main.py "$@"
+<https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/good_practices/slurm_job_arrays>`_
 
 
 **main.py**
 
 .. code:: diff
 
-    # distributed/single_gpu/main.py -> good_practices/launch_many_jobs/main.py
+    # distributed/single_gpu/main.py -> good_practices/slurm_job_arrays/main.py
     """Single-GPU training example."""
-    import argparse
+   -import argparse
     import logging
     import os
     from pathlib import Path
+   +import argparse
 
+   +import numpy
     import rich.logging
     import torch
     from torch import Tensor, nn
@@ -111,12 +53,34 @@ repository.
 
     def main():
    -    # Use an argument parser so we can pass hyperparameters from the command line.
+   +    # Use SLURM ARRAY TASK ID to seed a random number generator.
+   +    # This way, each job in the job array will have different hyper-parameters.
+   +    in_job_array = "SLURM_ARRAY_TASK_ID" in os.environ
+   +    if in_job_array:
+   +        array_task_id = int(os.environ["SLURM_ARRAY_TASK_ID"])
+   +        array_task_count = int(os.environ["SLURM_ARRAY_TASK_COUNT"])
+   +        print(f"This job is at index {array_task_id} in a job array of size {array_task_count}")
+   +
+   +        gen = numpy.random.default_rng(seed=array_task_id)
+   +        # Use random number generator to generate the default values of hyper-parameters.
+   +        # If a value is passed from the command-line, it will override this and be used instead.
+   +        default_learning_rate = gen.uniform(1e-6, 1e-2)
+   +        default_weight_decay = gen.uniform(1e-6, 1e-3)
+   +        default_batch_size = gen.integers(16, 256)
+   +    else:
+   +        default_learning_rate = 5e-4
+   +        default_weight_decay = 1e-4
+   +        default_batch_size = 128
+   +
    +    # Add an argument parser so that we can pass hyperparameters from the command line.
         parser = argparse.ArgumentParser(description=__doc__)
         parser.add_argument("--epochs", type=int, default=10)
-        parser.add_argument("--learning-rate", type=float, default=5e-4)
-        parser.add_argument("--weight-decay", type=float, default=1e-4)
-        parser.add_argument("--batch-size", type=int, default=128)
+   -    parser.add_argument("--learning-rate", type=float, default=5e-4)
+   -    parser.add_argument("--weight-decay", type=float, default=1e-4)
+   -    parser.add_argument("--batch-size", type=int, default=128)
+   +    parser.add_argument("--learning-rate", type=float, default=default_learning_rate)
+   +    parser.add_argument("--weight-decay", type=float, default=default_weight_decay)
+   +    parser.add_argument("--batch-size", type=int, default=default_batch_size)
         args = parser.parse_args()
 
         epochs: int = args.epochs
@@ -135,7 +99,6 @@ repository.
         )
 
         logger = logging.getLogger(__name__)
-   +    logger.info(f"Arguments: {args}")
 
         # Create a model and move it to the GPU.
         model = resnet18(num_classes=10)
@@ -289,10 +252,11 @@ Pytorch example:
 * :ref:`pytorch_setup`
 
 Exit the interactive job once the environment has been created.
-You can then launch many jobs using same script with various args.
+You can then launch a job array using ``sbatch`` argument ``--array``.
 
 .. code-block:: bash
 
-    $ sbatch job.sh --learning-rate 0.1
-    $ sbatch job.sh --learning-rate 0.5
-    $ sbatch job.sh --weight-decay 1e-3
+    $ sbatch --array=1-5 job.sh
+
+
+In this example, 5 jobs will be launched with indices (therefore, values of ``SLURM_ARRAY_TASK_ID``) from 1 to 5.
