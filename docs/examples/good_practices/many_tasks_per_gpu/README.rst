@@ -92,6 +92,7 @@ repository.
 
     # distributed/single_gpu/main.py -> good_practices/many_tasks_per_gpu/main.py
     """Single-GPU training example."""
+    import argparse
     import logging
     import os
    +import random
@@ -110,20 +111,35 @@ repository.
 
 
     def main():
-        training_epochs = 10
-        learning_rate = 5e-4
-        weight_decay = 1e-4
-        batch_size = 128
-
+        # Use an argument parser so we can pass hyperparameters from the command line.
+        parser = argparse.ArgumentParser(description=__doc__)
+        parser.add_argument("--epochs", type=int, default=10)
+        parser.add_argument("--learning-rate", type=float, default=5e-4)
+        parser.add_argument("--weight-decay", type=float, default=1e-4)
+        parser.add_argument("--batch-size", type=int, default=128)
    +    # Get SLURM_PROCID and use it as a random seed for the script.
-   +    # This makes it so each task within a job uses a different initialization with the same hyper-parameters.
-   +    random_seed = int(os.environ["SLURM_PROCID"])
+   +    # This makes it so each task within a job uses a different initialization with the same
+   +    # hyper-parameters.
+   +    parser.add_argument(
+   +        "--random-seed",
+   +        type=int,
+   +        default=int(os.environ.get("SLURM_PROCID", 0)),
+   +        help="Random seed used for network initialization and the training loop.",
+   +    )
+        args = parser.parse_args()
+
+        epochs: int = args.epochs
+        learning_rate: float = args.learning_rate
+        weight_decay: float = args.weight_decay
+        batch_size: int = args.batch_size
+   +    random_seed: int = args.random_seed
+   +
    +    # Seed the random number generators as early as possible.
    +    random.seed(random_seed)
    +    numpy.random.seed(random_seed)
    +    torch.random.manual_seed(random_seed)
    +    torch.cuda.manual_seed_all(random_seed)
-   +
+
         # Check that the GPU is available
         assert torch.cuda.is_available() and torch.cuda.device_count() > 0
         device = torch.device("cuda", 0)
@@ -168,8 +184,8 @@ repository.
         # Checkout the "checkpointing and preemption" example for more info!
         logger.debug("Starting training from scratch.")
 
-        for epoch in range(training_epochs):
-            logger.debug(f"Starting epoch {epoch}/{training_epochs}")
+        for epoch in range(epochs):
+            logger.debug(f"Starting epoch {epoch}/{epochs}")
 
             # Set the model in training mode (important for e.g. BatchNorm and Dropout layers)
             model.train()
