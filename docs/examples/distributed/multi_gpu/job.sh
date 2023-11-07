@@ -2,6 +2,7 @@
 #SBATCH --gpus-per-task=rtx8000:1
 #SBATCH --cpus-per-task=4
 #SBATCH --ntasks-per-node=4
+#SBATCH --nodes=1
 #SBATCH --mem=16G
 #SBATCH --time=00:15:00
 #SBATCH --exclude cn-g[001-012]   # exclude nodes with MIG-ed GPUs

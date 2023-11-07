@@ -2,6 +2,7 @@
 #SBATCH --gpus-per-task=rtx8000:1
 #SBATCH --cpus-per-task=4
 #SBATCH --ntasks-per-node=1
+#SBATCH --nodes=1
 #SBATCH --mem=16G
 #SBATCH --time=00:15:00
 
