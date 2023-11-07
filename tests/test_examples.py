@@ -1,5 +1,6 @@
 """Tests that launch the examples as jobs on the Mila cluster and check that they work correctly."""
 from __future__ import annotations
+import functools
 
 import logging
 import os
@@ -10,7 +11,8 @@ import subprocess
 import time
 from logging import getLogger as get_logger
 from pathlib import Path
-from typing import Any
+import enum
+from typing import Any, NamedTuple
 
 import pytest
 import rich.console
@@ -33,22 +35,61 @@ logger = get_logger(__name__)
 SCRATCH = Path(os.environ["SCRATCH"])
 
 
-gpu_types = [
-    "1g.10gb",  # MIG-ed A100 GPU
-    "2g.20gb",  # MIG-ed A100 GPU
-    "3g.40gb",  # MIG-ed A100 GPU
-    # "a100",
-    # "a100l",  # Note: needs a reservation.
-    # "a6000",
-    "rtx8000",
-    pytest.param(
-        "v100",
-        marks=[
-            pytest.mark.xfail(reason="Can take a while to schedule"),
-            pytest.mark.timeout(120),
-        ],
-    ),
-]
+class GpuModel(enum.Enum):
+    # a100_10gb = "1g.10gb"
+    a100_20gb = "2g.20gb"
+    a100_3g40gb = "3g.40gb"
+    a100_4g40gb = "4g.40gb"
+    a100 = "a100"
+    a100l = "a100l"
+    a6000 = "a6000"
+    rtx8000 = "rtx8000"
+    v100 = "v100"
+
+
+gpu_memory_gb = {
+    "1g.10gb": 10,
+    "2g.20gb": 20,
+    "3g.40gb": 40,
+    "a100": 40,
+    "a100l": 80,
+    "a6000": 48,
+    "rtx8000": 48,
+    "v100": 16,
+}
+
+
+class AvailTotal(NamedTuple):
+    avail: int
+    total: int
+
+
+@functools.cache
+def savail() -> dict[str, AvailTotal]:
+    """Gets the output of the `savail` command in a Python dictionary.
+
+    ```
+     GPU               Avail / Total
+    ===============================
+    1g.10gb              38 / 40
+    2g.20gb              59 / 60
+    3g.40gb              39 / 40
+    a100                  0 / 16
+    a100l                 3 / 56
+    a6000                 1 / 8
+    rtx8000              156 / 384
+    v100                 10 / 50
+    ```
+    """
+    savail_output = subprocess.check_output(["savail"]).decode("utf-8")
+    lines = [line.strip() for line in savail_output.splitlines()[2:]]
+    return {
+        gpu_type: AvailTotal(int(avail), int(total))
+        for gpu_type, avail, _, total in [line.split() for line in lines]
+    }
+
+
+gpu_types = [v.value for v in GpuModel]
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -156,34 +197,23 @@ def _test_id(arg: Path | bool | dict) -> str:
     return "-".join(f"{k}={v}" for k, v in arg.items())
 
 
+@pytest.fixture(params=gpu_types)
+def sbatch_gpu_override(request: pytest.FixtureRequest) -> dict[str, str]:
+    gpu_type: str = request.param
+    gpu_availability = savail()
+
+    assert gpu_type in gpu_availability, f"{gpu_type} doesn't show up in the savail output!"
+    avail, total = gpu_availability[gpu_type]
+    if avail == 0:
+        pytest.skip(reason="Isn't available on the cluster at the moment.")
+
+    return {"gres": f"gpu:{gpu_type}:1"}
+
+
 @pytest.mark.parametrize(
     ("example_dir", "make_reproducible", "sbatch_overrides"),
     [
-        pytest.param(
-            EXAMPLES_DIR / "frameworks" / "pytorch_setup",
-            False,
-            {"gres": f"gpu:{gpu_type}:1"},
-            marks=(
-                [
-                    pytest.mark.xfail(reason="Can take a while to schedule"),
-                    pytest.mark.timeout(120),
-                ]
-                if gpu_type == "v100"
-                else []
-            ),
-        )
-        for gpu_type in [
-            "1g.10gb",  # MIG-ed A100 GPU
-            "2g.20gb",  # MIG-ed A100 GPU
-            "3g.40gb",  # MIG-ed A100 GPU
-            # "a100",
-            # "a100l",  # Note: needs a reservation.
-            # "a6000",
-            "rtx8000",
-            "v100",
-        ]
-    ]
-    + [
+        (EXAMPLES_DIR / "frameworks" / "pytorch_setup", False, {}),
         (EXAMPLES_DIR / "distributed" / "single_gpu", True, {}),
         (EXAMPLES_DIR / "distributed" / "multi_gpu", True, {}),
         pytest.param(
@@ -198,7 +228,7 @@ def _test_id(arg: Path | bool | dict) -> str:
     ],
     ids=_test_id,
 )
-def test_pytorch_example(
+def test_pytorch_example_on_all_gpus(
     example_dir: Path,
     make_reproducible: bool,
     sbatch_overrides: dict[str, Any] | None,
