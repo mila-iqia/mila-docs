@@ -41,7 +41,7 @@ million per user. The command to check the quota usage from a login node is:
 
 .. prompt:: bash $
 
-   beegfs-ctl --cfgFile=/etc/beegfs/home.d/beegfs-client.conf --getquota --uid $USER
+   disk-quota
 
 $SCRATCH
 --------
@@ -52,6 +52,14 @@ minimizes the performance hit of working on extracted datasets.
 
 .. note:: **Auto-cleanup**: this file system is cleared on a weekly basis,
    files not used for more than 90 days will be deleted.
+
+Quotas are enabled on ``$SCRATCH`` for disk capacity (blocks). The limit is
+20TiB. There is no limit in the number of files (inodes). The command to check
+the quota usage from a login node is:
+
+.. prompt:: bash $
+
+   disk-quota
 
 $SLURM_TMPDIR
 -------------
