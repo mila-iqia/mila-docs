@@ -229,3 +229,26 @@ in **extreme** amounts of IOPS to the filesystem.
 
     - **You will be contacted** if you violate these guidelines due to the
       severity of its impact on shared filesystems.
+
+
+Conda refuses to create an environment with ``Your installed CUDA driver is: not available``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Anaconda attempts to auto-detect the NVIDIA driver version of the system and
+thus the maximum CUDA toolkit supported, in an attempt at choosing an
+appropriate CUDA Toolkit version.
+
+However, on login and CPU nodes, there is no NVIDIA GPU and thus no need for
+NVIDIA drivers. But that means ``conda``'s auto-detection will not work on
+those nodes, and packages declaring a minimum requirement on the drivers will
+fail to install.
+
+The solution in such a situation is to set the environment variable
+``CONDA_OVERRIDE_CUDA`` to the desired CUDA Toolkit version; For example,
+
+.. code:: bash
+
+   CONDA_OVERRIDE_CUDA=11.8 conda create -n ENVNAME python=3.10 pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia
+
+This and other ``CONDA_OVERRIDE_*`` variables `are documented in the conda manual
+<https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-virtual.html#overriding-detected-packages>`_.
