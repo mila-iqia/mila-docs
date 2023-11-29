@@ -23,6 +23,8 @@ repository.
 .. code:: diff
 
     # frameworks/pytorch_setup/job.sh -> frameworks/jax_setup/job.sh
+   old mode 100755
+   new mode 100644
     #!/bin/bash
     #SBATCH --gres=gpu:1
     #SBATCH --cpus-per-task=1
@@ -39,11 +41,7 @@ repository.
     # See https://docs.mila.quebec/Userguide.html#conda for more information.
     module load anaconda/3
 
-    # Creating the environment for the first time:
-   -# conda create -y -n pytorch python=3.9 pytorch torchvision torchaudio \
-   -#     pytorch-cuda=11.6 -c pytorch -c nvidia
-   -# Other conda packages:
-   -# conda install -y -n pytorch -c conda-forge rich
+   +# Creating the environment for the first time:
    +# conda create -y -n jax_ex -c "nvidia/label/cuda-11.8.0" cuda python=3.9 virtualenv pip
    +# conda activate jax_ex
    +# Install Jax using `pip`
@@ -51,8 +49,9 @@ repository.
    +# should not install any more packages using `conda install`
    +# pip install --upgrade "jax[cuda11_pip]" \
    +#    -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
-
+   +
     # Activate the environment:
+   -# NOTE: Use the `make_env.sh` script to create the environment if you haven't already.
    -conda activate pytorch
    +conda activate jax_ex
 
