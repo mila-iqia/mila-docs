@@ -25,6 +25,8 @@ repository.
 .. code:: diff
 
     # distributed/single_gpu/job.sh -> frameworks/jax/job.sh
+   old mode 100755
+   new mode 100644
     #!/bin/bash
     #SBATCH --gpus-per-task=rtx8000:1
     #SBATCH --cpus-per-task=4
@@ -45,11 +47,10 @@ repository.
     module load anaconda/3
    -module load cuda/11.7
 
-    # Creating the environment for the first time:
-   -# conda create -y -n pytorch python=3.9 pytorch torchvision torchaudio \
-   -#     pytorch-cuda=11.7 -c pytorch -c nvidia
-   -# Other conda packages:
-   -# conda install -y -n pytorch -c conda-forge rich tqdm
+   -# Activate pre-existing environment.
+   -# NOTE: Use the `make_env.sh` script to create the environment if you haven't already.
+   -conda activate pytorch
+   +# Creating the environment for the first time:
    +# conda create -y -n jax_ex -c "nvidia/label/cuda-11.8.0" cuda python=3.9 virtualenv pip
    +# conda activate jax_ex
    +# Install Jax using `pip`
@@ -59,9 +60,7 @@ repository.
    +#    -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
    +# Other pip packages:
    +# pip install pillow optax rich torch torchvision flax tqdm
-
-   -# Activate pre-existing environment.
-   -conda activate pytorch
+   +
    +# Activate the environment:
    +conda activate jax_ex
 
