@@ -3,12 +3,13 @@ Cheat Sheet
 
 A "cheat sheet" is available to provide you with information about the Mila and DRAC clusters at a glance.
 
-We printed a few hundred copies on cardboard paper in Fall 2023 and distributed them around Mila.
+The production run consists of about 500, some on thicker cardboard and some on lighter paper.
 If you want to have a copy, you can always come to the IDT lab during office hours (usually Tuesday 3pm-5pm).
+You can also find them at some stategic locations at Mila on small wood stands.
 
-.. _cheatsheet-link: /_static/2023-09-07_IDT_cheatsheet.pdf
+.. _cheatsheet-link: /_static/2024-04-05_IDT_cheatsheet_v2.pdf
 
-The :download:`IDT Cheat Sheet pdf <_static/2023-09-07_IDT_cheatsheet.pdf>`
+The :download:`IDT Cheat Sheet pdf <_static/2024-04-05_IDT_cheatsheet_v2.pdf>`
 is available if you want to access it online.
 The layout of the pdf has been set to be compatible with the printers at Mila
 so you can always print your own copy on regular paper
@@ -31,6 +32,8 @@ Here is a list of the known errors in the cheat sheet that will have to be fixed
 Partition preemption is not explained accurately on page 2
 ----------------------------------------------------------
 
+This is is not technically an error, but it is an oversimplification that might lead to some confusion.
+
 The preemption on the Mila cluster is a bit more complicated than what is described in the cheat sheet.
 The jobs from the `long` partition can be preempted to allow jobs in the `main` partition to run,
 but jobs in `main` are never going to be preempted to allow for other jobs in `main`, no matter how much
@@ -40,22 +43,3 @@ Jobs for the `unkillable` partition can preempt everything except other jobs on 
 
 A good explanation of priorities and preemption will be added to the documentation,
 but the cheat sheet (or the cheat sheet errata) is not the place for this.
-
-Default accounts on DRAC oversimplified
----------------------------------------
-
-Technically, any professor can "sponsor" a user so that they have access to their "def-theirprofname" account.
-It could be another professor besides the one supervising a given student,
-even though it is not common practice (a notable exception being "def-bengioy").
-A professor could even sponsor a student that is not affiliated with Mila in any way
-for them to use the default account of that professor.
-
-The cheat sheet implied that this was something that was more "automatic",
-whereby every student has already access to the "def-theirprofname" account.
-
-
-Minor typos
------------
-
-"Ask for things that are easy to schedule, the scheduler will be much nicer to you." -> Missing the word "and".
-
