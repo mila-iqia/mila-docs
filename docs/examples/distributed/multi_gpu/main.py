@@ -37,7 +37,7 @@ def main():
     assert torch.cuda.is_available() and torch.cuda.device_count() > 0
     rank, world_size = setup()
     is_master = rank == 0
-    device = torch.device("cuda", rank)
+    device = torch.device("cuda", rank % torch.cuda.device_count())
 
     # Setup logging (optional, but much better than using print statements)
     logging.basicConfig(
