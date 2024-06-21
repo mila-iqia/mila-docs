@@ -29,6 +29,7 @@ Click here to see `the code for this example
     #SBATCH --cpus-per-task=4
    -#SBATCH --ntasks-per-node=1
    +#SBATCH --ntasks-per-node=4
+   +#SBATCH --nodes=1
     #SBATCH --mem=16G
     #SBATCH --time=00:15:00
 
@@ -121,7 +122,7 @@ Click here to see `the code for this example
    -    device = torch.device("cuda", 0)
    +    rank, world_size = setup()
    +    is_master = rank == 0
-   +    device = torch.device("cuda", rank)
+   +    device = torch.device("cuda", rank % torch.cuda.device_count())
 
         # Setup logging (optional, but much better than using print statements)
         logging.basicConfig(

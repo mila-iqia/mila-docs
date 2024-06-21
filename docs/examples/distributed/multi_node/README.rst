@@ -30,6 +30,7 @@ Click here to see `the source code for this example
     #SBATCH --gpus-per-task=rtx8000:1
     #SBATCH --cpus-per-task=4
     #SBATCH --ntasks-per-node=4
+   -#SBATCH --nodes=1
    +#SBATCH --nodes=2
     #SBATCH --mem=16G
     #SBATCH --time=00:15:00
@@ -121,9 +122,9 @@ Click here to see `the source code for this example
    -    rank, world_size = setup()
    +    rank, world_size, local_rank = setup()
         is_master = rank == 0
-   -    device = torch.device("cuda", rank)
+   -    device = torch.device("cuda", rank % torch.cuda.device_count())
    +    is_local_master = local_rank == 0
-   +    device = torch.device("cuda", local_rank)
+   +    device = torch.device("cuda", local_rank % torch.cuda.device_count())
 
         # Setup logging (optional, but much better than using print statements)
         logging.basicConfig(
