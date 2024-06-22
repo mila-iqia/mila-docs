@@ -51,7 +51,7 @@ search and delete each others' files:
 
 .. code-block:: bash
 
-   setfacl -Rdm user:${USER2}:rwx $SCRATCH/X/Y/Z/
+   setfacl -Rdm user:${USER2:?defineme}:rwx $SCRATCH/X/Y/Z/
 
 ----
 
@@ -63,13 +63,7 @@ search and delete each others' files:
 
 .. code-block:: bash
 
-   setfacl -Rm  user:${USER2}:rwx $SCRATCH/X/Y/Z/
-
-.. note::
-   The purpose of granting permissions first for *future* files and then for
-   *existing* files is to prevent a **race condition** whereby after the first
-   ``setfacl`` command the other person could create files to which the
-   second ``setfacl`` command does not apply.
+   setfacl -Rm  user:${USER2:?defineme}:rwx $SCRATCH/X/Y/Z/
 
 ----
 
@@ -82,9 +76,15 @@ search and delete each others' files:
 
 .. code-block:: bash
 
-   setfacl -m   user:${USER2}:x   $SCRATCH/X/Y/
-   setfacl -m   user:${USER2}:x   $SCRATCH/X/
-   setfacl -m   user:${USER2}:x   $SCRATCH
+   setfacl -m   user:${USER2:?defineme}:x   $SCRATCH/X/Y/
+   setfacl -m   user:${USER2:?defineme}:x   $SCRATCH/X/
+   setfacl -m   user:${USER2:?defineme}:x   $SCRATCH
+
+.. note::
+   The purpose of granting permissions first for *future* files and then for
+   *existing* files is to prevent a **race condition** whereby after the first
+   ``setfacl`` command the other person could create files to which the
+   second ``setfacl`` command does not apply.
 
 .. note::
    In order to access a file, all folders from the root (``/``) down to the
@@ -99,7 +99,7 @@ search and delete each others' files:
 
    .. code-block:: bash
 
-      chmod a+x $SCRATCH
+      chmod a+X $SCRATCH
 
 .. note::
   For more information on ``setfacl`` and path resolution/access checking,
