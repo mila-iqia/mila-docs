@@ -21,17 +21,25 @@ module load cuda/11.7
 
 # Creating the environment for the first time:
 # conda create -y -n pytorch python=3.9 pytorch torchvision torchaudio \
-#     pytorch-cuda=11.7 -c pytorch -c nvidia
-# Other conda packages:
-# conda install -y -n pytorch -c conda-forge rich tqdm
+#     pytorch-cuda=11.7 scipy rich tqdm -c pytorch -c nvidia -c conda-forge
 
 # Activate pre-existing environment.
 conda activate pytorch
 
+#
+mkdir -p $SLURM_TMPDIR/imagenet
+ln -s /network/datasets/imagenet/ILSVRC2012_img_train.tar -t $SLURM_TMPDIR/imagenet 
+ln -s /network/datasets/imagenet/ILSVRC2012_img_val.tar -t $SLURM_TMPDIR/imagenet
+ln -s /network/datasets/imagenet/ILSVRC2012_devkit_t12.tar.gz -t $SLURM_TMPDIR/imagenet 
+python -c "from torchvision.datasets import ImageNet; ImageNet('$SLURM_TMPDIR/imagenet', split='val')"
+python -c "from torchvision.datasets import ImageNet; ImageNet('$SLURM_TMPDIR/imagenet', split='train')"
 
-# Stage dataset into $SLURM_TMPDIR
-mkdir -p $SLURM_TMPDIR/data
-ln -s /network/datasets/cifar10/cifar-10-python.tar.gz $SLURM_TMPDIR/data/
+## Potentially faster way to prepare the train split
+# mkdir -p $SLURM_TMPDIR/imagenet/train
+# tar -xf /network/datasets/imagenet/ILSVRC2012_img_train.tar \
+#     --to-command='mkdir -p $SLURM_TMPDIR/imagenet/train/${TAR_REALNAME%.tar}; \
+#                    tar -xC $SLURM_TMPDIR/imagenet/train/${TAR_REALNAME%.tar}' \
+#     -C $SLURM_TMPDIR/imagenet/train
 
 # Get a unique port for this job based on the job ID
 export MASTER_PORT=$(expr 10000 + $(echo -n $SLURM_JOBID | tail -c 4))

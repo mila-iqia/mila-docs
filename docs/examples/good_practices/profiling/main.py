@@ -13,8 +13,8 @@ from torch.nn import functional as F
 from torch.utils.data import DataLoader, random_split
 from torch.utils.data.distributed import DistributedSampler
 from torchvision import transforms
-from torchvision.datasets import CIFAR10
-from torchvision.models import resnet18
+from torchvision.datasets import ImageFolder 
+from torchvision.models import resnet50
 from tqdm import tqdm
 
 
@@ -51,7 +51,7 @@ def main():
     logger.info(f"World size: {world_size}, global rank: {rank}")
 
     # Create a model and move it to the GPU.
-    model = resnet18(num_classes=10)
+    model = resnet50(num_classes=1000)
     model.to(device=device)
 
     # Wrap the model with DistributedDataParallel
@@ -60,7 +60,7 @@ def main():
 
     optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate, weight_decay=weight_decay)
 
-    # Setup CIFAR10
+    # Setup ImageNet
     num_workers = get_num_workers()
     dataset_path = Path(os.environ.get("SLURM_TMPDIR", ".")) / "data"
     train_dataset, valid_dataset, test_dataset = make_datasets(
