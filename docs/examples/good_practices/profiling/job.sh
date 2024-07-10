@@ -48,4 +48,4 @@ tar -xf /network/datasets/imagenet/ILSVRC2012_img_train.tar \
 unset CUDA_VISIBLE_DEVICES
 
 # Execute Python script in each task (one per GPU)
-#srun python main.py
+srun python main.py
