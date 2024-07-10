@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --gpus-per-task=rtx8000:1
 #SBATCH --cpus-per-task=4
-#SBATCH --ntasks-per-node=4
+#SBATCH --ntasks-per-node=1
 #SBATCH --nodes=1
 #SBATCH --mem=16G
 #SBATCH --time=00:15:00
@@ -26,12 +26,15 @@ module load cuda/11.7
 # Activate pre-existing environment.
 conda activate pytorch
 
-#
+# ImageNet setup
+echo "Setting up ImageNet directories and creating symlinks..."
 mkdir -p $SLURM_TMPDIR/imagenet
 ln -s /network/datasets/imagenet/ILSVRC2012_img_train.tar -t $SLURM_TMPDIR/imagenet 
 ln -s /network/datasets/imagenet/ILSVRC2012_img_val.tar -t $SLURM_TMPDIR/imagenet
-ln -s /network/datasets/imagenet/ILSVRC2012_devkit_t12.tar.gz -t $SLURM_TMPDIR/imagenet 
+ln -s /network/datasets/imagenet/ILSVRC2012_devkit_t12.tar.gz -t $SLURM_TMPDIR/imagenet
+echo "Creating ImageNet validation dataset..."
 python -c "from torchvision.datasets import ImageNet; ImageNet('$SLURM_TMPDIR/imagenet', split='val')"
+echo "Creating ImageNet training dataset..."
 python -c "from torchvision.datasets import ImageNet; ImageNet('$SLURM_TMPDIR/imagenet', split='train')"
 
 ## Potentially faster way to prepare the train split
@@ -40,10 +43,6 @@ python -c "from torchvision.datasets import ImageNet; ImageNet('$SLURM_TMPDIR/im
 #     --to-command='mkdir -p $SLURM_TMPDIR/imagenet/train/${TAR_REALNAME%.tar}; \
 #                    tar -xC $SLURM_TMPDIR/imagenet/train/${TAR_REALNAME%.tar}' \
 #     -C $SLURM_TMPDIR/imagenet/train
-
-# Get a unique port for this job based on the job ID
-export MASTER_PORT=$(expr 10000 + $(echo -n $SLURM_JOBID | tail -c 4))
-export MASTER_ADDR="127.0.0.1"
 
 # Fixes issues with MIG-ed GPUs with versions of PyTorch < 2.0
 unset CUDA_VISIBLE_DEVICES
