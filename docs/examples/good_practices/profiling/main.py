@@ -2,6 +2,7 @@
 import argparse
 import logging
 import os
+import time
 from pathlib import Path
 
 import rich.logging
@@ -42,12 +43,13 @@ def main():
     logger = logging.getLogger(__name__)
 
     # Create a model and move it to the GPU.
-    model = resnet18(num_classes=10)
+    model = resnet18(num_classes=1000)
     model.to(device=device)
 
     optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate, weight_decay=weight_decay)
 
-    # Setup CIFAR10
+    # Setup ImageNet
+    print("Setting up ImageNet")
     num_workers = get_num_workers()
     dataset_path = Path(os.environ.get("SLURM_TMPDIR", ".")) / "imagenet"
     train_dataset, valid_dataset, test_dataset = make_datasets(str(dataset_path))
@@ -69,9 +71,23 @@ def main():
         num_workers=num_workers,
         shuffle=False,
     )
+    print(len(train_dataloader))
+    print(len(valid_dataloader))
+    print(len(test_dataloader))
 
-    # Checkout the "checkpointing and preemption" example for more info!
-    logger.debug("Starting training from scratch.")
+    logger.debug("Beginning bottleneck diagnosis.")
+    logger.debug("Starting dataloder loop without training.")
+
+    dataloader_start_time = time.time()
+    n_batches = 0
+    for batch in train_dataloader:
+        batch = tuple(item.to(device) for item in batch)
+        n_batches += 1
+    dataloader_end_time = time.time()
+    dataloader_elapsed_time = dataloader_end_time - dataloader_start_time
+    logger.debug(f"Baseline dataloader speed: {(dataloader_elapsed_time / n_batches):.3f} s/batch")
+    
+    logger.debug("Starting training loop.")
 
     for epoch in range(epochs):
         logger.debug(f"Starting epoch {epoch}/{epochs}")
@@ -162,11 +178,9 @@ def make_datasets(
 
     train_dataset = ImageFolder(root=train_dir, 
                                 transform=transforms.ToTensor(), 
-                                download=True, train=True
     )
     test_dataset = ImageFolder(root=test_dir, 
                                transform=transforms.ToTensor(), 
-                               download=True, train=False
     )
     # Split the training dataset into training and validation
     n_samples = len(train_dataset)
