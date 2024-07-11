@@ -15,6 +15,7 @@ extensions = [
     "sphinx.ext.autosectionlabel",
     "sphinx.ext.todo",
     "myst_parser",
+    "nbsphinx",
 ]
 
 templates_path = ["templates", "_templates", ".templates"]

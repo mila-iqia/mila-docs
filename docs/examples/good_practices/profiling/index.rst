@@ -1,7 +1,7 @@
 .. _profiling:
 
-Profiling your code
-===================
+old_Profiling your code
+=======================
 
 
 **Prerequisites**

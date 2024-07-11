@@ -68,7 +68,6 @@ def main():
         num_workers=num_workers,
         shuffle=False,
     )
-
     test_dataloader = DataLoader(# NOTE: Not used in this example.
         test_dataset,
         batch_size=batch_size,
@@ -82,27 +81,7 @@ def main():
     ## example in a few lines of code. People who are interested in how the bottleneck is computed
     ## can then go and see how the function is implemented.
     
-    dataloader_start_time = time.time()
-    n_batches = 0
-    for batch_idx, batch in enumerate(tqdm(
-            train_dataloader,
-            desc="Dataloader throughput test",
-            # hint: look at unit_scale and unit params
-            unit="batches",
-            total=test_batches,
-    )): 
-        if batch_idx >= test_batches:
-            break
 
-        batch = tuple(item.to(device) for item in batch)
-        n_batches += 1
-
-    dataloader_end_time = time.time()
-    dataloader_elapsed_time = dataloader_end_time - dataloader_start_time
-    avg_time_per_batch = dataloader_elapsed_time / n_batches
-    logger.info(f"Baseline dataloader speed: {avg_time_per_batch:.3f} s/batch")
-    
-    
     logger.info("Starting training loop.")
     for epoch in range(epochs):
         logger.debug(f"Starting epoch {epoch}/{epochs}")
@@ -181,8 +160,33 @@ def validation_loop(model: nn.Module, dataloader: DataLoader, device: torch.devi
     accuracy = correct_predictions / n_samples
     return total_loss, accuracy
 
-def dataloader_throughput_loop(dataloader: DataLoader, device: torch.device):
-    pass
+@torch.no_grad()
+def test_dataloader_throughput(dataloader: DataLoader, 
+                               device: torch.device,
+                               test_batches: int = 30):
+    
+    """Tests the throughput of a DataLoader by running it for a few batches."""
+
+    dataloader_start_time = time.time()
+    n_batches = 0
+
+    for batch_idx, batch in enumerate(tqdm(
+            train_dataloader,
+            desc="Dataloader throughput test",
+            # hint: look at unit_scale and unit params
+            unit="batches",
+            total=test_batches,
+    )): 
+        if batch_idx >= test_batches:
+            break
+
+        batch = tuple(item.to(device) for item in batch)
+        n_batches += 1
+
+    dataloader_end_time = time.time()
+    dataloader_elapsed_time = dataloader_end_time - dataloader_start_time
+    avg_time_per_batch = dataloader_elapsed_time / n_batches
+    return avg_time_per_batch
 
 def make_datasets(
     dataset_path: str,
