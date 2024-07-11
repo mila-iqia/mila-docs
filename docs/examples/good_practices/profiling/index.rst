@@ -1,7 +1,7 @@
-.. _Profiling:
+.. _profiling:
 
-Profiling
-==============
+Profiling your code
+===================
 
 
 **Prerequisites**
@@ -14,16 +14,21 @@ The full source code for this example is available on `the mila-docs GitHub
 repository.
 <https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/good_practices/profiling>`_
 
-**job.sh**
+.. .. toctree::
+..     :maxdepth: 1
 
-.. literalinclude:: job.sh
-    :language: bash
+..     profiling.ipynb
+
+.. **job.sh**
+
+.. .. literalinclude:: job.sh
+..     :language: bash
 
 
-**main.py**
+.. **main.py**
 
-.. literalinclude:: main.py
-    :language: python
+.. .. literalinclude:: main.py
+..     :language: python
 
 
 **Running this example**
