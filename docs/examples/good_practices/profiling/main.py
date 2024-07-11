@@ -23,7 +23,8 @@ def main():
     parser.add_argument("--learning-rate", type=float, default=5e-4)
     parser.add_argument("--weight-decay", type=float, default=1e-4)
     parser.add_argument("--batch-size", type=int, default=128)
-    parser.add_argument("--test-batches", type=int, default=30)
+    parser.add_argument("--test-batches", type=int, default=0)
+    parser.add_argument("--skip-training", action="store_true")
     args = parser.parse_args()
 
     epochs: int = args.epochs
@@ -67,7 +68,8 @@ def main():
         num_workers=num_workers,
         shuffle=False,
     )
-    test_dataloader = DataLoader(  # NOTE: Not used in this example.
+
+    test_dataloader = DataLoader(# NOTE: Not used in this example.
         test_dataset,
         batch_size=batch_size,
         num_workers=num_workers,
@@ -110,7 +112,7 @@ def main():
 
         # NOTE: using a progress bar from tqdm because it's nicer than using `print`.
         progress_bar = tqdm(
-            total=len(train_dataloader),
+            train_dataloader,
             desc=f"Train epoch {epoch}",
             # hint: look at unit_scale and unit params
             unit="images",
@@ -118,11 +120,12 @@ def main():
         )
 
         # Training loop
-        for batch in train_dataloader:
+        for batch in progress_bar:
             # Move the batch to the GPU before we pass it to the model
             batch = tuple(item.to(device) for item in batch)
             x, y = batch
-
+            if skip_training:
+                continue
             # Forward pass
             logits: Tensor = model(x)
 
@@ -141,12 +144,14 @@ def main():
             logger.debug(f"Average Loss: {loss.item()}")
 
             # Advance the progress bar one step and update the progress bar text.
-            progress_bar.update()
             progress_bar.set_postfix(loss=loss.item(), accuracy=accuracy.item())
         progress_bar.close()
 
         val_loss, val_accuracy = validation_loop(model, valid_dataloader, device)
         logger.info(f"Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%}")
+
+        if skip_training:
+            break
 
     print("Done!")
 
