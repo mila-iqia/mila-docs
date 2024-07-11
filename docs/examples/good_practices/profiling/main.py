@@ -1,9 +1,8 @@
-"""Single-GPU training example."""
 import argparse
 import logging
 import os
-import time
 from pathlib import Path
+from itertools import islice
 
 import rich.logging
 import torch
@@ -23,7 +22,7 @@ def main():
     parser.add_argument("--learning-rate", type=float, default=5e-4)
     parser.add_argument("--weight-decay", type=float, default=1e-4)
     parser.add_argument("--batch-size", type=int, default=128)
-    parser.add_argument("--test-batches", type=int, default=0)
+    parser.add_argument("--num-batches", type=int, default=0)
     parser.add_argument("--skip-training", action="store_true")
     args = parser.parse_args()
 
@@ -31,7 +30,7 @@ def main():
     learning_rate: float = args.learning_rate
     weight_decay: float = args.weight_decay
     batch_size: int = args.batch_size
-    test_batches: int = args.test_batches
+    num_batches: int = args.num_batches
 
     # Check that the GPU is available
     assert torch.cuda.is_available() and torch.cuda.device_count() > 0
@@ -40,7 +39,9 @@ def main():
     # Setup logging (optional, but much better than using print statements)
     logging.basicConfig(
         level=logging.INFO,
-        handlers=[rich.logging.RichHandler(markup=True)],  # Very pretty, uses the `rich` package.
+        handlers=[
+            rich.logging.RichHandler(markup=True)
+        ],  # Very pretty, uses the `rich` package.
     )
 
     logger = logging.getLogger(__name__)
@@ -49,7 +50,9 @@ def main():
     model = resnet50(num_classes=1000)
     model.to(device=device)
 
-    optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate, weight_decay=weight_decay)
+    optimizer = torch.optim.AdamW(
+        model.parameters(), lr=learning_rate, weight_decay=weight_decay
+    )
 
     # Setup ImageNet
     logger.info("Setting up ImageNet")
@@ -68,7 +71,7 @@ def main():
         num_workers=num_workers,
         shuffle=False,
     )
-    test_dataloader = DataLoader(# NOTE: Not used in this example.
+    test_dataloader = DataLoader(  # NOTE: Not used in this example.
         test_dataset,
         batch_size=batch_size,
         num_workers=num_workers,
@@ -76,63 +79,68 @@ def main():
     )
 
     logger.info("Beginning bottleneck diagnosis.")
-    logger.info("Starting dataloader loop without training.")
-    ## TODO: Pass into function and call directly to illustrate the bottleneck
-    ## example in a few lines of code. People who are interested in how the bottleneck is computed
-    ## can then go and see how the function is implemented.
-    
 
-    logger.info("Starting training loop.")
-    for epoch in range(epochs):
-        logger.debug(f"Starting epoch {epoch}/{epochs}")
+    logger.info("Starting dataloading loop.")
+    n_batches = 0
 
-        # Set the model in training mode (important for e.g. BatchNorm and Dropout layers)
-        model.train()
+    for batch in tqdm(
+        islice(train_dataloader, num_batches),
+        desc="Dataloader throughput test",
+        # hint: look at unit_scale and unit params
+        unit="batches",
+        total=num_batches,
+    ):
+        batch = tuple(item.to(device) for item in batch)
+        n_batches += 1
 
-        # NOTE: using a progress bar from tqdm because it's nicer than using `print`.
-        progress_bar = tqdm(
-            train_dataloader,
-            desc=f"Train epoch {epoch}",
-            # hint: look at unit_scale and unit params
-            unit="images",
-            unit_scale=train_dataloader.batch_size,
-        )
+        # logger.info(f"Average time per dataloader batch: {##replacewithposix##:.3f} s")
 
-        # Training loop
-        for batch in progress_bar:
-            # Move the batch to the GPU before we pass it to the model
-            batch = tuple(item.to(device) for item in batch)
-            x, y = batch
-            if skip_training:
-                continue
-            # Forward pass
-            logits: Tensor = model(x)
+        if args.skip_training is False:
+            logger.info("Starting training loop.")
 
-            loss = F.cross_entropy(logits, y)
+            for epoch in range(epochs):
+                logger.debug(f"Starting epoch {epoch}/{epochs}")
+                # Set the model in training mode (important for e.g. BatchNorm and Dropout layers)
+                model.train()
+                # NOTE: using a progress bar from tqdm because it's nicer than using `print`.
+                progress_bar = tqdm(
+                    train_dataloader,
+                    desc=f"Train epoch {epoch}",
+                    # hint: look at unit_scale and unit params
+                    unit="images",
+                    unit_scale=train_dataloader.batch_size,
+                )
 
-            optimizer.zero_grad()
-            loss.backward()
-            optimizer.step()
+                # Training loop
+                for batch in progress_bar:
+                    # Move the batch to the GPU before we pass it to the model
+                    batch = tuple(item.to(device) for item in batch)
+                    x, y = batch
+                    # Forward pass
+                    logits: Tensor = model(x)
 
-            # Calculate some metrics:
-            n_correct_predictions = logits.detach().argmax(-1).eq(y).sum()
-            n_samples = y.shape[0]
-            accuracy = n_correct_predictions / n_samples
+                    loss = F.cross_entropy(logits, y)
 
-            logger.debug(f"Accuracy: {accuracy.item():.2%}")
-            logger.debug(f"Average Loss: {loss.item()}")
+                    optimizer.zero_grad()
+                    loss.backward()
+                    optimizer.step()
 
-            # Advance the progress bar one step and update the progress bar text.
-            progress_bar.set_postfix(loss=loss.item(), accuracy=accuracy.item())
-        progress_bar.close()
+                    # Calculate some metrics:
+                    n_correct_predictions = logits.detach().argmax(-1).eq(y).sum()
+                    n_samples = y.shape[0]
+                    accuracy = n_correct_predictions / n_samples
 
-        val_loss, val_accuracy = validation_loop(model, valid_dataloader, device)
-        logger.info(f"Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%}")
+                    logger.debug(f"Accuracy: {accuracy.item():.2%}")
+                    logger.debug(f"Average Loss: {loss.item()}")
 
-        if skip_training:
-            break
+                    # Advance the progress bar one step and update the progress bar text.
+                    progress_bar.set_postfix(loss=loss.item(), accuracy=accuracy.item())
+                progress_bar.close()
 
-    print("Done!")
+            val_loss, val_accuracy = validation_loop(model, valid_dataloader, device)
+            logger.info(
+                f"Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%}"
+            )
 
 
 @torch.no_grad()
@@ -160,33 +168,6 @@ def validation_loop(model: nn.Module, dataloader: DataLoader, device: torch.devi
     accuracy = correct_predictions / n_samples
     return total_loss, accuracy
 
-@torch.no_grad()
-def test_dataloader_throughput(dataloader: DataLoader, 
-                               device: torch.device,
-                               test_batches: int = 30):
-    
-    """Tests the throughput of a DataLoader by running it for a few batches."""
-
-    dataloader_start_time = time.time()
-    n_batches = 0
-
-    for batch_idx, batch in enumerate(tqdm(
-            train_dataloader,
-            desc="Dataloader throughput test",
-            # hint: look at unit_scale and unit params
-            unit="batches",
-            total=test_batches,
-    )): 
-        if batch_idx >= test_batches:
-            break
-
-        batch = tuple(item.to(device) for item in batch)
-        n_batches += 1
-
-    dataloader_end_time = time.time()
-    dataloader_elapsed_time = dataloader_end_time - dataloader_start_time
-    avg_time_per_batch = dataloader_elapsed_time / n_batches
-    return avg_time_per_batch
 
 def make_datasets(
     dataset_path: str,
@@ -201,17 +182,19 @@ def make_datasets(
     Later examples will show how to do the train/val/test split properly when using transforms.
     """
 
-    train_dir = os.path.join(dataset_path, 'train')
-    test_dir = os.path.join(dataset_path, 'val')
+    train_dir = os.path.join(dataset_path, "train")
+    test_dir = os.path.join(dataset_path, "val")
 
-    transform = Compose([
-        Resize(target_size),
-        ToTensor(),
-    ])
+    transform = Compose(
+        [
+            Resize(target_size),
+            ToTensor(),
+        ]
+    )
 
     train_dataset = ImageFolder(
         root=train_dir,
-        transform=transform, 
+        transform=transform,
     )
     test_dataset = ImageFolder(
         root=test_dir,
@@ -224,8 +207,10 @@ def make_datasets(
     n_train = n_samples - n_valid
 
     train_dataset, valid_dataset = random_split(
-        train_dataset, [n_train, n_valid], 
-        generator = torch.Generator().manual_seed(val_split_seed))                                                         
+        train_dataset,
+        [n_train, n_valid],
+        generator=torch.Generator().manual_seed(val_split_seed),
+    )
 
     return train_dataset, valid_dataset, test_dataset
 
