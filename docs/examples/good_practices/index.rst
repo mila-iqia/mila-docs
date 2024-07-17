@@ -15,7 +15,6 @@ various good practices that should be observed when using the Mila cluster.
     checkpointing/index
     wandb_setup/index
     profiling/profiling.ipynb
-    profiling/index
     launch_many_jobs/index
     hpo_with_orion/index
     */index

@@ -1,8 +1,8 @@
 import argparse
 import logging
 import os
-from pathlib import Path
 from itertools import islice
+from pathlib import Path
 
 import rich.logging
 import torch
@@ -10,8 +10,8 @@ from torch import Tensor, nn
 from torch.nn import functional as F
 from torch.utils.data import DataLoader, random_split
 from torchvision.datasets import ImageFolder
-from torchvision.transforms import ToTensor, Resize, Compose
 from torchvision.models import resnet50
+from torchvision.transforms import Compose, Resize, ToTensor
 from tqdm import tqdm
 
 
