@@ -1,16 +1,42 @@
+import json
 import os
+import shlex
 import subprocess
 from pathlib import Path
 
 import pytest
 
+slurm_tmpdir = Path(os.environ.get("SLURM_TMPDIR", "/tmp"))
+
 
 @pytest.fixture(scope="session")
-def prepare_imagenet():
-    return None
+def imagenet_dir():
+    """Prepare the ImageNet dataset in the SLURM temporary directory."""
+    _imagenet_dir = slurm_tmpdir / "imagenet"
+
+    if not _imagenet_dir.exists():
+        job_script_path = Path(__file__).parent / "make_imagenet.sh"
+        subprocess.run(["bash", str(job_script_path)], check=True)
+
+    return _imagenet_dir
 
 
-@pytest.fixture(scope="function")
+def test_imagenet_preparation(imagenet_dir: Path):
+    """Test that ImageNet data has been prepared correctly."""
+    assert imagenet_dir.exists(), f"{imagenet_dir} does not exist"
+    from torchvision.datasets import ImageNet
+
+    # check that we can create the dataset and fetch an image
+    ImageNet(imagenet_dir)[42]
+
+    assert (
+        imagenet_dir / "ILSVRC2012_img_train.tar"
+    ).exists(), "Training data is missing"
+    assert (
+        imagenet_dir / "ILSVRC2012_img_val.tar"
+    ).exists(), "Validation data is missing"
+
+
 def parse_requirements():
     """
     Parse the requirements file and return a list of requirements.
@@ -33,66 +59,63 @@ def parse_requirements():
 
 
 @pytest.fixture(scope="session")
-def setup_conda_environment(parse_requirements):
-    """Create a conda environment following exactly the
-    instructions in the docs and return the path to it."""
-    requirements = parse_requirements
-
-    # python_version =
-    conda_env_dir: Path
-
-
-# def test_conda_env_sees_gpu(setup_conda_environment):
-
-
-@pytest.fixture(scope="session")
-def path_to_conda_env():
-    """Create a conda environment following exactly the instructions in the docs and return the path to it.
-
-    TODO:
-    - Read this a bit: https://docs.pytest.org/en/7.1.x/how-to/tmp_path.html
-    - Use this to create a temporary directory that will last the entire session: https://docs.pytest.org/en/7.1.x/how-to/tmp_path.html#the-tmp-path-factory-fixture
-    - Create a conda environment with that directory as the prefix (with `conda create --prefix`) and the desired version of Python
-    - pip install all the dependencies
-    - return the path.
+def virtualenv():
     """
-    python_version = "3.10"  #
-    conda_env_dir: Path = ...
-    output = subprocess.run(
-        f"conda create --yes --prefix {conda_env_dir} python={python_version}",
-        text=True,
-        capture_output=True,
-        shell=True,
+    Create a virtual environment at a temporary path with the
+    requirements from the example.
+    """
+    requirements = parse_requirements()
+    path_to_venv = slurm_tmpdir / "temp_env"
+
+    if path_to_venv.exists():
+        return path_to_venv
+
+    create_venv = shlex.split(
+        f"bash -c 'module load python/3.10 && python -m venv {path_to_venv}'"
     )
-    # then use the same idea to run `pip install` for all the dependencies
-    ...  # TODO
+    subprocess.run(create_venv, check=True)
 
-    return conda_env_dir
+    pip_install_command = shlex.split(
+        "bash -c '"
+        "module load python/3.10 &&"
+        f"source {path_to_venv}/bin/activate &&"
+        f"pip install {' '.join(requirements)}"
+        "'"
+    )
 
+    subprocess.run(pip_install_command, check=True)
 
-@pytest.mark.xfail(reason="Not implemented yet")
-## flag indicating that the test is expected to fail
-def test_conda_env_sees_gpu(path_to_conda_env: Path):
-    """Run something like this:
-
-    ```bash
-    conda activate {path_to_conda_env}
-    python -c "import torch; print(torch.cuda.is_available())"
-    ```
-    """
-    raise NotImplementedError
+    return Path(path_to_venv)  # returns path on succesful creation of conda env
 
 
-def test_run_example():
-    path_to_conda_env = Path("/home/mila/c/cesar.valdez/venvs/docs")
+def test_venv_sees_gpu(virtualenv: Path):
+    check_gpu = shlex.split(
+        "bash -c '"
+        "module load python/3.10 && "
+        f"source {virtualenv}/bin/activate && "
+        'python -c "import torch; print(torch.cuda.is_available())"'
+        "'"
+    )
+
+    result = subprocess.run(check_gpu, capture_output=True, check=True, text=True)
+
+    assert "True" in result.stdout.strip(), "GPU is not available in the conda env"
+
+
+def test_run_example(virtualenv: Path):
     path_to_example = Path(__file__).parent / "main.py"
-    result = subprocess.run(
-        f"python {path_to_example} --epochs 1 --skip-training --n-samples 1000",
-        # f"conda run -p {path_to_conda_env} python main.py --epochs 1 --skip-training --n-samples 1000",
-        text=True,
-        capture_output=True,
-        shell=True,
+
+    result = shlex.split(
+        "bash -c '"
+        "module load python/3.10 && "
+        "module load cuda/11.7 && "
+        f"source {virtualenv}/bin/activate && "
+        f"python {path_to_example} --epochs 1 --skip-training --n-samples 1000"
+        "'"
     )
+
+    result = subprocess.run(result, capture_output=True, check=True, text=True)
+
     if result.stdout:
         print("The example produced this output:")
         print(result.stdout)
@@ -103,6 +126,10 @@ def test_run_example():
         print("The example produced this in stderr:")
         print(result.stderr)
 
-    assert "accuracy:" in result.stdout
+    last_line = result.stdout.strip().split("\n")[-1]
+    metrics = json.loads(last_line)
 
-    # main("--epochs 1 --skip-training --num-samples 1000 ")
+    assert "samples/s" in metrics
+    assert "updates/s" in metrics
+    assert "val_loss" in metrics
+    assert "val_accuracy" in metrics

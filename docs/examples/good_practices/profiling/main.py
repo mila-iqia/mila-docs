@@ -1,6 +1,8 @@
 import argparse
+import json
 import logging
 import os
+import time
 from pathlib import Path
 
 import rich.logging
@@ -80,10 +82,6 @@ def main():
         shuffle=False,
     )
 
-    logger.info("Beginning bottleneck diagnosis.")
-
-    logger.info("Starting dataloading loop.")
-
     for epoch in range(epochs):
         logger.debug(f"Starting epoch {epoch}/{epochs}")
         # Set the model in training mode (important for e.g. BatchNorm and Dropout layers)
@@ -99,14 +97,16 @@ def main():
         )
 
         # Training loop
+        start_time = time.time()
+        num_samples = 0
+        num_updates = 0
         for batch in progress_bar:
             # Move the batch to the GPU before we pass it to the model
             batch = tuple(item.to(device) for item in batch)
             x, y = batch
-
+            num_samples += x.shape[0]
             if skip_training:
                 continue
-
             # Forward pass
             logits: Tensor = model(x)
 
@@ -115,6 +115,7 @@ def main():
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
+            num_updates += 1
 
             # Calculate some metrics:
             n_correct_predictions = logits.detach().argmax(-1).eq(y).sum()
@@ -127,10 +128,27 @@ def main():
             # Advance the progress bar one step and update the progress bar text.
             progress_bar.set_postfix(loss=loss.item(), accuracy=accuracy.item())
 
+        elapsed_time = time.time() - start_time
+        samples_per_second = num_samples / elapsed_time
+        updates_per_second = num_updates / elapsed_time
+
         val_loss, val_accuracy = validation_loop(model, valid_dataloader, device)
+
         logger.info(
-            f"Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%}"
+            f"epoch {epoch}: samples/s: {samples_per_second},"
+            f"updates/s: {updates_per_second}, "
+            f"val_loss: {val_loss:.3f}, val_accuracy: {val_accuracy:.2%}"
         )
+    print(
+        json.dumps(
+            {
+                "samples/s": samples_per_second,
+                "updates/s": updates_per_second,
+                "val_loss": val_loss,
+                "val_accuracy": val_accuracy,
+            }
+        )
+    )
 
 
 @torch.no_grad()
@@ -156,7 +174,7 @@ def validation_loop(model: nn.Module, dataloader: DataLoader, device: torch.devi
         correct_predictions += batch_correct_predictions
 
     accuracy = correct_predictions / n_samples
-    return total_loss, accuracy
+    return total_loss, float(accuracy)
 
 
 def make_datasets(
@@ -176,6 +194,8 @@ def make_datasets(
     train_dir = os.path.join(dataset_path, "train")
     test_dir = os.path.join(dataset_path, "val")
 
+    generator = torch.Generator().manual_seed(val_split_seed)
+
     transform = Compose(
         [
             Resize(target_size),
@@ -191,8 +211,13 @@ def make_datasets(
     # take a subset of n_samples of train_dataset (indices at random)
 
     if n_samples is not None and n_samples > 0:
+        gen = torch.Generator().manual_seed(val_split_seed)
+
         train_dataset = Subset(  # todo: use the generator keyword to make this deterministic
-            train_dataset, indices=torch.randperm(len(train_dataset))[:n_samples]
+            train_dataset,
+            indices=torch.randperm(len(train_dataset), generator=gen)[
+                :n_samples
+            ].tolist(),
         )
 
     test_dataset = ImageFolder(
@@ -208,7 +233,7 @@ def make_datasets(
     train_dataset, valid_dataset = random_split(
         train_dataset,
         [n_train, n_valid],
-        generator=torch.Generator().manual_seed(val_split_seed),
+        generator=generator,
     )
 
     return train_dataset, valid_dataset, test_dataset
