@@ -1,6 +1,8 @@
 Weight and Biases (WandB)
 =========================
 
+Students supervised by core professors are elligible to the Mila organization on wandb. To request access, write to it-support@mila.quebec. Then please follow the guidelines below to get your account created or linked to Mila's organization. 
+
 Logging in for the first time
 -----------------------------
 
