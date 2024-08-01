@@ -23,6 +23,9 @@ def imagenet_dir():
 
 def test_imagenet_preparation(imagenet_dir: Path):
     """Test that ImageNet data has been prepared correctly."""
+
+    # TODO: Should run  'job.sh --help' instead of make_imagenet (which won't exist anymore.)
+
     assert imagenet_dir.exists(), f"{imagenet_dir} does not exist"
     from torchvision.datasets import ImageNet
 
@@ -67,7 +70,7 @@ def virtualenv():
     requirements = parse_requirements()
     path_to_venv = slurm_tmpdir / "temp_env"
 
-    if path_to_venv.exists():
+    if (path_to_venv / "bin" / "activate").exists():
         return path_to_venv
 
     create_venv = shlex.split(
@@ -105,12 +108,16 @@ def test_venv_sees_gpu(virtualenv: Path):
 def test_run_example(virtualenv: Path):
     path_to_example = Path(__file__).parent / "main.py"
 
+    metrics = run_example("--epochs=1 --skip-training", virtualenv, path_to_example)
+
+
+def run_example(args: str, virtualenv: Path, path_to_example: Path):
     result = shlex.split(
         "bash -c '"
         "module load python/3.10 && "
         "module load cuda/11.7 && "
         f"source {virtualenv}/bin/activate && "
-        f"python {path_to_example} --epochs 1 --skip-training --n-samples 1000"
+        f"python {path_to_example} {args}"
         "'"
     )
 

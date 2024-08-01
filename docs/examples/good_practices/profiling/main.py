@@ -7,12 +7,21 @@ from pathlib import Path
 
 import rich.logging
 import torch
+import wandb
 from torch import Tensor, nn
 from torch.nn import functional as F
 from torch.utils.data import DataLoader, Subset, random_split
 from torchvision.datasets import ImageFolder
 from torchvision.models import resnet50
-from torchvision.transforms import Compose, Normalize, Resize, ToTensor
+from torchvision.transforms import (
+    ColorJitter,
+    Compose,
+    Normalize,
+    RandomHorizontalFlip,
+    RandomResizedCrop,
+    Resize,
+    ToTensor,
+)
 from tqdm import tqdm
 
 
@@ -20,19 +29,39 @@ def main():
     # Use an argument parser so we can pass hyperparameters from the command line.
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--skip-training", action="store_true")
+    parser.add_argument(
+        "--num-workers", type=int, default=1, help="Number of data loader workers"
+    )
     parser.add_argument("--n-samples", type=int, default=0)
     parser.add_argument("--batch-size", type=int, default=128)
     parser.add_argument("--epochs", type=int, default=10)
     parser.add_argument("--learning-rate", type=float, default=5e-4)
     parser.add_argument("--weight-decay", type=float, default=1e-4)
+    parser.add_argument(
+        "--use-wandb", action="store_true", help="Log with Weights and Biases"
+    )
+    parser.add_argument(
+        "--wandb-user", type=str, default=None, help="Weights and Biases user"
+    )
+    parser.add_argument("--wandb-project", type=str, default="imagenet_profiling")
+    parser.add_argument("--wandb-api-key", type=str, default="")
     args = parser.parse_args()
 
     skip_training: bool = args.skip_training
+    num_workers: int = args.num_workers
     n_samples: int = args.n_samples
     batch_size: int = args.batch_size
     epochs: int = args.epochs
     learning_rate: float = args.learning_rate
     weight_decay: float = args.weight_decay
+    use_wandb: bool = args.use_wandb
+    wandb_user: str = args.wandb_user
+    wandb_project: str = args.wandb_project
+    wandb_api_key: str = args.wandb_api_key
+
+    if use_wandb:
+        wandb.login(key=wandb_api_key)
+        wandb.init(project=wandb_project, entity=wandb_user, config=vars(args))
 
     # Check that the GPU is available
     assert torch.cuda.is_available() and torch.cuda.device_count() > 0
@@ -125,6 +154,10 @@ def main():
             logger.debug(f"Accuracy: {accuracy.item():.2%}")
             logger.debug(f"Average Loss: {loss.item()}")
 
+            # Log metrics with wandb
+            if use_wandb:
+                wandb.log({"accuracy": accuracy.item(), "loss": loss.item()})
+
             # Advance the progress bar one step and update the progress bar text.
             progress_bar.set_postfix(loss=loss.item(), accuracy=accuracy.item())
 
@@ -139,6 +172,9 @@ def main():
             f"updates/s: {updates_per_second}, "
             f"val_loss: {val_loss:.3f}, val_accuracy: {val_accuracy:.2%}"
         )
+        if use_wandb:
+            wandb.log({"val_loss": val_loss, "val_accuracy": val_accuracy})
+
     print(
         json.dumps(
             {
@@ -195,8 +231,18 @@ def make_datasets(
     test_dir = os.path.join(dataset_path, "val")
 
     generator = torch.Generator().manual_seed(val_split_seed)
+    # get the trans
+    train_transform = Compose(
+        [
+            RandomResizedCrop(target_size),
+            RandomHorizontalFlip(),
+            ColorJitter(brightness=0.1, contrast=0.1, saturation=0.1, hue=0.1),
+            ToTensor(),
+            Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+        ]
+    )
 
-    transform = Compose(
+    val_test_transform = Compose(
         [
             Resize(target_size),
             ToTensor(),
@@ -206,7 +252,7 @@ def make_datasets(
 
     train_dataset = ImageFolder(
         root=train_dir,
-        transform=transform,
+        transform=train_transform,
     )
     # take a subset of n_samples of train_dataset (indices at random)
 
@@ -222,7 +268,7 @@ def make_datasets(
 
     test_dataset = ImageFolder(
         root=test_dir,
-        transform=transform,
+        transform=val_test_transform,
     )
 
     # Split the training dataset into training and validation

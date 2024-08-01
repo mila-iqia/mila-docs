@@ -3,3 +3,4 @@ rich
 tqdm
 torchvision
 scipy
+wandb

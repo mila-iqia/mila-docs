@@ -11,41 +11,36 @@
 echo "Date:     $(date)"
 echo "Hostname: $(hostname)"
 
-
 # Ensure only anaconda/3 module loaded.
 module --quiet purge
-# This example uses Conda to manage package dependencies.
-# See https://docs.mila.quebec/Userguide.html#conda for more information.
 module load anaconda/3
 module load cuda/11.7
 
-# Creating the environment for the first time:
-# conda create -y -n pytorch python=3.9 
-# pip install torch rich tqdm torchvision scipy
+# default values, change if found elsewhere
+VENV_DIR="$SLURM_TMPDIR/env"
+IMAGENET_DIR=$SLURM_TMPDIR/imagenet 
 
-# Activate pre-existing environment.
-conda activate pytorch
+if [ ! -d "$IMAGENET_DIR" ]; then
+  echo "ImageNet dataset not found. Preparing dataset..."
+  ./make_imagenet.sh
+else
+  echo "ImageNet dataset already prepared."
+fi
 
-# ImageNet setup
-echo "Setting up ImageNet directories and creating symlinks..."
-mkdir -p $SLURM_TMPDIR/imagenet
-ln -s /network/datasets/imagenet/ILSVRC2012_img_train.tar -t $SLURM_TMPDIR/imagenet 
-ln -s /network/datasets/imagenet/ILSVRC2012_img_val.tar -t $SLURM_TMPDIR/imagenet
-ln -s /network/datasets/imagenet/ILSVRC2012_devkit_t12.tar.gz -t $SLURM_TMPDIR/imagenet
-echo "Creating ImageNet validation dataset..."
-python -c "from torchvision.datasets import ImageNet; ImageNet('$SLURM_TMPDIR/imagenet', split='val')"
-echo "Creating ImageNet training dataset..."
-mkdir -p $SLURM_TMPDIR/imagenet/train
-tar -xf /network/datasets/imagenet/ILSVRC2012_img_train.tar \
-     --to-command='mkdir -p $SLURM_TMPDIR/imagenet/train/${TAR_REALNAME%.tar}; \
-                    tar -xC $SLURM_TMPDIR/imagenet/train/${TAR_REALNAME%.tar}' \
-     -C $SLURM_TMPDIR/imagenet/train
-# SLOWER: Obtain ImageNet files using torch directly
-#python -c "from torchvision.datasets import ImageNet; ImageNet('$SLURM_TMPDIR/imagenet', split='train')"
-
+# Check if virtual environment exists, create it if it doesn't
+if [ ! -f "$VENV_DIR/bin/activate" ]; then
+    echo "Virtual environment not found. Creating it."
+    module load python/3.10
+    python -m venv $VENV_DIR
+    source $VENV_DIR/bin/activate
+    pip install torch rich tqdm torchvision scipy wandb
+else
+    echo "Activating pre-existing virtual environment."
+    source $VENV_DIR/bin/activate
+fi
 
 # Fixes issues with MIG-ed GPUs with versions of PyTorch < 2.0
 unset CUDA_VISIBLE_DEVICES
 
-# Execute Python script in each task (one per GPU)
-#srun python main.py
+# Execute Python script
+python main.py "$@"
