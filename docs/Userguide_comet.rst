@@ -1,6 +1,11 @@
 Comet
 =====
 
+Students supervised by core professors are elligible to the Mila organization on Comet.
+To request access, write to it-support@mila.quebec.
+Then please follow the guidelines below to get your account created within Mila's organization.
+This account will be independant from your personal account if you already have one.
+
 Logging in for the first time
 -----------------------------
 
