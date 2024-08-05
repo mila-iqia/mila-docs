@@ -1,11 +1,9 @@
 import argparse
-import json
 import logging
 import os
 import time
 from pathlib import Path
 
-import rich.logging
 import torch
 import wandb
 from torch import Tensor, nn
@@ -68,11 +66,18 @@ def main():
     device = torch.device("cuda", 0)
 
     # Setup logging (optional, but much better than using print statements)
+    # logging.basicConfig(
+    #    level=logging.INFO,
+    #    handlers=[
+    #        rich.logging.RichHandler(markup=True)
+    #    ],  # Very pretty, uses the `rich` package.
+    # )
+
     logging.basicConfig(
         level=logging.INFO,
-        handlers=[
-            rich.logging.RichHandler(markup=True)
-        ],  # Very pretty, uses the `rich` package.
+        format="[%(asctime)s] %(levelname)s: %(message)s",
+        datefmt="%m/%d/%y %H:%M:%S",
+        handlers=[logging.StreamHandler()],
     )
 
     logger = logging.getLogger(__name__)
@@ -168,13 +173,17 @@ def main():
         val_loss, val_accuracy = validation_loop(model, valid_dataloader, device)
 
         logger.info(
-            f"epoch {epoch}: samples/s: {samples_per_second},"
-            f"updates/s: {updates_per_second}, "
-            f"val_loss: {val_loss:.3f}, val_accuracy: {val_accuracy:.2%}"
+            f"epoch {epoch}:\n"
+            f"samples/s: {samples_per_second:.4f}, \n"
+            f"updates/s: {updates_per_second:.4f}, \n"
+            f"val_loss: {val_loss:.4f}, \n"
+            f"val_accuracy: {val_accuracy:.2%}"
         )
         if use_wandb:
             wandb.log({"val_loss": val_loss, "val_accuracy": val_accuracy})
 
+
+""" In case no logger is being used
     print(
         json.dumps(
             {
@@ -185,6 +194,7 @@ def main():
             }
         )
     )
+"""
 
 
 @torch.no_grad()
@@ -231,12 +241,12 @@ def make_datasets(
     test_dir = os.path.join(dataset_path, "val")
 
     generator = torch.Generator().manual_seed(val_split_seed)
-    # get the trans
+
     train_transform = Compose(
         [
             RandomResizedCrop(target_size),
             RandomHorizontalFlip(),
-            ColorJitter(brightness=0.1, contrast=0.1, saturation=0.1, hue=0.1),
+            ColorJitter(brightness=0.1, contrast=0.1, saturation=0.1),
             ToTensor(),
             Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
         ]
