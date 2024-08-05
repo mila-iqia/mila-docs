@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PyTorch Setup &mdash; MILA Technical Documentation latest documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=8da7d091" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=c6e86fd7"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=f281be69"></script>
+        <script src="../../../_static/documentation_options.js?v=c6e86fd7"></script>
+        <script src="../../../_static/documentation_options_fix.js?v=1c8886ec"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Jax Setup" href="../jax_setup/index.html" />
+    <link rel="prev" title="Software Frameworks" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html">
+            
+              <img src="../../../_static/image.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                latest
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Purpose.html">Purpose of this documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Purpose.html#contributing">Contributing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-tos and Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Userguide.html">User’s guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Handbook.html">AI tooling and methodology handbook</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Systems and services</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Information.html">Computing infrastructure and policies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Extra_compute.html">Computational resources outside of Mila</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">General theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Theory_cluster.html">What is a computer cluster?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Theory_cluster.html#parts-of-a-computing-cluster">Parts of a computing cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Theory_cluster.html#unix">UNIX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Theory_cluster.html#the-workload-manager">The workload manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Theory_cluster.html#processing-data">Processing data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Theory_cluster.html#software-on-the-cluster">Software on the cluster</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Minimal Examples</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Software Frameworks</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">PyTorch Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../jax_setup/index.html">Jax Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../jax/index.html">Jax</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../distributed/index.html">Distributed Training</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../good_practices/index.html">Good practices</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extras</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Acknowledgement.html">Acknowledging Mila</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://datasets.server.mila.quebec/">Mila Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Audio_video.html">Audio and video resources at Mila</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../VSCode.html">Visual Studio Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../IDT.html">Who, what, where is IDT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Cheatsheet.html">Cheat Sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Chatbot.html">Chatbot for Mila</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Environmental_impact.html">Environmental Impact</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">MILA Technical Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Software Frameworks</a></li>
+      <li class="breadcrumb-item active">PyTorch Setup</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/mila-iqia/mila-docs/blob/master/docs/examples/frameworks/pytorch_setup/index.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pytorch-setup">
+<span id="id1"></span><h1>PyTorch Setup<a class="headerlink" href="#pytorch-setup" title="Link to this heading"></a></h1>
+<p><strong>Prerequisites</strong>: (Make sure to read the following before using this example!)</p>
+<p>The full source code for this example is available on <a class="reference external" href="https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/frameworks/pytorch_setup">the mila-docs GitHub
+repository.</a></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../../../Userguide.html#quick-start"><span class="std std-ref">Quick Start</span></a></p></li>
+<li><p><a class="reference internal" href="../../../Userguide.html#running-your-code"><span class="std std-ref">Running your code</span></a></p></li>
+<li><p><a class="reference internal" href="../../../Userguide.html#conda"><span class="std std-ref">Conda</span></a></p></li>
+</ul>
+<p><strong>job.sh</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="c1">#SBATCH --gres=gpu:1</span>
+<span class="c1">#SBATCH --cpus-per-task=1</span>
+<span class="c1">#SBATCH --mem=16G</span>
+<span class="c1">#SBATCH --time=00:15:00</span>
+
+<span class="nb">set</span><span class="w"> </span>-e<span class="w">  </span><span class="c1"># exit on error.</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Date:     </span><span class="k">$(</span>date<span class="k">)</span><span class="s2">&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Hostname: </span><span class="k">$(</span>hostname<span class="k">)</span><span class="s2">&quot;</span>
+
+<span class="c1"># Ensure only anaconda/3 module loaded.</span>
+module<span class="w"> </span>--quiet<span class="w"> </span>purge
+<span class="c1"># This example uses Conda to manage package dependencies.</span>
+<span class="c1"># See https://docs.mila.quebec/Userguide.html#conda for more information.</span>
+module<span class="w"> </span>load<span class="w"> </span>anaconda/3
+
+<span class="c1"># Creating the environment for the first time:</span>
+<span class="c1"># conda create -y -n pytorch python=3.9 pytorch torchvision torchaudio \</span>
+<span class="c1">#     pytorch-cuda=11.6 -c pytorch -c nvidia</span>
+<span class="c1"># Other conda packages:</span>
+<span class="c1"># conda install -y -n pytorch -c conda-forge rich</span>
+
+<span class="c1"># Activate the environment:</span>
+conda<span class="w"> </span>activate<span class="w"> </span>pytorch
+
+<span class="c1"># Fixes issues with MIG-ed GPUs with versions of PyTorch &lt; 2.0</span>
+<span class="nb">unset</span><span class="w"> </span>CUDA_VISIBLE_DEVICES
+
+python<span class="w"> </span>main.py
+</pre></div>
+</div>
+<p><strong>main.py</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.backends.cuda</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">cuda_built</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_built</span><span class="p">()</span>
+    <span class="n">cuda_avail</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span>
+    <span class="n">device_count</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">device_count</span><span class="p">()</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;PyTorch built with CUDA:         </span><span class="si">{</span><span class="n">cuda_built</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;PyTorch detects CUDA available:  </span><span class="si">{</span><span class="n">cuda_avail</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;PyTorch-detected #GPUs:          </span><span class="si">{</span><span class="n">device_count</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">device_count</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;    No GPU detected, not printing devices&#39; names.&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">device_count</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    GPU </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">:      </span><span class="si">{</span><span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">get_device_name</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>Running this example</strong></p>
+<p>This assumes that you already created a conda environment named “pytorch”. To
+create this environment, we first request resources for an interactive job.
+Note that we are requesting a GPU for this job, even though we’re only going to
+install packages. This is because we want PyTorch to be installed with GPU
+support, and to have all the required libraries.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>salloc<span class="w"> </span>--gres<span class="o">=</span>gpu:1<span class="w"> </span>--cpus-per-task<span class="o">=</span><span class="m">4</span><span class="w"> </span>--mem<span class="o">=</span>16G<span class="w"> </span>--time<span class="o">=</span><span class="m">00</span>:30:00
+salloc:<span class="w"> </span>--------------------------------------------------------------------------------------------------
+salloc:<span class="w"> </span><span class="c1"># Using default long partition</span>
+salloc:<span class="w"> </span>--------------------------------------------------------------------------------------------------
+salloc:<span class="w"> </span>Pending<span class="w"> </span>job<span class="w"> </span>allocation<span class="w"> </span><span class="m">2959785</span>
+salloc:<span class="w"> </span>job<span class="w"> </span><span class="m">2959785</span><span class="w"> </span>queued<span class="w"> </span>and<span class="w"> </span>waiting<span class="w"> </span><span class="k">for</span><span class="w"> </span>resources
+salloc:<span class="w"> </span>job<span class="w"> </span><span class="m">2959785</span><span class="w"> </span>has<span class="w"> </span>been<span class="w"> </span>allocated<span class="w"> </span>resources
+salloc:<span class="w"> </span>Granted<span class="w"> </span>job<span class="w"> </span>allocation<span class="w"> </span><span class="m">2959785</span>
+salloc:<span class="w"> </span>Waiting<span class="w"> </span><span class="k">for</span><span class="w"> </span>resource<span class="w"> </span>configuration
+salloc:<span class="w"> </span>Nodes<span class="w"> </span>cn-g022<span class="w"> </span>are<span class="w"> </span>ready<span class="w"> </span><span class="k">for</span><span class="w"> </span>job
+$<span class="w"> </span><span class="c1"># Load anaconda</span>
+$<span class="w"> </span>module<span class="w"> </span>load<span class="w"> </span>anaconda/3
+$<span class="w"> </span><span class="c1"># Create the environment (see the example):</span>
+$<span class="w"> </span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>pytorch<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.9<span class="w"> </span>pytorch<span class="w"> </span>torchvision<span class="w"> </span>torchaudio<span class="w"> </span>pytorch-cuda<span class="o">=</span><span class="m">11</span>.7<span class="w"> </span>-c<span class="w"> </span>pytorch<span class="w"> </span>-c<span class="w"> </span>nvidia
+<span class="o">(</span>...<span class="o">)</span>
+$<span class="w"> </span><span class="c1"># Press &#39;y&#39; to accept if everything looks good.</span>
+<span class="o">(</span>...<span class="o">)</span>
+$<span class="w"> </span><span class="c1"># Activate the environment:</span>
+$<span class="w"> </span>conda<span class="w"> </span>activate<span class="w"> </span>pytorch
+</pre></div>
+</div>
+<p>Exit the interactive job once the environment has been created. Then, the
+example can be launched to confirm that everything works:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sbatch<span class="w"> </span>job.sh
+</pre></div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="Software Frameworks" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../jax_setup/index.html" class="btn btn-neutral float-right" title="Jax Setup" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+<script type="text/javascript">
+  window.onload = function() {
+      $(".toggle > *").hide();
+      $(".toggle .header").show();
+      $(".toggle .header").click(function() {
+          $(this).parent().children().not(".header").toggle(400);
+          $(this).parent().children(".header").toggleClass("open");
+      })
+  };
+</script>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

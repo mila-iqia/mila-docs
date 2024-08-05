@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Computational resources outside of Mila &mdash; MILA Technical Documentation latest documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=8da7d091" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=c6e86fd7"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="_static/copybutton.js?v=f281be69"></script>
+        <script src="_static/documentation_options.js?v=c6e86fd7"></script>
+        <script src="_static/documentation_options_fix.js?v=1c8886ec"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="What is a computer cluster?" href="Theory_cluster.html" />
+    <link rel="prev" title="Computing infrastructure and policies" href="Information.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/image.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                latest
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Purpose.html">Purpose of this documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Purpose.html#contributing">Contributing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-tos and Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Userguide.html">User’s guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Handbook.html">AI tooling and methodology handbook</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Systems and services</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Information.html">Computing infrastructure and policies</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Computational resources outside of Mila</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#digital-research-alliance-of-canada-clusters">Digital Research Alliance of Canada Clusters</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#current-allocation-description">Current allocation description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#account-creation">Account Creation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#account-renewal">Account Renewal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#clusters">Clusters</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#narval">Narval</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#beluga">Beluga</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graham">Graham</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cedar">Cedar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#niagara">Niagara</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">FAQ</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#what-to-do-with-importerror-lib64-libm-so-6-version-glibc-2-23-not-found">What to do with  <cite>ImportError: /lib64/libm.so.6: version GLIBC_2.23 not found</cite>?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#disk-quota-exceeded-error-on-project-file-systems">Disk quota exceeded error on <code class="docutils literal notranslate"><span class="pre">/project</span></code> file systems</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">General theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html">What is a computer cluster?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#parts-of-a-computing-cluster">Parts of a computing cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#unix">UNIX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#the-workload-manager">The workload manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#processing-data">Processing data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#software-on-the-cluster">Software on the cluster</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Minimal Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="examples/frameworks/index.html">Software Frameworks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/distributed/index.html">Distributed Training</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/good_practices/index.html">Good practices</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extras</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Acknowledgement.html">Acknowledging Mila</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://datasets.server.mila.quebec/">Mila Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Audio_video.html">Audio and video resources at Mila</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VSCode.html">Visual Studio Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IDT.html">Who, what, where is IDT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cheatsheet.html">Cheat Sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Chatbot.html">Chatbot for Mila</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Environmental_impact.html">Environmental Impact</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MILA Technical Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Computational resources outside of Mila</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/mila-iqia/mila-docs/blob/master/docs/Extra_compute.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="computational-resources-outside-of-mila">
+<h1>Computational resources outside of Mila<a class="headerlink" href="#computational-resources-outside-of-mila" title="Link to this heading"></a></h1>
+<p>This section seeks to provide insights and information on computational
+resources outside the Mila cluster itself.</p>
+<section id="digital-research-alliance-of-canada-clusters">
+<span id="drac-clusters"></span><h2>Digital Research Alliance of Canada Clusters<a class="headerlink" href="#digital-research-alliance-of-canada-clusters" title="Link to this heading"></a></h2>
+<p>The clusters named <cite>Beluga</cite>, <cite>Cedar</cite>, <cite>Graham</cite>, <cite>Narval</cite> and <cite>Niagara</cite> are
+clusters provided by the <a class="reference external" href="https://alliancecan.ca/">Digital Research Alliance of Canada organisation</a> (the Alliance). For Mila researchers, these
+clusters are to be used for larger experiments having many jobs, multi-node
+computation and/or multi-GPU jobs as well as long running jobs.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you use DRAC resources for your research, please remember to <a class="reference external" href="https://alliancecan.ca/en/services/advanced-research-computing/acknowledging-alliance">acknowledge
+their use in your papers</a></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Compute Canada ceased its operational responsibilities for supporting Canada’s
+national advanced research computing (ARC) platform on March 31, 2022. The services
+will be supported by the new Digital Research Alliance of Canada.</p>
+<p><a class="reference external" href="https://ace-net.ca/compute-canada-operations-move-to-the-digital-research-alliance-of-canada-(the-alliance).html">https://ace-net.ca/compute-canada-operations-move-to-the-digital-research-alliance-of-canada-(the-alliance).html</a></p>
+</div>
+<section id="current-allocation-description">
+<h3>Current allocation description<a class="headerlink" href="#current-allocation-description" title="Link to this heading"></a></h3>
+<p>Clusters of the Alliance are shared with researchers across the country.
+Allocations are given by the Alliance to selected research groups to ensure to
+a minimal amount of computational resources throughout the year.</p>
+<p>Depending on your affiliation, you will have access to different allocations. If
+you are a student at University of Montreal, you can have access to the
+<code class="docutils literal notranslate"><span class="pre">rrg-bengioy-ad</span></code> allocation described below. For students from other
+universities, you should ask your advisor to know which allocations you could
+have access to.</p>
+<p>From the Alliance’s documentation: <cite>An allocation is an amount of resources
+that a research group can target for use for a period of time, usually a year.</cite>
+To be clear, it is not a maximal amount of resources that can be used
+simultaneously, it is a weighting factor of the workload manager to balance
+jobs. For instance, even though we are allocated 408 GPU-years across all
+clusters, we can use more or less than 408 GPUs simultaneously depending on the
+history of usage from our group and other groups using the cluster at a given
+period of time. Please see the Alliance’s <a class="reference external" href="https://docs.alliancecan.ca/wiki/Allocations_and_resource_scheduling">documentation</a> for
+more information on how allocations and resource scheduling are configured for
+these installations.</p>
+<p>The table below provides information on the allocation for
+<code class="docutils literal notranslate"><span class="pre">rrg-bengioy-ad</span></code> for the period which spans from April 2022 to
+April 2023. Note that there are no special allocations for GPUs on
+Graham and therefore jobs with GPUs should be submitted with the
+account <code class="docutils literal notranslate"><span class="pre">def-bengioy</span></code>.</p>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td rowspan="2"><p>Cluster</p></td>
+<td colspan="2"><p>CPUs</p></td>
+<td colspan="4"><p>GPUs</p></td>
+</tr>
+<tr class="row-even"><td><p>#</p></td>
+<td><p>account</p></td>
+<td><p>Model</p></td>
+<td><p>#</p></td>
+<td><p>SLURM type specifier</p></td>
+<td><p>account</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#beluga"><span class="std std-ref">Beluga</span></a></p></td>
+<td><p>125</p></td>
+<td><p>rrg-bengioy-ad</p></td>
+<td><p>V100-16G</p></td>
+<td><p>111</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">v100</span></code></p></td>
+<td><p>rrg-bengioy-ad</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cedar"><span class="std std-ref">Cedar</span></a></p></td>
+<td><p>125</p></td>
+<td><p>rrg-bengioy-ad</p></td>
+<td><p>V100-32G</p></td>
+<td><p>118</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">v100l</span></code></p></td>
+<td><p>rrg-bengioy-ad</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#narval"><span class="std std-ref">Narval</span></a></p></td>
+<td><p>580</p></td>
+<td><p>rrg-bengioy-ad</p></td>
+<td><p>A100-40G</p></td>
+<td><p>110</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">a100</span></code></p></td>
+<td><p>rrg-bengioy-ad</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="account-creation">
+<h3>Account Creation<a class="headerlink" href="#account-creation" title="Link to this heading"></a></h3>
+<p>To access the Alliance clusters you have to first create an account at
+<a class="reference external" href="https://ccdb.alliancecan.ca">https://ccdb.alliancecan.ca</a>. Use a password with at least 8 characters, mixed
+case letters, digits and special characters. Later you will be asked to create
+another password with those rules, and it’s really convenient that the two
+password are the same.</p>
+<p>Then, you have to apply for a <code class="docutils literal notranslate"><span class="pre">role</span></code> at
+<a class="reference external" href="https://ccdb.alliancecan.ca/me/add_role">https://ccdb.alliancecan.ca/me/add_role</a>, which basically means telling the
+Alliance that you are part of the lab so they know which cluster you can have
+access to, and track your usage.</p>
+<p>You will be asked for the CCRI (See screenshot below). Please reach out to your
+sponsor to get the CCRI.</p>
+<img alt="role.png" class="align-center" src="_images/role.png" />
+<p>You will need to <strong>wait</strong> for your sponsor to accept before being able to login
+to the Alliance clusters.</p>
+<p>You should apply to a <code class="docutils literal notranslate"><span class="pre">role</span></code> using this form <strong>for each allocation you can have access to</strong>. If, for instance,
+your supervisor is member of the <code class="docutils literal notranslate"><span class="pre">rrg-bengioy-ad</span></code> allocation, you should apply using Yoshua Bengio’s CCRI, and
+you should apply separately using your supervisor’s CCRI to have access to <code class="docutils literal notranslate"><span class="pre">def-&lt;yoursupervisor&gt;</span></code>. Ask your supervisor
+to share these CCRI with you.</p>
+</section>
+<section id="account-renewal">
+<h3>Account Renewal<a class="headerlink" href="#account-renewal" title="Link to this heading"></a></h3>
+<p>All user accounts (Sponsor &amp; Sponsored) have to be renewed annually in order to
+keep up-to-date information on active accounts and to deactivate unused
+accounts.</p>
+<p>To find out how to renew your account or for any other question regarding
+DRAC’s accounts renewal, please head over to their <a class="reference external" href="https://alliancecan.ca/en/services/advanced-research-computing/account-management/account-renewals/account-renewals-faq">FAQ</a>.</p>
+<p>If the FAQ is of no help, you can contact DRAC renewal support team at
+<code class="docutils literal notranslate"><span class="pre">renewals&#64;tech.alliancecan.ca</span></code> or the general support team at
+<code class="docutils literal notranslate"><span class="pre">support&#64;tech.alliancecan.ca</span></code>.</p>
+</section>
+<section id="clusters">
+<h3>Clusters<a class="headerlink" href="#clusters" title="Link to this heading"></a></h3>
+<dl>
+<dt>Narval:</dt><dd><p>(<a class="reference internal" href="#narval"><span class="std std-ref">Mila doc</span></a>)
+(<a class="reference external" href="https://docs.alliancecan.ca/wiki/Narval/en">Digital Research Alliance of Canada doc</a>)</p>
+<p>For most students, Narval is the best choice for both CPU and GPU jobs because
+of larger allocations on this cluster.
+Narval is also the newest cluster, and contains the most powerful GPUs (A100). If your
+job can benefit from the A100’s features, such as TF32 floating-point math, Narval
+is the best choice.</p>
+</dd>
+<dt>Beluga:</dt><dd><p>(<a class="reference internal" href="#beluga"><span class="std std-ref">Mila doc</span></a>)
+(<a class="reference external" href="https://docs.alliancecan.ca/wiki/B%C3%A9luga/en">Digital Research Alliance of Canada doc</a>)</p>
+<p>Beluga is a good alternative for CPU and GPU jobs.</p>
+</dd>
+<dt>Cedar:</dt><dd><p>(<a class="reference internal" href="#cedar"><span class="std std-ref">Mila doc</span></a>)
+(<a class="reference external" href="https://docs.alliancecan.ca/wiki/Cedar/en">Digital Research Alliance of Canada doc</a>)</p>
+<p>Cedar is a good alternative to Beluga if you absolutely need to have an internet connection
+on the compute nodes.</p>
+</dd>
+<dt>Graham:</dt><dd><p>(<a class="reference internal" href="#graham"><span class="std std-ref">Mila doc</span></a>)
+(<a class="reference external" href="https://docs.alliancecan.ca/wiki/Graham/en">Digital Research Alliance of Canada doc</a>)</p>
+<p>We do not have any CPU or GPU allocation on Graham anymore, but you can use it with <cite>def-&lt;supervisor&gt;</cite>
+if other clusters are overcrowded. (where <cite>&lt;supervisor&gt; is the DRAC account name of your supervisor</cite>)</p>
+</dd>
+<dt>Niagara:</dt><dd><p>(<a class="reference internal" href="#niagara"><span class="std std-ref">Mila doc</span></a>)
+(<a class="reference external" href="https://docs.alliancecan.ca/wiki/Niagara/en">Digital Research Alliance of Canada doc</a>)</p>
+<p>Niagara is not recommended for most students. It is a CPU-only cluster with unusual
+configurations. Access is not automatic; It is opt-in and must be requested via
+CCDB manually. Compute resources in Niagara are not assigned to jobs on a per-CPU,
+but on a per-node basis.</p>
+</dd>
+</dl>
+<section id="narval">
+<h4>Narval<a class="headerlink" href="#narval" title="Link to this heading"></a></h4>
+<p>Narval is a cluster located at <a class="reference external" href="https://www.etsmtl.ca/">ÉTS</a> in Montreal. It
+uses SLURM to schedule jobs. Its full documentation can be found
+<a class="reference external" href="https://docs.alliancecan.ca/wiki/Narval">here</a>, and its current status
+<a class="reference external" href="http://status.alliancecan.ca">here</a>.</p>
+<p>You can access Narval via ssh:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
+span.prompt1:before {
+  content: "$ ";
+}
+</style><span class="prompt1">ssh<span class="w"> </span>&lt;user&gt;@narval.computecanada.ca</span>
+</pre></div></div><p>Where <code class="docutils literal notranslate"><span class="pre">&lt;user&gt;</span></code> is the username you created previously (see <a class="reference internal" href="#account-creation">Account Creation</a>).</p>
+<p>While Narval has a filesystem organization similar to the other clusters, and the
+newest GPUs in the fleet (A100s), it differs from the other clusters in that it
+uses AMD CPUs (Zen 2/3) rather than Intel (Broadwell/Skylake). This <em>may</em> (but is
+not guaranteed to) result in performance or behaviour differences, up to and
+including hangs.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>A very notable difference in the feature-set of Narval’s CPUs is that the
+AMD CPUs of this cluster do <strong>not</strong> support the AVX-512 vector extensions,
+while the Intel CPUs of the older clusters <strong>do</strong>. This makes it unsafe to
+run <em>compiled</em> CPU code from older Intel-based clusters to Narval, but the
+opposite (although ill-advised) will work. The symptom of attempting to
+execute AVX-512 code on Narval’s CPUs is that the program fatally aborts
+with signal <code class="docutils literal notranslate"><span class="pre">SIGILL</span></code> and messages such as <code class="docutils literal notranslate"><span class="pre">Illegal</span> <span class="pre">instruction</span></code>.</p>
+</div>
+<section id="launching-jobs">
+<h5>Launching Jobs<a class="headerlink" href="#launching-jobs" title="Link to this heading"></a></h5>
+<p>Users must specify the resource allocation Group Name using the flag
+<code class="docutils literal notranslate"><span class="pre">--account=rrg-bengioy-ad</span></code>.  To launch a CPU-only job:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sbatch<span class="w"> </span>--time<span class="o">=</span><span class="m">1</span>:00:00<span class="w"> </span>--account<span class="o">=</span>rrg-bengioy-ad<span class="w"> </span>job.sh</span>
+</pre></div></div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The account name will differ based on your affiliation.</p>
+</div>
+<p>To launch a GPU job:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sbatch<span class="w"> </span>--time<span class="o">=</span><span class="m">1</span>:00:00<span class="w"> </span>--account<span class="o">=</span>rrg-bengioy-ad<span class="w"> </span>--gres<span class="o">=</span>gpu:1<span class="w"> </span>job.sh</span>
+</pre></div></div><p>And to get an interactive session, use the <code class="docutils literal notranslate"><span class="pre">salloc</span></code> command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">salloc<span class="w"> </span>--time<span class="o">=</span><span class="m">1</span>:00:00<span class="w"> </span>--account<span class="o">=</span>rrg-bengioy-ad<span class="w"> </span>--gres<span class="o">=</span>gpu:1</span>
+</pre></div></div><p>The full documentation for jobs launching on Alliance clusters can be found
+<a class="reference external" href="https://docs.alliancecan.ca/wiki/Running_jobs">here</a>.</p>
+</section>
+<section id="narval-nodes-description">
+<h5>Narval nodes description<a class="headerlink" href="#narval-nodes-description" title="Link to this heading"></a></h5>
+<p>Each GPU node consists of:</p>
+<ul class="simple">
+<li><p>48 CPU cores</p></li>
+<li><p>498 GB RAM</p></li>
+<li><p>4 GPU NVIDIA A100 (40GB)</p></li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You should ask for max 12 CPU cores and 124 GB of RAM per GPU you are
+requesting (as explained <a class="reference external" href="https://docs.alliancecan.ca/wiki/Allocations_and_resource_scheduling">here</a>),
+otherwise, your job will count for more than 1 allocation, and will take
+more time to get scheduled.</p>
+</div>
+</section>
+<section id="narval-storage">
+<span id="drac-storage"></span><h5>Narval Storage<a class="headerlink" href="#narval-storage" title="Link to this heading"></a></h5>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Storage</p></th>
+<th class="head"><p>Path</p></th>
+<th class="head"><p>Usage</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">$HOME</span></code></p></td>
+<td><p>/home/&lt;user&gt;/</p></td>
+<td><ul class="simple">
+<li><p>Code</p></li>
+<li><p>Specific libraries</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">$HOME/projects</span></code></p></td>
+<td><p>/project/rrg-bengioy-ad</p></td>
+<td><ul class="simple">
+<li><p>Compressed raw datasets</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">$SCRATCH</span></code></p></td>
+<td><p>/scratch/&lt;user&gt;</p></td>
+<td><ul class="simple">
+<li><p>Processed datasets</p></li>
+<li><p>Experimental results</p></li>
+<li><p>Logs of experiments</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">$SLURM_TMPDIR</span></code></p></td>
+<td></td>
+<td><ul class="simple">
+<li><p>Temporary job results</p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>They are roughly listed in order of increasing performance and optimized for
+different uses:</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">$HOME</span></code> folder on Lustre is appropriate for code and libraries, which
+are small and read once. <strong>Do not write experiemental results here!</strong></p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">$HOME/projects</span></code> folder should only contain <strong>compressed raw</strong> datasets
+(<strong>processed</strong> datasets should go in <code class="docutils literal notranslate"><span class="pre">$SCRATCH</span></code>). We have a limit on the
+size and number of file in <code class="docutils literal notranslate"><span class="pre">$HOME/projects</span></code>, so do not put anything else
+there.  If you add a new dataset there (make sure it is readable by every
+member of the group using <code class="docutils literal notranslate"><span class="pre">chgrp</span> <span class="pre">-R</span> <span class="pre">rpp-bengioy</span> <span class="pre">&lt;dataset&gt;</span></code>).</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">$SCRATCH</span></code> space can be used for short term storage. It has good
+performance and large quotas, but is purged regularly (every file that has
+not been used in the last 3 months gets deleted, but you receive an email
+before this happens).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$SLURM_TMPDIR</span></code> points to the local disk of the node on which a job is
+running. It should be used to copy the data on the node at the beginning of
+the job and write intermediate checkpoints. This folder is cleared after each
+job, so results there must be copied to <code class="docutils literal notranslate"><span class="pre">$SCRATCH</span></code> at the end of a job.</p></li>
+</ul>
+<p>When a series of experiments is finished, results should be transferred back
+to Mila servers.</p>
+<p>More details on storage can be found <a class="reference external" href="https://docs.alliancecan.ca/wiki/Narval/en#Storage">here</a>.</p>
+</section>
+<section id="modules">
+<h5>Modules<a class="headerlink" href="#modules" title="Link to this heading"></a></h5>
+<p>Many software, such as Python or MATLAB are already compiled and available on
+Beluga through the <code class="docutils literal notranslate"><span class="pre">module</span></code> command and its subcommands. Its full
+documentation can be found <a class="reference external" href="https://docs.alliancecan.ca/wiki/Utiliser_des_modules/en">here</a>.</p>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p>module avail</p></td>
+<td><p>Displays all the available modules</p></td>
+</tr>
+<tr class="row-even"><td><p>module load &lt;module&gt;</p></td>
+<td><p>Loads &lt;module&gt;</p></td>
+</tr>
+<tr class="row-odd"><td><p>module spider &lt;module&gt;</p></td>
+<td><p>Shows specific details about &lt;module&gt;</p></td>
+</tr>
+</tbody>
+</table>
+<p>In particular, if you with to use <code class="docutils literal notranslate"><span class="pre">Python</span> <span class="pre">3.6</span></code> you can simply do:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">module<span class="w"> </span>load<span class="w"> </span>python/3.6</span>
+</pre></div></div><div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If you wish to use Python on the cluster, we strongly encourage you to
+read <a class="reference external" href="https://docs.alliancecan.ca/wiki/Python">Alliance Python Documentation</a>, and in particular the <a class="reference external" href="https://docs.alliancecan.ca/wiki/PyTorch">Pytorch</a> and/or <a class="reference external" href="https://docs.alliancecan.ca/wiki/TensorFlow">Tensorflow</a> pages.</p>
+</div>
+<p>The cluster has many Python packages (or <code class="docutils literal notranslate"><span class="pre">wheels</span></code>), such already compiled for
+the cluster. See <a class="reference external" href="https://docs.alliancecan.ca/wiki/Python/en">here</a> for the
+details. In particular, you can browse the packages by doing:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">avail_wheels<span class="w"> </span>&lt;wheel&gt;</span>
+</pre></div></div><p>Such wheels can be installed using pip. Moreover, the most efficient way to use
+modules on the cluster is to <a class="reference external" href="https://docs.alliancecan.ca/wiki/Python#Creating_virtual_environments_inside_of_your_jobs">build your environnement inside your job</a>.
+See the script example below.</p>
+</section>
+<section id="script-example">
+<h5>Script Example<a class="headerlink" href="#script-example" title="Link to this heading"></a></h5>
+<p>Here is a <code class="docutils literal notranslate"><span class="pre">sbatch</span></code> script that follows good practices on Beluga:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="ch">#!/bin/bash</span>
+<span class="linenos"> 2</span><span class="c1">#SBATCH --account=rrg-bengioy-ad         # Yoshua pays for your job</span>
+<span class="linenos"> 3</span><span class="c1">#SBATCH --cpus-per-task=6                # Ask for 6 CPUs</span>
+<span class="linenos"> 4</span><span class="c1">#SBATCH --gres=gpu:1                     # Ask for 1 GPU</span>
+<span class="linenos"> 5</span><span class="c1">#SBATCH --mem=32G                        # Ask for 32 GB of RAM</span>
+<span class="linenos"> 6</span><span class="c1">#SBATCH --time=3:00:00                   # The job will run for 3 hours</span>
+<span class="linenos"> 7</span><span class="c1">#SBATCH -o /scratch/&lt;user&gt;/slurm-%j.out  # Write the log in $SCRATCH</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span><span class="c1"># 1. Create your environement locally</span>
+<span class="linenos">10</span>module<span class="w"> </span>load<span class="w"> </span>python/3.6
+<span class="linenos">11</span>virtualenv<span class="w"> </span>--no-download<span class="w"> </span><span class="nv">$SLURM_TMPDIR</span>/env
+<span class="linenos">12</span><span class="nb">source</span><span class="w"> </span><span class="nv">$SLURM_TMPDIR</span>/env/bin/activate
+<span class="linenos">13</span>pip<span class="w"> </span>install<span class="w"> </span>--no-index<span class="w"> </span>torch<span class="w"> </span>torchvision
+<span class="linenos">14</span>
+<span class="linenos">15</span><span class="c1"># 2. Copy your dataset on the compute node</span>
+<span class="linenos">16</span><span class="c1"># IMPORTANT: Your dataset must be compressed in one single file (zip, hdf5, ...)!!!</span>
+<span class="linenos">17</span>cp<span class="w"> </span><span class="nv">$SCRATCH</span>/&lt;dataset.zip&gt;<span class="w"> </span><span class="nv">$SLURM_TMPDIR</span>
+<span class="linenos">18</span>
+<span class="linenos">19</span><span class="c1"># 3. Eventually unzip your dataset</span>
+<span class="linenos">20</span>unzip<span class="w"> </span><span class="nv">$SLURM_TMPDIR</span>/&lt;dataset.zip&gt;<span class="w"> </span>-d<span class="w"> </span><span class="nv">$SLURM_TMPDIR</span>
+<span class="linenos">21</span>
+<span class="linenos">22</span><span class="c1"># 4. Launch your job, tell it to save the model in $SLURM_TMPDIR</span>
+<span class="linenos">23</span><span class="c1">#    and look for the dataset into $SLURM_TMPDIR</span>
+<span class="linenos">24</span>python<span class="w"> </span>main.py<span class="w"> </span>--path<span class="w"> </span><span class="nv">$SLURM_TMPDIR</span><span class="w"> </span>--data_path<span class="w"> </span><span class="nv">$SLURM_TMPDIR</span>
+<span class="linenos">25</span>
+<span class="linenos">26</span><span class="c1"># 5. Copy whatever you want to save on $SCRATCH</span>
+<span class="linenos">27</span>cp<span class="w"> </span><span class="nv">$SLURM_TMPDIR</span>/&lt;to_save&gt;<span class="w"> </span><span class="nv">$SCRATCH</span>
+</pre></div>
+</div>
+</section>
+<section id="using-cometml-and-wandb">
+<h5>Using CometML and Wandb<a class="headerlink" href="#using-cometml-and-wandb" title="Link to this heading"></a></h5>
+<p>The compute nodes for Narval, Graham and Beluga don’t have access to the
+internet, but there is a special module that can be loaded in order to allow
+training scripts to access some specific servers, which includes
+the necessary servers for using CometML and Wandb (“Weights and Biases”).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">module<span class="w"> </span>load<span class="w"> </span>httpproxy</span>
+</pre></div></div><p>More documentation about this can be found <a class="reference external" href="https://docs.alliancecan.ca/wiki/Weights_%26_Biases_(wandb)">here</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Be careful when using Wandb with <cite>httpproxy</cite>. It does not support sending
+artifacts and wandb’s logger will hang in the background when your training
+is completed, wasting ressources until the job times out. It is recommended
+to use the offline mode with wandb instead to avoid such waste.</p>
+</div>
+</section>
+</section>
+<section id="beluga">
+<h4>Beluga<a class="headerlink" href="#beluga" title="Link to this heading"></a></h4>
+<p>Beluga is a cluster located at the ÉTS (École de Technologie Supérieure) in
+Montreal. It uses SLURM to schedule jobs. Its full documentation can be found
+<a class="reference external" href="https://docs.alliancecan.ca/wiki/B%C3%A9luga/en">here</a>, and its current
+status <a class="reference external" href="http://status.alliancecan.ca">here</a>.</p>
+<p>You can access Beluga via ssh:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">ssh<span class="w"> </span>&lt;user&gt;@beluga.computecanada.ca</span>
+</pre></div></div><p>Where <code class="docutils literal notranslate"><span class="pre">&lt;user&gt;</span></code> is the username you created previously (see <a class="reference internal" href="#account-creation">Account Creation</a>).</p>
+<section id="beluga-nodes-description">
+<h5>Beluga nodes description<a class="headerlink" href="#beluga-nodes-description" title="Link to this heading"></a></h5>
+<p>Each GPU node consists of:</p>
+<ul class="simple">
+<li><p>40 CPU cores</p></li>
+<li><p>186 GB RAM</p></li>
+<li><p>4 GPU NVIDIA V100 (16GB)</p></li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You should ask for max 10 CPU cores and 32 GB of RAM per GPU you are
+requesting (as explained <a class="reference external" href="https://docs.alliancecan.ca/wiki/Allocations_and_resource_scheduling">here</a>),
+otherwise, your job will count for more than 1 allocation, and will take
+more time to get scheduled.</p>
+</div>
+</section>
+</section>
+<section id="graham">
+<h4>Graham<a class="headerlink" href="#graham" title="Link to this heading"></a></h4>
+<p>Graham is a cluster located at University of Waterloo. It uses SLURM to schedule
+jobs. Its full documentation can be found <a class="reference external" href="https://docs.alliancecan.ca/wiki/Graham/">here</a>, and its current status <a class="reference external" href="http://status.alliancecan.ca">here</a>.</p>
+<p>You can access Graham via ssh:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">ssh<span class="w"> </span>&lt;user&gt;@graham.computecanada.ca</span>
+</pre></div></div><p>Where <code class="docutils literal notranslate"><span class="pre">&lt;user&gt;</span></code> is the username you created previously (see <a class="reference internal" href="#account-creation">Account Creation</a>).</p>
+</section>
+<section id="cedar">
+<h4>Cedar<a class="headerlink" href="#cedar" title="Link to this heading"></a></h4>
+<p>Cedar is a cluster located at Simon Fraser University. It uses SLURM to schedule
+jobs. Its full documentation can be found <a class="reference external" href="https://docs.alliancecan.ca/wiki/Cedar">here</a>, and its current status <a class="reference external" href="http://status.alliancecan.ca">here</a>.</p>
+<p>You can access Cedar via ssh:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">ssh<span class="w"> </span>&lt;user&gt;@cedar.computecanada.ca</span>
+</pre></div></div><p>Where <code class="docutils literal notranslate"><span class="pre">&lt;user&gt;</span></code> is the username you created previously (see <a class="reference internal" href="#account-creation">Account Creation</a>).</p>
+</section>
+<section id="niagara">
+<h4>Niagara<a class="headerlink" href="#niagara" title="Link to this heading"></a></h4>
+<p>Niagara is a cluster located at the University of Toronto. It uses SLURM to
+schedule jobs. Its full documentation can be found <a class="reference external" href="https://docs.alliancecan.ca/wiki/Niagara">here</a>, and its current status <a class="reference external" href="http://status.alliancecan.ca">here</a>.</p>
+<p>You can access Niagara via ssh:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">ssh<span class="w"> </span>&lt;user&gt;@niagara.computecanada.ca</span>
+</pre></div></div><p>Where <code class="docutils literal notranslate"><span class="pre">&lt;user&gt;</span></code> is the username you created previously (see <a class="reference internal" href="#account-creation">Account Creation</a>).</p>
+<p>Niagara is completely unlike the previous clusters, as mentioned above. Access
+to it is opt-in, it has no GPUs, allocations are <em>only</em> per-<strong>node</strong> and <em>never</em>
+per-CPU-core, and the software environment is different. You are very unlikely
+to need this cluster and are strongly encouraged to peruse its documentation
+if you have a strong reason to use it regardless. Do not expect to be able to
+schedule and run CPU jobs on Niagara exactly the same way as on all other clusters.</p>
+</section>
+</section>
+<section id="id1">
+<h3>FAQ<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<section id="what-to-do-with-importerror-lib64-libm-so-6-version-glibc-2-23-not-found">
+<h4>What to do with  <cite>ImportError: /lib64/libm.so.6: version GLIBC_2.23 not found</cite>?<a class="headerlink" href="#what-to-do-with-importerror-lib64-libm-so-6-version-glibc-2-23-not-found" title="Link to this heading"></a></h4>
+<p>The structure of the file system is different than a classical Linux, so your
+code has trouble finding libraries. See <a class="reference external" href="https://docs.alliancecan.ca/wiki/Installing_software_in_your_home_directory#Installing_binary_packages">how to install binary packages</a>.</p>
+</section>
+<section id="disk-quota-exceeded-error-on-project-file-systems">
+<h4>Disk quota exceeded error on <code class="docutils literal notranslate"><span class="pre">/project</span></code> file systems<a class="headerlink" href="#disk-quota-exceeded-error-on-project-file-systems" title="Link to this heading"></a></h4>
+<p>You have files in <code class="docutils literal notranslate"><span class="pre">/project</span></code> with the wrong permissions. See <a class="reference external" href="https://docs.alliancecan.ca/wiki/Frequently_Asked_Questions/en#Disk_quota_exceeded_error_on_.2Fproject_filesystems">how to change
+permissions</a>.</p>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Information.html" class="btn btn-neutral float-left" title="Computing infrastructure and policies" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Theory_cluster.html" class="btn btn-neutral float-right" title="What is a computer cluster?" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+<script type="text/javascript">
+  window.onload = function() {
+      $(".toggle > *").hide();
+      $(".toggle .header").show();
+      $(".toggle .header").click(function() {
+          $(this).parent().children().not(".header").toggle(400);
+          $(this).parent().children(".header").toggleClass("open");
+      })
+  };
+</script>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

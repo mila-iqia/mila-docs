@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Visual Studio Code &mdash; MILA Technical Documentation latest documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=8da7d091" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=c6e86fd7"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="_static/copybutton.js?v=f281be69"></script>
+        <script src="_static/documentation_options.js?v=c6e86fd7"></script>
+        <script src="_static/documentation_options_fix.js?v=1c8886ec"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Who, what, where is IDT" href="IDT.html" />
+    <link rel="prev" title="Audio and video resources at Mila" href="Audio_video.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/image.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                latest
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Purpose.html">Purpose of this documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Purpose.html#contributing">Contributing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-tos and Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Userguide.html">User’s guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Handbook.html">AI tooling and methodology handbook</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Systems and services</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Information.html">Computing infrastructure and policies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Extra_compute.html">Computational resources outside of Mila</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">General theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html">What is a computer cluster?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#parts-of-a-computing-cluster">Parts of a computing cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#unix">UNIX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#the-workload-manager">The workload manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#processing-data">Processing data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#software-on-the-cluster">Software on the cluster</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Minimal Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="examples/frameworks/index.html">Software Frameworks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/distributed/index.html">Distributed Training</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/good_practices/index.html">Good practices</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extras</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Acknowledgement.html">Acknowledging Mila</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://datasets.server.mila.quebec/">Mila Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Audio_video.html">Audio and video resources at Mila</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Visual Studio Code</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#connecting-to-the-cluster">Connecting to the cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#activating-an-environment">Activating an environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cannot-reconnect">“Cannot reconnect”</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#debugger-timeouts">Debugger timeouts</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="IDT.html">Who, what, where is IDT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cheatsheet.html">Cheat Sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Chatbot.html">Chatbot for Mila</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Environmental_impact.html">Environmental Impact</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MILA Technical Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Visual Studio Code</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/mila-iqia/mila-docs/blob/master/docs/VSCode.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="visual-studio-code">
+<h1>Visual Studio Code<a class="headerlink" href="#visual-studio-code" title="Link to this heading"></a></h1>
+<p>One editor of choice for many researchers is VSCode. One feature of VSCode is
+remote editing through SSH. This allows you to edit files on the cluster as if
+they were local. You can also debug your programs using VSCode’s debugger, open
+terminal sessions, etc.</p>
+<section id="connecting-to-the-cluster">
+<h2>Connecting to the cluster<a class="headerlink" href="#connecting-to-the-cluster" title="Link to this heading"></a></h2>
+<p>VSCode cannot be used to edit code on the login nodes, because it is a heavy
+enough process (a <code class="docutils literal notranslate"><span class="pre">node</span></code> process, plus the language server, linter, and
+possibly other plugins depending on your configured environment) that there is a
+risk of overloading the login nodes if too many researchers did it at the same
+time.</p>
+<p>Therefore, to use VSCode on the cluster, you first need to allocate a compute
+node, then connect to that node.</p>
+<p>The simplest way to do so is to install <a class="reference external" href="https://github.com/mila-iqia/milatools">milatools</a> on your local machine and run the
+<code class="docutils literal notranslate"><span class="pre">mila</span> <span class="pre">init</span></code> command. This will add a <code class="docutils literal notranslate"><span class="pre">mila-cpu</span></code> entry to your SSH configuration
+that automatically allocates a CPU on a compute node for you. Then you can simply
+choose <code class="docutils literal notranslate"><span class="pre">mila-cpu</span></code> in the dropdown menu for remote SSH connection.</p>
+<p>The <a class="reference external" href="https://github.com/mila-iqia/milatools">milatools</a> package also provides the <a class="reference internal" href="Userguide.html#mila-code"><span class="std std-ref">mila code command</span></a> which
+gives you greater flexibility by letting you allocate more cores, RAM and/or GPUs.</p>
+</section>
+<section id="activating-an-environment">
+<h2>Activating an environment<a class="headerlink" href="#activating-an-environment" title="Link to this heading"></a></h2>
+<p><a class="reference external" href="https://code.visualstudio.com/docs/python/environments">Reference</a></p>
+<p>To activate a conda or pip environment, you can open the command palette with
+Ctrl+Shift+P and type “Python: Select interpreter”. This will prompt you for the
+path to the Python executable for your environment.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If you already have the environment activated in a terminal session, you can
+run the command <code class="docutils literal notranslate"><span class="pre">which</span> <span class="pre">python</span></code> to get the path for this environment. This
+path can be pasted into the interpreter selection prompt in VSCode to use
+that same environment.</p>
+</div>
+</section>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h2>
+<section id="cannot-reconnect">
+<h3>“Cannot reconnect”<a class="headerlink" href="#cannot-reconnect" title="Link to this heading"></a></h3>
+<p>When connecting to multiple compute nodes (and/or from multiple computers), some
+instances may crash with that message because of conflicts in the lock files
+VSCode installs in <code class="docutils literal notranslate"><span class="pre">~/.vscode-server</span></code> (which is shared on all compute nodes).
+To fix this issue, you can change this setting in your <code class="docutils literal notranslate"><span class="pre">settings.json</span></code> file:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;remote.SSH.lockfilesInTmp&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">}</span>
+</pre></div>
+</div>
+<p>This will store the necessary lockfiles in <code class="docutils literal notranslate"><span class="pre">/tmp</span></code> on the compute nodes (which
+are local to the node).</p>
+</section>
+<section id="debugger-timeouts">
+<h3>Debugger timeouts<a class="headerlink" href="#debugger-timeouts" title="Link to this heading"></a></h3>
+<p>Sometimes, slowness on the compute node or the networked filesystem might cause
+the VSCode debugger to timeout when starting a remote debug process. As a quick
+fix, you can add this to your <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> or <code class="docutils literal notranslate"><span class="pre">~/.profile</span></code> or equivalent
+resource file for your preferred shell, to increase the timeout delay to 500
+seconds:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">DEBUGPY_PROCESS_SPAWN_TIMEOUT</span><span class="o">=</span><span class="m">500</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Audio_video.html" class="btn btn-neutral float-left" title="Audio and video resources at Mila" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="IDT.html" class="btn btn-neutral float-right" title="Who, what, where is IDT" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+<script type="text/javascript">
+  window.onload = function() {
+      $(".toggle > *").hide();
+      $(".toggle .header").show();
+      $(".toggle .header").click(function() {
+          $(this).parent().children().not(".header").toggle(400);
+          $(this).parent().children(".header").toggleClass("open");
+      })
+  };
+</script>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

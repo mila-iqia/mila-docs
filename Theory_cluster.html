@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>What is a computer cluster? &mdash; MILA Technical Documentation latest documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=8da7d091" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=c6e86fd7"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="_static/copybutton.js?v=f281be69"></script>
+        <script src="_static/documentation_options.js?v=c6e86fd7"></script>
+        <script src="_static/documentation_options_fix.js?v=1c8886ec"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Software Frameworks" href="examples/frameworks/index.html" />
+    <link rel="prev" title="Computational resources outside of Mila" href="Extra_compute.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/image.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                latest
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Purpose.html">Purpose of this documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Purpose.html#contributing">Contributing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-tos and Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Userguide.html">User’s guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Handbook.html">AI tooling and methodology handbook</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Systems and services</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Information.html">Computing infrastructure and policies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Extra_compute.html">Computational resources outside of Mila</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">General theory</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">What is a computer cluster?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#parts-of-a-computing-cluster">Parts of a computing cluster</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#the-login-nodes">The login nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-compute-nodes">The compute nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-storage-nodes">The storage nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#different-nodes-for-different-uses">Different nodes for different uses</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#unix">UNIX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#the-workload-manager">The workload manager</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#anatomy-of-a-job">Anatomy of a job</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#understanding-the-queue">Understanding the queue</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#about-partitions">About partitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exceding-limits-preemption-and-grace-periods">Exceding limits (preemption and grace periods)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mila-information">Mila information</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#processing-data">Processing data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#data-parallelism">Data parallelism</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#model-parallelism">Model parallelism</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#communication-concerns">Communication concerns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#filesystem-concerns">Filesystem concerns</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#software-on-the-cluster">Software on the cluster</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#cluster-software-modules">Cluster software modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#containers">Containers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#python-virtual-environments">Python Virtual environments</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Minimal Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="examples/frameworks/index.html">Software Frameworks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/distributed/index.html">Distributed Training</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/good_practices/index.html">Good practices</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extras</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Acknowledgement.html">Acknowledging Mila</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://datasets.server.mila.quebec/">Mila Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Audio_video.html">Audio and video resources at Mila</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VSCode.html">Visual Studio Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IDT.html">Who, what, where is IDT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cheatsheet.html">Cheat Sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Chatbot.html">Chatbot for Mila</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Environmental_impact.html">Environmental Impact</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MILA Technical Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">What is a computer cluster?</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/mila-iqia/mila-docs/blob/master/docs/Theory_cluster.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="what-is-a-computer-cluster">
+<h1>What is a computer cluster?<a class="headerlink" href="#what-is-a-computer-cluster" title="Link to this heading"></a></h1>
+<p>A <a class="reference external" href="https://en.wikipedia.org/wiki/Computer_cluster">computer cluster</a> is a set
+of loosely or tightly connected computers that work together so that, in many
+respects, they can be viewed as a single system.</p>
+</section>
+<section id="parts-of-a-computing-cluster">
+<h1>Parts of a computing cluster<a class="headerlink" href="#parts-of-a-computing-cluster" title="Link to this heading"></a></h1>
+<p>To provide high performance computation capabilities, clusters can
+combine hundreds to thousands of computers, called <em>nodes</em>, which are all
+inter-connected with a high-performance communication network. Most nodes are
+designed for high-performance computations, but clusters can also use
+specialized nodes to offer parallel file systems, databases, login nodes and
+even the cluster scheduling functionality as pictured in the image below.</p>
+<img alt="_images/cluster_overview2.png" src="_images/cluster_overview2.png" />
+<p>We will overview the different types of nodes which you can encounter on a
+typical cluster.</p>
+<section id="the-login-nodes">
+<h2>The login nodes<a class="headerlink" href="#the-login-nodes" title="Link to this heading"></a></h2>
+<p>To execute computing processes on a cluster, you must first connect to a
+cluster and this is accomplished through a <em>login node</em>. These so-called
+login nodes are the entry point to most clusters.</p>
+<p>Another entry point to some clusters such as the Mila cluster is the JupyterHub
+web interface, but we’ll read about that later. For now let’s return to the
+subject of this section; Login nodes. To connect to these, you would typically
+use a remote shell connection. The most usual tool to do so is SSH. You’ll hear
+and read a lot about this tool. Imagine it as a very long (and somewhat
+magical) extension cord which connects the computer you are using now, such as
+your laptop, to a remote computer’s terminal shell. You might already know what
+a terminal shell is if you ever used the command line.</p>
+</section>
+<section id="the-compute-nodes">
+<h2>The compute nodes<a class="headerlink" href="#the-compute-nodes" title="Link to this heading"></a></h2>
+<p>In the field of artificial intelligence, you will usually be on the hunt for
+GPUs. In most clusters, the compute nodes are the ones with GPU capacity.</p>
+<p>While there is a general paradigm to tend towards a homogeneous configuration
+for nodes, this is not always possible in the field of artificial intelligence
+as the hardware evolve rapidly as is being complemented by new hardware and so
+on. Hence, you will often read about computational node classes. Some of which
+might have different GPU models or even no GPU at all. For the Mila cluster you
+will find this information in the <a class="reference internal" href="Information.html#node-profile-description"><span class="std std-ref">Node profile description</span></a> section. For
+now, you should note that is important to keep in mind that you should be aware
+of <em>which</em> nodes your code is running on.  More on that later.</p>
+</section>
+<section id="the-storage-nodes">
+<h2>The storage nodes<a class="headerlink" href="#the-storage-nodes" title="Link to this heading"></a></h2>
+<p>Some computers on a cluster function to only store and serve files.  While the
+name of these computers might matter to some, as a user, you’ll only be
+concerned about the path to the data. More on that in the <a class="reference internal" href="#processing-data"><span class="std std-ref">Processing data</span></a> section.</p>
+</section>
+<section id="different-nodes-for-different-uses">
+<h2>Different nodes for different uses<a class="headerlink" href="#different-nodes-for-different-uses" title="Link to this heading"></a></h2>
+<p>It is important to note here the difference in intended uses between the
+compute nodes and the login nodes. While the compute nodes are meant for heavy
+computation, the login nodes are not.</p>
+<p>The login nodes however are used by everyone who uses the cluster and care must
+be taken not to overburden these nodes. Consequently, only very short and light
+processes should be run on these otherwise the cluster may become inaccessible.
+In other words, please refrain from executing long or compute intensive
+processes on login nodes because it affects all other users. In some cases, you
+will also find that doing so might get you into trouble.</p>
+</section>
+</section>
+<section id="unix">
+<h1>UNIX<a class="headerlink" href="#unix" title="Link to this heading"></a></h1>
+<p>All clusters typically run on GNU/Linux distributions. Hence a minimum
+knowledge of GNU/Linux and BASH is usually required to use them. See the
+following <a class="reference external" href="https://docs.alliancecan.ca/wiki/Linux_introduction">tutorial</a>
+for a rough guide on getting started with Linux.</p>
+</section>
+<section id="the-workload-manager">
+<h1>The workload manager<a class="headerlink" href="#the-workload-manager" title="Link to this heading"></a></h1>
+<p>On a cluster, users don’t have direct access to the compute nodes but
+instead connect to a login node and add jobs to the workload manager
+queue. Whenever there are resources available to execute these jobs
+they will be allocated to a compute node and run, which can be
+immediately or after a wait of up to several days.</p>
+<section id="anatomy-of-a-job">
+<h2>Anatomy of a job<a class="headerlink" href="#anatomy-of-a-job" title="Link to this heading"></a></h2>
+<p>A job is comprised of a number of steps that will run one after the
+other. This is done so that you can schedule a sequence of processes
+that can use the results of the previous steps without having to
+manually interact with the scheduler.</p>
+<p>Each step can have any number of tasks which are groups of processes
+that can be scheduled independently on the cluster but can run in
+parallel if there are resources available. The distinction between
+steps and tasks is that multiple tasks, if they are part of the same
+step, cannot depend on results of other tasks because there are no
+guarantees on the order in which they will be executed.</p>
+<p>Finally each process group is the basic unit that is scheduled in the
+cluster. It comprises of a set of processes (or threads) that can run
+on a number of resources (CPU, GPU, RAM, …) and are scheduled
+together as a unit on one or more machines.</p>
+<p>Each of these concepts lends itself to a particular use. For multi-gpu
+training in AI workloads you would use one task per GPU for data
+paralellism or one process group if you are doing model
+parallelism. Hyperparameter optimisation can be done using a
+combination of tasks and steps but is probably better left to a
+framework outside of the scope of the workload manager.</p>
+<p>If this all seems complicated, you should know that all these things
+do not need to always be used. It is perfectly acceptable to sumbit
+jobs with a single step, a single task and a single process.</p>
+</section>
+<section id="understanding-the-queue">
+<h2>Understanding the queue<a class="headerlink" href="#understanding-the-queue" title="Link to this heading"></a></h2>
+<p>The available resources on the cluster are not infinite and it is the
+workload manager’s job to allocate them. Whenever a job request comes
+in and there are not enough resources available to start it
+immediately, it will go in the queue.</p>
+<p>Once a job is in the queue, it will stay there until another job
+finishes and then the workload manager will try to use the newly freed
+resources with jobs from the queue. The exact order in which the jobs
+will start is not fixed, because it depends on the local policies
+which can take into account the user priority, the time since the job
+was requested, the amount of resources requested and possibly other
+things. There should be a tool that comes with the manager where you
+can see the status of your queued jobs and why they remain in the
+queue.</p>
+</section>
+<section id="about-partitions">
+<h2>About partitions<a class="headerlink" href="#about-partitions" title="Link to this heading"></a></h2>
+<p>The workload manager will divide the cluster into partitions according
+to the configuration set by the admins. A partition is a set of
+machines typically reserved for a particular purpose. An example might
+be CPU-only machines for preprocessing setup as a separate partition.
+It is possible for multiple partitions to share resources.</p>
+<p>There will always be at least one partition that is the default
+partition in which jobs without a specific request will go. Other
+partitions can be requested, but might be restricted to a group of
+users, depending on policy.</p>
+<p>Partitions are useful for a policy standpoint to ensure efficient use
+of the cluster resources and avoid using up too much of one resource
+type blocking use of another. They are also useful for heterogenous
+clusters where different hardware is mixed in and not all software is
+compatible with all of it (for example x86 and POWER cpus).</p>
+</section>
+<section id="exceding-limits-preemption-and-grace-periods">
+<h2>Exceding limits (preemption and grace periods)<a class="headerlink" href="#exceding-limits-preemption-and-grace-periods" title="Link to this heading"></a></h2>
+<p>To ensure a fair share of the computing resources for all, the workload
+manager establishes limits on the amount of resources that a single
+user can use at once. These can be hard limits which prevent running
+jobs when you go over or soft limits which will let you run jobs, but
+only until some other job needs the resources.</p>
+<p>Admin policy will determine what those exact limits are for a
+particular cluster or user and whether they are hard or soft limits.</p>
+<p>The way soft limits are enforced is using preemption, which means that
+when another job with higher priority needs the resources that your
+job is using, your job will receive a signal that it needs to save its
+state and exit. It will be given a certain amount of time to do this
+(the grace period, which may be 0s) and then forcefully terminated if
+it is still running.</p>
+<p>Depending on the workload manager in use and the cluster configuration
+a job that is preempted like this may be automatically rescheduled to
+have a chance to finish or it may be up to the job to reschedule
+itself.</p>
+<p>The other limit you can encounter with a job that goes over its
+declared limits. When you schedule a job, you declare how much
+resources it will need (RAM, CPUs, GPUs, …). Some of those may have
+default values and not be explicitely defined. For certain types of
+devices, like GPUs, access to units over your job limit is made
+unavailable. For others, like RAM, usage is monitored and your job
+will be terminated if it goes too much over. This makes it important
+to ensure you estimate resource usage accurately.</p>
+</section>
+<section id="mila-information">
+<h2>Mila information<a class="headerlink" href="#mila-information" title="Link to this heading"></a></h2>
+<p><strong>Mila</strong> as well as <a class="reference external" href="https://docs.alliancecan.ca/wiki/Technical_documentation">Digital Research Alliance of Canada</a> use the workload
+manager <a class="reference external" href="https://slurm.schedmd.com/documentation.html">Slurm</a> to schedule and
+allocate resources on their infrastructure.</p>
+<p><strong>Slurm</strong> client commands are available on the login nodes for you to submit
+jobs to the main controller and add your job to the queue. Jobs are of 2 types:
+<em>batch</em> jobs and <em>interactive</em> jobs.</p>
+<p>For practical examples of Slurm commands on the Mila cluster, see <a class="reference internal" href="Userguide.html#running-your-code"><span class="std std-ref">Running your code</span></a>.</p>
+</section>
+</section>
+<section id="processing-data">
+<h1>Processing data<a class="headerlink" href="#processing-data" title="Link to this heading"></a></h1>
+<p>For processing large amounts of data common for deep learning, either
+for dataset preprocessing or training, several techniques exist. Each
+has typical uses and limitations.</p>
+<section id="data-parallelism">
+<h2>Data parallelism<a class="headerlink" href="#data-parallelism" title="Link to this heading"></a></h2>
+<p>The first technique is called <strong>data parallelism</strong> (aka task
+parallelism in formal computer science). You simply run lots of
+processes each handling a portion of the data you want to
+process. This is by far the easiest technique to use and should be
+favored whenever possible. A common example of this is
+hyperparameter optimisation.</p>
+<p>For really small computations the time to setup multiple processes
+might be longer than the processing time and lead to waste. This can
+be addressed by bunching up some of the processes together by doing
+sequential processing of sub-partitions of the data.</p>
+<p>For the cluster systems it is also inadvisable to launch thousands of
+jobs and even if each job would run for a reasonable amount of time
+(several minutes at minimum), it would be best to make larger groups
+until the amount of jobs is in the low hundreds at most.</p>
+<p>Finally another thing to keep in mind is that the transfer bandwidth
+is limited between the filesystems (see <a class="reference internal" href="#filesystem-concerns"><span class="std std-ref">Filesystem concerns</span></a>)
+and the compute nodes and if you run too many jobs using too much data
+at once they may end up not being any faster because they will spend
+their time waiting for data to arrive.</p>
+</section>
+<section id="model-parallelism">
+<h2>Model parallelism<a class="headerlink" href="#model-parallelism" title="Link to this heading"></a></h2>
+<p>The second technique is called <strong>model parallelism</strong> (which doesn’t
+have a single equivalent in formal computer science). It is used
+mostly when a single instance of a model will not fit in a computing
+resource (such as the GPU memory being too small for all the
+parameters).</p>
+<p>In this case, the model is split into its constituent parts, each
+processed independently and their intermediate results communicated
+with each other to arrive at a final result.</p>
+<p>This is generally harder but necessary to work with larger, more
+powerful models like GPT.</p>
+</section>
+<section id="communication-concerns">
+<h2>Communication concerns<a class="headerlink" href="#communication-concerns" title="Link to this heading"></a></h2>
+<p>The main difference of these two approaches is the need for
+communication between the multiple processes. Some common training
+methods, like stochastic gradient descent sit somewhere between the
+two, because they require some communication, but not a lot. Most
+people classify it as data parallelism since it sits closer to that
+end.</p>
+<p>In general for data parallelism tasks or tasks that communicate
+infrequently it doesn’t make a lot of difference where the processes
+sit because the communication bandwidth and latency will not have a
+lot of impact on the time it takes to complete the job.  The
+individual tasks can generally be scheduled independently.</p>
+<p>On the contrary for model parallelism you need to pay more attention
+to where your tasks are.  In this case it is usually required to use
+the facilities of the workload manager to group the tasks so that they
+are on the same machine or machines that are closely linked to ensure
+optimal communication.  What is the best allocation depends on the
+specific cluster architecture available and the technologies it
+support (such as <a class="reference external" href="https://en.wikipedia.org/wiki/InfiniBand">InfiniBand</a>,
+<a class="reference external" href="https://en.wikipedia.org/wiki/Remote_direct_memory_access">RDMA</a>,
+<a class="reference external" href="https://en.wikipedia.org/wiki/NVLink">NVLink</a> or others)</p>
+</section>
+<section id="filesystem-concerns">
+<h2>Filesystem concerns<a class="headerlink" href="#filesystem-concerns" title="Link to this heading"></a></h2>
+<p>When working on a cluster, you will generally encounter several
+different filesystems.  Usually there will be names such as ‘home’,
+‘scratch’, ‘datasets’, ‘projects’, ‘tmp’.</p>
+<p>The reason for having different filesystems available instead of a
+single giant one is to provide for different use cases. For example,
+the ‘datasets’ filesystem would be optimized for fast reads but have
+slow write performance. This is because datasets are usually written
+once and then read very often for training.</p>
+<p>Different filesystems have different performance levels. For instance, backed
+up filesystems (such as <code class="docutils literal notranslate"><span class="pre">$PROJECT</span></code> in Digital Research Alliance of Canada
+clusters) provide more space and can handle large files but cannot sustain
+highly parallel accesses typically required for high speed model training.</p>
+<p>The set of filesystems provided by the cluster you are using should be
+detailed in the documentation for that cluster and the names can
+differ from those above. You should pay attention to their recommended
+use case in the documentation and use the appropriate filesystem for
+the appropriate job. There are cases where a job ran hundreds of times
+slower because it tried to use a filesystem that wasn’t a good fit for
+the job.</p>
+<p>One last thing to pay attention to is the data retention policy for
+the filesystems. This has two subpoints: how long is the data kept
+for, and are there backups.</p>
+<p>Some filesystems will have a limit on how long they keep their
+files. Typically the limit is some number of days (like 90 days) but
+can also be ‘as long as the job runs’ for some.</p>
+<p>As for backups, some filesystems will not have a limit for data, but
+will also not have backups. For those it is important to maintain a
+copy of any crucial data somewhere else. The data will not be
+purposefully deleted, but the filesystem may fail and lose all or part
+of its data. If you have any data that is crucial for a paper or your
+thesis keep an additional copy of it somewhere else.</p>
+</section>
+</section>
+<section id="software-on-the-cluster">
+<h1>Software on the cluster<a class="headerlink" href="#software-on-the-cluster" title="Link to this heading"></a></h1>
+<p>This section aims to raise awareness to problems one can encounter when trying
+to run a software on different computers and how this is dealt with on typical
+computation clusters.</p>
+<p>The Mila cluster and the Digital Research Alliance of Canada clusters both
+provide various useful software and computing environments, which can be
+activated through the module system. Alternatively, you may build containers
+with your desired software and run them on compute nodes.</p>
+<p>Regarding Python development, we recommend using virtual environments to install
+Python packages in isolation.</p>
+<section id="cluster-software-modules">
+<h2>Cluster software modules<a class="headerlink" href="#cluster-software-modules" title="Link to this heading"></a></h2>
+<p>Modules are small files which modify your environment variables to point to
+specific versions of various software and libraries. For instance, a module
+might provide the <code class="docutils literal notranslate"><span class="pre">python</span></code> command to point to Python 3.7, another might
+activate CUDA version 11.0, another might provide the <code class="docutils literal notranslate"><span class="pre">torch</span></code> package, and so
+on.</p>
+<p>For more information, see <a class="reference internal" href="Userguide.html#the-module-command"><span class="std std-ref">The module command</span></a>.</p>
+</section>
+<section id="containers">
+<h2>Containers<a class="headerlink" href="#containers" title="Link to this heading"></a></h2>
+<p>Containers are a special form of isolation of software and its dependencies. A
+container is essentially a lightweight virtual machine: it encapsulates a
+virtual file system for a full OS installation, as well as a separate network
+and execution environment.</p>
+<p>For example, you can create an Ubuntu container in which you install various
+packages using <code class="docutils literal notranslate"><span class="pre">apt</span></code>, modify settings as you would as a root user, and so on,
+but without interfering with your main installation. Once built, a container can
+be run on any compatible system.</p>
+<p>For more information, see <a class="reference internal" href="Userguide.html#using-containers"><span class="std std-ref">Using containers on clusters</span></a>.</p>
+</section>
+<section id="python-virtual-environments">
+<h2>Python Virtual environments<a class="headerlink" href="#python-virtual-environments" title="Link to this heading"></a></h2>
+<p>A virtual environment in Python is a local, isolated environment in which you
+can install or uninstall Python packages without interfering with the global
+environment (or other virtual environments). In order to use a virtual
+environment, you first have to activate it.</p>
+<p>For more information, see <a class="reference internal" href="Userguide.html#virtual-environments"><span class="std std-ref">Virtual environments</span></a>.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Extra_compute.html" class="btn btn-neutral float-left" title="Computational resources outside of Mila" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="examples/frameworks/index.html" class="btn btn-neutral float-right" title="Software Frameworks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+<script type="text/javascript">
+  window.onload = function() {
+      $(".toggle > *").hide();
+      $(".toggle .header").show();
+      $(".toggle .header").click(function() {
+          $(this).parent().children().not(".header").toggle(400);
+          $(this).parent().children(".header").toggleClass("open");
+      })
+  };
+</script>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

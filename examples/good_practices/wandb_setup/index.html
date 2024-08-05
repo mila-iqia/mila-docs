@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wandb Setup &mdash; MILA Technical Documentation latest documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=8da7d091" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=c6e86fd7"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=f281be69"></script>
+        <script src="../../../_static/documentation_options.js?v=c6e86fd7"></script>
+        <script src="../../../_static/documentation_options_fix.js?v=1c8886ec"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Launch many jobs from same shell script" href="../launch_many_jobs/index.html" />
+    <link rel="prev" title="Checkpointing" href="../checkpointing/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html">
+            
+              <img src="../../../_static/image.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                latest
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Purpose.html">Purpose of this documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Purpose.html#contributing">Contributing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-tos and Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Userguide.html">User’s guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Handbook.html">AI tooling and methodology handbook</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Systems and services</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Information.html">Computing infrastructure and policies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Extra_compute.html">Computational resources outside of Mila</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">General theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Theory_cluster.html">What is a computer cluster?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Theory_cluster.html#parts-of-a-computing-cluster">Parts of a computing cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Theory_cluster.html#unix">UNIX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Theory_cluster.html#the-workload-manager">The workload manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Theory_cluster.html#processing-data">Processing data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Theory_cluster.html#software-on-the-cluster">Software on the cluster</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Minimal Examples</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../frameworks/index.html">Software Frameworks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../distributed/index.html">Distributed Training</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Good practices</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../checkpointing/index.html">Checkpointing</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Wandb Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../launch_many_jobs/index.html">Launch many jobs from same shell script</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hpo_with_orion/index.html">Hyperparameter Optimization with Oríon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../many_tasks_per_gpu/index.html">Launch many tasks on same GPU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../slurm_job_arrays/index.html">Launch many jobs using SLURM job arrays</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extras</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Acknowledgement.html">Acknowledging Mila</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://datasets.server.mila.quebec/">Mila Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Audio_video.html">Audio and video resources at Mila</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../VSCode.html">Visual Studio Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../IDT.html">Who, what, where is IDT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Cheatsheet.html">Cheat Sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Chatbot.html">Chatbot for Mila</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Environmental_impact.html">Environmental Impact</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">MILA Technical Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Good practices</a></li>
+      <li class="breadcrumb-item active">Wandb Setup</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/mila-iqia/mila-docs/blob/master/docs/examples/good_practices/wandb_setup/index.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="wandb-setup">
+<h1>Wandb Setup<a class="headerlink" href="#wandb-setup" title="Link to this heading"></a></h1>
+<p>Prerequisites:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../../frameworks/pytorch_setup/index.html"><span class="doc">PyTorch Setup</span></a></p></li>
+<li><p><a class="reference internal" href="../../distributed/single_gpu/index.html"><span class="doc">Single GPU Job</span></a></p></li>
+</ul>
+<p>Make sure to create a Wandb account, then you can either :</p>
+<ul class="simple">
+<li><p>Set your <code class="docutils literal notranslate"><span class="pre">WANDB_API_KEY</span></code> environment variable</p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">wandb</span> <span class="pre">login</span></code> from the command line</p></li>
+</ul>
+<p>Other resources:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.wandb.ai/quickstart">https://docs.wandb.ai/quickstart</a></p></li>
+</ul>
+<p>Click here to see <a class="reference external" href="https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/good_practices/wandb_setup">the source code for this example</a></p>
+<p><strong>job.sh</strong></p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="w"> </span># distributed/single_gpu/job.sh -&gt; good_practices/wandb_setup/job.sh
+<span class="w"> </span>#!/bin/bash
+<span class="w"> </span>#SBATCH --gpus-per-task=rtx8000:1
+<span class="w"> </span>#SBATCH --cpus-per-task=4
+<span class="w"> </span>#SBATCH --ntasks-per-node=1
+<span class="w"> </span>#SBATCH --mem=16G
+<span class="w"> </span>#SBATCH --time=00:15:00
+<span class="w"> </span>
+<span class="w"> </span>
+<span class="w"> </span># Echo time and hostname into log
+<span class="w"> </span>echo &quot;Date:     $(date)&quot;
+<span class="w"> </span>echo &quot;Hostname: $(hostname)&quot;
+<span class="w"> </span>
+<span class="w"> </span>
+<span class="w"> </span># Ensure only anaconda/3 module loaded.
+<span class="w"> </span>module --quiet purge
+<span class="w"> </span># This example uses Conda to manage package dependencies.
+<span class="w"> </span># See https://docs.mila.quebec/Userguide.html#conda for more information.
+<span class="w"> </span>module load anaconda/3
+<span class="w"> </span>module load cuda/11.7
+<span class="w"> </span>
+<span class="w"> </span># Creating the environment for the first time:
+<span class="w"> </span># conda create -y -n pytorch python=3.9 pytorch torchvision torchaudio \
+<span class="w"> </span>#     pytorch-cuda=11.7 -c pytorch -c nvidia
+<span class="w"> </span># Other conda packages:
+<span class="gd">-# conda install -y -n pytorch -c conda-forge rich tqdm</span>
+<span class="gi">+# conda install -y -n pytorch -c conda-forge rich tqdm wandb</span>
+<span class="w"> </span>
+<span class="w"> </span># Activate pre-existing environment.
+<span class="w"> </span>conda activate pytorch
+<span class="w"> </span>
+<span class="w"> </span>
+<span class="w"> </span># Stage dataset into $SLURM_TMPDIR
+<span class="w"> </span>mkdir -p $SLURM_TMPDIR/data
+<span class="w"> </span>cp /network/datasets/cifar10/cifar-10-python.tar.gz $SLURM_TMPDIR/data/
+<span class="w"> </span># General-purpose alternatives combining copy and unpack:
+<span class="w"> </span>#     unzip   /network/datasets/some/file.zip -d $SLURM_TMPDIR/data/
+<span class="w"> </span>#     tar -xf /network/datasets/some/file.tar -C $SLURM_TMPDIR/data/
+<span class="w"> </span>
+<span class="w"> </span>
+<span class="w"> </span># Fixes issues with MIG-ed GPUs with versions of PyTorch &lt; 2.0
+<span class="w"> </span>unset CUDA_VISIBLE_DEVICES
+<span class="w"> </span>
+<span class="w"> </span># Execute Python script
+<span class="w"> </span>python main.py
+</pre></div>
+</div>
+<p><strong>main.py</strong></p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="w"> </span># distributed/single_gpu/main.py -&gt; good_practices/wandb_setup/main.py
+<span class="gd">-&quot;&quot;&quot;Single-GPU training example.&quot;&quot;&quot;</span>
+<span class="gi">+&quot;&quot;&quot;Example job that uses Weights &amp; Biases (wandb.ai).&quot;&quot;&quot;</span>
+<span class="w"> </span>import argparse
+<span class="w"> </span>import logging
+<span class="w"> </span>import os
+<span class="w"> </span>from pathlib import Path
+<span class="w"> </span>
+<span class="w"> </span>import rich.logging
+<span class="w"> </span>import torch
+<span class="w"> </span>from torch import Tensor, nn
+<span class="w"> </span>from torch.nn import functional as F
+<span class="w"> </span>from torch.utils.data import DataLoader, random_split
+<span class="w"> </span>from torchvision import transforms
+<span class="w"> </span>from torchvision.datasets import CIFAR10
+<span class="w"> </span>from torchvision.models import resnet18
+<span class="w"> </span>from tqdm import tqdm
+<span class="gi">+import wandb</span>
+<span class="w"> </span>
+<span class="w"> </span>
+<span class="w"> </span>def main():
+<span class="gd">-    # Use an argument parser so we can pass hyperparameters from the command line.</span>
+<span class="w"> </span>    parser = argparse.ArgumentParser(description=__doc__)
+<span class="w"> </span>    parser.add_argument(&quot;--epochs&quot;, type=int, default=10)
+<span class="w"> </span>    parser.add_argument(&quot;--learning-rate&quot;, type=float, default=5e-4)
+<span class="w"> </span>    parser.add_argument(&quot;--weight-decay&quot;, type=float, default=1e-4)
+<span class="w"> </span>    parser.add_argument(&quot;--batch-size&quot;, type=int, default=128)
+<span class="w"> </span>    args = parser.parse_args()
+<span class="w"> </span>
+<span class="w"> </span>    epochs: int = args.epochs
+<span class="w"> </span>    learning_rate: float = args.learning_rate
+<span class="w"> </span>    weight_decay: float = args.weight_decay
+<span class="w"> </span>    batch_size: int = args.batch_size
+<span class="w"> </span>
+<span class="w"> </span>    # Check that the GPU is available
+<span class="w"> </span>    assert torch.cuda.is_available() and torch.cuda.device_count() &gt; 0
+<span class="w"> </span>    device = torch.device(&quot;cuda&quot;, 0)
+<span class="w"> </span>
+<span class="w"> </span>    # Setup logging (optional, but much better than using print statements)
+<span class="w"> </span>    logging.basicConfig(
+<span class="w"> </span>        level=logging.INFO,
+<span class="w"> </span>        handlers=[rich.logging.RichHandler(markup=True)],  # Very pretty, uses the `rich` package.
+<span class="w"> </span>    )
+<span class="w"> </span>
+<span class="w"> </span>    logger = logging.getLogger(__name__)
+<span class="w"> </span>
+<span class="gi">+    # To resume experiments with Wandb, we need to have code that can properly</span>
+<span class="gi">+    # handle checkpointing (see other minimalist example about &quot;checkpointing&quot;).</span>
+<span class="gi">+    # We have to manage the `id` of the experiment that we are running so that</span>
+<span class="gi">+    # it is unique and Wandb knows what previous run came before this one</span>
+<span class="gi">+    # (i.e. what is being resumed). This is handled in the same way that saving</span>
+<span class="gi">+    # model parameters is handled.</span>
+<span class="gi">+    # This specific example here does not do that.</span>
+<span class="gi">+</span>
+<span class="gi">+    # Setup Wandb</span>
+<span class="gi">+    wandb.init(</span>
+<span class="gi">+        # Set the project where this run will be logged</span>
+<span class="gi">+        project=&quot;awesome-wandb-example&quot;,</span>
+<span class="gi">+        name=os.environ.get(&quot;SLURM_JOB_ID&quot;),</span>
+<span class="gi">+        resume=&quot;allow&quot;,  # See https://docs.wandb.ai/guides/runs/resuming</span>
+<span class="gi">+        # Track hyperparameters and run metadata</span>
+<span class="gi">+        config=vars(args),</span>
+<span class="gi">+    )</span>
+<span class="gi">+</span>
+<span class="w"> </span>    # Create a model and move it to the GPU.
+<span class="w"> </span>    model = resnet18(num_classes=10)
+<span class="w"> </span>    model.to(device=device)
+<span class="w"> </span>
+<span class="w"> </span>    optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate, weight_decay=weight_decay)
+<span class="w"> </span>
+<span class="w"> </span>    # Setup CIFAR10
+<span class="w"> </span>    num_workers = get_num_workers()
+<span class="w"> </span>    dataset_path = Path(os.environ.get(&quot;SLURM_TMPDIR&quot;, &quot;.&quot;)) / &quot;data&quot;
+<span class="w"> </span>    train_dataset, valid_dataset, test_dataset = make_datasets(str(dataset_path))
+<span class="w"> </span>    train_dataloader = DataLoader(
+<span class="w"> </span>        train_dataset,
+<span class="w"> </span>        batch_size=batch_size,
+<span class="w"> </span>        num_workers=num_workers,
+<span class="w"> </span>        shuffle=True,
+<span class="w"> </span>    )
+<span class="w"> </span>    valid_dataloader = DataLoader(
+<span class="w"> </span>        valid_dataset,
+<span class="w"> </span>        batch_size=batch_size,
+<span class="w"> </span>        num_workers=num_workers,
+<span class="w"> </span>        shuffle=False,
+<span class="w"> </span>    )
+<span class="w"> </span>    test_dataloader = DataLoader(  # NOTE: Not used in this example.
+<span class="w"> </span>        test_dataset,
+<span class="w"> </span>        batch_size=batch_size,
+<span class="w"> </span>        num_workers=num_workers,
+<span class="w"> </span>        shuffle=False,
+<span class="w"> </span>    )
+<span class="w"> </span>
+<span class="gd">-    # Checkout the &quot;checkpointing and preemption&quot; example for more info!</span>
+<span class="w"> </span>    logger.debug(&quot;Starting training from scratch.&quot;)
+<span class="w"> </span>
+<span class="w"> </span>    for epoch in range(epochs):
+<span class="w"> </span>        logger.debug(f&quot;Starting epoch {epoch}/{epochs}&quot;)
+<span class="w"> </span>
+<span class="w"> </span>        # Set the model in training mode (important for e.g. BatchNorm and Dropout layers)
+<span class="w"> </span>        model.train()
+<span class="w"> </span>
+<span class="w"> </span>        # NOTE: using a progress bar from tqdm because it&#39;s nicer than using `print`.
+<span class="w"> </span>        progress_bar = tqdm(
+<span class="w"> </span>            total=len(train_dataloader),
+<span class="w"> </span>            desc=f&quot;Train epoch {epoch}&quot;,
+<span class="w"> </span>        )
+<span class="w"> </span>
+<span class="w"> </span>        # Training loop
+<span class="w"> </span>        for batch in train_dataloader:
+<span class="w"> </span>            # Move the batch to the GPU before we pass it to the model
+<span class="w"> </span>            batch = tuple(item.to(device) for item in batch)
+<span class="w"> </span>            x, y = batch
+<span class="w"> </span>
+<span class="w"> </span>            # Forward pass
+<span class="w"> </span>            logits: Tensor = model(x)
+<span class="w"> </span>
+<span class="w"> </span>            loss = F.cross_entropy(logits, y)
+<span class="w"> </span>
+<span class="w"> </span>            optimizer.zero_grad()
+<span class="w"> </span>            loss.backward()
+<span class="w"> </span>            optimizer.step()
+<span class="w"> </span>
+<span class="w"> </span>            # Calculate some metrics:
+<span class="w"> </span>            n_correct_predictions = logits.detach().argmax(-1).eq(y).sum()
+<span class="w"> </span>            n_samples = y.shape[0]
+<span class="w"> </span>            accuracy = n_correct_predictions / n_samples
+<span class="w"> </span>
+<span class="w"> </span>            logger.debug(f&quot;Accuracy: {accuracy.item():.2%}&quot;)
+<span class="w"> </span>            logger.debug(f&quot;Average Loss: {loss.item()}&quot;)
+<span class="w"> </span>
+<span class="gi">+            # Log metrics with wandb</span>
+<span class="gi">+            wandb.log({&quot;train/accuracy&quot;: accuracy, &quot;train/loss&quot;: loss})</span>
+<span class="gi">+</span>
+<span class="w"> </span>            # Advance the progress bar one step and update the progress bar text.
+<span class="w"> </span>            progress_bar.update(1)
+<span class="w"> </span>            progress_bar.set_postfix(loss=loss.item(), accuracy=accuracy.item())
+<span class="w"> </span>        progress_bar.close()
+<span class="w"> </span>
+<span class="w"> </span>        val_loss, val_accuracy = validation_loop(model, valid_dataloader, device)
+<span class="w"> </span>        logger.info(f&quot;Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%}&quot;)
+<span class="gi">+        wandb.log({&quot;val/accuracy&quot;: val_accuracy, &quot;val/loss&quot;: val_loss})</span>
+<span class="w"> </span>
+<span class="w"> </span>    print(&quot;Done!&quot;)
+<span class="w"> </span>
+<span class="w"> </span>
+<span class="w"> </span>@torch.no_grad()
+<span class="w"> </span>def validation_loop(model: nn.Module, dataloader: DataLoader, device: torch.device):
+<span class="w"> </span>    model.eval()
+<span class="w"> </span>
+<span class="w"> </span>    total_loss = 0.0
+<span class="w"> </span>    n_samples = 0
+<span class="w"> </span>    correct_predictions = 0
+<span class="w"> </span>
+<span class="w"> </span>    for batch in dataloader:
+<span class="w"> </span>        batch = tuple(item.to(device) for item in batch)
+<span class="w"> </span>        x, y = batch
+<span class="w"> </span>
+<span class="w"> </span>        logits: Tensor = model(x)
+<span class="w"> </span>        loss = F.cross_entropy(logits, y)
+<span class="w"> </span>
+<span class="w"> </span>        batch_n_samples = x.shape[0]
+<span class="w"> </span>        batch_correct_predictions = logits.argmax(-1).eq(y).sum()
+<span class="w"> </span>
+<span class="w"> </span>        total_loss += loss.item()
+<span class="w"> </span>        n_samples += batch_n_samples
+<span class="w"> </span>        correct_predictions += batch_correct_predictions
+<span class="w"> </span>
+<span class="w"> </span>    accuracy = correct_predictions / n_samples
+<span class="w"> </span>    return total_loss, accuracy
+<span class="w"> </span>
+<span class="w"> </span>
+<span class="w"> </span>def make_datasets(
+<span class="w"> </span>    dataset_path: str,
+<span class="w"> </span>    val_split: float = 0.1,
+<span class="w"> </span>    val_split_seed: int = 42,
+<span class="w"> </span>):
+<span class="w"> </span>    &quot;&quot;&quot;Returns the training, validation, and test splits for CIFAR10.
+<span class="w"> </span>
+<span class="w"> </span>    NOTE: We don&#39;t use image transforms here for simplicity.
+<span class="w"> </span>    Having different transformations for train and validation would complicate things a bit.
+<span class="w"> </span>    Later examples will show how to do the train/val/test split properly when using transforms.
+<span class="w"> </span>    &quot;&quot;&quot;
+<span class="w"> </span>    train_dataset = CIFAR10(
+<span class="w"> </span>        root=dataset_path, transform=transforms.ToTensor(), download=True, train=True
+<span class="w"> </span>    )
+<span class="w"> </span>    test_dataset = CIFAR10(
+<span class="w"> </span>        root=dataset_path, transform=transforms.ToTensor(), download=True, train=False
+<span class="w"> </span>    )
+<span class="w"> </span>    # Split the training dataset into a training and validation set.
+<span class="w"> </span>    n_samples = len(train_dataset)
+<span class="w"> </span>    n_valid = int(val_split * n_samples)
+<span class="w"> </span>    n_train = n_samples - n_valid
+<span class="w"> </span>    train_dataset, valid_dataset = random_split(
+<span class="w"> </span>        train_dataset, (n_train, n_valid), torch.Generator().manual_seed(val_split_seed)
+<span class="w"> </span>    )
+<span class="w"> </span>    return train_dataset, valid_dataset, test_dataset
+<span class="w"> </span>
+<span class="w"> </span>
+<span class="w"> </span>def get_num_workers() -&gt; int:
+<span class="w"> </span>    &quot;&quot;&quot;Gets the optimal number of DatLoader workers to use in the current job.&quot;&quot;&quot;
+<span class="w"> </span>    if &quot;SLURM_CPUS_PER_TASK&quot; in os.environ:
+<span class="w"> </span>        return int(os.environ[&quot;SLURM_CPUS_PER_TASK&quot;])
+<span class="w"> </span>    if hasattr(os, &quot;sched_getaffinity&quot;):
+<span class="w"> </span>        return len(os.sched_getaffinity(0))
+<span class="w"> </span>    return torch.multiprocessing.cpu_count()
+<span class="w"> </span>
+<span class="w"> </span>
+<span class="w"> </span>if __name__ == &quot;__main__&quot;:
+<span class="w"> </span>    main()
+</pre></div>
+</div>
+<p><strong>Running this example</strong></p>
+<p>Note : On DRAC clusters you will need to run <code class="docutils literal notranslate"><span class="pre">wandb</span> <span class="pre">off</span></code> to log your data as offline mode.
+You will then be able to upload your runs with the command <code class="docutils literal notranslate"><span class="pre">wandb</span> <span class="pre">sync</span> <span class="pre">--sync-all</span></code></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>wandb<span class="w"> </span>login
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sbatch<span class="w"> </span>job.sh
+</pre></div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../checkpointing/index.html" class="btn btn-neutral float-left" title="Checkpointing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../launch_many_jobs/index.html" class="btn btn-neutral float-right" title="Launch many jobs from same shell script" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+<script type="text/javascript">
+  window.onload = function() {
+      $(".toggle > *").hide();
+      $(".toggle .header").show();
+      $(".toggle .header").click(function() {
+          $(this).parent().children().not(".header").toggle(400);
+          $(this).parent().children(".header").toggleClass("open");
+      })
+  };
+</script>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

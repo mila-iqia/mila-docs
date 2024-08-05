@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Computing infrastructure and policies &mdash; MILA Technical Documentation latest documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=8da7d091" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=c6e86fd7"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="_static/copybutton.js?v=f281be69"></script>
+        <script src="_static/documentation_options.js?v=c6e86fd7"></script>
+        <script src="_static/documentation_options_fix.js?v=1c8886ec"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Computational resources outside of Mila" href="Extra_compute.html" />
+    <link rel="prev" title="AI tooling and methodology handbook" href="Handbook.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/image.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                latest
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Purpose.html">Purpose of this documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Purpose.html#contributing">Contributing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-tos and Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Userguide.html">User’s guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Handbook.html">AI tooling and methodology handbook</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Systems and services</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Computing infrastructure and policies</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#roles-and-authorizations">Roles and authorizations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#overview-of-available-computing-resources-at-mila">Overview of available computing resources at Mila</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#mila-cluster-versus-digital-research-alliance-of-canada-clusters">Mila cluster versus Digital Research Alliance of Canada clusters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#guarantees-about-one-gpu-as-absolute-minimum">Guarantees about one GPU as absolute minimum</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#node-profile-description">Node profile description</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#special-nodes-and-outliers">Special nodes and outliers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#dgx-a100">DGX A100</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mig">MIG</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#amd">AMD</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#data-sharing-policies">Data sharing policies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#monitoring">Monitoring</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#example-with-netdata-on-cn-c001">Example with Netdata on cn-c001</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example-watching-the-cpu-ram-gpu-usage">Example watching the CPU/RAM/GPU usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example-with-mila-dashboard">Example with Mila dashboard</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#storage">Storage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#home">$HOME</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scratch">$SCRATCH</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#slurm-tmpdir">$SLURM_TMPDIR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#projects">projects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#archive">$ARCHIVE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#datasets">datasets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#weights">weights</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#data-transmission">Data Transmission</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Extra_compute.html">Computational resources outside of Mila</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">General theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html">What is a computer cluster?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#parts-of-a-computing-cluster">Parts of a computing cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#unix">UNIX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#the-workload-manager">The workload manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#processing-data">Processing data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#software-on-the-cluster">Software on the cluster</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Minimal Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="examples/frameworks/index.html">Software Frameworks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/distributed/index.html">Distributed Training</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/good_practices/index.html">Good practices</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extras</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Acknowledgement.html">Acknowledging Mila</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://datasets.server.mila.quebec/">Mila Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Audio_video.html">Audio and video resources at Mila</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VSCode.html">Visual Studio Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IDT.html">Who, what, where is IDT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cheatsheet.html">Cheat Sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Chatbot.html">Chatbot for Mila</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Environmental_impact.html">Environmental Impact</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MILA Technical Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Computing infrastructure and policies</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/mila-iqia/mila-docs/blob/master/docs/Information.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="computing-infrastructure-and-policies">
+<span id="infra-info"></span><h1>Computing infrastructure and policies<a class="headerlink" href="#computing-infrastructure-and-policies" title="Link to this heading"></a></h1>
+<p>This section seeks to provide factual information and policies on the Mila cluster computing environments.</p>
+<section id="roles-and-authorizations">
+<h2>Roles and authorizations<a class="headerlink" href="#roles-and-authorizations" title="Link to this heading"></a></h2>
+<p>There are mainly two types of researchers statuses at Mila :</p>
+<ol class="arabic simple">
+<li><p>Core researchers</p></li>
+<li><p>Affiliated researchers</p></li>
+</ol>
+<p>This is determined by Mila policy. Core researchers have access to the Mila
+computing cluster. See your supervisor’s Mila status to know what is your own
+status.</p>
+</section>
+<section id="overview-of-available-computing-resources-at-mila">
+<h2>Overview of available computing resources at Mila<a class="headerlink" href="#overview-of-available-computing-resources-at-mila" title="Link to this heading"></a></h2>
+<p>The Mila cluster is to be used for regular development and relatively small
+number of jobs (&lt; 5). It is a heterogeneous cluster. It uses
+<span class="xref std std-ref">SLURM</span> to schedule jobs.</p>
+<section id="mila-cluster-versus-digital-research-alliance-of-canada-clusters">
+<h3>Mila cluster versus Digital Research Alliance of Canada clusters<a class="headerlink" href="#mila-cluster-versus-digital-research-alliance-of-canada-clusters" title="Link to this heading"></a></h3>
+<p>There are a lot of commonalities between the Mila cluster and the clusters from
+Digital Research Alliance of Canada (the Alliance). At the time being, the
+Alliance clusters where we have a large allocation of resources are <cite>beluga</cite>,
+<cite>cedar</cite>, <cite>graham</cite> and <cite>narval</cite>. We also have comparable computational resources
+in the Mila cluster, with more to come.</p>
+<p>The main distinguishing factor is that we have more control over our own
+cluster than we have over the ones at the Alliance. Notably, also, the compute
+nodes in the Mila cluster all have unrestricted access to the Internet, which
+is not the case in general for the Alliance clusters (although <cite>cedar</cite> does
+allow it).</p>
+<p>At the current time of this writing (June 2021), Mila students are advised to
+use a healthy diet of a mix of Mila and Alliance clusters. This is especially
+true in times when your favorite cluster is oversubscribed, because you can
+easily switch over to a different one if you are used to it.</p>
+</section>
+<section id="guarantees-about-one-gpu-as-absolute-minimum">
+<h3>Guarantees about one GPU as absolute minimum<a class="headerlink" href="#guarantees-about-one-gpu-as-absolute-minimum" title="Link to this heading"></a></h3>
+<p>There are certain guarantees that the Mila cluster tries to honor when it comes
+to giving <em>at minimum</em> one GPU per student, all the time, to be used in
+interactive mode. This is strictly better than “one GPU per student on average”
+because it’s a floor meaning that, at any time, you should be able to ask for
+your GPU, right now, and get it (although it might take a minute for the
+request to be processed by SLURM).</p>
+<p>Interactive sessions are possible on the Alliance clusters, and there are
+generally special rules that allow you to get resources more easily if you
+request them for a very short duration (for testing code before queueing long
+jobs). You do not get the same guarantee as on the Mila cluster, however.</p>
+</section>
+</section>
+<section id="node-profile-description">
+<h2>Node profile description<a class="headerlink" href="#node-profile-description" title="Link to this heading"></a></h2>
+<span class="target" id="node-list"></span><table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head" rowspan="2"><p>Name</p></th>
+<th class="head" colspan="3"><p>GPU</p></th>
+<th class="head" rowspan="2"><p>CPUs</p></th>
+<th class="head" rowspan="2"><p>Sockets</p></th>
+<th class="head" rowspan="2"><p>Cores/Socket</p></th>
+<th class="head" rowspan="2"><p>Threads/Core</p></th>
+<th class="head" rowspan="2"><p>Memory (GB)</p></th>
+<th class="head" rowspan="2"><p>TmpDisk (TB)</p></th>
+<th class="head" rowspan="2"><p>Arch</p></th>
+<th class="head"><p>Slurm Features</p></th>
+</tr>
+<tr class="row-even"><th class="head"><p>Model</p></th>
+<th class="head"><p>Mem</p></th>
+<th class="head"><p>#</p></th>
+<th class="head"><p>GPU Arch and Memory</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-odd"><td colspan="12"><p><span class="h"><h5 style="margin: 5px 0 0 0;">GPU Compute Nodes</h5></span></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>cn-a[001-011]</strong></p></td>
+<td><p>RTX8000</p></td>
+<td><p>48</p></td>
+<td><p>8</p></td>
+<td><p>40</p></td>
+<td><p>2</p></td>
+<td><p>20</p></td>
+<td><p>1</p></td>
+<td><p>384</p></td>
+<td><p>3.6</p></td>
+<td><p>x86_64</p></td>
+<td><p>turing,48gb</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>cn-b[001-005]</strong></p></td>
+<td><p>V100</p></td>
+<td><p>32</p></td>
+<td><p>8</p></td>
+<td><p>40</p></td>
+<td><p>2</p></td>
+<td><p>20</p></td>
+<td><p>1</p></td>
+<td><p>384</p></td>
+<td><p>3.6</p></td>
+<td><p>x86_64</p></td>
+<td><p>volta,nvlink,32gb</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>cn-c[001-040]</strong></p></td>
+<td><p>RTX8000</p></td>
+<td><p>48</p></td>
+<td><p>8</p></td>
+<td><p>64</p></td>
+<td><p>2</p></td>
+<td><p>32</p></td>
+<td><p>1</p></td>
+<td><p>384</p></td>
+<td><p>3</p></td>
+<td><p>x86_64</p></td>
+<td><p>turing,48gb</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>cn-g[001-029]</strong></p></td>
+<td><p>A100</p></td>
+<td><p>80</p></td>
+<td><p>4</p></td>
+<td><p>64</p></td>
+<td><p>2</p></td>
+<td><p>32</p></td>
+<td><p>1</p></td>
+<td><p>1024</p></td>
+<td><p>7</p></td>
+<td><p>x86_64</p></td>
+<td><p>ampere,nvlink,80gb</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>cn-i001</strong></p></td>
+<td><p>A100</p></td>
+<td><p>80</p></td>
+<td><p>4</p></td>
+<td><p>64</p></td>
+<td><p>2</p></td>
+<td><p>32</p></td>
+<td><p>1</p></td>
+<td><p>1024</p></td>
+<td><p>3.6</p></td>
+<td><p>x86_64</p></td>
+<td><p>ampere,80gb</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>cn-j001</strong></p></td>
+<td><p>A6000</p></td>
+<td><p>48</p></td>
+<td><p>8</p></td>
+<td><p>64</p></td>
+<td><p>2</p></td>
+<td><p>32</p></td>
+<td><p>1</p></td>
+<td><p>1024</p></td>
+<td><p>3.6</p></td>
+<td><p>x86_64</p></td>
+<td><p>ampere,48gb</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>cn-k[001-004]</strong></p></td>
+<td><p>A100</p></td>
+<td><p>40</p></td>
+<td><p>4</p></td>
+<td><p>48</p></td>
+<td><p>2</p></td>
+<td><p>24</p></td>
+<td><p>1</p></td>
+<td><p>512</p></td>
+<td><p>3.6</p></td>
+<td><p>x86_64</p></td>
+<td><p>ampere,nvlink,40gb</p></td>
+</tr>
+<tr class="row-odd"><td colspan="12"><p><span class="h"><h5 style="margin: 5px 0 0 0;">DGX Systems</h5></span></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>cn-d[001-002]</strong></p></td>
+<td><p>A100</p></td>
+<td><p>40</p></td>
+<td><p>8</p></td>
+<td><p>128</p></td>
+<td><p>2</p></td>
+<td><p>64</p></td>
+<td><p>1</p></td>
+<td><p>1024</p></td>
+<td><p>14</p></td>
+<td><p>x86_64</p></td>
+<td><p>ampere,nvlink,dgx,40gb</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>cn-d[003-004]</strong></p></td>
+<td><p>A100</p></td>
+<td><p>80</p></td>
+<td><p>8</p></td>
+<td><p>128</p></td>
+<td><p>2</p></td>
+<td><p>64</p></td>
+<td><p>1</p></td>
+<td><p>2048</p></td>
+<td><p>28</p></td>
+<td><p>x86_64</p></td>
+<td><p>ampere,nvlink,dgx,80gb</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>cn-e[002-003]</strong></p></td>
+<td><p>V100</p></td>
+<td><p>32</p></td>
+<td><p>8</p></td>
+<td><p>40</p></td>
+<td><p>2</p></td>
+<td><p>20</p></td>
+<td><p>1</p></td>
+<td><p>512</p></td>
+<td><p>7</p></td>
+<td><p>x86_64</p></td>
+<td><p>volta,nvlink,dgx,32gb</p></td>
+</tr>
+<tr class="row-odd"><td colspan="12"><p><span class="h"><h5 style="margin: 5px 0 0 0;">CPU Compute Nodes</h5></span></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>cn-f[001-004]</strong></p></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+<td><p>32</p></td>
+<td><p>1</p></td>
+<td><p>32</p></td>
+<td><p>1</p></td>
+<td><p>256</p></td>
+<td><p>10</p></td>
+<td><p>x86_64</p></td>
+<td><p>rome</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>cn-h[001-004]</strong></p></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+<td><p>64</p></td>
+<td><p>2</p></td>
+<td><p>32</p></td>
+<td><p>1</p></td>
+<td><p>768</p></td>
+<td><p>7</p></td>
+<td><p>x86_64</p></td>
+<td><p>milan</p></td>
+</tr>
+</tbody>
+</table>
+<section id="special-nodes-and-outliers">
+<h3>Special nodes and outliers<a class="headerlink" href="#special-nodes-and-outliers" title="Link to this heading"></a></h3>
+<section id="dgx-a100">
+<h4>DGX A100<a class="headerlink" href="#dgx-a100" title="Link to this heading"></a></h4>
+<p id="dgx-a100-nodes">DGX A100 nodes are NVIDIA appliances with 8 NVIDIA A100 Tensor Core GPUs. Each
+GPU has either 40 GB or 80 GB of memory, for a total of 320 GB or 640 GB per
+appliance. The GPUs are interconnected via 6 NVSwitches which allow for 600
+GB/s point-to-point bandwidth (unidirectional) and a full bisection bandwidth
+of 4.8 TB/s (bidirectional). See the table above for the specifications of each
+appliance.</p>
+<p>In order to run jobs on a DGX A100 with 40GB GPUs, add the flags below to your
+Slurm commands:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">--</span><span class="n">gres</span><span class="o">=</span><span class="n">gpu</span><span class="p">:</span><span class="n">a100</span><span class="p">:</span><span class="o">&lt;</span><span class="n">number</span><span class="o">&gt;</span> <span class="o">--</span><span class="n">constraint</span><span class="o">=</span><span class="s2">&quot;dgx&amp;ampere&quot;</span>
+</pre></div>
+</div>
+<p>In order to run jobs on a DGX A100 with 80GB GPUs, add the flags below to your
+Slurm commands:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">--</span><span class="n">gres</span><span class="o">=</span><span class="n">gpu</span><span class="p">:</span><span class="n">a100l</span><span class="p">:</span><span class="o">&lt;</span><span class="n">number</span><span class="o">&gt;</span> <span class="o">--</span><span class="n">constraint</span><span class="o">=</span><span class="s2">&quot;dgx&amp;ampere&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="mig">
+<h4>MIG<a class="headerlink" href="#mig" title="Link to this heading"></a></h4>
+<p id="mig-nodes">MIG (<a class="reference external" href="https://www.nvidia.com/en-us/technologies/multi-instance-gpu/">Multi-Instance GPU</a>)
+is an NVIDIA technology allowing certain GPUs to be
+partitioned into multiple <em>instances</em>, each of which has a roughly proportional
+amount of compute resources, device memory and bandwidth to that memory.</p>
+<p>NVIDIA supports MIG on its A100 GPUs and allows slicing the A100 into up to 7
+instances. Although this can theoretically be done dynamically, the SLURM job
+scheduler does not support doing so in practice as it does not model
+reconfigurable resources very well. Therefore, the A100s must currently be
+statically partitioned into the required number of instances of every size
+expected to be used.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">cn-g</span></code> series of nodes include A100-80GB GPUs. A subset have been
+configured to offer regular (non-MIG mode) <code class="docutils literal notranslate"><span class="pre">a100l</span></code> GPUs. The others have been
+configured in MIG mode, and offer the following profiles:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head" rowspan="2"><p>Name</p></th>
+<th class="head" colspan="3"><p>GPU</p></th>
+<th class="head"><p>Cluster-wide</p></th>
+</tr>
+<tr class="row-even"><th class="head"><p>Model</p></th>
+<th class="head"><p>Memory</p></th>
+<th class="head"><p>Compute</p></th>
+<th class="head"><p>#</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">a100l.2g.20gb</span></code><span class="h"><p></span>
+<code class="docutils literal notranslate"><span class="pre">a100l.2</span></code></p></td>
+<td><p>A100</p></td>
+<td><p>20GB <span class="h"><p></span>
+(2/8th)</p></td>
+<td><p>2/7th
+<em>of full</em></p></td>
+<td><p>48</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">a100l.3g.40gb</span></code><span class="h"><p></span>
+<code class="docutils literal notranslate"><span class="pre">a100l.3</span></code></p></td>
+<td><p>A100</p></td>
+<td><p>40GB <span class="h"><p></span>
+(4/8th)</p></td>
+<td><p>3/7th
+<em>of full</em></p></td>
+<td><p>48</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">a100l.4g.40gb</span></code><span class="h"><p></span>
+<code class="docutils literal notranslate"><span class="pre">a100l.4</span></code></p></td>
+<td><p>A100</p></td>
+<td><p>40GB <span class="h"><p></span>
+(4/8th)</p></td>
+<td><p>4/7th
+<em>of full</em></p></td>
+<td><p>24</p></td>
+</tr>
+</tbody>
+</table>
+<p>And can be requested using a SLURM flag such as <code class="docutils literal notranslate"><span class="pre">--gres=gpu:a100l.2</span></code></p>
+<p>The partitioning may be revised as needs and SLURM capabilities evolve. Other
+MIG profiles exist and could be introduced.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>MIG has a number of <a class="reference external" href="https://docs.nvidia.com/datacenter/tesla/mig-user-guide/index.html#app-considerations">important limitations</a>,
+most notably that a GPU in MIG mode does not support graphics APIs
+(OpenGL/Vulkan), nor P2P over NVLink and PCIe. We have therefore chosen to
+limit every MIG job to exactly one MIG slice and no more. Thus,
+<code class="docutils literal notranslate"><span class="pre">--gres=gpu:a100l.3</span></code> will work (<em>and request a size-3 slice of an</em>
+<code class="docutils literal notranslate"><span class="pre">a100l</span></code> <em>GPU</em>) but <code class="docutils literal notranslate"><span class="pre">--gres=gpu:a100l.2:3</span></code> (<em>with</em> <code class="docutils literal notranslate"><span class="pre">:3</span></code> <em>requesting
+three size-1 slices</em>) <strong>will not</strong>.</p>
+</div>
+</section>
+<section id="amd">
+<h4>AMD<a class="headerlink" href="#amd" title="Link to this heading"></a></h4>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>As of August 20 2019 the GPUs had to return back to AMD.  Mila will get
+more samples. You can join the <a class="reference external" href="https://mila-umontreal.slack.com/archives/CKV5YKEP6/p1561471261000500">amd</a> slack channels to get the latest
+information</p>
+</div>
+<p>Mila has a few node equipped with <a class="reference external" href="https://www.amd.com/en/products/professional-graphics/instinct-mi50">MI50</a> GPUs.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
+span.prompt1:before {
+  content: "$ ";
+}
+span.prompt2:before {
+  content: " ";
+}
+</style><span class="prompt1">srun<span class="w"> </span>--gres<span class="o">=</span>gpu<span class="w"> </span>-c<span class="w"> </span><span class="m">8</span><span class="w"> </span>--reservation<span class="o">=</span>AMD<span class="w"> </span>--pty<span class="w"> </span>bash</span>
+<span class="prompt2"></span>
+<span class="prompt2"><span class="w"> </span>first<span class="w"> </span><span class="nb">time</span><span class="w"> </span>setup<span class="w"> </span>of<span class="w"> </span>AMD<span class="w"> </span>stack</span>
+<span class="prompt1">conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>rocm<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.6</span>
+<span class="prompt1">conda<span class="w"> </span>activate<span class="w"> </span>rocm</span>
+<span class="prompt2"></span>
+<span class="prompt1">pip<span class="w"> </span>install<span class="w"> </span>tensorflow-rocm</span>
+<span class="prompt1">pip<span class="w"> </span>install<span class="w"> </span>/wheels/pytorch/torch-1.1.0a0+d8b9d32-cp36-cp36m-linux_x86_64.whl</span>
+</pre></div></div></section>
+</section>
+</section>
+<section id="data-sharing-policies">
+<h2>Data sharing policies<a class="headerlink" href="#data-sharing-policies" title="Link to this heading"></a></h2>
+<div class="admonition note" id="acl-note">
+<p class="admonition-title">Note</p>
+<p><a class="reference external" href="Information.html#storage">/network/scratch</a> aims to support
+<a class="reference external" href="https://cl-cheat-sheet.readthedocs.io/en/latest/#setfacl">Access Control Lists (ACLs)</a>
+to allow collaborative work on rapidly changing data, e.g. work in process
+datasets, model checkpoints, etc…</p>
+</div>
+<p><a class="reference external" href="Information.html#storage">/network/projects</a> aims to offer a collaborative
+space for long-term projects. Data that should be kept for a longer period then
+90 days can be stored in that location but first a request to <a class="reference external" href="https://it-support.mila.quebec">Mila’s helpdesk</a> has to be made to create the project
+directory.</p>
+</section>
+<section id="monitoring">
+<h2>Monitoring<a class="headerlink" href="#monitoring" title="Link to this heading"></a></h2>
+<p>Every compute node on the Mila cluster has a <a class="reference external" href="https://www.netdata.cloud/">Netdata</a>
+monitoring daemon allowing you to get a sense of the state of the node.
+This information is exposed in two ways:</p>
+<ul class="simple">
+<li><p>For every node, there is a web interface from Netdata itself at <code class="docutils literal notranslate"><span class="pre">&lt;node&gt;.server.mila.quebec:19999</span></code>.
+This is accessible only when using the Mila wifi or through SSH tunnelling.</p>
+<ul>
+<li><p>SSH tunnelling: on your local machine, run</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">ssh</span> <span class="pre">-L</span> <span class="pre">19999:&lt;node&gt;.server.mila.quebec:19999</span> <span class="pre">-p</span> <span class="pre">2222</span>
+<span class="pre">login.server.mila.quebec</span></code></p></li>
+<li><p>or <code class="docutils literal notranslate"><span class="pre">ssh</span> <span class="pre">-L</span> <span class="pre">19999:&lt;node&gt;.server.mila.quebec:19999</span> <span class="pre">mila</span></code> if you have
+already setup your <a class="reference internal" href="Userguide.html#ssh-login"><span class="std std-ref">SSH Login</span></a>,</p></li>
+</ul>
+</li>
+<li><p>then open <a class="reference external" href="http://localhost:19999">http://localhost:19999</a> in your browser.</p></li>
+</ul>
+</li>
+<li><p>The Mila dashboard at <a class="reference external" href="https://dashboard.server.mila.quebec/">dashboard.server.mila.quebec</a>
+exposes aggregated statistics with the use of <a class="reference external" href="https://grafana.com/">grafana</a>.
+These are collected internally to an instance of <a class="reference external" href="https://prometheus.io/">prometheus</a>.</p></li>
+</ul>
+<p>In both cases, those graphs are not editable by individual users,
+but they provide valuable insight into the state of the whole cluster
+or the individual nodes.
+One of the important uses is to collect data about the health
+of the Mila cluster and to sound the alarm if outages occur
+(e.g. if the nodes crash or if GPUs mysteriously become unavailable for SLURM).</p>
+<section id="example-with-netdata-on-cn-c001">
+<h3>Example with Netdata on cn-c001<a class="headerlink" href="#example-with-netdata-on-cn-c001" title="Link to this heading"></a></h3>
+<p>For example, if we have a job running on <code class="docutils literal notranslate"><span class="pre">cn-c001</span></code>, we can type
+<code class="docutils literal notranslate"><span class="pre">cn-c001.server.mila.quebec:19999</span></code> in a browser address bar and the following
+page will appear.</p>
+<img alt="monitoring.png" class="align-center" src="_images/monitoring.png" />
+</section>
+<section id="example-watching-the-cpu-ram-gpu-usage">
+<h3>Example watching the CPU/RAM/GPU usage<a class="headerlink" href="#example-watching-the-cpu-ram-gpu-usage" title="Link to this heading"></a></h3>
+<p>Given that compute nodes are generally shared
+with other users who are also running jobs at the same time and
+consuming resources, this is not generally a good way to profile your code
+in fine details.
+However, it can still be a very useful source of information
+for getting an idea of whether the machine that you requested is being
+used in its full capacity.</p>
+<p>Given how expensive the GPUs are, it generally makes sense to try to
+make sure that this resources is always kept busy.</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>CPU</dt><dd><ul>
+<li><p>iowait (pink line): High values means your model is waiting on IO a lot (disk or network).</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<img alt="monitoring_cpu.png" class="align-center" src="_images/monitoring_cpu.png" />
+<ul class="simple">
+<li><dl class="simple">
+<dt>CPU RAM</dt><dd><ul>
+<li><p>You can see how much CPU RAM is being used by your script in practice,
+considering the amount that you requested (e.g. <code class="docutils literal notranslate"><span class="pre">`sbatch</span> <span class="pre">--mem=8G</span> <span class="pre">...`</span></code>).</p></li>
+<li><p>GPU usage is generally more important to monitor than CPU RAM.
+You should not cut it so close to the limit that your experiments randomly fail
+because they run out of RAM. However, you should not request blindly 32GB of RAM
+when you actually require only 8GB.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<img alt="monitoring_ram.png" class="align-center" src="_images/monitoring_ram.png" />
+<ul class="simple">
+<li><dl class="simple">
+<dt>GPU</dt><dd><ul>
+<li><p>Monitors the GPU usage using an <a class="reference external" href="https://learn.netdata.cloud/docs/agent/collectors/python.d.plugin/nvidia_smi/">nvidia-smi plugin for Netdata</a>.</p></li>
+<li><p>Under the plugin interface, select the GPU number which was allocated to
+you. You can figure this out by running <code class="docutils literal notranslate"><span class="pre">echo</span> <span class="pre">$SLURM_JOB_GPUS</span></code> on the
+allocated node or, if you have the job ID,
+<code class="docutils literal notranslate"><span class="pre">scontrol</span> <span class="pre">show</span> <span class="pre">-d</span> <span class="pre">job</span> <span class="pre">YOUR_JOB_ID</span> <span class="pre">|</span> <span class="pre">grep</span> <span class="pre">'GRES'</span></code> and checking <code class="docutils literal notranslate"><span class="pre">IDX</span></code></p></li>
+<li><p>You should make sure you use the GPUs to their fullest capacity.</p></li>
+<li><p>Select the biggest batch size if possible to increase GPU memory usage and
+the GPU computational load.</p></li>
+<li><p>Spawn multiple experiments if you can fit many on a single GPU.
+Running 10 independent MNIST experiments on a single GPU will probably take
+less than 10x the time to run a single one. This assumes that you have more
+experiments to run, because nothing is gained by gratuitously running experiments.</p></li>
+<li><p>You can request a less powerful GPU and leave the more powerful GPUs
+to other researchers who have experiments that can make best use of them.
+Sometimes you really just need a k80 and not a v100.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<img alt="monitoring_gpu.png" class="align-center" src="_images/monitoring_gpu.png" />
+<ul class="simple">
+<li><dl class="simple">
+<dt>Other users or jobs</dt><dd><ul>
+<li><p>If the node seems unresponsive or slow,
+it may be useful to check what other tasks are
+running at the same time on that node.
+This should not be an issue in general,
+but in practice it is useful to be able to
+inspect this to diagnose certain problems.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<img alt="monitoring_users.png" class="align-center" src="_images/monitoring_users.png" />
+</section>
+<section id="example-with-mila-dashboard">
+<h3>Example with Mila dashboard<a class="headerlink" href="#example-with-mila-dashboard" title="Link to this heading"></a></h3>
+<img alt="mila_dashboard_2021-06-15.png" class="align-center" src="_images/mila_dashboard_2021-06-15.png" />
+</section>
+</section>
+<section id="storage">
+<span id="milacluster-storage"></span><h2>Storage<a class="headerlink" href="#storage" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Path</p></th>
+<th class="head"><p>Performance</p></th>
+<th class="head"><p>Usage</p></th>
+<th class="head"><p>Quota (Space/Files)</p></th>
+<th class="head"><p>Backup</p></th>
+<th class="head"><p>Auto-cleanup</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/network/datasets/</span></code></p></td>
+<td><p>High</p></td>
+<td><ul class="simple">
+<li><p>Curated raw datasets (read only)</p></li>
+</ul>
+</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/network/weights/</span></code></p></td>
+<td><p>High</p></td>
+<td><ul class="simple">
+<li><p>Curated models weights (read only)</p></li>
+</ul>
+</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">$HOME</span></code> or <code class="docutils literal notranslate"><span class="pre">/home/mila/&lt;u&gt;/&lt;username&gt;/</span></code></p></td>
+<td><p>Low</p></td>
+<td><ul class="simple">
+<li><p>Personal user space</p></li>
+<li><p>Specific libraries, code, binaries</p></li>
+</ul>
+</td>
+<td><p>100GB/1000K</p></td>
+<td><p>Daily</p></td>
+<td><p>no</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">$SCRATCH</span></code> or <code class="docutils literal notranslate"><span class="pre">/network/scratch/&lt;u&gt;/&lt;username&gt;/</span></code></p></td>
+<td><p>High</p></td>
+<td><ul class="simple">
+<li><p>Temporary job results</p></li>
+<li><p>Processed datasets</p></li>
+<li><p>Optimized for small Files</p></li>
+</ul>
+</td>
+<td><p>20TB/no</p></td>
+<td><p>no</p></td>
+<td><p>90 days</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">$SLURM_TMPDIR</span></code></p></td>
+<td><p>Highest</p></td>
+<td><ul class="simple">
+<li><p>High speed disk for temporary job
+results</p></li>
+</ul>
+</td>
+<td><p>4TB/-</p></td>
+<td><p>no</p></td>
+<td><p>at job end</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/network/projects/&lt;groupname&gt;/</span></code></p></td>
+<td><p>Fair</p></td>
+<td><ul class="simple">
+<li><p>Shared space to facilitate
+collaboration between researchers</p></li>
+<li><p>Long-term project storage</p></li>
+</ul>
+</td>
+<td><p>1TB/1000K</p></td>
+<td><p>Daily</p></td>
+<td><p>no</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">$ARCHIVE</span></code> or <code class="docutils literal notranslate"><span class="pre">/network/archive/&lt;u&gt;/&lt;username&gt;/</span></code></p></td>
+<td><p>Low</p></td>
+<td><ul class="simple">
+<li><p>Long-term personal storage</p></li>
+</ul>
+</td>
+<td><p>500GB</p></td>
+<td><p>no</p></td>
+<td><p>no</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">$HOME</span></code> file system is backed up once a day. For any file
+restoration request, file a request to <a class="reference external" href="https://it-support.mila.quebec">Mila’s IT support</a> with the path to the file or directory to
+restore, with the required date.</p>
+</div>
+<section id="home">
+<h3>$HOME<a class="headerlink" href="#home" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">$HOME</span></code> is appropriate for codes and libraries which are small and read once,
+as well as the experimental results that would be needed at a later time (e.g.
+the weights of a network referenced in a paper).</p>
+<p>Quotas are enabled on <code class="docutils literal notranslate"><span class="pre">$HOME</span></code> for both disk capacity (blocks) and number of
+files (inodes). The limits for blocks and inodes are respectively 100GiB and 1
+million per user. The command to check the quota usage from a login node is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">disk-quota</span>
+</pre></div></div></section>
+<section id="scratch">
+<h3>$SCRATCH<a class="headerlink" href="#scratch" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">$SCRATCH</span></code> can be used to store processed datasets, work in progress datasets
+or temporary job results. Its block size is optimized for small files which
+minimizes the performance hit of working on extracted datasets.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Auto-cleanup</strong>: this file system is cleared on a weekly basis,
+files not used for more than 90 days will be deleted.</p>
+</div>
+<p>Quotas are enabled on <code class="docutils literal notranslate"><span class="pre">$SCRATCH</span></code> for disk capacity (blocks). The limit is
+20TiB. There is no limit in the number of files (inodes). The command to check
+the quota usage from a login node is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">disk-quota</span>
+</pre></div></div></section>
+<section id="slurm-tmpdir">
+<h3>$SLURM_TMPDIR<a class="headerlink" href="#slurm-tmpdir" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">$SLURM_TMPDIR</span></code> points to the local disk of the node on which a job is
+running. It should be used to copy the data on the node at the beginning of the
+job and write intermediate checkpoints. This folder is cleared after each job.</p>
+</section>
+<section id="projects">
+<h3>projects<a class="headerlink" href="#projects" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">projects</span></code> can be used for collaborative projects. It aims to ease the
+sharing of data between users working on a long-term project.</p>
+<p>Quotas are enabled on <code class="docutils literal notranslate"><span class="pre">projects</span></code> for both disk capacity (blocks) and number
+of files (inodes). The limits for blocks and inodes are respectively 1TiB and
+1 million per user and per group.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is possible to request higher quota limits if the project requires
+it. File a request to <a class="reference external" href="https://it-support.mila.quebec">Mila’s IT support</a>.</p>
+</div>
+</section>
+<section id="archive">
+<h3>$ARCHIVE<a class="headerlink" href="#archive" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">$ARCHIVE</span></code> purpose is to store data other than datasets that has to be kept
+long-term (e.g.  generated samples, logs, data relevant for paper submission).</p>
+<p><code class="docutils literal notranslate"><span class="pre">$ARCHIVE</span></code> is only available on the <strong>login</strong> nodes and <strong>CPU-only</strong> nodes.
+Because this file system is tuned for large files, it is recommended to archive
+your directories. For example, to archive the results of an experiment in
+<code class="docutils literal notranslate"><span class="pre">$SCRATCH/my_experiment_results/</span></code>, run the commands below from a login node:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span><span class="w"> </span><span class="nv">$SCRATCH</span></span>
+<span class="prompt1">tar<span class="w"> </span>cJf<span class="w"> </span><span class="nv">$ARCHIVE</span>/my_experiment_results.tar.xz<span class="w"> </span>--xattrs<span class="w"> </span>my_experiment_results</span>
+</pre></div></div><p>Disk capacity quotas are enabled on <code class="docutils literal notranslate"><span class="pre">$ARCHIVE</span></code>. The soft limit per user is
+500GB, the hard limit is 550GB. The grace time is 7 days. This means that one
+can use more than 500GB for 7 days before the file system enforces quota.
+However, it is not possible to use more than 550GB.
+The command to check the quota usage from a login node is <cite>df</cite>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">df<span class="w"> </span>-h<span class="w"> </span><span class="nv">$ARCHIVE</span></span>
+</pre></div></div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There is <strong>NO</strong> backup of this file system.</p>
+</div>
+</section>
+<section id="datasets">
+<h3>datasets<a class="headerlink" href="#datasets" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">datasets</span></code> contains curated datasets to the benefit of the Mila community. To
+request the addition of a dataset or a preprocessed dataset you think could
+benefit the research of others, you can fill <a class="reference external" href="https://forms.gle/vDVwD2rZBmYHENgZA">the datasets form</a>. Datasets can also be browsed from the
+web : <a class="reference external" href="https://datasets.server.mila.quebec/">Mila Datasets</a></p>
+<p>Datasets in <code class="docutils literal notranslate"><span class="pre">datasets/restricted</span></code> are restricted and require an explicit
+request to gain access. Please <a class="reference external" href="https://mila-iqia.atlassian.net/servicedesk/customer/portals">submit a support ticket</a> mentioning the
+dataset’s access group (ex.: <code class="docutils literal notranslate"><span class="pre">scannet_users</span></code>), your cluster’s username and the
+approbation of the group owner. You can find the dataset’s access group by
+listing the content of <code class="docutils literal notranslate"><span class="pre">/network/datasets/restricted</span></code> with the <a class="reference external" href="https://cli-cheatsheet.readthedocs.io/en/latest/#ls">ls command</a>.</p>
+<p>Those datasets are mirrored to the <a class="reference internal" href="Extra_compute.html#drac-clusters"><span class="std std-ref">Alliance clusters</span></a> in
+<code class="docutils literal notranslate"><span class="pre">~/projects/rrg-bengioy-ad/data/curated/</span></code> if they follow Digital Research
+Alliance of Canada’s <a class="reference external" href="https://docs.alliancecan.ca/wiki/AI_and_Machine_Learning#Managing_your_datasets">good practices on data</a>.
+To list the local datasets on an Alliance cluster, you can execute the following
+command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">ssh<span class="w"> </span><span class="o">[</span>CLUSTER_LOGIN<span class="o">]</span><span class="w"> </span>-C<span class="w"> </span><span class="s2">&quot;projects/rrg-bengioy-ad/data/curated/list_datasets_cc.sh&quot;</span></span>
+</pre></div></div></section>
+<section id="weights">
+<h3>weights<a class="headerlink" href="#weights" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">weights</span></code> contains curated models weights to the benefit of the Mila
+community.  To request the addition of a weight you think could benefit the
+research of others, you can fill <a class="reference external" href="https://forms.gle/HLeBkJBozjC3jG2D9">the weights form</a>.</p>
+<p>Weights in <code class="docutils literal notranslate"><span class="pre">weights/restricted</span></code> are restricted and require an explicit request
+to gain access. Please <a class="reference external" href="https://mila-iqia.atlassian.net/servicedesk/customer/portals">submit a support ticket</a> mentioning the
+weights’s access group (ex.: <code class="docutils literal notranslate"><span class="pre">NAME_OF_A_RESTRICTED_MODEL_WEIGHTS_users</span></code>), your
+cluster’s username and the approbation of the group owner. You can find the
+weights’s access group by listing the content of <code class="docutils literal notranslate"><span class="pre">/network/weights/restricted</span></code>
+with the <a class="reference external" href="https://cli-cheatsheet.readthedocs.io/en/latest/#ls">ls command</a>.</p>
+</section>
+</section>
+<section id="data-transmission">
+<h2>Data Transmission<a class="headerlink" href="#data-transmission" title="Link to this heading"></a></h2>
+<p>Multiple methods can be used to transfer data to/from the cluster:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">rsync</span> <span class="pre">--bwlimit=10mb</span></code>; this is the favored method since the bandwidth can
+be limited to prevent impacting the usage of the cluster: <a class="reference external" href="https://cl-cheat-sheet.readthedocs.io/en/latest/#rsync">rsync</a></p></li>
+<li><p>Digital Research Alliance of Canada: <a class="reference external" href="https://docs.alliancecan.ca/wiki/Globus">Globus</a></p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Handbook.html" class="btn btn-neutral float-left" title="AI tooling and methodology handbook" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Extra_compute.html" class="btn btn-neutral float-right" title="Computational resources outside of Mila" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+<script type="text/javascript">
+  window.onload = function() {
+      $(".toggle > *").hide();
+      $(".toggle .header").show();
+      $(".toggle .header").click(function() {
+          $(this).parent().children().not(".header").toggle(400);
+          $(this).parent().children(".header").toggleClass("open");
+      })
+  };
+</script>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

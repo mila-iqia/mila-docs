@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Launch many jobs using SLURM job arrays &mdash; MILA Technical Documentation latest documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=8da7d091" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=c6e86fd7"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=f281be69"></script>
+        <script src="../../../_static/documentation_options.js?v=c6e86fd7"></script>
+        <script src="../../../_static/documentation_options_fix.js?v=1c8886ec"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Acknowledging Mila" href="../../../Acknowledgement.html" />
+    <link rel="prev" title="Launch many tasks on same GPU" href="../many_tasks_per_gpu/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html">
+            
+              <img src="../../../_static/image.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                latest
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Purpose.html">Purpose of this documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Purpose.html#contributing">Contributing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-tos and Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Userguide.html">User’s guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Handbook.html">AI tooling and methodology handbook</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Systems and services</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Information.html">Computing infrastructure and policies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Extra_compute.html">Computational resources outside of Mila</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">General theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Theory_cluster.html">What is a computer cluster?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Theory_cluster.html#parts-of-a-computing-cluster">Parts of a computing cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Theory_cluster.html#unix">UNIX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Theory_cluster.html#the-workload-manager">The workload manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Theory_cluster.html#processing-data">Processing data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Theory_cluster.html#software-on-the-cluster">Software on the cluster</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Minimal Examples</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../frameworks/index.html">Software Frameworks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../distributed/index.html">Distributed Training</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Good practices</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../checkpointing/index.html">Checkpointing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wandb_setup/index.html">Wandb Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../launch_many_jobs/index.html">Launch many jobs from same shell script</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hpo_with_orion/index.html">Hyperparameter Optimization with Oríon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../many_tasks_per_gpu/index.html">Launch many tasks on same GPU</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Launch many jobs using SLURM job arrays</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extras</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Acknowledgement.html">Acknowledging Mila</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://datasets.server.mila.quebec/">Mila Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Audio_video.html">Audio and video resources at Mila</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../VSCode.html">Visual Studio Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../IDT.html">Who, what, where is IDT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Cheatsheet.html">Cheat Sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Chatbot.html">Chatbot for Mila</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Environmental_impact.html">Environmental Impact</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">MILA Technical Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Good practices</a></li>
+      <li class="breadcrumb-item active">Launch many jobs using SLURM job arrays</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/mila-iqia/mila-docs/blob/master/docs/examples/good_practices/slurm_job_arrays/index.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="launch-many-jobs-using-slurm-job-arrays">
+<span id="single-gpu-job"></span><h1>Launch many jobs using SLURM job arrays<a class="headerlink" href="#launch-many-jobs-using-slurm-job-arrays" title="Link to this heading"></a></h1>
+<p>Sometimes you may want to run many tasks by changing just a single parameter.</p>
+<p>One way to do that is to use SLURM job arrays, which consists of launching an array of jobs using the same script.
+Each job will run with a specific environment variable called <code class="docutils literal notranslate"><span class="pre">SLURM_ARRAY_TASK_ID</span></code>, containing the job index value inside job array.
+You can then slightly modify your script to choose appropriate parameter based on this variable.</p>
+<p>You can find more info about job arrays in the <a class="reference external" href="https://slurm.schedmd.com/job_array.html">SLURM official documentation page</a>.</p>
+<p><strong>Prerequisites</strong>
+Make sure to read the following sections of the documentation before using this
+example:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../../frameworks/pytorch_setup/index.html"><span class="doc">PyTorch Setup</span></a></p></li>
+</ul>
+<p>The full source code for this example is available on <a class="reference external" href="https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/good_practices/slurm_job_arrays">the mila-docs GitHub
+repository.</a></p>
+<p><strong>main.py</strong></p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="w"> </span># distributed/single_gpu/main.py -&gt; good_practices/slurm_job_arrays/main.py
+<span class="w"> </span>&quot;&quot;&quot;Single-GPU training example.&quot;&quot;&quot;
+<span class="gd">-import argparse</span>
+<span class="w"> </span>import logging
+<span class="w"> </span>import os
+<span class="w"> </span>from pathlib import Path
+<span class="gi">+import argparse</span>
+<span class="w"> </span>
+<span class="gi">+import numpy</span>
+<span class="w"> </span>import rich.logging
+<span class="w"> </span>import torch
+<span class="w"> </span>from torch import Tensor, nn
+<span class="w"> </span>from torch.nn import functional as F
+<span class="w"> </span>from torch.utils.data import DataLoader, random_split
+<span class="w"> </span>from torchvision import transforms
+<span class="w"> </span>from torchvision.datasets import CIFAR10
+<span class="w"> </span>from torchvision.models import resnet18
+<span class="w"> </span>from tqdm import tqdm
+<span class="w"> </span>
+<span class="w"> </span>
+<span class="w"> </span>def main():
+<span class="gi">+    # Use SLURM ARRAY TASK ID to seed a random number generator.</span>
+<span class="gi">+    # This way, each job in the job array will have different hyper-parameters.</span>
+<span class="gi">+    in_job_array = &quot;SLURM_ARRAY_TASK_ID&quot; in os.environ</span>
+<span class="gi">+    if in_job_array:</span>
+<span class="gi">+        array_task_id = int(os.environ[&quot;SLURM_ARRAY_TASK_ID&quot;])</span>
+<span class="gi">+        array_task_count = int(os.environ[&quot;SLURM_ARRAY_TASK_COUNT&quot;])</span>
+<span class="gi">+        print(f&quot;This job is at index {array_task_id} in a job array of size {array_task_count}&quot;)</span>
+<span class="gi">+</span>
+<span class="gi">+        gen = numpy.random.default_rng(seed=array_task_id)</span>
+<span class="gi">+        # Use random number generator to generate the default values of hyper-parameters.</span>
+<span class="gi">+        # If a value is passed from the command-line, it will override this and be used instead.</span>
+<span class="gi">+        default_learning_rate = gen.uniform(1e-6, 1e-2)</span>
+<span class="gi">+        default_weight_decay = gen.uniform(1e-6, 1e-3)</span>
+<span class="gi">+        default_batch_size = gen.integers(16, 256)</span>
+<span class="gi">+    else:</span>
+<span class="gi">+        default_learning_rate = 5e-4</span>
+<span class="gi">+        default_weight_decay = 1e-4</span>
+<span class="gi">+        default_batch_size = 128</span>
+<span class="gi">+</span>
+<span class="w"> </span>    # Use an argument parser so we can pass hyperparameters from the command line.
+<span class="w"> </span>    parser = argparse.ArgumentParser(description=__doc__)
+<span class="w"> </span>    parser.add_argument(&quot;--epochs&quot;, type=int, default=10)
+<span class="gd">-    parser.add_argument(&quot;--learning-rate&quot;, type=float, default=5e-4)</span>
+<span class="gd">-    parser.add_argument(&quot;--weight-decay&quot;, type=float, default=1e-4)</span>
+<span class="gd">-    parser.add_argument(&quot;--batch-size&quot;, type=int, default=128)</span>
+<span class="gi">+    parser.add_argument(&quot;--learning-rate&quot;, type=float, default=default_learning_rate)</span>
+<span class="gi">+    parser.add_argument(&quot;--weight-decay&quot;, type=float, default=default_weight_decay)</span>
+<span class="gi">+    parser.add_argument(&quot;--batch-size&quot;, type=int, default=default_batch_size)</span>
+<span class="w"> </span>    args = parser.parse_args()
+<span class="w"> </span>
+<span class="w"> </span>    epochs: int = args.epochs
+<span class="w"> </span>    learning_rate: float = args.learning_rate
+<span class="w"> </span>    weight_decay: float = args.weight_decay
+<span class="w"> </span>    batch_size: int = args.batch_size
+<span class="w"> </span>
+<span class="w"> </span>    # Check that the GPU is available
+<span class="w"> </span>    assert torch.cuda.is_available() and torch.cuda.device_count() &gt; 0
+<span class="w"> </span>    device = torch.device(&quot;cuda&quot;, 0)
+<span class="w"> </span>
+<span class="w"> </span>    # Setup logging (optional, but much better than using print statements)
+<span class="w"> </span>    logging.basicConfig(
+<span class="w"> </span>        level=logging.INFO,
+<span class="w"> </span>        handlers=[rich.logging.RichHandler(markup=True)],  # Very pretty, uses the `rich` package.
+<span class="w"> </span>    )
+<span class="w"> </span>
+<span class="w"> </span>    logger = logging.getLogger(__name__)
+<span class="w"> </span>
+<span class="w"> </span>    # Create a model and move it to the GPU.
+<span class="w"> </span>    model = resnet18(num_classes=10)
+<span class="w"> </span>    model.to(device=device)
+<span class="w"> </span>
+<span class="w"> </span>    optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate, weight_decay=weight_decay)
+<span class="w"> </span>
+<span class="w"> </span>    # Setup CIFAR10
+<span class="w"> </span>    num_workers = get_num_workers()
+<span class="w"> </span>    dataset_path = Path(os.environ.get(&quot;SLURM_TMPDIR&quot;, &quot;.&quot;)) / &quot;data&quot;
+<span class="w"> </span>    train_dataset, valid_dataset, test_dataset = make_datasets(str(dataset_path))
+<span class="w"> </span>    train_dataloader = DataLoader(
+<span class="w"> </span>        train_dataset,
+<span class="w"> </span>        batch_size=batch_size,
+<span class="w"> </span>        num_workers=num_workers,
+<span class="w"> </span>        shuffle=True,
+<span class="w"> </span>    )
+<span class="w"> </span>    valid_dataloader = DataLoader(
+<span class="w"> </span>        valid_dataset,
+<span class="w"> </span>        batch_size=batch_size,
+<span class="w"> </span>        num_workers=num_workers,
+<span class="w"> </span>        shuffle=False,
+<span class="w"> </span>    )
+<span class="w"> </span>    test_dataloader = DataLoader(  # NOTE: Not used in this example.
+<span class="w"> </span>        test_dataset,
+<span class="w"> </span>        batch_size=batch_size,
+<span class="w"> </span>        num_workers=num_workers,
+<span class="w"> </span>        shuffle=False,
+<span class="w"> </span>    )
+<span class="w"> </span>
+<span class="w"> </span>    # Checkout the &quot;checkpointing and preemption&quot; example for more info!
+<span class="w"> </span>    logger.debug(&quot;Starting training from scratch.&quot;)
+<span class="w"> </span>
+<span class="w"> </span>    for epoch in range(epochs):
+<span class="w"> </span>        logger.debug(f&quot;Starting epoch {epoch}/{epochs}&quot;)
+<span class="w"> </span>
+<span class="w"> </span>        # Set the model in training mode (important for e.g. BatchNorm and Dropout layers)
+<span class="w"> </span>        model.train()
+<span class="w"> </span>
+<span class="w"> </span>        # NOTE: using a progress bar from tqdm because it&#39;s nicer than using `print`.
+<span class="w"> </span>        progress_bar = tqdm(
+<span class="w"> </span>            total=len(train_dataloader),
+<span class="w"> </span>            desc=f&quot;Train epoch {epoch}&quot;,
+<span class="w"> </span>        )
+<span class="w"> </span>
+<span class="w"> </span>        # Training loop
+<span class="w"> </span>        for batch in train_dataloader:
+<span class="w"> </span>            # Move the batch to the GPU before we pass it to the model
+<span class="w"> </span>            batch = tuple(item.to(device) for item in batch)
+<span class="w"> </span>            x, y = batch
+<span class="w"> </span>
+<span class="w"> </span>            # Forward pass
+<span class="w"> </span>            logits: Tensor = model(x)
+<span class="w"> </span>
+<span class="w"> </span>            loss = F.cross_entropy(logits, y)
+<span class="w"> </span>
+<span class="w"> </span>            optimizer.zero_grad()
+<span class="w"> </span>            loss.backward()
+<span class="w"> </span>            optimizer.step()
+<span class="w"> </span>
+<span class="w"> </span>            # Calculate some metrics:
+<span class="w"> </span>            n_correct_predictions = logits.detach().argmax(-1).eq(y).sum()
+<span class="w"> </span>            n_samples = y.shape[0]
+<span class="w"> </span>            accuracy = n_correct_predictions / n_samples
+<span class="w"> </span>
+<span class="w"> </span>            logger.debug(f&quot;Accuracy: {accuracy.item():.2%}&quot;)
+<span class="w"> </span>            logger.debug(f&quot;Average Loss: {loss.item()}&quot;)
+<span class="w"> </span>
+<span class="w"> </span>            # Advance the progress bar one step and update the progress bar text.
+<span class="w"> </span>            progress_bar.update(1)
+<span class="w"> </span>            progress_bar.set_postfix(loss=loss.item(), accuracy=accuracy.item())
+<span class="w"> </span>        progress_bar.close()
+<span class="w"> </span>
+<span class="w"> </span>        val_loss, val_accuracy = validation_loop(model, valid_dataloader, device)
+<span class="w"> </span>        logger.info(f&quot;Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%}&quot;)
+<span class="w"> </span>
+<span class="w"> </span>    print(&quot;Done!&quot;)
+<span class="w"> </span>
+<span class="w"> </span>
+<span class="w"> </span>@torch.no_grad()
+<span class="w"> </span>def validation_loop(model: nn.Module, dataloader: DataLoader, device: torch.device):
+<span class="w"> </span>    model.eval()
+<span class="w"> </span>
+<span class="w"> </span>    total_loss = 0.0
+<span class="w"> </span>    n_samples = 0
+<span class="w"> </span>    correct_predictions = 0
+<span class="w"> </span>
+<span class="w"> </span>    for batch in dataloader:
+<span class="w"> </span>        batch = tuple(item.to(device) for item in batch)
+<span class="w"> </span>        x, y = batch
+<span class="w"> </span>
+<span class="w"> </span>        logits: Tensor = model(x)
+<span class="w"> </span>        loss = F.cross_entropy(logits, y)
+<span class="w"> </span>
+<span class="w"> </span>        batch_n_samples = x.shape[0]
+<span class="w"> </span>        batch_correct_predictions = logits.argmax(-1).eq(y).sum()
+<span class="w"> </span>
+<span class="w"> </span>        total_loss += loss.item()
+<span class="w"> </span>        n_samples += batch_n_samples
+<span class="w"> </span>        correct_predictions += batch_correct_predictions
+<span class="w"> </span>
+<span class="w"> </span>    accuracy = correct_predictions / n_samples
+<span class="w"> </span>    return total_loss, accuracy
+<span class="w"> </span>
+<span class="w"> </span>
+<span class="w"> </span>def make_datasets(
+<span class="w"> </span>    dataset_path: str,
+<span class="w"> </span>    val_split: float = 0.1,
+<span class="w"> </span>    val_split_seed: int = 42,
+<span class="w"> </span>):
+<span class="w"> </span>    &quot;&quot;&quot;Returns the training, validation, and test splits for CIFAR10.
+<span class="w"> </span>
+<span class="w"> </span>    NOTE: We don&#39;t use image transforms here for simplicity.
+<span class="w"> </span>    Having different transformations for train and validation would complicate things a bit.
+<span class="w"> </span>    Later examples will show how to do the train/val/test split properly when using transforms.
+<span class="w"> </span>    &quot;&quot;&quot;
+<span class="w"> </span>    train_dataset = CIFAR10(
+<span class="w"> </span>        root=dataset_path, transform=transforms.ToTensor(), download=True, train=True
+<span class="w"> </span>    )
+<span class="w"> </span>    test_dataset = CIFAR10(
+<span class="w"> </span>        root=dataset_path, transform=transforms.ToTensor(), download=True, train=False
+<span class="w"> </span>    )
+<span class="w"> </span>    # Split the training dataset into a training and validation set.
+<span class="w"> </span>    n_samples = len(train_dataset)
+<span class="w"> </span>    n_valid = int(val_split * n_samples)
+<span class="w"> </span>    n_train = n_samples - n_valid
+<span class="w"> </span>    train_dataset, valid_dataset = random_split(
+<span class="w"> </span>        train_dataset, (n_train, n_valid), torch.Generator().manual_seed(val_split_seed)
+<span class="w"> </span>    )
+<span class="w"> </span>    return train_dataset, valid_dataset, test_dataset
+<span class="w"> </span>
+<span class="w"> </span>
+<span class="w"> </span>def get_num_workers() -&gt; int:
+<span class="w"> </span>    &quot;&quot;&quot;Gets the optimal number of DatLoader workers to use in the current job.&quot;&quot;&quot;
+<span class="w"> </span>    if &quot;SLURM_CPUS_PER_TASK&quot; in os.environ:
+<span class="w"> </span>        return int(os.environ[&quot;SLURM_CPUS_PER_TASK&quot;])
+<span class="w"> </span>    if hasattr(os, &quot;sched_getaffinity&quot;):
+<span class="w"> </span>        return len(os.sched_getaffinity(0))
+<span class="w"> </span>    return torch.multiprocessing.cpu_count()
+<span class="w"> </span>
+<span class="w"> </span>
+<span class="w"> </span>if __name__ == &quot;__main__&quot;:
+<span class="w"> </span>    main()
+</pre></div>
+</div>
+<p><strong>Running this example</strong></p>
+<p>This assumes you already created a conda environment named “pytorch” as in
+Pytorch example:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../../frameworks/pytorch_setup/index.html#pytorch-setup"><span class="std std-ref">PyTorch Setup</span></a></p></li>
+</ul>
+<p>Exit the interactive job once the environment has been created.
+You can then launch a job array using <code class="docutils literal notranslate"><span class="pre">sbatch</span></code> argument <code class="docutils literal notranslate"><span class="pre">--array</span></code>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sbatch<span class="w"> </span>--array<span class="o">=</span><span class="m">1</span>-5<span class="w"> </span>job.sh
+</pre></div>
+</div>
+<p>In this example, 5 jobs will be launched with indices (therefore, values of <code class="docutils literal notranslate"><span class="pre">SLURM_ARRAY_TASK_ID</span></code>) from 1 to 5.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../many_tasks_per_gpu/index.html" class="btn btn-neutral float-left" title="Launch many tasks on same GPU" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../../Acknowledgement.html" class="btn btn-neutral float-right" title="Acknowledging Mila" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+<script type="text/javascript">
+  window.onload = function() {
+      $(".toggle > *").hide();
+      $(".toggle .header").show();
+      $(".toggle .header").click(function() {
+          $(this).parent().children().not(".header").toggle(400);
+          $(this).parent().children(".header").toggleClass("open");
+      })
+  };
+</script>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

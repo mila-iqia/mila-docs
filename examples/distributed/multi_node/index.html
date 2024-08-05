@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3. Multi-Node (DDP) Job &mdash; MILA Technical Documentation latest documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=8da7d091" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=c6e86fd7"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=f281be69"></script>
+        <script src="../../../_static/documentation_options.js?v=c6e86fd7"></script>
+        <script src="../../../_static/documentation_options_fix.js?v=1c8886ec"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Good practices" href="../../good_practices/index.html" />
+    <link rel="prev" title="2. Multi-GPU Job" href="../multi_gpu/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html">
+            
+              <img src="../../../_static/image.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                latest
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Purpose.html">Purpose of this documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Purpose.html#contributing">Contributing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-tos and Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Userguide.html">User’s guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Handbook.html">AI tooling and methodology handbook</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Systems and services</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Information.html">Computing infrastructure and policies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Extra_compute.html">Computational resources outside of Mila</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">General theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Theory_cluster.html">What is a computer cluster?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Theory_cluster.html#parts-of-a-computing-cluster">Parts of a computing cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Theory_cluster.html#unix">UNIX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Theory_cluster.html#the-workload-manager">The workload manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Theory_cluster.html#processing-data">Processing data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Theory_cluster.html#software-on-the-cluster">Software on the cluster</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Minimal Examples</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../frameworks/index.html">Software Frameworks</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Distributed Training</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../single_gpu/index.html">1. Single GPU Job</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../multi_gpu/index.html">2. Multi-GPU Job</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">3. Multi-Node (DDP) Job</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../good_practices/index.html">Good practices</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extras</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Acknowledgement.html">Acknowledging Mila</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://datasets.server.mila.quebec/">Mila Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Audio_video.html">Audio and video resources at Mila</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../VSCode.html">Visual Studio Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../IDT.html">Who, what, where is IDT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Cheatsheet.html">Cheat Sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Chatbot.html">Chatbot for Mila</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Environmental_impact.html">Environmental Impact</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">MILA Technical Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Distributed Training</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">3. </span>Multi-Node (DDP) Job</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/mila-iqia/mila-docs/blob/master/docs/examples/distributed/multi_node/index.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="multi-node-ddp-job">
+<h1><span class="section-number">3. </span>Multi-Node (DDP) Job<a class="headerlink" href="#multi-node-ddp-job" title="Link to this heading"></a></h1>
+<p>Prerequisites:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../../frameworks/pytorch_setup/index.html"><span class="doc">PyTorch Setup</span></a></p></li>
+<li><p><a class="reference internal" href="../single_gpu/index.html"><span class="doc">Single GPU Job</span></a></p></li>
+<li><p><a class="reference internal" href="../multi_gpu/index.html"><span class="doc">Multi-GPU Job</span></a></p></li>
+</ul>
+<p>Other interesting resources:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://sebarnold.net/dist_blog/">https://sebarnold.net/dist_blog/</a></p></li>
+<li><p><a class="reference external" href="https://lambdalabs.com/blog/multi-node-pytorch-distributed-training-guide">https://lambdalabs.com/blog/multi-node-pytorch-distributed-training-guide</a></p></li>
+</ul>
+<p>Click here to see <a class="reference external" href="https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/distributed/multi_node">the source code for this example</a></p>
+<p><strong>job.sh</strong></p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="w"> </span># distributed/multi_gpu/job.sh -&gt; distributed/multi_node/job.sh
+<span class="w"> </span>#!/bin/bash
+<span class="w"> </span>#SBATCH --gpus-per-task=rtx8000:1
+<span class="w"> </span>#SBATCH --cpus-per-task=4
+<span class="w"> </span>#SBATCH --ntasks-per-node=4
+<span class="gd">-#SBATCH --nodes=1</span>
+<span class="gi">+#SBATCH --nodes=2</span>
+<span class="w"> </span>#SBATCH --mem=16G
+<span class="w"> </span>#SBATCH --time=00:15:00
+<span class="w"> </span>
+<span class="w"> </span>
+<span class="w"> </span># Echo time and hostname into log
+<span class="w"> </span>echo &quot;Date:     $(date)&quot;
+<span class="w"> </span>echo &quot;Hostname: $(hostname)&quot;
+<span class="w"> </span>
+<span class="w"> </span>
+<span class="w"> </span># Ensure only anaconda/3 module loaded.
+<span class="w"> </span>module --quiet purge
+<span class="w"> </span># This example uses Conda to manage package dependencies.
+<span class="w"> </span># See https://docs.mila.quebec/Userguide.html#conda for more information.
+<span class="w"> </span>module load anaconda/3
+<span class="w"> </span>module load cuda/11.7
+<span class="w"> </span>
+<span class="w"> </span># Creating the environment for the first time:
+<span class="w"> </span># conda create -y -n pytorch python=3.9 pytorch torchvision torchaudio \
+<span class="w"> </span>#     pytorch-cuda=11.7 -c pytorch -c nvidia
+<span class="w"> </span># Other conda packages:
+<span class="w"> </span># conda install -y -n pytorch -c conda-forge rich tqdm
+<span class="w"> </span>
+<span class="w"> </span># Activate pre-existing environment.
+<span class="w"> </span>conda activate pytorch
+<span class="w"> </span>
+<span class="gd">-</span>
+<span class="gd">-# Stage dataset into $SLURM_TMPDIR</span>
+<span class="gd">-mkdir -p $SLURM_TMPDIR/data</span>
+<span class="gd">-ln -s /network/datasets/cifar10/cifar-10-python.tar.gz $SLURM_TMPDIR/data/</span>
+<span class="gi">+# Stage dataset into $SLURM_TMPDIR (only on the first worker of each node)</span>
+<span class="gi">+srun --ntasks=$SLURM_JOB_NUM_NODES --ntasks-per-node=1 bash -c \</span>
+<span class="gi">+   &#39;mkdir -p $SLURM_TMPDIR/data &amp;&amp; ln -s /network/datasets/cifar10/cifar-10-python.tar.gz $SLURM_TMPDIR/data/&#39;</span>
+<span class="w"> </span>
+<span class="w"> </span># Get a unique port for this job based on the job ID
+<span class="w"> </span>export MASTER_PORT=$(expr 10000 + $(echo -n $SLURM_JOBID | tail -c 4))
+<span class="gd">-export MASTER_ADDR=&quot;127.0.0.1&quot;</span>
+<span class="gi">+export MASTER_ADDR=$(scontrol show hostnames &quot;$SLURM_JOB_NODELIST&quot; | head -n 1)</span>
+<span class="w"> </span>
+<span class="w"> </span># Fixes issues with MIG-ed GPUs with versions of PyTorch &lt; 2.0
+<span class="w"> </span>unset CUDA_VISIBLE_DEVICES
+<span class="w"> </span>
+<span class="w"> </span># Execute Python script in each task (one per GPU)
+<span class="w"> </span>srun python main.py
+</pre></div>
+</div>
+<p><strong>main.py</strong></p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="w"> </span># distributed/multi_gpu/main.py -&gt; distributed/multi_node/main.py
+<span class="w"> </span>&quot;&quot;&quot;Multi-GPU Training example.&quot;&quot;&quot;
+<span class="w"> </span>import argparse
+<span class="w"> </span>import logging
+<span class="w"> </span>import os
+<span class="gi">+from datetime import timedelta</span>
+<span class="w"> </span>from pathlib import Path
+<span class="w"> </span>
+<span class="w"> </span>import rich.logging
+<span class="w"> </span>import torch
+<span class="w"> </span>import torch.distributed
+<span class="w"> </span>from torch import Tensor, nn
+<span class="w"> </span>from torch.distributed import ReduceOp
+<span class="w"> </span>from torch.nn import functional as F
+<span class="w"> </span>from torch.utils.data import DataLoader, random_split
+<span class="w"> </span>from torch.utils.data.distributed import DistributedSampler
+<span class="w"> </span>from torchvision import transforms
+<span class="w"> </span>from torchvision.datasets import CIFAR10
+<span class="w"> </span>from torchvision.models import resnet18
+<span class="w"> </span>from tqdm import tqdm
+<span class="w"> </span>
+<span class="w"> </span>
+<span class="w"> </span>def main():
+<span class="w"> </span>    # Use an argument parser so we can pass hyperparameters from the command line.
+<span class="w"> </span>    parser = argparse.ArgumentParser(description=__doc__)
+<span class="w"> </span>    parser.add_argument(&quot;--epochs&quot;, type=int, default=10)
+<span class="w"> </span>    parser.add_argument(&quot;--learning-rate&quot;, type=float, default=5e-4)
+<span class="w"> </span>    parser.add_argument(&quot;--weight-decay&quot;, type=float, default=1e-4)
+<span class="w"> </span>    parser.add_argument(&quot;--batch-size&quot;, type=int, default=128)
+<span class="w"> </span>    args = parser.parse_args()
+<span class="w"> </span>
+<span class="w"> </span>    epochs: int = args.epochs
+<span class="w"> </span>    learning_rate: float = args.learning_rate
+<span class="w"> </span>    weight_decay: float = args.weight_decay
+<span class="w"> </span>    # NOTE: This is the &quot;local&quot; batch size, per-GPU.
+<span class="w"> </span>    batch_size: int = args.batch_size
+<span class="w"> </span>
+<span class="w"> </span>    # Check that the GPU is available
+<span class="w"> </span>    assert torch.cuda.is_available() and torch.cuda.device_count() &gt; 0
+<span class="gd">-    rank, world_size = setup()</span>
+<span class="gi">+    rank, world_size, local_rank = setup()</span>
+<span class="w"> </span>    is_master = rank == 0
+<span class="gd">-    device = torch.device(&quot;cuda&quot;, rank % torch.cuda.device_count())</span>
+<span class="gi">+    is_local_master = local_rank == 0</span>
+<span class="gi">+    device = torch.device(&quot;cuda&quot;, local_rank % torch.cuda.device_count())</span>
+<span class="w"> </span>
+<span class="w"> </span>    # Setup logging (optional, but much better than using print statements)
+<span class="w"> </span>    logging.basicConfig(
+<span class="w"> </span>        level=logging.INFO,
+<span class="w"> </span>        format=f&quot;[{rank}/{world_size}] %(name)s - %(message)s &quot;,
+<span class="w"> </span>        handlers=[rich.logging.RichHandler(markup=True)],  # Very pretty, uses the `rich` package.
+<span class="w"> </span>    )
+<span class="w"> </span>
+<span class="w"> </span>    logger = logging.getLogger(__name__)
+<span class="gd">-    logger.info(f&quot;World size: {world_size}, global rank: {rank}&quot;)</span>
+<span class="gi">+    logger.info(f&quot;World size: {world_size}, global rank: {rank}, local rank: {local_rank}&quot;)</span>
+<span class="w"> </span>
+<span class="w"> </span>    # Create a model and move it to the GPU.
+<span class="w"> </span>    model = resnet18(num_classes=10)
+<span class="w"> </span>    model.to(device=device)
+<span class="w"> </span>
+<span class="w"> </span>    # Wrap the model with DistributedDataParallel
+<span class="w"> </span>    # (See https://pytorch.org/docs/stable/nn.html#torch.nn.parallel.DistributedDataParallel)
+<span class="gd">-    model = nn.parallel.DistributedDataParallel(model, device_ids=[rank], output_device=rank)</span>
+<span class="gi">+    model = nn.parallel.DistributedDataParallel(</span>
+<span class="gi">+        model, device_ids=[local_rank], output_device=local_rank</span>
+<span class="gi">+    )</span>
+<span class="w"> </span>
+<span class="w"> </span>    optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate, weight_decay=weight_decay)
+<span class="w"> </span>
+<span class="w"> </span>    # Setup CIFAR10
+<span class="w"> </span>    num_workers = get_num_workers()
+<span class="gi">+</span>
+<span class="w"> </span>    dataset_path = Path(os.environ.get(&quot;SLURM_TMPDIR&quot;, &quot;.&quot;)) / &quot;data&quot;
+<span class="w"> </span>    train_dataset, valid_dataset, test_dataset = make_datasets(
+<span class="gd">-        str(dataset_path), is_master=is_master</span>
+<span class="gi">+        str(dataset_path), is_master=is_local_master</span>
+<span class="w"> </span>    )
+<span class="w"> </span>
+<span class="w"> </span>    # Restricts data loading to a subset of the dataset exclusive to the current process
+<span class="w"> </span>    train_sampler = DistributedSampler(dataset=train_dataset, shuffle=True)
+<span class="w"> </span>    valid_sampler = DistributedSampler(dataset=valid_dataset, shuffle=False)
+<span class="w"> </span>    test_sampler = DistributedSampler(dataset=test_dataset, shuffle=False)
+<span class="w"> </span>
+<span class="w"> </span>    # NOTE: Here `batch_size` is still the &quot;local&quot; (per-gpu) batch size.
+<span class="w"> </span>    # This way, the effective batch size scales directly with number of GPUs, no need to specify it
+<span class="w"> </span>    # in advance. You might want to adjust the learning rate and other hyper-parameters though.
+<span class="w"> </span>    if is_master:
+<span class="w"> </span>        logger.info(f&quot;Effective batch size: {batch_size * world_size}&quot;)
+<span class="w"> </span>    train_dataloader = DataLoader(
+<span class="w"> </span>        train_dataset,
+<span class="w"> </span>        batch_size=batch_size,
+<span class="w"> </span>        num_workers=num_workers,
+<span class="w"> </span>        shuffle=False,  # shuffling is now done in the sampler, not the dataloader.
+<span class="w"> </span>        sampler=train_sampler,
+<span class="w"> </span>    )
+<span class="w"> </span>    valid_dataloader = DataLoader(
+<span class="w"> </span>        valid_dataset,
+<span class="w"> </span>        batch_size=batch_size,
+<span class="w"> </span>        num_workers=num_workers,
+<span class="w"> </span>        shuffle=False,
+<span class="w"> </span>        sampler=valid_sampler,
+<span class="w"> </span>    )
+<span class="w"> </span>    test_dataloader = DataLoader(  # NOTE: Not used in this example.
+<span class="w"> </span>        test_dataset,
+<span class="w"> </span>        batch_size=batch_size,
+<span class="w"> </span>        num_workers=num_workers,
+<span class="w"> </span>        shuffle=False,
+<span class="w"> </span>        sampler=test_sampler,
+<span class="w"> </span>    )
+<span class="w"> </span>
+<span class="w"> </span>    # Checkout the &quot;checkpointing and preemption&quot; example for more info!
+<span class="w"> </span>    logger.debug(&quot;Starting training from scratch.&quot;)
+<span class="w"> </span>
+<span class="w"> </span>    for epoch in range(epochs):
+<span class="w"> </span>        logger.debug(f&quot;Starting epoch {epoch}/{epochs}&quot;)
+<span class="w"> </span>
+<span class="w"> </span>        # NOTE: Here we need to call `set_epoch` so the ordering is able to change at each epoch.
+<span class="w"> </span>        train_sampler.set_epoch(epoch)
+<span class="w"> </span>
+<span class="w"> </span>        # Set the model in training mode (important for e.g. BatchNorm and Dropout layers)
+<span class="w"> </span>        model.train()
+<span class="w"> </span>
+<span class="w"> </span>        # NOTE: using a progress bar from tqdm because it&#39;s nicer than using `print`.
+<span class="w"> </span>        progress_bar = tqdm(
+<span class="w"> </span>            total=len(train_dataloader),
+<span class="w"> </span>            desc=f&quot;Train epoch {epoch}&quot;,
+<span class="w"> </span>            disable=not is_master,
+<span class="w"> </span>        )
+<span class="w"> </span>
+<span class="w"> </span>        # Training loop
+<span class="w"> </span>        for batch in train_dataloader:
+<span class="w"> </span>            # Move the batch to the GPU before we pass it to the model
+<span class="w"> </span>            batch = tuple(item.to(device) for item in batch)
+<span class="w"> </span>            x, y = batch
+<span class="w"> </span>
+<span class="w"> </span>            # Forward pass
+<span class="w"> </span>            logits: Tensor = model(x)
+<span class="w"> </span>
+<span class="w"> </span>            local_loss = F.cross_entropy(logits, y)
+<span class="w"> </span>
+<span class="w"> </span>            optimizer.zero_grad()
+<span class="w"> </span>            local_loss.backward()
+<span class="w"> </span>            # NOTE: nn.DistributedDataParallel automatically averages the gradients across devices.
+<span class="w"> </span>            optimizer.step()
+<span class="w"> </span>
+<span class="w"> </span>            # Calculate some metrics:
+<span class="w"> </span>            # local metrics
+<span class="w"> </span>            local_n_correct_predictions = logits.detach().argmax(-1).eq(y).sum()
+<span class="w"> </span>            local_n_samples = logits.shape[0]
+<span class="w"> </span>            local_accuracy = local_n_correct_predictions / local_n_samples
+<span class="w"> </span>
+<span class="w"> </span>            # &quot;global&quot; metrics: calculated with the results from all workers
+<span class="w"> </span>            # NOTE: Creating new tensors to hold the &quot;global&quot; values, but this isn&#39;t required.
+<span class="w"> </span>            n_correct_predictions = local_n_correct_predictions.clone()
+<span class="w"> </span>            # Reduce the local metrics across all workers, sending the result to rank 0.
+<span class="w"> </span>            torch.distributed.reduce(n_correct_predictions, dst=0, op=ReduceOp.SUM)
+<span class="w"> </span>            # Actual (global) batch size for this step.
+<span class="w"> </span>            n_samples = torch.as_tensor(local_n_samples, device=device)
+<span class="w"> </span>            torch.distributed.reduce(n_samples, dst=0, op=ReduceOp.SUM)
+<span class="w"> </span>            # Will store the average loss across all workers.
+<span class="w"> </span>            loss = local_loss.clone()
+<span class="w"> </span>            torch.distributed.reduce(loss, dst=0, op=ReduceOp.SUM)
+<span class="w"> </span>            loss.div_(world_size)  # Report the average loss across all workers.
+<span class="w"> </span>
+<span class="w"> </span>            accuracy = n_correct_predictions / n_samples
+<span class="w"> </span>
+<span class="w"> </span>            logger.debug(f&quot;(local) Accuracy: {local_accuracy:.2%}&quot;)
+<span class="w"> </span>            logger.debug(f&quot;(local) Loss: {local_loss.item()}&quot;)
+<span class="w"> </span>            # NOTE: This would log the same values in all workers. Only logging on master:
+<span class="w"> </span>            if is_master:
+<span class="w"> </span>                logger.debug(f&quot;Accuracy: {accuracy.item():.2%}&quot;)
+<span class="w"> </span>                logger.debug(f&quot;Average Loss: {loss.item()}&quot;)
+<span class="w"> </span>
+<span class="w"> </span>            # Advance the progress bar one step and update the progress bar text.
+<span class="w"> </span>            progress_bar.update(1)
+<span class="w"> </span>            progress_bar.set_postfix(loss=loss.item(), accuracy=accuracy.item())
+<span class="w"> </span>        progress_bar.close()
+<span class="w"> </span>
+<span class="w"> </span>        val_loss, val_accuracy = validation_loop(model, valid_dataloader, device)
+<span class="w"> </span>        # NOTE: This would log the same values in all workers. Only logging on master:
+<span class="w"> </span>        if is_master:
+<span class="w"> </span>            logger.info(f&quot;Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%}&quot;)
+<span class="w"> </span>
+<span class="w"> </span>    print(&quot;Done!&quot;)
+<span class="w"> </span>
+<span class="w"> </span>
+<span class="w"> </span>@torch.no_grad()
+<span class="w"> </span>def validation_loop(model: nn.Module, dataloader: DataLoader, device: torch.device):
+<span class="w"> </span>    model.eval()
+<span class="w"> </span>
+<span class="w"> </span>    total_loss = torch.as_tensor(0.0, device=device)
+<span class="w"> </span>    n_samples = torch.as_tensor(0, device=device)
+<span class="w"> </span>    correct_predictions = torch.as_tensor(0, device=device)
+<span class="w"> </span>
+<span class="w"> </span>    for batch in dataloader:
+<span class="w"> </span>        batch = tuple(item.to(device) for item in batch)
+<span class="w"> </span>        x, y = batch
+<span class="w"> </span>
+<span class="w"> </span>        logits: Tensor = model(x)
+<span class="w"> </span>        loss = F.cross_entropy(logits, y)
+<span class="w"> </span>
+<span class="w"> </span>        batch_n_samples = x.shape[0]
+<span class="w"> </span>        batch_correct_predictions = logits.argmax(-1).eq(y).sum()
+<span class="w"> </span>
+<span class="w"> </span>        total_loss += loss
+<span class="w"> </span>        n_samples += batch_n_samples
+<span class="w"> </span>        correct_predictions += batch_correct_predictions
+<span class="w"> </span>
+<span class="w"> </span>    # Sum up the metrics we gathered on each worker before returning the overall val metrics.
+<span class="w"> </span>    torch.distributed.all_reduce(total_loss, op=torch.distributed.ReduceOp.SUM)
+<span class="w"> </span>    torch.distributed.all_reduce(correct_predictions, op=torch.distributed.ReduceOp.SUM)
+<span class="w"> </span>    torch.distributed.all_reduce(n_samples, op=torch.distributed.ReduceOp.SUM)
+<span class="w"> </span>
+<span class="w"> </span>    accuracy = correct_predictions / n_samples
+<span class="w"> </span>    return total_loss, accuracy
+<span class="w"> </span>
+<span class="w"> </span>
+<span class="w"> </span>def setup():
+<span class="w"> </span>    assert torch.distributed.is_available()
+<span class="w"> </span>    print(&quot;PyTorch Distributed available.&quot;)
+<span class="w"> </span>    print(&quot;  Backends:&quot;)
+<span class="w"> </span>    print(f&quot;    Gloo: {torch.distributed.is_gloo_available()}&quot;)
+<span class="w"> </span>    print(f&quot;    NCCL: {torch.distributed.is_nccl_available()}&quot;)
+<span class="w"> </span>    print(f&quot;    MPI:  {torch.distributed.is_mpi_available()}&quot;)
+<span class="w"> </span>
+<span class="gi">+    # NOTE: the env:// init method uses FileLocks, which sometimes causes deadlocks due to the</span>
+<span class="gi">+    # distributed filesystem configuration on the Mila cluster.</span>
+<span class="gi">+    # For multi-node jobs, use the TCP init method instead.</span>
+<span class="gi">+    master_addr = os.environ[&quot;MASTER_ADDR&quot;]</span>
+<span class="gi">+    master_port = os.environ[&quot;MASTER_PORT&quot;]</span>
+<span class="gi">+</span>
+<span class="gi">+    # Default timeout is 30 minutes. Reducing the timeout here, so the job fails quicker if there&#39;s</span>
+<span class="gi">+    # a communication problem between nodes.</span>
+<span class="gi">+    timeout = timedelta(seconds=60)</span>
+<span class="gi">+</span>
+<span class="w"> </span>    # DDP Job is being run via `srun` on a slurm cluster.
+<span class="w"> </span>    rank = int(os.environ[&quot;SLURM_PROCID&quot;])
+<span class="gi">+    local_rank = int(os.environ[&quot;SLURM_LOCALID&quot;])</span>
+<span class="w"> </span>    world_size = int(os.environ[&quot;SLURM_NTASKS&quot;])
+<span class="w"> </span>
+<span class="w"> </span>    # SLURM var -&gt; torch.distributed vars in case needed
+<span class="w"> </span>    # NOTE: Setting these values isn&#39;t exactly necessary, but some code might assume it&#39;s
+<span class="w"> </span>    # being run via torchrun or torch.distributed.launch, so setting these can be a good idea.
+<span class="w"> </span>    os.environ[&quot;RANK&quot;] = str(rank)
+<span class="gi">+    os.environ[&quot;LOCAL_RANK&quot;] = str(local_rank)</span>
+<span class="w"> </span>    os.environ[&quot;WORLD_SIZE&quot;] = str(world_size)
+<span class="w"> </span>
+<span class="w"> </span>    torch.distributed.init_process_group(
+<span class="w"> </span>        backend=&quot;nccl&quot;,
+<span class="gd">-        init_method=&quot;env://&quot;,</span>
+<span class="gi">+        init_method=f&quot;tcp://{master_addr}:{master_port}&quot;,</span>
+<span class="gi">+        timeout=timeout,</span>
+<span class="w"> </span>        world_size=world_size,
+<span class="w"> </span>        rank=rank,
+<span class="w"> </span>    )
+<span class="gd">-    return rank, world_size</span>
+<span class="gi">+    return rank, world_size, local_rank</span>
+<span class="w"> </span>
+<span class="w"> </span>
+<span class="w"> </span>def make_datasets(
+<span class="w"> </span>    dataset_path: str,
+<span class="w"> </span>    is_master: bool,
+<span class="w"> </span>    val_split: float = 0.1,
+<span class="w"> </span>    val_split_seed: int = 42,
+<span class="w"> </span>):
+<span class="w"> </span>    &quot;&quot;&quot;Returns the training, validation, and test splits for CIFAR10.
+<span class="w"> </span>
+<span class="w"> </span>    NOTE: We don&#39;t use image transforms here for simplicity.
+<span class="w"> </span>    Having different transformations for train and validation would complicate things a bit.
+<span class="w"> </span>    Later examples will show how to do the train/val/test split properly when using transforms.
+<span class="w"> </span>
+<span class="w"> </span>    NOTE: Only the master process (rank-0) downloads the dataset if necessary.
+<span class="w"> </span>    &quot;&quot;&quot;
+<span class="w"> </span>    # - Master: Download (if necessary) THEN Barrier
+<span class="w"> </span>    # - others: Barrier THEN *NO* Download
+<span class="w"> </span>    if not is_master:
+<span class="w"> </span>        # Wait for the master process to finish downloading (reach the barrier below)
+<span class="w"> </span>        torch.distributed.barrier()
+<span class="w"> </span>    train_dataset = CIFAR10(
+<span class="w"> </span>        root=dataset_path, transform=transforms.ToTensor(), download=is_master, train=True
+<span class="w"> </span>    )
+<span class="w"> </span>    test_dataset = CIFAR10(
+<span class="w"> </span>        root=dataset_path, transform=transforms.ToTensor(), download=is_master, train=False
+<span class="w"> </span>    )
+<span class="w"> </span>    if is_master:
+<span class="w"> </span>        # Join the workers waiting in the barrier above. They can now load the datasets from disk.
+<span class="w"> </span>        torch.distributed.barrier()
+<span class="w"> </span>    # Split the training dataset into a training and validation set.
+<span class="w"> </span>    n_samples = len(train_dataset)
+<span class="w"> </span>    n_valid = int(val_split * n_samples)
+<span class="w"> </span>    n_train = n_samples - n_valid
+<span class="w"> </span>    train_dataset, valid_dataset = random_split(
+<span class="w"> </span>        train_dataset, (n_train, n_valid), torch.Generator().manual_seed(val_split_seed)
+<span class="w"> </span>    )
+<span class="w"> </span>    return train_dataset, valid_dataset, test_dataset
+<span class="w"> </span>
+<span class="w"> </span>
+<span class="w"> </span>def get_num_workers() -&gt; int:
+<span class="w"> </span>    &quot;&quot;&quot;Gets the optimal number of DatLoader workers to use in the current job.&quot;&quot;&quot;
+<span class="w"> </span>    if &quot;SLURM_CPUS_PER_TASK&quot; in os.environ:
+<span class="w"> </span>        return int(os.environ[&quot;SLURM_CPUS_PER_TASK&quot;])
+<span class="w"> </span>    if hasattr(os, &quot;sched_getaffinity&quot;):
+<span class="w"> </span>        return len(os.sched_getaffinity(0))
+<span class="w"> </span>    return torch.multiprocessing.cpu_count()
+<span class="w"> </span>
+<span class="w"> </span>
+<span class="w"> </span>if __name__ == &quot;__main__&quot;:
+<span class="w"> </span>    main()
+</pre></div>
+</div>
+<p><strong>Running this example</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sbatch<span class="w"> </span>job.sh
+</pre></div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../multi_gpu/index.html" class="btn btn-neutral float-left" title="2. Multi-GPU Job" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../good_practices/index.html" class="btn btn-neutral float-right" title="Good practices" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+<script type="text/javascript">
+  window.onload = function() {
+      $(".toggle > *").hide();
+      $(".toggle .header").show();
+      $(".toggle .header").click(function() {
+          $(this).parent().children().not(".header").toggle(400);
+          $(this).parent().children(".header").toggleClass("open");
+      })
+  };
+</script>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
