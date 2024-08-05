@@ -8,6 +8,7 @@ import torch
 import wandb
 from torch import Tensor, nn
 from torch.nn import functional as F
+from torch.profiler import ProfilerActivity, profile, record_function
 from torch.utils.data import DataLoader, Subset, random_split
 from torchvision.datasets import ImageFolder
 from torchvision.models import resnet50
@@ -43,6 +44,7 @@ def main():
     )
     parser.add_argument("--wandb-project", type=str, default="imagenet_profiling")
     parser.add_argument("--wandb-api-key", type=str, default="")
+    parser.add_argument("--pytorch-profiling", action="store_true")
     args = parser.parse_args()
 
     skip_training: bool = args.skip_training
@@ -56,6 +58,7 @@ def main():
     wandb_user: str = args.wandb_user
     wandb_project: str = args.wandb_project
     wandb_api_key: str = args.wandb_api_key
+    pytorch_profiling: bool = args.pytorch_profiling
 
     if use_wandb:
         wandb.login(key=wandb_api_key)
@@ -66,13 +69,6 @@ def main():
     device = torch.device("cuda", 0)
 
     # Setup logging (optional, but much better than using print statements)
-    # logging.basicConfig(
-    #    level=logging.INFO,
-    #    handlers=[
-    #        rich.logging.RichHandler(markup=True)
-    #    ],  # Very pretty, uses the `rich` package.
-    # )
-
     logging.basicConfig(
         level=logging.INFO,
         format="[%(asctime)s] %(levelname)s: %(message)s",
@@ -134,6 +130,17 @@ def main():
         start_time = time.time()
         num_samples = 0
         num_updates = 0
+
+        ## Initialize PyTorch Profiler
+        if pytorch_profiling:
+            profiler = profile(
+                activities=[ProfilerActivity.CPU, ProfilerActivity.CUDA],
+                record_shapes=True,
+                profile_memory=True,
+                with_stack=True,
+            )
+            profiler.start()
+
         for batch in progress_bar:
             # Move the batch to the GPU before we pass it to the model
             batch = tuple(item.to(device) for item in batch)
@@ -142,9 +149,10 @@ def main():
             if skip_training:
                 continue
             # Forward pass
-            logits: Tensor = model(x)
 
-            loss = F.cross_entropy(logits, y)
+            with record_function("model_inference"):
+                logits: Tensor = model(x)
+                loss = F.cross_entropy(logits, y)
 
             optimizer.zero_grad()
             loss.backward()
@@ -182,19 +190,9 @@ def main():
         if use_wandb:
             wandb.log({"val_loss": val_loss, "val_accuracy": val_accuracy})
 
-
-""" In case no logger is being used
-    print(
-        json.dumps(
-            {
-                "samples/s": samples_per_second,
-                "updates/s": updates_per_second,
-                "val_loss": val_loss,
-                "val_accuracy": val_accuracy,
-            }
-        )
-    )
-"""
+        if pytorch_profiling:
+            profiler.stop()
+            print(profiler.key_averages().table(sort_by="cpu_time_total", row_limit=10))
 
 
 @torch.no_grad()
@@ -269,7 +267,7 @@ def make_datasets(
     if n_samples is not None and n_samples > 0:
         gen = torch.Generator().manual_seed(val_split_seed)
 
-        train_dataset = Subset(  # todo: use the generator keyword to make this deterministic
+        train_dataset = Subset(
             train_dataset,
             indices=torch.randperm(len(train_dataset), generator=gen)[
                 :n_samples
