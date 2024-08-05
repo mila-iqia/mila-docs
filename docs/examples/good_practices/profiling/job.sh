@@ -33,7 +33,7 @@ if [ ! -f "$VENV_DIR/bin/activate" ]; then
     module load python/3.10
     python -m venv $VENV_DIR
     source $VENV_DIR/bin/activate
-    pip install torch rich tqdm torchvision scipy wandb tensorboard torch-tb-profiler
+    pip install torch rich tqdm torchvision scipy wandb tensorboard torch-tb-profiler numpy==1.23.0
 else
     echo "Activating pre-existing virtual environment."
     source $VENV_DIR/bin/activate
