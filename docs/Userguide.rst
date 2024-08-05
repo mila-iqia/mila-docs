@@ -24,4 +24,6 @@ knowledge, tips and tricks and example commands.
 .. include:: Userguide_multigpu.rst
 .. include:: Userguide_multinode.rst
 .. include:: Userguide_debugging.rst
+.. include:: Userguide_wandb.rst
+.. include:: Userguide_comet.rst
 .. include:: Userguide_faq.rst
