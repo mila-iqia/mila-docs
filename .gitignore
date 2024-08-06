@@ -4,3 +4,5 @@ _build
 **/__pycache__
 /docs/examples/**/*.diff
 /docs/examples/**/slurm-*.out
+/docs/examples/**/wandb/
+/docs/examples/**/.pytest_cache/
