@@ -104,7 +104,7 @@ can be good to periodically clean up Conda's cache:
 
 .. prompt:: bash (<env>)$
 
-   conda clean --all
+   conda clean -it
 
 **Mamba**
 
