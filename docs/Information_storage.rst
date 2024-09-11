@@ -50,8 +50,9 @@ $SCRATCH
 or temporary job results. Its block size is optimized for small files which
 minimizes the performance hit of working on extracted datasets.
 
-.. note:: **Auto-cleanup**: this file system is cleared on a weekly basis,
-   files not used for more than 90 days will be deleted.
+.. note:: **Auto-cleanup**: this file system is cleared on a daily basis, files
+   not used for more than 90 days will be deleted. This period can be shortened
+   when the file system usage is above 90%.
 
 Quotas are enabled on ``$SCRATCH`` for disk capacity (blocks). The limit is
 20TiB. There is no limit in the number of files (inodes). The command to check
