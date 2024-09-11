@@ -76,7 +76,7 @@ sharing of data between users working on a long-term project.
 
 Quotas are enabled on ``projects`` for both disk capacity (blocks) and number
 of files (inodes). The limits for blocks and inodes are respectively 1TiB and
-1 million per user and per group.
+1 million per group.
 
 .. note:: It is possible to request higher quota limits if the project requires
    it. File a request to `Mila's IT support <https://it-support.mila.quebec>`_.
