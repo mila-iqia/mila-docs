@@ -189,3 +189,11 @@ require a lot of resources: editing via VSCode, building conda environments, tes
 The ``mila-cpu`` entry should be in your ``.ssh/config``. Changes are at your own risk.
 While it is possible to tweak it to allocate a GPU, doing so will prevent simultaneous
 connections to it (until Slurm is upgraded to version 22.05 or later).
+
+Using a non-Bash Unix shell
+---------------------------
+
+While IT and Infra will not provide personalized support for non-Bash Unix
+shell on the cluster, the cluster is designed to support both Bash and Zsh
+shells. If you think things should work with Zsh and they don't, please contact
+`Mila's IT support <https://it-support.mila.quebec>`_.
