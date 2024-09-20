@@ -127,31 +127,3 @@ MIG profiles exist and could be introduced.
     ``--gres=gpu:a100l.3`` will work (*and request a size-3 slice of an*
     ``a100l`` *GPU*) but ``--gres=gpu:a100l.2:3`` (*with* ``:3`` *requesting
     three size-1 slices*) **will not**.
-
-
-
-AMD
-^^^
-
-.. warning::
-
-    As of August 20 2019 the GPUs had to return back to AMD.  Mila will get
-    more samples. You can join the amd_ slack channels to get the latest
-    information
-
-.. _amd: https://mila-umontreal.slack.com/archives/CKV5YKEP6/p1561471261000500
-
-Mila has a few node equipped with MI50_ GPUs.
-
-.. _MI50: https://www.amd.com/en/products/professional-graphics/instinct-mi50
-
-.. prompt:: bash $, auto
-
-    $ srun --gres=gpu -c 8 --reservation=AMD --pty bash
-
-    # first time setup of AMD stack
-    $ conda create -n rocm python=3.6
-    $ conda activate rocm
-
-    $ pip install tensorflow-rocm
-    $ pip install /wheels/pytorch/torch-1.1.0a0+d8b9d32-cp36-cp36m-linux_x86_64.whl
