@@ -1,0 +1,6 @@
+torch
+rich
+tqdm
+torchvision
+scipy
+wandb
