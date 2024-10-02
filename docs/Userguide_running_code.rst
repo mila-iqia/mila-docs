@@ -147,7 +147,7 @@ Flag                          Max Resource Usage         Max Time     Note
 ============================= ========================== ============ ====================
 \--partition=unkillable       6  CPUs, mem=32G,  1 GPU   2 days
 \--partition=unkillable-cpu   2  CPUs, mem=16G           2 days       CPU-only jobs
-\--partition=short-unkillable 24 CPUs, mem=128G, 4 GPUs  3 hours (!)  Large but short jobs
+\--partition=short-unkillable mem=1000G, 4 GPUs          3 hours (!)  Large but short jobs
 \--partition=main             8  CPUs, mem=48G,  2 GPUs  5 days
 \--partition=main-cpu         8  CPUs, mem=64G           5 days       CPU-only jobs
 \--partition=long             no limit of resources      7 days
