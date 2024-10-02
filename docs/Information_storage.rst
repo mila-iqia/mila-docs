@@ -116,7 +116,7 @@ datasets
 ``datasets`` contains curated datasets to the benefit of the Mila community. To
 request the addition of a dataset or a preprocessed dataset you think could
 benefit the research of others, you can fill `the datasets form
-<https://forms.gle/vDVwD2rZBmYHENgZA>`_. Datasets can also be browsed from the
+<https://forms.gle/1VMFrJTwd291HJdt8>`_. Datasets can also be browsed from the
 web : `Mila Datasets <https://datasets.server.mila.quebec/>`_
 
 Datasets in ``datasets/restricted`` are restricted and require an explicit
