@@ -1,0 +1,41 @@
+/* Copy button */
+a.copybtn {
+  width: 0.6em;
+  height: 0.6em;
+}
+
+/* CSS for sphinx-prompt */
+pre.highlight {
+  border: 1px solid #e1e4e5;
+  overflow-x: auto;
+  margin: 1px 0 24px 0;
+  padding: 12px 12px;
+}
+
+/* Tweak css for sphinx_prompt #5281 */
+pre.highlight span[class^="prompt"] {
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.toggle .header {
+    display: block;
+    clear: both;
+}
+
+.toggle .header:after {
+    content: " ▶";
+}
+
+.toggle .header.open:after {
+    content: " ▼";
+}
+
+.wy-side-nav-search {
+    background-color: #343131;
+    color: #000000;
+}
+
+.wy-nav-content {
+    max-width: 98%; // The width of the content adjusts to the window (could be 100% if we do not want the right margin)
+}
