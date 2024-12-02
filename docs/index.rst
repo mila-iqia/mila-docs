@@ -47,6 +47,7 @@ recommend you start by checking out the :ref:`short quick start guide
    examples/distributed/index
    examples/good_practices/index
 
+   🔗 Research Project Template <https://github.com/mila-iqia/ResearchTemplate>
 
 .. toctree::
    :caption: Extras
