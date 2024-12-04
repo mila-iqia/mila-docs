@@ -3,20 +3,29 @@
 Using containers
 ================
 
-Docker containers are now available on the local cluster without root priviledges using `podman <https://podman.io>`_.
+Docker containers are now available on the local cluster without root
+priviledges using `podman <https://podman.io>`_.
 
-Generally any command-line argument accepted by docker will work with podman. this means that you can mostly use docker examples in you find on the web by replacing docker with podman in the command line.
+Generally any command-line argument accepted by docker will work with podman.
+This means that you can mostly use the docker examples you find on the web by
+replacing `docker` with `podman` in the command line.
 
 .. note::
-    Complete Podman Documentation:
-    https://docs.podman.io/en/stable/
+    Complete Podman Documentation: https://docs.podman.io/en/stable/
 
 Using in SLURM
 --------------
 
-To use podman you can just use the podman command in either a batch script or an interactive job.
+To use podman you can just use the `podman` command in either a batch script or
+an interactive job.
 
-One difference in configuration is that for certain technical reasons all the storage for podman (images, containers, ...) is on a job-specific location and will be lost after the job is complete or preempted. If you have data that must be preseved across jobs, you can `mount <https://docs.podman.io/en/v5.2.4/markdown/podman-run.1.html#mount-type-type-type-specific-option>`_ a local folder inside the container, such as $SCRATCH or you home to save data.
+One difference in configuration is that for certain technical reasons all the
+storage for podman (images, containers, ...) is on a job-specific location and
+will be lost after the job is complete or preempted. If you have data that must
+be preseved across jobs, you can `mount
+<https://docs.podman.io/en/v5.2.4/markdown/podman-run.1.html#mount-type-type-type-specific-option>`_
+a local folder inside the container, such as `$SCRATCH` or your home to save
+data.
 
 .. code-block:: bash
 
@@ -24,12 +33,16 @@ One difference in configuration is that for certain technical reasons all the st
    $ ls $SCRATCH/exp
    file
 
-You can use multiple containers in a single job, but you have to be careful about the memory and CPU limits of the job.
+You can use multiple containers in a single job, but you have to be careful
+about the memory and CPU limits of the job.
 
 GPU
 ---
 
-To use a GPU you need to a GPU job and then use the ``--device nvidia.com/gpu=all`` for all GPUs allocated to the job or ``--device nvidia.com/gpu=n`` where n is the gpu you want in the container, starting at 0.
+To use a GPU in a container, you need to a GPU job and then use ``--device
+nvidia.com/gpu=all`` to make all GPUs allocated available in the container or
+``--device nvidia.com/gpu=N`` where `N` is the gpu index you want in the
+container, starting at 0.
 
 
 .. code-block:: bash
