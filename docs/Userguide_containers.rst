@@ -3,8 +3,8 @@
 Using containers
 ================
 
-Docker containers are now available on the local cluster without root
-priviledges using `podman <https://podman.io>`_.
+Podman containers are now available as tech preview on the Mila cluster
+without root privileges using `podman <https://podman.io>`_.
 
 Generally any command-line argument accepted by docker will work with podman.
 This means that you can mostly use the docker examples you find on the web by
