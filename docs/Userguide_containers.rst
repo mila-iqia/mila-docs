@@ -3,170 +3,156 @@
 Using containers
 ================
 
-Docker containers are now available on the local cluster with a root-less
-system called Shifter integrated into SLURM.
-*It is still in beta and be careful with this usage*
+Podman containers are now available as tech preview on the Mila cluster
+without root privileges using `podman <https://podman.io>`_.
 
-Initialising your Containers
-----------------------------
+Generally any command-line argument accepted by docker will work with podman.
+This means that you can mostly use the docker examples you find on the web by
+replacing `docker` with `podman` in the command line.
 
-To first use a container, you have to pull it to the local registry to be
-converted to a Shifter-compatible image.
-
-.. prompt:: bash
-
-    shifterimg pull docker:image_name:latest
-
-
-You can list available images with
-
-.. prompt:: bash
-
-    shifterimg images
-
-
-**DO NOT USE IMAGES WITH SENSITIVE INFORMATION** yet, it will soon be possible.
-For now, every image is pulled to a common registry but access-control will soon
-be implemented.
-
+.. note::
+    Complete Podman Documentation: https://docs.podman.io/en/stable/
 
 Using in SLURM
 --------------
 
-Containerized Batch job
-^^^^^^^^^^^^^^^^^^^^^^^
+To use podman you can just use the `podman` command in either a batch script or
+an interactive job.
 
-You must use the ``--image=docker:image_name:latest`` directive to specify
-the container to use. Once the container is mounted, you are not yet
-inside the container's file-system, you must use the ``shifter`` command
-to execute a command in the chroot environment of the container.
-
-For example:
-
-.. code-block:: bash
-    :linenos:
-
-    #!/bin/bash
-    #SBATCH --image=docker:image_name:latest
-    #SBATCH --nodes=1
-    #SBATCH --partition=low
-
-    shifter python myPythonScript.py args
-
-
-
-Container Interactive job
-^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Using the salloc command, you can request the image while getting the allocation
-
-.. prompt:: bash
-
-    salloc -c2 --mem=16g --image=docker:image_name:latest
-
-
-Once in the job, you can activate the container's environment with the
-``shifter`` command
-
-.. prompt:: bash
-
-    shifter /bin/bash
-
-
-
-
-Command line
-------------
-
-``shifter`` support various options on the command line but you should be
-set with the image name and the command to execute:
+One difference in configuration is that for certain technical reasons all the
+storage for podman (images, containers, ...) is on a job-specific location and
+will be lost after the job is complete or preempted. If you have data that must
+be preseved across jobs, you can `mount
+<https://docs.podman.io/en/v5.2.4/markdown/podman-run.1.html#mount-type-type-type-specific-option>`_
+a local folder inside the container, such as `$SCRATCH` or your home to save
+data.
 
 .. code-block:: bash
 
-     shifter [-h|--help] [-v|--verbose] [--image=<imageType>:<imageTag>]
-         [--entrypoint[=command]] [--workdir[=/path]]
-         [-E|--clearenv] [-e|--env=<var>=<value>] [--env-file=/env/file
-         [-V|--volume=/path/to/bind:/mnt/in/image[:<flags>[,...]][;...]]
-         [-m|--module=<modulename>[,...]]
-         [-- /command/to/exec/in/shifter [args...]]
+   $ podman run --mount type=bind,source=$SCRATCH/exp,destination=/data/exp bash touch /data/exp/file
+   $ ls $SCRATCH/exp
+   file
 
+You can use multiple containers in a single job, but you have to be careful
+about the memory and CPU limits of the job.
 
+.. note::
 
-Volumes
--------
-
-``/home/yourusername``, ``/Tmp``, ``/ai`` and all ``/network/..`` sub-folders are
-mounted inside the container.
-
+   Due to the cluster environment you may see warning messages like
+   ``WARN[0000] "/" is not a shared mount, this could cause issues or missing mounts with rootless containers``,
+   ``ERRO[0000] cannot find UID/GID for user <user>: no subuid ranges found for user "<user>" in /etc/subuid - check rootless mode in man pages.``,
+   ``WARN[0000] Using rootless single mapping into the namespace. This might break some images. Check /etc/subuid and /etc/subgid for adding sub*ids if not using a network user``
+   or
+   ``WARN[0005] Failed to add pause process to systemd sandbox cgroup: dbus: couldn't determine address of session bus``
+   but as far as we can see those can be safely ignored and should not have
+   an impact on your images.
 
 GPU
 ---
 
-To access the GPU inside a container, you need to specify ``--module=nvidia`` on
-the ``sbatch/salloc/shifter`` command line
-
-.. prompt:: bash
-
-    shifter --image=centos:7 --module=nvidia bash
+To use a GPU in a container, you need a GPU job and then use ``--device
+nvidia.com/gpu=all`` to make all GPUs allocated available in the container or
+``--device nvidia.com/gpu=N`` where `N` is the gpu index you want in the
+container, starting at 0.
 
 
+.. code-block::
 
-Following folders will be mounted in the container:
+  $ nvidia-smi
+  Fri Dec 13 12:47:34 2024
+  +-----------------------------------------------------------------------------------------+
+  | NVIDIA-SMI 560.35.03              Driver Version: 560.35.03      CUDA Version: 12.6     |
+  |-----------------------------------------+------------------------+----------------------+
+  | GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+  | Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+  |                                         |                        |               MIG M. |
+  |=========================================+========================+======================|
+  |   0  NVIDIA L40S                    On  |   00000000:4A:00.0 Off |                    0 |
+  | N/A   25C    P8             36W /  350W |       1MiB /  46068MiB |      0%      Default |
+  |                                         |                        |                  N/A |
+  +-----------------------------------------+------------------------+----------------------+
+  |   1  NVIDIA L40S                    On  |   00000000:61:00.0 Off |                    0 |
+  | N/A   26C    P8             35W /  350W |       1MiB /  46068MiB |      0%      Default |
+  |                                         |                        |                  N/A |
+  +-----------------------------------------+------------------------+----------------------+
 
-========================== =========== ==================================================
-Host                       Container   Comment
-========================== =========== ==================================================
-/ai/apps/cuda/10.0         /cuda       Cuda libraries and bin, added to ``PATH``
-/usr/bin                   /nvidia/bin To access ``nvidia-smi``
-/usr/lib/x86_64-linux-gnu/ /nvidia/lib ``LD_LIBRARY_PATH`` will be set to ``/nvidia/lib``
-========================== =========== ==================================================
+  +-----------------------------------------------------------------------------------------+
+  | Processes:                                                                              |
+  |  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+  |        ID   ID                                                               Usage      |
+  |=========================================================================================|
+  |  No running processes found                                                             |
+  +-----------------------------------------------------------------------------------------+
+  $ podman run --device nvidia.com/gpu=all nvidia/cuda:11.6.1-base-ubuntu20.04 nvidia-smi
+  Fri Dec 13 17:48:21 2024
+  +-----------------------------------------------------------------------------------------+
+  | NVIDIA-SMI 560.35.03              Driver Version: 560.35.03      CUDA Version: 12.6     |
+  |-----------------------------------------+------------------------+----------------------+
+  | GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+  | Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+  |                                         |                        |               MIG M. |
+  |=========================================+========================+======================|
+  |   0  NVIDIA L40S                    On  |   00000000:4A:00.0 Off |                    0 |
+  | N/A   25C    P8             36W /  350W |       1MiB /  46068MiB |      0%      Default |
+  |                                         |                        |                  N/A |
+  +-----------------------------------------+------------------------+----------------------+
+  |   1  NVIDIA L40S                    On  |   00000000:61:00.0 Off |                    0 |
+  | N/A   25C    P8             35W /  350W |       1MiB /  46068MiB |      0%      Default |
+  |                                         |                        |                  N/A |
+  +-----------------------------------------+------------------------+----------------------+
 
+  +-----------------------------------------------------------------------------------------+
+  | Processes:                                                                              |
+  |  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+  |        ID   ID                                                               Usage      |
+  |=========================================================================================|
+  |  No running processes found                                                             |
+  +-----------------------------------------------------------------------------------------+
+  $ podman run --device nvidia.com/gpu=0 nvidia/cuda:11.6.1-base-ubuntu20.04 nvidia-smi
+  Fri Dec 13 17:48:33 2024
+  +-----------------------------------------------------------------------------------------+
+  | NVIDIA-SMI 560.35.03              Driver Version: 560.35.03      CUDA Version: 12.6     |
+  |-----------------------------------------+------------------------+----------------------+
+  | GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+  | Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+  |                                         |                        |               MIG M. |
+  |=========================================+========================+======================|
+  |   0  NVIDIA L40S                    On  |   00000000:4A:00.0 Off |                    0 |
+  | N/A   25C    P8             36W /  350W |       1MiB /  46068MiB |      0%      Default |
+  |                                         |                        |                  N/A |
+  +-----------------------------------------+------------------------+----------------------+
+
+  +-----------------------------------------------------------------------------------------+
+  | Processes:                                                                              |
+  |  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+  |        ID   ID                                                               Usage      |
+  |=========================================================================================|
+  |  No running processes found                                                             |
+  +-----------------------------------------------------------------------------------------+
+  $ podman run --device nvidia.com/gpu=1 nvidia/cuda:11.6.1-base-ubuntu20.04 nvidia-smi
+  Fri Dec 13 17:48:40 2024
+  +-----------------------------------------------------------------------------------------+
+  | NVIDIA-SMI 560.35.03              Driver Version: 560.35.03      CUDA Version: 12.6     |
+  |-----------------------------------------+------------------------+----------------------+
+  | GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+  | Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+  |                                         |                        |               MIG M. |
+  |=========================================+========================+======================|
+  |   0  NVIDIA L40S                    On  |   00000000:61:00.0 Off |                    0 |
+  | N/A   25C    P8             35W /  350W |       1MiB /  46068MiB |      0%      Default |
+  |                                         |                        |                  N/A |
+  +-----------------------------------------+------------------------+----------------------+
+
+  +-----------------------------------------------------------------------------------------+
+  | Processes:                                                                              |
+  |  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+  |        ID   ID                                                               Usage      |
+  |=========================================================================================|
+  |  No running processes found                                                             |
+  +-----------------------------------------------------------------------------------------+
+
+You can pass ``--device`` multiple times to add more than one gpus to the container.
 
 .. note::
-
-   - Use image names in 3 parts to avoid confusion: ``_type:name:tag_``
-   - Please keep in mind that root is squashed on Shifter images, so the
-     software should be installed in a way that is executable to someone with
-     user-level permissions.
-   - Currently the ``/etc`` and ``/var`` directories are reserved for use by the
-     system and will be overwritten when the image is mounted
-   - The container is not isolated so you share the network card and all
-     hardware from the host, no need to forward ports
-
-
-Example
--------
-
-.. code-block:: bash
-
-    username@login-2:~$ shifterimg pull docker:alpine:latest
-    2019-10-11T20:12:42 Pulling Image: docker:alpine:latest, status: READY
-
-    username@login-2:~$ salloc -c2 --gres=gpu:1 --image=docker:alpine:latest
-    salloc: Granted job allocation 213064
-    salloc: Waiting for resource configuration
-    salloc: Nodes eos20 are ready for job
-
-    username@eos20:~$ cat /etc/os-release
-    NAME="Ubuntu"
-    VERSION="18.04.2 LTS (Bionic Beaver)"
-    ID=ubuntu
-    ID_LIKE=debian
-    PRETTY_NAME="Ubuntu 18.04.2 LTS"
-    VERSION_ID="18.04"
-    VERSION_CODENAME=bionic
-    UBUNTU_CODENAME=bionic
-
-    username@eos20:~$ shifter sh
-    ~ $ cat /etc/os-release
-    NAME="Alpine Linux"
-    ID=alpine
-    VERSION_ID=3.10.2
-    PRETTY_NAME="Alpine Linux v3.10"
-
-    ~ $
-
-
-.. note::
-    Complete Documentation:
-    https://docs.nersc.gov/programming/shifter/how-to-use/
+   CDI (GPU) support documentation:
+   https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/cdi-support.html#running-a-workload-with-cdi
