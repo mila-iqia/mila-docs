@@ -56,7 +56,7 @@ nvidia.com/gpu=all`` to make all GPUs allocated available in the container or
 container, starting at 0.
 
 
-.. code-block:: bash
+.. code-block::
 
   $ nvidia-smi
   Fri Dec 13 12:47:34 2024
