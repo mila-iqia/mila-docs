@@ -39,7 +39,9 @@ about the memory and CPU limits of the job.
 .. note::
 
    Due to the cluster environment you may see warning messages like
-   `WARN[0000] "/" is not a shared mount, this could cause issues or missing mounts with rootless containers`
+   `WARN[0000] "/" is not a shared mount, this could cause issues or missing mounts with rootless containers`,
+   `ERRO[0000] cannot find UID/GID for user <user>: no subuid ranges found for user "<user>" in /etc/subuid - check rootless mode in man pages.`,
+   `WARN[0000] Using rootless single mapping into the namespace. This might break some images. Check /etc/subuid and /etc/subgid for adding sub*ids if not using a network user`
    or
    `WARN[0005] Failed to add pause process to systemd sandbox cgroup: dbus: couldn't determine address of session bus`
    but as far as we can see those can be safely ignored and should not have
@@ -56,10 +58,10 @@ container, starting at 0.
 
 .. code-block:: bash
 
-   $ nvidia-smi
-   $ podman run --device nvidia.com/gpu=all nvidia/cuda:11.6.1-base-ubuntu20.04 nvidia-smi
-   $ podman run --device nvidia.com/gpu=0 nvidia/cuda:11.6.1-base-ubuntu20.04 nvidia-smi
-   $ podman run --device nvidia.com/gpu=1 nvidia/cuda:11.6.1-base-ubuntu20.04 nvidia-smi
+  $ nvidia-smi
+  $ podman run --device nvidia.com/gpu=all nvidia/cuda:11.6.1-base-ubuntu20.04 nvidia-smi
+  $ podman run --device nvidia.com/gpu=0 nvidia/cuda:11.6.1-base-ubuntu20.04 nvidia-smi
+  $ podman run --device nvidia.com/gpu=1 nvidia/cuda:11.6.1-base-ubuntu20.04 nvidia-smi
 
 You can pass ``--device`` multiple times to add more than one gpus to the container.
 
