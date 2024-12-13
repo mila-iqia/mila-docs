@@ -39,14 +39,11 @@ about the memory and CPU limits of the job.
 .. note::
 
    Due to the cluster environment you may see warning messages like
-   ```
-   WARN[0000] "/" is not a shared mount, this could cause issues or missing mounts with rootless containers
-   ```
+   `WARN[0000] "/" is not a shared mount, this could cause issues or missing mounts with rootless containers`
    or
-   ```
-   WARN[0005] Failed to add pause process to systemd sandbox cgroup: dbus: couldn't determine address of session bus
-   ```
-   but as far as we can see those can be safely ignored and should not have an impact on your images.
+   `WARN[0005] Failed to add pause process to systemd sandbox cgroup: dbus: couldn't determine address of session bus`
+   but as far as we can see those can be safely ignored and should not have
+   an impact on your images.
 
 GPU
 ---
