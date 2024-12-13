@@ -50,7 +50,7 @@ about the memory and CPU limits of the job.
 GPU
 ---
 
-To use a GPU in a container, you need to a GPU job and then use ``--device
+To use a GPU in a container, you need a GPU job and then use ``--device
 nvidia.com/gpu=all`` to make all GPUs allocated available in the container or
 ``--device nvidia.com/gpu=N`` where `N` is the gpu index you want in the
 container, starting at 0.
