@@ -13,7 +13,7 @@ endpoint:
 
 
 Login and add a Globus personal endpoint
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------------------
 
 .. code-block:: sh
 
@@ -25,7 +25,7 @@ Login and add a Globus personal endpoint
 
 
 Start a Globus personal endpoint
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+--------------------------------
 
 .. code-block:: sh
 
@@ -46,7 +46,7 @@ Start a Globus personal endpoint
 
 
 Do more with Globus Personal
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------
 
 To understand better how Globus Personal works and do more with Globus, follow
 the Globus guide to `Install, Configure, and Uninstall Globus Connect Personal
