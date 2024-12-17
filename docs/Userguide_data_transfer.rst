@@ -45,8 +45,8 @@ Start a Globus personal endpoint
        sbatch --ntasks=1 --cpus-per-task=4 --mem=8G /network/datasets/scripts/globus_utils.sh start_endpoint --name "mila-cluster"
 
 
-Do more with Globus Personal
-----------------------------
+Do more with Globus Connect Personal
+------------------------------------
 
 To understand better how Globus Personal works and do more with Globus, follow
 the Globus guide to `Install, Configure, and Uninstall Globus Connect Personal
