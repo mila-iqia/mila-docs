@@ -8,4 +8,4 @@ Multiple methods can be used to transfer data to/from the cluster:
   <https://cl-cheat-sheet.readthedocs.io/en/latest/#rsync>`_
 * Digital Research Alliance of Canada: `Globus <https://docs.alliancecan.ca/wiki/Globus>`_
 
-  * Setup a Globus personal endpoint: :ref:`globus_connect_personal`
+  * Setup Globus Connect Personal: :ref:`globus_connect_personal`
