@@ -12,10 +12,10 @@ Path                                                   Performance Usage        
 ``/network/weights/``                                  High        * Curated models weights (read only)
 ``$HOME`` or ``/home/mila/<u>/<username>/``            Low         * Personal user space                  100GB/1000K         Daily  no
                                                                    * Specific libraries, code, binaries
-``$SCRATCH`` or ``/network/scratch/<u>/<username>/``   High        * Temporary job results                20TB/no             no     90 days
+``$SCRATCH`` or ``/network/scratch/<u>/<username>/``   High        * Temporary job results                10TB/no             no     90 days
                                                                    * Processed datasets
                                                                    * Optimized for small Files
-``$SLURM_TMPDIR``                                      Highest     * High speed disk for temporary job    4TB/-               no     at job end
+``$SLURM_TMPDIR``                                      Highest     * High speed disk for temporary job    no/no               no     at job end
                                                                      results
 ``/network/projects/<groupname>/``                     Fair        * Shared space to facilitate           1TB/1000K           Daily  no
                                                                      collaboration between researchers
@@ -55,7 +55,7 @@ minimizes the performance hit of working on extracted datasets.
    when the file system usage is above 90%.
 
 Quotas are enabled on ``$SCRATCH`` for disk capacity (blocks). The limit is
-20TiB. There is no limit in the number of files (inodes). The command to check
+10TiB. There is no limit in the number of files (inodes). The command to check
 the quota usage from a login node is:
 
 .. prompt:: bash $
