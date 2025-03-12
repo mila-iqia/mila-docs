@@ -55,6 +55,110 @@ public key.
 - If you do have SSH keys, you can skip to :ref:`configuring SSH for access to Mila<Configuring SSH>`.
 
 
+Logging in with SSH
+^^^^^^^^^^^^^^^^^^^
+
+Login to the Mila cluster is with ``ssh`` through four Internet-facing
+*login nodes* and a load-balancer. At each connection through the load-balancer,
+you will be redirected to the least loaded login node.
+
+.. prompt:: bash $
+
+    # Generic login, will send you to one of the 4 login nodes to spread the load
+    ssh -p 2222 <user>@login.server.mila.quebec
+
+    # To connect to a specific login node, X in [1, 2, 3, 4]
+    ssh -p 2222 <user>@login-X.login.server.mila.quebec
+
+This is a significant amount of typing. You are **strongly** encouraged to add
+a ``mila`` "alias" to your SSH configuration file (see :ref:`below<Configuring SSH>`
+for how). With a correctly-configured SSH you can now simply run
+
+.. prompt:: bash $
+
+    # Login with SSH configuration in place
+    ssh mila
+
+    # Can also scp...        vvvv
+    scp  file-to-upload.zip  mila:scratch/uploaded.zip
+
+    #          vvvv  ... and rsync!
+    rsync -avz mila:my/remote/sourcecode/  downloaded-source/
+
+to connect to a login node. The ``mila`` alias will be available to ``ssh``,
+``scp``, ``rsync`` and all other programs that consult the SSH configuration file.
+
+Upon first login, you may be asked to enter your SSH key passphrase. Use the
+passphrase you used to create your SSH key :ref:`below<generating_ssh_keys>`.
+
+Upon first login, you may also be asked whether you trust the ***Mila*** login
+servers' *own* SSH keys.
+The ECDSA, RSA and ED25519 fingerprints for Mila's login nodes are:
+
+.. code-block:: text
+
+    SHA256:baEGIa311fhnxBWsIZJ/zYhq2WfCttwyHRKzAb8zlp8 (ECDSA)
+    SHA256:Xr0/JqV/+5DNguPfiN5hb8rSG+nBAcfVCJoSyrR0W0o (RSA)
+    SHA256:gfXZzaPiaYHcrPqzHvBi6v+BWRS/lXOS/zAjOKeoBJg (ED25519)
+
+If the fingerprints presented to you do not match one of the above, **do not**
+trust them!
+
+.. tip::
+    You can run commands on the login node with ``ssh`` directly, for example
+    ``ssh mila squeue -u '$USER'`` (remember to put single quotes around any
+    ``$VARIABLE`` you want to evaluate on the remote side, otherwise it will be
+    evaluated locally before ssh is even executed).
+
+
+.. important::
+    Login nodes are merely *entry points* to the cluster. They give you access
+    to the compute nodes and to the filesystem, but they are not meant to run
+    anything heavy. Do **not** run compute-heavy programs on these nodes,
+    because in doing so you could bring them down, impeding cluster access for
+    everyone.
+
+    This means no training scripts or experiments and no compilation of software
+    unless it is small or ends quickly. Do not run anything that demands a
+    sustained large amount of computation or a large amount of memory.
+
+    **Rule of thumb:** Never run a program that takes more than a few seconds on
+    a login node, unless it mostly sleeps or mostly moves data.
+
+    **Examples:** A non-exhaustive list of use-cases, to give a sense of what is
+    and is not allowed on the login nodes:
+
+    - A Python training script is unacceptable on the login nodes.
+      *(Too computationally- and memory-intensive)*
+    - A Python or shell script that downloads a dataset and exits immediately
+      after may be acceptable on the login nodes.
+      *(Mostly moves data)*
+    - A Python hyperparameter search script that uses ``submitit`` to launch
+      jobs and only sleeps waiting for them to end and run other jobs is
+      acceptable on the login nodes.
+      *(Mostly sleeps; The actual jobs run on the compute nodes)*
+    - ``pip install`` of ``vllm`` or ``flash-attn`` from source code on the
+      login nodes is unacceptable (and is likely to fail anyways).
+      *(Takes far too much RAM to compile the CUDA kernels)*
+    - Editing code with ``nano``, ``vim`` or ``emacs`` is acceptable.
+      *(Editors mostly sleep awaiting user keystrokes)*
+    - Copying/moving files with ``cp``, ``mv``, ... is acceptable.
+      *(Mostly moves data)*
+    - Connecting to compute nodes with ``ssh`` is acceptable.
+      *(Mostly sleeps, forwarding keystrokes and ports to/from the node)*
+    - Using ``tmux`` is acceptable.
+      *(Mostly sleeps, managing the processes under its control)*
+
+    .. note::
+        In a similar vein, you should not run VSCode remote SSH instances directly
+        on login nodes, because even though they are typically not very
+        computationally expensive, when many people do it, they add up! See
+        :ref:`Visual Studio Code` for specific instructions.
+
+
+
+
+
 SSH Private Keys
 ^^^^^^^^^^^^^^^^
 
@@ -271,98 +375,6 @@ automatically perform some of the below steps for you. You can install it with
     This guide is current for ``milatools >= 0.0.17``. If you have installed an older
     version previously, run ``pip install -U milatools`` to upgrade and re-run
     ``mila init`` in order to apply new features or bug fixes.
-
-
-Logging in with SSH
--------------------
-
-With a correctly-configured SSH (see :ref:`above<Configuring SSH>` for how),
-you can now simply run ``ssh mila`` to connect to a login node. You will also
-be able to use the ``mila`` alias with ``scp``, ``rsync`` and other such
-programs that consult the SSH configuration file.
-
-.. prompt:: bash $
-
-    # Generic login, will send you to one of the 4 login nodes to spread the load
-    ssh mila
-
-    # To connect to a specific login node, X in [1, 2, 3, 4]
-    ssh milaX
-
-    # Verbose equivalents
-    #  ssh -p 2222 <user>@login.server.mila.quebec
-    #  ssh -p 2222 <user>@login-X.login.server.mila.quebec
-
-Four login nodes are available and accessible behind a load balancer. At each
-connection, you will be redirected to the least loaded login-node.
-
-Upon first login, you may be asked to enter your SSH key passphrase. Use the
-passphrase you used to create your SSH key :ref:`above<generating_ssh_keys>`.
-
-Upon first login, you may also be asked whether you trust the ***Mila*** login
-servers' own SSH keys.
-The ECDSA, RSA and ED25519 fingerprints for Mila's login nodes are:
-
-.. code-block:: text
-
-    SHA256:baEGIa311fhnxBWsIZJ/zYhq2WfCttwyHRKzAb8zlp8 (ECDSA)
-    SHA256:Xr0/JqV/+5DNguPfiN5hb8rSG+nBAcfVCJoSyrR0W0o (RSA)
-    SHA256:gfXZzaPiaYHcrPqzHvBi6v+BWRS/lXOS/zAjOKeoBJg (ED25519)
-
-If the fingerprints presented to you do not match one of the above, **do not**
-trust them!
-
-.. tip::
-    You can run commands on the login node with ``ssh`` directly, for example
-    ``ssh mila squeue -u '$USER'`` (remember to put single quotes around any
-    ``$VARIABLE`` you want to evaluate on the remote side, otherwise it will be
-    evaluated locally before ssh is even executed).
-
-
-.. important::
-    Login nodes are merely *entry points* to the cluster. They give you access
-    to the compute nodes and to the filesystem, but they are not meant to run
-    anything heavy. Do **not** run compute-heavy programs on these nodes,
-    because in doing so you could bring them down, impeding cluster access for
-    everyone.
-
-    This means no training scripts or experiments and no compilation of software
-    unless it is small or ends quickly. Do not run anything that demands a
-    sustained large amount of computation or a large amount of memory.
-
-    **Rule of thumb:** Never run a program that takes more than a few seconds on
-    a login node, unless it mostly sleeps or mostly moves data.
-
-    **Examples:** A non-exhaustive list of use-cases, to give a sense of what is
-    and is not allowed on the login nodes:
-
-    - A Python training script is unacceptable on the login nodes.
-      *(Too computationally- and memory-intensive)*
-    - A Python or shell script that downloads a dataset and exits immediately
-      after may be acceptable on the login nodes.
-      *(Mostly moves data)*
-    - A Python hyperparameter search script that uses ``submitit`` to launch
-      jobs and only sleeps waiting for them to end and run other jobs is
-      acceptable on the login nodes.
-      *(Mostly sleeps; The actual jobs run on the compute nodes)*
-    - ``pip install`` of ``vllm`` or ``flash-attn`` from source code on the
-      login nodes is unacceptable (and is likely to fail anyways).
-      *(Takes far too much RAM to compile the CUDA kernels)*
-    - Editing code with ``nano``, ``vim`` or ``emacs`` is acceptable.
-      *(Editors mostly sleep awaiting user keystrokes)*
-    - Copying/moving files with ``cp``, ``mv``, ... is acceptable.
-      *(Mostly moves data)*
-    - Connecting to compute nodes with ``ssh`` is acceptable.
-      *(Mostly sleeps, forwarding keystrokes and ports to/from the node)*
-    - Using ``tmux`` is acceptable.
-      *(Mostly sleeps, managing the processes under its control)*
-
-    .. note::
-        In a similar vein, you should not run VSCode remote SSH instances directly
-        on login nodes, because even though they are typically not very
-        computationally expensive, when many people do it, they add up! See
-        :ref:`Visual Studio Code` for specific instructions.
-
 
 
 Connecting to compute nodes
