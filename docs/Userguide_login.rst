@@ -333,7 +333,7 @@ advanced use-cases, you may use the following as inspiration:
         Hostname  login-5.login.server.mila.quebec
     Host cn-????
         Hostname             %h.server.mila.quebec
-    Match host *.server.mila.quebec !*login.server.mila.quebec
+    Match host !*login.server.mila.quebec,*.server.mila.quebec
         Hostname                 %h
         ProxyJump                mila
     Match host           *login.server.mila.quebec
