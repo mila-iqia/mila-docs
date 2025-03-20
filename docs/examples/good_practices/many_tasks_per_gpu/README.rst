@@ -33,8 +33,6 @@ repository.
 .. code:: diff
 
     # distributed/single_gpu/job.sh -> good_practices/many_tasks_per_gpu/job.sh
-   old mode 100644
-   new mode 100755
     #!/bin/bash
    -#SBATCH --gpus-per-task=rtx8000:1
    +#SBATCH --gres=gpu:rtx8000:1
@@ -57,13 +55,14 @@ repository.
     module load anaconda/3
     module load cuda/11.7
 
-    # Creating the environment for the first time:
-    # conda create -y -n pytorch python=3.9 pytorch torchvision torchaudio \
-    #     pytorch-cuda=11.7 -c pytorch -c nvidia
-    # Other conda packages:
-    # conda install -y -n pytorch -c conda-forge rich tqdm
-
+   +# Creating the environment for the first time:
+   +# conda create -y -n pytorch python=3.9 pytorch torchvision torchaudio \
+   +#     pytorch-cuda=11.7 -c pytorch -c nvidia
+   +# Other conda packages:
+   +# conda install -y -n pytorch -c conda-forge rich tqdm
+   +
     # Activate pre-existing environment.
+   -# NOTE: Use the `make_env.sh` script to create the environment if you haven't already.
     conda activate pytorch
 
 
