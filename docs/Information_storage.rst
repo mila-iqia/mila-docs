@@ -12,7 +12,7 @@ Path                                                   Performance Usage        
 ``/network/weights/``                                  High        * Curated models weights (read only)
 ``$HOME`` or ``/home/mila/<u>/<username>/``            Low         * Personal user space                  100GB/1000K         Daily  no
                                                                    * Specific libraries, code, binaries
-``$SCRATCH`` or ``/network/scratch/<u>/<username>/``   High        * Temporary job results                10TB/no             no     90 days
+``$SCRATCH`` or ``/network/scratch/<u>/<username>/``   High        * Temporary job results                5TB/no              no     90 days
                                                                    * Processed datasets
                                                                    * Optimized for small Files
 ``$SLURM_TMPDIR``                                      Highest     * High speed disk for temporary job    no/no               no     at job end
@@ -20,7 +20,7 @@ Path                                                   Performance Usage        
 ``/network/projects/<groupname>/``                     Fair        * Shared space to facilitate           1TB/1000K           Daily  no
                                                                      collaboration between researchers
                                                                    * Long-term project storage
-``$ARCHIVE`` or ``/network/archive/<u>/<username>/``   Low         * Long-term personal storage           500GB               no     no
+``$ARCHIVE`` or ``/network/archive/<u>/<username>/``   Low         * Long-term personal storage           5TB                 no     no
 ====================================================== =========== ====================================== =================== ====== ============
 
 .. note:: The ``$HOME`` file system is backed up once a day. For any file
@@ -55,7 +55,7 @@ minimizes the performance hit of working on extracted datasets.
    when the file system usage is above 90%.
 
 Quotas are enabled on ``$SCRATCH`` for disk capacity (blocks). The limit is
-10TiB. There is no limit in the number of files (inodes). The command to check
+5TiB. There is no limit in the number of files (inodes). The command to check
 the quota usage from a login node is:
 
 .. prompt:: bash $
@@ -99,9 +99,9 @@ your directories. For example, to archive the results of an experiment in
    tar cJf $ARCHIVE/my_experiment_results.tar.xz --xattrs my_experiment_results
 
 Disk capacity quotas are enabled on ``$ARCHIVE``. The soft limit per user is
-500GB, the hard limit is 550GB. The grace time is 7 days. This means that one
-can use more than 500GB for 7 days before the file system enforces quota.
-However, it is not possible to use more than 550GB.
+5TB, the hard limit is 5.1TB. The grace time is 7 days. This means that one can
+use more than 5TB for 7 days before the file system enforces quota. However, it
+is not possible to use more than 5.1TB.
 The command to check the quota usage from a login node is `df`:
 
 .. prompt:: bash $
