@@ -1,6 +1,6 @@
 # mila-docs
 
-This is the repository of the offical MILA Cluster documentation.
+This is the repository of the offical Mila Cluster documentation.
 
 The docs are generated with Sphinx, and are published on the Internet thanks to BuildTheDocs, GitHub Actions/Pages.
 
