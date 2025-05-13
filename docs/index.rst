@@ -59,7 +59,6 @@ recommend you start by checking out the :ref:`short quick start guide
    VSCode
    IDT
    Cheatsheet
-   Chatbot
    Environmental_impact
 
 :Support: To reach the Mila infrastructure support, please `submit
