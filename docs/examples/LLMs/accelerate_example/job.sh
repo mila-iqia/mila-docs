@@ -15,7 +15,7 @@ srun --nodes=1 --ntasks-per-node=1 uv sync --offline
 
 # Note: it is important to escape `$SLURM_PROCID` since we want the srun on each node to evaluate this variable
 srun uv run --offline bash -c "accelerate launch \
-    --machine_rank \$SLURM_NODEID
+    --machine_rank \$SLURM_NODEID \
     --multi_gpu \
     --main_process_ip $MASTER_ADDR --main_process_port $MASTER_PORT \
     --num_machines  $SLURM_NNODES --num_processes $SLURM_NTASKS \
