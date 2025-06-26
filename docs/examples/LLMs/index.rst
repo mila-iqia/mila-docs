@@ -1,5 +1,5 @@
 ********************
-Distributed Training
+LLM-related Examples
 ********************
 
 .. include:: ../header.rst
@@ -9,6 +9,4 @@ Distributed Training
     :glob:
     :numbered:
 
-    single_gpu/index
-    multi_gpu/index
-    multi_node/index
+    accelerate_example/index

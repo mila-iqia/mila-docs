@@ -16,7 +16,7 @@ Other interesting resources:
 
 
 Click here to see `the code for this example
-<https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/distributed/accelerate_example>`_
+<https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/LLMs/accelerate_example>`_
 
 **job.sh**
 

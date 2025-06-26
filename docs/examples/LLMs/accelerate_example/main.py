@@ -37,8 +37,8 @@ from accelerate import (
     DataLoaderConfiguration,
     DistributedType,
 )
-
-from accelerate.utils import set_seed, ProjectConfiguration
+from datasets.dataset_dict import DatasetDict
+from accelerate.utils import set_seed, ProjectConfiguration, InitProcessGroupKwargs
 from datasets import load_dataset
 from torch.optim import AdamW
 from torch.utils.data import DataLoader
@@ -76,6 +76,16 @@ MAX_GPU_BATCH_SIZE = 16
 EVAL_BATCH_SIZE = 32
 logger = get_logger(__name__)
 
+PREVIOUS_JOB_ID: int | None = None
+if _slurm_job_dependency := os.environ.get("SLURM_JOB_DEPENDENCY"):
+    assert _slurm_job_dependency.startswith("afterok:"), _slurm_job_dependency
+    job_or_jobs: list[int] = list(
+        map(int, _slurm_job_dependency.removeprefix("afterok:").split(":"))
+    )
+    # IDEA: Do something with this, for instance, load the dataset or checkpoints from the previous job.
+    # Currently, since we're not changing anything about the dataset preparation, it gets cached in the HF cache,
+    # so there's little need for this atm.
+
 
 @dataclasses.dataclass
 class Args:
@@ -92,7 +102,11 @@ class Args:
     """Whether the various states should be saved at the end of every n steps, or 'epoch' for each epoch."""
 
     output_dir: Path = (
-        (Path(os.environ["SCRATCH"]) / os.environ["SLURM_JOB_ID"])
+        (
+            Path(os.environ["SCRATCH"]) / str(PREVIOUS_JOB_ID)
+            if PREVIOUS_JOB_ID
+            else os.environ["SLURM_JOB_ID"]
+        )
         if "SLURM_JOB_ID" in os.environ
         else Path("./checkpoints")
     )
@@ -119,6 +133,13 @@ class Args:
     with_tracking: bool = False
     """Whether to load in all available experiment trackers from the environment and use them for logging."""
 
+    only_prepare_dataset: bool = False
+    """ When set, return immediately after the dataset is done being prepared, without training.
+    
+    This can be useful on SLURM clusters so that a cpu-only job can be used to first prepare the dataset
+    before a GPU job is run.
+    """
+
 
 def get_dataloaders(accelerator: Accelerator, batch_size: int = 16):
     """
@@ -131,8 +152,11 @@ def get_dataloaders(accelerator: Accelerator, batch_size: int = 16):
         batch_size (`int`, *optional*):
             The batch size for the train and validation DataLoaders.
     """
-    tokenizer = AutoTokenizer.from_pretrained("bert-base-cased")
-    datasets = load_dataset("glue", "mrpc")
+    tokenizer_name = "bert-base-cased"
+    dataset_name = "glue"
+    dataset_task = "mrpc"
+    tokenizer = AutoTokenizer.from_pretrained(tokenizer_name)
+    datasets = load_dataset(dataset_name, dataset_task)
 
     def tokenize_function(examples):
         # max_length=None => use the model max length (it's actually the default)
@@ -146,12 +170,21 @@ def get_dataloaders(accelerator: Accelerator, batch_size: int = 16):
 
     # Apply the method we just defined to all the examples in all the splits of the dataset
     # starting with the main process first:
+
     with accelerator.main_process_first():
+        assert isinstance(datasets, DatasetDict)
         tokenized_datasets = datasets.map(
             tokenize_function,
             batched=True,
             remove_columns=["idx", "sentence1", "sentence2"],
+            load_from_cache_file=True,
+            cache_file_names={
+                k: f"{dataset_name}_{dataset_task}_tokenized_{tokenizer_name}_{k}.arrow"
+                for k in datasets
+            },
+            # keep_in_memory=True,
         )
+        # tokenized_datasets.save_to_disk()
 
     # We also rename the 'label' column to 'labels' which is the expected name for labels by the models of the
     # transformers library
@@ -235,6 +268,8 @@ def training_function(args: Args):
         gradient_accumulation_steps = batch_size // MAX_GPU_BATCH_SIZE
         batch_size = MAX_GPU_BATCH_SIZE
 
+    # kwargs = InitProcessGroupKwargs(timeout=timedelta(seconds=800),
+    #                                 backend="nccl")
     accelerator = Accelerator(
         cpu=args.cpu,
         mixed_precision=args.mixed_precision,
@@ -261,6 +296,12 @@ def training_function(args: Args):
     set_seed(seed)
 
     train_dataloader, eval_dataloader = get_dataloaders(accelerator, batch_size)
+    if args.only_prepare_dataset:
+        accelerator.print(
+            f"Done preparing the dataset, exiting without training (since {args.only_prepare_dataset=})"
+        )
+        return
+
     metric = evaluate.load("glue", "mrpc")
 
     # Instantiate the model (we build the model here so that the seed also control new weights initialization)
@@ -399,7 +440,7 @@ def training_function(args: Args):
                 and overall_step % checkpointing_steps == 0
             ):
                 checkpoint_dir = _get_checkpoint_dir(step=overall_step)
-                accelerator.save_state(str(checkpoint_dir))
+                save_state(accelerator, checkpoint_dir)
                 logger.info(f"Saved checkpoint in {checkpoint_dir}")
         model.eval()
         for batch_index, batch in enumerate(eval_dataloader):
@@ -430,13 +471,13 @@ def training_function(args: Args):
             # Need to increment epoch here, since "epoch_1" means one epoch is done.
             checkpoint_dir = _get_checkpoint_dir(epoch=epoch + 1)
             assert not checkpoint_dir.exists()
-            accelerator.save_state(str(checkpoint_dir))
+            save_state(accelerator, checkpoint_dir)
 
     # Need to save a new epoch:
     if isinstance(checkpointing_steps, int) and overall_step % checkpointing_steps == 0:
         checkpoint_dir = _get_checkpoint_dir(step=overall_step)
         assert not checkpoint_dir.exists()
-        accelerator.save_state(str(checkpoint_dir))
+        save_state(accelerator, checkpoint_dir)
         logger.info(f"Saved final checkpoint in {checkpoint_dir}")
 
     accelerator.end_training()
@@ -457,6 +498,8 @@ def save_state(
       (This is useful to avoid issues when the program is interrupted while saving a checkpoint).
 
     """
+    if not accelerator.is_main_process:
+        return
     checkpoint_dir = Path(checkpoint_dir)
     if checkpoint_dir.exists():
         raise RuntimeError(f"Checkpoint directory {checkpoint_dir} already exists!")
