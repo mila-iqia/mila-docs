@@ -178,10 +178,10 @@ def get_dataloaders(accelerator: Accelerator, batch_size: int = 16):
             batched=True,
             remove_columns=["idx", "sentence1", "sentence2"],
             load_from_cache_file=True,
-            cache_file_names={
-                k: f"{dataset_name}_{dataset_task}_tokenized_{tokenizer_name}_{k}.arrow"
-                for k in datasets
-            },
+            # cache_file_names={
+            #     k: f"{dataset_name}_{dataset_task}_tokenized_{tokenizer_name}_{k}.arrow"
+            #     for k in datasets
+            # },
             # keep_in_memory=True,
         )
         # tokenized_datasets.save_to_disk()
@@ -508,10 +508,12 @@ def save_state(
         logger.warning(
             f"Temporary checkpoint directory {checkpoint_dir} already exists (from previous attempt at checkpointing)."
         )
-        if accelerator.is_main_process:
-            shutil.rmtree(temp_checkpoint_dir)
-
-    temp_checkpoint_dir.parent.mkdir(parents=True, exist_ok=True)
+        shutil.rmtree(temp_checkpoint_dir)
+    # TODO: Can't actually do this .tmp and rename, because `save_state` apparently does something
+    # asynchronously in a subprocess, and by the time it writes, the parent directory doesn't exist
+    # anymore, resulting in an error.
+    temp_checkpoint_dir = checkpoint_dir
+    temp_checkpoint_dir.mkdir(parents=True, exist_ok=False)
     accelerator.save_state(str(temp_checkpoint_dir))
     temp_checkpoint_dir.rename(checkpoint_dir)
     logger.info(f"Saved state in {checkpoint_dir}")

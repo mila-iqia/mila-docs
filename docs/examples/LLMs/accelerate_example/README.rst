@@ -35,7 +35,7 @@ Click here to see `the code for this example
 
    export MASTER_ADDR=$(scontrol show hostnames "$SLURM_JOB_NODELIST" | head -n 1)
    # Get a unique port for this job based on the job ID
-   export MASTER_PORT=$(expr 10000 + $(echo -n $SLURM_JOBID | tail -c 4))
+   export MASTER_PORT=$(expr 10000 + $(echo -n $SLURM_JOB_ID | tail -c 4))
 
    # TODO: Make this work in a multi-node setting with code checkpointing
    # (clone repo to $SLURM_TMPDIR and run things from there), without --nodes=1 so it runs on each node.
@@ -44,7 +44,6 @@ Click here to see `the code for this example
    # Note: it is important to escape `$SLURM_PROCID` since we want the srun on each node to evaluate this variable
    srun uv run --offline bash -c "accelerate launch \
        --machine_rank \$SLURM_NODEID \
-       --multi_gpu \
        --main_process_ip $MASTER_ADDR --main_process_port $MASTER_PORT \
        --num_machines  $SLURM_NNODES --num_processes $SLURM_NTASKS \
        main.py $@"
@@ -233,10 +232,10 @@ Click here to see `the code for this example
                batched=True,
                remove_columns=["idx", "sentence1", "sentence2"],
                load_from_cache_file=True,
-               cache_file_names={
-                   k: f"{dataset_name}_{dataset_task}_tokenized_{tokenizer_name}_{k}.arrow"
-                   for k in datasets
-               },
+               # cache_file_names={
+               #     k: f"{dataset_name}_{dataset_task}_tokenized_{tokenizer_name}_{k}.arrow"
+               #     for k in datasets
+               # },
                # keep_in_memory=True,
            )
            # tokenized_datasets.save_to_disk()
@@ -563,10 +562,12 @@ Click here to see `the code for this example
            logger.warning(
                f"Temporary checkpoint directory {checkpoint_dir} already exists (from previous attempt at checkpointing)."
            )
-           if accelerator.is_main_process:
-               shutil.rmtree(temp_checkpoint_dir)
-
-       temp_checkpoint_dir.parent.mkdir(parents=True, exist_ok=True)
+           shutil.rmtree(temp_checkpoint_dir)
+       # TODO: Can't actually do this .tmp and rename, because `save_state` apparently does something
+       # asynchronously in a subprocess, and by the time it writes, the parent directory doesn't exist
+       # anymore, resulting in an error.
+       temp_checkpoint_dir = checkpoint_dir
+       temp_checkpoint_dir.mkdir(parents=True, exist_ok=False)
        accelerator.save_state(str(temp_checkpoint_dir))
        temp_checkpoint_dir.rename(checkpoint_dir)
        logger.info(f"Saved state in {checkpoint_dir}")
