@@ -19,15 +19,19 @@ project_root=$(git rev-parse --show-toplevel)
 project_dirname=$(basename $project_root)
 submit_dir_relative_to_project=$(realpath --relative-to=$(dirname $project_root) $SLURM_SUBMIT_DIR)
 
+# Use this on DRAC clusters where compute nodes don't have internet access.
+# NOTE: make sure to run `uv sync` once before submitting the jobs.
+# export UV_OFFLINE=1
+
 srun --ntasks-per-node=1 bash -c "\
     git clone $project_root \$SLURM_TMPDIR/$project_dirname && \
     cd \$SLURM_TMPDIR/$project_dirname && \
     git checkout $GIT_COMMIT && \
-    uv sync --directory=\$SLURM_TMPDIR/$submit_dir_relative_to_project --offline"
+    uv sync --directory=\$SLURM_TMPDIR/$submit_dir_relative_to_project"
 # srun --nodes=1 --ntasks-per-node=1 uv sync --offline
 # Note: it is important to escape `$SLURM_PROCID` since we want the srun on each node to evaluate this variable
 srun bash -c "\
-    uv run --directory=\$SLURM_TMPDIR/$submit_dir_relative_to_project --offline \
+    uv run --directory=\$SLURM_TMPDIR/$submit_dir_relative_to_project \
     accelerate launch \
     --machine_rank \$SLURM_NODEID \
     --main_process_ip $MASTER_ADDR --main_process_port $MASTER_PORT \
