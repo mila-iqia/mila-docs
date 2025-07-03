@@ -9,17 +9,15 @@ export MASTER_ADDR=$(scontrol show hostnames "$SLURM_JOB_NODELIST" | head -n 1)
 # Get a unique port for this job based on the job ID
 export MASTER_PORT=$(expr 10000 + $(echo -n $SLURM_JOB_ID | tail -c 4))
 
-# TODO: Make this work in a multi-node setting with code checkpointing
-# (clone repo to $SLURM_TMPDIR and run things from there), without --nodes=1 so it runs on each node.
-
-# Expect this variable to be set, or raise an error with a message
+# Expect this variable to be set by the `safe_sbatch` submission script or similar.
+# Otherwise, raises an error with a message.
 GIT_COMMIT=${GIT_COMMIT:?"GIT_COMMIT must be set to the commit hash you want to run this job on. Use 'safe_sbatch' instead of 'sbatch' to submit this job."}
 
 # This assumes that we're inside the project when we submit the job.
 # Need to know where to go after cloning the repo in /tmp.
 project_root=$(git rev-parse --show-toplevel)
 project_dirname=$(basename $project_root)
-submit_dir_relative_to_project=$(realpath --relative-to=$project_root $SLURM_SUBMIT_DIR)
+submit_dir_relative_to_project=$(realpath --relative-to=$(dirname $project_root) $SLURM_SUBMIT_DIR)
 
 srun --ntasks-per-node=1 bash -c "\
     git clone $project_root \$SLURM_TMPDIR/$project_dirname && \
