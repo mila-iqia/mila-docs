@@ -55,8 +55,8 @@ Click here to see `the code for this example
    # srun --nodes=1 --ntasks-per-node=1 uv sync --offline
    # Note: it is important to escape `$SLURM_PROCID` since we want the srun on each node to evaluate this variable
    srun bash -c "\
-       uv run --directory=\$SLURM_TMPDIR/$submit_dir_relative_to_project \
-       --offline accelerate launch \
+       uv run --directory=\$SLURM_TMPDIR/$submit_dir_relative_to_project --offline \
+       accelerate launch \
        --machine_rank \$SLURM_NODEID \
        --main_process_ip $MASTER_ADDR --main_process_port $MASTER_PORT \
        --num_machines  $SLURM_NNODES --num_processes $SLURM_NTASKS \
