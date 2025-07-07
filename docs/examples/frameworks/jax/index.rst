@@ -18,13 +18,13 @@ repository.
 
 **job.sh**
 
-.. literalinclude:: job.sh.diff
+.. literalinclude:: job.sh
    :language: diff
 
 
 **main.py**
 
-.. literalinclude:: main.py.diff
+.. literalinclude:: main.py
    :language: diff
 
 

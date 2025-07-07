@@ -4,8 +4,8 @@ Software Frameworks
 
 .. include:: ../header.rst
 
-(Work-in-progress): This section shows how to setup a development environment
-for various frameworks.
+This section shows how to setup a development environment for various frameworks.
+These examples use :ref:`uv` to create a virtual environment and manage dependencies.
 
 .. toctree::
     :maxdepth: 1

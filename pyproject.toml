@@ -1,0 +1,30 @@
+[project]
+name = "mila-docs"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+[tool.uv.workspace]
+members = [
+    "docs/examples/frameworks/pytorch_setup",
+    "docs/examples/frameworks/jax_setup",
+    "docs/examples/frameworks/jax",
+]
+
+[dependency-groups]
+dev = [
+    "myst-parser>=0.14.0",
+    "pre-commit>=4.2.0",
+    "recommonmark>=0.7.1",
+    "rstcheck[sphinx]>=6.2.5",
+    "sphinx>=4.0.2",
+    "sphinx-copybutton>=0.3.1",
+    "sphinx-lint>=1.0.0",
+    "sphinx-prompt>=1.4.0",
+    "sphinx-readable-theme>=1.3.0",
+    "sphinx-rtd-theme>=0.5.2",
+    "sphinx-theme>=1.0",
+    "urllib3<2",
+]

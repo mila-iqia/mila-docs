@@ -18,8 +18,14 @@ class ConvBlock(nn.Module):
 
     @nn.compact
     def __call__(self, x):
-        x = nn.Conv(self.channels, (self.kernel_size, self.kernel_size), strides=self.stride,
-                    padding='SAME', use_bias=False, kernel_init=nn.initializers.kaiming_normal())(x)
+        x = nn.Conv(
+            self.channels,
+            (self.kernel_size, self.kernel_size),
+            strides=self.stride,
+            padding="SAME",
+            use_bias=False,
+            kernel_init=nn.initializers.kaiming_normal(),
+        )(x)
         x = self.norm()(x)
         if self.act:
             x = nn.swish(x)
@@ -43,7 +49,7 @@ class ResidualBlock(nn.Module):
         if shortcut.shape != residual.shape:
             shortcut = conv_block(channels, 1, act=False)(shortcut)
 
-        gamma = self.param('gamma', nn.initializers.zeros, 1, jnp.float32)
+        gamma = self.param("gamma", nn.initializers.zeros, 1, jnp.float32)
         out = shortcut + gamma * residual
         out = nn.swish(out)
         return out
@@ -73,7 +79,9 @@ class Body(nn.Module):
 
     @nn.compact
     def __call__(self, x):
-        for channels, num_blocks, stride in zip(self.channel_list, self.num_blocks_list, self.strides):
+        for channels, num_blocks, stride in zip(
+            self.channel_list, self.num_blocks_list, self.strides
+        ):
             x = self.stage(channels, num_blocks, stride)(x)
         return x
 
@@ -109,7 +117,7 @@ class ResNet(nn.Module):
     channel_list: Sequence[int]
     num_blocks_list: Sequence[int]
     strides: Sequence[int]
-    head_p_drop: float = 0.
+    head_p_drop: float = 0.0
 
     @nn.compact
     def __call__(self, x, train=True):
