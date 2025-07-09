@@ -3,13 +3,12 @@ Cheat Sheet
 
 A "cheat sheet" is available to provide you with information about the Mila and DRAC clusters at a glance.
 
-The production run consists of about 500, some on thicker cardboard and some on lighter paper.
-If you want to have a copy, you can always come to the IDT lab during office hours (usually Tuesday 3pm-5pm).
-You can also find them at some stategic locations at Mila on small wood stands.
+The production run consists of about 250 copies.
+If you want to have a copy, you can always come to the IDT lab during office hours (usually Tuesday 3pm-5pm and Wednesday 2pm-4pm).
 
-.. _cheatsheet-link: /_static/2024-04-05_IDT_cheatsheet_v2.pdf
+.. _cheatsheet-link: /_static/2025-06-27_Mila_compute_cheat_sheet_v3.pdf
 
-The :download:`IDT Cheat Sheet pdf <_static/2024-04-05_IDT_cheatsheet_v2.pdf>`
+The `IDT Cheat Sheet pdf <_static/2025-06-27_Mila_compute_cheat_sheet_v3.pdf>`_
 is available if you want to access it online.
 The layout of the pdf has been set to be compatible with the printers at Mila
 so you can always print your own copy on regular paper
@@ -18,7 +17,8 @@ so you can always print your own copy on regular paper
 Keep in mind that the cheat sheet is not a replacement for the official documentation,
 which is the original source of information.
 Moreover, the official documentation is updated regularly, whereas the cheat sheet
-is probably going to be updated once a year (around April when the new DRAC allocations are announced).
+is probably going to be updated once a year. Usually this happens around April when the new DRAC allocations are announced,
+but in 2025, the update happened in July because of the new DRAC allocations that got delayed.
 
 Comments and suggestions are welcome (`idt.cheatsheet@mila.quebec`).
 Please also signal errors if you spot them before we do.
