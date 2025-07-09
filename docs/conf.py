@@ -9,7 +9,7 @@ import sys
 import sphinx_theme
 
 extensions = [
-    "sphinx-prompt",
+    "sphinx_prompt",
     "sphinx_copybutton",
     # 'recommonmark',
     "sphinx.ext.autosectionlabel",
