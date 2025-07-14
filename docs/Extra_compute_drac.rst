@@ -54,11 +54,10 @@ these installations.
    site publiquement disponible.
 
 The table below provides information on the allocation for
-``rrg-bengioy-ad`` for the period which spans from April 2022 to
-April 2023. Note that there are no special allocations for GPUs on
-Graham and therefore jobs with GPUs should be submitted with the
-account ``def-bengioy``.
-
+``rrg-bengioy-ad`` for the period which spans from April 2024 to
+Summer 2025 (until the new clusters come online).
+Technically, there is a separate account for CPU-only jobs and GPU jobs, but through Slurm magic
+users can use the same account name for both.
 
 +------------------------+-----------------------+---------------------------------------------------------+
 | Cluster                | CPUs                  | GPUs                                                    |
@@ -72,6 +71,31 @@ account ``def-bengioy``.
 | :ref:`Narval <narval>` |  580 | rrg-bengioy-ad | A100-40G  | 110 | ``a100``             | rrg-bengioy-ad |
 +------------------------+------+----------------+-----------+-----+----------------------+----------------+
 
+Starting from Summer 2025, the our large DRAC allocation will be updated to the following.
+Some of those clusters are available right now, replacing those from the table above.
+
++------------------------+------+----------------+-----------+----------------+-------------+----------------------+----------------+
+| Cluster                | CPUs | GPUs                                                                                              |
+|                        +------+----------------+-----------+----------------+-------------+----------------------+----------------+
+|                        |  #   | account        | Model     | RGUs allocated | # GPU equiv | SLURM type specifier | account        |
++------------------------+------+----------------+-----------+----------------+-------------+----------------------+----------------+
+| :ref:`Roqual <roqual>` |  873 | rrg-bengioy-ad | H100-80G  | 1500           | 123         | ``v100``             | rrg-bengioy-ad |
++------------------------+------+----------------+-----------+----------------+-------------+----------------------+----------------+
+| :ref:`Fir <fir>`       |  193 | rrg-bengioy-ad | H100-80G  | 2000           | 165         | ``v100l``            | rrg-bengioy-ad |
++------------------------+------+----------------+-----------+----------------+-------------+----------------------+----------------+
+| :ref:`Nibi <nibi>`     |  0   | rrg-bengioy-ad | H100-80G  | 1000           | 82          | ``a100``             | rrg-bengioy-ad |
++------------------------+------+----------------+-----------+----------------+-------------+----------------------+----------------+
+
+Note that on many DRAC clusters where we don't have
+any allocated resources with ``rrg-bengioy-ad``, users can still use
+the default allocation associated with their supervisor, so long as
+the supervisor adds them on the DRAC web site.
+Basically, every university professor in Canada gets a default allocation,
+and they can add their collaborators to it.
+The default accounts are of the form ``def-<yourprofname>-gpu`` and ``def-<yourprofname>-cpu``.
+This happens completely outside of Mila so we don't have any control over it and we don't provide any support for that usage.
+Technically, Mila researchers who have access to Yoshua Bengio's mega allocation
+also have access to ``def-bengioy``.
 
 
 Account Creation
@@ -475,6 +499,22 @@ schedule and run CPU jobs on Niagara exactly the same way as on all other cluste
 
 FAQ
 ---
+
+What are RGUs?
+^^^^^^^^^^^^^^
+
+DRAC uses a concept called `RGUs` (Reference GPU Units) to measure the
+allocated GPU resources based on the type of device. This measurement combines
+the FP32 and FP16 performance of the GPU as well as the memory size.
+For example, an NVIDIA A100-40G counts has 4.0 RGUs,
+while a while an H100-80G counts as 12.15 RGUs.
+This is an improvement over the previous system of counting physical GPU devices
+and disregarding their actual performance.
+For example, saying that "we have 4 GPUs per researcher" omits
+which kind of GPUs we're talking about, which is fundamentally important.
+That proposed RGU measurement can still be improved, but criticisms about it
+are outside the scope of this document.
+
 
 What to do with  `ImportError: /lib64/libm.so.6: version GLIBC_2.23 not found`?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

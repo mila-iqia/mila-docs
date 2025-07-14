@@ -29,6 +29,13 @@ Errata
 
 Here is a list of the known errors in the cheat sheet that will have to be fixed in the next version.
 
+Typo in account name for DRAC allocation
+----------------------------------------
+
+There is a place that reads `rrg-bengio-ad_gpu` instead of `rrg-bengioy-ad_gpu`.
+Same goes for `rrg-bengio-ad_cpu` instead of `rrg-bengioy-ad_cpu`.
+
+
 Partition preemption is not explained accurately on page 2
 ----------------------------------------------------------
 
