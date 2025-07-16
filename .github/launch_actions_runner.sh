@@ -8,8 +8,10 @@
 #SBATCH --output=logs/runner_%j.out
 
 ## This script can be used to launch a new self-hosted GitHub runner.
-## It assumes that the SH_TOKEN environment variable contains a GitHub token
-## that is used to authenticate with the GitHub API in order to allow launching a new runner.
+## It can be launched with `sbatch` on a SLURM cluster, or run directly on a local machine.
+## It assumes that the SH_TOKEN environment variable can be read from $HOME/.bash_aliases
+## and contains a GitHub token that is used to authenticate with the GitHub API to launch
+## a new self-hosted runner.
 set -euo pipefail
 set -o errexit
 # todo: might cause issues if running this script on a local machine since $SCRATCH and
