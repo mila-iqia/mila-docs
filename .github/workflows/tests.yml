@@ -20,3 +20,48 @@ jobs:
 
     - name: Run files generation tests
       run:  pre-commit run --all-files && [[ -z "$(git status -s)" ]]
+
+  launch-slurm-actions-runner:
+    needs: [generate_files]
+    runs-on: self-hosted
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Copy job script to the cluster
+        # The script will be overwritten by different CI runs, but it shouldn't really
+        # change, so not a big deal.
+        # TODO: there are some assumptions about the GPU type to use in that script.
+        run: "scp .github/launch_actions_runner.sh mila:launch_actions_runner.sh"
+
+      - name: Launch Slurm Actions Runner
+        # TODO: Hard-coded mila-specific GPU to use for running tests.
+        # This isn't great, but currently necessary for reproducibility of tests.
+        run: ssh mila 'cd $SCRATCH && sbatch --gpus=l40s:1 --parsable $HOME/launch_actions_runner.sh'
+
+  # This step runs in a self-hosted Github Actions runner inside a SLURM job on a compute node of the cluster.
+  slurm_integration_tests:
+    name: Run integration tests on the Mila cluster in a SLURM job
+    needs: [launch-slurm-actions-runner]
+    runs-on: ["self-hosted", "mila"]
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          version: "latest"
+          # https://github.com/astral-sh/setup-uv?tab=readme-ov-file#github-authentication-token
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install dependencies
+        run: uv sync --all-extras --frozen
+      - name: Show installed packages
+        run: uv pip list
+      - name: Test with pytest
+        run: uv run pytest -v --gen-missing --cov=project --cov-report=xml --cov-append
+
+      # TODO: Add code coverage for the examples?
+      # - name: Store coverage report as an artifact
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: coverage-reports-slurm-integration-tests-mila
+      #     path: ./coverage.xml

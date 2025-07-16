@@ -1,4 +1,5 @@
 """Tests that launch the examples as jobs on the Mila cluster and check that they work correctly."""
+
 from __future__ import annotations
 import functools
 
@@ -109,7 +110,9 @@ def setup_logging():
         "fiddle",
     ]
 
-    rich.traceback.install(console=console, suppress=_TRACEBACKS_EXCLUDES, show_locals=False)
+    rich.traceback.install(
+        console=console, suppress=_TRACEBACKS_EXCLUDES, show_locals=False
+    )
     logging.basicConfig(
         level=level,
         format="%(message)s",
@@ -136,7 +139,9 @@ def make_conda_env_for_test(
 
     # Copy all the python and .sh files from the example dir to the test example dir.
     # (NOTE: This is so we can potentially modify the contents before running them in tests.)
-    test_example_dir = SUBMITIT_DIR / "_".join(example_dir.relative_to(EXAMPLES_DIR).parts)
+    test_example_dir = SUBMITIT_DIR / "_".join(
+        example_dir.relative_to(EXAMPLES_DIR).parts
+    )
     copy_example_files_to_test_dir(example_dir, test_example_dir)
 
     outputs = run_example(
@@ -202,7 +207,9 @@ def sbatch_gpu_override(request: pytest.FixtureRequest) -> dict[str, str]:
     gpu_type: str = request.param
     gpu_availability = savail()
 
-    assert gpu_type in gpu_availability, f"{gpu_type} doesn't show up in the savail output!"
+    assert gpu_type in gpu_availability, (
+        f"{gpu_type} doesn't show up in the savail output!"
+    )
     avail, total = gpu_availability[gpu_type]
     if avail == 0:
         pytest.skip(reason="Isn't available on the cluster at the moment.")
@@ -262,7 +269,9 @@ def test_pytorch_example_on_all_gpus(
 
 
 @pytest.mark.timeout(10 * 60)
-def test_checkpointing_example(pytorch_conda_env: Path, file_regression: FileRegressionFixture):
+def test_checkpointing_example(
+    pytorch_conda_env: Path, file_regression: FileRegressionFixture
+):
     """Tests the checkpointing example.
 
     This test is quite nice. Here's what it does:
@@ -272,7 +281,9 @@ def test_checkpointing_example(pytorch_conda_env: Path, file_regression: FileReg
     - Check that the exact same result is reached whether it is requeued or not.
     """
     example_dir = EXAMPLES_DIR / "good_practices" / "checkpointing"
-    test_example_dir = SUBMITIT_DIR / "_".join(example_dir.relative_to(EXAMPLES_DIR).parts)
+    test_example_dir = SUBMITIT_DIR / "_".join(
+        example_dir.relative_to(EXAMPLES_DIR).parts
+    )
 
     uninterrupted_job_outputs = run_pytorch_example(
         example_dir=example_dir,
@@ -325,7 +336,9 @@ def test_checkpointing_example(pytorch_conda_env: Path, file_regression: FileReg
     # assert job.state == "REQUEUED"
     logger.debug(f"Job {job.job_id} is being requeued.")
     while job.state == "REQUEUED":
-        logger.debug(f"Waiting for job {job.job_id} to become pending. ({job.state=!r})")
+        logger.debug(
+            f"Waiting for job {job.job_id} to become pending. ({job.state=!r})"
+        )
         time.sleep(interval_seconds)
 
     # NOTE: The state doesn't get updated back to `RUNNING` after doing REQUEUED -> PENDING!
@@ -334,7 +347,9 @@ def test_checkpointing_example(pytorch_conda_env: Path, file_regression: FileReg
     logger.debug(f"Job {job.job_id} is now pending.")
     # invalidated.) Therefore manually trigger a "cache" update here.
     while job.watcher.get_state(job.job_id, mode="force") == "PENDING":
-        logger.debug(f"Waiting for job {job.job_id} to start running again. ({job.state=!r})")
+        logger.debug(
+            f"Waiting for job {job.job_id} to start running again. ({job.state=!r})"
+        )
         time.sleep(interval_seconds)
 
     assert job.state in ["RUNNING", "COMPLETED"]
@@ -342,7 +357,9 @@ def test_checkpointing_example(pytorch_conda_env: Path, file_regression: FileReg
     # Wait for the job to finish (again):
     requeued_job_output = job.result()
     # Filter out lines that may change between executions:
-    filtered_requeued_job_output = filter_job_output_before_regression_check(requeued_job_output)
+    filtered_requeued_job_output = filter_job_output_before_regression_check(
+        requeued_job_output
+    )
     # TODO: Here it *might* be a bad idea for this requeued output to be checked using the
     # file_regression fixture, because it could happen that we resume from a different epoch,
     # depending on a few things:
@@ -357,8 +374,12 @@ def test_checkpointing_example(pytorch_conda_env: Path, file_regression: FileReg
     # todo: Compare the output of the requeued job to the output of the non-requeued job in a way
     # that isn't too too hard-coded for that specific example.
     # For example, we could extract the accuracies at each epoch and check that they line up.
-    uninterrupted_values = get_val_loss_and_accuracy_at_each_epoch(uninterrupted_job_output)
-    interrupted_values = get_val_loss_and_accuracy_at_each_epoch(filtered_requeued_job_output)
+    uninterrupted_values = get_val_loss_and_accuracy_at_each_epoch(
+        uninterrupted_job_output
+    )
+    interrupted_values = get_val_loss_and_accuracy_at_each_epoch(
+        filtered_requeued_job_output
+    )
 
     resumed_epoch = min(interrupted_values.keys())
     final_epoch = max(interrupted_values.keys())
@@ -405,7 +426,9 @@ def pytorch_orion_conda_env() -> Path:
     env_name_in_script = "pytorch_orion"  # Name in the example
     env_name = "pytorch_orion_test"  # Name used in the tests
     env_path = SCRATCH / "conda" / env_name
-    make_env_sh_file = EXAMPLES_DIR / "good_practices" / "hpo_with_orion" / "make_env.sh"
+    make_env_sh_file = (
+        EXAMPLES_DIR / "good_practices" / "hpo_with_orion" / "make_env.sh"
+    )
     command_to_test_that_env_is_working = (
         f"conda run --prefix {env_path} python -c 'import torch, tqdm, rich, orion'"
     )
@@ -419,7 +442,9 @@ def pytorch_orion_conda_env() -> Path:
     except subprocess.CalledProcessError as err:
         logger.info(f"The {env_path} env has not already been created: {err}")
     else:
-        logger.info(f"The {env_path} env has already been created with all required packages.")
+        logger.info(
+            f"The {env_path} env has already been created with all required packages."
+        )
         return env_path
 
     make_conda_env_for_test(
@@ -433,7 +458,9 @@ def pytorch_orion_conda_env() -> Path:
 # TODO: Make this run faster. Times out with 10 minutes, but seems to be reaching the end though,
 # which is quite strange. Perhaps we could reduce the number of trials?
 @pytest.mark.timeout(20 * 60)
-def test_orion_example(pytorch_orion_conda_env: Path, file_regression: FileRegressionFixture):
+def test_orion_example(
+    pytorch_orion_conda_env: Path, file_regression: FileRegressionFixture
+):
     """Tests the "HPO with Orion" example.
 
     TODO: This should probably use a different conda environment, instead of adding a
