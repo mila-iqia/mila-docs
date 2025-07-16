@@ -62,6 +62,34 @@ Or `Tensorflow <https://www.tensorflow.org/install/gpu>`_:
    pip install tensorflow-gpu
 
 
+UV
+^^
+
+In most cases, where your dependencies are Python packages, we highly recommend using `UV
+<https://docs.astral.sh/uv>`_.
+
+UV is a modern package manager for Python. In addition to all the same features as pip,
+it also manages Python installations, virtual environments, and makes your environments
+easier to reproduce and reuse across compute clusters.
+
+To install UV, follow the instructions at `this link <https://docs.astral.sh/uv/getting-started/installation/>`_.
+
+
+To create an environment for a project (see `here
+<https://docs.astral.sh/uv/guides/projects/>`_
+for details) using a specific Python version, you may write:
+
+.. prompt:: bash $
+
+   uv init --python=3.12
+
+To add a dependency to your project, use ``uv add``:
+
+.. prompt:: bash $
+
+   uv add torch
+
+
 Conda
 ^^^^^
 
