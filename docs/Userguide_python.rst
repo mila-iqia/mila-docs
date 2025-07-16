@@ -75,7 +75,7 @@ easier to reproduce and reuse across compute clusters.
 To install UV, follow the instructions at `this link <https://docs.astral.sh/uv/getting-started/installation/>`_.
 
 
-To create an environment for a project (see `here
+To create an environment for a project (see `this page of the UV documentation
 <https://docs.astral.sh/uv/guides/projects/>`_
 for details) using a specific Python version, you may write:
 
