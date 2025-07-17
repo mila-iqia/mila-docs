@@ -97,28 +97,30 @@ To install UV, follow the instructions at `this link <https://docs.astral.sh/uv/
 +-------------------------+------------------------------------+------------------------------+-------------------------------------+
 
 
-While you can use UV as a drop-in replacement for pip, we recommend adopting the a more project-based workflow:
+While you can use UV as a drop-in replacement for pip, we recommend adopting the a more `project-based workflow
+<https://docs.astral.sh/uv/guides/projects/>`_:
 
 * Use ``uv init`` to create a new project. A ``pyproject.toml`` file will be created. This is where your dependencies are listed.
-* Use ``uv add`` to add dependencies to your project. This will update the ``pyproject.toml`` file.
+
+   .. prompt:: bash $
+
+      uv init --python=3.12
+
+* Use ``uv add`` (and ``uv remove`` to remove) dependencies to your project. This will update the ``pyproject.toml`` file.
+
+   .. prompt:: bash $
+
+      uv add torch
+
 * Use ``uv run`` to run commands, for example ``uv run python train.py``. This will automatically do the following:
    1. Create or update the virtualenv (with the correct Python version) if necessary, based the dependencies in ``pyproject.toml``.
    2. Activates the virtualenv.
    3. Runs the command you provided, e.g. ``python train.py``.
 
-To create an environment for a project (see `this page of the UV documentation
-<https://docs.astral.sh/uv/guides/projects/>`_
-for details) using a specific Python version, you may write:
+   .. prompt:: bash $
 
-.. prompt:: bash $
+      uv run python main.py
 
-   uv init --python=3.12
-
-To add a dependency to your project, use ``uv add``:
-
-.. prompt:: bash $
-
-   uv add torch
 
 
 Conda
