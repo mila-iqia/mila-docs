@@ -28,11 +28,11 @@ several Python versions through the associated module which comes with pip. In
 order to install new packages, you will first have to create a personal space
 for them to be stored.  The usual solution (as it is the recommended solution
 on Digital Research Alliance of Canada clusters) is to use `virtual
-environments <https://virtualenv.pypa.io/en/stable/>`_, although :ref:`uv` is now
+environments <https://virtualenv.pypa.io/en/stable/>`_, although :ref:`using_uv` is now
 the recommended way to manage Python installations, virtual environments and dependencies.
 
 .. note::
-   We highly recommend you use `UV <https://docs.astral.sh/uv>`_ to manage your Python
+   We recommend you use `UV <https://docs.astral.sh/uv>`_ to manage your Python
    virtual environments instead of doing it manually.
    :ref:`The next section <uv>` will give an overview of how to install it and use it.
 
@@ -67,19 +67,27 @@ Or `Tensorflow <https://www.tensorflow.org/install/gpu>`_:
 
    pip install tensorflow-gpu
 
+
+.. _using_uv:
+
 UV
---
+--------
+
 
 In many cases, where your dependencies are Python packages, we highly recommend using `UV
-<https://docs.astral.sh/uv>`_.
+ <https://docs.astral.sh/uv>`__, a modern package manager for Python.
 
-UV is a modern package manager for Python. In addition to all the same features as pip,
-it also manages Python installations, virtual environments, and makes your environments
-easier to reproduce and reuse across compute clusters.
+In addition to all the same features as pip, it also manages Python installations,
+virtual environments, and makes your environments easier to reproduce and reuse across compute clusters.
 
-To install UV, follow the instructions at `this link <https://docs.astral.sh/uv/getting-started/installation/>`_.
+.. note::
+   UV is not currently available as a module on the Mila or DRAC clusters at the time of writing.
+   To use it, you first need to install it using this command on a cluster login node:
+   
+   .. prompt:: bash $
 
-
+      curl -LsSf https://astral.sh/uv/install.sh | sh
+      
 +-------------------------+------------------------------------+------------------------------------+-------------------------------------+
 |                         | Pip/virtualenv command             | UV pip equivalent                  | UV `project`_ command (recommended) | 
 +=========================+====================================+====================================+=====================================+
@@ -111,7 +119,7 @@ While you can use UV as a drop-in replacement for pip, we recommend adopting a `
 
       uv init --python=3.12
 
-* Use `uv add`_ (and `uv remove <https://docs.astral.sh/uv/reference/cli/#uv-remove>`_ to remove) dependencies to your project. This will update the ``pyproject.toml`` file and update the virtual environment.
+* Use `uv add`_ to add (and `uv remove`_ to remove) dependencies to your project. This will update the ``pyproject.toml`` file and update the virtual environment.
 
    .. prompt:: bash $
 
