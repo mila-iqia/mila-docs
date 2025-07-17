@@ -75,7 +75,7 @@ UV
 
 
 In many cases, where your dependencies are Python packages, we highly recommend using `UV
- <https://docs.astral.sh/uv>`__, a modern package manager for Python.
+<https://docs.astral.sh/uv>`__, a modern package manager for Python.
 
 In addition to all the same features as pip, it also manages Python installations,
 virtual environments, and makes your environments easier to reproduce and reuse across compute clusters.
@@ -83,20 +83,20 @@ virtual environments, and makes your environments easier to reproduce and reuse 
 .. note::
    UV is not currently available as a module on the Mila or DRAC clusters at the time of writing.
    To use it, you first need to install it using this command on a cluster login node:
-   
+
    .. prompt:: bash $
 
       curl -LsSf https://astral.sh/uv/install.sh | sh
-      
+
 +-------------------------+------------------------------------+------------------------------------+-------------------------------------+
-|                         | Pip/virtualenv command             | UV pip equivalent                  | UV `project`_ command (recommended) | 
+|                         | Pip/virtualenv command             | UV pip equivalent                  | UV `project`_ command (recommended) |
 +=========================+====================================+====================================+=====================================+
 | Create your virtualenv  | ``module load python/3.10``        | `uv venv`_                         | `uv init`_ and `uv sync`_           |
 |                         | then ``python -m venv``            |                                    |                                     |
 +-------------------------+------------------------------------+------------------------------------+-------------------------------------+
 | Activate the virtualenv | ``. .venv/bin/activate``           | (same)                             | (same, but often unnecessary)       |
 +-------------------------+------------------------------------+------------------------------------+-------------------------------------+
-| Install a package       | activate venv then ``pip install`` | `uv pip install`_                  | `uv add`_                           |    
+| Install a package       | activate venv then ``pip install`` | `uv pip install`_                  | `uv add`_                           |
 +-------------------------+------------------------------------+------------------------------------+-------------------------------------+
 | Run a command           | ``module load python``, then       |                                    |                                     |
 | (ex. ``python main.py``)| ``. <venv>/bin/activate``, then    | ``. <venv>/bin/activate``,         |                                     |
