@@ -65,7 +65,7 @@ Or `Tensorflow <https://www.tensorflow.org/install/gpu>`_:
 UV
 ^^
 
-In most cases, where your dependencies are Python packages, we highly recommend using `UV
+In many cases, where your dependencies are Python packages, we highly recommend using `UV
 <https://docs.astral.sh/uv>`_.
 
 UV is a modern package manager for Python. In addition to all the same features as pip,
@@ -74,6 +74,37 @@ easier to reproduce and reuse across compute clusters.
 
 To install UV, follow the instructions at `this link <https://docs.astral.sh/uv/getting-started/installation/>`_.
 
+
++-------------------------+------------------------------------+------------------------------+-------------------------------------+
+|                         | Pip/virtualenv command             | UV pip equivalent            | UV project command (recommended)    | 
++=========================+====================================+==============================+=====================================+
+| Create your virtualenv  | ``module load python/3.10``        | ``uv venv``                  | ``uv init`` and ``uv sync``         |
+|                         | then ``python -m venv``            |                              |                                     |
++-------------------------+------------------------------------+------------------------------+-------------------------------------+
+| Activate the virtualenv | ``. .venv/bin/activate``           | (same)                       | (same, but often unnecessary)       |
++-------------------------+------------------------------------+------------------------------+-------------------------------------+
+| Install a package       | activate venv then ``pip install`` | ``uv pip install``           | ``uv add``                          |    
++-------------------------+------------------------------------+------------------------------+-------------------------------------+
+| Where are               | ``requirements.txt``               | ``pyproject.toml``           | ``pyproject.toml``                  |
+| dependencies listed?    |                                    |                              |                                     |
++-------------------------+------------------------------------+------------------------------+-------------------------------------+
+| Easy to change Python   | No                                 | somewhat                     | Yes                                 |              
+| version?                |                                    |                              |                                     |
++-------------------------+------------------------------------+------------------------------+-------------------------------------+
+| Run a command           | ``module load python``, then       |                              |                                     |              
+| (ex. ``python main.py``)| ``. <venv>/bin/activate``, then    | ``. <venv>/bin/activate``,   |                                     |
+|                         | ``python main.py``                 | then ``python main.py``      | ``uv run python main.py``           |
++-------------------------+------------------------------------+------------------------------+-------------------------------------+
+
+
+While you can use UV as a drop-in replacement for pip, we recommend adopting the a more project-based workflow:
+
+* Use ``uv init`` to create a new project. A ``pyproject.toml`` file will be created. This is where your dependencies are listed.
+* Use ``uv add`` to add dependencies to your project. This will update the ``pyproject.toml`` file.
+* Use ``uv run`` to run commands, for example ``uv run python train.py``. This will automatically do the following:
+   1. Create or update the virtualenv (with the correct Python version) if necessary, based the dependencies in ``pyproject.toml``.
+   2. Activates the virtualenv.
+   3. Runs the command you provided, e.g. ``python train.py``.
 
 To create an environment for a project (see `this page of the UV documentation
 <https://docs.astral.sh/uv/guides/projects/>`_
