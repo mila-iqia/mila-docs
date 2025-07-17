@@ -23,8 +23,8 @@ To achieve this, try to always keep in mind the following aspects:
   should *not* update the environment for project B. That way, you can freely
   install and upgrade software and libraries for the former without worrying about
   breaking the latter (which you might not notice until weeks later, the next time
-  you work on project B!) Isolation can be achieved using :ref:`Python Virtual
-  environments` and :ref:`containers`.
+  you work on project B!) Isolation can be made easy using :ref:`uv`, as well as
+  :ref:`Python Virtual environments` and, as a last resort, :ref:`containers`.
 
 .. Creating a list of your software's dependencies
 .. -----------------------------------------------

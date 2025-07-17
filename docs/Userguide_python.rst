@@ -1,7 +1,7 @@
 .. _python:
 
 Virtual environments
---------------------
+====================
 
 A virtual environment in Python is a local, isolated environment in which you
 can install or uninstall Python packages without interfering with the global
@@ -21,14 +21,20 @@ in the script given to ``sbatch``.
 
 
 Pip/Virtualenv
-^^^^^^^^^^^^^^
+--------------
 
-Pip is the preferred package manager for Python and each cluster provides
+Pip is the most widely used package manager for Python and each cluster provides
 several Python versions through the associated module which comes with pip. In
 order to install new packages, you will first have to create a personal space
-for them to be stored.  The preferred solution (as it is the preferred solution
+for them to be stored.  The usual solution (as it is the recommended solution
 on Digital Research Alliance of Canada clusters) is to use `virtual
-environments <https://virtualenv.pypa.io/en/stable/>`_.
+environments <https://virtualenv.pypa.io/en/stable/>`_, although :ref:`uv` is now
+the recommended way to manage Python installations, virtual environments and dependencies.
+
+.. note::
+   We highly recommend you use `UV <https://docs.astral.sh/uv>`_ to manage your Python
+   virtual environments instead of doing it manually.
+   :ref:`The next section <uv>` will give an overview of how to install it and use it.
 
 First, load the Python module you want to use:
 
@@ -61,9 +67,8 @@ Or `Tensorflow <https://www.tensorflow.org/install/gpu>`_:
 
    pip install tensorflow-gpu
 
-
 UV
-^^
+--
 
 In many cases, where your dependencies are Python packages, we highly recommend using `UV
 <https://docs.astral.sh/uv>`_.
@@ -75,44 +80,44 @@ easier to reproduce and reuse across compute clusters.
 To install UV, follow the instructions at `this link <https://docs.astral.sh/uv/getting-started/installation/>`_.
 
 
-+-------------------------+------------------------------------+------------------------------+-------------------------------------+
-|                         | Pip/virtualenv command             | UV pip equivalent            | UV project command (recommended)    | 
-+=========================+====================================+==============================+=====================================+
-| Create your virtualenv  | ``module load python/3.10``        | ``uv venv``                  | ``uv init`` and ``uv sync``         |
-|                         | then ``python -m venv``            |                              |                                     |
-+-------------------------+------------------------------------+------------------------------+-------------------------------------+
-| Activate the virtualenv | ``. .venv/bin/activate``           | (same)                       | (same, but often unnecessary)       |
-+-------------------------+------------------------------------+------------------------------+-------------------------------------+
-| Install a package       | activate venv then ``pip install`` | ``uv pip install``           | ``uv add``                          |    
-+-------------------------+------------------------------------+------------------------------+-------------------------------------+
-| Where are               | ``requirements.txt``               | ``pyproject.toml``           | ``pyproject.toml``                  |
-| dependencies listed?    |                                    |                              |                                     |
-+-------------------------+------------------------------------+------------------------------+-------------------------------------+
-| Easy to change Python   | No                                 | somewhat                     | Yes                                 |              
-| version?                |                                    |                              |                                     |
-+-------------------------+------------------------------------+------------------------------+-------------------------------------+
-| Run a command           | ``module load python``, then       |                              |                                     |              
-| (ex. ``python main.py``)| ``. <venv>/bin/activate``, then    | ``. <venv>/bin/activate``,   |                                     |
-|                         | ``python main.py``                 | then ``python main.py``      | ``uv run python main.py``           |
-+-------------------------+------------------------------------+------------------------------+-------------------------------------+
++-------------------------+------------------------------------+------------------------------------+-------------------------------------+
+|                         | Pip/virtualenv command             | UV pip equivalent                  | UV `project`_ command (recommended) | 
++=========================+====================================+====================================+=====================================+
+| Create your virtualenv  | ``module load python/3.10``        | `uv venv`_                         | `uv init`_ and `uv sync`_           |
+|                         | then ``python -m venv``            |                                    |                                     |
++-------------------------+------------------------------------+------------------------------------+-------------------------------------+
+| Activate the virtualenv | ``. .venv/bin/activate``           | (same)                             | (same, but often unnecessary)       |
++-------------------------+------------------------------------+------------------------------------+-------------------------------------+
+| Install a package       | activate venv then ``pip install`` | `uv pip install`_                  | `uv add`_                           |    
++-------------------------+------------------------------------+------------------------------------+-------------------------------------+
+| Run a command           | ``module load python``, then       |                                    |                                     |
+| (ex. ``python main.py``)| ``. <venv>/bin/activate``, then    | ``. <venv>/bin/activate``,         |                                     |
+|                         | ``python main.py``                 | then ``python main.py``            | ``uv run python main.py``           |
++-------------------------+------------------------------------+------------------------------------+-------------------------------------+
+| Where are               | *Maybe* in a ``requirements.txt``, | *Maybe* in a ``requirements.txt``, | `pyproject.toml`_                   |
+| dependencies declared?  | ``setup.py`` or ``pyproject.toml`` | ``setup.py`` or ``pyproject.toml`` |                                     |
++-------------------------+------------------------------------+------------------------------------+-------------------------------------+
+| Easy to change Python   | No                                 | somewhat                           | Yes                                 |
+| versions?               |                                    |                                    |                                     |
++-------------------------+------------------------------------+------------------------------------+-------------------------------------+
 
 
-While you can use UV as a drop-in replacement for pip, we recommend adopting the a more `project-based workflow
-<https://docs.astral.sh/uv/guides/projects/>`_:
+While you can use UV as a drop-in replacement for pip, we recommend adopting a `project-based workflow`_:
 
-* Use ``uv init`` to create a new project. A ``pyproject.toml`` file will be created. This is where your dependencies are listed.
+
+* Use `uv init`_ to create a new project. A ``pyproject.toml`` file will be created. This is where your dependencies are listed.
 
    .. prompt:: bash $
 
       uv init --python=3.12
 
-* Use ``uv add`` (and ``uv remove`` to remove) dependencies to your project. This will update the ``pyproject.toml`` file.
+* Use `uv add`_ (and `uv remove <https://docs.astral.sh/uv/reference/cli/#uv-remove>`_ to remove) dependencies to your project. This will update the ``pyproject.toml`` file and update the virtual environment.
 
    .. prompt:: bash $
 
       uv add torch
 
-* Use ``uv run`` to run commands, for example ``uv run python train.py``. This will automatically do the following:
+* Use `uv run`_ to run commands, for example ``uv run python train.py``. This will automatically do the following:
    1. Create or update the virtualenv (with the correct Python version) if necessary, based the dependencies in ``pyproject.toml``.
    2. Activates the virtualenv.
    3. Runs the command you provided, e.g. ``python train.py``.
@@ -122,9 +127,19 @@ While you can use UV as a drop-in replacement for pip, we recommend adopting the
       uv run python main.py
 
 
+.. _project-based workflow: https://docs.astral.sh/uv/guides/projects/
+.. _pyproject.toml: https://docs.astral.sh/uv/guides/projects/#pyprojecttoml
+.. _project: https://docs.astral.sh/uv/guides/projects/
+.. _uv init: https://docs.astral.sh/uv/reference/cli/#uv-init
+.. _uv add: https://docs.astral.sh/uv/reference/cli/#uv-add
+.. _uv remove: https://docs.astral.sh/uv/reference/cli/#uv-remove
+.. _uv run: https://docs.astral.sh/uv/reference/cli/#uv-run
+.. _uv sync: https://docs.astral.sh/uv/reference/cli/#uv-sync
+.. _uv pip install: https://docs.astral.sh/uv/reference/cli/#uv-pip-install
+.. _uv venv: https://docs.astral.sh/uv/reference/cli/#uv-venv
 
 Conda
-^^^^^
+-----
 
 Another solution for Python is to use `miniconda
 <https://docs.conda.io/en/latest/miniconda.html>`_ or `anaconda
@@ -167,7 +182,8 @@ can be good to periodically clean up Conda's cache:
 
    conda clean -it
 
-**Mamba**
+Mamba
+^^^^^
 
 When installing new packages with ``conda install``, conda uses a built-in
 dependency solver for solving the dependency graph of all packages (and their
