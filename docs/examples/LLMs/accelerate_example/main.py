@@ -91,7 +91,7 @@ if _slurm_job_dependency := os.environ.get("SLURM_JOB_DEPENDENCY"):
 class Args:
     mixed_precision: Literal["no", "fp16", "bf16", "fp8"] = "no"
     """"Whether to use mixed precision.
-    
+
     Choose between fp16 and bf16 (bfloat16). Bf16 requires PyTorch >= 1.10 and an Nvidia Ampere GPU.
     """
 
@@ -135,7 +135,7 @@ class Args:
 
     only_prepare_dataset: bool = False
     """ When set, return immediately after the dataset is done being prepared, without training.
-    
+
     This can be useful on SLURM clusters so that a cpu-only job can be used to first prepare the dataset
     before a GPU job is run.
     """
