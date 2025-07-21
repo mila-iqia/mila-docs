@@ -27,40 +27,24 @@ Click here to see `the source code for this example
 
     # distributed/multi_gpu/job.sh -> distributed/multi_node/job.sh
     #!/bin/bash
-    #SBATCH --gpus-per-task=rtx8000:1
-    #SBATCH --cpus-per-task=4
-    #SBATCH --ntasks-per-node=4
-   -#SBATCH --nodes=1
    +#SBATCH --nodes=2
+   +#SBATCH --ntasks-per-node=4
+    #SBATCH --gres=gpu:4
+    #SBATCH --cpus-per-task=4
+   -#SBATCH --ntasks-per-node=4
     #SBATCH --mem=16G
     #SBATCH --time=00:15:00
 
-
-    # Echo time and hostname into log
+    set -e  # exit on error.
     echo "Date:     $(date)"
     echo "Hostname: $(hostname)"
 
-
-    # Ensure only anaconda/3 module loaded.
-    module --quiet purge
-    # This example uses Conda to manage package dependencies.
-    # See https://docs.mila.quebec/Userguide.html#conda for more information.
-    module load anaconda/3
-    module load cuda/11.7
-
-    # Creating the environment for the first time:
-    # conda create -y -n pytorch python=3.9 pytorch torchvision torchaudio \
-    #     pytorch-cuda=11.7 -c pytorch -c nvidia
-    # Other conda packages:
-    # conda install -y -n pytorch -c conda-forge rich tqdm
-
-    # Activate pre-existing environment.
-    conda activate pytorch
-
-   -
    -# Stage dataset into $SLURM_TMPDIR
    -mkdir -p $SLURM_TMPDIR/data
-   -ln -s /network/datasets/cifar10/cifar-10-python.tar.gz $SLURM_TMPDIR/data/
+   -cp /network/datasets/cifar10/cifar-10-python.tar.gz $SLURM_TMPDIR/data/
+   -# General-purpose alternatives combining copy and unpack:
+   -#     unzip   /network/datasets/some/file.zip -d $SLURM_TMPDIR/data/
+   -#     tar -xf /network/datasets/some/file.tar -C $SLURM_TMPDIR/data/
    +# Stage dataset into $SLURM_TMPDIR (only on the first worker of each node)
    +srun --ntasks=$SLURM_JOB_NUM_NODES --ntasks-per-node=1 bash -c \
    +   'mkdir -p $SLURM_TMPDIR/data && ln -s /network/datasets/cifar10/cifar-10-python.tar.gz $SLURM_TMPDIR/data/'
@@ -70,11 +54,28 @@ Click here to see `the source code for this example
    -export MASTER_ADDR="127.0.0.1"
    +export MASTER_ADDR=$(scontrol show hostnames "$SLURM_JOB_NODELIST" | head -n 1)
 
-    # Fixes issues with MIG-ed GPUs with versions of PyTorch < 2.0
-    unset CUDA_VISIBLE_DEVICES
-
     # Execute Python script in each task (one per GPU)
-    srun python main.py
+    # Use `uv run --offline` on clusters without internet access on compute nodes.
+    srun uv run python main.py
+   +
+
+**pyproject.toml**
+
+.. code:: toml
+
+   [project]
+   name = "multi-node-example"
+   version = "0.1.0"
+   description = "Add your description here"
+   readme = "README.rst"
+   requires-python = ">=3.12"
+   dependencies = [
+       "numpy>=2.3.1",
+       "rich>=14.0.0",
+       "torch>=2.7.1",
+       "torchvision>=0.22.1",
+       "tqdm>=4.67.1",
+   ]
 
 **main.py**
 
@@ -82,11 +83,13 @@ Click here to see `the source code for this example
 
     # distributed/multi_gpu/main.py -> distributed/multi_node/main.py
     """Multi-GPU Training example."""
+
     import argparse
     import logging
     import os
    +from datetime import timedelta
     from pathlib import Path
+    import sys
 
     import rich.logging
     import torch
@@ -127,15 +130,26 @@ Click here to see `the source code for this example
    +    device = torch.device("cuda", local_rank % torch.cuda.device_count())
 
         # Setup logging (optional, but much better than using print statements)
+        # Uses the `rich` package to make logs pretty.
         logging.basicConfig(
             level=logging.INFO,
             format=f"[{rank}/{world_size}] %(name)s - %(message)s ",
-            handlers=[rich.logging.RichHandler(markup=True)],  # Very pretty, uses the `rich` package.
+            handlers=[
+                rich.logging.RichHandler(
+                    markup=True,
+                    console=rich.console.Console(
+                        # Allower wider log lines in sbatch output files than on the terminal.
+                        width=120 if not sys.stdout.isatty() else None
+                    ),
+                )
+            ],
         )
 
         logger = logging.getLogger(__name__)
    -    logger.info(f"World size: {world_size}, global rank: {rank}")
-   +    logger.info(f"World size: {world_size}, global rank: {rank}, local rank: {local_rank}")
+   +    logger.info(
+   +        f"World size: {world_size}, global rank: {rank}, local rank: {local_rank}"
+   +    )
 
         # Create a model and move it to the GPU.
         model = resnet18(num_classes=10)
@@ -143,12 +157,14 @@ Click here to see `the source code for this example
 
         # Wrap the model with DistributedDataParallel
         # (See https://pytorch.org/docs/stable/nn.html#torch.nn.parallel.DistributedDataParallel)
-   -    model = nn.parallel.DistributedDataParallel(model, device_ids=[rank], output_device=rank)
-   +    model = nn.parallel.DistributedDataParallel(
+        model = nn.parallel.DistributedDataParallel(
+   -        model, device_ids=[rank], output_device=rank
    +        model, device_ids=[local_rank], output_device=local_rank
-   +    )
+        )
 
-        optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate, weight_decay=weight_decay)
+        optimizer = torch.optim.AdamW(
+            model.parameters(), lr=learning_rate, weight_decay=weight_decay
+        )
 
         # Setup CIFAR10
         num_workers = get_num_workers()
@@ -207,7 +223,8 @@ Click here to see `the source code for this example
             progress_bar = tqdm(
                 total=len(train_dataloader),
                 desc=f"Train epoch {epoch}",
-                disable=not is_master,
+                # Disable progress bar in non-interactive environments.
+                disable=not (sys.stdout.isatty() and is_master),
             )
 
             # Training loop
@@ -262,7 +279,9 @@ Click here to see `the source code for this example
             val_loss, val_accuracy = validation_loop(model, valid_dataloader, device)
             # NOTE: This would log the same values in all workers. Only logging on master:
             if is_master:
-                logger.info(f"Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%}")
+                logger.info(
+                    f"Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%}"
+                )
 
         print("Done!")
 
@@ -360,10 +379,16 @@ Click here to see `the source code for this example
             # Wait for the master process to finish downloading (reach the barrier below)
             torch.distributed.barrier()
         train_dataset = CIFAR10(
-            root=dataset_path, transform=transforms.ToTensor(), download=is_master, train=True
+            root=dataset_path,
+            transform=transforms.ToTensor(),
+            download=is_master,
+            train=True,
         )
         test_dataset = CIFAR10(
-            root=dataset_path, transform=transforms.ToTensor(), download=is_master, train=False
+            root=dataset_path,
+            transform=transforms.ToTensor(),
+            download=is_master,
+            train=False,
         )
         if is_master:
             # Join the workers waiting in the barrier above. They can now load the datasets from disk.
