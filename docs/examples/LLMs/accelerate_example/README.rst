@@ -66,6 +66,61 @@ Click here to see `the code for this example
        --num_machines  $SLURM_NNODES --num_processes $SLURM_NTASKS \
        main.py $@"
 
+**pyproject.toml**
+
+.. code:: toml
+
+   [project]
+   name = "accelerate_example"
+   version = "0.1.0"
+   description = "Add your description here"
+   readme = "README.md"
+   requires-python = ">=3.12"
+   dependencies = [
+       "accelerate>=1.7.0",
+       "datasets>=3.6.0",
+       "evaluate>=0.4.4",
+       "scikit-learn>=1.7.0",
+       "simple-parsing>=0.1.7",
+       "transformers>=4.52.4",
+   ]
+
+
+   [tool.uv]
+   python-preference = "system"
+
+   ## From https://docs.astral.sh/uv/reference/settings/#index-strategy:
+   ## "Only use results from the first index that returns a match for a given package name."
+   ## In other words: only get the package from PyPI if there isn't a version of it in the DRAC wheelhouse.
+   # index-strategy = "first-index"
+
+   ## "Search for every package name across all indexes, exhausting the versions from the first index before
+   ##  moving on to the next"
+   ## In other words: Only get the package from PyPI if the requested version is higher than the version
+   ## in the DRAC wheelhouse.
+   # index-strategy = "unsafe-first-match"
+
+   ## "Search for every package name across all indexes, preferring the "best" version found.
+   ##  If a package version is in multiple indexes, only look at the entry for the first index."
+   ## In other words: Consider all versions of the package DRAC + PyPI, and use the version that best matches
+   ## the requested version. In a tie, choose the DRAC wheel.
+   index-strategy = "unsafe-best-match"
+
+   [[tool.uv.index]]
+   name = "drac-gentoo2023-x86-64-v3"
+   url = "/cvmfs/soft.computecanada.ca/custom/python/wheelhouse/gentoo2023/x86-64-v3"
+   format = "flat"
+
+   [[tool.uv.index]]
+   name = "drac-gentoo2023-generic"
+   url = "/cvmfs/soft.computecanada.ca/custom/python/wheelhouse/gentoo2023/generic"
+   format = "flat"
+
+   [[tool.uv.index]]
+   name = "drac-generic"
+   url = "/cvmfs/soft.computecanada.ca/custom/python/wheelhouse/generic"
+   format = "flat"
+
 **main.py**
 
 .. code:: python
@@ -644,60 +699,39 @@ Click here to see `the code for this example
    if __name__ == "__main__":
        main()
 
-**pyproject.toml**
 
-.. code:: toml
+**safe_sbatch**
 
-   [project]
-   name = "accelerate_example"
-   version = "0.1.0"
-   description = "Add your description here"
-   readme = "README.md"
-   requires-python = ">=3.12"
-   dependencies = [
-       "accelerate>=1.7.0",
-       "datasets>=3.6.0",
-       "evaluate>=0.4.4",
-       "scikit-learn>=1.7.0",
-       "simple-parsing>=0.1.7",
-       "transformers>=4.52.4",
-   ]
+This example implements code checkpointing, so that jobs are executed with the code
+as it was at the time of job submission, even if the code is updated later.
+This is done by submitting the job with the `safe_sbatch` script instead of `sbatch`.
+Compared to `sbatch`, `safe_sbatch` will prevent submitting jobs if there are uncommitted
+changes in the code repository.
 
 
-   [tool.uv]
-   python-preference = "system"
+.. code:: bash
 
-   ## From https://docs.astral.sh/uv/reference/settings/#index-strategy:
-   ## "Only use results from the first index that returns a match for a given package name."
-   ## In other words: only get the package from PyPI if there isn't a version of it in the DRAC wheelhouse.
-   # index-strategy = "first-index"
+   #!/bin/bash
+   set -eof pipefail
+   git_status=`git status --porcelain`
+   # idea: Could add command-line arguments to control whether to add all changes and commit before sbatch.
+   if [[ ! -z $git_status ]]; then
+       echo "Your working directory is dirty! Please add and commit changes before continuing."
+       exit 1
+   fi;
+   # This environment variable will be available in the job script.
+   # It should be used to checkout the repo at this commit (in a different directory than the original).
+   # For example:
+   # ```
+   # git clone "$repo" "$dest"
+   # echo "Checking out commit $GIT_COMMIT"
+   # cd "$dest"
+   # git checkout $GIT_COMMIT
+   # ```
+   export GIT_COMMIT=`git rev-parse HEAD`
+   exec sbatch "$@"
 
-   ## "Search for every package name across all indexes, exhausting the versions from the first index before
-   ##  moving on to the next"
-   ## In other words: Only get the package from PyPI if the requested version is higher than the version
-   ## in the DRAC wheelhouse.
-   # index-strategy = "unsafe-first-match"
 
-   ## "Search for every package name across all indexes, preferring the "best" version found.
-   ##  If a package version is in multiple indexes, only look at the entry for the first index."
-   ## In other words: Consider all versions of the package DRAC + PyPI, and use the version that best matches
-   ## the requested version. In a tie, choose the DRAC wheel.
-   index-strategy = "unsafe-best-match"
-
-   [[tool.uv.index]]
-   name = "drac-gentoo2023-x86-64-v3"
-   url = "/cvmfs/soft.computecanada.ca/custom/python/wheelhouse/gentoo2023/x86-64-v3"
-   format = "flat"
-
-   [[tool.uv.index]]
-   name = "drac-gentoo2023-generic"
-   url = "/cvmfs/soft.computecanada.ca/custom/python/wheelhouse/gentoo2023/generic"
-   format = "flat"
-
-   [[tool.uv.index]]
-   name = "drac-generic"
-   url = "/cvmfs/soft.computecanada.ca/custom/python/wheelhouse/generic"
-   format = "flat"
 
 **Running this example**
 
@@ -712,7 +746,7 @@ Click here to see `the code for this example
     $ uv sync
 
 
-3. Launch the job:
+3. Launch the job, either with `sbatch` or the provided `safe_sbatch` script:
 
 .. code-block:: bash
 

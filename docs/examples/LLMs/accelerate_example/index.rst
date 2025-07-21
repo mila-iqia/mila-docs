@@ -23,15 +23,30 @@ Click here to see `the code for this example
 .. literalinclude:: job.sh
     :language: bash
 
+**pyproject.toml**
+
+.. literalinclude:: pyproject.toml
+    :language: toml
+
 **main.py**
 
 .. literalinclude:: main.py
     :language: python
 
-**pyproject.toml**
 
-.. literalinclude:: pyproject.toml
-    :language: toml
+**safe_sbatch**
+
+This example implements code checkpointing, so that jobs are executed with the code
+as it was at the time of job submission, even if the code is updated later.
+This is done by submitting the job with the `safe_sbatch` script instead of `sbatch`.
+Compared to `sbatch`, `safe_sbatch` will prevent submitting jobs if there are uncommitted
+changes in the code repository.
+
+
+.. literalinclude:: safe_sbatch
+    :language: bash
+
+
 
 **Running this example**
 
@@ -46,7 +61,7 @@ Click here to see `the code for this example
     $ uv sync
 
 
-3. Launch the job:
+3. Launch the job, either with `sbatch` or the provided `safe_sbatch` script:
 
 .. code-block:: bash
 
