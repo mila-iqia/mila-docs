@@ -27,6 +27,10 @@ The full source code for this example is available on `the mila-docs GitHub repo
 .. literalinclude:: job.sh.diff
     :language: diff
 
+**pyproject.toml**
+
+.. literalinclude:: pyproject.toml
+    :language: toml
 
 **main.py**
 
