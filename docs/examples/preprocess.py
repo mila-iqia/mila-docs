@@ -3,10 +3,12 @@
 GitHub doesn't support include of other files, even of the same type and
 location, so this file generates a README.rst with files content embedded.
 """
+
 from __future__ import annotations
 
 import argparse
 import logging
+import os
 import re
 import subprocess
 import sys
@@ -49,9 +51,7 @@ def preprocess():
 def check_github_links(example_readme_template_path: Path):
     relative_readme_template_path = example_readme_template_path.relative_to(DOCS_ROOT)
     relative_readme_folder = relative_readme_template_path.parent
-    github_link = (
-        f"https://github.com/mila-iqia/mila-docs/tree/master/docs/{relative_readme_folder}"
-    )
+    github_link = f"https://github.com/mila-iqia/mila-docs/tree/master/docs/{relative_readme_folder}"
     content = example_readme_template_path.read_text()
     if github_link not in content:
         if "https://github.com/mila-iqia" in content:
@@ -87,26 +87,34 @@ def generate_diffs(docs_root: Path):
             raise exc
 
 
-def make_links_github_friendly(readme_template_path: Path, content_lines: list[str]) -> list[str]:
+def make_links_github_friendly(
+    readme_template_path: Path, content_lines: list[str]
+) -> list[str]:
     """Generates github links from :doc: refs in the example rst."""
     relative_readme_template_path = readme_template_path.relative_to(DOCS_ROOT)
     result = content_lines.copy()
+    os.chdir(DOCS_ROOT)
     for i, line in enumerate(content_lines):
         if "* :doc:`" not in line:
             continue
         spaces_at_start_of_line = (len(line) - len(line.lstrip(" "))) * " "
         reference = line.strip()[len("* :doc:`") :].split("`")[0]
-        logger.debug(f"Example {relative_readme_template_path} has link to {reference}.")
+        logger.debug(
+            f"Example {relative_readme_template_path} has link to {reference}."
+        )
         referenced_file = (
             DOCS_ROOT / reference[1:]
             if reference.startswith("/examples")
             else relative_readme_template_path.parent / reference[1:]
         )
         referenced_file = referenced_file.relative_to(DOCS_ROOT)
+        if not (f := referenced_file.with_suffix(".rst")).exists():
+            raise RuntimeError(
+                f"The example at {relative_readme_template_path} has a link to {f} "
+                f"which doesn't exist! (line = {line!r})"
+            )
         referenced_folder = referenced_file.parent
-        github_link = (
-            f"https://github.com/mila-iqia/mila-docs/tree/master/docs/{referenced_folder}"
-        )
+        github_link = f"https://github.com/mila-iqia/mila-docs/tree/master/docs/{referenced_folder}"
         new_line = spaces_at_start_of_line + f"* `{referenced_folder} <{github_link}>`_"
         result[i] = new_line
         # line = ""
@@ -152,7 +160,9 @@ def inline_docs_for_github_viewing(example_readme_template_path: Path) -> str:
             .. **DO NOT EDIT**
             """
         ).splitlines()
-        + [""]  # Need an empty line between this header and the content, otherwise rstcheck cries
+        + [
+            ""
+        ]  # Need an empty line between this header and the content, otherwise rstcheck cries
     )
 
     # Matches a group of non-whitespace characters after the literalinclude directive, maybe
@@ -183,14 +193,17 @@ def inline_docs_for_github_viewing(example_readme_template_path: Path) -> str:
             # NOTE: Add 1 to line index so paths in logs are clickable for debugging purposes.
             raise RuntimeError(
                 f"Found a literalinclude block at "
-                f"{example_readme_template_path}:{line_index+1} but it's missing a "
+                f"{example_readme_template_path}:{line_index + 1} but it's missing a "
                 f":language: directive on the following line."
             )
 
-        if line_index + 2 < len(content_lines) and content_lines[line_index + 2].strip() != "":
+        if (
+            line_index + 2 < len(content_lines)
+            and content_lines[line_index + 2].strip() != ""
+        ):
             raise RuntimeError(
                 f"Expected the literalinclude block at "
-                f"{example_readme_template_path}:{line_index+1} to only have two lines, followed "
+                f"{example_readme_template_path}:{line_index + 1} to only have two lines, followed "
                 f"by an empty line."
             )
 
@@ -198,7 +211,7 @@ def inline_docs_for_github_viewing(example_readme_template_path: Path) -> str:
         file_path = _get_path_to_file(file_name)
         language = language_match.group("language")
         logger.debug(
-            f"Found a literalinclude block at {example_readme_template_path}:{line_index+1}"
+            f"Found a literalinclude block at {example_readme_template_path}:{line_index + 1}"
         )
         if not file_path.exists():
             raise RuntimeError(
@@ -210,7 +223,9 @@ def inline_docs_for_github_viewing(example_readme_template_path: Path) -> str:
         # rendered code blocks in the README.rst on GitHub and in the online docs is indented as
         # usual for python scripts (4 spaces).
         inlined_block_lines = [f".. code:: {language}", ""]
-        inlined_block_lines.extend(textwrap.indent(file_path.read_text(), " " * 3).splitlines())
+        inlined_block_lines.extend(
+            textwrap.indent(file_path.read_text(), " " * 3).splitlines()
+        )
         new_content_lines.extend(inlined_block_lines)
         line_index += 2  # go to the line after the block
 

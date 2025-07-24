@@ -2,7 +2,7 @@
 .. This is done so this file can be easily viewed from the GitHub UI.
 .. **DO NOT EDIT**
 
-.. _single_gpu_job:
+.. _slurm_job_arrays:
 
 Launch many jobs using SLURM job arrays
 =======================================
