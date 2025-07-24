@@ -105,8 +105,8 @@ virtual environments, and makes your environments easier to reproduce and reuse 
 | Where are               | *Maybe* in a ``requirements.txt``, | *Maybe* in a ``requirements.txt``, | `pyproject.toml`_                   |
 | dependencies declared?  | ``setup.py`` or ``pyproject.toml`` | ``setup.py`` or ``pyproject.toml`` |                                     |
 +-------------------------+------------------------------------+------------------------------------+-------------------------------------+
-| Easy to change Python   | No                                 | somewhat                           | Yes                                 |
-| versions?               |                                    |                                    |                                     |
+| Easy to change Python   | No                                 | somewhat                           | Yes: ``uv python pin <version>`` or |
+| versions?               |                                    |                                    | ``uv sync --python <version>``      |
 +-------------------------+------------------------------------+------------------------------------+-------------------------------------+
 
 
