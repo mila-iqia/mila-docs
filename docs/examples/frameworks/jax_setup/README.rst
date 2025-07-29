@@ -45,7 +45,7 @@ repository.
    name = "jax-setup"
    version = "0.1.0"
    description = "Add your description here"
-   readme = "README.md"
+   readme = "README.rst"
    requires-python = ">=3.12"
    dependencies = ["jax[cuda12]>=0.5.3"]
 

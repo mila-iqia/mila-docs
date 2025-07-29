@@ -47,7 +47,7 @@ repository.
    name = "pytorch-setup"
    version = "0.1.0"
    description = "Add your description here"
-   readme = "README.md"
+   readme = "README.rst"
    requires-python = ">=3.12"
    dependencies = ["numpy>=2.3.1", "torch>=2.7.1"]
 
