@@ -50,3 +50,8 @@ Jobs for the `unkillable` partition can preempt everything except other jobs on 
 
 A good explanation of priorities and preemption will be added to the documentation,
 but the cheat sheet (or the cheat sheet errata) is not the place for this.
+
+`$ARCHIVE` is 5TB and not 500GB
+-------------------------------
+
+This is probably outdated information that we forgot to update. Your quota on `$ARCHIVE` is 5TB.
