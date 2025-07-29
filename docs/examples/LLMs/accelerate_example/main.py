@@ -1,8 +1,26 @@
 """HuggingFace Example from https://github.com/huggingface/accelerate/blob/main/examples/by_feature/checkpointing.py
 
 Differences with the reference example:
-- Uses the slurm job ID
+- Supports checkpointing using the slurm job ID as part of the checkpoint directory
 
+This is a fully working simple example to use Accelerate,
+specifically showcasing the checkpointing capability,
+and builds off the `nlp_example.py` script.
+This example trains a Bert base model on GLUE MRPC
+in any of the following settings (with the same script):
+  - single CPU or single GPU
+  - multi GPUS (using PyTorch distributed mode)
+  - (multi) TPUs
+  - fp16 (mixed-precision) or fp32 (normal precision)
+
+To help focus on the differences in the code, building `DataLoaders`
+was refactored into its own function.
+New additions from the base script can be found quickly by
+looking for the # New Code # tags
+
+To run it in each of these various modes, follow the instructions
+in the readme for examples:
+https://github.com/huggingface/accelerate/tree/main/examples
 """
 
 # Copyright 2021 The HuggingFace Inc. team. All rights reserved.
@@ -49,28 +67,7 @@ from transformers import (
 )
 from transformers.optimization import get_linear_schedule_with_warmup
 from accelerate.logging import get_logger
-########################################################################
-# This is a fully working simple example to use Accelerate,
-# specifically showcasing the checkpointing capability,
-# and builds off the `nlp_example.py` script.
-#
-# This example trains a Bert base model on GLUE MRPC
-# in any of the following settings (with the same script):
-#   - single CPU or single GPU
-#   - multi GPUS (using PyTorch distributed mode)
-#   - (multi) TPUs
-#   - fp16 (mixed-precision) or fp32 (normal precision)
-#
-# To help focus on the differences in the code, building `DataLoaders`
-# was refactored into its own function.
-# New additions from the base script can be found quickly by
-# looking for the # New Code # tags
-#
-# To run it in each of these various modes, follow the instructions
-# in the readme for examples:
-# https://github.com/huggingface/accelerate/tree/main/examples
-#
-########################################################################
+
 
 MAX_GPU_BATCH_SIZE = 16
 EVAL_BATCH_SIZE = 32
