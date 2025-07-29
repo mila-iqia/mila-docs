@@ -19,13 +19,13 @@ repository.
 **job.sh**
 
 .. literalinclude:: job.sh
-   :language: diff
+   :language: bash
 
 
 **main.py**
 
 .. literalinclude:: main.py
-   :language: diff
+   :language: python
 
 
 **model.py**

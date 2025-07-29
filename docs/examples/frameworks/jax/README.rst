@@ -22,7 +22,7 @@ repository.
 
 **job.sh**
 
-.. code:: diff
+.. code:: bash
 
    #!/bin/bash
    #SBATCH --gpus-per-task=rtx8000:1
@@ -49,7 +49,7 @@ repository.
 
 **main.py**
 
-.. code:: diff
+.. code:: python
 
    """Single-GPU training example.
 
