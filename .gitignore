@@ -4,3 +4,4 @@ _build
 **/__pycache__
 /docs/examples/**/*.diff
 /docs/examples/**/slurm-*.out
+.python-version

@@ -5,11 +5,13 @@ This Jax example is heavily based on the following examples:
 * https://juliusruseckas.github.io/ml/flax-cifar10.html
 * https://github.com/fattorib/Flax-ResNets/blob/master/main_flax.py
 """
+
 import argparse
 import logging
 import math
 import os
 from pathlib import Path
+import sys
 from typing import Any, Sequence
 
 import PIL.Image
@@ -34,6 +36,7 @@ class TrainState(train_state.TrainState):
 
 class ToArray(torch.nn.Module):
     """convert image to float and 0-1 range"""
+
     dtype = np.float32
 
     def __call__(self, x):
@@ -73,9 +76,19 @@ def main():
     rng = jax.random.PRNGKey(0)
 
     # Setup logging (optional, but much better than using print statements)
+    # Uses the `rich` package to make logs pretty.
     logging.basicConfig(
         level=logging.INFO,
-        handlers=[rich.logging.RichHandler(markup=True)],  # Very pretty, uses the `rich` package.
+        format="%(message)s",
+        handlers=[
+            rich.logging.RichHandler(
+                markup=True,
+                console=rich.console.Console(
+                    # Allower wider log lines in sbatch output files than on the terminal.
+                    width=120 if not sys.stdout.isatty() else None
+                ),
+            )
+        ],
     )
 
     logger = logging.getLogger(__name__)
@@ -83,17 +96,19 @@ def main():
     # Create a model.
     model = ResNet(
         10,
-        channel_list = [64, 128, 256, 512],
-        num_blocks_list = [2, 2, 2, 2],
-        strides = [1, 1, 2, 2, 2],
-        head_p_drop = 0.3
+        channel_list=[64, 128, 256, 512],
+        num_blocks_list=[2, 2, 2, 2],
+        strides=[1, 1, 2, 2, 2],
+        head_p_drop=0.3,
     )
 
     @jax.jit
     def initialize(params_rng, image_size=32):
-        init_rngs = {'params': params_rng}
+        init_rngs = {"params": params_rng}
         input_shape = (1, image_size, image_size, 3)
-        variables = model.init(init_rngs, jnp.ones(input_shape, jnp.float32), train=False)
+        variables = model.init(
+            init_rngs, jnp.ones(input_shape, jnp.float32), train=False
+        )
         return variables
 
     # Setup CIFAR10
@@ -124,17 +139,19 @@ def main():
 
     train_steps_per_epoch = math.ceil(len(train_dataset) / batch_size)
     num_train_steps = train_steps_per_epoch * epochs
-    shedule_fn = optax.cosine_onecycle_schedule(transition_steps=num_train_steps, peak_value=learning_rate)
+    shedule_fn = optax.cosine_onecycle_schedule(
+        transition_steps=num_train_steps, peak_value=learning_rate
+    )
     optimizer = optax.adamw(learning_rate=shedule_fn, weight_decay=weight_decay)
 
     params_rng, dropout_rng = jax.random.split(rng)
     variables = initialize(params_rng)
 
     state = TrainState.create(
-        apply_fn = model.apply,
-        params = variables['params'],
-        batch_stats = variables['batch_stats'],
-        tx = optimizer
+        apply_fn=model.apply,
+        params=variables["params"],
+        batch_stats=variables["batch_stats"],
+        tx=optimizer,
     )
 
     # Checkout the "checkpointing and preemption" example for more info!
@@ -147,13 +164,14 @@ def main():
         progress_bar = tqdm(
             total=len(train_dataloader),
             desc=f"Train epoch {epoch}",
+            disable=not sys.stdout.isatty(),  # Disable progress bar in non-interactive environments.
         )
 
         # Training loop
         for input, target in train_dataloader:
             batch = {
-                'image': input,
-                'label': target,
+                "image": input,
+                "label": target,
             }
             state, loss, accuracy = train_step(state, batch, dropout_rng)
 
@@ -166,7 +184,9 @@ def main():
         progress_bar.close()
 
         val_loss, val_accuracy = validation_loop(state, valid_dataloader)
-        logger.info(f"Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%}")
+        logger.info(
+            f"Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%}"
+        )
 
     print("Done!")
 
@@ -183,24 +203,33 @@ def train_step(state, batch, dropout_rng):
     dropout_rng = jax.random.fold_in(dropout_rng, state.step)
 
     def loss_fn(params):
-        variables = {'params': params, 'batch_stats': state.batch_stats}
-        logits, new_model_state = state.apply_fn(variables, batch['image'], train=True,
-                                                 rngs={'dropout': dropout_rng}, mutable='batch_stats')
-        loss = cross_entropy_loss(logits, batch['label'])
-        accuracy = jnp.sum(jnp.argmax(logits, -1) == batch['label'])
+        variables = {"params": params, "batch_stats": state.batch_stats}
+        logits, new_model_state = state.apply_fn(
+            variables,
+            batch["image"],
+            train=True,
+            rngs={"dropout": dropout_rng},
+            mutable="batch_stats",
+        )
+        loss = cross_entropy_loss(logits, batch["label"])
+        accuracy = jnp.sum(jnp.argmax(logits, -1) == batch["label"])
         return loss, (accuracy, new_model_state)
 
-    (loss, (accuracy, new_model_state)), grads = jax.value_and_grad(loss_fn, has_aux=True)(state.params)
-    new_state = state.apply_gradients(grads=grads, batch_stats=new_model_state['batch_stats'])
+    (loss, (accuracy, new_model_state)), grads = jax.value_and_grad(
+        loss_fn, has_aux=True
+    )(state.params)
+    new_state = state.apply_gradients(
+        grads=grads, batch_stats=new_model_state["batch_stats"]
+    )
     return new_state, loss, accuracy
 
 
 @jax.jit
 def validation_step(state, batch):
-    variables = {'params': state.params, 'batch_stats': state.batch_stats}
-    logits = state.apply_fn(variables, batch['image'], train=False, mutable=False)
-    loss = cross_entropy_loss(logits, batch['label'])
-    batch_correct_predictions = jnp.sum(jnp.argmax(logits, -1) == batch['label'])
+    variables = {"params": state.params, "batch_stats": state.batch_stats}
+    logits = state.apply_fn(variables, batch["image"], train=False, mutable=False)
+    loss = cross_entropy_loss(logits, batch["label"])
+    batch_correct_predictions = jnp.sum(jnp.argmax(logits, -1) == batch["label"])
     return loss, batch_correct_predictions
 
 
@@ -210,8 +239,8 @@ def validation_loop(state, dataloader: DataLoader):
     correct_predictions = []
     for input, target in dataloader:
         batch = {
-            'image': input,
-            'label': target,
+            "image": input,
+            "label": target,
         }
         loss, batch_correct_predictions = validation_step(state, batch)
         losses.append(loss)

@@ -13,7 +13,7 @@ repository.
 
 * :ref:`Quick Start`
 * :ref:`Running your code`
-* :ref:`Conda`
+* :ref:`uv`
 
 
 **job.sh**
@@ -23,8 +23,13 @@ repository.
     :language: bash
 
 
-**main.py**
+**pyproject.toml**
 
+.. literalinclude:: pyproject.toml
+    :language: toml
+
+
+**main.py**
 
 .. literalinclude:: main.py
     :language: python
@@ -32,15 +37,17 @@ repository.
 
 **Running this example**
 
-This assumes that you already created a conda environment named "pytorch". To
-create this environment, we first request resources for an interactive job.
+This assumes that you already installed UV on the cluster you are working on.
+
+To create this environment, we first request resources for an interactive job.
 Note that we are requesting a GPU for this job, even though we're only going to
 install packages. This is because we want PyTorch to be installed with GPU
 support, and to have all the required libraries.
 
 .. code-block:: bash
 
-    $ salloc --gres=gpu:1 --cpus-per-task=4 --mem=16G --time=00:30:00
+    # On the Mila cluster: (on DRAC/PAICE, run `uv sync` on a login node)
+    $ salloc --gres=gpu:1 --cpus-per-task=4 --mem=16G --time=00:10:00
     salloc: --------------------------------------------------------------------------------------------------
     salloc: # Using default long partition
     salloc: --------------------------------------------------------------------------------------------------
@@ -50,18 +57,15 @@ support, and to have all the required libraries.
     salloc: Granted job allocation 2959785
     salloc: Waiting for resource configuration
     salloc: Nodes cn-g022 are ready for job
-    $ # Load anaconda
-    $ module load anaconda/3
-    $ # Create the environment (see the example):
-    $ conda create -n pytorch python=3.9 pytorch torchvision torchaudio pytorch-cuda=11.7 -c pytorch -c nvidia
+    $ # Create the virtual environment and install all dependencies
+    $ uv sync
     (...)
-    $ # Press 'y' to accept if everything looks good.
-    (...)
-    $ # Activate the environment:
-    $ conda activate pytorch
+    $ # Optional: Activate the environment and run the python script:
+    $ . .venv/bin/activate
+    $ python main.py
 
-Exit the interactive job once the environment has been created. Then, the
-example can be launched to confirm that everything works:
+You can exit the interactive job once the environment has been created.
+Then, you can submit a job to run the example with sbatch:
 
 .. code-block:: bash
 
