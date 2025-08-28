@@ -11,6 +11,9 @@ members = [
     "docs/examples/frameworks/pytorch_setup",
     "docs/examples/frameworks/jax_setup",
     "docs/examples/frameworks/jax",
+    "docs/examples/distributed/single_gpu",
+    "docs/examples/distributed/multi_gpu",
+    "docs/examples/distributed/multi_node",
 ]
 
 [dependency-groups]
