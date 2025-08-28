@@ -1,4 +1,4 @@
-.. _single_gpu_job:
+.. _slurm_job_arrays:
 
 Launch many jobs using SLURM job arrays
 =======================================

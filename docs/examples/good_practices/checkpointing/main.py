@@ -1,4 +1,5 @@
 """Checkpointing example."""
+
 from __future__ import annotations
 
 import argparse
@@ -7,6 +8,7 @@ import os
 import random
 import shutil
 import signal
+import sys
 import uuid
 import warnings
 from logging import getLogger as get_logger
@@ -87,10 +89,19 @@ def main():
     torch.cuda.manual_seed_all(random_seed)
 
     # Setup logging (optional, but much better than using print statements)
+    # Uses the `rich` package to make logs pretty.
     logging.basicConfig(
         level=logging.INFO,
         format="%(message)s",
-        handlers=[rich.logging.RichHandler(markup=True)],  # Very pretty, uses the `rich` package.
+        handlers=[
+            rich.logging.RichHandler(
+                markup=True,
+                console=rich.console.Console(
+                    # Allower wider log lines in sbatch output files than on the terminal.
+                    width=120 if not sys.stdout.isatty() else None
+                ),
+            )
+        ],
     )
 
     # Create a model.
@@ -99,7 +110,9 @@ def main():
     # Move the model to the GPU.
     model.to(device=device)
 
-    optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate, weight_decay=weight_decay)
+    optimizer = torch.optim.AdamW(
+        model.parameters(), lr=learning_rate, weight_decay=weight_decay
+    )
 
     # Try to resume from a checkpoint, if one exists.
     checkpoint: RunState | None = load_checkpoint(checkpoint_dir, map_location=device)
@@ -112,8 +125,12 @@ def main():
         numpy.random.set_state(checkpoint["numpy_random_state"])
         # NOTE: Need to move those tensors to CPU before they can be loaded.
         torch.random.set_rng_state(checkpoint["torch_random_state"].cpu())
-        torch.cuda.random.set_rng_state_all(t.cpu() for t in checkpoint["torch_cuda_random_state"])
-        logger.info(f"Resuming training at epoch {start_epoch} (best_acc={best_acc:.2%}).")
+        torch.cuda.random.set_rng_state_all(
+            t.cpu() for t in checkpoint["torch_cuda_random_state"]
+        )
+        logger.info(
+            f"Resuming training at epoch {start_epoch} (best_acc={best_acc:.2%})."
+        )
     else:
         logger.info(f"No checkpoints found in {checkpoint_dir}. Training from scratch.")
 
@@ -155,8 +172,12 @@ def main():
         # if wandb.run:
         #     wandb.mark_preempting()
 
-    signal.signal(signal.SIGTERM, signal_handler)  # Before getting pre-empted and requeued.
-    signal.signal(signal.SIGUSR1, signal_handler)  # Before reaching the end of the time limit.
+    signal.signal(
+        signal.SIGTERM, signal_handler
+    )  # Before getting pre-empted and requeued.
+    signal.signal(
+        signal.SIGUSR1, signal_handler
+    )  # Before reaching the end of the time limit.
 
     for epoch in range(start_epoch, epochs):
         logger.debug(f"Starting epoch {epoch}/{epochs}")
@@ -168,8 +189,7 @@ def main():
         progress_bar = tqdm(
             total=len(train_dataloader),
             desc=f"Train epoch {epoch}",
-            unit_scale=train_dataloader.batch_size or 1,
-            unit="samples",
+            disable=not sys.stdout.isatty(),  # Disable progress bar in non-interactive environments.
         )
 
         # Training loop
@@ -202,7 +222,9 @@ def main():
         progress_bar.close()
 
         val_loss, val_accuracy = validation_loop(model, valid_dataloader, device)
-        logger.info(f"Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%}")
+        logger.info(
+            f"Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%}"
+        )
 
         # remember best accuracy and save the current state.
         is_best = val_accuracy > best_acc
@@ -272,7 +294,9 @@ def make_datasets(
     )
     # Split the training dataset into a training and validation set.
     train_dataset, valid_dataset = random_split(
-        train_dataset, ((1 - val_split), val_split), torch.Generator().manual_seed(val_split_seed)
+        train_dataset,
+        ((1 - val_split), val_split),
+        torch.Generator().manual_seed(val_split_seed),
     )
     return train_dataset, valid_dataset, test_dataset
 
@@ -291,7 +315,9 @@ def load_checkpoint(checkpoint_dir: Path, **torch_load_kwargs) -> RunState | Non
     checkpoint_file = checkpoint_dir / CHECKPOINT_FILE_NAME
     restart_count = int(os.environ.get("SLURM_RESTART_COUNT", 0))
     if restart_count:
-        logger.info(f"NOTE: This job has been restarted {restart_count} times by SLURM.")
+        logger.info(
+            f"NOTE: This job has been restarted {restart_count} times by SLURM."
+        )
 
     if not checkpoint_file.exists():
         logger.debug(f"No checkpoint found in checkpoints dir ({checkpoint_dir}).")
@@ -346,7 +372,9 @@ def save_checkpoint(checkpoint_dir: Path, is_best: bool, state: RunState):
 
     if is_best:
         best_checkpoint_file = checkpoint_file.with_name("model_best.pth")
-        temp_best_checkpoint_file = best_checkpoint_file.with_suffix(f".temp{unique_id}")
+        temp_best_checkpoint_file = best_checkpoint_file.with_suffix(
+            f".temp{unique_id}"
+        )
         shutil.copyfile(checkpoint_file, temp_best_checkpoint_file)
         os.replace(temp_best_checkpoint_file, best_checkpoint_file)
 

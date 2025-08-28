@@ -20,6 +20,10 @@ repository.
 .. literalinclude:: job.sh.diff
    :language: diff
 
+**pyproject.toml**
+
+.. literalinclude:: pyproject.toml
+   :language: toml
 
 **main.py**
 
