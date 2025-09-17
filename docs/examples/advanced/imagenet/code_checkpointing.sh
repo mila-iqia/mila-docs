@@ -1,6 +1,6 @@
 #!/bin/bash
 ## Code checkpointing utility script ##
-# When used in conjunction with the `safe_sbatch` when submitting jobs, this prevents
+# When used in conjunction with `safe_sbatch` to submit jobs, this prevents
 # changes in the python files between the job submission and job start from causing 
 # unexpected bugs. This also greatly helps reproducibility of your experiments.
 
