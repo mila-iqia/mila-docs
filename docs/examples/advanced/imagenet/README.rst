@@ -56,7 +56,6 @@ Click here to see `the source code for this example
    ##
 
 
-
    # Stage dataset into $SLURM_TMPDIR
    # Prepare the dataset on each node's local storage using all the CPUs (and memory) of each node.
    mkdir -p $SLURM_TMPDIR/data
@@ -71,9 +70,17 @@ Click here to see `the source code for this example
    # Get a unique port for this job based on the job ID
    export MASTER_PORT=$(expr 10000 + $(echo -n $SLURM_JOB_ID | tail -c 4))
    export WORLD_SIZE=$SLURM_NTASKS
-   # Important note: In all cases, some variables (for example RANK, LOCAL_RANK, or machine_rank in accelerate)
-   # variables vary between tasks, so we need to escape env variables such as $SLURM_PROCID, $SLURM_TMPDIR and $SLURM_NODEID
-   # so they are evaluated within each task, not just once here on the first node.
+
+   # srun is always used to launch the tasks.
+   # Whether there is one 'task' per GPU or one task per node can vary based on your setup.
+   # In the latter case, you would typically use torchrun or accelerate to launch one processes
+   # per GPU within each task.
+   # See the commented examples below for different ways to launch the training script.
+
+   # Important note: In all cases, some variables (for example RANK, LOCAL_RANK, or machine_rank
+   # in accelerate) vary between tasks, so we need to escape env variables such as $SLURM_PROCID,
+   # $SLURM_TMPDIR and $SLURM_NODEID so they are evaluated within each task, not just once here
+   # on the first node.
 
    ## Pure SLURM version ##
    # They can either be set here or as early as possible in the Python script.
