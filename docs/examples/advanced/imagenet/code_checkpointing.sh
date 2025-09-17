@@ -14,11 +14,12 @@
 # - This assumes that we're inside the project when submitting a job.
 # - This assumes that the project uses Git and UV (https://docs.astral.sh/uv).
 
+set -e  # exit on error.
 
 # We need to know where to go after cloning the repo in /tmp.
 project_root=$(git rev-parse --show-toplevel)
 project_dirname=$(basename $project_root)
-submit_dir_relative_to_parent=$(realpath --relative-to=$(dirname $project_root) $SLURM_SUBMIT_DIR)
+submit_dir_relative_to_parent=$(realpath --relative-to=$(dirname $project_root) ${SLURM_SUBMIT_DIR:-$(pwd)})
 
 # Expect this GIT_COMMIT variable to be set by the `safe_sbatch` submission script or similar.
 
@@ -37,7 +38,7 @@ if [[ -n "$GIT_COMMIT" ]]; then
         cd \$SLURM_TMPDIR/$project_dirname && \
         git checkout $GIT_COMMIT && \
         uv sync --directory=$UV_DIR"
-elif [[ -n "$(git -C $repo status --porcelain)" ]]; then
+elif [[ -n "$(git -C $project_root status --porcelain)" ]]; then
     echo "Warning: GIT_COMMIT is not set and the current repo at $project_root has uncommitted changes." >&2
     echo "This may cause future jobs to fail or produce inconsistent results!" >&2
     echo "Consider using the 'safe_sbatch' script to submit jobs instead." >&2
