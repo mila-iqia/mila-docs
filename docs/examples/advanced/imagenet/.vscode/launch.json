@@ -1,0 +1,135 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Distributed job: Launch with srun for debugging",
+            "request": "launch",
+            /// wacky, but it works. We just want to run this command in a bash terminal.
+            "type": "node-terminal",
+            // We need to set the ProcessPort based on the local rank, otherwise different tasks on the same node will try to listen on the same port.
+            // An alternative (that would also be very ugly though) would be to use srun --ntasks-per-node=1 torchrun --nprocs-per-node=X --no-python debugpy ... to run the script.
+            "command": "srun bash -c 'DEBUGPY_PORT=$(expr 20000 + $(echo -n $SLURM_JOB_ID | tail -c 4) + $SLURM_LOCALID) && echo \"Task $SLURM_PROCID on node $SLURMD_NODENAME is waiting until the vscode debugger is attached to host $SLURMD_NODENAME at port $DEBUGPY_PORT\" && uv run debugpy --listen 0.0.0.0:$DEBUGPY_PORT --wait-for-client ${file} ${input:pickArgs}'",
+            ///
+            "presentation": {
+                "hidden": false,
+                "group": "lower",
+                "order": 1
+            }
+        },
+        {
+            // Loosely based on https://medium.com/@franoisponchon/pytorch-ddp-debugging-in-vscode-4fb162eba07e
+            "name": "Single-node multi-gpu job - Debug with torchrun",
+            "type": "debugpy",
+            "request": "launch",
+            // we launch a module...
+            "module": "torch.distributed.run",
+            // with args...
+            "args": [
+                // "--use_env",
+                "--nproc_per_node=${input:NumGPUs}",
+                "${file}",
+                "${command:pickArgs}",
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": false
+        },
+        // Using `srun --ntasks-per-node=1` with `torchrun` would be nice, since we could connect to each node only instead of adding each task.
+        // However something seems difficult about this, torchrun would apparently need to be passed all the env variables explicitly, which is hard and ugly
+        {
+            "name": "Distributed Job: Attach debugger to task",
+            "type": "debugpy",
+            "request": "attach",
+            "connect": {
+                "host": "${input:NodeHostname}",
+                "port": "${input:ProcessPort}"
+            },
+            "justMyCode": false,
+            "presentation": {
+                "hidden": false,
+                "group": "lower",
+                "order": 1
+            }
+        },
+    ],
+    "inputs": [
+        {
+            "id": "pickArgs",
+            "type": "promptString",
+            "description": "Command-line arguments to pass to the script",
+            "default": ""
+        },
+        {
+            "id": "NumGPUs",
+            "type": "pickString",
+            "description": "Number of GPUs to use",
+            "options": [
+                "1",
+                "2",
+                "4",
+                "8"
+            ],
+            "default": "2"
+        },
+        {
+            "id": "NodeHostname",
+            "type": "promptString",
+            "description": "Hostname of the node to attach to.",
+            "default": "cn-"
+        },
+        {
+            "id": "ProcessPort",
+            "type": "promptString",
+            "description": "Port to attach to (to debug distributed jobs).\nShould be unique for each task within a same node. Set to <base>+$LOCAL_RANK for all tasks on all nodes.",
+            "default": "22345"
+        },
+    ],
+    "compounds": [
+        // NOTE: for 1-gpu job hard-code the port perhaps?
+        {
+            "name": "Launch + Debug 1-GPU job",
+            "configurations": [
+                "Distributed job: Launch with srun for debugging",
+                "Distributed Job: Attach debugger to task",
+            ],
+            "stopAll": true,
+            "presentation": {
+                "hidden": false,
+                "group": "distributed",
+                "order": 1
+            }
+        },
+        {
+            "name": "Launch + Debug 2-GPU job",
+            "configurations": [
+                "Distributed job: Launch with srun for debugging",
+                "Distributed Job: Attach debugger to task",
+                "Distributed Job: Attach debugger to task",
+            ],
+            "stopAll": true,
+            "presentation": {
+                "hidden": false,
+                "group": "distributed",
+                "order": 1
+            }
+        },
+        {
+            "name": "Launch + Debug 4-GPU job",
+            "configurations": [
+                "Distributed job: Launch with srun for debugging",
+                "Distributed Job: Attach debugger to task",
+                "Distributed Job: Attach debugger to task",
+                "Distributed Job: Attach debugger to task",
+                "Distributed Job: Attach debugger to task",
+            ],
+            "stopAll": true,
+            "presentation": {
+                "hidden": false,
+                "group": "distributed",
+                "order": 2
+            }
+        },
+    ]
+}

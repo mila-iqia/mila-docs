@@ -1,9 +1,9 @@
 [project]
-name = "debugging-profiling"
+name = "distributed-imagenet-example"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.12"
 dependencies = [
     "debugpy>=1.8.16",
     "rich>=14.1.0",
@@ -17,3 +17,7 @@ dependencies = [
     "tqdm>=4.67.1",
     "wandb>=0.21.3",
 ]
+
+#ruff: increase max line length
+[tool.ruff]
+line-length = 100

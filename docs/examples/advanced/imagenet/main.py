@@ -6,7 +6,7 @@
 - Checkpointing
 - Profiling with the PyTorch profiler and tensorboard
 
-# Potential Improvements - to be added as homework! 😉
+# Potential Improvements - to be added as an exercise! 😉
 - Use Automatic Mixed Precision (AMP) to take advantage of the hardware
 - Add code checkpointing with git to avoid unexpected bugs
 - Use a larger model that doesn't fit inside a single GPU with FSDP.
@@ -49,48 +49,47 @@ SCRATCH = Path(os.environ["SCRATCH"])
 SLURM_TMPDIR = Path(os.environ.get("SLURM_TMPDIR", "/tmp"))
 assert SLURM_TMPDIR.exists(), f"SLURM_TMPDIR (assumed {SLURM_TMPDIR}) should exist!"
 
-if "SLURM_PROCID" in os.environ:
-    # Running this with `srun`, all good.
-    # Add any missing environment variables so that torch.distributed.init_process_group
-    # works properly, namely RANK, WORLD_SIZE, MASTER_ADDR, MASTER_PORT, (LOCAL_RANK).
-    #
-    # The accompanying sbatch script already does this in bash, which is preferable, since
-    # you need to make sure that these environment variables are set before any torch operations
-    # are executed. (Some modes can inadvertently initialize cuda when imported).
-    #
-    # Doing it here just in case you're using a different sbatch script.
-    # Note: here by using .setdefault we don't overwrite those env variables so you could
-    # (if you really wanted to) use this script in a workflow based on `srun` + `torchrun` or
-    # `srun` + `accelerate launch` (which calls torchrun once per node)
-    RANK = int(os.environ.setdefault("RANK", os.environ["SLURM_PROCID"]))
-    LOCAL_RANK = int(os.environ.setdefault("LOCAL_RANK", os.environ["SLURM_LOCALID"]))
-    WORLD_SIZE = int(os.environ.setdefault("WORLD_SIZE", os.environ["SLURM_NTASKS"]))
-    # Need to take the first item of the expansion of for example "cn-l[084-085],cn-l[087-088],cn-l090"
-    # to get the hostname of the first node.
-    first_node = subprocess.check_output(
-        "scontrol show hostnames $SLURM_JOB_NODELIST", shell=True, text=True
-    ).split()[0]
-    MASTER_ADDR = os.environ.setdefault("MASTER_ADDR", first_node)
-    MASTER_PORT = int(
-        os.environ.setdefault("MASTER_PORT", str(10000 + int(JOB_ID) % 10000))
-    )
-else:
-    # Using the Vscode debugger for multi-gpu setups is easiest with `torch.distributed.run` atm.
-    # In this case, we won't have the slurm environment variables, but we will have the torchrun ones.
-    if "debugpy" not in sys.modules:
-        rich.print(
-            "[yellow]SLURM_PROCID is not set, which indicates that you might be running this in something "
-            "like the vscode terminal with `python <this_file>` or with torchrun.\n"
-            "Please launch the same command with `srun` instead!\n"
-            "See https://slurm.schedmd.com/srun.html for more info.[/yellow]"
-        )
+# Set any missing environment variables so that `torch.distributed.init_process_group`
+# works properly, namely RANK, WORLD_SIZE, MASTER_ADDR, MASTER_PORT, (LOCAL_RANK).
+#
+# The accompanying sbatch script already does this in bash, which is preferable, since
+# you need to make sure that these environment variables are set before any torch operations
+# are executed. (Some modules might inadvertently initialize cuda when imported which is a problem).
+#
+# Also doing this here just in case you're using a different sbatch script or running this from
+# the vscode terminal or with the vscode debugger.
+# Using the Vscode debugger to debug multi-gpu jobs is very convenient.
+# When debugging in a vscode window created by `mila code`, we do not have the slurm
+# environment variables (except SLURM_JOB_ID), but have the torchrun ones.
 
-    # If the torch distributed env vars are not set, assume that this is a single-gpu job.
-    RANK = int(os.environ.setdefault("RANK", "0"))
-    LOCAL_RANK = int(os.environ.setdefault("LOCAL_RANK", "0"))
-    WORLD_SIZE = int(os.environ.setdefault("WORLD_SIZE", "1"))
+# Note: here by using .setdefault we don't overwrite env variables that are already set,
+# so you could in principle use this in a workflow based on srun + torchrun or
+# srun + 'accelerate launch'.
+#
+# If neither the SLURM nor the torch distributed env vars are set, raise an error.
+if "SLURM_PROCID" not in os.environ and "RANK" not in os.environ:
+    raise RuntimeError(
+        "Both the SLURM and the torch distributed env vars are not set! "
+        "This indicates that you might be running this script in something like the "
+        "vscode terminal with `python <this_file>`.\n"
+        f"Consider relaunching the same command with srun instead, like so: \n"
+        f"➡️ srun --pty {sys.executable} {' '.join(sys.argv)}\n"
+        "See https://slurm.schedmd.com/srun.html for more info."
+    )
+
+# This will raise an error if both are unset. This is desired.
+RANK = int(os.environ.setdefault("RANK", os.environ.get("SLURM_PROCID", "")))
+LOCAL_RANK = int(os.environ.setdefault("LOCAL_RANK", os.environ.get("SLURM_LOCALID", "")))
+WORLD_SIZE = int(os.environ.setdefault("WORLD_SIZE", os.environ.get("SLURM_NTASKS", "")))
+MASTER_PORT = int(os.environ.setdefault("MASTER_PORT", str(10000 + int(JOB_ID) % 10000)))
+if "SLURM_JOB_NODELIST" in os.environ:
+    # Get the hostname of the first node, for example: "cn-l[084-085]" --> cn-l084
+    _first_node = subprocess.check_output(
+        f"scontrol show hostnames {os.environ['SLURM_JOB_NODELIST']}", text=True, shell=True
+    ).split()[0]
+    MASTER_ADDR = os.environ.setdefault("MASTER_ADDR", _first_node)
+else:
     MASTER_ADDR = os.environ.setdefault("MASTER_ADDR", "127.0.0.1")
-    MASTER_PORT = os.environ.setdefault("MASTER_PORT", str(10000 + int(JOB_ID) % 10000))
 
 
 class DummyModel(nn.Module):
@@ -98,9 +97,10 @@ class DummyModel(nn.Module):
 
     Examples of when this is useful:
     -   to check if data loading is the bottleneck, we can pull samples from the dataloader
-        as fast as possible and compare that throughput (in samples/second) to the throughput
+        as fast as possible and compare that throughput (in samples/second) to the same
         during training. If the two are similar, then the dataloader is the bottleneck.
-        Using a dummy model like this makes it so we don't have to modify our training loop to do this.
+        Using a dummy model like this makes it so we don't have to modify our training loop
+        to do this kind of sanity check.
     """
 
     def __init__(self, num_classes: int, **_kwargs):
@@ -161,9 +161,7 @@ class Args:
     Useful for debugging.
     """
 
-    num_workers: int = int(
-        os.environ.get("SLURM_CPUS_PER_TASK", len(os.sched_getaffinity(0)))
-    )
+    num_workers: int = int(os.environ.get("SLURM_CPUS_PER_TASK", len(os.sched_getaffinity(0))))
     """Number of dataloader workers."""
 
     seed: int = 42
@@ -197,12 +195,18 @@ class Args:
     """
 
     wandb_group: str | None = None
+
     wandb_project: str = "codingtips_profiling_example"
 
 
 def main():
     # Use an argument parser so we can pass hyperparameters from the command line.
-    args: Args = simple_parsing.parse(Args)
+    # You can use plain argparse if you like. Simple-parsing is an extension of argparse for dataclasses.
+    args: Args = simple_parsing.parse(
+        Args,
+        # Arguments can be passed with either --arg_name or --arg-name
+        add_option_string_dash_variants=simple_parsing.DashVariant.UNDERSCORE_AND_DASH,
+    )
 
     # Check that the GPU is available
     assert torch.cuda.is_available() and torch.cuda.device_count() > 0
@@ -234,14 +238,10 @@ def main():
         if args.verbose == 1
         else logging.DEBUG
     )
-
+    logger.info(f"World size: {WORLD_SIZE}, global rank: {RANK}, local rank: {LOCAL_RANK}")
     if is_master:
         logger.info("Args: ")
         rich.pretty.pprint(dataclasses.asdict(args))
-
-    logger.info(
-        f"World size: {WORLD_SIZE}, global rank: {RANK}, local rank: {LOCAL_RANK}"
-    )
 
     # Create a model and move it to the GPU.
 
@@ -272,7 +272,7 @@ def main():
 
     # Restricts data loading to a subset of the dataset exclusive to the current process
     train_sampler = DistributedSampler(
-        dataset=train_dataset, shuffle=True, num_replicas=WORLD_SIZE, rank=RANK
+        dataset=train_dataset, shuffle=True, num_replicas=WORLD_SIZE, rank=RANK, seed=args.seed
     )
     valid_sampler = DistributedSampler(
         dataset=valid_dataset, shuffle=False, num_replicas=WORLD_SIZE, rank=RANK
@@ -306,25 +306,31 @@ def main():
     logger.info(f"Global batch size: {global_batch_size}")
 
     # Load the latest checkpoint if it exists.
-    if _checkpoints := list(args.checkpoint_dir.glob("*.pt")):
-        # Checkpoints are named like `epoch_0.pt`, `epoch_1.pt`, etc.
-        latest_checkpoint = max(_checkpoints, key=lambda p: int(p.stem.split("_")[-1]))
+    if previous_checkpoints := list(args.checkpoint_dir.glob("*.pt")):
+        # Checkpoints are named like `epoch_0.pt`, `epoch_1.pt`. Find the latest.
+        latest_checkpoint = max(previous_checkpoints, key=lambda p: int(p.stem.split("_")[-1]))
         _checkpoint_epoch, step, num_samples = load_checkpoint(
             latest_checkpoint, model=model, optimizer=optimizer, device=device
         )
         starting_epoch = _checkpoint_epoch + 1
-        logger.debug(f"Starting training from epoch {starting_epoch}.")
         total_updates = step
         total_num_samples = num_samples
+        logger.debug(
+            f"Starting training from epoch {starting_epoch} (step {step}, {total_num_samples} total samples)"
+        )
     else:
-        logger.debug("Starting training from scratch")
         starting_epoch = 0
         total_updates = 0
         total_num_samples = 0
         args.checkpoint_dir.mkdir(parents=True, exist_ok=True)
+        logger.debug("Starting training from scratch")
 
-    # When in a multi-node job, use the new "shared" feature of wandb to show the GPU util of all gpus on all nodes.
-    # https://docs.wandb.ai/guides/track/log/distributed-training/#track-all-processes-to-a-single-run
+    # Initialize wandb logging.
+    # Normally you would only do this in the first task (rank 0), but here we do it in all tasks
+    # using the new "shared" feature of wandb. This makes it much easier to track the GPU util of
+    # all gpus on all nodes in the job.
+    # See this link for more info:
+    # - https://docs.wandb.ai/guides/track/log/distributed-training/#track-all-processes-to-a-single-run
     run = wandb.init(
         project=args.wandb_project,
         name=args.wandb_run_name,
@@ -332,18 +338,17 @@ def main():
         config=dataclasses.asdict(args)
         | {k: v for k, v in os.environ.items() if k.startswith("SLURM_")},
         group=args.wandb_group,
+        # Resume an existing run with the same ID if the job is restarting after being preempted.
+        resume=(
+            "must"  # 'must' will ignore all logged data until the previous step is reached.
+            if (int(os.environ.get("SLURM_RESTART_COUNT", "0")) > 0) or previous_checkpoints
+            else "allow"  # will log new data in the same run, which makes weird jagged plots.
+        ),
         # NOTE: Would be *really* nice to use this resume feature, but this is new
         # at the time of writing (2025-09) and needs to be enabled for your project
         # by contacting wandb support.
-        # resume_from=(
-        #     f"{JOB_ID}?_step={total_updates}"  # if starting_epoch > 0 else None
-        # ),
-        resume=(
-            "must"
-            if (int(os.environ.get("SLURM_RESTART_COUNT", "0")) > 0)
-            or list(args.checkpoint_dir.glob("*.pt"))
-            else "allow"
-        ),
+        # resume_from=f"{JOB_ID}?_step={total_updates}"  if starting_epoch > 0 else None,
+        # Use the new "shared" mode to log system utilization metrics from all tasks in the job:
         settings=wandb.Settings(
             mode="shared",
             x_primary=is_master,
@@ -356,8 +361,9 @@ def main():
     run.define_metric("train/*", step_metric="updates")
     run.define_metric("valid/*", step_metric="epoch")
 
-    # Create the PyTorch profiler with a schedule.
+    # Create the PyTorch profiler with a schedule that will output some traces that can be inspected with tensorboard.
     # https://docs.pytorch.org/tutorials/recipes/recipes/profiler_recipe.html#using-profiler-to-analyze-long-running-jobs
+    # To view the traces, run `uvx tensorboard --with=torch_tb_profiler --logdir checkpoints`
     profiler = profile(
         schedule=torch.profiler.schedule(wait=2, warmup=2, active=2, repeat=1),
         on_trace_ready=tensorboard_trace_handler(
@@ -385,10 +391,11 @@ def main():
         progress_bar = pbar_type(
             train_dataloader,
             desc=f"Train epoch {epoch}/{args.epochs - 1}",
+            # Don't use a progress bar if outputting to a slurm output file or when not in task 0
             disable=(not sys.stdout.isatty() or not is_master),
             unit_scale=False if pbar_type is tqdm.rich.tqdm_rich else global_batch_size,
             unit="batches" if pbar_type is tqdm.rich.tqdm_rich else "samples",
-            # Don't use a progress bar if outputting to a slurm output file or when not in task 0
+            dynamic_ncols=True,  # allow window resizing
         )
 
         t = time.perf_counter()
@@ -400,9 +407,7 @@ def main():
             batch = tuple(item.to(device) for item in batch)
             x, y = batch
 
-            loss, accuracy, n_samples = training_step(
-                model, x, y, optimizer, is_master=is_master
-            )
+            loss, accuracy, n_samples = training_step(model, x, y, optimizer, is_master=is_master)
 
             total_updates += 1
             total_num_samples += n_samples
@@ -433,9 +438,7 @@ def main():
         progress_bar.close()
 
         t = time.perf_counter()
-        val_loss, val_accuracy, val_samples = validation_loop(
-            model, valid_dataloader, device
-        )
+        val_loss, val_accuracy, val_samples = validation_loop(model, valid_dataloader, device)
         dt = time.perf_counter() - t
         val_sps = val_samples / dt
         logger.info(
@@ -491,9 +494,7 @@ def training_step(
 
     # local metrics
     local_n_correct_predictions = logits.detach().argmax(-1).eq(y).sum()
-    local_n_samples = logits.shape[0] * torch.ones(
-        1, device=local_loss.device, dtype=torch.int32
-    )
+    local_n_samples = logits.shape[0] * torch.ones(1, device=local_loss.device, dtype=torch.int32)
     local_accuracy = local_n_correct_predictions / local_n_samples
 
     # "global" metrics: calculated with the results from all workers
@@ -515,9 +516,7 @@ def training_step(
 
     # FIXME: The .item calls here happen even if we don't even want to show these values!
     if WORLD_SIZE > 1:
-        logger.debug(
-            f"(local) Loss: {local_loss.item():.2f} Accuracy: {local_accuracy.item():.2%}"
-        )
+        logger.debug(f"(local) Loss: {local_loss.item():.2f} Accuracy: {local_accuracy.item():.2%}")
     if is_master:  # Otherwise this would log the same values once per worker.
         logger.debug(
             ("Average" if WORLD_SIZE > 1 else "")
@@ -571,9 +570,7 @@ def validation_loop(model: nn.Module, dataloader: DataLoader, device: torch.devi
 T = TypeVar("T")
 
 
-def profile_loop(
-    dataloader: Iterable[T], profiler: torch.profiler.profile
-) -> Iterable[T]:
+def profile_loop(dataloader: Iterable[T], profiler: torch.profiler.profile) -> Iterable[T]:
     """Wraps the dataloader (or progress bar) and calls .step after each batch.
 
     Note, this doesn't need to be done at every epoch. It creates files used by tensorboard.
@@ -681,9 +678,7 @@ def load_checkpoint(
     np.random.set_state(checkpoint["numpy_rng_state"])
     cpu_rng_state = checkpoint["torch_rng_state_cpu"]
     torch.random.set_rng_state(cpu_rng_state.cpu())
-    torch.cuda.random.set_rng_state_all(
-        [t.cpu() for t in checkpoint["torch_rng_state_gpu"]]
-    )
+    torch.cuda.random.set_rng_state_all([t.cpu() for t in checkpoint["torch_rng_state_gpu"]])
     return epoch, step, nsamples
 
 
