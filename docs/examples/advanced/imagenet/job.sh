@@ -20,11 +20,8 @@ echo "Attempt #${SLURM_RESTART_COUNT:-0}"
 
 ## Code checkpointing with git to avoid unexpected bugs ##
 UV_DIR=$(./code_checkpointing.sh)
-
-echo "Git commit used for this job: ${GIT_COMMIT:-'not set - code checkpointing is not enabled'}"
+echo "Git commit used for this job: ${GIT_COMMIT:-not set - code checkpointing is not enabled}"
 echo "Running uv commands in directory: $UV_DIR"
-##
-
 
 # Stage dataset into $SLURM_TMPDIR
 # Prepare the dataset on each node's local storage using all the CPUs (and memory) of each node.

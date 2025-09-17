@@ -50,11 +50,8 @@ Click here to see `the source code for this example
 
    ## Code checkpointing with git to avoid unexpected bugs ##
    UV_DIR=$(./code_checkpointing.sh)
-
-   echo "Git commit used for this job: ${GIT_COMMIT:-'not set - code checkpointing is not enabled'}"
+   echo "Git commit used for this job: ${GIT_COMMIT:-not set - code checkpointing is not enabled}"
    echo "Running uv commands in directory: $UV_DIR"
-   ##
-
 
    # Stage dataset into $SLURM_TMPDIR
    # Prepare the dataset on each node's local storage using all the CPUs (and memory) of each node.
@@ -565,15 +562,17 @@ Click here to see `the source code for this example
 
                if is_master and (batch_index + 1) % args.logging_interval == 0:
                    # update the progress bar text.
+                   _loss = loss.item()
+                   _accuracy = accuracy.item()
                    progress_bar.set_postfix(
-                       loss=f"{loss.item():.3f}",
-                       accuracy=f"{accuracy.item():.2%}",
+                       loss=f"{_loss:.3f}",
+                       accuracy=f"{_accuracy:.2%}",
                    )
                    # TODO: Could be interesting to also log the local loss / accuracy values on all workers.
                    wandb.log(
                        {
-                           "train/loss": loss.item(),
-                           "train/accuracy": accuracy.item(),
+                           "train/loss": _loss,
+                           "train/accuracy": _accuracy,
                            "train/samples_per_sec": samples_per_sec,
                            "epoch": epoch,
                            "updates": total_updates,
