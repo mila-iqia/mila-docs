@@ -481,15 +481,15 @@ Click here to see `the source code for this example
            | {k: v for k, v in os.environ.items() if k.startswith("SLURM_")},
            group=args.wandb_group,
            # Resume an existing run with the same ID if the job is restarting after being preempted.
-           resume=(
-               "must"  # 'must' will ignore all logged data until the previous step is reached.
-               if (int(os.environ.get("SLURM_RESTART_COUNT", "0")) > 0) or previous_checkpoints
-               else "allow"  # will log new data in the same run, which makes weird jagged plots.
-           ),
+           # resume=(
+           #     "must"  # 'must' will ignore all logged data until the previous step is reached.
+           #     if (int(os.environ.get("SLURM_RESTART_COUNT", "0")) > 0) or previous_checkpoints
+           #     else "allow"  # will log new data in the same run, which makes weird jagged plots.
+           # ),
            # NOTE: Would be *really* nice to use this resume feature, but this is new
            # at the time of writing (2025-09) and needs to be enabled for your project
            # by contacting wandb support.
-           # resume_from=f"{JOB_ID}?_step={total_updates}"  if starting_epoch > 0 else None,
+           resume_from=f"{JOB_ID}?_step={total_updates}",
            # Use the new "shared" mode to log system utilization metrics from all tasks in the job:
            settings=wandb.Settings(
                mode="shared",
