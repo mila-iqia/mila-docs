@@ -443,7 +443,7 @@ def main():
             samples_per_sec = n_samples / dt
             t = new_t
 
-            if is_master and (batch_index + 1) % args.logging_interval == 0:
+            if is_master and (batch_index == 0 or (batch_index + 1 % args.logging_interval) == 0):
                 # update the progress bar text.
                 _loss = loss.item()
                 _accuracy = accuracy.item()
