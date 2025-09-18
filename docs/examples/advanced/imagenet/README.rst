@@ -120,13 +120,15 @@ Click here to see `the source code for this example
    requires-python = ">=3.11,<3.13"
    dependencies = [
        "debugpy>=1.8.16",
-       "grpcio>=1.75.0",           # this is only here because we want it to be explicitly taken from PyPI on DRAC clusters
        "scipy>=1.16.2",
        "torch>=2.7.1",
        "torch-tb-profiler>=0.4.3",
        "torchvision>=0.22.1",
        "tqdm>=4.67.1",
-       "wandb>=0.21.2",
+       "rich>=14.1.0",
+       "simple-parsing>=0.1.7",
+       "scikit-learn>=1.7.2",
+       "wandb>=0.21.4",
    ]
 
    #ruff: increase max line length
@@ -478,15 +480,15 @@ Click here to see `the source code for this example
            | {k: v for k, v in os.environ.items() if k.startswith("SLURM_")},
            group=args.wandb_group,
            # Resume an existing run with the same ID if the job is restarting after being preempted.
-           # resume=(
-           #     "must"  # 'must' will ignore all logged data until the previous step is reached.
-           #     if (int(os.environ.get("SLURM_RESTART_COUNT", "0")) > 0) or previous_checkpoints
-           #     else "allow"  # will log new data in the same run, which makes weird jagged plots.
-           # ),
+           resume=(
+               "must"  # 'must' will ignore all logged data until the previous step is reached.
+               if (int(os.environ.get("SLURM_RESTART_COUNT", "0")) > 0) or previous_checkpoints
+               else "allow"  # will log new data in the same run, which makes weird jagged plots.
+           ),
            # NOTE: Would be *really* nice to use this resume feature, but this is new
            # at the time of writing (2025-09) and needs to be enabled for your project
            # by contacting wandb support.
-           resume_from=f"{JOB_ID}?_step={total_updates}",
+           # resume_from=f"{JOB_ID}?_step={total_updates}",
            # Use the new "shared" mode to log system utilization metrics from all tasks in the job:
            settings=wandb.Settings(
                mode="shared",
@@ -881,6 +883,12 @@ Click here to see `the source code for this example
            default=SLURM_TMPDIR / "data",
            help="Where to prepare the dataset.",
        )
+       parser.add_argument(
+           "--network-imagenet-dir",
+           type=Path,
+           default=NETWORK_IMAGENET_DIR,
+           help="The path to the folder containing the ILSVRC2012 train and val archives and devkit.",
+       )
        dest = parser.parse_args().dest
        assert isinstance(dest, Path)
        # to see it as soon as it happens in logs.
@@ -890,12 +898,19 @@ Click here to see `the source code for this example
        print(f"Done preparing ImageNet dataset in {dest}")
 
 
-   def prepare_imagenet(output_directory: Path):
-       devkit_archive = NETWORK_IMAGENET_DIR / "ILSVRC2012_devkit_t12.tar.gz"
-       train_archive = NETWORK_IMAGENET_DIR / "ILSVRC2012_img_train.tar"
-       val_archive = NETWORK_IMAGENET_DIR / "ILSVRC2012_img_val.tar"
-       checksums_file = NETWORK_IMAGENET_DIR / "md5sums"
-
+   def prepare_imagenet(output_directory: Path, network_imagenet_dir: Path = NETWORK_IMAGENET_DIR):
+       devkit_archive = network_imagenet_dir / "ILSVRC2012_devkit_t12.tar.gz"
+       train_archive = network_imagenet_dir / "ILSVRC2012_img_train.tar"
+       val_archive = network_imagenet_dir / "ILSVRC2012_img_val.tar"
+       checksums_file = network_imagenet_dir / "md5sums"
+       if any(
+           not p.exists()
+           for p in (network_imagenet_dir, devkit_archive, train_archive, val_archive, checksums_file)
+       ):
+           raise FileNotFoundError(
+               f"Could not find the ImageNet dataset archives at {network_imagenet_dir}! "
+               "Adjust the location with the argument as needed. "
+           )
        output_directory.mkdir(parents=True, exist_ok=True)
 
        _make_symlink_in_dest(devkit_archive, output_directory)
