@@ -117,19 +117,16 @@ Click here to see `the source code for this example
    version = "0.1.0"
    description = "Add your description here"
    readme = "README.md"
-   requires-python = ">=3.12"
+   requires-python = ">=3.11,<3.13"
    dependencies = [
        "debugpy>=1.8.16",
-       "rich>=14.1.0",
-       "scikit-learn>=1.7.2",
-       "scipy>=1.16.1",
-       "simple-parsing>=0.1.7",
-       "torch>=2.8.0",
+       "grpcio>=1.75.0",           # this is only here because we want it to be explicitly taken from PyPI on DRAC clusters
+       "scipy>=1.16.2",
+       "torch>=2.7.1",
        "torch-tb-profiler>=0.4.3",
-       "torchmetrics>=1.8.2",
-       "torchvision>=0.23.0",
+       "torchvision>=0.22.1",
        "tqdm>=4.67.1",
-       "wandb>=0.21.3",
+       "wandb>=0.21.2",
    ]
 
    #ruff: increase max line length
