@@ -36,7 +36,7 @@ if [[ -n "$GIT_COMMIT" ]]; then
     srun --ntasks-per-node=1 bash -c "\
         git clone $project_root \$SLURM_TMPDIR/$project_dirname && \
         cd \$SLURM_TMPDIR/$project_dirname && \
-        git checkout --detached $GIT_COMMIT && \
+        git checkout --detach $GIT_COMMIT && \
         uv sync --directory=$UV_DIR"
 elif [[ -n "$(git -C $project_root status --porcelain)" ]]; then
     echo "Warning: GIT_COMMIT is not set and the current repo at $project_root has uncommitted changes." >&2
