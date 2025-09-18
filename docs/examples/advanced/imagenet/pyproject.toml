@@ -6,13 +6,15 @@ readme = "README.md"
 requires-python = ">=3.11,<3.13"
 dependencies = [
     "debugpy>=1.8.16",
-    "grpcio>=1.75.0",           # this is only here because we want it to be explicitly taken from PyPI on DRAC clusters
     "scipy>=1.16.2",
     "torch>=2.7.1",
     "torch-tb-profiler>=0.4.3",
     "torchvision>=0.22.1",
     "tqdm>=4.67.1",
-    "wandb>=0.21.2",
+    "rich>=14.1.0",
+    "simple-parsing>=0.1.7",
+    "scikit-learn>=1.7.2",
+    "wandb>=0.21.4",
 ]
 
 #ruff: increase max line length

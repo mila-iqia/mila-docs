@@ -24,6 +24,12 @@ def main():
         default=SLURM_TMPDIR / "data",
         help="Where to prepare the dataset.",
     )
+    parser.add_argument(
+        "--network-imagenet-dir",
+        type=Path,
+        default=NETWORK_IMAGENET_DIR,
+        help="The path to the folder containing the ILSVRC2012 train and val archives and devkit.",
+    )
     dest = parser.parse_args().dest
     assert isinstance(dest, Path)
     # to see it as soon as it happens in logs.
@@ -33,12 +39,19 @@ def main():
     print(f"Done preparing ImageNet dataset in {dest}")
 
 
-def prepare_imagenet(output_directory: Path):
-    devkit_archive = NETWORK_IMAGENET_DIR / "ILSVRC2012_devkit_t12.tar.gz"
-    train_archive = NETWORK_IMAGENET_DIR / "ILSVRC2012_img_train.tar"
-    val_archive = NETWORK_IMAGENET_DIR / "ILSVRC2012_img_val.tar"
-    checksums_file = NETWORK_IMAGENET_DIR / "md5sums"
-
+def prepare_imagenet(output_directory: Path, network_imagenet_dir: Path = NETWORK_IMAGENET_DIR):
+    devkit_archive = network_imagenet_dir / "ILSVRC2012_devkit_t12.tar.gz"
+    train_archive = network_imagenet_dir / "ILSVRC2012_img_train.tar"
+    val_archive = network_imagenet_dir / "ILSVRC2012_img_val.tar"
+    checksums_file = network_imagenet_dir / "md5sums"
+    if any(
+        not p.exists()
+        for p in (network_imagenet_dir, devkit_archive, train_archive, val_archive, checksums_file)
+    ):
+        raise FileNotFoundError(
+            f"Could not find the ImageNet dataset archives at {network_imagenet_dir}! "
+            "Adjust the location with the argument as needed. "
+        )
     output_directory.mkdir(parents=True, exist_ok=True)
 
     _make_symlink_in_dest(devkit_archive, output_directory)
