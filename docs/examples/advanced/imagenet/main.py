@@ -179,7 +179,9 @@ class Args:
     verbose: int = simple_parsing.field(alias="-v", action="count", default=0)
     """Increase logging verbosity (can be specified multiple times)."""
 
-    logging_interval: int = 10
+    # IDEA: Can we instead use a logging interval in seconds?
+    # One problem is that this would make it hard to compare metric values at the same step.
+    logging_interval: int = 100
     """Interval (in batches) between logging training metrics."""
 
     checkpoint_interval_epochs: int = 1
@@ -338,12 +340,12 @@ def main():
     # - https://docs.wandb.ai/guides/track/log/distributed-training/#track-all-processes-to-a-single-run
     run = wandb.init(
         project=args.wandb_project,
-        name=args.wandb_run_name,
-        id=args.wandb_run_id,
+        name=args.wandb_run_name if args.wandb_run_name else None,
+        id=args.wandb_run_id if args.wandb_run_id else None,
+        # It's a good idea to log the SLURM environment variables to wandb.
         config=dataclasses.asdict(args)
         | {k: v for k, v in os.environ.items() if k.startswith("SLURM_")},
         group=args.wandb_group,
-        # Resume an existing run with the same ID if the job is restarting after being preempted.
         # Use the new "shared" mode to log system utilization metrics from all tasks in the job:
         settings=wandb.Settings(
             mode="shared",
@@ -352,7 +354,8 @@ def main():
             x_stats_gpu_device_ids=[LOCAL_RANK],
             x_update_finish_state=not is_master,
         ),
-        # NOTE: Would be *really* nice to use this resume feature, but this is new
+        # Resume an existing run with the same ID if the job is restarting after being preempted.
+        # It would be *really* nice to use this resume feature, but this is new
         # at the time of writing (2025-09) and needs to be enabled for your project
         # by contacting wandb support.
         resume_from=(
