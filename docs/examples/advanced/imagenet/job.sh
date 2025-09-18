@@ -2,11 +2,10 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4
 #SBATCH --gpus-per-task=l40s:1
-#SBATCH --constraint=ampere|lovelace|hopper
-#SBATCH --mem=16G
+#SBATCH --mem-per-gpu=16G
 #SBATCH --tmp=200G  # We need 200GB of storage on the local disk of each node.
-#SBATCH --time=05:00:00
-#SBATCH --output=/network/scratch/n/normandf/checkpoints/%j/out.txt
+#SBATCH --time=02:00:00
+#SBATCH --output=checkpoints/%j/out.txt
 
 set -e  # exit on error.
 echo "Date:     $(date)"
