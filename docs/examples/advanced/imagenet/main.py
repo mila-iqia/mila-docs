@@ -152,6 +152,9 @@ class Args:
     checkpoint_dir: Path = SCRATCH / "checkpoints" / JOB_ID
     """Where checkpoints are stored."""
 
+    checkpoint_interval_epochs: int = 1
+    """Interval (in epochs) between saving checkpoints."""
+
     dataset_path: Path = SLURM_TMPDIR / "data"
     """Where to look for the dataset."""
 
@@ -183,9 +186,6 @@ class Args:
     # One problem is that this would make it hard to compare metric values at the same step.
     logging_interval: int = 100
     """Interval (in batches) between logging training metrics."""
-
-    checkpoint_interval_epochs: int = 1
-    """Interval (in epochs) between saving checkpoints."""
 
     use_amp: bool = False
     """If True, use automatic mixed precision (AMP) for training."""
@@ -394,6 +394,11 @@ def main():
         on_trace_ready=tensorboard_trace_handler(
             str(args.checkpoint_dir), worker_name=f"rank_{RANK}"
         ),
+        record_shapes=True,
+        profile_memory=True,
+        with_stack=True,
+        with_flops=True,
+        with_modules=True,
     )
 
     ###################
