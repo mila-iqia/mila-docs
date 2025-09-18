@@ -322,13 +322,16 @@ Click here to see `the source code for this example
        logging_interval: int = 10
        """Interval (in batches) between logging training metrics."""
 
+       checkpoint_interval_epochs: int = 1
+       """Interval (in epochs) between saving checkpoints."""
+
        use_amp: bool = False
        """If True, use automatic mixed precision (AMP) for training."""
 
-       wandb_run_name: str = JOB_ID
+       wandb_run_name: str | None = JOB_ID
        """Name for the wandb run."""
 
-       wandb_run_id: str = JOB_ID
+       wandb_run_id: str | None = JOB_ID
        """Unique ID for the Weights & Biases run.
 
        Used to resume a run if the job is restarted.
@@ -448,15 +451,17 @@ Click here to see `the source code for this example
        # Load the latest checkpoint if it exists.
        if previous_checkpoints := list(args.checkpoint_dir.glob("*.pt")):
            # Checkpoints are named like `epoch_0.pt`, `epoch_1.pt`. Find the latest.
+           # Note: epoch_0 in this case is the initial checkpoint before any training.
+           # epoch_1 is after one epoch of training, etc.
            latest_checkpoint = max(previous_checkpoints, key=lambda p: int(p.stem.split("_")[-1]))
-           _checkpoint_epoch, step, num_samples = load_checkpoint(
+           _checkpoint_num_epochs_done, step, num_samples = load_checkpoint(
                latest_checkpoint, model=model, optimizer=optimizer, device=device
            )
-           starting_epoch = _checkpoint_epoch + 1
+           starting_epoch = _checkpoint_num_epochs_done
            total_updates = step
            total_num_samples = num_samples
            logger.debug(
-               f"Starting training from epoch {starting_epoch} (step {step}, {total_num_samples} total samples)"
+               f"Resuming training from epoch {starting_epoch} (step {step}, {total_num_samples} total samples)"
            )
        else:
            starting_epoch = 0
@@ -479,15 +484,6 @@ Click here to see `the source code for this example
            | {k: v for k, v in os.environ.items() if k.startswith("SLURM_")},
            group=args.wandb_group,
            # Resume an existing run with the same ID if the job is restarting after being preempted.
-           resume=(
-               "must"  # 'must' will ignore all logged data until the previous step is reached.
-               if (int(os.environ.get("SLURM_RESTART_COUNT", "0")) > 0) or previous_checkpoints
-               else "allow"  # will log new data in the same run, which makes weird jagged plots.
-           ),
-           # NOTE: Would be *really* nice to use this resume feature, but this is new
-           # at the time of writing (2025-09) and needs to be enabled for your project
-           # by contacting wandb support.
-           # resume_from=f"{JOB_ID}?_step={total_updates}",
            # Use the new "shared" mode to log system utilization metrics from all tasks in the job:
            settings=wandb.Settings(
                mode="shared",
@@ -496,10 +492,36 @@ Click here to see `the source code for this example
                x_stats_gpu_device_ids=[LOCAL_RANK],
                x_update_finish_state=not is_master,
            ),
+           # NOTE: Would be *really* nice to use this resume feature, but this is new
+           # at the time of writing (2025-09) and needs to be enabled for your project
+           # by contacting wandb support.
+           resume_from=(
+               f"{args.wandb_run_id}?_step={total_updates}"
+               if previous_checkpoints and args.wandb_run_id
+               else None
+           ),
+           resume=None if previous_checkpoints else "never",
+           # Use this for the time being instead:
+           # resume="must" if previous_checkpoints else "never",
        )
        # Specify the step metric (x-axis) and the metric to log against it (y-axis)
        run.define_metric("train/*", step_metric="updates")
        run.define_metric("valid/*", step_metric="epoch")
+
+       # Save an initial checkpoint (epoch 0) before training to make sure we can easily get the exact same initial weights.
+       # Since code is supposed to be correctly seeded and reproducible, this is just an additional precaution.
+       # Doing this here also makes it so if there is a checkpoint, there is also a wandb run, so we can resume the wandb run
+       # more correctly than with just `resume="allow"`.
+       if not previous_checkpoints:
+           save_checkpoint(
+               checkpoint_path=args.checkpoint_dir / "epoch_0.pt",
+               model=model,
+               optimizer=optimizer,
+               device=device,
+               epoch=0,
+               step=0,
+               num_samples=0,
+           )
 
        # Create the PyTorch profiler with a schedule that will output some traces that can be inspected with tensorboard.
        # https://docs.pytorch.org/tutorials/recipes/recipes/profiler_recipe.html#using-profiler-to-analyze-long-running-jobs
@@ -596,10 +618,11 @@ Click here to see `the source code for this example
            )
 
            # Only save the checkpoint from the master process.
-           # TODO: Make sure this doesn't cause a timeout if it takes too long.
-           if is_master:
+           # Make sure this doesn't cause a torch.distributed.timeout if it takes too long.
+           if is_master and (epoch % args.checkpoint_interval_epochs) == 0:
+               # save as epoch_1 after having done 1 epoch of training.
                save_checkpoint(
-                   checkpoint_path=args.checkpoint_dir / f"epoch_{epoch}.pt",
+                   checkpoint_path=args.checkpoint_dir / f"epoch_{epoch + 1}.pt",
                    model=model,
                    optimizer=optimizer,
                    device=device,
