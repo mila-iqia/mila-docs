@@ -1,8 +1,8 @@
 #!/bin/bash
-#SBATCH --gpus=h100:1
-#SBATCH --ntasks-per-gpu=1
+#SBATCH --ntasks=1
+#SBATCH --gpus=nvidia_h100_80gb_hbm3_1g.10gb:1
 #SBATCH --cpus-per-task=4
-#SBATCH --mem-per-cpu=8GB
+#SBATCH --mem=16GB
 #SBATCH --tmp=200G  # We need 200GB of storage on the local disk of each node.
 #SBATCH --time=02:59:00
 
