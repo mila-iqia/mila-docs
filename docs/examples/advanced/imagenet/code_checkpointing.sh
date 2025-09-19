@@ -8,7 +8,8 @@
 # - This should be called from within a SLURM sbatch job script.
 # - This clones the project on each node's local storage at the current commit.
 # - This creates the virtual environment for the project at that commit on each node's local storage using UV.
-# - This returns the directory that should then be passed to the `uv run` commands in the rest of the job script.
+# - This returns the directory that should then be passed to the --directory argument of `uv run`
+#   commands in the rest of the job script.
 
 # Assumptions:
 # - This assumes that we're inside the project when submitting a job.

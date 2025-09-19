@@ -199,25 +199,23 @@ Click here to see `the source code for this example
    # Also doing this here just in case you're using a different sbatch script or running this from
    # the vscode terminal or with the vscode debugger.
    # Using the Vscode debugger to debug multi-gpu jobs is very convenient.
-   # When debugging in a vscode window created by `mila code`, we do not have the slurm
-   # environment variables (except SLURM_JOB_ID), but have the torchrun ones.
-
+   #
    # Note: here by using .setdefault we don't overwrite env variables that are already set,
    # so you could in principle use this in a workflow based on srun + torchrun or
    # srun + 'accelerate launch'.
-   #
-   # If neither the SLURM nor the torch distributed env vars are set, raise an error.
+
    if "SLURM_PROCID" not in os.environ and "RANK" not in os.environ:
+       # If neither the SLURM nor the torch distributed env vars are set, raise an error.
        raise RuntimeError(
            "Both the SLURM and the torch distributed env vars are not set! "
            "This indicates that you might be running this script in something like the "
-           "vscode terminal with `python <this_file>`.\n"
+           "vscode terminal with `python main.py>`.\n"
            f"Consider relaunching the same command with srun instead, like so: \n"
-           f"➡️ srun --pty {sys.executable} {' '.join(sys.argv)}\n"
+           f"➡️    srun --pty python main.py {' '.join(sys.argv)}\n"
            "See https://slurm.schedmd.com/srun.html for more info."
        )
 
-   # This will raise an error if both are unset. This is desired.
+   # This will raise an error if both are unset. This is expected (see above).
    RANK = int(os.environ.setdefault("RANK", os.environ.get("SLURM_PROCID", "")))
    LOCAL_RANK = int(os.environ.setdefault("LOCAL_RANK", os.environ.get("SLURM_LOCALID", "")))
    WORLD_SIZE = int(os.environ.setdefault("WORLD_SIZE", os.environ.get("SLURM_NTASKS", "")))
@@ -230,6 +228,15 @@ Click here to see `the source code for this example
        MASTER_ADDR = os.environ.setdefault("MASTER_ADDR", _first_node)
    else:
        MASTER_ADDR = os.environ.setdefault("MASTER_ADDR", "127.0.0.1")
+
+   # Setup logging
+   logging.basicConfig(
+       level=logging.INFO,
+       format=f"[{RANK + 1}/{WORLD_SIZE}] %(name)s - %(message)s ",
+       handlers=[rich.logging.RichHandler(markup=True)],
+       force=True,
+   )
+   logger = logging.getLogger(__name__)
 
 
    class DummyModel(nn.Module):
@@ -265,16 +272,6 @@ Click here to see `the source code for this example
        "vit_l_16": torchvision.models.vit_l_16,
        "vit_l_32": torchvision.models.vit_l_32,
    }
-
-
-   # Setup logging
-   logging.basicConfig(
-       level=logging.INFO,
-       format=f"[{RANK + 1}/{WORLD_SIZE}] %(name)s - %(message)s ",
-       handlers=[rich.logging.RichHandler(markup=True)],
-       force=True,
-   )
-   logger = logging.getLogger(__name__)
 
 
    @dataclass
@@ -385,19 +382,19 @@ Click here to see `the source code for this example
        )
        logger.info(f"World size: {WORLD_SIZE}, global rank: {RANK}, local rank: {LOCAL_RANK}")
        if is_master:
-           logger.info("Args: ")
+           print("Args:")
            rich.pretty.pprint(dataclasses.asdict(args))
 
        # Create a model and move it to the GPU.
-
        kwargs = {} if not args.pretrained else {"weights": "DEFAULT"}
        model = models[args.model_name](num_classes=1000, **kwargs)
        model.to(device=device)
+
        # https://docs.pytorch.org/tutorials/beginner/ddp_series_multigpu.html#multi-gpu-training-with-ddp
        model = torch.nn.SyncBatchNorm.convert_sync_batchnorm(model)
        if args.compile:
-           # TODO: do this before or after the DDP wrapper?
            model = torch.compile(model)
+
        # Wrap the model with DistributedDataParallel
        # (See https://pytorch.org/docs/stable/nn.html#torch.nn.parallel.DistributedDataParallel)
        model = nn.parallel.DistributedDataParallel(
