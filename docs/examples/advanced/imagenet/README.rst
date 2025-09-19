@@ -444,8 +444,8 @@ Click here to see `the source code for this example
            sampler=test_sampler,
            pin_memory=True,
        )
-       global_batch_size = args.batch_size * WORLD_SIZE
-       logger.info(f"Global batch size: {global_batch_size}")
+       effective_batch_size = args.batch_size * WORLD_SIZE
+       logger.info(f"Effective (global) batch size: {effective_batch_size}")
 
        # Load the latest checkpoint if it exists.
        if previous_checkpoints := list(args.checkpoint_dir.glob("*.pt")):
@@ -480,10 +480,14 @@ Click here to see `the source code for this example
            name=args.wandb_run_name if args.wandb_run_name else None,
            id=args.wandb_run_id if args.wandb_run_id else None,
            # It's a good idea to log the SLURM environment variables to wandb.
-           config=dataclasses.asdict(args)
-           | {k: v for k, v in os.environ.items() if k.startswith("SLURM_")},
+           config=(
+               dataclasses.asdict(args)
+               | {k: v for k, v in os.environ.items() if k.startswith("SLURM_")}
+               | {"effective_batch_size": effective_batch_size}
+           ),
            group=args.wandb_group,
            # Use the new "shared" mode to log system utilization metrics from all tasks in the job:
+           # TODO: Make it easier to turn off wandb for successive debugging in the same interactive job with the vscode debugger.
            settings=wandb.Settings(
                mode="shared",
                x_primary=is_master,
@@ -500,9 +504,9 @@ Click here to see `the source code for this example
                if previous_checkpoints and args.wandb_run_id
                else None
            ),
-           resume=None if previous_checkpoints else "never",
+           resume=None if previous_checkpoints and args.wandb_run_id else "allow",
            # Use this for the time being instead:
-           # resume="must" if previous_checkpoints else "never",
+           # resume="must" if previous_checkpoints else "allow",
        )
        # Specify the step metric (x-axis) and the metric to log against it (y-axis)
        run.define_metric("train/*", step_metric="updates")
@@ -560,7 +564,7 @@ Click here to see `the source code for this example
                desc=f"Train epoch {epoch}/{args.epochs - 1}",
                # Don't use a progress bar if outputting to a slurm output file or when not in task 0
                disable=(not sys.stdout.isatty() or not is_master),
-               unit_scale=False if pbar_type is tqdm.rich.tqdm_rich else global_batch_size,
+               unit_scale=False if pbar_type is tqdm.rich.tqdm_rich else effective_batch_size,
                unit="batches" if pbar_type is tqdm.rich.tqdm_rich else "samples",
                dynamic_ncols=True,  # allow window resizing
            )
@@ -579,7 +583,7 @@ Click here to see `the source code for this example
                total_updates += 1
                total_num_samples += n_samples
 
-               # Simple training speed calculation in samples/sec using the global batch size.
+               # Simple training speed calculation in samples/sec using the effective batch size.
                new_t = time.perf_counter()
                dt = new_t - t
                samples_per_sec = n_samples / dt
@@ -769,14 +773,18 @@ Click here to see `the source code for this example
                size=20_000,
                image_size=(3, 224, 224),
                num_classes=1000,
-               transform=transforms.ToTensor(),
+               transform=transforms.Compose(
+                   [transforms.ToImage(), transforms.ToDtype(torch.float32, scale=True)]
+               ),
            )
 
            test_dataset = torchvision.datasets.FakeData(
                size=50_000,
                image_size=(3, 224, 224),
                num_classes=1000,
-               transform=transforms.ToTensor(),
+               transform=transforms.Compose(
+                   [transforms.ToImage(), transforms.ToDtype(torch.float32, scale=True)]
+               ),
            )
            return train_dataset, valid_dataset, test_dataset
        # TODO: Check if we put the transforms on the GPU and see if it helps performance a bit.
