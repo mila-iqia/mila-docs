@@ -55,7 +55,7 @@ Click here to see `the source code for this example
    # Stage dataset into $SLURM_TMPDIR
    # Prepare the dataset on each node's local storage using all the CPUs (and memory) of each node.
    mkdir -p $SLURM_TMPDIR/data
-   srun --ntasks-per-node=1 --nodes=${SLURM_JOB_NUM_NODES:-1} bash -c \
+   srun --ntasks-per-node=1 --nodes=${SLURM_NNODES:-1} bash -c \
        "uv run --directory=$UV_DIR python prepare_data.py --dest \$SLURM_TMPDIR/data"
 
 
@@ -88,14 +88,10 @@ Click here to see `the source code for this example
        python main.py --dataset_path=\$SLURM_TMPDIR/data $@"
 
    ## srun + torchrun version ##
-   ## TODO: Use the right torchrun flags to get the equivalent of pure slurm / accelerate
    # srun --ntasks-per-node=1 bash -c "\
-   #     uv run --directory=$UV_DIR \
-   #     python -m torch.distributed.run \
-   #     --machine_rank \$SLURM_NODEID \
+   #     uv run torchrun --node-rank=\$SLURM_NODEID --nnodes=\$SLURM_STEP_NUM_NODES \
+   #     --master-addr=$MASTER_ADDR --master-port=$MASTER_PORT --nproc-per-node=gpu \
    #     main.py $@"
-
-
 
    ## srun + accelerate version ##
    ## NOTE: This particular example doesn't use accelerate, this is just here to illustrate.
