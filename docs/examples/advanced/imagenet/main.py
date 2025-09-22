@@ -286,7 +286,6 @@ def main():
         val_split_seed=args.val_seed,
         use_fake_data=args.use_fake_data,
     )
-
     # Restricts data loading to a subset of the dataset exclusive to the current process
     train_sampler = DistributedSampler(
         dataset=train_dataset, shuffle=True, num_replicas=WORLD_SIZE, rank=RANK, seed=args.seed
@@ -559,14 +558,14 @@ def training_step(
     # logger.debug(f"Local loss: {local_loss.item():.2f}")
 
     optimizer.zero_grad()
-    # NOTE: nn.DistributedDataParallel automatically averages the gradients across devices.
+    # nn.DistributedDataParallel automatically averages the gradients across devices.
     local_loss.backward()
     optimizer.step()
 
     # Calculate some metrics:
 
-    # TODO: Use torchmetrics instead of calculating metrics ourselves? (But then
-    # we don't see (and learn) how to use the communication primitives!)
+    # We could also use torchmetrics instead of calculating metrics ourselves, but then
+    # we wouldn't get to learn how to use the communication primitives!
 
     # local metrics
     local_n_correct_predictions = logits.detach().argmax(-1).eq(y).sum()
