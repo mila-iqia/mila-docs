@@ -6,7 +6,7 @@
     "configurations": [
         {
             // Loosely based on https://medium.com/@franoisponchon/pytorch-ddp-debugging-in-vscode-4fb162eba07e
-            "name": "Debug Distributed job: Single-node (torchrun)",
+            "name": "Debug job: Single-node (torchrun)",
             "type": "debugpy",
             "request": "launch",
             // we launch a module...
@@ -22,7 +22,7 @@
             "justMyCode": false
         },
         {
-            "name": "Debug Distributed job: Launch with srun (you then attach the debugger to each task)",
+            "name": "Debug job: Launch with srun (you then use \"attach debugger\" for each task)",
             "request": "launch",
             /// wacky, but it works. We just want to run this command in a bash terminal.
             "type": "node-terminal",
@@ -41,7 +41,7 @@
             }
         },
         {
-            "name": "Debug Distributed job: Launch with srun+torchrun (you then attach the debugger to each node)",
+            "name": "Debug job: Launch with srun+torchrun (you then use \"attach debugger\" for each node)",
             "request": "launch",
             /// wacky, not using nodejs here, but this allows us to just run commands in the integrated (bash) terminal.
             "type": "node-terminal",
@@ -53,7 +53,7 @@
                 DEBUGPY_PORT=$(expr 20000 + $(echo -n $SLURM_JOB_ID | tail -c 4)) && \
                 MASTER_ADDR=$(scontrol show hostnames $SLURM_JOB_NODELIST | head -n 1) && \
                 MASTER_PORT=$(expr 10000 + $(echo -n $SLURM_JOB_ID | tail -c 4)) && \
-                WORLD_SIZE=$SLURM_NTASKS && \
+                WORLD_SIZE=${input:NumGPUs} && \
                 echo \"Task $SLURM_PROCID on node $SLURMD_NODENAME is waiting until the vscode debugger is attached to host $SLURMD_NODENAME at port $DEBUGPY_PORT\" && \
                 uv run debugpy --listen 0.0.0.0:$DEBUGPY_PORT --wait-for-client -m \
                 torch.distributed.run --node-rank=$SLURM_NODEID --nnodes=${input:NumNodes} \
@@ -63,11 +63,11 @@
             "presentation": {
                 "hidden": false,
                 "group": "lower",
-                "order": 1
+                "order": 2
             }
         },
         {
-            "name": "Debug Distributed job: Attach debugger to a running task/node",
+            "name": "Debug job: Attach debugger to a running task/node",
             "type": "debugpy",
             "request": "attach",
             "connect": {
@@ -78,7 +78,7 @@
             "presentation": {
                 "hidden": false,
                 "group": "lower",
-                "order": 1
+                "order": 0
             }
         },
     ],
@@ -97,7 +97,8 @@
                 "1",
                 "2",
                 "4",
-                "8"
+                "8",
+                "16"
             ],
             "default": "2"
         },

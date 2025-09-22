@@ -147,11 +147,11 @@ Click here to see `the source code for this example
    - Profiling with the PyTorch profiler and tensorboard
 
    # Potential Improvements - to be added as an exercise! 😉
-   - Use Automatic Mixed Precision (AMP) to take advantage of the hardware
-   - Add code checkpointing with git to avoid unexpected bugs
-   - Use a larger model that doesn't fit inside a single GPU with FSDP.
+   - Use Automatic Mixed Precision (AMP) to take advantage of the hardware capabilities
+   - Use FSDP to train a larger model that doesn't fit inside a single GPU
    """
 
+   import contextlib
    import dataclasses
    import datetime
    import logging
@@ -286,7 +286,7 @@ Click here to see `the source code for this example
        pretrained: bool = False
        """Whether to use a pretrained model or start from a random initialization."""
 
-       checkpoint_dir: Path = SCRATCH / "checkpoints" / JOB_ID
+       checkpoint_dir: Path | None = None
        """Where checkpoints are stored."""
 
        checkpoint_interval_epochs: int = 1
@@ -327,10 +327,14 @@ Click here to see `the source code for this example
        use_amp: bool = False
        """If True, use automatic mixed precision (AMP) for training."""
 
-       wandb_run_name: str | None = JOB_ID
+       wandb_run_name: str | None = JOB_ID + (
+           f"_step{_step}" if (_step := int(os.environ.get("SLURM_STEP_ID", "0"))) > 0 else ""
+       )
        """Name for the wandb run."""
 
-       wandb_run_id: str | None = JOB_ID
+       wandb_run_id: str | None = JOB_ID + (
+           f"_step{_step}" if (_step := int(os.environ.get("SLURM_STEP_ID", "0"))) > 0 else ""
+       )
        """Unique ID for the Weights & Biases run.
 
        Used to resume a run if the job is restarted.
@@ -349,6 +353,20 @@ Click here to see `the source code for this example
            # Arguments can be passed with either --arg_name or --arg-name
            add_option_string_dash_variants=simple_parsing.DashVariant.UNDERSCORE_AND_DASH,
        )
+       if not (_checkpoints_symlink := Path("checkpoints")).exists():
+           _checkpoints_dir_in_scratch = SCRATCH / "checkpoints"
+           _checkpoints_dir_in_scratch.mkdir(parents=True, exist_ok=True)
+           logger.info(
+               f"Creating a symlink from {_checkpoints_symlink} --> {_checkpoints_dir_in_scratch}"
+           )
+           _checkpoints_symlink.symlink_to(_checkpoints_dir_in_scratch)
+
+       if args.checkpoint_dir is None:
+           # Use the run name or run_id as the checkpoint folder by default if unset.
+           # This makes it so the names in wandb and the names in tensorboard line up nicely.
+           args.checkpoint_dir = (
+               SCRATCH / "checkpoints" / (args.wandb_run_name or args.wandb_run_id or JOB_ID)
+           )
 
        # Check that the GPU is available
        assert torch.cuda.is_available() and torch.cuda.device_count() > 0
@@ -364,7 +382,6 @@ Click here to see `the source code for this example
            timeout=datetime.timedelta(minutes=5),
        )
        is_master = RANK == 0
-       _is_local_master = LOCAL_RANK == 0
 
        device = torch.device("cuda", LOCAL_RANK)
 
@@ -388,13 +405,11 @@ Click here to see `the source code for this example
        # Create a model and move it to the GPU.
        kwargs = {} if not args.pretrained else {"weights": "DEFAULT"}
        model = models[args.model_name](num_classes=1000, **kwargs)
-       model.to(device=device)
-
+       model = model.to(device=device)
        # https://docs.pytorch.org/tutorials/beginner/ddp_series_multigpu.html#multi-gpu-training-with-ddp
        model = torch.nn.SyncBatchNorm.convert_sync_batchnorm(model)
        if args.compile:
            model = torch.compile(model)
-
        # Wrap the model with DistributedDataParallel
        # (See https://pytorch.org/docs/stable/nn.html#torch.nn.parallel.DistributedDataParallel)
        model = nn.parallel.DistributedDataParallel(
@@ -437,7 +452,7 @@ Click here to see `the source code for this example
            sampler=valid_sampler,
            pin_memory=True,
        )
-       _test_dataloader = DataLoader(  # NOTE: Not used in this example.
+       _test_dataloader = DataLoader(  # Not used in this example.
            test_dataset,
            batch_size=args.batch_size,
            num_workers=args.num_workers,
@@ -470,47 +485,12 @@ Click here to see `the source code for this example
            logger.debug("Starting training from scratch")
 
        # Initialize wandb logging.
-       # Normally you would only do this in the first task (rank 0), but here we do it in all tasks
-       # using the new "shared" feature of wandb. This makes it much easier to track the GPU util of
-       # all gpus on all nodes in the job.
-       # See this link for more info:
-       # - https://docs.wandb.ai/guides/track/log/distributed-training/#track-all-processes-to-a-single-run
-       run = wandb.init(
-           project=args.wandb_project,
-           name=args.wandb_run_name if args.wandb_run_name else None,
-           id=args.wandb_run_id if args.wandb_run_id else None,
-           # It's a good idea to log the SLURM environment variables to wandb.
-           config=(
-               dataclasses.asdict(args)
-               | {k: v for k, v in os.environ.items() if k.startswith("SLURM_")}
-               | {"effective_batch_size": effective_batch_size}
-           ),
-           group=args.wandb_group,
-           # Use the new "shared" mode to log system utilization metrics from all tasks in the job:
-           # TODO: Make it easier to turn off wandb for successive debugging in the same interactive job with the vscode debugger.
-           settings=wandb.Settings(
-               mode="shared",
-               x_primary=is_master,
-               x_label=f"task_{RANK}",
-               x_stats_gpu_device_ids=[LOCAL_RANK],
-               x_update_finish_state=not is_master,
-           ),
-           # Resume an existing run with the same ID if the job is restarting after being preempted.
-           # It would be *really* nice to use this resume feature, but this is new
-           # at the time of writing (2025-09) and needs to be enabled for your project
-           # by contacting wandb support.
-           resume_from=(
-               f"{args.wandb_run_id}?_step={total_updates}"
-               if previous_checkpoints and args.wandb_run_id
-               else None
-           ),
-           resume=None if previous_checkpoints and args.wandb_run_id else "allow",
-           # Use this for the time being instead:
-           # resume="must" if previous_checkpoints else "allow",
+       setup_wandb(
+           args,
+           effective_batch_size=effective_batch_size,
+           previous_checkpoints=previous_checkpoints,
+           total_updates=total_updates,
        )
-       # Specify the step metric (x-axis) and the metric to log against it (y-axis)
-       run.define_metric("train/*", step_metric="updates")
-       run.define_metric("valid/*", step_metric="epoch")
 
        # Save an initial checkpoint (epoch 0) before training to make sure we can easily get the exact same initial weights.
        # Since code is supposed to be correctly seeded and reproducible, this is just an additional precaution.
@@ -537,7 +517,9 @@ Click here to see `the source code for this example
            ),
            record_shapes=True,
            profile_memory=True,
-           with_stack=True,
+           # Warning: This can be a bit too verbose while debugging. Only enable this if you really need it.
+           # with_stack=True if "debugpy" not in sys.modules else True,
+           with_stack=False,
            with_flops=True,
            with_modules=True,
        )
@@ -578,7 +560,9 @@ Click here to see `the source code for this example
                batch = tuple(item.to(device) for item in batch)
                x, y = batch
 
-               loss, accuracy, n_samples = training_step(model, x, y, optimizer, is_master=is_master)
+               loss, accuracy, n_samples = training_step(
+                   model, x, y, optimizer, is_master=is_master, verbose_logging=args.verbose >= 2
+               )
 
                total_updates += 1
                total_num_samples += n_samples
@@ -589,7 +573,7 @@ Click here to see `the source code for this example
                samples_per_sec = n_samples / dt
                t = new_t
 
-               if is_master and (batch_index == 0 or (batch_index + 1 % args.logging_interval) == 0):
+               if is_master and (batch_index == 0 or ((batch_index + 1) % args.logging_interval) == 0):
                    # update the progress bar text.
                    _loss = loss.item()
                    _accuracy = accuracy.item()
@@ -644,17 +628,75 @@ Click here to see `the source code for this example
        print("Done!")
 
 
+   def setup_wandb(
+       args: Args, effective_batch_size: int, previous_checkpoints: list[Path], total_updates: int
+   ):
+       # Normally you would only do this in the first task (rank 0), but here we do it in all tasks
+       # using the new "shared" feature of wandb. This makes it much easier to track the GPU util of
+       # all gpus on all nodes in the job.
+       # See this link for more info:
+       # - https://docs.wandb.ai/guides/track/log/distributed-training/#track-all-processes-to-a-single-run
+       is_master = RANK == 0
+       with goes_first(is_master):
+           run = wandb.init(
+               project=args.wandb_project,
+               name=args.wandb_run_name if args.wandb_run_name else None,
+               id=args.wandb_run_id
+               if args.wandb_run_id
+               else None,  # TODO: need the same run id in all tasks!
+               # It's a good idea to log the SLURM environment variables to wandb.
+               config=(
+                   dataclasses.asdict(args)
+                   | {k: v for k, v in os.environ.items() if k.startswith("SLURM_")}
+                   | {"effective_batch_size": effective_batch_size}
+               ),
+               group=args.wandb_group,
+               # Use the new "shared" mode to log system utilization metrics from all tasks in the job:
+               # TODO: Make it easier to turn off wandb for successive debugging in the same interactive job with the vscode debugger.
+               settings=wandb.Settings(
+                   mode="shared",
+                   x_primary=is_master,
+                   x_label=f"task_{RANK}",
+                   x_stats_gpu_device_ids=[LOCAL_RANK],
+                   x_update_finish_state=not is_master,
+               ),
+               # Resume an existing run with the same ID if the job is restarting after being preempted.
+               # It would be *really* nice to use this resume feature, but this is new
+               # at the time of writing (2025-09) and needs to be enabled for your project
+               # by contacting wandb support.
+               resume_from=(
+                   f"{args.wandb_run_id}?_step={total_updates}"
+                   if previous_checkpoints and args.wandb_run_id
+                   else None
+               ),
+               resume=None if previous_checkpoints and args.wandb_run_id else "allow",
+               # Use this for the time being instead:
+               # resume="must" if previous_checkpoints else "allow",
+           )
+           # Wait a bit to make sure the run is created properly in wandb by the first task before other workers try to
+           # also create it. Otherwise we can get a 409 error from the wandb server.
+           time.sleep(5)
+
+       # Specify the step metric (x-axis) and the metric to log against it (y-axis)
+       run.define_metric("train/*", step_metric="updates")
+       run.define_metric("valid/*", step_metric="epoch")
+
+
    def training_step(
        model: nn.Module,
        x: Tensor,
        y: Tensor,
        optimizer: torch.optim.Optimizer,
        is_master: bool = False,
+       verbose_logging: bool = False,
    ):
        # Forward pass
        logits: Tensor = model(x)
 
        local_loss = F.cross_entropy(logits, y)
+
+       # FIXME: BAD!
+       # logger.debug(f"Local loss: {local_loss.item():.2f}")
 
        optimizer.zero_grad()
        # NOTE: nn.DistributedDataParallel automatically averages the gradients across devices.
@@ -688,10 +730,9 @@ Click here to see `the source code for this example
        torch.distributed.reduce(n_samples, dst=0, op=ReduceOp.SUM)
        accuracy = n_correct_predictions / n_samples
 
-       # FIXME: The .item calls here happen even if we don't even want to show these values!
-       if WORLD_SIZE > 1:
+       if WORLD_SIZE > 1 and verbose_logging:
            logger.debug(f"(local) Loss: {local_loss.item():.2f} Accuracy: {local_accuracy.item():.2%}")
-       if is_master:  # Otherwise this would log the same values once per worker.
+       if is_master and verbose_logging:  # Otherwise this would log the same values on every worker.
            logger.debug(
                ("Average" if WORLD_SIZE > 1 else "")
                + f"Loss: {loss.item():.2f} Accuracy: {accuracy.item():.2%}"
@@ -777,7 +818,6 @@ Click here to see `the source code for this example
                    [transforms.ToImage(), transforms.ToDtype(torch.float32, scale=True)]
                ),
            )
-
            test_dataset = torchvision.datasets.FakeData(
                size=50_000,
                image_size=(3, 224, 224),
@@ -787,14 +827,14 @@ Click here to see `the source code for this example
                ),
            )
            return train_dataset, valid_dataset, test_dataset
-       # TODO: Check if we put the transforms on the GPU and see if it helps performance a bit.
+       # todo: torchvision transforms can apparently moved to the GPU now? Would that speed up the training?
        train_transforms = torch.nn.Sequential(
            transforms.RandomResizedCrop(224),
            transforms.RandomHorizontalFlip(),
            transforms.ToImage(),
            transforms.ToDtype(torch.float32, scale=True),
            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
-       ).cuda()
+       )
        test_transforms = torch.nn.Sequential(
            transforms.Resize(256),
            transforms.CenterCrop(224),
@@ -802,6 +842,21 @@ Click here to see `the source code for this example
            transforms.ToDtype(torch.float32, scale=True),
            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
        )
+       # todo: This takes ~12-15 minutes on the Mila cluster, which is higher than the timeout value for this
+       # torch distributed process group. Either we enforce that the prepare_data script has to be called in advance
+       # on each node, or we increase the process group timeout, or we make a process group just for this op with a higher timeout
+       # value?
+       group = torch.distributed.new_group(
+           backend="nccl", timeout=datetime.timedelta(minutes=20), group_desc="data_prep"
+       )
+       with goes_first(LOCAL_RANK == 0, group=group):
+           from prepare_data import prepare_imagenet
+
+           logging.info(f"Preparing the ImageNet dataset in {path}")
+           prepare_imagenet(path)
+           logging.info(f"Done preparing the ImageNet dataset in {path}")
+       torch.distributed.destroy_process_group(group)
+
        train_dataset = ImageNet(root=path, transform=train_transforms, split="train")
        valid_dataset = ImageNet(root=path, transform=test_transforms, split="train")
        test_dataset = ImageNet(root=path, transform=test_transforms, split="val")
@@ -882,6 +937,16 @@ Click here to see `the source code for this example
            "torch_rng_state_gpu": torch.cuda.random.get_rng_state_all(),
        }
        torch.save(checkpoint, checkpoint_path)
+
+
+   @contextlib.contextmanager
+   def goes_first(condition: bool, group: torch.distributed.ProcessGroup | None = None):
+       if condition:
+           yield
+           torch.distributed.barrier(group=group, device_ids=[LOCAL_RANK])
+       else:
+           torch.distributed.barrier(group=group, device_ids=[LOCAL_RANK])
+           yield
 
 
    if __name__ == "__main__":
