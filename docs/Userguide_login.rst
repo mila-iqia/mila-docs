@@ -384,17 +384,18 @@ If (and only if) you have a job running on compute node ``cnode``, you are
 allowed to SSH to it, if for some reason you need a second terminal.
 That session will be automatically ended when your job ends.
 
-First, however, you need to have
-password-less ssh either with a key present in your home or with an
-``ssh-agent``. To generate a key pair on the login node:
+First, however, you need to add your public key (the one you provided to IT-support)
+to the ~/.ssh/authorized_keys file on the cluster, or configure an
+``ssh-agent`` that will forward that key when connecting to the compute node.
 
 .. prompt:: bash $
 
     # ON A LOGIN NODE
-    ssh-keygen  # Press ENTER 3x
-    cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+    mkdir -p ~/.ssh
+    echo "THE SSH PUBLIC KEY THAT YOU GAVE TO IT-SUPPORT" >> ~/.ssh/authorized_keys
     chmod 600 ~/.ssh/authorized_keys
     chmod 700 ~/.ssh
+    chmod go-w ~   # in case you accidentally gave too many permissions for $HOME in the past.
 
 Then from the login node you can write ``ssh cnode``. From your local
 machine, you can use ``ssh -J mila USERNAME@cnode`` (``-J`` represents a "jump"
