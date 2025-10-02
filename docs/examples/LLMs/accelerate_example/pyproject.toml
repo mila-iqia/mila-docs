@@ -1,0 +1,50 @@
+[project]
+name = "accelerate_example"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "accelerate>=1.7.0",
+    "datasets>=3.6.0",
+    "evaluate>=0.4.4",
+    "scikit-learn>=1.7.0",
+    "simple-parsing>=0.1.7",
+    "transformers>=4.52.4",
+]
+
+
+[tool.uv]
+python-preference = "system"
+
+## From https://docs.astral.sh/uv/reference/settings/#index-strategy:
+## "Only use results from the first index that returns a match for a given package name."
+## In other words: only get the package from PyPI if there isn't a version of it in the DRAC wheelhouse.
+# index-strategy = "first-index"
+
+## "Search for every package name across all indexes, exhausting the versions from the first index before
+##  moving on to the next"
+## In other words: Only get the package from PyPI if the requested version is higher than the version
+## in the DRAC wheelhouse.
+# index-strategy = "unsafe-first-match"
+
+## "Search for every package name across all indexes, preferring the "best" version found.
+##  If a package version is in multiple indexes, only look at the entry for the first index."
+## In other words: Consider all versions of the package DRAC + PyPI, and use the version that best matches
+## the requested version. In a tie, choose the DRAC wheel.
+index-strategy = "unsafe-best-match"
+
+[[tool.uv.index]]
+name = "drac-gentoo2023-x86-64-v3"
+url = "/cvmfs/soft.computecanada.ca/custom/python/wheelhouse/gentoo2023/x86-64-v3"
+format = "flat"
+
+[[tool.uv.index]]
+name = "drac-gentoo2023-generic"
+url = "/cvmfs/soft.computecanada.ca/custom/python/wheelhouse/gentoo2023/generic"
+format = "flat"
+
+[[tool.uv.index]]
+name = "drac-generic"
+url = "/cvmfs/soft.computecanada.ca/custom/python/wheelhouse/generic"
+format = "flat"
