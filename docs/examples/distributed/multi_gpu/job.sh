@@ -21,5 +21,7 @@ export MASTER_PORT=$(expr 10000 + $(echo -n $SLURM_JOBID | tail -c 4))
 export MASTER_ADDR="127.0.0.1"
 
 # Execute Python script in each task (one per GPU)
-# Use `uv run --offline` on clusters without internet access on compute nodes.
+# Use the `--offline` option of `uv run` on clusters without internet access on compute nodes.
+# Using the `--locked` option can help make your experiments easier to reproduce (it forces
+# your uv.lock file to be up to date with the dependencies declared in pyproject.toml).
 srun uv run python main.py

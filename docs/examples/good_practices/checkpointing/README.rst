@@ -79,7 +79,9 @@ repository.
    +unset CUDA_VISIBLE_DEVICES
    +
     # Execute Python script
-   -# Use `uv run --offline` on clusters without internet access on compute nodes.
+   -# Use the `--offline` option of `uv run` on clusters without internet access on compute nodes.
+   -# Using the `--locked` option can help make your experiments easier to reproduce (it forces
+   -# your uv.lock file to be up to date with the dependencies declared in pyproject.toml).
    -uv run python main.py
    +exec python main.py
 
