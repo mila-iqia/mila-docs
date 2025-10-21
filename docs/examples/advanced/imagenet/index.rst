@@ -95,6 +95,7 @@ or, for example in an interactive job:
     salloc: Nodes cn-l[023,054] are ready for job
 
     $ # Run the dataset preparation on each node:
+    $ cd mila-docs/docs/examples/advanced/imagenet
     $ srun --ntasks-per-node=1 uv run python prepare_data.py
 
     $ # Run the training script on each gpu on each node
