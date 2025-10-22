@@ -854,7 +854,9 @@ def save_checkpoint(
         "torch_rng_state_cpu": torch.random.get_rng_state(),
         "torch_rng_state_gpu": torch.cuda.random.get_rng_state_all(),
     }
-    torch.save(checkpoint, checkpoint_path)
+    tmp_checkpoint_path = checkpoint_path.with_suffix(".temp")
+    torch.save(checkpoint, tmp_checkpoint_path)
+    tmp_checkpoint_path.rename(checkpoint_path)
 
 
 @contextlib.contextmanager
