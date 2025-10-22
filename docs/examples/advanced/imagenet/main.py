@@ -134,13 +134,13 @@ class DummyModel(nn.Module):
 
 models: dict[str, Callable[..., nn.Module]] = {
     "dummy": DummyModel,
-    "resnet18": torchvision.models.resnet18,  # default model
+    "resnet18": torchvision.models.resnet18,
     "resnet34": torchvision.models.resnet34,
     "resnet50": torchvision.models.resnet50,
     "resnet101": torchvision.models.resnet101,
     "resnet152": torchvision.models.resnet152,
     "vit_b_16": torchvision.models.vit_b_16,
-    "vit_b_32": torchvision.models.vit_b_32,
+    "vit_b_32": torchvision.models.vit_b_32,  # default model
     "vit_l_16": torchvision.models.vit_l_16,
     "vit_l_32": torchvision.models.vit_l_32,
 }
@@ -517,7 +517,7 @@ def main():
         val_loss, val_accuracy, val_samples = validation_loop(model, valid_dataloader, device)
         dt = time.perf_counter() - t
         val_sps = val_samples / dt
-        logger.info(
+        rich.print(
             f"Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%} samples/sec: {val_sps:.1f}"
         )
         wandb.log(
