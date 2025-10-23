@@ -1,0 +1,22 @@
+[project]
+name = "distributed-imagenet-example"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11,<3.13"
+dependencies = [
+    "debugpy>=1.8.16",
+    "scipy>=1.16.2",
+    "torch>=2.7.1",
+    "torch-tb-profiler>=0.4.3",
+    "torchvision>=0.22.1",
+    "tqdm>=4.67.1",
+    "rich>=14.1.0",
+    "simple-parsing>=0.1.7",
+    "scikit-learn>=1.7.2",
+    "wandb>=0.21.4",
+]
+
+#ruff: increase max line length
+[tool.ruff]
+line-length = 100
