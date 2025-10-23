@@ -27,13 +27,12 @@ repository.
    old mode 100644
    new mode 100755
     #!/bin/bash
-   -#SBATCH --gpus-per-task=rtx8000:1
+   -#SBATCH --gres=gpu:1
    +#SBATCH --gpus-per-task=1
     #SBATCH --cpus-per-task=4
-    #SBATCH --ntasks-per-node=1
+   +#SBATCH --ntasks-per-node=1
     #SBATCH --mem=16G
     #SBATCH --time=00:15:00
-   -
    +#SBATCH --requeue
    +#SBATCH --signal=B:TERM@300 # tells the controller to send SIGTERM to the job 5
    +                            # min before its time ends to give it a chance for
@@ -42,30 +41,30 @@ repository.
    +                            # so `scancel --signal=TERM <jobid>`.
    +                            # https://dhruveshp.com/blog/2021/signal-propagation-on-slurm/
 
-    # Echo time and hostname into log
+   -set -e  # exit on error.
+   +# Echo time and hostname into log
     echo "Date:     $(date)"
     echo "Hostname: $(hostname)"
 
-
-    # Ensure only anaconda/3 module loaded.
-    module --quiet purge
-    # This example uses Conda to manage package dependencies.
-    # See https://docs.mila.quebec/Userguide.html#conda for more information.
-    module load anaconda/3
-    module load cuda/11.7
-
    +
-    # Creating the environment for the first time:
-    # conda create -y -n pytorch python=3.9 pytorch torchvision torchaudio \
-   -#     pytorch-cuda=11.7 -c pytorch -c nvidia
+   +# Ensure only anaconda/3 module loaded.
+   +module --quiet purge
+   +# This example uses Conda to manage package dependencies.
+   +# See https://docs.mila.quebec/Userguide.html#conda for more information.
+   +module load anaconda/3
+   +module load cuda/11.7
+   +
+   +
+   +# Creating the environment for the first time:
+   +# conda create -y -n pytorch python=3.9 pytorch torchvision torchaudio \
    +#     pytorch-cuda=11.7 scipy -c pytorch -c nvidia
-    # Other conda packages:
-    # conda install -y -n pytorch -c conda-forge rich tqdm
-
-    # Activate pre-existing environment.
-    conda activate pytorch
-
-
+   +# Other conda packages:
+   +# conda install -y -n pytorch -c conda-forge rich tqdm
+   +
+   +# Activate pre-existing environment.
+   +conda activate pytorch
+   +
+   +
     # Stage dataset into $SLURM_TMPDIR
     mkdir -p $SLURM_TMPDIR/data
    -cp /network/datasets/cifar10/cifar-10-python.tar.gz $SLURM_TMPDIR/data/
@@ -75,12 +74,15 @@ repository.
     #     unzip   /network/datasets/some/file.zip -d $SLURM_TMPDIR/data/
     #     tar -xf /network/datasets/some/file.tar -C $SLURM_TMPDIR/data/
 
-
-    # Fixes issues with MIG-ed GPUs with versions of PyTorch < 2.0
-    unset CUDA_VISIBLE_DEVICES
-
+   +
+   +# Fixes issues with MIG-ed GPUs with versions of PyTorch < 2.0
+   +unset CUDA_VISIBLE_DEVICES
+   +
     # Execute Python script
-   -python main.py
+   -# Use the `--offline` option of `uv run` on clusters without internet access on compute nodes.
+   -# Using the `--locked` option can help make your experiments easier to reproduce (it forces
+   -# your uv.lock file to be up to date with the dependencies declared in pyproject.toml).
+   -uv run python main.py
    +exec python main.py
 
 
@@ -92,7 +94,7 @@ repository.
    -"""Single-GPU training example."""
    +"""Checkpointing example."""
    +from __future__ import annotations
-   +
+
     import argparse
     import logging
     import os
@@ -103,6 +105,7 @@ repository.
    +import warnings
    +from logging import getLogger as get_logger
     from pathlib import Path
+   -import sys
    +from types import FrameType
    +from typing import Any, TypedDict
 
@@ -179,10 +182,20 @@ repository.
    +    torch.cuda.manual_seed_all(random_seed)
    +
         # Setup logging (optional, but much better than using print statements)
+   -    # Uses the `rich` package to make logs pretty.
         logging.basicConfig(
             level=logging.INFO,
-   +        format="%(message)s",
-            handlers=[rich.logging.RichHandler(markup=True)],  # Very pretty, uses the `rich` package.
+            format="%(message)s",
+   -        handlers=[
+   -            rich.logging.RichHandler(
+   -                markup=True,
+   -                console=rich.console.Console(
+   -                    # Allower wider log lines in sbatch output files than on the terminal.
+   -                    width=120 if not sys.stdout.isatty() else None
+   -                ),
+   -            )
+   -        ],
+   +        handlers=[rich.logging.RichHandler(markup=True)],  # Very pretty, uses the `rich` package.
         )
 
    -    logger = logging.getLogger(__name__)
@@ -190,13 +203,17 @@ repository.
    -    # Create a model and move it to the GPU.
    +    # Create a model.
         model = resnet18(num_classes=10)
-   +
-   +    # Move the model to the GPU.
-        model.to(device=device)
+   -    model.to(device=device)
 
-        optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate, weight_decay=weight_decay)
+   -    optimizer = torch.optim.AdamW(
+   -        model.parameters(), lr=learning_rate, weight_decay=weight_decay
+   -    )
+   +    # Move the model to the GPU.
+   +    model.to(device=device)
 
    -    # Setup CIFAR10
+   +    optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate, weight_decay=weight_decay)
+   +
    +    # Try to resume from a checkpoint, if one exists.
    +    checkpoint: RunState | None = load_checkpoint(checkpoint_dir, map_location=device)
    +    if checkpoint:
@@ -245,8 +262,7 @@ repository.
    -    logger.debug("Starting training from scratch.")
    +    def signal_handler(signum: int, frame: FrameType | None):
    +        """Called before the job gets pre-empted or reaches the time-limit.
-
-   -    for epoch in range(epochs):
+   +
    +        This should run quickly. Performing a full checkpoint here mid-epoch is not recommended.
    +        """
    +        signal_enum = signal.Signals(signum)
@@ -255,7 +271,8 @@ repository.
    +        # If you use Weights & Biases: https://docs.wandb.ai/guides/runs/resuming#preemptible-sweeps
    +        # if wandb.run:
    +        #     wandb.mark_preempting()
-   +
+
+   -    for epoch in range(epochs):
    +    signal.signal(signal.SIGTERM, signal_handler)  # Before getting pre-empted and requeued.
    +    signal.signal(signal.SIGUSR1, signal_handler)  # Before reaching the end of the time limit.
    +
@@ -271,6 +288,7 @@ repository.
             progress_bar = tqdm(
                 total=len(train_dataloader),
                 desc=f"Train epoch {epoch}",
+   -            disable=not sys.stdout.isatty(),  # Disable progress bar in non-interactive environments.
    +            unit_scale=train_dataloader.batch_size or 1,
    +            unit="samples",
             )
@@ -306,8 +324,11 @@ repository.
             progress_bar.close()
 
             val_loss, val_accuracy = validation_loop(model, valid_dataloader, device)
-            logger.info(f"Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%}")
-
+   -        logger.info(
+   -            f"Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%}"
+   -        )
+   +        logger.info(f"Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%}")
+   +
    +        # remember best accuracy and save the current state.
    +        is_best = val_accuracy > best_acc
    +        best_acc = max(val_accuracy, best_acc)
@@ -327,7 +348,7 @@ repository.
    +                    best_acc=best_acc,
    +                ),
    +            )
-   +
+
         print("Done!")
 
 

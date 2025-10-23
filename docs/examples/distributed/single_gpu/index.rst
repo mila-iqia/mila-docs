@@ -19,6 +19,10 @@ repository.
 .. literalinclude:: job.sh
     :language: bash
 
+**pyproject.toml**
+
+.. literalinclude:: pyproject.toml
+    :language: toml
 
 **main.py**
 

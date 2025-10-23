@@ -36,37 +36,37 @@ repository.
    old mode 100644
    new mode 100755
     #!/bin/bash
-   -#SBATCH --gpus-per-task=rtx8000:1
+   -#SBATCH --gres=gpu:1
    +#SBATCH --gres=gpu:rtx8000:1
     #SBATCH --cpus-per-task=4
-   -#SBATCH --ntasks-per-node=1
    +#SBATCH --ntasks-per-gpu=2
     #SBATCH --mem=16G
     #SBATCH --time=00:15:00
 
-
-    # Echo time and hostname into log
+   -set -e  # exit on error.
+   +
+   +# Echo time and hostname into log
     echo "Date:     $(date)"
     echo "Hostname: $(hostname)"
 
-
-    # Ensure only anaconda/3 module loaded.
-    module --quiet purge
-    # This example uses Conda to manage package dependencies.
-    # See https://docs.mila.quebec/Userguide.html#conda for more information.
-    module load anaconda/3
-    module load cuda/11.7
-
-    # Creating the environment for the first time:
-    # conda create -y -n pytorch python=3.9 pytorch torchvision torchaudio \
-    #     pytorch-cuda=11.7 -c pytorch -c nvidia
-    # Other conda packages:
-    # conda install -y -n pytorch -c conda-forge rich tqdm
-
-    # Activate pre-existing environment.
-    conda activate pytorch
-
-
+   +
+   +# Ensure only anaconda/3 module loaded.
+   +module --quiet purge
+   +# This example uses Conda to manage package dependencies.
+   +# See https://docs.mila.quebec/Userguide.html#conda for more information.
+   +module load anaconda/3
+   +module load cuda/11.7
+   +
+   +# Creating the environment for the first time:
+   +# conda create -y -n pytorch python=3.9 pytorch torchvision torchaudio \
+   +#     pytorch-cuda=11.7 -c pytorch -c nvidia
+   +# Other conda packages:
+   +# conda install -y -n pytorch -c conda-forge rich tqdm
+   +
+   +# Activate pre-existing environment.
+   +conda activate pytorch
+   +
+   +
     # Stage dataset into $SLURM_TMPDIR
     mkdir -p $SLURM_TMPDIR/data
     cp /network/datasets/cifar10/cifar-10-python.tar.gz $SLURM_TMPDIR/data/
@@ -74,12 +74,15 @@ repository.
     #     unzip   /network/datasets/some/file.zip -d $SLURM_TMPDIR/data/
     #     tar -xf /network/datasets/some/file.tar -C $SLURM_TMPDIR/data/
 
-
-    # Fixes issues with MIG-ed GPUs with versions of PyTorch < 2.0
-    unset CUDA_VISIBLE_DEVICES
-
    -# Execute Python script
-   -python main.py
+   -# Use the `--offline` option of `uv run` on clusters without internet access on compute nodes.
+   -# Using the `--locked` option can help make your experiments easier to reproduce (it forces
+   -# your uv.lock file to be up to date with the dependencies declared in pyproject.toml).
+   -uv run python main.py
+   +
+   +# Fixes issues with MIG-ed GPUs with versions of PyTorch < 2.0
+   +unset CUDA_VISIBLE_DEVICES
+   +
    +# Execute Python script using srun.
    +# Because of sbatch's `--ntasks-per-gpu=2` above, Python script will be launch twice.
    +# Each run will receive specific environment variables, such as SLURM_PROCID.
@@ -92,11 +95,13 @@ repository.
 
     # distributed/single_gpu/main.py -> good_practices/many_tasks_per_gpu/main.py
     """Single-GPU training example."""
+   -
     import argparse
     import logging
     import os
    +import random
     from pathlib import Path
+   -import sys
 
    +import numpy
     import rich.logging
@@ -145,9 +150,20 @@ repository.
         device = torch.device("cuda", 0)
 
         # Setup logging (optional, but much better than using print statements)
+   -    # Uses the `rich` package to make logs pretty.
         logging.basicConfig(
             level=logging.INFO,
-            handlers=[rich.logging.RichHandler(markup=True)],  # Very pretty, uses the `rich` package.
+   -        format="%(message)s",
+   -        handlers=[
+   -            rich.logging.RichHandler(
+   -                markup=True,
+   -                console=rich.console.Console(
+   -                    # Allower wider log lines in sbatch output files than on the terminal.
+   -                    width=120 if not sys.stdout.isatty() else None
+   -                ),
+   -            )
+   -        ],
+   +        handlers=[rich.logging.RichHandler(markup=True)],  # Very pretty, uses the `rich` package.
         )
 
         logger = logging.getLogger(__name__)
@@ -156,7 +172,10 @@ repository.
         model = resnet18(num_classes=10)
         model.to(device=device)
 
-        optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate, weight_decay=weight_decay)
+   -    optimizer = torch.optim.AdamW(
+   -        model.parameters(), lr=learning_rate, weight_decay=weight_decay
+   -    )
+   +    optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate, weight_decay=weight_decay)
 
         # Setup CIFAR10
         num_workers = get_num_workers()
@@ -194,6 +213,7 @@ repository.
             progress_bar = tqdm(
                 total=len(train_dataloader),
                 desc=f"Train epoch {epoch}",
+   -            disable=not sys.stdout.isatty(),  # Disable progress bar in non-interactive environments.
             )
 
             # Training loop
@@ -225,7 +245,10 @@ repository.
             progress_bar.close()
 
             val_loss, val_accuracy = validation_loop(model, valid_dataloader, device)
-            logger.info(f"Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%}")
+   -        logger.info(
+   -            f"Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%}"
+   -        )
+   +        logger.info(f"Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%}")
 
         print("Done!")
 

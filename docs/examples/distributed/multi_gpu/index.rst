@@ -20,6 +20,11 @@ Click here to see `the code for this example
 .. literalinclude:: job.sh.diff
     :language: diff
 
+**pyproject.toml**
+
+.. literalinclude:: pyproject.toml
+    :language: toml
+
 **main.py**
 
 .. literalinclude:: main.py.diff
