@@ -517,9 +517,10 @@ def main():
         val_loss, val_accuracy, val_samples = validation_loop(model, valid_dataloader, device)
         dt = time.perf_counter() - t
         val_sps = val_samples / dt
-        rich.print(
-            f"Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%} samples/sec: {val_sps:.1f}"
-        )
+        if RANK == 0:
+            rich.print(
+                f"Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%} samples/sec: {val_sps:.1f}"
+            )
         wandb.log(
             {
                 "val/loss": val_loss,
@@ -604,8 +605,9 @@ def training_step(
     accuracy = n_correct_predictions / n_samples
 
     # Using lazy formatting so these tensors are only moved to cpu when necessary.
-    logger.debug("(local) Loss: %.2f Accuracy: %.2f", local_loss, local_accuracy)
-    logger.debug("Average Loss: %.2f Accuracy: %.2%", loss, accuracy)
+    if RANK == 0:
+        logger.debug("(local) Loss: %.2f Accuracy: %.2f", local_loss, local_accuracy)
+        logger.debug("Average Loss: %.2f Accuracy: %.2%", loss, accuracy)
     return loss, accuracy, n_samples
 
 
