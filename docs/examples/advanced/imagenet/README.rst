@@ -413,13 +413,13 @@ You need to run it once before running the main training script.
 
    models: dict[str, Callable[..., nn.Module]] = {
        "dummy": DummyModel,
-       "resnet18": torchvision.models.resnet18,  # default model
+       "resnet18": torchvision.models.resnet18,
        "resnet34": torchvision.models.resnet34,
        "resnet50": torchvision.models.resnet50,
        "resnet101": torchvision.models.resnet101,
        "resnet152": torchvision.models.resnet152,
        "vit_b_16": torchvision.models.vit_b_16,
-       "vit_b_32": torchvision.models.vit_b_32,
+       "vit_b_32": torchvision.models.vit_b_32,  # default model
        "vit_l_16": torchvision.models.vit_l_16,
        "vit_l_32": torchvision.models.vit_l_32,
    }
@@ -674,7 +674,7 @@ You need to run it once before running the main training script.
        # Since code is supposed to be correctly seeded and reproducible, this is just an additional precaution.
        # Doing this here also makes it so if there is a checkpoint, there is also a wandb run, so we can resume the wandb run
        # more correctly than with just `resume="allow"`.
-       if not previous_checkpoints:
+       if not previous_checkpoints and RANK == 0:
            save_checkpoint(
                checkpoint_path=args.checkpoint_dir / "epoch_0.pt",
                model=model,
@@ -796,9 +796,10 @@ You need to run it once before running the main training script.
            val_loss, val_accuracy, val_samples = validation_loop(model, valid_dataloader, device)
            dt = time.perf_counter() - t
            val_sps = val_samples / dt
-           logger.info(
-               f"Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%} samples/sec: {val_sps:.1f}"
-           )
+           if RANK == 0:
+               rich.print(
+                   f"Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%} samples/sec: {val_sps:.1f}"
+               )
            wandb.log(
                {
                    "val/loss": val_loss,
@@ -883,8 +884,9 @@ You need to run it once before running the main training script.
        accuracy = n_correct_predictions / n_samples
 
        # Using lazy formatting so these tensors are only moved to cpu when necessary.
-       logger.debug("(local) Loss: %.2f Accuracy: %.2f", local_loss, local_accuracy)
-       logger.debug("Average Loss: %.2f Accuracy: %.2%", loss, accuracy)
+       if RANK == 0:
+           logger.debug("(local) Loss: %.2f Accuracy: %.2f", local_loss, local_accuracy)
+           logger.debug("Average Loss: %.2f Accuracy: %.2%", loss, accuracy)
        return loss, accuracy, n_samples
 
 
@@ -1133,7 +1135,9 @@ You need to run it once before running the main training script.
            "torch_rng_state_cpu": torch.random.get_rng_state(),
            "torch_rng_state_gpu": torch.cuda.random.get_rng_state_all(),
        }
-       torch.save(checkpoint, checkpoint_path)
+       tmp_checkpoint_path = checkpoint_path.with_suffix(".temp")
+       torch.save(checkpoint, tmp_checkpoint_path)
+       tmp_checkpoint_path.rename(checkpoint_path)
 
 
    @contextlib.contextmanager
