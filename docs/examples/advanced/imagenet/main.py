@@ -395,7 +395,7 @@ def main():
     # Since code is supposed to be correctly seeded and reproducible, this is just an additional precaution.
     # Doing this here also makes it so if there is a checkpoint, there is also a wandb run, so we can resume the wandb run
     # more correctly than with just `resume="allow"`.
-    if not previous_checkpoints:
+    if not previous_checkpoints and RANK == 0:
         save_checkpoint(
             checkpoint_path=args.checkpoint_dir / "epoch_0.pt",
             model=model,
