@@ -23,7 +23,6 @@ Old bug (fixed with the solution in the last reply to the thread):
 https://github.com/microsoft/DeepSpeed/issues/2684
 """
 
-
 import os
 
 # TODO: Remove when not running on a SLURM cluster.
@@ -78,7 +77,8 @@ from transformers.utils.versions import require_version
 logger = get_logger(__name__)
 
 require_version(
-    "datasets>=1.8.0", "To fix: pip install -r examples/pytorch/language-modeling/requirements.txt"
+    "datasets>=1.8.0",
+    "To fix: pip install -r examples/pytorch/language-modeling/requirements.txt",
 )
 
 MODEL_CONFIG_CLASSES = list(MODEL_MAPPING.keys())
@@ -223,8 +223,14 @@ class Args:
         self.wandb_tags = sum([tag.split(",") for tag in self.wandb_tags], [])
 
         # Sanity checks
-        if self.dataset_name is None and self.train_file is None and self.validation_file is None:
-            raise ValueError("Need either a dataset name or a training/validation file.")
+        if (
+            self.dataset_name is None
+            and self.train_file is None
+            and self.validation_file is None
+        ):
+            raise ValueError(
+                "Need either a dataset name or a training/validation file."
+            )
         else:
             if self.train_file is not None:
                 extension = self.train_file.split(".")[-1]
@@ -242,9 +248,9 @@ class Args:
                 ], "`validation_file` should be a csv, json or txt file."
 
         if self.push_to_hub:
-            assert (
-                self.output_dir is not None
-            ), "Need an `output_dir` to create a repo when `--push_to_hub` is passed."
+            assert self.output_dir is not None, (
+                "Need an `output_dir` to create a repo when `--push_to_hub` is passed."
+            )
 
 
 def parse_args() -> Args:
@@ -259,7 +265,9 @@ def parse_args() -> Args:
 
 
 # New Code #
-def checkpoint_model(checkpoint_folder, ckpt_id, model, epoch, last_global_step, **kwargs):
+def checkpoint_model(
+    checkpoint_folder, ckpt_id, model, epoch, last_global_step, **kwargs
+):
     """Utility function for checkpointing model + optimizer dictionaries The main purpose for this
     is to be able to resume training from that instant again."""
     checkpoint_state_dict = {
@@ -270,7 +278,9 @@ def checkpoint_model(checkpoint_folder, ckpt_id, model, epoch, last_global_step,
     checkpoint_state_dict.update(kwargs)
 
     success = model.save_checkpoint(checkpoint_folder, ckpt_id, checkpoint_state_dict)
-    status_msg = f"checkpointing: checkpoint_folder={checkpoint_folder}, ckpt_id={ckpt_id}"
+    status_msg = (
+        f"checkpointing: checkpoint_folder={checkpoint_folder}, ckpt_id={ckpt_id}"
+    )
     if success:
         logging.info(f"Success {status_msg}")
     else:
@@ -290,7 +300,9 @@ def load_training_checkpoint(model, load_dir, tag=None, **kwargs):
 
 
 # New Code #
-def evaluate(args: Args, model, eval_dataloader, accelerator: Accelerator, eval_dataset):
+def evaluate(
+    args: Args, model, eval_dataloader, accelerator: Accelerator, eval_dataset
+):
     model.eval()
     losses = []
     for step, batch in enumerate(eval_dataloader):
@@ -298,7 +310,9 @@ def evaluate(args: Args, model, eval_dataloader, accelerator: Accelerator, eval_
             outputs = model(**batch)
 
         loss = outputs.loss
-        losses.append(accelerator.gather_for_metrics(loss.repeat(args.per_device_eval_batch_size)))
+        losses.append(
+            accelerator.gather_for_metrics(loss.repeat(args.per_device_eval_batch_size))
+        )
 
     losses = torch.cat(losses)
     try:
@@ -404,7 +418,9 @@ def main():
         # TODO: Remove, never used:
         if args.push_to_hub:
             if args.hub_model_id is None:
-                repo_name = get_full_repo_name(Path(args.output_dir).name, token=args.hub_token)
+                repo_name = get_full_repo_name(
+                    Path(args.output_dir).name, token=args.hub_token
+                )
             else:
                 repo_name = args.hub_model_id
             repo = Repository(args.output_dir, clone_from=repo_name)
@@ -526,7 +542,9 @@ def main():
     # NOTE: Use `local_main_process_first` if the dataset is on a node-local filesystem (e.g.
     # SLURM_TMPDIR), `main_process_first` otherwise.
     with local_main_process_first():
-        logger.info(f"Tokenizing! HF_HOME: {os.environ['HF_HOME']}", main_process_only=False)
+        logger.info(
+            f"Tokenizing! HF_HOME: {os.environ['HF_HOME']}", main_process_only=False
+        )
         tokenized_datasets = raw_datasets.map(
             tokenize_function,
             batched=True,
@@ -578,7 +596,9 @@ def main():
     # https://huggingface.co/docs/datasets/package_reference/main_classes.html#datasets.Dataset.map
 
     with local_main_process_first():
-        logger.info(f"Grouping! HF_HOME: {os.environ['HF_HOME']}", main_process_only=False)
+        logger.info(
+            f"Grouping! HF_HOME: {os.environ['HF_HOME']}", main_process_only=False
+        )
         lm_datasets = tokenized_datasets.map(
             group_texts,
             batched=True,
@@ -610,7 +630,9 @@ def main():
         batch_size=args.per_device_train_batch_size,
     )
     eval_dataloader = DataLoader(
-        eval_dataset, collate_fn=default_data_collator, batch_size=args.per_device_eval_batch_size
+        eval_dataset,
+        collate_fn=default_data_collator,
+        batch_size=args.per_device_eval_batch_size,
     )
 
     # Optimizer
@@ -660,7 +682,9 @@ def main():
     if args.max_train_steps is None:
         args.max_train_steps = args.num_train_epochs * num_update_steps_per_epoch
     else:
-        args.num_train_epochs = math.ceil(args.max_train_steps / num_update_steps_per_epoch)
+        args.num_train_epochs = math.ceil(
+            args.max_train_steps / num_update_steps_per_epoch
+        )
 
     # New Code #
     # Creates Dummy Scheduler if `scheduler` was specified in the config file else creates `args.lr_scheduler_type` Scheduler
@@ -676,12 +700,16 @@ def main():
         )
     else:
         lr_scheduler = DummyScheduler(
-            optimizer, total_num_steps=args.max_train_steps, warmup_num_steps=args.num_warmup_steps
+            optimizer,
+            total_num_steps=args.max_train_steps,
+            warmup_num_steps=args.num_warmup_steps,
         )
 
     # Prepare everything with our `accelerator`.
-    model, optimizer, train_dataloader, eval_dataloader, lr_scheduler = accelerator.prepare(
-        model, optimizer, train_dataloader, eval_dataloader, lr_scheduler
+    model, optimizer, train_dataloader, eval_dataloader, lr_scheduler = (
+        accelerator.prepare(
+            model, optimizer, train_dataloader, eval_dataloader, lr_scheduler
+        )
     )
 
     # We need to recalculate our total training steps as the size of the training dataloader may have changed.
@@ -710,7 +738,9 @@ def main():
     if accelerator.is_local_main_process and args.with_tracking:
         experiment_config = vars(args)
         # TensorBoard cannot log Enums, need the raw value
-        experiment_config["lr_scheduler_type"] = experiment_config["lr_scheduler_type"].value
+        experiment_config["lr_scheduler_type"] = experiment_config[
+            "lr_scheduler_type"
+        ].value
         experiment_config["env"] = os.environ.copy()
         wandb.init(
             project="llm_training",
@@ -745,14 +775,20 @@ def main():
     logger.info("***** Running training *****")
     logger.info(f"  Num examples = {len(train_dataset)}")
     logger.info(f"  Num Epochs = {args.num_train_epochs}")
-    logger.info(f"  Instantaneous batch size per device = {args.per_device_train_batch_size}")
+    logger.info(
+        f"  Instantaneous batch size per device = {args.per_device_train_batch_size}"
+    )
     logger.info(
         f"  Total train batch size (w. parallel, distributed & accumulation) = {total_batch_size}"
     )
-    logger.info(f"  Gradient Accumulation steps = {accelerator.gradient_accumulation_steps}")
+    logger.info(
+        f"  Gradient Accumulation steps = {accelerator.gradient_accumulation_steps}"
+    )
     logger.info(f"  Total optimization steps = {args.max_train_steps}")
     # Only show the progress bar once on each machine.
-    progress_bar = tqdm(range(args.max_train_steps), disable=not accelerator.is_local_main_process)
+    progress_bar = tqdm(
+        range(args.max_train_steps), disable=not accelerator.is_local_main_process
+    )
     completed_steps = 0
     starting_epoch = 0
     best_metric = None
@@ -779,7 +815,9 @@ def main():
     n_updates_since_start_of_run: int = 0
     n_updates_since_last_log: int = 0
     throughput_samples_per_sec: float = 0.0  # instantaneous throughput
-    throughput_samples_per_sec_since_start: float = 0.0  # Average throughput since start of run
+    throughput_samples_per_sec_since_start: float = (
+        0.0  # Average throughput since start of run
+    )
 
     total_loss = 0.0
 
@@ -820,12 +858,15 @@ def main():
 
             if isinstance(checkpointing_steps, int):
                 if completed_steps % checkpointing_steps == 0:
-                    output_dir = f"step_{completed_steps }"
+                    output_dir = f"step_{completed_steps}"
                     if args.output_dir is not None:
                         output_dir = os.path.join(args.output_dir, output_dir)
                     accelerator.save_state(output_dir)
 
-            if accelerator.is_local_main_process and completed_steps % args.log_every_n_steps == 0:
+            if (
+                accelerator.is_local_main_process
+                and completed_steps % args.log_every_n_steps == 0
+            ):
                 if accelerator.optimizer_step_was_skipped:
                     start_time = time.time()
                 elif start_time is None:
@@ -840,10 +881,16 @@ def main():
                     # TODO: Not 100% sure, but seems like we're only logging values on the first node,
                     # so we assume that one update here = one update on all nodes = total_batch_size
                     # samples.
-                    n_samples_since_start = n_updates_since_start_of_run * total_batch_size
-                    n_samples_since_last_log = n_updates_since_last_log * total_batch_size
+                    n_samples_since_start = (
+                        n_updates_since_start_of_run * total_batch_size
+                    )
+                    n_samples_since_last_log = (
+                        n_updates_since_last_log * total_batch_size
+                    )
 
-                    throughput_samples_per_sec = n_samples_since_last_log / seconds_since_last_log
+                    throughput_samples_per_sec = (
+                        n_samples_since_last_log / seconds_since_last_log
+                    )
                     throughput_samples_per_sec_since_start = (
                         n_samples_since_start / seconds_since_start
                     )
@@ -876,7 +923,9 @@ def main():
             if completed_steps >= args.max_train_steps:
                 break
 
-        perplexity, eval_loss = evaluate(args, model, eval_dataloader, accelerator, eval_dataset)
+        perplexity, eval_loss = evaluate(
+            args, model, eval_dataloader, accelerator, eval_dataset
+        )
         logger.info(f"epoch {epoch}: perplexity: {perplexity} eval_loss: {eval_loss}")
 
         if accelerator.is_local_main_process and args.with_tracking:
@@ -912,7 +961,9 @@ def main():
         )
 
     # Evaluates using the best checkpoint
-    perplexity, eval_loss = evaluate(args, model, eval_dataloader, accelerator, eval_dataset)
+    perplexity, eval_loss = evaluate(
+        args, model, eval_dataloader, accelerator, eval_dataset
+    )
     logger.info(f"Best model metrics: perplexity: {perplexity} eval_loss: {eval_loss}")
     if perplexity != best_metric:
         raise AssertionError(
