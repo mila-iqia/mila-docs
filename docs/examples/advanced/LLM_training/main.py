@@ -21,19 +21,15 @@ https://huggingface.co/models?filter=text-generation
 Old bug (fixed with the solution in the last reply to the thread):
 - Fix bug: fatal error: cusolverDn.h: No such file or directory
 https://github.com/microsoft/DeepSpeed/issues/2684
+
+You can also adapt this script on your own causal language modeling task. Pointers for this are left as comments.
 """
 
 import os
 
-# TODO: Remove when not running on a SLURM cluster.
-SLURM_TMPDIR = os.environ["SLURM_TMPDIR"]
-os.environ["HF_HOME"] = SLURM_TMPDIR + "/cache/huggingface"
-os.environ["HF_DATASETS_CACHE"] = SLURM_TMPDIR + "/cache/huggingface/datasets"
-os.environ["HUGGINGFACE_HUB_CACHE"] = SLURM_TMPDIR + "/cache/huggingface/hub"
 
 import contextlib
 
-# You can also adapt this script on your own causal language modeling task. Pointers for this are left as comments.
 import json
 import logging
 import math
@@ -54,7 +50,8 @@ import wandb
 from accelerate import Accelerator, DistributedType
 from accelerate.logging import get_logger
 from accelerate.state import PartialState
-from accelerate.utils import DummyOptim, DummyScheduler, set_seed
+from accelerate.utils import set_seed
+from accelerate.utils.deepspeed import DummyOptim, DummyScheduler
 from accelerate.utils.dataclasses import InitProcessGroupKwargs
 from datasets import load_dataset
 from huggingface_hub import Repository
@@ -74,6 +71,11 @@ from transformers import (
 from transformers.utils import get_full_repo_name
 from transformers.utils.versions import require_version
 
+# TODO: Remove when not running on a SLURM cluster.
+SLURM_TMPDIR = os.environ["SLURM_TMPDIR"]
+os.environ["HF_HOME"] = SLURM_TMPDIR + "/cache/huggingface"
+os.environ["HF_DATASETS_CACHE"] = SLURM_TMPDIR + "/cache/huggingface/datasets"
+os.environ["HUGGINGFACE_HUB_CACHE"] = SLURM_TMPDIR + "/cache/huggingface/hub"
 logger = get_logger(__name__)
 
 require_version(
