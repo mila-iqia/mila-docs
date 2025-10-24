@@ -338,6 +338,19 @@ def main_process_first():
         yield
 
 
+@dataclass
+class CustomInitProcessGroupKwargs(InitProcessGroupKwargs):
+    # IDEA: `InitProcessGroupKwargs` only has `init_method` and `timeout` entries. I'd add `store` too.
+    init_method: Optional[str] = None
+    timeout: timedelta = timedelta(seconds=1800)
+
+    # backend: Literal["nccl", "gloo"] = "nccl"
+    # store: Optional[Store] = None
+
+    rank: Optional[int] = None
+    world_size: Optional[int] = None
+
+
 def main():
     args = parse_args()
     # Initialize the accelerator. We will let the accelerator handle device placement for us in this example.
@@ -346,31 +359,19 @@ def main():
 
     # https://pytorch.org/docs/master/distributed.html#torch.distributed.TCPStore
 
-    @dataclass
-    class CustomInitProcessGroupKwargs(InitProcessGroupKwargs):
-        # IDEA: `InitProcessGroupKwargs` only has `init_method` and `timeout` entries. I'd add `store` too.
-        init_method: Optional[str] = None
-        timeout: timedelta = timedelta(seconds=1800)
-
-        # backend: Literal["nccl", "gloo"] = "nccl"
-        # store: Optional[Store] = None
-
-        rank: Optional[int] = None
-        world_size: Optional[int] = None
-
-    MASTER_ADDR = os.environ["MASTER_ADDR"]
-    MASTER_PORT = os.environ["MASTER_PORT"]
+    MASTER_ADDR = os.environ.get("MASTER_ADDR", "127.0.0.1")
+    MASTER_PORT = os.environ.get("MASTER_PORT", "29500")
 
     # assert "RANK" not in os.environ, os.environ["RANK"]
     # os.environ["RANK"] = os.environ["SLURM_PROCID"]
     # RANK = os.environ["RANK"]
 
-    init_process_group_kwargs = CustomInitProcessGroupKwargs(
+    init_process_group_kwargs = InitProcessGroupKwargs(
         init_method=f"tcp://{MASTER_ADDR}:{MASTER_PORT}",
         # Reduced the timeout here, so the job fails quicker if there's a communication problem between nodes.
         timeout=timedelta(seconds=300),
-        rank=int(os.environ["RANK"]),
-        world_size=int(os.environ["WORLD_SIZE"]),
+        # rank=int(os.environ.get("RANK", "0")),
+        # world_size=int(os.environ.get("WORLD_SIZE", "1")),
         # backend=args.init_process_group_backend,
     )
     if args.init_process_group_backend != "nccl":
@@ -670,7 +671,7 @@ def main():
     optimizer = optimizer_cls(optimizer_grouped_parameters, lr=args.learning_rate)
 
     # On TPU, the tie weights in our model have been disconnected, so we need to restore the ties.
-    if accelerator.distributed_type == DistributedType.TPU:
+    if accelerator.distributed_type == DistributedType.XLA:
         model.tie_weights()
 
     # Scheduler and math around the number of training steps.

@@ -66,33 +66,20 @@ export HF_DATASETS_OFFLINE=1
 export HF_HUB_OFFLINE=1
 
 
-cmd=(
-    accelerate launch
-    --machine_rank=\$SLURM_NODEID
-    --config_file=$ACCELERATE_CONFIG
-    --num_cpu_threads_per_process=$CPUS_PER_GPU
-    --main_process_ip=$MASTER_ADDR
-    --main_process_port=$MASTER_PORT
-    --num_processes=$WORLD_SIZE
-    --num_machines=$NUM_NODES
-    main.py
-    --output_dir=$OUTPUT_DIR
-    --with_tracking "$@"
-)
+
 srun --kill-on-bad-exit=1 --nodes=$SLURM_JOB_NUM_NODES --ntasks=$SLURM_JOB_NUM_NODES --ntasks-per-node=1 --output=logs/slurm-%j_%t.out \
-    bash -c "$(for a in "${cmd[@]}" ; do echo -n \"$a\" "" ; done)"
+    bash -c "accelerate launch \
+        --machine_rank=\$SLURM_NODEID \
+        --config_file=$ACCELERATE_CONFIG \
+        --num_cpu_threads_per_process=$CPUS_PER_GPU \
+        --main_process_ip=$MASTER_ADDR \
+        --main_process_port=$MASTER_PORT \
+        --num_processes=$WORLD_SIZE \
+        --num_machines=$NUM_NODES \
+        main.py \
+        --output_dir=$OUTPUT_DIR \
+        --with_tracking $@"
 
 # Move any preprocessed dataset files back over to $SCRATCH so we don't have to recompute them every time.
 rsync -a --progress $SLURM_TMPDIR/cache/huggingface/ $SCRATCH/cache/huggingface
-# srun --nodes=$SLURM_JOB_NUM_NODES --ntasks=$SLURM_JOB_NUM_NODES --ntasks-per-node=1 --output=logs/slurm-%j_%t.out \
-#    bash -c accelerate launch \
-#     --machine_rank=\$SLURM_NODEID \
-#     --config_file=$ACCELERATE_CONFIG \
-#     --num_cpu_threads_per_process=$CPUS_PER_GPU \
-#     --main_process_ip=$MASTER_ADDR \
-#     --main_process_port=$MASTER_PORT \
-#     --num_processes=$WORLD_SIZE \
-#     --num_machines=$NUM_NODES \
-#     main.py \
-#     --output_dir=$OUTPUT_DIR \
-#     --max_train_steps=100 --with_tracking "$@"
+
