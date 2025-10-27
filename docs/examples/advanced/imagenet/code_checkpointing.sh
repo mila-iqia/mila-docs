@@ -5,7 +5,7 @@
 # unexpected bugs. This also greatly helps reproducibility of your experiments.
 
 # Usage:
-# - This should be called from within a SLURM sbatch job script.
+# - This should be called from within a Slurm sbatch job script.
 # - This clones the project on each node's local storage at the current commit.
 # - This creates the virtual environment for the project at that commit on each node's local storage using UV.
 # - This returns the directory that should then be passed to the --directory argument of `uv run`
