@@ -129,7 +129,7 @@ we do not include it here, but you can find it in the GitHub repository `here
    # Stage dataset into $SLURM_TMPDIR
    # Prepare the dataset on each node's local storage using all the CPUs (and memory) of each node.
    mkdir -p $SLURM_TMPDIR/data
-   srun --ntasks-per-node=1 --nodes=${SLURM_NNODES:-1} bash -c \
+   srun --ntasks-per-node=1 --ntasks=${SLURM_JOB_NUM_NODES:-1} bash -c \
        "uv run --directory=$UV_DIR python prepare_data.py --dest \$SLURM_TMPDIR/data"
 
 
