@@ -34,6 +34,7 @@ import json
 import logging
 import math
 import time
+import subprocess
 from dataclasses import dataclass
 from datetime import timedelta
 from itertools import chain
@@ -41,6 +42,7 @@ from pathlib import Path
 from typing import Literal, Optional
 
 import datasets
+from numpy import dtype
 import rich.logging
 import simple_parsing
 import torch
@@ -76,7 +78,40 @@ SLURM_TMPDIR = os.environ["SLURM_TMPDIR"]
 os.environ["HF_HOME"] = SLURM_TMPDIR + "/cache/huggingface"
 os.environ["HF_DATASETS_CACHE"] = SLURM_TMPDIR + "/cache/huggingface/datasets"
 os.environ["HUGGINGFACE_HUB_CACHE"] = SLURM_TMPDIR + "/cache/huggingface/hub"
-logger = get_logger(__name__)
+
+JOB_ID = os.environ["SLURM_JOB_ID"]  # you absolutely need to be within a slurm job!
+SCRATCH = Path(os.environ["SCRATCH"])
+
+# This will raise an error if both are unset. This is expected (see above).
+RANK = int(os.environ.setdefault("RANK", os.environ.get("SLURM_PROCID", "")))
+LOCAL_RANK = int(
+    os.environ.setdefault("LOCAL_RANK", os.environ.get("SLURM_LOCALID", ""))
+)
+WORLD_SIZE = int(
+    os.environ.setdefault("WORLD_SIZE", os.environ.get("SLURM_NTASKS", ""))
+)
+MASTER_PORT = int(
+    os.environ.setdefault("MASTER_PORT", str(10000 + int(JOB_ID) % 10000))
+)
+if "SLURM_JOB_NODELIST" in os.environ:
+    # Get the hostname of the first node, for example: "cn-l[084-085]" --> cn-l084
+    _first_node = subprocess.check_output(
+        f"scontrol show hostnames {os.environ['SLURM_JOB_NODELIST']}",
+        text=True,
+        shell=True,
+    ).split()[0]
+    MASTER_ADDR = os.environ.setdefault("MASTER_ADDR", _first_node)
+else:
+    MASTER_ADDR = os.environ.setdefault("MASTER_ADDR", "127.0.0.1")
+
+# Setup logging
+logging.basicConfig(
+    level=logging.INFO,
+    format=f"[{RANK + 1}/{WORLD_SIZE}] - %(message)s ",
+    handlers=[rich.logging.RichHandler(markup=True)],
+    force=True,
+)
+logger = logging.getLogger(__name__)
 
 require_version(
     "datasets>=1.8.0",
@@ -87,7 +122,6 @@ MODEL_CONFIG_CLASSES = list(MODEL_MAPPING.keys())
 MODEL_TYPES = tuple(conf.model_type for conf in MODEL_CONFIG_CLASSES)
 
 # Note: These are only used in setting the wandb run name and group, if they are set.
-JOB_ID: Optional[str] = os.environ.get("JOB_ID", os.environ.get("SLURM_JOB_ID"))
 NODEID: Optional[str] = os.environ.get("NODEID", os.environ.get("SLURM_NODEID"))
 
 
@@ -112,7 +146,7 @@ class Args:
     """The percentage of the train set used as validation set in case there's no validation
     split."""
 
-    model_name_or_path: Optional[str] = None
+    model_name_or_path: Optional[str] = "Qwen/Qwen3-8b"
     """Path to pretrained model or model identifier from huggingface.co/models."""
 
     config_name: Optional[str] = None
@@ -357,36 +391,22 @@ def main():
     # If we're using tracking, we also need to initialize it here and it will by default pick up all supported trackers
     # in the environment
 
-    # https://pytorch.org/docs/master/distributed.html#torch.distributed.TCPStore
-
-    MASTER_ADDR = os.environ.get("MASTER_ADDR", "127.0.0.1")
-    MASTER_PORT = os.environ.get("MASTER_PORT", "29500")
-
-    # assert "RANK" not in os.environ, os.environ["RANK"]
-    # os.environ["RANK"] = os.environ["SLURM_PROCID"]
-    # RANK = os.environ["RANK"]
-
-    init_process_group_kwargs = InitProcessGroupKwargs(
+    # NOTE: In `state.py` of Accelerate, line 117, it checks if the process group is already
+    # initialized, and if not, it does init_process_group(backend="nccl", **kwargs). Therefore,
+    # if we want to change the backend used, we need to initialize the process group ourselves.
+    torch.cuda.set_device(LOCAL_RANK)
+    torch.distributed.init_process_group(
+        backend="nccl",
         init_method=f"tcp://{MASTER_ADDR}:{MASTER_PORT}",
-        # Reduced the timeout here, so the job fails quicker if there's a communication problem between nodes.
+        rank=RANK,
         timeout=timedelta(seconds=300),
-        # rank=int(os.environ.get("RANK", "0")),
-        # world_size=int(os.environ.get("WORLD_SIZE", "1")),
-        # backend=args.init_process_group_backend,
+        world_size=WORLD_SIZE,
     )
-    if args.init_process_group_backend != "nccl":
-        # NOTE: In `state.py` of Accelerate, line 117, it checks if the process group is already
-        # initialized, and if not, it does init_process_group(backend="nccl", **kwargs). Therefore,
-        # if we want to change the backend used, we need to initialize the process group ourselves.
-        torch.distributed.init_process_group(
-            backend=args.init_process_group_backend,
-            **init_process_group_kwargs.to_kwargs(),
-        )
 
     accelerator = Accelerator(
         log_with=[args.report_to] if args.with_tracking else None,
         project_dir=args.output_dir,
-        kwargs_handlers=[init_process_group_kwargs],
+        # kwargs_handlers=[init_process_group_kwargs],
         gradient_accumulation_steps=args.gradient_accumulation_steps,
         step_scheduler_with_optimizer=True,
     )
@@ -399,8 +419,9 @@ def main():
             rich.logging.RichHandler(markup=True, tracebacks_width=120)
         ],  # Very pretty, uses the `rich` package.
     )
-    logger.info(args, main_process_only=True)
-    logger.info(accelerator.state, main_process_only=False)
+    if RANK == 0:
+        logger.info(args)
+    logger.info(accelerator.state)
     logger.info(f"HF_HOME={os.environ['HF_HOME']}")
     logger.info(f"HF_DATASETS_CACHE={os.environ['HF_DATASETS_CACHE']}")
     logger.info(f"HUGGINGFACE_HUB_CACHE={os.environ['HUGGINGFACE_HUB_CACHE']}")
@@ -527,6 +548,8 @@ def main():
             args.model_name_or_path,
             from_tf=bool(".ckpt" in args.model_name_or_path),
             config=config,
+            dtype=torch.bfloat16,
+            device_map={"": LOCAL_RANK},
         )
     else:
         logger.info("Training new model from scratch")
@@ -545,9 +568,7 @@ def main():
     # NOTE: Use `local_main_process_first` if the dataset is on a node-local filesystem (e.g.
     # SLURM_TMPDIR), `main_process_first` otherwise.
     with local_main_process_first():
-        logger.info(
-            f"Tokenizing! HF_HOME: {os.environ['HF_HOME']}", main_process_only=False
-        )
+        logger.info(f"Tokenizing! HF_HOME: {os.environ['HF_HOME']}")
         tokenized_datasets = raw_datasets.map(
             tokenize_function,
             batched=True,
@@ -599,9 +620,7 @@ def main():
     # https://huggingface.co/docs/datasets/package_reference/main_classes.html#datasets.Dataset.map
 
     with local_main_process_first():
-        logger.info(
-            f"Grouping! HF_HOME: {os.environ['HF_HOME']}", main_process_only=False
-        )
+        logger.info(f"Grouping! HF_HOME: {os.environ['HF_HOME']}")
         lm_datasets = tokenized_datasets.map(
             group_texts,
             batched=True,

@@ -1,3 +1,4 @@
+!.vscode
 output
 slurm-*.out
 logs/*.out

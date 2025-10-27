@@ -1,0 +1,143 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            // Loosely based on https://medium.com/@franoisponchon/pytorch-ddp-debugging-in-vscode-4fb162eba07e
+            "name": "Debug job with torchrun (Single-node)",
+            "type": "debugpy",
+            "request": "launch",
+            // we launch a module...
+            "module": "torch.distributed.run",
+            "presentation": {
+                "hidden": false,
+                "group": "distributed",
+                "order": 0
+            },
+            // with args...
+            "args": "--nproc_per_node=${input:NumGPUs} ${file} ${command:pickArgs}",
+            "console": "integratedTerminal",
+            "justMyCode": false
+        },
+        {
+            "name": "Attach debugger to a running task/node",
+            "type": "debugpy",
+            "request": "attach",
+            "connect": {
+                "host": "${input:NodeHostname}",
+                "port": "${input:DebugpyPort}"
+            },
+            "justMyCode": false,
+            "presentation": {
+                "hidden": false,
+                "group": "lower",
+                "order": 0
+            }
+        },
+        {
+            "name": "Launch with srun (use \"attach debugger\" for each task)",
+            "request": "launch",
+            /// wacky, but it works. We just want to run this command in a bash terminal.
+            "type": "node-terminal",
+            // We need to set the DebugpyPort based on the local rank, otherwise different tasks on the same node will try to listen on the same port.
+            // An alternative (that would also be very ugly though) would be to use srun --ntasks-per-node=1 torchrun --nprocs-per-node=X --no-python debugpy ... to run the script.
+            // VSCode shows this in red with jsonc(261) error, but you can safely ignore that (I don't know how to turn off the error..)
+            "command": "srun --ntasks=${input:NumGPUs} bash -c '\
+                DEBUGPY_PORT=$(expr 20000 + $(echo -n $SLURM_JOB_ID | tail -c 4) + $SLURM_LOCALID) && \
+                echo \"Task $SLURM_PROCID on node $SLURMD_NODENAME is waiting for you to connect the vscode debugger with the <attach to running task> action with host $SLURMD_NODENAME at port $DEBUGPY_PORT\" && \
+                uv run debugpy --listen 0.0.0.0:$DEBUGPY_PORT --wait-for-client ${file} ${input:pickArgs}'",
+            ///
+            "presentation": {
+                "hidden": false,
+                "group": "lower",
+                "order": 1
+            }
+        },
+        {
+            "name": "Launch with srun+accelerate launch (use \"attach debugger\" for each node)",
+            "request": "launch",
+            /// wacky, not using nodejs here, but this allows us to just run commands in the integrated (bash) terminal.
+            "type": "node-terminal",
+            // Here we set the port that debugpy will listen on based on the job ID.
+            // It only needs to be unique for each node in this case.
+            // An alternative (that would also be very ugly though) would be to use srun --ntasks-per-node=1 torchrun --nprocs-per-node=X --no-python debugpy ... to run the script.
+            // VSCode shows this in red with jsonc(261) error, but you can safely ignore that.
+            "command": "srun --jobid=${input:jobID} --nodes=${input:NumNodes} --ntasks=${input:NumNodes} --ntasks-per-node=1 bash -c '\
+                MASTER_ADDR=$(scontrol show hostnames $SLURM_JOB_NODELIST | head -n 1) && \
+                MASTER_PORT=$(expr 10000 + $(echo -n $SLURM_JOB_ID | tail -c 4)) && \
+                DEBUGPY_PORT=$(expr 20000 + $(echo -n $SLURM_JOB_ID | tail -c 4)) && \
+                echo \"Task $SLURM_PROCID on node $SLURMD_NODENAME is waiting until you attach vscode debugger to host $SLURMD_NODENAME at port $DEBUGPY_PORT using the <attach debugger to task> action.\" && \
+                uv run debugpy --listen 0.0.0.0:$DEBUGPY_PORT --wait-for-client -m \
+                accelerate.commands.accelerate_cli launch --machine_rank=$SLURM_NODEID --config_file=${input:AccelerateConfig} \
+                --num_cpu_threads_per_process=12 --main_process_ip=$MASTER_ADDR --main_process_port=$MASTER_PORT --num_machines=${input:NumNodes} --num_processes=${input:NumGPUs} main.py ${input:pickArgs}'",
+            // "command": "srun --jobid ${input:jobID} --ntasks-per-node=1 --nodes=${input:NumNodes} --ntasks=${input:NumNodes} bash -c '\
+            //     DEBUGPY_PORT=$(expr 20000 + $(echo -n $SLURM_JOB_ID | tail -c 4)) && \
+            //     MASTER_ADDR=$(scontrol show hostnames $SLURM_JOB_NODELIST | head -n 1) && \
+            //     MASTER_PORT=$(expr 10000 + $(echo -n $SLURM_JOB_ID | tail -c 4)) && \
+            //     WORLD_SIZE=${input:NumGPUs} && \
+            //     echo \"Task $SLURM_PROCID on node $SLURMD_NODENAME is waiting until you attach vscode debugger to host $SLURMD_NODENAME at port $DEBUGPY_PORT using the <attach debugger to task> action.\" && \
+            //     uv run debugpy --listen 0.0.0.0:$DEBUGPY_PORT --wait-for-client -m \
+            //     torch.distributed.run --node-rank=$SLURM_NODEID --nnodes=${input:NumNodes} \
+            //     --master-addr=$MASTER_ADDR --master-port=$MASTER_PORT --nproc-per-node=gpu \
+            //     ${file} ${input:pickArgs}'",
+            "presentation": {
+                "hidden": false,
+                "group": "lower",
+                "order": 2
+            }
+        },
+    ],
+    "inputs": [
+        {
+            "id": "pickArgs",
+            "type": "promptString",
+            "description": "Command-line arguments to pass to the script",
+            "default": "-vv"
+        },
+        {
+            "id": "NumGPUs",
+            "type": "promptString",
+            "description": "Number of GPUs to use",
+            "default": "2"
+        },
+        {
+            "id": "NodeHostname",
+            "type": "promptString",
+            "description": "Hostname of the node to attach to.",
+            "default": "cn-"
+        },
+        {
+            "id": "AccelerateConfig",
+            "type": "promptString",
+            "description": "Accelerate config file to use.",
+            "default": "configs/fsdp.yaml"
+        },
+        {
+            "id": "DebugpyPort",
+            "type": "promptString",
+            "description": "Port to attach to (to debug distributed jobs).\nShould be unique for each task within a same node. Set to <base>+$LOCAL_RANK for all tasks on all nodes.",
+            "default": "22345"
+        },
+        {
+            "id": "jobID",
+            "type": "promptString",
+            "description": "SLURM JOB ID of the current job. (Necessary to use `srun` to launch tasks in current job).",
+        },
+        {
+            "id": "NumNodes",
+            "type": "pickString",
+            "description": "Number of Nodes to use",
+            "options": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "8",
+            ],
+            "default": "2"
+        },
+    ],
+    "compounds": []
+}
