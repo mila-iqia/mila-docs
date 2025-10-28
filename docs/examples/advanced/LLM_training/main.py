@@ -12,7 +12,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Fine-tuning the library models for causal language modeling (GPT, GPT-2, CTRL, ...) on a text
+"""Based on https://github.com/huggingface/transformers/blob/main/examples/pytorch/language-modeling/run_clm_no_trainer.py
+
+Fine-tuning the library models for causal language modeling (GPT, GPT-2, CTRL, ...) on a text
 file or a dataset without using HuggingFace Trainer.
 
 Here is the full list of checkpoints on the hub that can be fine-tuned by this script:
@@ -39,7 +41,7 @@ from dataclasses import dataclass
 from datetime import timedelta
 from itertools import chain
 from pathlib import Path
-from typing import Literal, Optional
+from typing import Iterable, Literal, Optional, TypeVar
 
 import datasets
 from numpy import dtype
@@ -72,6 +74,7 @@ from transformers import (
 )
 from transformers.utils import get_full_repo_name
 from transformers.utils.versions import require_version
+from torch.profiler import profile, tensorboard_trace_handler
 
 # TODO: Remove when not running on a SLURM cluster.
 SLURM_TMPDIR = os.environ["SLURM_TMPDIR"]
@@ -644,6 +647,23 @@ def main():
     # for index in random.sample(range(len(train_dataset)), 3):
     #     logger.info(f"Sample {index} of the training set: {train_dataset[index]}.")
 
+    # Create the PyTorch profiler with a schedule that will output some traces that can be inspected with tensorboard.
+    # https://docs.pytorch.org/tutorials/recipes/recipes/profiler_recipe.html#using-profiler-to-analyze-long-running-jobs
+    # To view the traces, run `uvx tensorboard --with=torch_tb_profiler --logdir checkpoints`
+    profiler = profile(
+        schedule=torch.profiler.schedule(wait=2, warmup=2, active=2, repeat=1),
+        on_trace_ready=tensorboard_trace_handler(
+            str(args.output_dir), worker_name=f"rank_{RANK}"
+        ),
+        record_shapes=True,
+        profile_memory=True,
+        # Warning: This can be a bit too verbose while debugging. Only enable this if you really need it.
+        # with_stack=True if "debugpy" not in sys.modules else True,
+        with_stack=False,
+        with_flops=True,
+        with_modules=True,
+    )
+
     # DataLoaders creation:
     train_dataloader = DataLoader(
         train_dataset,
@@ -847,7 +867,10 @@ def main():
         model.train()
         if args.with_tracking:
             total_loss = 0
-        for step, batch in enumerate(train_dataloader):
+        for step, batch in enumerate(
+            # We only create the profiling traces in the first two epochs.
+            profile_loop(train_dataloader, profiler) if epoch <= 1 else progress_bar
+        ):
             # We need to skip steps until we reach the resumed step
             if args.resume_from_checkpoint and epoch == starting_epoch:
                 if resume_step is not None and step < resume_step:
@@ -1016,6 +1039,24 @@ def main():
 
         with open(os.path.join(args.output_dir, "all_results.json"), "w") as f:
             json.dump({"perplexity": perplexity, "eval_loss": eval_loss.item()}, f)
+
+
+T = TypeVar("T")
+
+
+def profile_loop(
+    dataloader: Iterable[T], profiler: torch.profiler.profile
+) -> Iterable[T]:
+    """Wraps the dataloader (or progress bar) and calls .step after each batch.
+
+    This is used to save one level of indentation (with profiler block) and to call prof.step() at each step.
+
+    Note, this doesn't need to be done at every epoch. It creates files used by tensorboard.
+    """
+    with profiler as prof:
+        for batch in dataloader:
+            yield batch
+            prof.step()
 
 
 if __name__ == "__main__":
