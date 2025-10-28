@@ -76,13 +76,8 @@ from transformers.utils import get_full_repo_name
 from transformers.utils.versions import require_version
 from torch.profiler import profile, tensorboard_trace_handler
 
-# TODO: Remove when not running on a SLURM cluster.
-SLURM_TMPDIR = os.environ["SLURM_TMPDIR"]
-os.environ["HF_HOME"] = SLURM_TMPDIR + "/cache/huggingface"
-os.environ["HF_DATASETS_CACHE"] = SLURM_TMPDIR + "/cache/huggingface/datasets"
-os.environ["HUGGINGFACE_HUB_CACHE"] = SLURM_TMPDIR + "/cache/huggingface/hub"
-
 JOB_ID = os.environ["SLURM_JOB_ID"]  # you absolutely need to be within a slurm job!
+SLURM_TMPDIR = Path(os.environ["SLURM_TMPDIR"])
 SCRATCH = Path(os.environ["SCRATCH"])
 
 # This will raise an error if both are unset. This is expected (see above).

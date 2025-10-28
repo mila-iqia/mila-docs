@@ -1,10 +1,10 @@
 #!/bin/bash
 #SBATCH --nodes=2
 #SBATCH --ntasks-per-node=1
-#SBATCH --cpus-per-task=12
-#SBATCH --gpus-per-task=a100:2
-#SBATCH --mem=512G
-#SBATCH --time=01:00:00
+#SBATCH --cpus-per-task=24
+#SBATCH --gpus-per-task=4
+#SBATCH --mem=400G
+#SBATCH --time=02:59:00
 #SBATCH --job-name=llm_training
 #SBATCH --output=logs/slurm-%j.out
 
@@ -47,24 +47,24 @@ NUM_NODES=${NUM_NODES:=$SLURM_JOB_NUM_NODES}
 # Note: Turning this on might increase performance, but invalidates the cache dir, which sucks!
 # export HF_DATASETS_IN_MEMORY_MAX_SIZE=$mem_limit_in_bytes
 
-# TODO: When `--with_tracking` is passed, the `WANDB_API_KEY` environment variable must be set.
-
+# NOTE: When `--with_tracking` is passed, the `WANDB_API_KEY` environment variable must be set.
+# You should ideally already have this in your ~/.bash_aliases file or similar.
 export HF_HOME=$SCRATCH/cache/huggingface
 export HF_DATASETS_CACHE=$SCRATCH/cache/huggingface/datasets
 export HUGGINGFACE_HUB_CACHE=$SCRATCH/cache/huggingface/hub
+export HF_DATASETS_OFFLINE=1
+export HF_HUB_OFFLINE=1
 
-srun --nodes=$SLURM_JOB_NUM_NODES --ntasks=$SLURM_JOB_NUM_NODES --ntasks-per-node=1 bash -c "\
-    mkdir -p \$SLURM_TMPDIR/cache && \
-    cp -r $HF_HOME \$SLURM_TMPDIR/cache/huggingface"
+# TODO: Probably best to only copy some files, not the entire cache.
+# srun --nodes=$SLURM_JOB_NUM_NODES --ntasks=$SLURM_JOB_NUM_NODES --ntasks-per-node=1 bash -c "\
+#     mkdir -p \$SLURM_TMPDIR/cache && \
+#     cp -r $HF_HOME \$SLURM_TMPDIR/cache/huggingface"
 
 # unset HF_DATASETS_CACHE
 # unset HUGGINGFACE_HUB_CACHE
 # unset HF_HOME
 
 # NOTE: Uses `srun` to launch `accelerate launch` on each node with the right `--machine_rank`.
-export HF_DATASETS_OFFLINE=1
-export HF_HUB_OFFLINE=1
-
 
 
 srun --kill-on-bad-exit=1 --nodes=$SLURM_JOB_NUM_NODES --ntasks=$SLURM_JOB_NUM_NODES --ntasks-per-node=1 --output=logs/slurm-%j_%t.out \
