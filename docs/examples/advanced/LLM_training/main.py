@@ -392,6 +392,7 @@ def main():
     # NOTE: In `state.py` of Accelerate, line 117, it checks if the process group is already
     # initialized, and if not, it does init_process_group(backend="nccl", **kwargs). Therefore,
     # if we want to change the backend used, we need to initialize the process group ourselves.
+    # NOTE: Might get "invalid device ordinal" when using --gpus-per-task=1!
     torch.cuda.set_device(LOCAL_RANK)
     torch.distributed.init_process_group(
         backend="nccl",
@@ -419,10 +420,10 @@ def main():
     )
     if RANK == 0:
         logger.info(args)
+        logger.info(f"HF_HOME={os.environ.get('HF_HOME')}")
+        logger.info(f"HF_DATASETS_CACHE={os.environ.get('HF_DATASETS_CACHE')}")
+        logger.info(f"HUGGINGFACE_HUB_CACHE={os.environ.get('HUGGINGFACE_HUB_CACHE')}")
     logger.info(accelerator.state)
-    logger.info(f"HF_HOME={os.environ['HF_HOME']}")
-    logger.info(f"HF_DATASETS_CACHE={os.environ['HF_DATASETS_CACHE']}")
-    logger.info(f"HUGGINGFACE_HUB_CACHE={os.environ['HUGGINGFACE_HUB_CACHE']}")
 
     if accelerator.is_local_main_process:
         datasets.utils.logging.set_verbosity_warning()
@@ -543,6 +544,7 @@ def main():
         )
 
     if args.model_name_or_path:
+        logger.info(f"Loading model from {args.model_name_or_path}")
         model = AutoModelForCausalLM.from_pretrained(
             args.model_name_or_path,
             from_tf=bool(".ckpt" in args.model_name_or_path),
@@ -773,7 +775,7 @@ def main():
 
     # We need to initialize the trackers we use, and also store our configuration.
     # The trackers initializes automatically on the main process.
-    if accelerator.is_local_main_process and args.with_tracking:
+    if LOCAL_RANK == 0 and args.with_tracking:
         experiment_config = vars(args)
         # TensorBoard cannot log Enums, need the raw value
         experiment_config["lr_scheduler_type"] = experiment_config[
