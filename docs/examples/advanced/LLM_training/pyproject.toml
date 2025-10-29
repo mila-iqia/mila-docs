@@ -8,6 +8,7 @@ dependencies = [
     "accelerate>=0.18.0",
     "datasets>=4.3.0",
     "debugpy>=1.8.17",
+    "deepspeed>=0.18.1",
     "huggingface-hub>=0.36.0",
     "rich>=14.2.0",
     "simple-parsing>=0.1.7",
