@@ -46,6 +46,7 @@ recommend you start by checking out the :ref:`short quick start guide
    examples/frameworks/index
    examples/distributed/index
    examples/good_practices/index
+   examples/advanced/index
 
    🔗 Research Project Template <https://github.com/mila-iqia/ResearchTemplate>
 

@@ -15,6 +15,7 @@ members = [
     "docs/examples/distributed/multi_gpu",
     "docs/examples/distributed/multi_node",
     "docs/examples/advanced/LLM_training",
+    "docs/examples/advanced/imagenet",
 ]
 
 [dependency-groups]

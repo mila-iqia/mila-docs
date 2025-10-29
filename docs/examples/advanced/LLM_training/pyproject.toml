@@ -3,7 +3,7 @@ name = "llm-training"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.12"
 dependencies = [
     "accelerate>=0.18.0",
     "datasets>=4.3.0",
