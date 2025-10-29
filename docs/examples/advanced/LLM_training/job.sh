@@ -1,9 +1,9 @@
 #!/bin/bash
-#SBATCH --nodes=2
-#SBATCH --ntasks-per-node=1
-#SBATCH --cpus-per-task=24
-#SBATCH --gpus-per-task=4
-#SBATCH --mem=400G
+#SBATCH --nodes=1
+#SBATCH --gpus=4
+#SBATCH --ntasks=4
+#SBATCH --cpus-per-task=12
+#SBATCH --mem=64G
 #SBATCH --time=02:59:00
 #SBATCH --job-name=llm_training
 #SBATCH --output=logs/slurm-%j.out
@@ -63,7 +63,7 @@ export HF_HUB_OFFLINE=1
 
 
 srun --kill-on-bad-exit=1 --nodes=$SLURM_JOB_NUM_NODES --ntasks=$SLURM_JOB_NUM_NODES --ntasks-per-node=1 --output=logs/slurm-%j_%t.out \
-    bash -c "accelerate launch \
+    bash -c "uv run accelerate launch \
         --machine_rank=\$SLURM_NODEID \
         --config_file=$ACCELERATE_CONFIG \
         --num_cpu_threads_per_process=$CPUS_PER_GPU \
