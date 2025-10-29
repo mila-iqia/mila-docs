@@ -19,11 +19,6 @@ module --quiet purge
 ACCELERATE_CONFIG=${ACCELERATE_CONFIG:="configs/ds_level2.yaml"}
 OUTPUT_DIR=${OUTPUT_DIR:=$SCRATCH/logs/llm_training/$SLURM_JOB_ID}
 
-# 'setup_env.sh' should be called before launching the job to create the
-# environment and install packages only once in an environment where internet is
-# accessible
-source setup_env.sh
-
 set -x  # print commands.
 
 
