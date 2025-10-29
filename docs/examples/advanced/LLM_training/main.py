@@ -102,6 +102,10 @@ if "SLURM_JOB_NODELIST" in os.environ:
 else:
     MASTER_ADDR = os.environ.setdefault("MASTER_ADDR", "127.0.0.1")
 
+os.environ.setdefault("HF_HOME", str(SCRATCH / "cache/huggingface"))
+os.environ.setdefault("HF_DATASETS_CACHE", str(SCRATCH / "cache/huggingface/datasets"))
+os.environ.setdefault("HUGGINGFACE_HUB_CACHE", str(SCRATCH / "cache/huggingface/hub"))
+
 # Setup logging
 logging.basicConfig(
     level=logging.INFO,
