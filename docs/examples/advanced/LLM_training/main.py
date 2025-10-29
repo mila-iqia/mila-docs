@@ -125,7 +125,7 @@ NODEID: Optional[str] = os.environ.get("NODEID", os.environ.get("SLURM_NODEID"))
 
 @dataclass
 class Args:
-    output_dir: str
+    output_dir: Path = SCRATCH / "logs/llm_training" / JOB_ID
     """Where to store the logs and final model."""
 
     dataset_name: Optional[str] = "wikitext"
@@ -467,18 +467,19 @@ def main():
     # download the dataset.
     if args.dataset_name is not None:
         # Downloading and loading a dataset from the hub.
-        raw_datasets = load_dataset(args.dataset_name, args.dataset_config_name)
-        if "validation" not in raw_datasets.keys():
-            raw_datasets["validation"] = load_dataset(
-                args.dataset_name,
-                args.dataset_config_name,
-                split=f"train[:{args.validation_split_percentage}%]",
-            )
-            raw_datasets["train"] = load_dataset(
-                args.dataset_name,
-                args.dataset_config_name,
-                split=f"train[{args.validation_split_percentage}%:]",
-            )
+        with main_process_first():
+            raw_datasets = load_dataset(args.dataset_name, args.dataset_config_name)
+            if "validation" not in raw_datasets.keys():
+                raw_datasets["validation"] = load_dataset(
+                    args.dataset_name,
+                    args.dataset_config_name,
+                    split=f"train[:{args.validation_split_percentage}%]",
+                )
+                raw_datasets["train"] = load_dataset(
+                    args.dataset_name,
+                    args.dataset_config_name,
+                    split=f"train[{args.validation_split_percentage}%:]",
+                )
     else:
         # TODO: Only used if dataset is a local (e.g. csv/json) file
         data_files = {}
