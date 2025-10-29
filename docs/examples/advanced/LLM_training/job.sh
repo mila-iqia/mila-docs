@@ -14,7 +14,15 @@ set -e  # exit on error.
 echo "Date:     $(date)"
 echo "Hostname: $(hostname)"
 
-module --quiet purge
+# Make sure to use UV_OFFLINE=1 on DRAC clusters where compute nodes don't have internet access,
+# or use `module load httpproxy` if it works.
+# Note: You will either have to warm up the uv cache before submitting your job so  or use the drac wheelhouse as a source.
+# export UV_OFFLINE=1
+
+## Code checkpointing with git to avoid unexpected bugs ##
+UV_DIR=$(./code_checkpointing.sh)
+echo "Git commit used for this job: ${GIT_COMMIT:-not set - code checkpointing is not enabled}"
+echo "Running uv commands in directory: $UV_DIR"
 
 ACCELERATE_CONFIG=${ACCELERATE_CONFIG:="configs/ds_level2.yaml"}
 OUTPUT_DIR=${OUTPUT_DIR:=$SCRATCH/logs/llm_training/$SLURM_JOB_ID}
@@ -23,14 +31,14 @@ set -x  # print commands.
 
 
 # Get a unique port for this job based on the job ID
-export MASTER_PORT=${MASTER_PORT:=$(expr 10000 + $(echo -n $SLURM_JOBID | tail -c 4))}
-export MASTER_ADDR=${MASTER_ADDR:=$(scontrol show hostnames "$SLURM_JOB_NODELIST" | head -n 1)}
+export MASTER_PORT=$(expr 10000 + $(echo -n $SLURM_JOBID | tail -c 4))
+export MASTER_ADDR=$(scontrol show hostnames "$SLURM_JOB_NODELIST" | head -n 1)
 # NOTE: $SLURM_GPUS_ON_NODE is the number of GPUS on the *current* node, so this assumes that each
 # node has the same # of allocated GPUS.
-export WORLD_SIZE=${WORLD_SIZE:=$(($SLURM_JOB_NUM_NODES * $SLURM_GPUS_ON_NODE))}
+export WORLD_SIZE=$(($SLURM_JOB_NUM_NODES * $SLURM_GPUS_ON_NODE))
 
 # TODO: Make sure this works correctly even with odd numbers of cpus / gpus / nodes (e.g. never zero).
-export CPUS_PER_GPU=${CPUS_PER_GPU:=$(($SLURM_CPUS_PER_TASK * $SLURM_NTASKS / $WORLD_SIZE))}
+export CPUS_PER_GPU=$(($SLURM_CPUS_PER_TASK * $SLURM_NTASKS / $WORLD_SIZE))
 # NOTE: Setting this because `openmp` (called by `torch.distributed.run`, called by `accelerate launch`)
 # otherwise sets it to 1, which might be bad for performance.
 export OMP_NUM_THREADS=$CPUS_PER_GPU
@@ -44,9 +52,9 @@ NUM_NODES=${NUM_NODES:=$SLURM_JOB_NUM_NODES}
 
 # NOTE: When `--with_tracking` is passed, the `WANDB_API_KEY` environment variable must be set.
 # You should ideally already have this in your ~/.bash_aliases file or similar.
-export HF_HOME=$SCRATCH/cache/huggingface
-export HF_DATASETS_CACHE=$SCRATCH/cache/huggingface/datasets
-export HUGGINGFACE_HUB_CACHE=$SCRATCH/cache/huggingface/hub
+export HF_HOME=${NUM_NODES:=$SCRATCH/cache/huggingface}
+export HF_DATASETS_CACHE=${HF_DATASETS_CACHE:=$SCRATCH/cache/huggingface/datasets}
+export HUGGINGFACE_HUB_CACHE=${HUGGINGFACE_HUB_CACHE:=$SCRATCH/cache/huggingface/hub}
 export HF_DATASETS_OFFLINE=1
 export HF_HUB_OFFLINE=1
 
@@ -60,10 +68,8 @@ export HF_HUB_OFFLINE=1
 # unset HF_HOME
 
 # NOTE: Uses `srun` to launch `accelerate launch` on each node with the right `--machine_rank`.
-
-
 srun --kill-on-bad-exit=1 --nodes=$SLURM_JOB_NUM_NODES --ntasks=$SLURM_JOB_NUM_NODES --ntasks-per-node=1 --output=logs/slurm-%j_%t.out \
-    bash -c "uv run accelerate launch \
+    bash -c "uv run --directory=$UV_DIR accelerate launch \
         --machine_rank=\$SLURM_NODEID \
         --config_file=$ACCELERATE_CONFIG \
         --num_cpu_threads_per_process=$CPUS_PER_GPU \

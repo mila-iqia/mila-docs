@@ -13,7 +13,7 @@ echo "Hostname: $(hostname)"
 echo "Attempt #${SLURM_RESTART_COUNT:-0}"
 
 # Make sure to use UV_OFFLINE=1 on DRAC clusters where compute nodes don't have internet access,
-# or use `module load httpproxy/1.0` if it works.
+# or use `module load httpproxy` if it works.
 # Note: You will either have to warm up the uv cache before submitting your job so  or use the drac wheelhouse as a source.
 # export UV_OFFLINE=1
 
