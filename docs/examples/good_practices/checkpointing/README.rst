@@ -246,8 +246,7 @@ repository.
             shuffle=False,
    +        # generator=torch.Generator().manual_seed(random_seed),
         )
-   -    test_dataloader = DataLoader(  # NOTE: Not used in this example.
-   +    test_dataloader = DataLoader(  # NOTE: Not used in this example.  # noqa
+        _test_dataloader = DataLoader(  # NOTE: Not used in this example.
             test_dataset,
             batch_size=batch_size,
             num_workers=num_workers,

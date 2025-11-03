@@ -185,7 +185,7 @@ Click here to see `the source code for this example
             num_workers=num_workers,
             shuffle=False,
         )
-        test_dataloader = DataLoader(  # NOTE: Not used in this example.
+        _test_dataloader = DataLoader(  # NOTE: Not used in this example.
             test_dataset,
             batch_size=batch_size,
             num_workers=num_workers,

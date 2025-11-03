@@ -181,7 +181,7 @@ The full source code for this example is available on `the mila-docs GitHub repo
             num_workers=num_workers,
             shuffle=False,
         )
-        test_dataloader = DataLoader(  # NOTE: Not used in this example.
+        _test_dataloader = DataLoader(  # NOTE: Not used in this example.
             test_dataset,
             batch_size=batch_size,
             num_workers=num_workers,
