@@ -5,7 +5,7 @@
 Digital Research Alliance of Canada Clusters
 ============================================
 
-The clusters named `Beluga`, `Cedar`, `Graham`, `Narval` and `Niagara` are
+The clusters named `Fir`, `Nibi`, `Narval`, `Rorqual` and `Trillium` are
 clusters provided by the `Digital Research Alliance of Canada organisation
 <https://alliancecan.ca/>`_ (the Alliance). For Mila researchers, these
 clusters are to be used for larger experiments having many jobs, multi-node
@@ -54,37 +54,25 @@ these installations.
    site publiquement disponible.
 
 The table below provides information on the allocation for
-``rrg-bengioy-ad`` for the period which spans from April 2024 to
-Summer 2025 (until the new clusters come online).
+``rrg-bengioy-ad`` for the period which spans from July 2025 to
+Summer 2026.
 Technically, there is a separate account for CPU-only jobs and GPU jobs, but through Slurm magic
 users can use the same account name for both.
-
-+------------------------+-----------------------+---------------------------------------------------------+
-| Cluster                | CPUs                  | GPUs                                                    |
-|                        +------+----------------+-----------+-----+----------------------+----------------+
-|                        |  #   | account        | Model     | #   | SLURM type specifier | account        |
-+------------------------+------+----------------+-----------+-----+----------------------+----------------+
-| :ref:`Beluga <beluga>` |  125 | rrg-bengioy-ad | V100-16G  | 111 | ``v100``             | rrg-bengioy-ad |
-+------------------------+------+----------------+-----------+-----+----------------------+----------------+
-| :ref:`Cedar <cedar>`   |  125 | rrg-bengioy-ad | V100-32G  | 118 | ``v100l``            | rrg-bengioy-ad |
-+------------------------+------+----------------+-----------+-----+----------------------+----------------+
-| :ref:`Narval <narval>` |  580 | rrg-bengioy-ad | A100-40G  | 110 | ``a100``             | rrg-bengioy-ad |
-+------------------------+------+----------------+-----------+-----+----------------------+----------------+
 
 Starting from Summer 2025, the our large DRAC allocation will be updated to the following.
 Some of those clusters are available right now, replacing those from the table above.
 
-+------------------------+------+----------------+-----------+----------------+-------------+----------------------+----------------+
-| Cluster                | CPUs | GPUs                                                                                              |
-|                        +------+----------------+-----------+----------------+-------------+----------------------+----------------+
-|                        |  #   | account        | Model     | RGUs allocated | # GPU equiv | SLURM type specifier | account        |
-+------------------------+------+----------------+-----------+----------------+-------------+----------------------+----------------+
-| :ref:`Roqual <roqual>` |  873 | rrg-bengioy-ad | H100-80G  | 1500           | 123         | ``v100``             | rrg-bengioy-ad |
-+------------------------+------+----------------+-----------+----------------+-------------+----------------------+----------------+
-| :ref:`Fir <fir>`       |  193 | rrg-bengioy-ad | H100-80G  | 2000           | 165         | ``v100l``            | rrg-bengioy-ad |
-+------------------------+------+----------------+-----------+----------------+-------------+----------------------+----------------+
-| :ref:`Nibi <nibi>`     |  0   | rrg-bengioy-ad | H100-80G  | 1000           | 82          | ``a100``             | rrg-bengioy-ad |
-+------------------------+------+----------------+-----------+----------------+-------------+----------------------+----------------+
++--------------------------+------+----------------+-----------+----------------+-------------+----------------------+----------------+
+| Cluster                  | CPUs | GPUs                                                                                              |
+|                          +------+----------------+-----------+----------------+-------------+----------------------+----------------+
+|                          |  #   | account        | Model     | RGUs allocated | # GPU equiv | SLURM type specifier | account        |
++--------------------------+------+----------------+-----------+----------------+-------------+----------------------+----------------+
+| :ref:`Fir <fir>`         |  193 | rrg-bengioy-ad | H100-80G  | 2000           | 165         | ``h100``             | rrg-bengioy-ad |
++--------------------------+------+----------------+-----------+----------------+-------------+----------------------+----------------+
+| :ref:`Rorqual <rorqual>` |  873 | rrg-bengioy-ad | H100-80G  | 1500           | 123         | ``h100``             | rrg-bengioy-ad |
++--------------------------+------+----------------+-----------+----------------+-------------+----------------------+----------------+
+| :ref:`Nibi <nibi>`       |  0   | rrg-bengioy-ad | H100-80G  | 1000           | 82          | ``h100``             | rrg-bengioy-ad |
++--------------------------+------+----------------+-----------+----------------+-------------+----------------------+----------------+
 
 Note that on many DRAC clusters where we don't have
 any allocated resources with ``rrg-bengioy-ad``, users can still use
@@ -145,77 +133,35 @@ If the FAQ is of no help, you can contact DRAC renewal support team at
 Clusters
 --------
 
+Fir:
+   (`Digital Research Alliance of Canada doc <https://docs.alliancecan.ca/wiki/Fir>`__)
+
+   The successor to the legacy Cedar cluster. Retains its filesystem.
+
+Nibi:
+   (`Digital Research Alliance of Canada doc <https://docs.alliancecan.ca/wiki/Nibi>`__)
+
+   The successor to the legacy Graham cluster. Retains its filesystem.
+Rorqual:
+   (`Digital Research Alliance of Canada doc <https://docs.alliancecan.ca/wiki/Rorqual/en>`__)
+
+   The successor to the legacy Beluga cluster. No internet access on compute nodes.
+Trillium:
+   (`Digital Research Alliance of Canada doc <https://docs.alliancecan.ca/wiki/Trillium>`__)
+
+   The successor to the legacy Niagara cluster. It is principally but not exclusively a
+   CPU cluster. This cluster is not recommended in general. Compute resources
+   in Trillium are not assigned to jobs on a per-CPU, but on a per-node basis.
 Narval:
-   (:ref:`Mila doc <narval>`)
    (`Digital Research Alliance of Canada doc <https://docs.alliancecan.ca/wiki/Narval/en>`__)
 
-   For most students, Narval is the best choice for both CPU and GPU jobs because
-   of larger allocations on this cluster.
-   Narval is also the newest cluster, and contains the most powerful GPUs (A100). If your
-   job can benefit from the A100's features, such as TF32 floating-point math, Narval
-   is the best choice.
-Beluga:
-   (:ref:`Mila doc <beluga>`)
-   (`Digital Research Alliance of Canada doc <https://docs.alliancecan.ca/wiki/B%C3%A9luga/en>`__)
-
-   Beluga is a good alternative for CPU and GPU jobs.
-Cedar:
-   (:ref:`Mila doc <cedar>`)
-   (`Digital Research Alliance of Canada doc <https://docs.alliancecan.ca/wiki/Cedar/en>`__)
-
-   Cedar is a good alternative to Beluga if you absolutely need to have an internet connection
-   on the compute nodes.
-Graham:
-   (:ref:`Mila doc <graham>`)
-   (`Digital Research Alliance of Canada doc <https://docs.alliancecan.ca/wiki/Graham/en>`__)
-
-   We do not have any CPU or GPU allocation on Graham anymore, but you can use it with `def-<supervisor>`
-   if other clusters are overcrowded. (where `<supervisor> is the DRAC account name of your supervisor`)
-Niagara:
-   (:ref:`Mila doc <niagara>`)
-   (`Digital Research Alliance of Canada doc <https://docs.alliancecan.ca/wiki/Niagara/en>`__)
-
-   Niagara is not recommended for most students. It is a CPU-only cluster with unusual
-   configurations. Access is not automatic; It is opt-in and must be requested via
-   CCDB manually. Compute resources in Niagara are not assigned to jobs on a per-CPU,
-   but on a per-node basis.
-
-
-Narval
-^^^^^^
-
-Narval is a cluster located at `ÉTS <https://www.etsmtl.ca/>`_ in Montreal. It
-uses SLURM to schedule jobs. Its full documentation can be found
-`here <https://docs.alliancecan.ca/wiki/Narval>`__, and its current status
-`here <http://status.alliancecan.ca>`__.
-
-You can access Narval via ssh:
-
-.. prompt:: bash $
-
-    ssh <user>@narval.computecanada.ca
-
-Where ``<user>`` is the username you created previously (see `Account Creation`_).
-
-While Narval has a filesystem organization similar to the other clusters, and the
-newest GPUs in the fleet (A100s), it differs from the other clusters in that it
-uses AMD CPUs (Zen 2/3) rather than Intel (Broadwell/Skylake). This *may* (but is
-not guaranteed to) result in performance or behaviour differences, up to and
-including hangs.
-
-.. warning::
-
-    A very notable difference in the feature-set of Narval's CPUs is that the
-    AMD CPUs of this cluster do **not** support the AVX-512 vector extensions,
-    while the Intel CPUs of the older clusters **do**. This makes it unsafe to
-    run *compiled* CPU code from older Intel-based clusters to Narval, but the
-    opposite (although ill-advised) will work. The symptom of attempting to
-    execute AVX-512 code on Narval's CPUs is that the program fatally aborts
-    with signal ``SIGILL`` and messages such as ``Illegal instruction``.
+   For some students, Narval might be a good choice if they have already set up there.
+   Narval is the oldest cluster still online, and contains the oldest and smallest GPUs (A100-40GB).
+   The A100 may however be a viable choice for jobs that cannot utilize a full H100.
 
 
 Launching Jobs
-""""""""""""""
+--------------
 
 Users must specify the resource allocation Group Name using the flag
 ``--account=rrg-bengioy-ad``.  To launch a CPU-only job:
@@ -244,27 +190,11 @@ The full documentation for jobs launching on Alliance clusters can be found
 `here <https://docs.alliancecan.ca/wiki/Running_jobs>`__.
 
 
-Narval nodes description
-""""""""""""""""""""""""
-
-Each GPU node consists of:
-
-* 48 CPU cores
-* 498 GB RAM
-* 4 GPU NVIDIA A100 (40GB)
-
-.. tip:: You should ask for max 12 CPU cores and 124 GB of RAM per GPU you are
-   requesting (as explained `here
-   <https://docs.alliancecan.ca/wiki/Allocations_and_resource_scheduling>`__),
-   otherwise, your job will count for more than 1 allocation, and will take
-   more time to get scheduled.
-
-
 .. _drac_storage:
 
 
-Narval Storage
-""""""""""""""
+DRAC Storage
+------------
 
 ================== ======================= =========================
 Storage            Path                    Usage
@@ -301,14 +231,14 @@ When a series of experiments is finished, results should be transferred back
 to Mila servers.
 
 More details on storage can be found `here
-<https://docs.alliancecan.ca/wiki/Narval/en#Storage>`__.
+<https://docs.alliancecan.ca/wiki/Storage_and_file_management>`__.
 
 
 Modules
-"""""""
+-------
 
-Many software, such as Python or MATLAB are already compiled and available on
-Beluga through the ``module`` command and its subcommands. Its full
+Much software, such as Python or MATLAB, is already compiled and available on
+DRAC clusters through the ``module`` command and its subcommands. Their full
 documentation can be found `here
 <https://docs.alliancecan.ca/wiki/Utiliser_des_modules/en>`__.
 
@@ -318,11 +248,11 @@ module load <module>   Loads <module>
 module spider <module> Shows specific details about <module>
 ====================== =====================================
 
-In particular, if you with to use ``Python 3.6`` you can simply do:
+In particular, if you with to use ``Python 3.12`` you can simply do:
 
 .. prompt:: bash $
 
-    module load python/3.6
+    module load python/3.12
 
 .. tip:: If you wish to use Python on the cluster, we strongly encourage you to
    read `Alliance Python Documentation
@@ -345,46 +275,47 @@ See the script example below.
 
 
 Script Example
-""""""""""""""
+--------------
 
-Here is a ``sbatch`` script that follows good practices on Beluga:
+Here is a ``sbatch`` script that follows good practices on Narval and can serve
+as inspiration for more complicated scripts:
 
 .. code-block:: bash
     :linenos:
 
     #!/bin/bash
     #SBATCH --account=rrg-bengioy-ad         # Yoshua pays for your job
-    #SBATCH --cpus-per-task=6                # Ask for 6 CPUs
+    #SBATCH --cpus-per-task=12               # Ask for 12 CPUs
     #SBATCH --gres=gpu:1                     # Ask for 1 GPU
-    #SBATCH --mem=32G                        # Ask for 32 GB of RAM
-    #SBATCH --time=3:00:00                   # The job will run for 3 hours
+    #SBATCH --mem=124G                       # Ask for 124 GB of RAM
+    #SBATCH --time=03:00:00                  # The job will run for 3 hours
     #SBATCH -o /scratch/<user>/slurm-%j.out  # Write the log in $SCRATCH
 
     # 1. Create your environement locally
-    module load python/3.6
+    module load StdEnv/2023 python/3.12
     virtualenv --no-download $SLURM_TMPDIR/env
     source $SLURM_TMPDIR/env/bin/activate
     pip install --no-index torch torchvision
 
-    # 2. Copy your dataset on the compute node
-    # IMPORTANT: Your dataset must be compressed in one single file (zip, hdf5, ...)!!!
-    cp $SCRATCH/<dataset.zip> $SLURM_TMPDIR
+    # 2. Copy your dataset on the compute node, simultaneously unpacking if
+    #    needed (Zip, tar); Alternatively, copy the dataset if it's in an
+    #    advanced format like HDF5, or if you can use Zip directly.
+    unzip     $SCRATCH/DATASET_CHANGEME.zip    -d $SLURM_TMPDIR
+    # tar -xf $SCRATCH/DATASET_CHANGEME.tar.gz -C $SLURM_TMPDIR
+    # cp      $SCRATCH/DATASET_CHANGEME.hdf5      $SLURM_TMPDIR
 
-    # 3. Eventually unzip your dataset
-    unzip $SLURM_TMPDIR/<dataset.zip> -d $SLURM_TMPDIR
-
-    # 4. Launch your job, tell it to save the model in $SLURM_TMPDIR
+    # 3. Launch your job, tell it to save the model in $SLURM_TMPDIR
     #    and look for the dataset into $SLURM_TMPDIR
     python main.py --path $SLURM_TMPDIR --data_path $SLURM_TMPDIR
 
-    # 5. Copy whatever you want to save on $SCRATCH
-    cp $SLURM_TMPDIR/<to_save> $SCRATCH
+    # 4. Copy whatever you want to save on $SCRATCH
+    cp $SLURM_TMPDIR/RESULTS_CHANGEME $SCRATCH
 
 
 Using CometML and Wandb
-"""""""""""""""""""""""
+^^^^^^^^^^^^^^^^^^^^^^^
 
-The compute nodes for Narval, Graham and Beluga don't have access to the
+The compute nodes for Narval, Rorqual and Tamia don't have access to the
 internet, but there is a special module that can be loaded in order to allow
 training scripts to access some specific servers, which includes
 the necessary servers for using CometML and Wandb ("Weights and Biases").
@@ -402,99 +333,6 @@ More documentation about this can be found `here
    artifacts and wandb's logger will hang in the background when your training
    is completed, wasting ressources until the job times out. It is recommended
    to use the offline mode with wandb instead to avoid such waste.
-
-
-Beluga
-^^^^^^
-
-Beluga is a cluster located at the ÉTS (École de Technologie Supérieure) in
-Montreal. It uses SLURM to schedule jobs. Its full documentation can be found
-`here <https://docs.alliancecan.ca/wiki/B%C3%A9luga/en>`__, and its current
-status `here <http://status.alliancecan.ca>`__.
-
-You can access Beluga via ssh:
-
-.. prompt:: bash $
-
-   ssh <user>@beluga.computecanada.ca
-
-Where ``<user>`` is the username you created previously (see `Account Creation`_).
-
-
-Beluga nodes description
-""""""""""""""""""""""""
-
-Each GPU node consists of:
-
-* 40 CPU cores
-* 186 GB RAM
-* 4 GPU NVIDIA V100 (16GB)
-
-.. tip:: You should ask for max 10 CPU cores and 32 GB of RAM per GPU you are
-   requesting (as explained `here
-   <https://docs.alliancecan.ca/wiki/Allocations_and_resource_scheduling>`__),
-   otherwise, your job will count for more than 1 allocation, and will take
-   more time to get scheduled.
-
-
-Graham
-^^^^^^
-
-Graham is a cluster located at University of Waterloo. It uses SLURM to schedule
-jobs. Its full documentation can be found `here
-<https://docs.alliancecan.ca/wiki/Graham/>`__, and its current status `here
-<http://status.alliancecan.ca>`__.
-
-You can access Graham via ssh:
-
-.. prompt:: bash $
-
-    ssh <user>@graham.computecanada.ca
-
-Where ``<user>`` is the username you created previously (see `Account Creation`_).
-
-
-
-Cedar
-^^^^^
-
-Cedar is a cluster located at Simon Fraser University. It uses SLURM to schedule
-jobs. Its full documentation can be found `here
-<https://docs.alliancecan.ca/wiki/Cedar>`__, and its current status `here
-<http://status.alliancecan.ca>`__.
-
-You can access Cedar via ssh:
-
-.. prompt:: bash $
-
-    ssh <user>@cedar.computecanada.ca
-
-Where ``<user>`` is the username you created previously (see `Account Creation`_).
-
-
-
-Niagara
-^^^^^^^
-
-Niagara is a cluster located at the University of Toronto. It uses SLURM to
-schedule jobs. Its full documentation can be found `here
-<https://docs.alliancecan.ca/wiki/Niagara>`__, and its current status `here
-<http://status.alliancecan.ca>`__.
-
-You can access Niagara via ssh:
-
-.. prompt:: bash $
-
-    ssh <user>@niagara.computecanada.ca
-
-Where ``<user>`` is the username you created previously (see `Account Creation`_).
-
-Niagara is completely unlike the previous clusters, as mentioned above. Access
-to it is opt-in, it has no GPUs, allocations are *only* per-**node** and *never*
-per-CPU-core, and the software environment is different. You are very unlikely
-to need this cluster and are strongly encouraged to peruse its documentation
-if you have a strong reason to use it regardless. Do not expect to be able to
-schedule and run CPU jobs on Niagara exactly the same way as on all other clusters.
 
 
 FAQ
