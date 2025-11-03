@@ -20,6 +20,7 @@ members = [
     "docs/examples/good_practices/launch_many_jobs",
     "docs/examples/good_practices/many_tasks_per_gpu",
     "docs/examples/good_practices/slurm_job_arrays",
+    "docs/examples/good_practices/wandb_setup",
 ]
 
 [dependency-groups]

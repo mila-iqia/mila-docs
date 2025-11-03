@@ -21,6 +21,7 @@ members = [
     "pytorch-setup",
     "single-gpu-example",
     "slurm-job-arrays",
+    "wandb-setup",
 ]
 
 [[package]]
@@ -2260,6 +2261,29 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/40/65/21bfb10ee5cd93fbcaf794958863c7e05bac4bbeb1cc1b652094aa3743a5/wandb-0.23.0-py3-none-win32.whl", hash = "sha256:6c21d3eadda17aef7df6febdffdddfb0b4835c7754435fc4fe27631724269f5c", size = 19433198, upload-time = "2025-11-11T21:06:21.913Z" },
     { url = "https://files.pythonhosted.org/packages/f1/33/cbe79e66c171204e32cf940c7fdfb8b5f7d2af7a00f301c632f3a38aa84b/wandb-0.23.0-py3-none-win_amd64.whl", hash = "sha256:b50635fa0e16e528bde25715bf446e9153368428634ca7a5dbd7a22c8ae4e915", size = 19433201, upload-time = "2025-11-11T21:06:24.607Z" },
     { url = "https://files.pythonhosted.org/packages/1c/a0/5ecfae12d78ea036a746c071e4c13b54b28d641efbba61d2947c73b3e6f9/wandb-0.23.0-py3-none-win_arm64.whl", hash = "sha256:fa0181b02ce4d1993588f4a728d8b73ae487eb3cb341e6ce01c156be7a98ec72", size = 17678649, upload-time = "2025-11-11T21:06:27.289Z" },
+]
+
+[[package]]
+name = "wandb-setup"
+version = "0.1.0"
+source = { virtual = "docs/examples/good_practices/wandb_setup" }
+dependencies = [
+    { name = "numpy" },
+    { name = "rich" },
+    { name = "torch" },
+    { name = "torchvision" },
+    { name = "tqdm" },
+    { name = "wandb" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "numpy", specifier = ">=2.3.1" },
+    { name = "rich", specifier = ">=14.0.0" },
+    { name = "torch", specifier = ">=2.7.1" },
+    { name = "torchvision", specifier = ">=0.22.1" },
+    { name = "tqdm", specifier = ">=4.67.1" },
+    { name = "wandb", specifier = ">=0.22.3" },
 ]
 
 [[package]]

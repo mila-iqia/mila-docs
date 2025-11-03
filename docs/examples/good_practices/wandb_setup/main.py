@@ -1,8 +1,10 @@
 """Example job that uses Weights & Biases (wandb.ai)."""
+
 import argparse
 import logging
 import os
 from pathlib import Path
+import sys
 
 import rich.logging
 import torch
@@ -17,6 +19,7 @@ import wandb
 
 
 def main():
+    # Use an argument parser so we can pass hyperparameters from the command line.
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--epochs", type=int, default=10)
     parser.add_argument("--learning-rate", type=float, default=5e-4)
@@ -34,25 +37,32 @@ def main():
     device = torch.device("cuda", 0)
 
     # Setup logging (optional, but much better than using print statements)
+    # Uses the `rich` package to make logs pretty.
     logging.basicConfig(
         level=logging.INFO,
-        handlers=[rich.logging.RichHandler(markup=True)],  # Very pretty, uses the `rich` package.
+        format="%(message)s",
+        handlers=[
+            rich.logging.RichHandler(
+                markup=True,
+                console=rich.console.Console(
+                    # Allower wider log lines in sbatch output files than on the terminal.
+                    width=120 if not sys.stdout.isatty() else None
+                ),
+            )
+        ],
     )
 
     logger = logging.getLogger(__name__)
 
     # To resume experiments with Wandb, we need to have code that can properly
     # handle checkpointing (see other minimalist example about "checkpointing").
-    # We have to manage the `id` of the experiment that we are running so that
-    # it is unique and Wandb knows what previous run came before this one
-    # (i.e. what is being resumed). This is handled in the same way that saving
-    # model parameters is handled.
+    # We have to set the `id` of the experiment.
     # This specific example here does not do that.
 
     # Setup Wandb
     wandb.init(
         # Set the project where this run will be logged
-        project="awesome-wandb-example",
+        project="wandb-example",
         name=os.environ.get("SLURM_JOB_ID"),
         resume="allow",  # See https://docs.wandb.ai/guides/runs/resuming
         # Track hyperparameters and run metadata
@@ -63,7 +73,9 @@ def main():
     model = resnet18(num_classes=10)
     model.to(device=device)
 
-    optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate, weight_decay=weight_decay)
+    optimizer = torch.optim.AdamW(
+        model.parameters(), lr=learning_rate, weight_decay=weight_decay
+    )
 
     # Setup CIFAR10
     num_workers = get_num_workers()
@@ -88,6 +100,7 @@ def main():
         shuffle=False,
     )
 
+    # Checkout the "checkpointing and preemption" example for more info!
     logger.debug("Starting training from scratch.")
 
     for epoch in range(epochs):
@@ -100,6 +113,7 @@ def main():
         progress_bar = tqdm(
             total=len(train_dataloader),
             desc=f"Train epoch {epoch}",
+            disable=not sys.stdout.isatty(),  # Disable progress bar in non-interactive environments.
         )
 
         # Training loop
@@ -134,8 +148,9 @@ def main():
         progress_bar.close()
 
         val_loss, val_accuracy = validation_loop(model, valid_dataloader, device)
-        logger.info(f"Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%}")
-        wandb.log({"val/accuracy": val_accuracy, "val/loss": val_loss})
+        logger.info(
+            f"Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%}"
+        )
 
     print("Done!")
 
