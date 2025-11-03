@@ -12,6 +12,8 @@ members = [
     "distributed-imagenet-example",
     "jax-setup",
     "jax-single-gpu-example",
+    "launch-many-jobs",
+    "many-tasks-per-gpu",
     "mila-docs",
     "multi-gpu-example",
     "multi-node-example",
@@ -630,12 +632,54 @@ wheels = [
 ]
 
 [[package]]
+name = "launch-many-jobs"
+version = "0.1.0"
+source = { virtual = "docs/examples/good_practices/launch_many_jobs" }
+dependencies = [
+    { name = "numpy" },
+    { name = "rich" },
+    { name = "torch" },
+    { name = "torchvision" },
+    { name = "tqdm" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "numpy", specifier = ">=2.3.1" },
+    { name = "rich", specifier = ">=14.0.0" },
+    { name = "torch", specifier = ">=2.7.1" },
+    { name = "torchvision", specifier = ">=0.22.1" },
+    { name = "tqdm", specifier = ">=4.67.1" },
+]
+
+[[package]]
 name = "logistro"
 version = "2.0.1"
 source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/08/90/bfd7a6fab22bdfafe48ed3c4831713cb77b4779d18ade5e248d5dbc0ca22/logistro-2.0.1.tar.gz", hash = "sha256:8446affc82bab2577eb02bfcbcae196ae03129287557287b6a070f70c1985047", size = 8398, upload-time = "2025-11-01T02:41:18.81Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/54/20/6aa79ba3570bddd1bf7e951c6123f806751e58e8cce736bad77b2cf348d7/logistro-2.0.1-py3-none-any.whl", hash = "sha256:06ffa127b9fb4ac8b1972ae6b2a9d7fde57598bf5939cd708f43ec5bba2d31eb", size = 8555, upload-time = "2025-11-01T02:41:17.587Z" },
+]
+
+[[package]]
+name = "many-tasks-per-gpu"
+version = "0.1.0"
+source = { virtual = "docs/examples/good_practices/many_tasks_per_gpu" }
+dependencies = [
+    { name = "numpy" },
+    { name = "rich" },
+    { name = "torch" },
+    { name = "torchvision" },
+    { name = "tqdm" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "numpy", specifier = ">=2.3.1" },
+    { name = "rich", specifier = ">=14.0.0" },
+    { name = "torch", specifier = ">=2.7.1" },
+    { name = "torchvision", specifier = ">=0.22.1" },
+    { name = "tqdm", specifier = ">=4.67.1" },
 ]
 
 [[package]]
