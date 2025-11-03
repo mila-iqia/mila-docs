@@ -55,7 +55,6 @@ def main():
     )
 
     logger = logging.getLogger(__name__)
-
     logger.info(f"Args: {json.dumps(vars(args), indent=1)}")
 
     # Create a model and move it to the GPU.
@@ -91,7 +90,7 @@ def main():
 
     # Checkout the "checkpointing and preemption" example for more info!
     logger.debug("Starting training from scratch.")
-
+    val_accuracy = 0.0
     for epoch in range(epochs):
         logger.debug(f"Starting epoch {epoch}/{epochs}")
 
@@ -137,9 +136,10 @@ def main():
         logger.info(
             f"Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%}"
         )
+        val_accuracy = float(val_accuracy)
 
     # We report to Orion the objective that we want to minimize.
-    report_objective(1 - val_accuracy.item())
+    report_objective(1 - val_accuracy)
 
     print("Done!")
 
