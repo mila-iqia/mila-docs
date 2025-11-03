@@ -21,6 +21,9 @@ Make sure to read the following sections of the documentation before using this
 example:
 
 * `examples/frameworks/pytorch_setup <https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/frameworks/pytorch_setup>`_
+* `examples/distributed/single_gpu <https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/distributed/single_gpu>`_
+* `examples/good_practices/checkpointing <https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/good_practices/checkpointing>`_
+* `examples/good_practices/many_tasks_per_gpu <https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/good_practices/many_tasks_per_gpu>`_
 
 The full source code for this example is available on `the mila-docs GitHub
 repository.
@@ -32,17 +35,20 @@ repository.
 .. code:: diff
 
     # distributed/single_gpu/main.py -> good_practices/slurm_job_arrays/main.py
-    """Single-GPU training example."""
-   -
+   -"""Single-GPU training example."""
+   +"""Job Arrays example."""
+
    -import argparse
     import logging
     import os
     from pathlib import Path
-   -import sys
    +import argparse
+   +import random
+    import sys
 
    +import numpy
     import rich.logging
+   +import rich.pretty
     import torch
     from torch import Tensor, nn
     from torch.nn import functional as F
@@ -54,20 +60,19 @@ repository.
 
 
     def main():
-   +    # Use SLURM ARRAY TASK ID to seed a random number generator.
-   +    # This way, each job in the job array will have different hyper-parameters.
-   +    in_job_array = "SLURM_ARRAY_TASK_ID" in os.environ
-   +    if in_job_array:
-   +        array_task_id = int(os.environ["SLURM_ARRAY_TASK_ID"])
-   +        array_task_count = int(os.environ["SLURM_ARRAY_TASK_COUNT"])
-   +        print(f"This job is at index {array_task_id} in a job array of size {array_task_count}")
-   +
-   +        gen = numpy.random.default_rng(seed=array_task_id)
+   +    job_index = int(os.environ.get("SLURM_ARRAY_TASK_ID", "0"))
+   +    num_jobs = int(os.environ.get("SLURM_ARRAY_TASK_COUNT", "1"))
+   +    if num_jobs > 1:
+   +        # When in a job array, we use SLURM ARRAY TASK ID to seed a random number generator
+   +        # so that each job in the job array will have different set of hyper-parameters.
+   +        # You can also view this as indexing into a predefined grid of hyper-parameters.
+   +        # Here we just change the default values, but you can override a value from the command-line.
+   +        gen = numpy.random.default_rng(seed=job_index)
    +        # Use random number generator to generate the default values of hyper-parameters.
    +        # If a value is passed from the command-line, it will override this and be used instead.
    +        default_learning_rate = gen.uniform(1e-6, 1e-2)
    +        default_weight_decay = gen.uniform(1e-6, 1e-3)
-   +        default_batch_size = gen.integers(16, 256)
+   +        default_batch_size = int(gen.integers(16, 256))
    +    else:
    +        default_learning_rate = 5e-4
    +        default_weight_decay = 1e-4
@@ -82,44 +87,63 @@ repository.
    +    parser.add_argument("--learning-rate", type=float, default=default_learning_rate)
    +    parser.add_argument("--weight-decay", type=float, default=default_weight_decay)
    +    parser.add_argument("--batch-size", type=int, default=default_batch_size)
+   +    # Get SLURM_PROCID (the task index) and use it as a random seed for the script.
+   +    # This makes it so each task within each job uses a different initialization with the same
+   +    # hyper-parameters. This works great in combination with --ntasks-per-gpu > 1 to use the GPU effectively!
+   +    parser.add_argument(
+   +        "--random-seed",
+   +        type=int,
+   +        default=int(os.environ.get("SLURM_PROCID", 0)),
+   +        help="Random seed used for network initialization and the training loop.",
+   +    )
         args = parser.parse_args()
 
         epochs: int = args.epochs
         learning_rate: float = args.learning_rate
         weight_decay: float = args.weight_decay
         batch_size: int = args.batch_size
+   +    random_seed: int = args.random_seed
+   +
+   +    # Seed the random number generators as early as possible.
+   +    random.seed(random_seed)
+   +    numpy.random.seed(random_seed)
+   +    torch.random.manual_seed(random_seed)
+   +    torch.cuda.manual_seed_all(random_seed)
 
         # Check that the GPU is available
         assert torch.cuda.is_available() and torch.cuda.device_count() > 0
         device = torch.device("cuda", 0)
 
         # Setup logging (optional, but much better than using print statements)
-   -    # Uses the `rich` package to make logs pretty.
+        # Uses the `rich` package to make logs pretty.
+   +    # Add a prefix to all the logged messages to identify the job and task.
+   +    task_index = int(os.environ["SLURM_PROCID"])
+   +    num_tasks_per_job = int(os.environ["SLURM_NTASKS"])
         logging.basicConfig(
             level=logging.INFO,
    -        format="%(message)s",
-   -        handlers=[
-   -            rich.logging.RichHandler(
-   -                markup=True,
-   -                console=rich.console.Console(
-   -                    # Allower wider log lines in sbatch output files than on the terminal.
-   -                    width=120 if not sys.stdout.isatty() else None
-   -                ),
-   -            )
-   -        ],
-   +        handlers=[rich.logging.RichHandler(markup=True)],  # Very pretty, uses the `rich` package.
+   +        format=f"[Job {job_index + 1}/{num_jobs}][Task {task_index + 1}/{num_tasks_per_job}] %(message)s",
+            handlers=[
+                rich.logging.RichHandler(
+                    markup=True,
+                    console=rich.console.Console(
+                        # Allower wider log lines in sbatch output files than on the terminal.
+                        width=120 if not sys.stdout.isatty() else None
+                    ),
+                )
+            ],
         )
 
         logger = logging.getLogger(__name__)
+   +    logger.info(f"Args:\n{rich.pretty.pretty_repr(vars(args))}")
 
         # Create a model and move it to the GPU.
         model = resnet18(num_classes=10)
         model.to(device=device)
 
-   -    optimizer = torch.optim.AdamW(
-   -        model.parameters(), lr=learning_rate, weight_decay=weight_decay
-   -    )
-   +    optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate, weight_decay=weight_decay)
+        optimizer = torch.optim.AdamW(
+            model.parameters(), lr=learning_rate, weight_decay=weight_decay
+        )
 
         # Setup CIFAR10
         num_workers = get_num_workers()
@@ -157,7 +181,7 @@ repository.
             progress_bar = tqdm(
                 total=len(train_dataloader),
                 desc=f"Train epoch {epoch}",
-   -            disable=not sys.stdout.isatty(),  # Disable progress bar in non-interactive environments.
+                disable=not sys.stdout.isatty(),  # Disable progress bar in non-interactive environments.
             )
 
             # Training loop
@@ -189,10 +213,9 @@ repository.
             progress_bar.close()
 
             val_loss, val_accuracy = validation_loop(model, valid_dataloader, device)
-   -        logger.info(
-   -            f"Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%}"
-   -        )
-   +        logger.info(f"Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%}")
+            logger.info(
+                f"Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%}"
+            )
 
         print("Done!")
 
@@ -265,17 +288,23 @@ repository.
 
 **Running this example**
 
-This assumes you already created a conda environment named "pytorch" as in
-Pytorch example:
-
-* :ref:`pytorch_setup`
-
-Exit the interactive job once the environment has been created.
-You can then launch a job array using ``sbatch`` argument ``--array``.
+You can then launch a job array using ``sbatch`` with the ``--array`` argument, for example:
 
 .. code-block:: bash
 
     $ sbatch --array=1-5 job.sh
 
-
 In this example, 5 jobs will be launched with indices (therefore, values of ``SLURM_ARRAY_TASK_ID``) from 1 to 5.
+
+Even better, you can combine job arrays with the many tasks per GPU (job packing) technique
+explained in :doc:`/examples/good_practices/many_tasks_per_gpu/index`!
+For example, this command will launch 10 jobs (10 sets of hyper-parameters), each using 5 tasks to
+run 5 different initializations on the same GPU.
+
+.. code-block:: bash
+
+    $ sbatch --array=1-10 --ntasks-per-gpu=5 --gpus=1 --cpus-per-task=1 job.sh
+
+
+Note that each task requires at least one CPU, so you may need to adjust the cpu count in your job in order to scale up ``--ntasks-per-gpu``.
+Here with ``--cpu-per-task=1``, this will scale nicely.
