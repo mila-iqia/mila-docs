@@ -38,13 +38,7 @@ repository.
 
 **Running this example**
 
-This assumes you already created a conda environment named "pytorch" as in
-Pytorch example:
-
-* :ref:`pytorch_setup`
-
-Exit the interactive job once the environment has been created and Oríon installed.
-You can then launch the example:
+You can launch this example with sbatch:
 
 .. code-block:: bash
 
