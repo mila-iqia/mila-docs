@@ -32,11 +32,11 @@ Clusters of the Alliance are shared with researchers across the country.
 Allocations are given by the Alliance to selected research groups to ensure to
 a minimal amount of computational resources throughout the year.
 
-Depending on your affiliation, you will have access to different allocations. If
-you are a student at University of Montreal, you can have access to the
-``rrg-bengioy-ad`` allocation described below. For students from other
-universities, you should ask your advisor to know which allocations you could
-have access to.
+Depending on your supervisor's affiliations, you will have access to different
+allocations. Almost all students at Mila supervised by "core" professors
+should have access to the ``rrg-bengioy-ad`` allocation described below, but
+it is not the only one. Your supervisor is your first point of contact in
+knowing which allocations you have access to.
 
 From the Alliance's documentation: `An allocation is an amount of resources
 that a research group can target for use for a period of time, usually a year.`
