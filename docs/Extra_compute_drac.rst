@@ -25,42 +25,26 @@ computation and/or multi-GPU jobs as well as long running jobs.
 
    https://ace-net.ca/compute-canada-operations-move-to-the-digital-research-alliance-of-canada-(the-alliance).html
 
-Current allocation description
-------------------------------
+Clusters of the Alliance are **shared with researchers across the country**,
+in part through a system of **allocations**. Allocations are given by the
+Alliance to selected research groups to ensure a steady availability of
+computational resources throughout the year. From the Alliance's documentation:
+`An allocation is an amount of resources that a research group can target for
+use for a period of time, usually a year.`
 
-Clusters of the Alliance are shared with researchers across the country.
-Allocations are given by the Alliance to selected research groups to ensure to
-a minimal amount of computational resources throughout the year.
+
+Current Allocation Description
+------------------------------
 
 Depending on your supervisor's affiliations, you will have access to different
 allocations. Almost all students at Mila supervised by "core" professors
 should have access to the ``rrg-bengioy-ad`` allocation described below, but
-it is not the only one. Your supervisor is your first point of contact in
-knowing which allocations you have access to.
+it is not the only one; Each supervisor also has a ``def-profname`` allocation.
+Your supervisor is your first point of contact in knowing which allocations you
+should have access to.
 
-From the Alliance's documentation: `An allocation is an amount of resources
-that a research group can target for use for a period of time, usually a year.`
-To be clear, it is not a maximal amount of resources that can be used
-simultaneously, it is a weighting factor of the workload manager to balance
-jobs. For instance, even though we are allocated 408 GPU-years across all
-clusters, we can use more or less than 408 GPUs simultaneously depending on the
-history of usage from our group and other groups using the cluster at a given
-period of time. Please see the Alliance's `documentation
-<https://docs.alliancecan.ca/wiki/Allocations_and_resource_scheduling>`__ for
-more information on how allocations and resource scheduling are configured for
-these installations.
-
-.. Il est possiblement dangeureux de donner le nom de compte de Yoshua sur un
-   site publiquement disponible.
-
-The table below provides information on the allocation for
-``rrg-bengioy-ad`` for the period which spans from July 2025 to
-Summer 2026.
-Technically, there is a separate account for CPU-only jobs and GPU jobs, but through Slurm magic
-users can use the same account name for both.
-
-Starting from Summer 2025, the our large DRAC allocation will be updated to the following.
-Some of those clusters are available right now, replacing those from the table above.
+The table below provides information on the allocation for ``rrg-bengioy-ad``
+for the period which spans from July 2025 to Summer 2026.
 
 +--------------------------+------+----------------+-----------+----------------+-------------+----------------------+----------------+
 | Cluster                  | CPUs | GPUs                                                                                              |
@@ -74,16 +58,27 @@ Some of those clusters are available right now, replacing those from the table a
 | :ref:`Nibi <nibi>`       |  0   | rrg-bengioy-ad | H100-80G  | 1000           | 82          | ``h100``             | rrg-bengioy-ad |
 +--------------------------+------+----------------+-----------+----------------+-------------+----------------------+----------------+
 
-Note that on many DRAC clusters where we don't have
-any allocated resources with ``rrg-bengioy-ad``, users can still use
-the default allocation associated with their supervisor, so long as
-the supervisor adds them on the DRAC web site.
-Basically, every university professor in Canada gets a default allocation,
-and they can add their collaborators to it.
-The default accounts are of the form ``def-<yourprofname>-gpu`` and ``def-<yourprofname>-cpu``.
-This happens completely outside of Mila so we don't have any control over it and we don't provide any support for that usage.
-Technically, Mila researchers who have access to Yoshua Bengio's mega allocation
-also have access to ``def-bengioy``.
+On DRAC clusters where Mila has no allocated resources under ``rrg-bengioy-ad``
+this year, users can still use the default allocation associated with their
+supervisor, *so long as the supervisor adds them to it on the DRAC web site*.
+Every university professor in Canada gets a default allocation, and they can add
+their collaborators to it. The default accounts are of the form
+``def-<yourprofname>-gpu`` and ``def-<yourprofname>-cpu``. Management of a
+professor's default DRAC allocation is their personal responsibility, is beyond
+the control of Mila, and we are unable to provide support for such management.
+
+
+.. note::
+
+   An allocation is not a *maximal* amount of resources that can be used
+   simultaneously, it is a weighting factor of the workload manager to balance
+   jobs. For instance, even though we are allocated 408 GPU-years across all
+   clusters, we can use more or less than 408 GPUs simultaneously depending on the
+   history of usage from our group and other groups using the cluster at a given
+   period of time. Please see the Alliance's `documentation
+   <https://docs.alliancecan.ca/wiki/Allocations_and_resource_scheduling>`__ for
+   more information on how allocations and resource scheduling are configured for
+   these installations.
 
 
 Account Creation
@@ -114,6 +109,9 @@ You should apply to a ``role`` using this form **for each allocation you can hav
 your supervisor is member of the ``rrg-bengioy-ad`` allocation, you should apply using Yoshua Bengio's CCRI, and
 you should apply separately using your supervisor's CCRI to have access to ``def-<yoursupervisor>``. Ask your supervisor
 to share these CCRI with you.
+
+.. Il est possiblement dangeureux de donner le nom de compte de Yoshua sur un
+   site publiquement disponible.
 
 Account Renewal
 ---------------
