@@ -23,7 +23,6 @@ recommend you start by checking out the :ref:`short quick start guide
    :maxdepth: 2
 
    Userguide
-   Handbook
 
 .. toctree::
    :caption: Systems and services
