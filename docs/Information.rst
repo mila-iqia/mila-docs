@@ -5,15 +5,18 @@ Computing infrastructure and policies
 
 This section seeks to provide factual information and policies on the Mila cluster computing environments.
 
-.. include:: Information_roles.rst
-.. include:: Information_resources.rst
-.. include:: Information_support_level.rst
-.. include:: Information_naming_schema.rst
-.. include:: Information_nodes.rst
-.. include:: Information_sharing_policies.rst
-.. include:: Information_monitoring.rst
-.. include:: Information_storage.rst
-.. include:: Information_datasets.rst
-.. include:: Information_data_transmission.rst
-.. include:: Information_software_management.rst
-.. include:: Information_rd_projects.rst
+.. toctree::
+   :maxdepth: 2
+
+   Information_roles
+   Information_resources
+   Information_support_level
+   Information_naming_schema
+   Information_nodes
+   Information_sharing_policies
+   Information_monitoring
+   Information_storage
+   Information_datasets
+   Information_data_transmission
+   Information_software_management
+   Information_rd_projects
