@@ -31,9 +31,6 @@ To achieve this, try to always keep in mind the following aspects:
 .. TODO
 
 
-Managing your environments
---------------------------
-
 .. include:: Userguide_python.rst
 
 
@@ -62,6 +59,6 @@ of the required dependencies together. The most popular tool for this is
 cluster (nor the other clusters from Digital Research Alliance of Canada).
 
 One popular mechanism for containerisation on a computational cluster is called
-`Singularity <https://singularity-docs.readthedocs.io/en/latest/>`_.
-This is the recommended approach for running containers on the
-Mila cluster. See section :ref:`Singularity` for more details.
+`Podman <https://podman.io/>`_.  This is the recommended approach for running
+containers on the Mila cluster. See section :ref:`Using containers` for more
+details.

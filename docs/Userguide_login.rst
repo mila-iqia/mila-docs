@@ -3,20 +3,7 @@
 Logging in to the cluster
 =========================
 
-To access the Mila Cluster clusters, you will need a Mila account. Please contact
-Mila systems administrators if you don't have it already. Our IT support service
-is available here: https://it-support.mila.quebec/
-
-You will also need to complete and return an IT Onboarding Training to get
-access to the cluster.  Please refer to the Mila Intranet for more
-informations:
-https://sites.google.com/mila.quebec/mila-intranet/it-infrastructure/it-onboarding-training
-
-**IMPORTANT** : Your access to the Cluster is granted based on your status at
-Mila (for students, your status is the same as your main supervisor' status),
-and on the duration of your stay, set during the creation of your account. The
-following have access to the cluster : **Current Students of Core Professors -
-Core Professors - Staff**
+.. include:: Userguide_cluster_access.rst
 
 
 .. _SSH:
@@ -28,31 +15,91 @@ SSH (Secure Shell)
 As of **March 31, 2025**, this will become the **only** means of authentication,
 and **password-based authentication will no longer work**.
 
-SSH key authentication is a technique using pairs of closely-linked keys: A
-private key, and a corresponding public key. The public key should be
-distributed to everyone, while the private key is known to only one person. The
-public key can be used by anyone to challenge a person to prove their identity.
-If they have the corresponding private key, that person can perform an
-electronic signature that everyone can validate but that no one else could have
-done themselves. The challenge is thus answered by demonstrating possession of
-the private key (and therefore their identity), without ever revealing the
-private key itself.
+SSH uses a configuration file ``~/.ssh/config`` (right next to the SSH keys)
+to indicate which connection settings to use for each SSH server one can
+connect to.
 
-*Mila asks you to generate a pair of SSH keys, to provide Mila only with your
-public key,* which has no confidentiality implications, and to keep the private
-key for yourself. *The private key must remain secret and solely known to you,*
-because anyone who possesses it is capable of impersonating you by performing
-your electronic signature.
+The Mila **login** nodes require:
 
-During the IT Onboarding Training, you will be asked to submit that SSH
-public key.
+- ``Hostname``: ``login.server.mila.quebec``
+- ``Port``: ``2222``
+- ``User``: *Your Mila account username*
+- ``PreferredAuthentications``: ``publickey,keyboard-interactive``
 
-- If you do not know what SSH keys are, or are not familiar with them, you can
-  read the informative material :ref:`below<SSH Private Keys>`, then proceed to
-  generate them.
-- If you do not already have SSH keys, or are not sure if you have them, skip
-  to the instructions on how to generate them :ref:`here<checking_for_ssh_keys>`.
-- If you do have SSH keys, you can skip to :ref:`configuring SSH for access to Mila<Configuring SSH>`.
+A simple SSH configuration is automatically created and added for you to
+``~/.ssh/config`` by :ref:`mila init`.
+
+Alternatively, more advanced users can edit the SSH ``.config`` file
+:ref:`manually<manual_ssh_config>`.
+
+
+.. _mila_init:
+
+mila init
+^^^^^^^^^
+
+To make it easier to set up a productive environment, Mila publishes the
+milatools_ package, which defines a ``mila init`` command which will
+automatically perform some of the below steps for you. You can install it with
+``pip`` and use it, provided your Python version is at least 3.9:
+
+.. prompt:: bash $
+
+    pip install milatools
+    mila init
+
+.. _milatools: https://github.com/mila-iqia/milatools
+
+.. note::
+    This guide is current for ``milatools >= 0.0.17``. If you have installed an older
+    version previously, run ``pip install -U milatools`` to upgrade and re-run
+    ``mila init`` in order to apply new features or bug fixes.
+
+
+.. _manual_ssh_config:
+
+Manual SSH configuration
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+If you would like to set entries in your ``~/.ssh/config`` file manually for
+advanced use-cases, you may use the following as inspiration:
+
+.. code-block:: text
+
+    #   Mila
+    Host mila             login.server.mila.quebec
+        Hostname          login.server.mila.quebec
+    Host mila1    login-1.login.server.mila.quebec
+        Hostname  login-1.login.server.mila.quebec
+    Host mila2    login-2.login.server.mila.quebec
+        Hostname  login-2.login.server.mila.quebec
+    Host mila3    login-3.login.server.mila.quebec
+        Hostname  login-3.login.server.mila.quebec
+    Host mila4    login-4.login.server.mila.quebec
+        Hostname  login-4.login.server.mila.quebec
+    Host mila5    login-5.login.server.mila.quebec
+        Hostname  login-5.login.server.mila.quebec
+    Host cn-????
+        Hostname             %h.server.mila.quebec
+    Match host !*login.server.mila.quebec,*.server.mila.quebec
+        Hostname                 %h
+        ProxyJump                mila
+    Match host           *login.server.mila.quebec
+        Port                     2222
+        ServerAliveInterval      120
+        ServerAliveCountMax      5
+    Match host *.server.mila.quebec
+        PreferredAuthentications publickey,keyboard-interactive
+        AddKeysToAgent           yes
+        ## Consider uncommenting:
+        # ForwardAgent             yes
+        ## Delete if on Linux, uncomment if on Mac:
+        # UseKeychain              yes
+        User                     CHANGEME_YOUR_MILA_USERNAME
+
+.. important::
+    Please make the required edits to the template above, especially regarding
+    ``CHANGEME_YOUR_MILA_USERNAME``!
 
 
 Logging in with SSH
@@ -156,7 +203,90 @@ trust them!
         :ref:`Visual Studio Code` for specific instructions.
 
 
+Connecting to compute nodes
+---------------------------
 
+If (and only if) you have a job running on compute node ``cnode``, you are
+allowed to SSH to it, if for some reason you need a second terminal.
+That session will be automatically ended when your job ends.
+
+First, however, you need to add your public key (the one you provided to IT-support)
+to the ~/.ssh/authorized_keys file on the cluster, or configure an
+``ssh-agent`` that will forward that key when connecting to the compute node.
+
+.. prompt:: bash $
+
+    # ON A LOGIN NODE
+    mkdir -p ~/.ssh
+    echo "THE SSH PUBLIC KEY THAT YOU GAVE TO IT-SUPPORT" >> ~/.ssh/authorized_keys
+    chmod 600 ~/.ssh/authorized_keys
+    chmod 700 ~/.ssh
+    chmod go-w ~   # in case you accidentally gave too many permissions for $HOME in the past.
+
+Then from the login node you can write ``ssh cnode``. From your local
+machine, you can use ``ssh -J mila USERNAME@cnode`` (``-J`` represents a "jump"
+through the login node, necessary because the compute nodes are behind a
+firewall).
+
+If you wish, you may also add the following wildcard rule in your ``.ssh/config``:
+
+.. code-block::
+
+    Host *.server.mila.quebec !*login.server.mila.quebec
+        HostName %h
+        User YOUR-USERNAME
+        ProxyJump mila
+
+This will let you connect to a compute node with ``ssh <node>.server.mila.quebec``.
+
+
+Auto-allocation with mila-cpu
+-----------------------------
+
+If you install milatools_ and run ``mila init``, then you can automatically allocate
+a CPU on a compute node and connect to it by running:
+
+.. prompt:: bash $
+
+    ssh mila-cpu
+
+And that's it! Multiple connections to ``mila-cpu`` will all reuse the same job, so
+you can use it liberally. It also works transparently with VSCode's Remote SSH feature.
+
+We recommend using this for light work that is too heavy for a login node but does not
+require a lot of resources: editing via VSCode, building conda environments, tests, etc.
+
+The ``mila-cpu`` entry should be in your ``.ssh/config``. Changes are at your own risk.
+
+
+More About SSH
+--------------
+
+SSH key authentication is a technique using pairs of closely-linked keys: A
+private key, and a corresponding public key. The public key should be
+distributed to everyone, while the private key is known to only one person. The
+public key can be used by anyone to challenge a person to prove their identity.
+If they have the corresponding private key, that person can perform an
+electronic signature that everyone can validate but that no one else could have
+done themselves. The challenge is thus answered by demonstrating possession of
+the private key (and therefore their identity), without ever revealing the
+private key itself.
+
+*Mila asks you to generate a pair of SSH keys, to provide Mila only with your
+public key,* which has no confidentiality implications, and to keep the private
+key for yourself. *The private key must remain secret and solely known to you,*
+because anyone who possesses it is capable of impersonating you by performing
+your electronic signature.
+
+During the IT Onboarding Training, you will be asked to submit that SSH
+public key.
+
+- If you do not know what SSH keys are, or are not familiar with them, you can
+  read the informative material :ref:`below<SSH Private Keys>`, then proceed to
+  generate them.
+- If you do not already have SSH keys, or are not sure if you have them, skip
+  to the instructions on how to generate them :ref:`here<checking_for_ssh_keys>`.
+- If you do have SSH keys, you can skip to :ref:`configuring SSH for access to Mila<Configuring SSH>`.
 
 
 SSH Private Keys
@@ -282,155 +412,6 @@ be recalculated with the ``ssh-keygen`` utility as well:
 +--------------------------------------+------------------------------------------+
 
 It is this SSH public key that you should submit in the IT Onboarding Training form.
-
-
-
-Configuring SSH
----------------
-
-SSH uses a configuration file ``~/.ssh/config`` (right next to the SSH keys)
-to indicate which connection settings to use for each SSH server one can
-connect to.
-
-The Mila **login** nodes require:
-
-- ``Hostname``: ``login.server.mila.quebec``
-- ``Port``: ``2222``
-- ``User``: *Your Mila account username*
-- ``PreferredAuthentications``: ``publickey,keyboard-interactive``
-
-Password authentication will be withdrawn on :ref:`March 31, 2025<SSH>`.
-
-A simple SSH configuration is automatically created and added for you to
-``~/.ssh/config`` by :ref:`mila init`.
-
-Alternatively, more advanced users can edit the SSH ``.config`` file
-:ref:`manually<manual_ssh_config>`.
-
-
-.. _manual_ssh_config:
-
-Manual SSH configuration
-^^^^^^^^^^^^^^^^^^^^^^^^
-
-If you would like to set entries in your ``~/.ssh/config`` file manually for
-advanced use-cases, you may use the following as inspiration:
-
-.. code-block:: text
-
-    #   Mila
-    Host mila             login.server.mila.quebec
-        Hostname          login.server.mila.quebec
-    Host mila1    login-1.login.server.mila.quebec
-        Hostname  login-1.login.server.mila.quebec
-    Host mila2    login-2.login.server.mila.quebec
-        Hostname  login-2.login.server.mila.quebec
-    Host mila3    login-3.login.server.mila.quebec
-        Hostname  login-3.login.server.mila.quebec
-    Host mila4    login-4.login.server.mila.quebec
-        Hostname  login-4.login.server.mila.quebec
-    Host mila5    login-5.login.server.mila.quebec
-        Hostname  login-5.login.server.mila.quebec
-    Host cn-????
-        Hostname             %h.server.mila.quebec
-    Match host !*login.server.mila.quebec,*.server.mila.quebec
-        Hostname                 %h
-        ProxyJump                mila
-    Match host           *login.server.mila.quebec
-        Port                     2222
-        ServerAliveInterval      120
-        ServerAliveCountMax      5
-    Match host *.server.mila.quebec
-        PreferredAuthentications publickey,keyboard-interactive
-        AddKeysToAgent           yes
-        ## Consider uncommenting:
-        # ForwardAgent             yes
-        ## Delete if on Linux, uncomment if on Mac:
-        # UseKeychain              yes
-        User                     CHANGEME_YOUR_MILA_USERNAME
-
-.. important::
-    Please make the required edits to the template above, especially regarding
-    ``CHANGEME_YOUR_MILA_USERNAME``!
-
-
-.. _mila_init:
-
-mila init
-^^^^^^^^^
-
-To make it easier to set up a productive environment, Mila publishes the
-milatools_ package, which defines a ``mila init`` command which will
-automatically perform some of the below steps for you. You can install it with
-``pip`` and use it, provided your Python version is at least 3.9:
-
-.. prompt:: bash $
-
-    pip install milatools
-    mila init
-
-.. _milatools: https://github.com/mila-iqia/milatools
-
-.. note::
-    This guide is current for ``milatools >= 0.0.17``. If you have installed an older
-    version previously, run ``pip install -U milatools`` to upgrade and re-run
-    ``mila init`` in order to apply new features or bug fixes.
-
-
-Connecting to compute nodes
----------------------------
-
-If (and only if) you have a job running on compute node ``cnode``, you are
-allowed to SSH to it, if for some reason you need a second terminal.
-That session will be automatically ended when your job ends.
-
-First, however, you need to add your public key (the one you provided to IT-support)
-to the ~/.ssh/authorized_keys file on the cluster, or configure an
-``ssh-agent`` that will forward that key when connecting to the compute node.
-
-.. prompt:: bash $
-
-    # ON A LOGIN NODE
-    mkdir -p ~/.ssh
-    echo "THE SSH PUBLIC KEY THAT YOU GAVE TO IT-SUPPORT" >> ~/.ssh/authorized_keys
-    chmod 600 ~/.ssh/authorized_keys
-    chmod 700 ~/.ssh
-    chmod go-w ~   # in case you accidentally gave too many permissions for $HOME in the past.
-
-Then from the login node you can write ``ssh cnode``. From your local
-machine, you can use ``ssh -J mila USERNAME@cnode`` (``-J`` represents a "jump"
-through the login node, necessary because the compute nodes are behind a
-firewall).
-
-If you wish, you may also add the following wildcard rule in your ``.ssh/config``:
-
-.. code-block::
-
-    Host *.server.mila.quebec !*login.server.mila.quebec
-        HostName %h
-        User YOUR-USERNAME
-        ProxyJump mila
-
-This will let you connect to a compute node with ``ssh <node>.server.mila.quebec``.
-
-
-Auto-allocation with mila-cpu
------------------------------
-
-If you install milatools_ and run ``mila init``, then you can automatically allocate
-a CPU on a compute node and connect to it by running:
-
-.. prompt:: bash $
-
-    ssh mila-cpu
-
-And that's it! Multiple connections to ``mila-cpu`` will all reuse the same job, so
-you can use it liberally. It also works transparently with VSCode's Remote SSH feature.
-
-We recommend using this for light work that is too heavy for a login node but does not
-require a lot of resources: editing via VSCode, building conda environments, tests, etc.
-
-The ``mila-cpu`` entry should be in your ``.ssh/config``. Changes are at your own risk.
 
 
 Using a non-Bash Unix shell

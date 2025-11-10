@@ -1,7 +1,7 @@
 .. _python:
 
 Virtual environments
-====================
+--------------------
 
 A virtual environment in Python is a local, isolated environment in which you
 can install or uninstall Python packages without interfering with the global
@@ -20,59 +20,10 @@ To run experiments within a virtual environment, you can simply activate it
 in the script given to ``sbatch``.
 
 
-Pip/Virtualenv
---------------
-
-Pip is the most widely used package manager for Python and each cluster provides
-several Python versions through the associated module which comes with pip. In
-order to install new packages, you will first have to create a personal space
-for them to be stored.  The usual solution (as it is the recommended solution
-on Digital Research Alliance of Canada clusters) is to use `virtual
-environments <https://virtualenv.pypa.io/en/stable/>`_, although :ref:`using_uv` is now
-the recommended way to manage Python installations, virtual environments and dependencies.
-
-.. note::
-   We recommend you use `UV <https://docs.astral.sh/uv>`_ to manage your Python
-   virtual environments instead of doing it manually.
-   :ref:`The next section <uv>` will give an overview of how to install it and use it.
-
-First, load the Python module you want to use:
-
-.. prompt:: bash $
-
-   module load python/3.8
-
-Then, create a virtual environment in your ``home`` directory:
-
-.. prompt:: bash $
-
-   python -m venv $HOME/<env>
-
-Where ``<env>`` is the name of your environment. Finally, activate the environment:
-
-.. prompt:: bash $
-
-   source $HOME/<env>/bin/activate
-
-You can now install any Python package you wish using the ``pip`` command, e.g.
-`pytorch <https://pytorch.org/get-started/locally>`_:
-
-.. prompt:: bash (<env>)$
-
-   pip install torch torchvision
-
-Or `Tensorflow <https://www.tensorflow.org/install/gpu>`_:
-
-.. prompt:: bash (<env>)$
-
-   pip install tensorflow-gpu
-
-
 .. _using_uv:
 
 UV
---------
-
+^^
 
 In many cases, where your dependencies are Python packages, we highly recommend using `UV
 <https://docs.astral.sh/uv>`__, a modern package manager for Python.
@@ -146,6 +97,55 @@ While you can use UV as a drop-in replacement for pip, we recommend adopting a `
 .. _uv pip install: https://docs.astral.sh/uv/reference/cli/#uv-pip-install
 .. _uv venv: https://docs.astral.sh/uv/reference/cli/#uv-venv
 
+
+Pip/Virtualenv
+^^^^^^^^^^^^^^
+
+Pip is the most widely used package manager for Python and each cluster provides
+several Python versions through the associated module which comes with pip. In
+order to install new packages, you will first have to create a personal space
+for them to be stored.  The usual solution (as it is the recommended solution
+on Digital Research Alliance of Canada clusters) is to use `virtual
+environments <https://virtualenv.pypa.io/en/stable/>`_, although :ref:`using_uv` is now
+the recommended way to manage Python installations, virtual environments and dependencies.
+
+.. note::
+   We recommend you use `UV <https://docs.astral.sh/uv>`_ to manage your Python
+   virtual environments instead of doing it manually.
+   :ref:`The next section <uv>` will give an overview of how to install it and use it.
+
+First, load the Python module you want to use:
+
+.. prompt:: bash $
+
+   module load python/3.8
+
+Then, create a virtual environment in your ``home`` directory:
+
+.. prompt:: bash $
+
+   python -m venv $HOME/<env>
+
+Where ``<env>`` is the name of your environment. Finally, activate the environment:
+
+.. prompt:: bash $
+
+   source $HOME/<env>/bin/activate
+
+You can now install any Python package you wish using the ``pip`` command, e.g.
+`pytorch <https://pytorch.org/get-started/locally>`_:
+
+.. prompt:: bash (<env>)$
+
+   pip install torch torchvision
+
+Or `Tensorflow <https://www.tensorflow.org/install/gpu>`_:
+
+.. prompt:: bash (<env>)$
+
+   pip install tensorflow-gpu
+
+
 Conda
 -----
 
@@ -189,6 +189,7 @@ can be good to periodically clean up Conda's cache:
 .. prompt:: bash (<env>)$
 
    conda clean -it
+
 
 Mamba
 ^^^^^
