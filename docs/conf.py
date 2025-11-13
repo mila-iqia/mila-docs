@@ -33,9 +33,7 @@ latex_documents = [
 
 exclude_patterns = [
     "_build",
-    "Userguide_*",
     "Theory_cluster_*",
-    "Information_*",
     "Purpose_*",
     "Extra_compute_*",
     "IDT_*",
