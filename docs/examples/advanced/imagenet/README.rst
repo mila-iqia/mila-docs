@@ -152,7 +152,7 @@ we do not include it here, but you can find it in the GitHub repository `here
    # $SLURM_TMPDIR and $SLURM_NODEID so they are evaluated within each task, not just once here
    # on the first node.
 
-   ## Pure SLURM version ##
+   ## Pure Slurm version ##
    # They can either be set here or as early as possible in the Python script.
    # Use `uv run --offline` on clusters without internet access on compute nodes.
    # Using `srun` executes the command once per task, once per GPU in our case.
