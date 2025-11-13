@@ -11,6 +11,9 @@
                             # so `scancel --signal=TERM <jobid>`.
                             # https://dhruveshp.com/blog/2021/signal-propagation-on-slurm/
 
+# Exit on error
+set -e
+
 # Echo time and hostname into log
 
 set -e  # exit on error.

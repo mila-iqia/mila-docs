@@ -29,7 +29,10 @@ repository.
    #SBATCH --mem=16G
    #SBATCH --time=00:15:00
 
-   set -e  # exit on error.
+   # Exit on error
+   set -e
+
+   # Echo time and hostname into log
    echo "Date:     $(date)"
    echo "Hostname: $(hostname)"
 

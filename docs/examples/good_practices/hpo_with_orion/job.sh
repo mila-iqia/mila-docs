@@ -4,13 +4,16 @@
 #SBATCH --mem=16G
 #SBATCH --time=00:15:00
 
-set -e  # exit on error.
+# Exit on error
+set -e
+
+# Echo time and hostname into log
 echo "Date:     $(date)"
 echo "Hostname: $(hostname)"
 
 # Stage dataset into $SLURM_TMPDIR
 mkdir -p $SLURM_TMPDIR/data
-cp /network/datasets/cifar10/cifar-10-python.tar.gz $SLURM_TMPDIR/data/
+cp --update /network/datasets/cifar10/cifar-10-python.tar.gz $SLURM_TMPDIR/data/
 srun --ntasks=${SLURM_JOB_NUM_NODES:-1} uv run python -c \
     'import os, torchvision.datasets; torchvision.datasets.CIFAR10(root=os.environ["SLURM_TMPDIR"] + "/data", download=True)'
 # General-purpose alternatives combining copy and unpack:
