@@ -22,7 +22,24 @@ recommend you start by checking out the :ref:`short quick start guide
    :caption: How-tos and Guides
    :maxdepth: 2
 
-   Userguide
+   Userguide_quick_start
+   Userguide_comms
+   Userguide_infra_choice
+   Userguide_login
+   Userguide_running_code
+   Userguide_portability
+   Userguide_containers
+   Userguide_sharing_data
+   Userguide_datasets
+   Userguide_data_transfer
+   Userguide_multigpu
+   Userguide_multinode
+   Userguide_wandb
+   Userguide_comet
+   Userguide_debugging
+   Userguide_jupyterhub
+   Userguide_singularity
+   Userguide_faq
 
 .. toctree::
    :caption: Systems and services
@@ -30,13 +47,6 @@ recommend you start by checking out the :ref:`short quick start guide
 
    Information
    Extra_compute
-
-.. toctree::
-   :caption: General theory
-   :maxdepth: 2
-
-   Theory_cluster
-
 
 .. toctree::
    :caption: Minimal Examples
@@ -47,6 +57,12 @@ recommend you start by checking out the :ref:`short quick start guide
    examples/good_practices/index
 
    🔗 Research Project Template <https://github.com/mila-iqia/ResearchTemplate>
+
+.. toctree::
+   :caption: General theory
+   :maxdepth: 2
+
+   Theory_cluster
 
 .. toctree::
    :caption: Extras

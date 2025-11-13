@@ -2,10 +2,11 @@
 # test
 from __future__ import division, print_function, unicode_literals
 
-from datetime import datetime
-from pathlib import Path
 import subprocess
 import sys
+from datetime import datetime
+from pathlib import Path
+
 import sphinx_theme
 
 extensions = [
@@ -33,6 +34,8 @@ latex_documents = [
 
 exclude_patterns = [
     "_build",
+    "Userguide_cluster_access.rst",
+    "Userguide_python.rst",
     "Theory_cluster_*",
     "Purpose_*",
     "Extra_compute_*",

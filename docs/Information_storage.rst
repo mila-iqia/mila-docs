@@ -1,9 +1,7 @@
 .. _milacluster_storage:
 
-
 Storage
 =======
-
 
 ====================================================== =========== ====================================== =================== ====== ============
 Path                                                   Performance Usage                                  Quota (Space/Files) Backup Auto-cleanup
