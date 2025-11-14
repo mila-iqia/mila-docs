@@ -1,0 +1,6 @@
+!.vscode
+output
+slurm-*.out
+logs/*.out
+.deepspeed_env
+wandb
