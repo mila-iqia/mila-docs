@@ -1,17 +1,23 @@
 #!/bin/bash
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
-#SBATCH --cpus-per-task=4
-#SBATCH --gpus-per-task=1
-#SBATCH --mem=32G
-#SBATCH --time=00:30:00
-#SBATCH --output=logs/runner_%j.out
+#SBATCH --cpus-per-task=2
+#SBATCH --gpus-per-task=0
+#SBATCH --mem=16G
+#SBATCH --partition=unkillable-cpu
+#SBATCH --time=2-00:00:00
+#SBATCH --output=logs/runner-%j.out
 
 ##
 ## GitHub Actions Self-Hosted Runner Setup Script
 ##
-## This script downloads, configures, and starts a GitHub Actions self-hosted runner.
-## It can be launched with `sbatch` on a Slurm cluster or run directly on a local machine.
+## This script downloads, configures, and starts a GitHub Actions self-hosted
+## runner. It can be launched with `sbatch` on a Slurm cluster or run directly on
+## a local machine. In the context of this repo, it is first copied over to a
+## Slurm cluster accessible from a self-hosted GitHub runner using scp. It is
+## then submitted as a Slurm job using sbatch. The running Slurm job will then
+## await and execute self-hosted workflows from GitHub CI that have a particular
+## label, in this case, "mila-1".
 ##
 ## Prerequisites:
 ##   - SH_TOKEN environment variable must be set (GitHub token with admin permissions)
@@ -24,8 +30,13 @@
 ##   - SCRATCH: Persistent storage on Slurm cluster (required if SLURM_TMPDIR is set)
 ##   - SLURM_CLUSTER_NAME: Cluster name for runner labels (optional)
 ##
-# TODO: might cause issues if running this script on a local machine since $SCRATCH and
-# $SLURM_TMPDIR won't be set.
+## To get the appropriate GitHub token, follow the instructions in the GitHub
+## Actions documentation:
+## https://docs.github.com/en/rest/actions/self-hosted-runners?apiVersion=2022-11-28#create-a-registration-token-for-a-repository
+##
+
+# TODO: This script might have issues if executed on a local machine since
+# $SCRATCH and $SLURM_TMPDIR won't be set.
 
 set -o errexit
 set -o nounset
@@ -71,10 +82,17 @@ setup_environment() {
     log "Setting up environment..."
 
     # Source bash aliases if available (This is where the SH_TOKEN secret environment variable is set)
-    if [ -f "$HOME/.bash_aliases" ]; then
-        log "Sourcing $HOME/.bash_aliases"
+    if [ -f "$HOME/.gh_runner_env" ]; then
+        log "Sourcing $HOME/.gh_runner_env"
         # shellcheck source=/dev/null
-        source "$HOME/.bash_aliases"
+        # Make sure only the current user can read the file or exit with an error.
+        local perms
+        perms=$(stat -c "%a" "$HOME/.gh_runner_env" 2>/dev/null)
+        if [[ ! "$perms" =~ ^[4-7]00$ ]]
+        then
+            die "File $HOME/.gh_runner_env has insecure permissions (got: ${perms:-unknown}). Expected 400, 500, 600, or 700."
+        fi
+        source "$HOME/.gh_runner_env"
     fi
 }
 
@@ -217,7 +235,7 @@ EOF
     # Extract token from JSON response
     local registration_token
     if ! registration_token=$(echo "$api_response" | python3 -c \
-            "import sys, json; print(json.load(sys.stdin)['token'])" >&2) || \
+            "import sys, json; print(json.load(sys.stdin)['token'])") || \
        [ -z "$registration_token" ]; then
         rm -f "$temp_headers"
         die "Failed to parse GitHub API response. Response: $api_response"
@@ -238,7 +256,8 @@ build_runner_labels() {
     local cluster_name="${SLURM_CLUSTER_NAME:-}"
 
     if [ -n "$cluster_name" ]; then
-        echo "$cluster_name-$SLURM_NNODES-${SLURM_GPUS_PER_NODE##*:},self-hosted"
+        # echo "$cluster_name-$SLURM_NNODES-${SLURM_GPUS_PER_NODE##*:},self-hosted"
+        echo "$cluster_name-$SLURM_NNODES,self-hosted"
     else
         echo "self-hosted"
     fi
@@ -283,6 +302,76 @@ configure_runner() {
 }
 
 # ============================================================================
+# Cleanup Functions
+# ============================================================================
+
+# Global variables for cleanup
+RUNNER_WORKDIR=""
+RUNNER_PID=""
+
+cleanup_runner() {
+    local workdir="$1"
+    
+    if [ -z "$workdir" ] || [ ! -d "$workdir" ]; then
+        log_warning "Cannot cleanup runner: workdir not set or invalid"
+        return 0
+    fi
+
+    cd "$workdir" || {
+        log_warning "Cannot cleanup runner: failed to change to workdir: $workdir"
+        return 0
+    }
+
+    if [ ! -f "./config.sh" ]; then
+        log_warning "Cannot cleanup runner: config.sh not found in $workdir"
+        return 0
+    fi
+
+    log "Unregistering runner..."
+    
+    # First, try to unregister without token (works if runner is still connected)
+    if ./config.sh remove --unattended 2>/dev/null; then
+        log "Runner unregistered successfully (without token)"
+        return 0
+    fi
+    
+    # If that fails, try with a removal token from GitHub API
+    log "Attempting to get removal token from GitHub API..."
+    local removal_token
+    if removal_token=$(get_registration_token "$REPO" "$SH_TOKEN" 2>/dev/null); then
+        if ./config.sh remove --token "$removal_token" --unattended 2>/dev/null; then
+            log "Runner unregistered successfully (with token)"
+            return 0
+        fi
+    fi
+    
+    log_warning "Failed to unregister runner (this may be expected if already unregistered or runner was never registered)"
+}
+
+# Signal handler for cleanup
+handle_termination() {
+    log "Received termination signal, cleaning up..."
+    
+    # Kill runner process if it's still running
+    if [ -n "$RUNNER_PID" ] && kill -0 "$RUNNER_PID" 2>/dev/null; then
+        log "Stopping runner process (PID: $RUNNER_PID)..."
+        kill -TERM "$RUNNER_PID" 2>/dev/null || true
+        # Wait a bit for graceful shutdown
+        sleep 2
+        # Force kill if still running
+        if kill -0 "$RUNNER_PID" 2>/dev/null; then
+            log "Force killing runner process..."
+            kill -KILL "$RUNNER_PID" 2>/dev/null || true
+        fi
+    fi
+    
+    # Unregister the runner
+    cleanup_runner "$RUNNER_WORKDIR"
+    
+    exit 0
+}
+
+# ============================================================================
 # Main Execution
 # ============================================================================
 
@@ -302,6 +391,9 @@ main() {
     workdir=$(determine_workdir)
     log "Working directory: $workdir"
     mkdir -p "$workdir" || die "Failed to create workdir: $workdir"
+    
+    # Store workdir globally for cleanup
+    RUNNER_WORKDIR="$workdir"
 
     # Download and setup runner
     local archive_path
@@ -349,11 +441,29 @@ main() {
     # Change to workdir and start runner
     cd "$workdir" || die "Failed to change to workdir: $workdir"
 
-    # Launch the runner (exec replaces current process)
+    # Set up signal handlers for cleanup
+    # TERM/INT: Catch termination signals (e.g., from Slurm job cancellation)
+    #           and gracefully stop the runner before unregistering
+    # EXIT: Always cleanup on script exit (normal or abnormal)
+    trap 'handle_termination' TERM INT
+    trap 'cleanup_runner "$RUNNER_WORKDIR"' EXIT
+
+    # Launch the runner in background so we can handle signals
+    # We can't use 'exec' here because we need signal handlers to remain active
     log "Launching runner process..."
-    exec ./run.sh
+    ./run.sh &
+    RUNNER_PID=$!
+    
+    # Wait for runner process to exit
+    # This will return when the runner exits normally or is killed
+    wait "$RUNNER_PID"
+    local exit_code=$?
+    
+    log "Runner process exited with code: $exit_code"
+    
+    # Cleanup will be handled by EXIT trap
+    exit "$exit_code"
 }
 
 # Run main function
 main "$@"
-

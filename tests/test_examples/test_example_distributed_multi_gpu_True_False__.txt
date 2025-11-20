@@ -1,0 +1,29 @@
+Task 0 output:
+PyTorch Distributed available.
+  Backends:
+    Gloo: True
+    NCCL: True
+    MPI:  False
+[(DATE) (TIME)] INFO     [0/2] __main__ - World size: 2, global rank: 0                                   main.py:LINE
+PYTHON_ENV/site-packages/torch/distributed/distributed_c10d.py:4876: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  warnings.warn(  # warn only once
+[(DATE) (TIME)] INFO     [0/2] __main__ - Effective batch size: 256                                      main.py:LINE
+[(DATE) (TIME)] INFO     [0/2] __main__ - Epoch 0: Val loss: 66.729 accuracy: 42.98%                     main.py:LINE
+[(DATE) (TIME)] INFO     [0/2] __main__ - Epoch 1: Val loss: 49.699 accuracy: 55.40%                     main.py:LINE
+[(DATE) (TIME)] INFO     [0/2] __main__ - Epoch 2: Val loss: 42.172 accuracy: 62.58%                     main.py:LINE
+[(DATE) (TIME)] INFO     [0/2] __main__ - Epoch 3: Val loss: 47.291 accuracy: 59.42%                     main.py:LINE
+[(DATE) (TIME)] INFO     [0/2] __main__ - Epoch 4: Val loss: 42.249 accuracy: 64.52%                     main.py:LINE
+[(DATE) (TIME)] INFO     [0/2] __main__ - Epoch 5: Val loss: 39.880 accuracy: 67.10%                     main.py:LINE
+[(DATE) (TIME)] INFO     [0/2] __main__ - Epoch 6: Val loss: 46.800 accuracy: 66.56%                     main.py:LINE
+[(DATE) (TIME)] INFO     [0/2] __main__ - Epoch 7: Val loss: 51.692 accuracy: 65.12%                     main.py:LINE
+[(DATE) (TIME)] INFO     [0/2] __main__ - Epoch 8: Val loss: 51.706 accuracy: 66.32%                     main.py:LINE
+[(DATE) (TIME)] INFO     [0/2] __main__ - Epoch 9: Val loss: 47.181 accuracy: 69.72%                     main.py:LINE
+Done!
+Task 1 output:
+PyTorch Distributed available.
+  Backends:
+    Gloo: True
+    NCCL: True
+    MPI:  False
+[(DATE) (TIME)] INFO     [1/2] __main__ - World size: 2, global rank: 1                                   main.py:LINE
+Done!

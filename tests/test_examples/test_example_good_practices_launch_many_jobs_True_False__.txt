@@ -1,6 +1,5 @@
-[(DATE) (TIME)] INFO     No checkpoints found in                                                         main.py:LINE
-                             $SCRATCH/checkpointing_example/$SLURM_JOB_ID/checkpoints. Training            
-                             from scratch.                                                                              
+[(DATE) (TIME)] INFO     Arguments: Namespace(epochs=10, learning_rate=0.0005, weight_decay=0.0001,       main.py:LINE
+                             batch_size=128, seed=42)                                                                   
 [(DATE) (TIME)] INFO     Epoch 0: Val loss: 50.812 accuracy: 54.10%                                      main.py:LINE
 [(DATE) (TIME)] INFO     Epoch 1: Val loss: 42.047 accuracy: 62.10%                                      main.py:LINE
 [(DATE) (TIME)] INFO     Epoch 2: Val loss: 51.428 accuracy: 56.52%                                      main.py:LINE

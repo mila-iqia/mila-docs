@@ -24,41 +24,22 @@ jobs:
   launch-slurm-actions-runner:
     needs: [generate_files]
     runs-on: self-hosted
-    strategy:
-      matrix:
-        gpu-type: [ l40s ]
-        nodes: [ 1, 2 ]
-        gpus-per-node: [ 1, 2 ]
-        exclude:
-          - nodes: 2
-            gpus-per-node: 1
-    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
       - name: Copy job script to the cluster
-        # TODO: there are some assumptions about the GPU type to use in that script.
         run: |
           ssh mila mkdir -p "/tmp/${GITHUB_RUN_ID}"
           scp .github/setup_github_runner.sh mila:"/tmp/${GITHUB_RUN_ID}/setup_github_runner.sh"
-
       - name: Launch Slurm Actions Runner
         run: |
-          ssh mila 'cd "${SCRATCH}" && sbatch --nodes=${{ matrix.nodes }} --gpus-per-task=${{ matrix.gpu-type }}:${{ matrix.gpus-per-node }} --parsable "/tmp/${GITHUB_RUN_ID}/setup_github_runner.sh"'
+          ssh mila "cd \"\${SCRATCH}\" && sbatch --job-name=\"gh-actions-runner-${GITHUB_RUN_ID}\" \"/tmp/${GITHUB_RUN_ID}/setup_github_runner.sh\""
 
   # This step runs in a self-hosted Github Actions runner inside a SLURM job on a compute node of the cluster.
   slurm_integration_tests:
     name: Run integration tests on the Mila cluster in a SLURM job
     needs: [launch-slurm-actions-runner]
-    strategy:
-      matrix:
-        gpu-type: [ l40s ]
-        nodes: [ 1, 2 ]
-        gpus-per-node: [ 1, 2 ]
-        exclude:
-          - nodes: 2
-            gpus-per-node: 1
-    runs-on: ["self-hosted", "mila-${{ matrix.nodes }}-${{ matrix.gpus-per-node }}"]
-    timeout-minutes: 30
+    runs-on: ["self-hosted", "mila-1"]
+    timeout-minutes: 180
     steps:
       - uses: actions/checkout@v4
       - name: Install the latest version of uv
@@ -68,9 +49,9 @@ jobs:
           # https://github.com/astral-sh/setup-uv?tab=readme-ov-file#github-authentication-token
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Install dependencies
-        run: uv sync --all-extras --frozen
+        run: uv sync --all-groups
       - name: Test with pytest
-        run: uv run pytest -v --gen-missing --cov=project --cov-report=xml --cov-append
+        run: uv run --all-groups pytest -v -n 4
 
       # TODO: Add code coverage for the examples?
       # - name: Store coverage report as an artifact

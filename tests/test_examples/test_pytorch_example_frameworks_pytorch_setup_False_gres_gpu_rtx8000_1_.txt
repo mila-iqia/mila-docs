@@ -1,4 +1,0 @@
-PyTorch built with CUDA:         True
-PyTorch detects CUDA available:  True
-PyTorch-detected #GPUs:          1
-    GPU 0:      Quadro RTX 8000

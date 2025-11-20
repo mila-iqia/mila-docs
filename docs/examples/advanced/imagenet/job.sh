@@ -52,7 +52,16 @@ export WORLD_SIZE=$SLURM_NTASKS
 # They can either be set here or as early as possible in the Python script.
 # Use `uv run --offline` on clusters without internet access on compute nodes.
 # Using `srun` executes the command once per task, once per GPU in our case.
-srun bash -c \
+# --gres-flags=allow-task-sharing is required to allow tasks on the same node to
+# access GPUs allocated to other tasks on that node. Without this flag,
+# --gpus-per-task=1 would isolate each task to only see its own GPU, which
+# causes a a mysterious NCCL error in
+# nn.parallel.DistributedDataParallel:
+# ncclUnhandledCudaError: Call to CUDA function failed.
+# when NCCL tries to communicate to local GPUs via shared memory but fails due
+# to cgroups isolation. See https://slurm.schedmd.com/srun.html#OPT_gres-flags
+# and https://support.schedmd.com/show_bug.cgi?id=17875 for details.
+srun --gres-flags=allow-task-sharing bash -c \
     "RANK=\$SLURM_PROCID LOCAL_RANK=\$SLURM_LOCALID \
     uv run --directory=$UV_DIR \
     python main.py --dataset_path=\$SLURM_TMPDIR/data $@"
