@@ -1,0 +1,11 @@
+[(date) (time)] INFO     Epoch 0: Val loss: 78.474 accuracy: 3390.00%                                    main.py:198
+[(date) (time)] INFO     Epoch 1: Val loss: 45.313 accuracy: 7507.50%                                    main.py:198
+[(date) (time)] INFO     Epoch 2: Val loss: 45.636 accuracy: 7777.50%                                    main.py:198
+[(date) (time)] INFO     Epoch 3: Val loss: 28.827 accuracy: 9247.50%                                    main.py:198
+[(date) (time)] INFO     Epoch 4: Val loss: 31.008 accuracy: 9422.50%                                    main.py:198
+[(date) (time)] INFO     Epoch 5: Val loss: 31.043 accuracy: 9665.00%                                    main.py:198
+[(date) (time)] INFO     Epoch 6: Val loss: 25.357 accuracy: 10095.00%                                   main.py:198
+[(date) (time)] INFO     Epoch 7: Val loss: 23.561 accuracy: 10372.50%                                   main.py:198
+[(date) (time)] INFO     Epoch 8: Val loss: 23.433 accuracy: 10397.50%                                   main.py:198
+[(date) (time)] INFO     Epoch 9: Val loss: 23.502 accuracy: 10392.50%                                   main.py:198
+Done!

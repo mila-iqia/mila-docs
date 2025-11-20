@@ -1,0 +1,100 @@
+Task 0 output:
+[(date) (time)] INFO     [Job 1/5][Task 1/1] Args:                                                       main.py:106
+                             {                                                                                          
+                                 'epochs': 10,                                                                          
+                                 'learning_rate': 0.0051187044253778674,                                                
+                                 'weight_decay': 0.0009505132326296095,                                                 
+                                 'batch_size': 24,                                                                      
+                                 'seed': 0                                                                              
+                             }                                                                                          
+[(date) (time)] INFO     [Job 1/5][Task 1/1] Epoch 0: Val loss: 303.557 accuracy: 46.10%                 main.py:184
+[(date) (time)] INFO     [Job 1/5][Task 1/1] Epoch 1: Val loss: 254.826 accuracy: 56.70%                 main.py:184
+[(date) (time)] INFO     [Job 1/5][Task 1/1] Epoch 2: Val loss: 205.330 accuracy: 65.06%                 main.py:184
+[(date) (time)] INFO     [Job 1/5][Task 1/1] Epoch 3: Val loss: 197.558 accuracy: 67.10%                 main.py:184
+[(date) (time)] INFO     [Job 1/5][Task 1/1] Epoch 4: Val loss: 182.284 accuracy: 69.84%                 main.py:184
+[(date) (time)] INFO     [Job 1/5][Task 1/1] Epoch 5: Val loss: 173.911 accuracy: 71.16%                 main.py:184
+[(date) (time)] INFO     [Job 1/5][Task 1/1] Epoch 6: Val loss: 159.503 accuracy: 73.98%                 main.py:184
+[(date) (time)] INFO     [Job 1/5][Task 1/1] Epoch 7: Val loss: 171.986 accuracy: 72.92%                 main.py:184
+[(date) (time)] INFO     [Job 1/5][Task 1/1] Epoch 8: Val loss: 171.386 accuracy: 74.48%                 main.py:184
+[(date) (time)] INFO     [Job 1/5][Task 1/1] Epoch 9: Val loss: 199.860 accuracy: 72.20%                 main.py:184
+Done!
+Task 1 output:
+[(date) (time)] INFO     [Job 2/5][Task 1/1] Args:                                                       main.py:106
+                             {                                                                                          
+                                 'epochs': 10,                                                                          
+                                 'learning_rate': 0.002616859730358915,                                                 
+                                 'weight_decay': 0.0002991926522707092,                                                 
+                                 'batch_size': 115,                                                                     
+                                 'seed': 0                                                                              
+                             }                                                                                          
+[(date) (time)] INFO     [Job 2/5][Task 1/1] Epoch 0: Val loss: 71.995 accuracy: 46.12%                  main.py:184
+[(date) (time)] INFO     [Job 2/5][Task 1/1] Epoch 1: Val loss: 58.399 accuracy: 51.90%                  main.py:184
+[(date) (time)] INFO     [Job 2/5][Task 1/1] Epoch 2: Val loss: 43.894 accuracy: 65.42%                  main.py:184
+[(date) (time)] INFO     [Job 2/5][Task 1/1] Epoch 3: Val loss: 41.451 accuracy: 67.20%                  main.py:184
+[(date) (time)] INFO     [Job 2/5][Task 1/1] Epoch 4: Val loss: 36.439 accuracy: 70.80%                  main.py:184
+[(date) (time)] INFO     [Job 2/5][Task 1/1] Epoch 5: Val loss: 37.546 accuracy: 71.26%                  main.py:184
+[(date) (time)] INFO     [Job 2/5][Task 1/1] Epoch 6: Val loss: 35.821 accuracy: 73.72%                  main.py:184
+[(date) (time)] INFO     [Job 2/5][Task 1/1] Epoch 7: Val loss: 36.196 accuracy: 73.04%                  main.py:184
+[(date) (time)] INFO     [Job 2/5][Task 1/1] Epoch 8: Val loss: 37.304 accuracy: 73.90%                  main.py:184
+[(date) (time)] INFO     [Job 2/5][Task 1/1] Epoch 9: Val loss: 41.655 accuracy: 72.44%                  main.py:184
+Done!
+Task 2 output:
+[(date) (time)] INFO     [Job 3/5][Task 1/1] Args:                                                       main.py:106
+                             {                                                                                          
+                                 'epochs': 10,                                                                          
+                                 'learning_rate': 0.0008574060222691001,                                                
+                                 'weight_decay': 0.00023757369608950362,                                                
+                                 'batch_size': 59,                                                                      
+                                 'seed': 0                                                                              
+                             }                                                                                          
+[(date) (time)] INFO     [Job 3/5][Task 1/1] Epoch 0: Val loss: 123.109 accuracy: 52.90%                 main.py:184
+[(date) (time)] INFO     [Job 3/5][Task 1/1] Epoch 1: Val loss: 106.411 accuracy: 56.30%                 main.py:184
+[(date) (time)] INFO     [Job 3/5][Task 1/1] Epoch 2: Val loss: 81.858 accuracy: 67.08%                  main.py:184
+[(date) (time)] INFO     [Job 3/5][Task 1/1] Epoch 3: Val loss: 71.724 accuracy: 70.80%                  main.py:184
+[(date) (time)] INFO     [Job 3/5][Task 1/1] Epoch 4: Val loss: 80.856 accuracy: 67.48%                  main.py:184
+[(date) (time)] INFO     [Job 3/5][Task 1/1] Epoch 5: Val loss: 83.986 accuracy: 68.52%                  main.py:184
+[(date) (time)] INFO     [Job 3/5][Task 1/1] Epoch 6: Val loss: 69.946 accuracy: 72.60%                  main.py:184
+[(date) (time)] INFO     [Job 3/5][Task 1/1] Epoch 7: Val loss: 70.250 accuracy: 73.86%                  main.py:184
+[(date) (time)] INFO     [Job 3/5][Task 1/1] Epoch 8: Val loss: 75.068 accuracy: 73.90%                  main.py:184
+[(date) (time)] INFO     [Job 3/5][Task 1/1] Epoch 9: Val loss: 96.087 accuracy: 70.16%                  main.py:184
+Done!
+Task 3 output:
+[(date) (time)] INFO     [Job 4/5][Task 1/1] Args:                                                       main.py:106
+                             {                                                                                          
+                                 'epochs': 10,                                                                          
+                                 'learning_rate': 0.009430617999618104,                                                 
+                                 'weight_decay': 0.0005118162252615473,                                                 
+                                 'batch_size': 241,                                                                     
+                                 'seed': 0                                                                              
+                             }                                                                                          
+[(date) (time)] INFO     [Job 4/5][Task 1/1] Epoch 0: Val loss: 36.482 accuracy: 36.72%                  main.py:184
+[(date) (time)] INFO     [Job 4/5][Task 1/1] Epoch 1: Val loss: 28.855 accuracy: 50.36%                  main.py:184
+[(date) (time)] INFO     [Job 4/5][Task 1/1] Epoch 2: Val loss: 25.067 accuracy: 57.82%                  main.py:184
+[(date) (time)] INFO     [Job 4/5][Task 1/1] Epoch 3: Val loss: 30.640 accuracy: 51.56%                  main.py:184
+[(date) (time)] INFO     [Job 4/5][Task 1/1] Epoch 4: Val loss: 19.339 accuracy: 67.52%                  main.py:184
+[(date) (time)] INFO     [Job 4/5][Task 1/1] Epoch 5: Val loss: 21.253 accuracy: 65.92%                  main.py:184
+[(date) (time)] INFO     [Job 4/5][Task 1/1] Epoch 6: Val loss: 17.419 accuracy: 71.52%                  main.py:184
+[(date) (time)] INFO     [Job 4/5][Task 1/1] Epoch 7: Val loss: 18.513 accuracy: 70.80%                  main.py:184
+[(date) (time)] INFO     [Job 4/5][Task 1/1] Epoch 8: Val loss: 19.080 accuracy: 71.00%                  main.py:184
+[(date) (time)] INFO     [Job 4/5][Task 1/1] Epoch 9: Val loss: 18.679 accuracy: 72.50%                  main.py:184
+Done!
+Task 4 output:
+[(date) (time)] INFO     [Job 5/5][Task 1/1] Args:                                                       main.py:106
+                             {                                                                                          
+                                 'epochs': 10,                                                                          
+                                 'learning_rate': 0.008050224234530057,                                                 
+                                 'weight_decay': 0.0008081328489467573,                                                 
+                                 'batch_size': 128,                                                                     
+                                 'seed': 0                                                                              
+                             }                                                                                          
+[(date) (time)] INFO     [Job 5/5][Task 1/1] Epoch 0: Val loss: 63.784 accuracy: 43.40%                  main.py:184
+[(date) (time)] INFO     [Job 5/5][Task 1/1] Epoch 1: Val loss: 53.537 accuracy: 52.52%                  main.py:184
+[(date) (time)] INFO     [Job 5/5][Task 1/1] Epoch 2: Val loss: 40.259 accuracy: 63.76%                  main.py:184
+[(date) (time)] INFO     [Job 5/5][Task 1/1] Epoch 3: Val loss: 52.454 accuracy: 55.98%                  main.py:184
+[(date) (time)] INFO     [Job 5/5][Task 1/1] Epoch 4: Val loss: 37.399 accuracy: 67.12%                  main.py:184
+[(date) (time)] INFO     [Job 5/5][Task 1/1] Epoch 5: Val loss: 32.013 accuracy: 71.76%                  main.py:184
+[(date) (time)] INFO     [Job 5/5][Task 1/1] Epoch 6: Val loss: 47.465 accuracy: 65.64%                  main.py:184
+[(date) (time)] INFO     [Job 5/5][Task 1/1] Epoch 7: Val loss: 33.747 accuracy: 71.16%                  main.py:184
+[(date) (time)] INFO     [Job 5/5][Task 1/1] Epoch 8: Val loss: 33.142 accuracy: 72.98%                  main.py:184
+[(date) (time)] INFO     [Job 5/5][Task 1/1] Epoch 9: Val loss: 38.903 accuracy: 70.68%                  main.py:184
+Done!

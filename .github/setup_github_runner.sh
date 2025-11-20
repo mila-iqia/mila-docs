@@ -1,17 +1,23 @@
 #!/bin/bash
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
-#SBATCH --cpus-per-task=4
-#SBATCH --gpus-per-task=1
-#SBATCH --mem=32G
-#SBATCH --time=00:30:00
+#SBATCH --cpus-per-task=2
+#SBATCH --gpus-per-task=0
+#SBATCH --mem=16G
+#SBATCH --partition=unkillable-cpu
+#SBATCH --time=2-00:00:00
 #SBATCH --output=logs/runner_%j.out
 
 ##
 ## GitHub Actions Self-Hosted Runner Setup Script
 ##
-## This script downloads, configures, and starts a GitHub Actions self-hosted runner.
-## It can be launched with `sbatch` on a Slurm cluster or run directly on a local machine.
+## This script downloads, configures, and starts a GitHub Actions self-hosted
+## runner. It can be launched with `sbatch` on a Slurm cluster or run directly on
+## a local machine. In the context of this repo, it is first copied over to a
+## Slurm cluster accessible from a self-hosted GitHub runner using scp. It is
+## then submitted as a Slurm job using sbatch. The running Slurm job will then
+## await and execute self-hosted workflows from GitHub CI that have a particular
+## label, in this case, "mila-1".
 ##
 ## Prerequisites:
 ##   - SH_TOKEN environment variable must be set (GitHub token with admin permissions)
@@ -24,8 +30,13 @@
 ##   - SCRATCH: Persistent storage on Slurm cluster (required if SLURM_TMPDIR is set)
 ##   - SLURM_CLUSTER_NAME: Cluster name for runner labels (optional)
 ##
-# TODO: might cause issues if running this script on a local machine since $SCRATCH and
-# $SLURM_TMPDIR won't be set.
+## To get the appropriate GitHub token, follow the instructions in the GitHub
+## Actions documentation:
+## https://docs.github.com/en/rest/actions/self-hosted-runners?apiVersion=2022-11-28#create-a-registration-token-for-a-repository
+##
+
+# TODO: This script might have issues if executed on a local machine since
+# $SCRATCH and $SLURM_TMPDIR won't be set.
 
 set -o errexit
 set -o nounset
@@ -71,10 +82,10 @@ setup_environment() {
     log "Setting up environment..."
 
     # Source bash aliases if available (This is where the SH_TOKEN secret environment variable is set)
-    if [ -f "$HOME/.bash_aliases" ]; then
-        log "Sourcing $HOME/.bash_aliases"
+    if [ -f "$HOME/.gh_runner_env" ]; then
+        log "Sourcing $HOME/.gh_runner_env"
         # shellcheck source=/dev/null
-        source "$HOME/.bash_aliases"
+        source "$HOME/.gh_runner_env"
     fi
 }
 
@@ -217,7 +228,7 @@ EOF
     # Extract token from JSON response
     local registration_token
     if ! registration_token=$(echo "$api_response" | python3 -c \
-            "import sys, json; print(json.load(sys.stdin)['token'])" >&2) || \
+            "import sys, json; print(json.load(sys.stdin)['token'])") || \
        [ -z "$registration_token" ]; then
         rm -f "$temp_headers"
         die "Failed to parse GitHub API response. Response: $api_response"
@@ -238,7 +249,8 @@ build_runner_labels() {
     local cluster_name="${SLURM_CLUSTER_NAME:-}"
 
     if [ -n "$cluster_name" ]; then
-        echo "$cluster_name-$SLURM_NNODES-${SLURM_GPUS_PER_NODE##*:},self-hosted"
+        # echo "$cluster_name-$SLURM_NNODES-${SLURM_GPUS_PER_NODE##*:},self-hosted"
+        echo "$cluster_name-$SLURM_NNODES,self-hosted"
     else
         echo "self-hosted"
     fi
@@ -356,4 +368,3 @@ main() {
 
 # Run main function
 main "$@"
-

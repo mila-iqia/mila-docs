@@ -1,0 +1,3 @@
+Jax default backend:         gpu
+Jax-detected #GPUs:          1
+    GPU 0:      NVIDIA L40S

@@ -1,0 +1,20 @@
+PyTorch Distributed available.
+  Backends:
+    Gloo: True
+    NCCL: True
+    MPI:  False
+[(date) (time)] INFO     [0/1] __main__ - World size: 1, global rank: 0                                   main.py:82
+./.venv/lib/python3.12/site-packages/torch/distributed/distributed_c10d.py:4876: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  warnings.warn(  # warn only once
+[(date) (time)] INFO     [0/1] __main__ - Effective batch size: 128                                      main.py:114
+[(date) (time)] INFO     [0/1] __main__ - Epoch 0: Val loss: 50.311 accuracy: 54.76%                     main.py:209
+[(date) (time)] INFO     [0/1] __main__ - Epoch 1: Val loss: 48.067 accuracy: 59.50%                     main.py:209
+[(date) (time)] INFO     [0/1] __main__ - Epoch 2: Val loss: 42.469 accuracy: 62.94%                     main.py:209
+[(date) (time)] INFO     [0/1] __main__ - Epoch 3: Val loss: 46.824 accuracy: 60.44%                     main.py:209
+[(date) (time)] INFO     [0/1] __main__ - Epoch 4: Val loss: 35.834 accuracy: 69.36%                     main.py:209
+[(date) (time)] INFO     [0/1] __main__ - Epoch 5: Val loss: 36.353 accuracy: 70.22%                     main.py:209
+[(date) (time)] INFO     [0/1] __main__ - Epoch 6: Val loss: 45.069 accuracy: 66.64%                     main.py:209
+[(date) (time)] INFO     [0/1] __main__ - Epoch 7: Val loss: 41.464 accuracy: 70.40%                     main.py:209
+[(date) (time)] INFO     [0/1] __main__ - Epoch 8: Val loss: 40.714 accuracy: 70.56%                     main.py:209
+[(date) (time)] INFO     [0/1] __main__ - Epoch 9: Val loss: 45.449 accuracy: 70.02%                     main.py:209
+Done!

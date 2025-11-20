@@ -1,15 +1,14 @@
-[(date) (time)] INFO     No checkpoints found in /$SCRATCH/checkpointing_example/$SLURM_JOB_ID/checkpoints. Training from scratch.                                                                                                  main.py:117
-Using downloaded and verified file: $SLURM_TMPDIR/data/cifar-10-python.tar.gz
-Extracting $SLURM_TMPDIR/data/cifar-10-python.tar.gz to $SLURM_TMPDIR/data
-Files already downloaded and verified
-[(date) (time)] INFO     Epoch 0: Val loss: 50.314 accuracy: 54.26%                                                                                                                                                                             main.py:204
-[(date) (time)] INFO     Epoch 1: Val loss: 46.534 accuracy: 59.04%                                                                                                                                                                             main.py:204
-[(date) (time)] INFO     Epoch 2: Val loss: 42.161 accuracy: 62.84%                                                                                                                                                                             main.py:204
-[(date) (time)] INFO     Epoch 3: Val loss: 37.565 accuracy: 67.58%                                                                                                                                                                             main.py:204
-[(date) (time)] INFO     Epoch 4: Val loss: 37.429 accuracy: 68.14%                                                                                                                                                                             main.py:204
-[(date) (time)] INFO     Epoch 5: Val loss: 40.469 accuracy: 66.78%                                                                                                                                                                             main.py:204
-[(date) (time)] INFO     Epoch 6: Val loss: 48.439 accuracy: 63.78%                                                                                                                                                                             main.py:204
-[(date) (time)] INFO     Epoch 7: Val loss: 38.182 accuracy: 71.46%                                                                                                                                                                             main.py:204
-[(date) (time)] INFO     Epoch 8: Val loss: 40.733 accuracy: 70.60%                                                                                                                                                                             main.py:204
-[(date) (time)] INFO     Epoch 9: Val loss: 44.822 accuracy: 69.96%                                                                                                                                                                             main.py:204
+[(date) (time)] INFO     No checkpoints found in                                                         main.py:146
+                             $SCRATCH/checkpointing_example/$SLURM_JOB_ID/checkpoints. Training            
+                             from scratch.                                                                              
+[(date) (time)] INFO     Epoch 0: Val loss: 50.812 accuracy: 54.10%                                      main.py:236
+[(date) (time)] INFO     Epoch 1: Val loss: 42.047 accuracy: 62.10%                                      main.py:236
+[(date) (time)] INFO     Epoch 2: Val loss: 51.428 accuracy: 56.52%                                      main.py:236
+[(date) (time)] INFO     Epoch 3: Val loss: 41.966 accuracy: 63.94%                                      main.py:236
+[(date) (time)] INFO     Epoch 4: Val loss: 41.544 accuracy: 65.16%                                      main.py:236
+[(date) (time)] INFO     Epoch 5: Val loss: 38.287 accuracy: 68.94%                                      main.py:236
+[(date) (time)] INFO     Epoch 6: Val loss: 38.519 accuracy: 69.82%                                      main.py:236
+[(date) (time)] INFO     Epoch 7: Val loss: 41.757 accuracy: 68.14%                                      main.py:236
+[(date) (time)] INFO     Epoch 8: Val loss: 39.481 accuracy: 71.82%                                      main.py:236
+[(date) (time)] INFO     Epoch 9: Val loss: 60.240 accuracy: 63.38%                                      main.py:236
 Done!

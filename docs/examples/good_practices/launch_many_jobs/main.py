@@ -1,9 +1,13 @@
 """Single-GPU training example."""
+
 import argparse
 import logging
 import os
+import random
+import sys
 from pathlib import Path
 
+import numpy as np
 import rich.logging
 import torch
 from torch import Tensor, nn
@@ -14,29 +18,61 @@ from torchvision.datasets import CIFAR10
 from torchvision.models import resnet18
 from tqdm import tqdm
 
+logger: logging.Logger = None
+
+
+# To make your code as much reproducible as possible, uncomment the following
+# block:
+## === Reproducibility ===
+## Be warned that this can make your code slower. See
+## https://pytorch.org/docs/stable/notes/randomness.html#cublas-and-cudnn-deterministic-operations
+## for more details.
+# torch.use_deterministic_algorithms(True)
+## === Reproducibility (END) ===
+
 
 def main():
+    global logger
+
     # Add an argument parser so that we can pass hyperparameters from the command line.
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--epochs", type=int, default=10)
     parser.add_argument("--learning-rate", type=float, default=5e-4)
     parser.add_argument("--weight-decay", type=float, default=1e-4)
     parser.add_argument("--batch-size", type=int, default=128)
+    parser.add_argument("--seed", type=int, default=42)
     args = parser.parse_args()
 
     epochs: int = args.epochs
     learning_rate: float = args.learning_rate
     weight_decay: float = args.weight_decay
     batch_size: int = args.batch_size
+    seed: int = args.seed
+
+    # Seed the random number generators as early as possible for reproducibility
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.random.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
 
     # Check that the GPU is available
     assert torch.cuda.is_available() and torch.cuda.device_count() > 0
     device = torch.device("cuda", 0)
 
     # Setup logging (optional, but much better than using print statements)
+    # Uses the `rich` package to make logs pretty.
     logging.basicConfig(
         level=logging.INFO,
-        handlers=[rich.logging.RichHandler(markup=True)],  # Very pretty, uses the `rich` package.
+        format="%(message)s",
+        handlers=[
+            rich.logging.RichHandler(
+                markup=True,
+                console=rich.console.Console(
+                    # Allower wider log lines in sbatch output files than on the terminal.
+                    width=120 if not sys.stdout.isatty() else None
+                ),
+            )
+        ],
     )
 
     logger = logging.getLogger(__name__)
@@ -84,6 +120,7 @@ def main():
         progress_bar = tqdm(
             total=len(train_dataloader),
             desc=f"Train epoch {epoch}",
+            disable=not sys.stdout.isatty(),  # Disable progress bar in non-interactive environments.
         )
 
         # Training loop

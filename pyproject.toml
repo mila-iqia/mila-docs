@@ -16,7 +16,8 @@ members = [
     "docs/examples/distributed/multi_node",
     "docs/examples/advanced/imagenet",
     "docs/examples/good_practices/checkpointing",
-    "docs/examples/good_practices/hpo_with_orion",
+    # Add back when Orion is compatible with Python >=3.12
+    # "docs/examples/good_practices/hpo_with_orion",
     "docs/examples/good_practices/launch_many_jobs",
     "docs/examples/good_practices/many_tasks_per_gpu",
     "docs/examples/good_practices/slurm_job_arrays",
@@ -38,3 +39,20 @@ dev = [
     "sphinx-theme>=1.0",
     "urllib3<2",
 ]
+test = [
+    "pytest>=9.0.1",
+    "pytest-regressions>=2.8.3",
+    "pytest-xdist>=3.8.0",
+    "setuptools>=80.9.0",
+    "submitit>=1.5.3",
+]
+
+[tool.hatch.envs.hatch-test]
+installer = "uv"
+dependency-groups = ["dev", "test"]
+post-install-commands = [
+    "uv sync --inexact",
+]
+
+[tool.hatch.envs.hatch-test.extra-scripts]
+uv = 'UV_PROJECT_ENVIRONMENT="{env:VIRTUAL_ENV}" "$(which uv)" {args}'

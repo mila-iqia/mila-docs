@@ -4,10 +4,10 @@ import argparse
 import logging
 import os
 import random
-from pathlib import Path
 import sys
+from pathlib import Path
 
-import numpy
+import numpy as np
 import rich.logging
 import torch
 from torch import Tensor, nn
@@ -18,8 +18,22 @@ from torchvision.datasets import CIFAR10
 from torchvision.models import resnet18
 from tqdm import tqdm
 
+logger: logging.Logger = None
+
+
+# To make your code as much reproducible as possible, uncomment the following
+# block:
+## === Reproducibility ===
+## Be warned that this can make your code slower. See
+## https://pytorch.org/docs/stable/notes/randomness.html#cublas-and-cudnn-deterministic-operations
+## for more details.
+# torch.use_deterministic_algorithms(True)
+## === Reproducibility (END) ===
+
 
 def main():
+    global logger
+
     # Use an argument parser so we can pass hyperparameters from the command line.
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--epochs", type=int, default=10)
@@ -30,7 +44,7 @@ def main():
     # This makes it so each task within a job uses a different initialization with the same
     # hyper-parameters.
     parser.add_argument(
-        "--random-seed",
+        "--seed",
         type=int,
         default=int(os.environ.get("SLURM_PROCID", 0)),
         help="Random seed used for network initialization and the training loop.",
@@ -41,13 +55,13 @@ def main():
     learning_rate: float = args.learning_rate
     weight_decay: float = args.weight_decay
     batch_size: int = args.batch_size
-    random_seed: int = args.random_seed
+    seed: int = args.seed
 
-    # Seed the random number generators as early as possible.
-    random.seed(random_seed)
-    numpy.random.seed(random_seed)
-    torch.random.manual_seed(random_seed)
-    torch.cuda.manual_seed_all(random_seed)
+    # Seed the random number generators as early as possible for reproducibility
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.random.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
 
     # Check that the GPU is available
     assert torch.cuda.is_available() and torch.cuda.device_count() > 0

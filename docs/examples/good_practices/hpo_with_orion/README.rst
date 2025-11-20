@@ -53,8 +53,10 @@ Optionally you can configure workers which will run in parallel to maximize reso
 
     # distributed/single_gpu/job.sh -> good_practices/hpo_with_orion/job.sh
     #!/bin/bash
-    #SBATCH --gres=gpu:1
+    #SBATCH --nodes=1
+    #SBATCH --ntasks-per-node=1
     #SBATCH --cpus-per-task=4
+    #SBATCH --gpus-per-task=l40s:1
     #SBATCH --mem=16G
     #SBATCH --time=00:15:00
 
@@ -65,9 +67,18 @@ Optionally you can configure workers which will run in parallel to maximize reso
     echo "Date:     $(date)"
     echo "Hostname: $(hostname)"
 
+    # To make your code as much reproducible as possible with
+    # `torch.use_deterministic_algorithms(True)`, uncomment the following block:
+    ## === Reproducibility ===
+    ## Be warned that this can make your code slower. See
+    ## https://pytorch.org/docs/stable/notes/randomness.html#cublas-and-cudnn-deterministic-operations
+    ## for more details.
+    # export CUBLAS_WORKSPACE_CONFIG=:4096:8
+    ## === Reproducibility (END) ===
+
     # Stage dataset into $SLURM_TMPDIR
     mkdir -p $SLURM_TMPDIR/data
-    cp --update /network/datasets/cifar10/cifar-10-python.tar.gz $SLURM_TMPDIR/data/
+    cp /network/datasets/cifar10/cifar-10-python.tar.gz $SLURM_TMPDIR/data/
    +srun --ntasks=${SLURM_JOB_NUM_NODES:-1} uv run python -c \
    +    'import os, torchvision.datasets; torchvision.datasets.CIFAR10(root=os.environ["SLURM_TMPDIR"] + "/data", download=True)'
     # General-purpose alternatives combining copy and unpack:
@@ -78,7 +89,7 @@ Optionally you can configure workers which will run in parallel to maximize reso
    -# Use the `--offline` option of `uv run` on clusters without internet access on compute nodes.
    -# Using the `--locked` option can help make your experiments easier to reproduce (it forces
    -# your uv.lock file to be up to date with the dependencies declared in pyproject.toml).
-   -uv run python main.py
+   -srun uv run python main.py
    +# =============
    +# Execute Orion
    +# =============
@@ -131,9 +142,10 @@ This doesn't change much, the only difference is that we add the Orion dependenc
    readme = "README.md"
    requires-python = ">=3.11"
    dependencies = [
-       "numpy>=2.3.1",
+       # Fix orion to be compatible with Python >=3.12
        "orion>=0.2.7",
        "rich>=14.0.0",
+       "setuptools>=80.9.0",  # Required for pkg_resources used by orion
        "torch>=2.7.1",
        "torchvision>=0.22.1",
        "tqdm>=4.67.1",
@@ -154,11 +166,14 @@ Here we only really add the reporting of the objective to Orion at the end of th
    +import json
     import logging
     import os
-    from pathlib import Path
+    import random
     import sys
+    from pathlib import Path
 
+    import numpy as np
     import rich.logging
     import torch
+   +from orion.client import report_objective
     from torch import Tensor, nn
     from torch.nn import functional as F
     from torch.utils.data import DataLoader, random_split
@@ -167,10 +182,22 @@ Here we only really add the reporting of the objective to Orion at the end of th
     from torchvision.models import resnet18
     from tqdm import tqdm
 
-   +from orion.client import report_objective
-   +
+    logger: logging.Logger = None
+
+
+    # To make your code as much reproducible as possible, uncomment the following
+    # block:
+    ## === Reproducibility ===
+    ## Be warned that this can make your code slower. See
+    ## https://pytorch.org/docs/stable/notes/randomness.html#cublas-and-cudnn-deterministic-operations
+    ## for more details.
+    # torch.use_deterministic_algorithms(True)
+    ## === Reproducibility (END) ===
+
 
     def main():
+        global logger
+
    -    # Use an argument parser so we can pass hyperparameters from the command line.
    +    # Add an argument parser so that we can pass hyperparameters from command line.
         parser = argparse.ArgumentParser(description=__doc__)
@@ -178,16 +205,25 @@ Here we only really add the reporting of the objective to Orion at the end of th
         parser.add_argument("--learning-rate", type=float, default=5e-4)
         parser.add_argument("--weight-decay", type=float, default=1e-4)
         parser.add_argument("--batch-size", type=int, default=128)
+        parser.add_argument("--seed", type=int, default=42)
         args = parser.parse_args()
 
    -    epochs: int = args.epochs
    -    learning_rate: float = args.learning_rate
    -    weight_decay: float = args.weight_decay
    -    batch_size: int = args.batch_size
+   -    seed: int = args.seed
    +    epochs = args.epochs
    +    learning_rate = args.learning_rate
    +    weight_decay = args.weight_decay
    +    batch_size = args.batch_size
+   +    seed = args.seed
+
+        # Seed the random number generators as early as possible for reproducibility
+        random.seed(seed)
+        np.random.seed(seed)
+        torch.random.manual_seed(seed)
+        torch.cuda.manual_seed_all(seed)
 
         # Check that the GPU is available
         assert torch.cuda.is_available() and torch.cuda.device_count() > 0

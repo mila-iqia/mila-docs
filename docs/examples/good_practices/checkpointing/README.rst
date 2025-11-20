@@ -25,8 +25,10 @@ repository.
 
     # distributed/single_gpu/job.sh -> good_practices/checkpointing/job.sh
     #!/bin/bash
-    #SBATCH --gres=gpu:1
+    #SBATCH --nodes=1
+    #SBATCH --ntasks-per-node=1
     #SBATCH --cpus-per-task=4
+    #SBATCH --gpus-per-task=l40s:1
     #SBATCH --mem=16G
     #SBATCH --time=00:15:00
    +#SBATCH --requeue
@@ -36,8 +38,6 @@ repository.
    +                            # make sure that you specify the signal as TERM like
    +                            # so `scancel --signal=TERM <jobid>`.
    +                            # https://dhruveshp.com/blog/2021/signal-propagation-on-slurm/
-   +
-   +# Echo time and hostname into log
 
     # Exit on error
     set -e
@@ -47,9 +47,18 @@ repository.
     echo "Hostname: $(hostname)"
    +echo "Job has been preempted $SLURM_RESTART_COUNT times."
 
+    # To make your code as much reproducible as possible with
+    # `torch.use_deterministic_algorithms(True)`, uncomment the following block:
+    ## === Reproducibility ===
+    ## Be warned that this can make your code slower. See
+    ## https://pytorch.org/docs/stable/notes/randomness.html#cublas-and-cudnn-deterministic-operations
+    ## for more details.
+    # export CUBLAS_WORKSPACE_CONFIG=:4096:8
+    ## === Reproducibility (END) ===
+
     # Stage dataset into $SLURM_TMPDIR
     mkdir -p $SLURM_TMPDIR/data
-    cp --update /network/datasets/cifar10/cifar-10-python.tar.gz $SLURM_TMPDIR/data/
+    cp /network/datasets/cifar10/cifar-10-python.tar.gz $SLURM_TMPDIR/data/
     # General-purpose alternatives combining copy and unpack:
     #     unzip   /network/datasets/some/file.zip -d $SLURM_TMPDIR/data/
     #     tar -xf /network/datasets/some/file.tar -C $SLURM_TMPDIR/data/
@@ -58,7 +67,7 @@ repository.
     # Use the `--offline` option of `uv run` on clusters without internet access on compute nodes.
     # Using the `--locked` option can help make your experiments easier to reproduce (it forces
     # your uv.lock file to be up to date with the dependencies declared in pyproject.toml).
-   -uv run python main.py
+   -srun uv run python main.py
    +# Here we use `exec` to ensure that the signals are received and handled in the Python process.
    +exec srun uv run python main.py
 
@@ -73,7 +82,6 @@ repository.
    readme = "README.md"
    requires-python = ">=3.12"
    dependencies = [
-       "numpy>=2.3.1",
        "rich>=14.0.0",
        "torch>=2.7.1",
        "torchvision>=0.22.1",
@@ -93,19 +101,18 @@ repository.
     import argparse
     import logging
     import os
-   -from pathlib import Path
-   +import random
+    import random
    +import shutil
    +import signal
     import sys
    +import uuid
    +import warnings
    +from logging import getLogger as get_logger
-   +from pathlib import Path
+    from pathlib import Path
    +from types import FrameType
    +from typing import Any, TypedDict
 
-   +import numpy
+    import numpy as np
     import rich.logging
     import torch
     from torch import Tensor, nn
@@ -122,9 +129,19 @@ repository.
    +
    +CHECKPOINT_FILE_NAME = "checkpoint.pth"
    +
-   +logger = get_logger(__name__)
-   +
-   +
+    logger: logging.Logger = None
+
+
+    # To make your code as much reproducible as possible, uncomment the following
+    # block:
+    ## === Reproducibility ===
+    ## Be warned that this can make your code slower. See
+    ## https://pytorch.org/docs/stable/notes/randomness.html#cublas-and-cudnn-deterministic-operations
+    ## for more details.
+    # torch.use_deterministic_algorithms(True)
+    ## === Reproducibility (END) ===
+
+
    +class RunState(TypedDict):
    +    """Typed dictionary containing the state of the training run which is saved at each epoch.
    +
@@ -142,8 +159,10 @@ repository.
    +    torch_random_state: Tensor
    +    torch_cuda_random_state: list[Tensor]
    +
-
+   +
     def main():
+        global logger
+
         # Use an argument parser so we can pass hyperparameters from the command line.
         parser = argparse.ArgumentParser(description=__doc__)
         parser.add_argument("--epochs", type=int, default=10)
@@ -153,7 +172,7 @@ repository.
    +    parser.add_argument(
    +        "--run-dir", type=Path, default=SCRATCH / "checkpointing_example" / SLURM_JOBID
    +    )
-   +    parser.add_argument("--random-seed", type=int, default=123)
+        parser.add_argument("--seed", type=int, default=42)
         args = parser.parse_args()
 
         epochs: int = args.epochs
@@ -161,22 +180,22 @@ repository.
         weight_decay: float = args.weight_decay
         batch_size: int = args.batch_size
    +    run_dir: Path = args.run_dir
-   +    random_seed: int = args.random_seed
-   +
+        seed: int = args.seed
+
    +    checkpoint_dir = run_dir / "checkpoints"
    +    start_epoch: int = 0
    +    best_acc: float = 0.0
+   +
+        # Seed the random number generators as early as possible for reproducibility
+        random.seed(seed)
+        np.random.seed(seed)
+        torch.random.manual_seed(seed)
+        torch.cuda.manual_seed_all(seed)
 
         # Check that the GPU is available
         assert torch.cuda.is_available() and torch.cuda.device_count() > 0
         device = torch.device("cuda", 0)
 
-   +    # Seed the random number generators as early as possible.
-   +    random.seed(random_seed)
-   +    numpy.random.seed(random_seed)
-   +    torch.random.manual_seed(random_seed)
-   +    torch.cuda.manual_seed_all(random_seed)
-   +
         # Setup logging (optional, but much better than using print statements)
         # Uses the `rich` package to make logs pretty.
         logging.basicConfig(
@@ -193,8 +212,8 @@ repository.
             ],
         )
 
-   -    logger = logging.getLogger(__name__)
-   -
+        logger = logging.getLogger(__name__)
+
    -    # Create a model and move it to the GPU.
    +    # Create a model.
         model = resnet18(num_classes=10)
@@ -215,7 +234,7 @@ repository.
    +        model.load_state_dict(checkpoint["model_state"])
    +        optimizer.load_state_dict(checkpoint["optimizer_state"])
    +        random.setstate(checkpoint["random_state"])
-   +        numpy.random.set_state(checkpoint["numpy_random_state"])
+   +        np.random.set_state(checkpoint["numpy_random_state"])
    +        # NOTE: Need to move those tensors to CPU before they can be loaded.
    +        torch.random.set_rng_state(checkpoint["torch_random_state"].cpu())
    +        torch.cuda.random.set_rng_state_all(
@@ -238,14 +257,14 @@ repository.
             batch_size=batch_size,
             num_workers=num_workers,
             shuffle=True,
-   +        # generator=torch.Generator().manual_seed(random_seed),
+   +        # generator=torch.Generator().manual_seed(seed),
         )
         valid_dataloader = DataLoader(
             valid_dataset,
             batch_size=batch_size,
             num_workers=num_workers,
             shuffle=False,
-   +        # generator=torch.Generator().manual_seed(random_seed),
+   +        # generator=torch.Generator().manual_seed(seed),
         )
         _test_dataloader = DataLoader(  # NOTE: Not used in this example.
             test_dataset,
@@ -340,7 +359,7 @@ repository.
    +                    model_state=model.state_dict(),
    +                    optimizer_state=optimizer.state_dict(),
    +                    random_state=random.getstate(),
-   +                    numpy_random_state=numpy.random.get_state(legacy=False),
+   +                    numpy_random_state=np.random.get_state(legacy=False),
    +                    torch_random_state=torch.random.get_rng_state(),
    +                    torch_cuda_random_state=torch.cuda.random.get_rng_state_all(),
    +                    best_acc=best_acc,
@@ -440,6 +459,7 @@ repository.
    +            )
    +        return None
    +
+   +    torch_load_kwargs.setdefault("weights_only", False)
    +    checkpoint_state: dict = torch.load(checkpoint_file, **torch_load_kwargs)
    +
    +    missing_keys = set(checkpoint_state.keys()) - RunState.__required_keys__

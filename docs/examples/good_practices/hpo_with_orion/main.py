@@ -4,11 +4,14 @@ import argparse
 import json
 import logging
 import os
-from pathlib import Path
+import random
 import sys
+from pathlib import Path
 
+import numpy as np
 import rich.logging
 import torch
+from orion.client import report_objective
 from torch import Tensor, nn
 from torch.nn import functional as F
 from torch.utils.data import DataLoader, random_split
@@ -17,22 +20,42 @@ from torchvision.datasets import CIFAR10
 from torchvision.models import resnet18
 from tqdm import tqdm
 
-from orion.client import report_objective
+logger: logging.Logger = None
+
+
+# To make your code as much reproducible as possible, uncomment the following
+# block:
+## === Reproducibility ===
+## Be warned that this can make your code slower. See
+## https://pytorch.org/docs/stable/notes/randomness.html#cublas-and-cudnn-deterministic-operations
+## for more details.
+# torch.use_deterministic_algorithms(True)
+## === Reproducibility (END) ===
 
 
 def main():
+    global logger
+
     # Add an argument parser so that we can pass hyperparameters from command line.
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--epochs", type=int, default=10)
     parser.add_argument("--learning-rate", type=float, default=5e-4)
     parser.add_argument("--weight-decay", type=float, default=1e-4)
     parser.add_argument("--batch-size", type=int, default=128)
+    parser.add_argument("--seed", type=int, default=42)
     args = parser.parse_args()
 
     epochs = args.epochs
     learning_rate = args.learning_rate
     weight_decay = args.weight_decay
     batch_size = args.batch_size
+    seed = args.seed
+
+    # Seed the random number generators as early as possible for reproducibility
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.random.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
 
     # Check that the GPU is available
     assert torch.cuda.is_available() and torch.cuda.device_count() > 0

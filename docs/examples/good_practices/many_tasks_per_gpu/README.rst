@@ -34,8 +34,12 @@ repository.
 
     # distributed/single_gpu/job.sh -> good_practices/many_tasks_per_gpu/job.sh
     #!/bin/bash
-    #SBATCH --gres=gpu:1
-    #SBATCH --cpus-per-task=4
+   -#SBATCH --nodes=1
+   -#SBATCH --ntasks-per-node=1
+   -#SBATCH --cpus-per-task=4
+   -#SBATCH --gpus-per-task=l40s:1
+   +#SBATCH --cpus-per-task=2
+   +#SBATCH --gres=gpu:l40s:1
    +#SBATCH --ntasks-per-gpu=2
     #SBATCH --mem=16G
     #SBATCH --time=00:15:00
@@ -47,9 +51,18 @@ repository.
     echo "Date:     $(date)"
     echo "Hostname: $(hostname)"
 
+    # To make your code as much reproducible as possible with
+    # `torch.use_deterministic_algorithms(True)`, uncomment the following block:
+    ## === Reproducibility ===
+    ## Be warned that this can make your code slower. See
+    ## https://pytorch.org/docs/stable/notes/randomness.html#cublas-and-cudnn-deterministic-operations
+    ## for more details.
+    # export CUBLAS_WORKSPACE_CONFIG=:4096:8
+    ## === Reproducibility (END) ===
+
     # Stage dataset into $SLURM_TMPDIR
     mkdir -p $SLURM_TMPDIR/data
-    cp --update /network/datasets/cifar10/cifar-10-python.tar.gz $SLURM_TMPDIR/data/
+    cp /network/datasets/cifar10/cifar-10-python.tar.gz $SLURM_TMPDIR/data/
     # General-purpose alternatives combining copy and unpack:
     #     unzip   /network/datasets/some/file.zip -d $SLURM_TMPDIR/data/
     #     tar -xf /network/datasets/some/file.tar -C $SLURM_TMPDIR/data/
@@ -58,8 +71,7 @@ repository.
     # Use the `--offline` option of `uv run` on clusters without internet access on compute nodes.
     # Using the `--locked` option can help make your experiments easier to reproduce (it forces
     # your uv.lock file to be up to date with the dependencies declared in pyproject.toml).
-   -uv run python main.py
-   +srun uv run python main.py
+    srun uv run python main.py
 
 
 **main.py**
@@ -73,11 +85,11 @@ repository.
     import argparse
     import logging
     import os
-   +import random
-    from pathlib import Path
+    import random
     import sys
+    from pathlib import Path
 
-   +import numpy
+    import numpy as np
     import rich.logging
     import torch
     from torch import Tensor, nn
@@ -88,19 +100,34 @@ repository.
     from torchvision.models import resnet18
     from tqdm import tqdm
 
+    logger: logging.Logger = None
+
+
+    # To make your code as much reproducible as possible, uncomment the following
+    # block:
+    ## === Reproducibility ===
+    ## Be warned that this can make your code slower. See
+    ## https://pytorch.org/docs/stable/notes/randomness.html#cublas-and-cudnn-deterministic-operations
+    ## for more details.
+    # torch.use_deterministic_algorithms(True)
+    ## === Reproducibility (END) ===
+
 
     def main():
+        global logger
+
         # Use an argument parser so we can pass hyperparameters from the command line.
         parser = argparse.ArgumentParser(description=__doc__)
         parser.add_argument("--epochs", type=int, default=10)
         parser.add_argument("--learning-rate", type=float, default=5e-4)
         parser.add_argument("--weight-decay", type=float, default=1e-4)
         parser.add_argument("--batch-size", type=int, default=128)
+   -    parser.add_argument("--seed", type=int, default=42)
    +    # Get SLURM_PROCID and use it as a random seed for the script.
    +    # This makes it so each task within a job uses a different initialization with the same
    +    # hyper-parameters.
    +    parser.add_argument(
-   +        "--random-seed",
+   +        "--seed",
    +        type=int,
    +        default=int(os.environ.get("SLURM_PROCID", 0)),
    +        help="Random seed used for network initialization and the training loop.",
@@ -111,13 +138,13 @@ repository.
         learning_rate: float = args.learning_rate
         weight_decay: float = args.weight_decay
         batch_size: int = args.batch_size
-   +    random_seed: int = args.random_seed
-   +
-   +    # Seed the random number generators as early as possible.
-   +    random.seed(random_seed)
-   +    numpy.random.seed(random_seed)
-   +    torch.random.manual_seed(random_seed)
-   +    torch.cuda.manual_seed_all(random_seed)
+        seed: int = args.seed
+
+        # Seed the random number generators as early as possible for reproducibility
+        random.seed(seed)
+        np.random.seed(seed)
+        torch.random.manual_seed(seed)
+        torch.cuda.manual_seed_all(seed)
 
         # Check that the GPU is available
         assert torch.cuda.is_available() and torch.cuda.device_count() > 0

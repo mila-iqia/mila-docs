@@ -11,6 +11,7 @@ import logging
 import math
 import os
 from pathlib import Path
+import random
 import sys
 from typing import Any, Sequence
 
@@ -28,6 +29,8 @@ from torchvision.datasets import CIFAR10
 from tqdm import tqdm
 
 from model import ResNet
+
+logger: logging.Logger = None
 
 
 class TrainState(train_state.TrainState):
@@ -63,6 +66,7 @@ def main():
     parser.add_argument("--learning-rate", type=float, default=5e-4)
     parser.add_argument("--weight-decay", type=float, default=1e-4)
     parser.add_argument("--batch-size", type=int, default=128)
+    parser.add_argument("--seed", type=int, default=42)
     args = parser.parse_args()
 
     epochs: int = args.epochs
@@ -70,10 +74,17 @@ def main():
     weight_decay: float = args.weight_decay
     # NOTE: This is the "local" batch size, per-GPU.
     batch_size: int = args.batch_size
+    seed: int = args.seed
 
     # Check that the GPU is available
     assert torch.cuda.is_available() and torch.cuda.device_count() > 0
-    rng = jax.random.PRNGKey(0)
+
+    # Seed the random number generators as early as possible for reproducibility
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.random.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+    rng = jax.random.PRNGKey(seed)
 
     # Setup logging (optional, but much better than using print statements)
     # Uses the `rich` package to make logs pretty.

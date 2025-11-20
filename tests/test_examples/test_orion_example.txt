@@ -1,83 +1,58 @@
-[(date) (time)] INFO     INFO:__main__:Args: {                                                                                                                                                                                                   main.py:61
-                              "epochs": 10,                                                                                                                                                                                                                    
-                              "learning_rate": 0.0009614,                                                                                                                                                                                                      
-                              "weight_decay": 0.0001,                                                                                                                                                                                                          
-                              "batch_size": 128                                                                                                                                                                                                                
-                             }                                                                                                                                                                                                                                 
-Using downloaded and verified file: $SLURM_TMPDIR/data/cifar-10-python.tar.gz
-Extracting $SLURM_TMPDIR/data/cifar-10-python.tar.gz to $SLURM_TMPDIR/data
-Files already downloaded and verified
-[(date) (time)] INFO     INFO:__main__:Epoch 0: Val loss: 56.395 accuracy: 50.04%                                                                                                                                                               main.py:136
-[(date) (time)] INFO     INFO:__main__:Epoch 1: Val loss: 39.939 accuracy: 64.00%                                                                                                                                                               main.py:136
-[(date) (time)] INFO     INFO:__main__:Epoch 2: Val loss: 43.116 accuracy: 61.02%                                                                                                                                                               main.py:136
-[(date) (time)] INFO     INFO:__main__:Epoch 3: Val loss: 41.245 accuracy: 66.02%                                                                                                                                                               main.py:136
-[(date) (time)] INFO     INFO:__main__:Epoch 4: Val loss: 35.337 accuracy: 69.38%                                                                                                                                                               main.py:136
-[(date) (time)] INFO     INFO:__main__:Epoch 5: Val loss: 35.258 accuracy: 70.92%                                                                                                                                                               main.py:136
-[(date) (time)] INFO     INFO:__main__:Epoch 6: Val loss: 33.818 accuracy: 72.62%                                                                                                                                                               main.py:136
-[(date) (time)] INFO     INFO:__main__:Epoch 7: Val loss: 33.997 accuracy: 73.18%                                                                                                                                                               main.py:136
-[(date) (time)] INFO     INFO:__main__:Epoch 8: Val loss: 39.907 accuracy: 70.62%                                                                                                                                                               main.py:136
-[(date) (time)] INFO     INFO:__main__:Epoch 9: Val loss: 42.275 accuracy: 71.44%                                                                                                                                                               main.py:136
+[(date) (time)] INFO     Args: {                                                                          main.py:78
+                              "epochs": 10,                                                                             
+                              "learning_rate": 0.0002119,                                                               
+                              "weight_decay": 0.0001,                                                                   
+                              "batch_size": 128,                                                                        
+                              "seed": 42                                                                                
+                             }                                                                                          
+[(date) (time)] INFO     Epoch 0: Val loss: 52.403 accuracy: 53.78%                                      main.py:156
+[(date) (time)] INFO     Epoch 1: Val loss: 48.992 accuracy: 58.16%                                      main.py:156
+[(date) (time)] INFO     Epoch 2: Val loss: 50.037 accuracy: 57.96%                                      main.py:156
+[(date) (time)] INFO     Epoch 3: Val loss: 43.898 accuracy: 62.28%                                      main.py:156
+[(date) (time)] INFO     Epoch 4: Val loss: 50.276 accuracy: 60.54%                                      main.py:156
+[(date) (time)] INFO     Epoch 5: Val loss: 48.698 accuracy: 62.76%                                      main.py:156
+[(date) (time)] INFO     Epoch 6: Val loss: 51.017 accuracy: 62.90%                                      main.py:156
+[(date) (time)] INFO     Epoch 7: Val loss: 61.026 accuracy: 61.46%                                      main.py:156
+[(date) (time)] INFO     Epoch 8: Val loss: 61.697 accuracy: 62.08%                                      main.py:156
+[(date) (time)] INFO     Epoch 9: Val loss: 61.808 accuracy: 63.60%                                      main.py:156
 Done!
-[(date) (time)] INFO     INFO:__main__:Args: {                                                                                                                                                                                                   main.py:61
-                              "epochs": 10,                                                                                                                                                                                                                    
-                              "learning_rate": 0.01945,                                                                                                                                                                                                        
-                              "weight_decay": 0.0001,                                                                                                                                                                                                          
-                              "batch_size": 128                                                                                                                                                                                                                
-                             }                                                                                                                                                                                                                                 
-Files already downloaded and verified
-Files already downloaded and verified
-[(date) (time)] INFO     INFO:__main__:Epoch 0: Val loss: 61.882 accuracy: 43.92%                                                                                                                                                               main.py:136
-[(date) (time)] INFO     INFO:__main__:Epoch 1: Val loss: 52.464 accuracy: 52.86%                                                                                                                                                               main.py:136
-[(date) (time)] INFO     INFO:__main__:Epoch 2: Val loss: 44.925 accuracy: 59.68%                                                                                                                                                               main.py:136
-[(date) (time)] INFO     INFO:__main__:Epoch 3: Val loss: 48.011 accuracy: 57.98%                                                                                                                                                               main.py:136
-[(date) (time)] INFO     INFO:__main__:Epoch 4: Val loss: 44.668 accuracy: 61.34%                                                                                                                                                               main.py:136
-[(date) (time)] INFO     INFO:__main__:Epoch 5: Val loss: 37.669 accuracy: 67.84%                                                                                                                                                               main.py:136
-[(date) (time)] INFO     INFO:__main__:Epoch 6: Val loss: 49.468 accuracy: 60.66%                                                                                                                                                               main.py:136
-[(date) (time)] INFO     INFO:__main__:Epoch 7: Val loss: 36.664 accuracy: 69.90%                                                                                                                                                               main.py:136
-[(date) (time)] INFO     INFO:__main__:Epoch 8: Val loss: 36.523 accuracy: 70.32%                                                                                                                                                               main.py:136
-[(date) (time)] INFO     INFO:__main__:Epoch 9: Val loss: 39.187 accuracy: 69.94%                                                                                                                                                               main.py:136
+./.venv/lib/python3.12/site-packages/orion/core/utils/__init__.py:18: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+[(date) (time)] INFO     Args: {                                                                          main.py:78
+                              "epochs": 10,                                                                             
+                              "learning_rate": 7.23e-05,                                                                
+                              "weight_decay": 0.0001,                                                                   
+                              "batch_size": 128,                                                                        
+                              "seed": 42                                                                                
+                             }                                                                                          
+[(date) (time)] INFO     Epoch 0: Val loss: 57.279 accuracy: 49.22%                                      main.py:156
+[(date) (time)] INFO     Epoch 1: Val loss: 52.940 accuracy: 53.04%                                      main.py:156
+[(date) (time)] INFO     Epoch 2: Val loss: 52.892 accuracy: 54.58%                                      main.py:156
+[(date) (time)] INFO     Epoch 3: Val loss: 53.529 accuracy: 54.50%                                      main.py:156
+[(date) (time)] INFO     Epoch 4: Val loss: 58.625 accuracy: 54.50%                                      main.py:156
+[(date) (time)] INFO     Epoch 5: Val loss: 64.040 accuracy: 54.44%                                      main.py:156
+[(date) (time)] INFO     Epoch 6: Val loss: 69.511 accuracy: 54.80%                                      main.py:156
+[(date) (time)] INFO     Epoch 7: Val loss: 74.978 accuracy: 54.78%                                      main.py:156
+[(date) (time)] INFO     Epoch 8: Val loss: 81.058 accuracy: 55.04%                                      main.py:156
+[(date) (time)] INFO     Epoch 9: Val loss: 81.471 accuracy: 54.66%                                      main.py:156
 Done!
-[(date) (time)] INFO     INFO:__main__:Args: {                                                                                                                                                                                                   main.py:61
-                              "epochs": 10,                                                                                                                                                                                                                    
-                              "learning_rate": 0.001854,                                                                                                                                                                                                       
-                              "weight_decay": 0.0001,                                                                                                                                                                                                          
-                              "batch_size": 128                                                                                                                                                                                                                
-                             }                                                                                                                                                                                                                                 
-Files already downloaded and verified
-Files already downloaded and verified
-[(date) (time)] INFO     INFO:__main__:Epoch 0: Val loss: 71.891 accuracy: 39.80%                                                                                                                                                               main.py:136
-[(date) (time)] INFO     INFO:__main__:Epoch 1: Val loss: 42.319 accuracy: 62.22%                                                                                                                                                               main.py:136
-[(date) (time)] INFO     INFO:__main__:Epoch 2: Val loss: 41.534 accuracy: 63.50%                                                                                                                                                               main.py:136
-[(date) (time)] INFO     INFO:__main__:Epoch 3: Val loss: 35.034 accuracy: 68.82%                                                                                                                                                               main.py:136
-[(date) (time)] INFO     INFO:__main__:Epoch 4: Val loss: 40.732 accuracy: 65.76%                                                                                                                                                               main.py:136
-[(date) (time)] INFO     INFO:__main__:Epoch 5: Val loss: 36.258 accuracy: 71.42%                                                                                                                                                               main.py:136
-[(date) (time)] INFO     INFO:__main__:Epoch 6: Val loss: 37.599 accuracy: 69.62%                                                                                                                                                               main.py:136
-[(date) (time)] INFO     INFO:__main__:Epoch 7: Val loss: 33.993 accuracy: 72.62%                                                                                                                                                               main.py:136
-[(date) (time)] INFO     INFO:__main__:Epoch 8: Val loss: 45.572 accuracy: 68.40%                                                                                                                                                               main.py:136
-[(date) (time)] INFO     INFO:__main__:Epoch 9: Val loss: 39.671 accuracy: 72.72%                                                                                                                                                               main.py:136
+./.venv/lib/python3.12/site-packages/orion/core/utils/__init__.py:18: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+[(date) (time)] INFO     Args: {                                                                          main.py:78
+                              "epochs": 10,                                                                             
+                              "learning_rate": 0.001441,                                                                
+                              "weight_decay": 0.0001,                                                                   
+                              "batch_size": 128,                                                                        
+                              "seed": 42                                                                                
+                             }                                                                                          
+[(date) (time)] INFO     Epoch 0: Val loss: 60.771 accuracy: 47.58%                                      main.py:156
+[(date) (time)] INFO     Epoch 1: Val loss: 40.484 accuracy: 63.86%                                      main.py:156
+[(date) (time)] INFO     Epoch 2: Val loss: 43.699 accuracy: 63.20%                                      main.py:156
+[(date) (time)] INFO     Epoch 3: Val loss: 41.527 accuracy: 64.80%                                      main.py:156
+[(date) (time)] INFO     Epoch 4: Val loss: 36.393 accuracy: 68.60%                                      main.py:156
+[(date) (time)] INFO     Epoch 5: Val loss: 35.961 accuracy: 70.02%                                      main.py:156
+[(date) (time)] INFO     Epoch 6: Val loss: 43.093 accuracy: 68.08%                                      main.py:156
+[(date) (time)] INFO     Epoch 7: Val loss: 42.599 accuracy: 66.90%                                      main.py:156
+[(date) (time)] INFO     Epoch 8: Val loss: 35.446 accuracy: 73.24%                                      main.py:156
+[(date) (time)] INFO     Epoch 9: Val loss: 39.553 accuracy: 71.56%                                      main.py:156
 Done!
-Search finished successfully
-
-Stats
-=====
-completed: True
-trials completed: 3
-best trial:
-  id: aaa501d452bf588b3b06443386a1518d
-  evaluation: 0.2728000283241272
-  params:
-    /learning-rate: 0.001854
-start time: 2023-08-07 20:30:48.685649
-finish time: 2023-08-07 20:36:53.205726
-elapsed_time: 0:06:04.153296
-
-
-Hints
-=====
-
-Info
-----
-
-To get more information on the experiment, run the command
-
-orion info --name orion-example --version 1

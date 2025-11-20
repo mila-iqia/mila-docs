@@ -23,41 +23,24 @@ jobs:
 
   launch-slurm-actions-runner:
     needs: [generate_files]
-    runs-on: self-hosted
-    strategy:
-      matrix:
-        gpu-type: [ l40s ]
-        nodes: [ 1, 2 ]
-        gpus-per-node: [ 1, 2 ]
-        exclude:
-          - nodes: 2
-            gpus-per-node: 1
+    runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
       - name: Copy job script to the cluster
-        # TODO: there are some assumptions about the GPU type to use in that script.
         run: |
           ssh mila mkdir -p "/tmp/${GITHUB_RUN_ID}"
           scp .github/setup_github_runner.sh mila:"/tmp/${GITHUB_RUN_ID}/setup_github_runner.sh"
 
       - name: Launch Slurm Actions Runner
         run: |
-          ssh mila 'cd "${SCRATCH}" && sbatch --nodes=${{ matrix.nodes }} --gpus-per-task=${{ matrix.gpu-type }}:${{ matrix.gpus-per-node }} --parsable "/tmp/${GITHUB_RUN_ID}/setup_github_runner.sh"'
+          ssh mila 'cd "${SCRATCH}" && sbatch --job-name="gh-actions-runner-${GITHUB_RUN_ID}" --parsable "/tmp/${GITHUB_RUN_ID}/setup_github_runner.sh"'
 
   # This step runs in a self-hosted Github Actions runner inside a SLURM job on a compute node of the cluster.
   slurm_integration_tests:
     name: Run integration tests on the Mila cluster in a SLURM job
     needs: [launch-slurm-actions-runner]
-    strategy:
-      matrix:
-        gpu-type: [ l40s ]
-        nodes: [ 1, 2 ]
-        gpus-per-node: [ 1, 2 ]
-        exclude:
-          - nodes: 2
-            gpus-per-node: 1
-    runs-on: ["self-hosted", "mila-${{ matrix.nodes }}-${{ matrix.gpus-per-node }}"]
+    runs-on: ["self-hosted", "mila-1"]
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
@@ -68,9 +51,15 @@ jobs:
           # https://github.com/astral-sh/setup-uv?tab=readme-ov-file#github-authentication-token
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Install dependencies
-        run: uv sync --all-extras --frozen
+        run: uv sync --all-groups --frozen
       - name: Test with pytest
-        run: uv run pytest -v --gen-missing --cov=project --cov-report=xml --cov-append
+        # TODO: Fix issue where jobs fail if running pytest with -n 4.
+        # FAILED tests/test_examples.py::test_example[frameworks/pytorch_setup-False-] - RuntimeError: Job 8190801 is not completed
+        # $ sacct --job 8190801
+        #      User JobID           JobName  Partition      State  Timelimit               Start                 End    Elapsed   NNodes      NCPUS     ReqMem  AllocTRES        NodeList              WorkDir 
+        # --------- ------------ ---------- ---------- ---------- ---------- ------------------- ------------------- ---------- -------- ---------- ---------- ---------- --------------- -------------------- 
+        #  ortizgas 8190801      minimal_e+       long     FAILED   00:15:00 2025-11-24T18:52:23 2025-11-24T18:52:24   00:00:01        1          1        16G cpu=1,gre+         cn-l020 /tmp/_work/mila-doc+ 
+        run: uv run --all-groups --frozen pytest -v
 
       # TODO: Add code coverage for the examples?
       # - name: Store coverage report as an artifact
