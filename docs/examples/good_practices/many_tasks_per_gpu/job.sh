@@ -1,32 +1,13 @@
 #!/bin/bash
-#SBATCH --gres=gpu:rtx8000:1
+#SBATCH --gres=gpu:1
 #SBATCH --cpus-per-task=4
 #SBATCH --ntasks-per-gpu=2
 #SBATCH --mem=16G
 #SBATCH --time=00:15:00
 
-
-# Echo time and hostname into log
+set -e  # exit on error.
 echo "Date:     $(date)"
 echo "Hostname: $(hostname)"
-
-
-# Ensure only anaconda/3 module loaded.
-module --quiet purge
-# This example uses Conda to manage package dependencies.
-# See https://docs.mila.quebec/Userguide.html#conda for more information.
-module load anaconda/3
-module load cuda/11.7
-
-# Creating the environment for the first time:
-# conda create -y -n pytorch python=3.9 pytorch torchvision torchaudio \
-#     pytorch-cuda=11.7 -c pytorch -c nvidia
-# Other conda packages:
-# conda install -y -n pytorch -c conda-forge rich tqdm
-
-# Activate pre-existing environment.
-conda activate pytorch
-
 
 # Stage dataset into $SLURM_TMPDIR
 mkdir -p $SLURM_TMPDIR/data
@@ -35,11 +16,8 @@ cp /network/datasets/cifar10/cifar-10-python.tar.gz $SLURM_TMPDIR/data/
 #     unzip   /network/datasets/some/file.zip -d $SLURM_TMPDIR/data/
 #     tar -xf /network/datasets/some/file.tar -C $SLURM_TMPDIR/data/
 
-
-# Fixes issues with MIG-ed GPUs with versions of PyTorch < 2.0
-unset CUDA_VISIBLE_DEVICES
-
-# Execute Python script using srun.
-# Because of sbatch's `--ntasks-per-gpu=2` above, Python script will be launch twice.
-# Each run will receive specific environment variables, such as SLURM_PROCID.
-srun python main.py
+# Execute Python script
+# Use the `--offline` option of `uv run` on clusters without internet access on compute nodes.
+# Using the `--locked` option can help make your experiments easier to reproduce (it forces
+# your uv.lock file to be up to date with the dependencies declared in pyproject.toml).
+srun uv run python main.py

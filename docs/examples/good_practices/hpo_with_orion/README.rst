@@ -4,70 +4,69 @@
 
 .. _hpo_with_orion:
 
+
 Hyperparameter Optimization with Oríon
 ======================================
 
-There are frameworks that allow to do hyperparameter optimization, like
-`wandb <https://wandb.ai/>`_,
+There are different frameworks that allow you to do hyperparameter optimization, for example
+`wandb <https://wandb.ai/>`_, `hydra <https://hydra.cc/>`_, `Ray Tune <https://docs.ray.io/en/latest/tune/index.html>`_
 and `Oríon <https://orion.readthedocs.io/en/stable/index.html>`_.
 Here we provide an example for Oríon, the HPO framework developped at Mila.
+
+`Orion <https://orion.readthedocs.io/en/stable/?badge=stable>`_
+is an asynchronous framework for black-box function optimization developped at Mila.
+
+Its purpose is to serve as a meta-optimizer for machine learning models and training,
+as well as a flexible experimentation platform for large scale asynchronous optimization procedures.
 
 **Prerequisites**
 Make sure to read the following sections of the documentation before using this
 example:
 
 * `examples/frameworks/pytorch_setup <https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/frameworks/pytorch_setup>`_
+* `examples/distributed/single_gpu <https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/distributed/single_gpu>`_
 
 The full documentation for Oríon is available `on Oríon's ReadTheDocs page
 <https://orion.readthedocs.io/en/stable/index.html>`_.
-
 
 The full source code for this example is available on `the mila-docs GitHub repository.
 <https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/good_practices/hpo_with_orion>`_
 
 
+Hyperparameter optimization is very easy to parallelize as each trial (unique set of hyperparameters) are
+independant of each other. The easiest way is to launch as many jobs as possible each trying a different
+set of hyperparameters and reporting their results back to a synchronized location (database).
+
+
 **job.sh**
+
+The easiest way to run an hyperparameter search on the cluster is simply to use a job array,
+which will launch the same job n times. Your HPO library will generate different parameters to try
+for each job.
+
+Orion saves all the results of its optimization process in a database,
+by default it is using a local database on a shared filesystem named ``pickleddb``.
+You will need to specify its location and the name of your experiment.
+Optionally you can configure workers which will run in parallel to maximize resource usage.
 
 .. code:: diff
 
     # distributed/single_gpu/job.sh -> good_practices/hpo_with_orion/job.sh
     #!/bin/bash
-   -#SBATCH --gres=gpu:1
-   +#SBATCH --gpus-per-task=rtx8000:1
+    #SBATCH --gres=gpu:1
     #SBATCH --cpus-per-task=4
-   +#SBATCH --ntasks-per-node=1
     #SBATCH --mem=16G
     #SBATCH --time=00:15:00
 
-   -set -e  # exit on error.
-   +
-   +# Echo time and hostname into log
+    set -e  # exit on error.
     echo "Date:     $(date)"
     echo "Hostname: $(hostname)"
 
-   +
-   +# Ensure only anaconda/3 module loaded.
-   +module --quiet purge
-   +# This example uses Conda to manage package dependencies.
-   +# See https://docs.mila.quebec/Userguide.html#conda for more information.
-   +module load anaconda/3
-   +module load cuda/11.7
-   +
-   +# Creating the environment for the first time:
-   +# conda create -y -n pytorch python=3.9 pytorch torchvision torchaudio \
-   +#     pytorch-cuda=11.7 -c pytorch -c nvidia
-   +# Other conda packages:
-   +# conda install -y -n pytorch -c conda-forge rich tqdm
-   +# Orion package:
-   +# pip install orion
-   +
-   +# Activate pre-existing environment.
-   +conda activate pytorch
-   +
-   +
     # Stage dataset into $SLURM_TMPDIR
     mkdir -p $SLURM_TMPDIR/data
     cp /network/datasets/cifar10/cifar-10-python.tar.gz $SLURM_TMPDIR/data/
+   +srun --ntasks=${SLURM_JOB_NUM_NODES:-1} uv run python -c \
+   +    'import os, torchvision.datasets; torchvision.datasets.CIFAR10(root=os.environ["SLURM_TMPDIR"] + "/data", download=True)'
     # General-purpose alternatives combining copy and unpack:
     #     unzip   /network/datasets/some/file.zip -d $SLURM_TMPDIR/data/
     #     tar -xf /network/datasets/some/file.tar -C $SLURM_TMPDIR/data/
@@ -77,10 +76,6 @@ The full source code for this example is available on `the mila-docs GitHub repo
    -# Using the `--locked` option can help make your experiments easier to reproduce (it forces
    -# your uv.lock file to be up to date with the dependencies declared in pyproject.toml).
    -uv run python main.py
-   +
-   +# Fixes issues with MIG-ed GPUs with versions of PyTorch < 2.0
-   +unset CUDA_VISIBLE_DEVICES
-   +
    +# =============
    +# Execute Orion
    +# =============
@@ -93,23 +88,71 @@ The full source code for this example is available on `the mila-docs GitHub repo
    +# Then you can specify a search space for each `main.py`'s script parameter
    +# you want to optimize. Here we optimize only the learning rate.
    +
-   +orion hunt -n orion-example --exp-max-trials 10 python main.py --learning-rate~'loguniform(1e-5, 1.0)'
+   +
+   +# Configure Orion
+   +# ===================
+   +#
+   +#    - use a pickleddb database stored in $SCRATCH
+   +#    - worker dies if idle for more than a minute
+   +#
+   +export ORION_CONFIG=$SLURM_TMPDIR/orion-config.yml
+   +cat > $ORION_CONFIG <<- EOM
+   +    experiment:
+   +        name: orion-example
+   +        algorithms:
+   +            tpe:
+   +                seed: null
+   +                n_initial_points: 5
+   +        max_broken: 10
+   +        max_trials: 10
+   +
+   +    storage:
+   +        database:
+   +            host: $SCRATCH/orion.pkl
+   +            type: pickleddb
+   +EOM
+   +
+   +srun uv run orion hunt --config $ORION_CONFIG python main.py \
+   +    --learning-rate~'loguniform(1e-5, 1.0)'
+
+**pyproject.toml**
+
+This doesn't change much, the only difference is that we add the Orion dependency.
+
+.. code:: toml
+
+   [project]
+   name = "orion-example"
+   version = "0.1.0"
+   description = "Add your description here"
+   readme = "README.md"
+   requires-python = ">=3.11"
+   dependencies = [
+       "numpy>=2.3.1",
+       "orion>=0.2.7",
+       "rich>=14.0.0",
+       "torch>=2.7.1",
+       "torchvision>=0.22.1",
+       "tqdm>=4.67.1",
+   ]
 
 
 **main.py**
+
+Here we only really add the reporting of the objective to Orion at the end of the main function.
 
 .. code:: diff
 
     # distributed/single_gpu/main.py -> good_practices/hpo_with_orion/main.py
    -"""Single-GPU training example."""
-   -
    +"""Hyperparameter optimization using Oríon."""
+
     import argparse
    +import json
     import logging
     import os
     from pathlib import Path
-   -import sys
+    import sys
 
     import rich.logging
     import torch
@@ -148,34 +191,31 @@ The full source code for this example is available on `the mila-docs GitHub repo
         device = torch.device("cuda", 0)
 
         # Setup logging (optional, but much better than using print statements)
-   -    # Uses the `rich` package to make logs pretty.
+        # Uses the `rich` package to make logs pretty.
         logging.basicConfig(
             level=logging.INFO,
-   -        format="%(message)s",
-   -        handlers=[
-   -            rich.logging.RichHandler(
-   -                markup=True,
-   -                console=rich.console.Console(
-   -                    # Allower wider log lines in sbatch output files than on the terminal.
-   -                    width=120 if not sys.stdout.isatty() else None
-   -                ),
-   -            )
-   -        ],
-   +        handlers=[rich.logging.RichHandler(markup=True)],  # Very pretty, uses the `rich` package.
+            format="%(message)s",
+            handlers=[
+                rich.logging.RichHandler(
+                    markup=True,
+                    console=rich.console.Console(
+                        # Allower wider log lines in sbatch output files than on the terminal.
+                        width=120 if not sys.stdout.isatty() else None
+                    ),
+                )
+            ],
         )
 
         logger = logging.getLogger(__name__)
-
    +    logger.info(f"Args: {json.dumps(vars(args), indent=1)}")
-   +
+
         # Create a model and move it to the GPU.
         model = resnet18(num_classes=10)
         model.to(device=device)
 
-   -    optimizer = torch.optim.AdamW(
-   -        model.parameters(), lr=learning_rate, weight_decay=weight_decay
-   -    )
-   +    optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate, weight_decay=weight_decay)
+        optimizer = torch.optim.AdamW(
+            model.parameters(), lr=learning_rate, weight_decay=weight_decay
+        )
 
         # Setup CIFAR10
         num_workers = get_num_workers()
@@ -193,7 +233,7 @@ The full source code for this example is available on `the mila-docs GitHub repo
             num_workers=num_workers,
             shuffle=False,
         )
-        test_dataloader = DataLoader(  # NOTE: Not used in this example.
+        _test_dataloader = DataLoader(  # NOTE: Not used in this example.
             test_dataset,
             batch_size=batch_size,
             num_workers=num_workers,
@@ -202,7 +242,8 @@ The full source code for this example is available on `the mila-docs GitHub repo
 
         # Checkout the "checkpointing and preemption" example for more info!
         logger.debug("Starting training from scratch.")
-
+   -
+   +    val_accuracy = 0.0
         for epoch in range(epochs):
             logger.debug(f"Starting epoch {epoch}/{epochs}")
 
@@ -213,7 +254,7 @@ The full source code for this example is available on `the mila-docs GitHub repo
             progress_bar = tqdm(
                 total=len(train_dataloader),
                 desc=f"Train epoch {epoch}",
-   -            disable=not sys.stdout.isatty(),  # Disable progress bar in non-interactive environments.
+                disable=not sys.stdout.isatty(),  # Disable progress bar in non-interactive environments.
             )
 
             # Training loop
@@ -245,13 +286,13 @@ The full source code for this example is available on `the mila-docs GitHub repo
             progress_bar.close()
 
             val_loss, val_accuracy = validation_loop(model, valid_dataloader, device)
-   -        logger.info(
-   -            f"Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%}"
-   -        )
-   +        logger.info(f"Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%}")
+            logger.info(
+                f"Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%}"
+            )
+   +        val_accuracy = float(val_accuracy)
    +
    +    # We report to Orion the objective that we want to minimize.
-   +    report_objective(1 - val_accuracy.item())
+   +    report_objective(1 - val_accuracy)
 
         print("Done!")
 
@@ -321,39 +362,28 @@ The full source code for this example is available on `the mila-docs GitHub repo
     if __name__ == "__main__":
         main()
 
+
 **Running this example**
 
-This assumes you already created a conda environment named "pytorch" as in
-Pytorch example:
-
-* :ref:`pytorch_setup`
-
-Oríon must be installed inside the "pytorch" environment using following command:
+In the example below we use 10 jobs each with 5 CPU cores and one GPU.
+Each job will run 5 tasks in parallel on the same GPU to maximize its utilization.
+This means there could be 50 sets of hyperparameters being worked on in parallel across 10 GPUs.
 
 .. code-block:: bash
 
-    pip install orion
+    $ sbatch --array=1-10 --ntasks-per-gpu=5 --gpus=1 --cpus-per-task=1 job.sh
 
-Exit the interactive job once the environment has been created and Oríon installed.
-You can then launch the example:
-
-.. code-block:: bash
-
-    $ sbatch job.sh
-
-To get more information about the optimization run, activate "pytorch" environment
-and run ``orion info`` with the experiment name:
+To get more information about the optimization run, use ``orion info`` with the experiment name:
 
 .. code-block:: bash
 
-    $ conda activate pytorch
-    $ orion info -n orion-example
+    $ uv run orion info -n orion-example
 
 You can also generate a plot to visualize the optimization run. For example:
 
 .. code-block:: bash
 
-    $ orion plot regret -n orion-example
+    $ uv run orion plot regret -n orion-example
 
 For more complex and useful plots, see `Oríon documentation
 <https://orion.readthedocs.io/en/stable/auto_examples/plot_4_partial_dependencies.html>`_.

@@ -201,7 +201,7 @@ Click here to see `the source code for this example
             shuffle=False,
             sampler=valid_sampler,
         )
-        test_dataloader = DataLoader(  # NOTE: Not used in this example.
+        _test_dataloader = DataLoader(  # NOTE: Not used in this example.
             test_dataset,
             batch_size=batch_size,
             num_workers=num_workers,

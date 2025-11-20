@@ -1,7 +1,7 @@
 .. _many_tasks_per_gpu:
 
-Launch many tasks on same GPU
-=============================
+Launch many tasks on the same GPU
+=================================
 
 If you want to use a powerful GPU efficiently, you can run many tasks on same GPU
 using a combination of ``sbatch`` arguments. In your ``sbatch`` script:
@@ -38,13 +38,7 @@ repository.
 
 **Running this example**
 
-This assumes you already created a conda environment named "pytorch" as in
-Pytorch example:
-
-* :ref:`pytorch_setup`
-
-Exit the interactive job once the environment has been created and Oríon installed.
-You can then launch the example:
+You can launch this example with sbatch:
 
 .. code-block:: bash
 

@@ -15,6 +15,12 @@ members = [
     "docs/examples/distributed/multi_gpu",
     "docs/examples/distributed/multi_node",
     "docs/examples/advanced/imagenet",
+    "docs/examples/good_practices/checkpointing",
+    "docs/examples/good_practices/hpo_with_orion",
+    "docs/examples/good_practices/launch_many_jobs",
+    "docs/examples/good_practices/many_tasks_per_gpu",
+    "docs/examples/good_practices/slurm_job_arrays",
+    "docs/examples/good_practices/wandb_setup",
 ]
 
 [dependency-groups]

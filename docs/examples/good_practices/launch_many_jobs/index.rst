@@ -3,20 +3,9 @@
 Launch many jobs from same shell script
 =======================================
 
-Sometimes you may want to run the same job with different arguments. For example, you may want to launch an experiment using a few different values for a given parameter.
-
-The naive way to do this would be to create multiple sbatch scripts, each with a different value for that parameter.
-Another might be to use a single sbatch script with multiple lines, each with a different parameter value, and to then uncomment a given line before submitting the job, then commenting and uncommenting a different line before submitting another job, etc.
-
-This example shows a  practical solution to this problem, allowing you to parameterize a job's sbatch script, and pass different values directly from the command-line when submitting the job.
-
-In this example, our job script is a slightly modified version of the Python script from the single-GPU example, with a bit of code added so that it is able to take in values from the command-line.
-The sbatch script uses the ``$@`` bash directive to pass the command-line arguments to the python script. This makes it very easy to submit multiple jobs, each with different values!
-
-The next examples will then build on top of this one to illustrate good practices related to launching lots of jobs for hyper-parameter sweeps:
-
-* Using SLURM Job Arrays for Hyper-Parameter Sweeps (coming soon!)
-* :ref:`Running more effective Hyper-Parameter Sweeps with Orion <hpo_with_orion>`
+Sometimes you may want to run the same job with different arguments.
+For example, you may want to launch an experiment using a few different learning rates.
+This example shows an easy way to do this.
 
 
 **Prerequisites**
@@ -24,35 +13,42 @@ Make sure to read the following sections of the documentation before using this
 example:
 
 * :doc:`/examples/frameworks/pytorch_setup/index`
+* :doc:`/examples/distributed/single_gpu/index`
+
+
+**job.sh**
+
+Compared to the :ref:`single_gpu_job` example, here we use the ``$@`` bash directive
+to pass command-line arguments down to the Python script.
+
+This makes it very easy to submit multiple jobs, each with different values!
 
 The full source code for this example is available on `the mila-docs GitHub
 repository.
 <https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/good_practices/launch_many_jobs>`_
 
-**job.sh**
-
 .. literalinclude:: job.sh.diff
-    :language: diff
-
-
-**main.py**
-
-.. literalinclude:: main.py.diff
     :language: diff
 
 
 **Running this example**
 
-This assumes you already created a conda environment named "pytorch" as in
-Pytorch example:
+You can run this example just like the :ref:`single_gpu_job` example, but you can now
+also pass command-line arguments directly when submitting the job with ``sbatch``!
 
-* :ref:`pytorch_setup`
-
-Exit the interactive job once the environment has been created.
-You can then launch many jobs using same script with various args.
+For example:
 
 .. code-block:: bash
 
     $ sbatch job.sh --learning-rate 0.1
     $ sbatch job.sh --learning-rate 0.5
     $ sbatch job.sh --weight-decay 1e-3
+
+
+Next steps
+^^^^^^^^^^
+
+These next examples build on top of this one and show how to properly launch lots of jobs for hyper-parameter sweeps:
+* :ref:`Using SLURM Job Arrays to launch lots of jobs <slurm_job_arrays>`
+* :ref:`Running more effective Hyper-Parameter Sweeps with Orion <hpo_with_orion>`
+

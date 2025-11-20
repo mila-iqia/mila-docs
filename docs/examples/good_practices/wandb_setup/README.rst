@@ -29,37 +29,15 @@ Click here to see `the source code for this example
 
     # distributed/single_gpu/job.sh -> good_practices/wandb_setup/job.sh
     #!/bin/bash
-   -#SBATCH --gres=gpu:1
-   +#SBATCH --gpus-per-task=rtx8000:1
+    #SBATCH --gres=gpu:1
     #SBATCH --cpus-per-task=4
-   +#SBATCH --ntasks-per-node=1
     #SBATCH --mem=16G
     #SBATCH --time=00:15:00
 
-   -set -e  # exit on error.
-   +
-   +# Echo time and hostname into log
+    set -e  # exit on error.
     echo "Date:     $(date)"
     echo "Hostname: $(hostname)"
 
-   +
-   +# Ensure only anaconda/3 module loaded.
-   +module --quiet purge
-   +# This example uses Conda to manage package dependencies.
-   +# See https://docs.mila.quebec/Userguide.html#conda for more information.
-   +module load anaconda/3
-   +module load cuda/11.7
-   +
-   +# Creating the environment for the first time:
-   +# conda create -y -n pytorch python=3.9 pytorch torchvision torchaudio \
-   +#     pytorch-cuda=11.7 -c pytorch -c nvidia
-   +# Other conda packages:
-   +# conda install -y -n pytorch -c conda-forge rich tqdm wandb
-   +
-   +# Activate pre-existing environment.
-   +conda activate pytorch
-   +
-   +
     # Stage dataset into $SLURM_TMPDIR
     mkdir -p $SLURM_TMPDIR/data
     cp /network/datasets/cifar10/cifar-10-python.tar.gz $SLURM_TMPDIR/data/
@@ -67,16 +45,17 @@ Click here to see `the source code for this example
     #     unzip   /network/datasets/some/file.zip -d $SLURM_TMPDIR/data/
     #     tar -xf /network/datasets/some/file.tar -C $SLURM_TMPDIR/data/
 
-   +
-   +# Fixes issues with MIG-ed GPUs with versions of PyTorch < 2.0
-   +unset CUDA_VISIBLE_DEVICES
+   +## On DRAC or PAICE clusters you can load this module to log to wandb:
+   +# module load httpproxy
+   +## Otherwise you can also do this:
+   +# export WANDB_MODE=offline
    +
     # Execute Python script
-   -# Use the `--offline` option of `uv run` on clusters without internet access on compute nodes.
-   -# Using the `--locked` option can help make your experiments easier to reproduce (it forces
-   -# your uv.lock file to be up to date with the dependencies declared in pyproject.toml).
+    # Use the `--offline` option of `uv run` on clusters without internet access on compute nodes.
+    # Using the `--locked` option can help make your experiments easier to reproduce (it forces
+    # your uv.lock file to be up to date with the dependencies declared in pyproject.toml).
    -uv run python main.py
-   +python main.py
+   +srun uv run python main.py
 
 
 **main.py**
@@ -85,13 +64,13 @@ Click here to see `the source code for this example
 
     # distributed/single_gpu/main.py -> good_practices/wandb_setup/main.py
    -"""Single-GPU training example."""
-   -
    +"""Example job that uses Weights & Biases (wandb.ai)."""
+
     import argparse
     import logging
     import os
     from pathlib import Path
-   -import sys
+    import sys
 
     import rich.logging
     import torch
@@ -106,7 +85,7 @@ Click here to see `the source code for this example
 
 
     def main():
-   -    # Use an argument parser so we can pass hyperparameters from the command line.
+        # Use an argument parser so we can pass hyperparameters from the command line.
         parser = argparse.ArgumentParser(description=__doc__)
         parser.add_argument("--epochs", type=int, default=10)
         parser.add_argument("--learning-rate", type=float, default=5e-4)
@@ -124,36 +103,32 @@ Click here to see `the source code for this example
         device = torch.device("cuda", 0)
 
         # Setup logging (optional, but much better than using print statements)
-   -    # Uses the `rich` package to make logs pretty.
+        # Uses the `rich` package to make logs pretty.
         logging.basicConfig(
             level=logging.INFO,
-   -        format="%(message)s",
-   -        handlers=[
-   -            rich.logging.RichHandler(
-   -                markup=True,
-   -                console=rich.console.Console(
-   -                    # Allower wider log lines in sbatch output files than on the terminal.
-   -                    width=120 if not sys.stdout.isatty() else None
-   -                ),
-   -            )
-   -        ],
-   +        handlers=[rich.logging.RichHandler(markup=True)],  # Very pretty, uses the `rich` package.
+            format="%(message)s",
+            handlers=[
+                rich.logging.RichHandler(
+                    markup=True,
+                    console=rich.console.Console(
+                        # Allower wider log lines in sbatch output files than on the terminal.
+                        width=120 if not sys.stdout.isatty() else None
+                    ),
+                )
+            ],
         )
 
         logger = logging.getLogger(__name__)
 
    +    # To resume experiments with Wandb, we need to have code that can properly
    +    # handle checkpointing (see other minimalist example about "checkpointing").
-   +    # We have to manage the `id` of the experiment that we are running so that
-   +    # it is unique and Wandb knows what previous run came before this one
-   +    # (i.e. what is being resumed). This is handled in the same way that saving
-   +    # model parameters is handled.
+   +    # We have to set the `id` of the experiment.
    +    # This specific example here does not do that.
    +
    +    # Setup Wandb
    +    wandb.init(
    +        # Set the project where this run will be logged
-   +        project="awesome-wandb-example",
+   +        project="wandb-example",
    +        name=os.environ.get("SLURM_JOB_ID"),
    +        resume="allow",  # See https://docs.wandb.ai/guides/runs/resuming
    +        # Track hyperparameters and run metadata
@@ -164,10 +139,9 @@ Click here to see `the source code for this example
         model = resnet18(num_classes=10)
         model.to(device=device)
 
-   -    optimizer = torch.optim.AdamW(
-   -        model.parameters(), lr=learning_rate, weight_decay=weight_decay
-   -    )
-   +    optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate, weight_decay=weight_decay)
+        optimizer = torch.optim.AdamW(
+            model.parameters(), lr=learning_rate, weight_decay=weight_decay
+        )
 
         # Setup CIFAR10
         num_workers = get_num_workers()
@@ -185,14 +159,14 @@ Click here to see `the source code for this example
             num_workers=num_workers,
             shuffle=False,
         )
-        test_dataloader = DataLoader(  # NOTE: Not used in this example.
+        _test_dataloader = DataLoader(  # NOTE: Not used in this example.
             test_dataset,
             batch_size=batch_size,
             num_workers=num_workers,
             shuffle=False,
         )
 
-   -    # Checkout the "checkpointing and preemption" example for more info!
+        # Checkout the "checkpointing and preemption" example for more info!
         logger.debug("Starting training from scratch.")
 
         for epoch in range(epochs):
@@ -205,7 +179,7 @@ Click here to see `the source code for this example
             progress_bar = tqdm(
                 total=len(train_dataloader),
                 desc=f"Train epoch {epoch}",
-   -            disable=not sys.stdout.isatty(),  # Disable progress bar in non-interactive environments.
+                disable=not sys.stdout.isatty(),  # Disable progress bar in non-interactive environments.
             )
 
             # Training loop
@@ -240,11 +214,9 @@ Click here to see `the source code for this example
             progress_bar.close()
 
             val_loss, val_accuracy = validation_loop(model, valid_dataloader, device)
-   -        logger.info(
-   -            f"Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%}"
-   -        )
-   +        logger.info(f"Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%}")
-   +        wandb.log({"val/accuracy": val_accuracy, "val/loss": val_loss})
+            logger.info(
+                f"Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%}"
+            )
 
         print("Done!")
 

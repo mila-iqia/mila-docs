@@ -1,9 +1,11 @@
-"""Single-GPU training example."""
+"""Many tasks per GPU (job packing) example."""
+
 import argparse
 import logging
 import os
 import random
 from pathlib import Path
+import sys
 
 import numpy
 import rich.logging
@@ -52,9 +54,19 @@ def main():
     device = torch.device("cuda", 0)
 
     # Setup logging (optional, but much better than using print statements)
+    # Uses the `rich` package to make logs pretty.
     logging.basicConfig(
         level=logging.INFO,
-        handlers=[rich.logging.RichHandler(markup=True)],  # Very pretty, uses the `rich` package.
+        format="%(message)s",
+        handlers=[
+            rich.logging.RichHandler(
+                markup=True,
+                console=rich.console.Console(
+                    # Allower wider log lines in sbatch output files than on the terminal.
+                    width=120 if not sys.stdout.isatty() else None
+                ),
+            )
+        ],
     )
 
     logger = logging.getLogger(__name__)
@@ -63,7 +75,9 @@ def main():
     model = resnet18(num_classes=10)
     model.to(device=device)
 
-    optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate, weight_decay=weight_decay)
+    optimizer = torch.optim.AdamW(
+        model.parameters(), lr=learning_rate, weight_decay=weight_decay
+    )
 
     # Setup CIFAR10
     num_workers = get_num_workers()
@@ -81,7 +95,7 @@ def main():
         num_workers=num_workers,
         shuffle=False,
     )
-    test_dataloader = DataLoader(  # NOTE: Not used in this example.
+    _test_dataloader = DataLoader(  # NOTE: Not used in this example.
         test_dataset,
         batch_size=batch_size,
         num_workers=num_workers,
@@ -101,6 +115,7 @@ def main():
         progress_bar = tqdm(
             total=len(train_dataloader),
             desc=f"Train epoch {epoch}",
+            disable=not sys.stdout.isatty(),  # Disable progress bar in non-interactive environments.
         )
 
         # Training loop
@@ -132,7 +147,9 @@ def main():
         progress_bar.close()
 
         val_loss, val_accuracy = validation_loop(model, valid_dataloader, device)
-        logger.info(f"Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%}")
+        logger.info(
+            f"Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%}"
+        )
 
     print("Done!")
 
