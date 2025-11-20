@@ -1,0 +1,340 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contributing datasets &mdash; Mila Technical Documentation latest documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=8da7d091" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=c6e86fd7"></script>
+      <script src="_static/doctools.js?v=888ff710"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script src="_static/documentation_options.js?v=c6e86fd7"></script>
+      <script src="_static/documentation_options_fix.js?v=1c8886ec"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Data Transmission using Globus Connect Personal" href="Userguide_data_transfer.html" />
+    <link rel="prev" title="Sharing Data with ACLs" href="Userguide_sharing_data.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/image.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Purpose.html">Purpose of this documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Purpose.html#contributing">Contributing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-tos and Guides</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Userguide_quick_start.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_login.html">Logging in to the cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_running_code.html">Running your code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_portability.html">Portability concerns and solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_containers.html">Using containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_sharing_data.html">Sharing Data with ACLs</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Contributing datasets</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#publicly-share-a-mila-dataset">Publicly share a Mila dataset</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Academic Torrent</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#generate-a-torrent-file-to-be-uploaded-to-academic-torrent">Generate a .torrent file to be uploaded to Academic Torrent</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#download-a-dataset-from-academic-torrent">Download a dataset from Academic Torrent</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Google Drive</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#download-a-dataset-from-mila-s-google-drive-with-gdown">Download a dataset from Mila’s Google Drive with  <code class="docutils literal notranslate"><span class="pre">gdown</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#download-a-dataset-from-mila-s-google-drive-with-rclone">Download a dataset from Mila’s Google Drive with <code class="docutils literal notranslate"><span class="pre">rclone</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#digital-object-identifier-doi">Digital Object Identifier (DOI)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_data_transfer.html">Data Transmission using Globus Connect Personal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_multigpu.html">Advanced SLURM usage and Multiple GPU jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_multinode.html">Multiple Nodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_wandb.html">Weight and Biases (WandB)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_comet.html">Comet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_jupyterhub.html">JupyterHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_singularity.html">Singularity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_faq.html">Frequently asked questions (FAQs)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Systems and services</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Information.html">Computing infrastructure and policies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Extra_compute.html">Computational resources outside of Mila</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Minimal Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="examples/frameworks/index.html">Software Frameworks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/distributed/index.html">Distributed Training</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/good_practices/index.html">Good practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/advanced/index.html">Advanced Examples</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/mila-iqia/ResearchTemplate">🔗 Research Project Template</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">General theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html">What is a computer cluster?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#parts-of-a-computing-cluster">Parts of a computing cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#unix">UNIX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#the-workload-manager">The workload manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#processing-data">Processing data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#software-on-the-cluster">Software on the cluster</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extras</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Acknowledgement.html">Acknowledging Mila</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://datasets.server.mila.quebec/">Mila Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Audio_video.html">Audio and video resources at Mila</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VSCode.html">Visual Studio Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IDT.html">Who, what, where is IDT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cheatsheet.html">Cheat Sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Environmental_impact.html">Environmental Impact</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Mila Technical Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Contributing datasets</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/mila-iqia/mila-docs/blob/master/docs/Userguide_datasets.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="contributing-datasets">
+<h1>Contributing datasets<a class="headerlink" href="#contributing-datasets" title="Link to this heading"></a></h1>
+<p>If a dataset could help the research of others at Mila, <a class="reference external" href="https://forms.gle/vDVwD2rZBmYHENgZA">this form</a> can be filled to request its addition
+to <a class="reference external" href="Information.html#storage">/network/datasets</a>.</p>
+<section id="publicly-share-a-mila-dataset">
+<h2>Publicly share a Mila dataset<a class="headerlink" href="#publicly-share-a-mila-dataset" title="Link to this heading"></a></h2>
+<p>Mila offers two ways to publicly share a Mila dataset:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://academictorrents.com">Academic Torrent</a></p></li>
+<li><p><a class="reference external" href="https://drive.google.com/drive/folders/1peJ6VF9wQ-LeETgcdGxu1e4fo28JbtUt">Google Drive</a></p></li>
+</ul>
+<p>Note that these options are not mutually exclusive and both can be used.</p>
+<section id="id1">
+<h3>Academic Torrent<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<p>Mila hosts/seeds some datasets created by the Mila community through <a class="reference external" href="https://academictorrents.com">Academic
+Torrent</a>. The first step is to create <a class="reference external" href="https://academictorrents.com/upload.php">an
+account and a torrent file</a>.</p>
+<p>Then drop the dataset in <code class="docutils literal notranslate"><span class="pre">/network/scratch/.transit_datasets</span></code> and send the
+Academic Torrent URL to <a class="reference external" href="https://it-support.mila.quebec">Mila’s helpdesk</a>. If
+the dataset does not reside on the Mila cluster, only the Academic Torrent URL
+would be needed to proceed with the initial download. Then you can delete /
+stop sharing your copy.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>Avoid mentioning <em>dataset</em> in the name of the dataset</p></li>
+<li><p>Avoid capital letters, special charaters (including spaces) in files and
+directories names. Spaces can be replaced by hyphens (<code class="docutils literal notranslate"><span class="pre">-</span></code>).</p></li>
+<li><p>Multiple archives can be provided to spread the data (e.g. dataset splits,
+raw data, extra data, …)</p></li>
+</ul>
+</div>
+<section id="generate-a-torrent-file-to-be-uploaded-to-academic-torrent">
+<h4>Generate a .torrent file to be uploaded to Academic Torrent<a class="headerlink" href="#generate-a-torrent-file-to-be-uploaded-to-academic-torrent" title="Link to this heading"></a></h4>
+<p>The command line / Python utility <a class="reference external" href="https://github.com/idlesign/torrentool">torrentool</a> can be used to create a
+<cite>DATASET_NAME.torrent</cite> file:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install torrentool</span>
+python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>torrentool<span class="w"> </span>click
+<span class="c1"># Change Directory to the location of the dataset to be hosted by Mila</span>
+<span class="nb">cd</span><span class="w"> </span>/network/scratch/.transit_datasets
+torrent<span class="w"> </span>create<span class="w"> </span>--tracker<span class="w"> </span>https://academictorrents.com/announce.php<span class="w"> </span>DATASET_NAME
+</pre></div>
+</div>
+<p>The resulting <cite>DATASET_NAME.torrent</cite> can then be used to register a new dataset
+on Academic Torrent.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<ul class="simple">
+<li><p>The creation of a <cite>DATASET_NAME.torrent</cite> file requires the computation of
+checksums for the dataset content which can quickly become CPU-heavy. This
+process should <em>not</em> be executed on a login node</p></li>
+</ul>
+</div>
+</section>
+<section id="download-a-dataset-from-academic-torrent">
+<h4>Download a dataset from Academic Torrent<a class="headerlink" href="#download-a-dataset-from-academic-torrent" title="Link to this heading"></a></h4>
+<p>Academic Torrent provides a <a class="reference external" href="https://github.com/academictorrents/at-python">Python API</a> to easily download a dataset
+from it’s registered list:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install the Python API with:</span>
+<span class="c1"># python3 -m pip install academictorrents</span>
+<span class="kn">import</span> <span class="nn">academictorrents</span> <span class="k">as</span> <span class="nn">at</span>
+<span class="n">mnist_path</span> <span class="o">=</span> <span class="n">at</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;323a0048d87ca79b68f12a6350a57776b6a3b7fb&quot;</span><span class="p">,</span> <span class="n">datastore</span><span class="o">=</span><span class="s2">&quot;~/scratch/.academictorrents-datastore&quot;</span><span class="p">)</span> <span class="c1"># Download the mnist dataset</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Current needs have been evaluated to be for a download speed of about 10
+MB/s. This speed can be higher if more users also seeds the dataset.</p>
+</div>
+</section>
+</section>
+<section id="id3">
+<h3>Google Drive<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<p>Only a member of the staff team can upload to <a class="reference external" href="https://drive.google.com/drive/folders/1peJ6VF9wQ-LeETgcdGxu1e4fo28JbtUt">Mila’s Google Drive</a>
+which requires to first drop the dataset in
+<code class="docutils literal notranslate"><span class="pre">/network/scratch/.transit_datasets</span></code>. Then, contact <a class="reference external" href="https://it-support.mila.quebec">Mila’s helpdesk</a> and provide the following informations:</p>
+<ul class="simple">
+<li><p>directory containing the archived dataset (zip is favored) in
+<code class="docutils literal notranslate"><span class="pre">/network/scratch/.transit_datasets</span></code></p></li>
+<li><p>the name of the dataset</p></li>
+<li><p>a licence in <code class="docutils literal notranslate"><span class="pre">.txt</span></code> format. One of the <a class="reference external" href="https://creativecommons.org/about/cclicenses/">the creative common</a> licenses can be used. It is
+recommended to at least have the <em>Attribution</em> option. The <em>No Derivatives</em>
+option is discouraged unless the dataset should not be modified by others.</p></li>
+<li><p>MD5 checksum of the archive</p></li>
+<li><p>the arXiv and GitHub URLs (those can be sent later if the article is still in
+the submission process)</p></li>
+<li><p>instructions to know if the dataset needs to be <code class="docutils literal notranslate"><span class="pre">unzip</span></code>ed, <code class="docutils literal notranslate"><span class="pre">untar</span></code>ed or
+else before uploading to Google Drive</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>Avoid mentioning <em>dataset</em> in the name of the dataset</p></li>
+<li><p>Avoid capital letters, special charaters (including spaces) in files and
+directories names. Spaces can be replaced by hyphens (<code class="docutils literal notranslate"><span class="pre">-</span></code>).</p></li>
+<li><p>Multiple archives can be provided to spread the data (e.g. dataset splits,
+raw data, extra data, …)</p></li>
+</ul>
+</div>
+<section id="download-a-dataset-from-mila-s-google-drive-with-gdown">
+<h4>Download a dataset from Mila’s Google Drive with  <code class="docutils literal notranslate"><span class="pre">gdown</span></code><a class="headerlink" href="#download-a-dataset-from-mila-s-google-drive-with-gdown" title="Link to this heading"></a></h4>
+<p>The utility <a class="reference external" href="https://github.com/wkentaro/gdown">gdown</a> is a simple utility to
+download data from Google Drive from the command line shell or in a Python
+script and requires no setup.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>A limitation however is that it uses a shared client id which can cause a
+quota block when too many users uses it in the same day. It is described in
+a <a class="reference external" href="https://github.com/wkentaro/gdown/issues/43#issuecomment-642182100">GitHub issue</a>.</p>
+</div>
+</section>
+<section id="download-a-dataset-from-mila-s-google-drive-with-rclone">
+<h4>Download a dataset from Mila’s Google Drive with <code class="docutils literal notranslate"><span class="pre">rclone</span></code><a class="headerlink" href="#download-a-dataset-from-mila-s-google-drive-with-rclone" title="Link to this heading"></a></h4>
+<p><a class="reference external" href="https://rclone.org/">Rclone</a> is a command line program to manage files on
+cloud storage. In the context of a Google Drive remote, it allows to specify a
+client id to avoid sharing with other users which avoid quota limits. Rclone
+describes the creation of a <a class="reference external" href="https://rclone.org/drive/#making-your-own-client-id">client id in its documentaton</a>. Once this is done, a
+remote for Mila’s Google Drive can be configured from the command line:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>rclone<span class="w"> </span>config<span class="w"> </span>create<span class="w"> </span>mila-gdrive<span class="w"> </span>drive<span class="w"> </span>client_id<span class="w"> </span>XXXXXXXXXXXX-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.apps.googleusercontent.com<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>client_secret<span class="w"> </span>XXXXXXXXXXXXX-XXXXXXXXXX<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>scope<span class="w"> </span><span class="s1">&#39;drive.readonly&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>root_folder_id<span class="w"> </span>1peJ6VF9wQ-LeETgcdGxu1e4fo28JbtUt<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>config_is_local<span class="w"> </span><span class="nb">false</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>config_refresh_token<span class="w"> </span><span class="nb">false</span>
+</pre></div>
+</div>
+<p>The remote can then be used to download a dataset:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>rclone<span class="w"> </span>copy<span class="w"> </span>--progress<span class="w"> </span>mila-gdrive:DATASET_NAME/<span class="w"> </span>~/scratch/datasets/DATASET_NAME/
+</pre></div>
+</div>
+<p>Rclone is available from the <a class="reference external" href="https://anaconda.org/conda-forge/rclone">conda channel conda-forge</a>.</p>
+</section>
+</section>
+<section id="digital-object-identifier-doi">
+<h3>Digital Object Identifier (DOI)<a class="headerlink" href="#digital-object-identifier-doi" title="Link to this heading"></a></h3>
+<p>It is recommended to get a DOI to reference the dataset. A DOI is a permanent
+id/URL which prevents losing references of online scientific data.
+<a class="reference external" href="https://figshare.com">https://figshare.com</a> can be used to create a DOI:</p>
+<ul class="simple">
+<li><p>Go in <cite>My Data</cite></p></li>
+<li><p>Create an item by clicking <cite>Create new item</cite></p></li>
+<li><p>Check <cite>Metadata record only</cite> at the top</p></li>
+<li><p>Fill the metadata fields</p></li>
+</ul>
+<p>Then reference the dataset using <a class="reference external" href="https://doi.org">https://doi.org</a> like this:
+<a class="reference external" href="https://doi.org/10.6084/m9.figshare.2066037">https://doi.org/10.6084/m9.figshare.2066037</a></p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Userguide_sharing_data.html" class="btn btn-neutral float-left" title="Sharing Data with ACLs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Userguide_data_transfer.html" class="btn btn-neutral float-right" title="Data Transmission using Globus Connect Personal" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+<script type="text/javascript">
+  window.onload = function() {
+      $(".toggle > *").hide();
+      $(".toggle .header").show();
+      $(".toggle .header").click(function() {
+          $(this).parent().children().not(".header").toggle(400);
+          $(this).parent().children(".header").toggleClass("open");
+      })
+  };
+</script>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

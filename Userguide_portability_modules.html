@@ -1,0 +1,269 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The module command &mdash; Mila Technical Documentation latest documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=8da7d091" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=c6e86fd7"></script>
+      <script src="_static/doctools.js?v=888ff710"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script src="_static/documentation_options.js?v=c6e86fd7"></script>
+      <script src="_static/documentation_options_fix.js?v=1c8886ec"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/image.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Purpose.html">Purpose of this documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Purpose.html#contributing">Contributing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-tos and Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_quick_start.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_login.html">Logging in to the cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_running_code.html">Running your code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_portability.html">Portability concerns and solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_containers.html">Using containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_sharing_data.html">Sharing Data with ACLs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_datasets.html">Contributing datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_data_transfer.html">Data Transmission using Globus Connect Personal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_multigpu.html">Advanced SLURM usage and Multiple GPU jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_multinode.html">Multiple Nodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_wandb.html">Weight and Biases (WandB)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_comet.html">Comet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_jupyterhub.html">JupyterHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_singularity.html">Singularity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_faq.html">Frequently asked questions (FAQs)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Systems and services</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Information.html">Computing infrastructure and policies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Extra_compute.html">Computational resources outside of Mila</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Minimal Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="examples/frameworks/index.html">Software Frameworks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/distributed/index.html">Distributed Training</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/good_practices/index.html">Good practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/advanced/index.html">Advanced Examples</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/mila-iqia/ResearchTemplate">🔗 Research Project Template</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">General theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html">What is a computer cluster?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#parts-of-a-computing-cluster">Parts of a computing cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#unix">UNIX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#the-workload-manager">The workload manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#processing-data">Processing data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#software-on-the-cluster">Software on the cluster</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extras</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Acknowledgement.html">Acknowledging Mila</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://datasets.server.mila.quebec/">Mila Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Audio_video.html">Audio and video resources at Mila</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VSCode.html">Visual Studio Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IDT.html">Who, what, where is IDT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cheatsheet.html">Cheat Sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Environmental_impact.html">Environmental Impact</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Mila Technical Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">The module command</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/mila-iqia/mila-docs/blob/master/docs/Userguide_portability_modules.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="the-module-command">
+<h1>The module command<a class="headerlink" href="#the-module-command" title="Link to this heading"></a></h1>
+<p>For a list of available modules, simply use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
+span.prompt1:before {
+  content: "$ ";
+}
+span.prompt2:before {
+  content: " ";
+}
+</style><span class="prompt1">module<span class="w"> </span>avail</span>
+<span class="prompt2">--------------------------------------------------------------------------------------------------------------<span class="w"> </span>Global<span class="w"> </span>Aliases<span class="w"> </span>---------------------------------------------------------------------------------------------------------------</span>
+<span class="prompt2"><span class="w">  </span>cuda/10.0<span class="w"> </span>-&gt;<span class="w"> </span>cudatoolkit/10.0<span class="w">    </span>cuda/9.2<span class="w">      </span>-&gt;<span class="w"> </span>cudatoolkit/9.2<span class="w">                                 </span>pytorch/1.4.1<span class="w">       </span>-&gt;<span class="w"> </span>python/3.7/cuda/10.2/cudnn/7.6/pytorch/1.4.1<span class="w">    </span>tensorflow/1.15<span class="w"> </span>-&gt;<span class="w"> </span>python/3.7/tensorflow/1.15</span>
+<span class="prompt2"><span class="w">  </span>cuda/10.1<span class="w"> </span>-&gt;<span class="w"> </span>cudatoolkit/10.1<span class="w">    </span>mujoco-py<span class="w">     </span>-&gt;<span class="w"> </span>python/3.7/mujoco-py/2.0<span class="w">                        </span>pytorch/1.5.0<span class="w">       </span>-&gt;<span class="w"> </span>python/3.7/cuda/10.2/cudnn/7.6/pytorch/1.5.0<span class="w">    </span>tensorflow/2.2<span class="w">  </span>-&gt;<span class="w"> </span>python/3.7/tensorflow/2.2</span>
+<span class="prompt2"><span class="w">  </span>cuda/10.2<span class="w"> </span>-&gt;<span class="w"> </span>cudatoolkit/10.2<span class="w">    </span>mujoco-py/2.0<span class="w"> </span>-&gt;<span class="w"> </span>python/3.7/mujoco-py/2.0<span class="w">                        </span>pytorch/1.5.1<span class="w">       </span>-&gt;<span class="w"> </span>python/3.7/cuda/10.2/cudnn/7.6/pytorch/1.5.1</span>
+<span class="prompt2"><span class="w">  </span>cuda/11.0<span class="w"> </span>-&gt;<span class="w"> </span>cudatoolkit/11.0<span class="w">    </span>pytorch<span class="w">       </span>-&gt;<span class="w"> </span>python/3.7/cuda/10.2/cudnn/7.6/pytorch/1.5.1<span class="w">    </span>tensorflow<span class="w">          </span>-&gt;<span class="w"> </span>python/3.7/tensorflow/2.2</span>
+<span class="prompt2"><span class="w">  </span>cuda/9.0<span class="w">  </span>-&gt;<span class="w"> </span>cudatoolkit/9.0<span class="w">     </span>pytorch/1.4.0<span class="w"> </span>-&gt;<span class="w"> </span>python/3.7/cuda/10.2/cudnn/7.6/pytorch/1.4.0<span class="w">    </span>tensorflow-cpu/1.15<span class="w"> </span>-&gt;<span class="w"> </span>python/3.7/tensorflow/1.15</span>
+<span class="prompt2"></span>
+<span class="prompt2">--------------------------------------------------------------------------------------------------<span class="w"> </span>/cvmfs/config.mila.quebec/modules/Core<span class="w"> </span>---------------------------------------------------------------------------------------------------</span>
+<span class="prompt2"><span class="w">  </span>Mila<span class="w">       </span><span class="o">(</span>S,L<span class="o">)</span><span class="w">    </span>anaconda/3<span class="w"> </span><span class="o">(</span>D<span class="o">)</span><span class="w">    </span>go/1.13.5<span class="w">        </span>miniconda/2<span class="w">        </span>mujoco/1.50<span class="w">        </span>python/2.7<span class="w">    </span>python/3.6<span class="w">        </span>python/3.8<span class="w">           </span>singularity/3.0.3<span class="w">    </span>singularity/3.2.1<span class="w">    </span>singularity/3.5.3<span class="w"> </span><span class="o">(</span>D<span class="o">)</span></span>
+<span class="prompt2"><span class="w">  </span>anaconda/2<span class="w">          </span>go/1.12.4<span class="w">         </span>go/1.14<span class="w">   </span><span class="o">(</span>D<span class="o">)</span><span class="w">    </span>miniconda/3<span class="w"> </span><span class="o">(</span>D<span class="o">)</span><span class="w">    </span>mujoco/2.0<span class="w">  </span><span class="o">(</span>D<span class="o">)</span><span class="w">    </span>python/3.5<span class="w">    </span>python/3.7<span class="w"> </span><span class="o">(</span>D<span class="o">)</span><span class="w">    </span>singularity/2.6.1<span class="w">    </span>singularity/3.1.1<span class="w">    </span>singularity/3.4.2</span>
+<span class="prompt2"></span>
+<span class="prompt2">------------------------------------------------------------------------------------------------<span class="w"> </span>/cvmfs/config.mila.quebec/modules/Compiler<span class="w"> </span>-------------------------------------------------------------------------------------------------</span>
+<span class="prompt2"><span class="w">  </span>python/3.7/mujoco-py/2.0</span>
+<span class="prompt2"></span>
+<span class="prompt2">--------------------------------------------------------------------------------------------------<span class="w"> </span>/cvmfs/config.mila.quebec/modules/Cuda<span class="w"> </span>---------------------------------------------------------------------------------------------------</span>
+<span class="prompt2"><span class="w">  </span>cuda/10.0/cudnn/7.3<span class="w">        </span>cuda/10.0/nccl/2.4<span class="w">         </span>cuda/10.1/nccl/2.4<span class="w">     </span>cuda/11.0/nccl/2.7<span class="w">        </span>cuda/9.0/nccl/2.4<span class="w">     </span>cudatoolkit/9.0<span class="w">     </span>cudatoolkit/10.1<span class="w">        </span>cudnn/7.6/cuda/10.0/tensorrt/7.0</span>
+<span class="prompt2"><span class="w">  </span>cuda/10.0/cudnn/7.5<span class="w">        </span>cuda/10.1/cudnn/7.5<span class="w">        </span>cuda/10.2/cudnn/7.6<span class="w">    </span>cuda/9.0/cudnn/7.3<span class="w">        </span>cuda/9.2/cudnn/7.6<span class="w">    </span>cudatoolkit/9.2<span class="w">     </span>cudatoolkit/10.2<span class="w">        </span>cudnn/7.6/cuda/10.1/tensorrt/7.0</span>
+<span class="prompt2"><span class="w">  </span>cuda/10.0/cudnn/7.6<span class="w"> </span><span class="o">(</span>D<span class="o">)</span><span class="w">    </span>cuda/10.1/cudnn/7.6<span class="w"> </span><span class="o">(</span>D<span class="o">)</span><span class="w">    </span>cuda/10.2/nccl/2.7<span class="w">     </span>cuda/9.0/cudnn/7.5<span class="w"> </span><span class="o">(</span>D<span class="o">)</span><span class="w">    </span>cuda/9.2/nccl/2.4<span class="w">     </span>cudatoolkit/10.0<span class="w">    </span>cudatoolkit/11.0<span class="w"> </span><span class="o">(</span>D<span class="o">)</span><span class="w">    </span>cudnn/7.6/cuda/9.0/tensorrt/7.0</span>
+<span class="prompt2"></span>
+<span class="prompt2">------------------------------------------------------------------------------------------------<span class="w"> </span>/cvmfs/config.mila.quebec/modules/Pytorch<span class="w"> </span>--------------------------------------------------------------------------------------------------</span>
+<span class="prompt2"><span class="w">  </span>python/3.7/cuda/10.1/cudnn/7.6/pytorch/1.4.1<span class="w">    </span>python/3.7/cuda/10.1/cudnn/7.6/pytorch/1.5.1<span class="w"> </span><span class="o">(</span>D<span class="o">)</span><span class="w">    </span>python/3.7/cuda/10.2/cudnn/7.6/pytorch/1.5.0</span>
+<span class="prompt2"><span class="w">  </span>python/3.7/cuda/10.1/cudnn/7.6/pytorch/1.5.0<span class="w">    </span>python/3.7/cuda/10.2/cudnn/7.6/pytorch/1.4.1<span class="w">        </span>python/3.7/cuda/10.2/cudnn/7.6/pytorch/1.5.1<span class="w"> </span><span class="o">(</span>D<span class="o">)</span></span>
+<span class="prompt2"></span>
+<span class="prompt2">-----------------------------------------------------------------------------------------------<span class="w"> </span>/cvmfs/config.mila.quebec/modules/Tensorflow<span class="w"> </span>------------------------------------------------------------------------------------------------</span>
+<span class="prompt2"><span class="w">  </span>python/3.7/tensorflow/1.15<span class="w">    </span>python/3.7/tensorflow/2.0<span class="w">    </span>python/3.7/tensorflow/2.2<span class="w"> </span><span class="o">(</span>D<span class="o">)</span></span>
+</pre></div></div><p>Modules can be loaded using the <code class="docutils literal notranslate"><span class="pre">load</span></code> command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">module<span class="w"> </span>load<span class="w"> </span>&lt;module&gt;</span>
+</pre></div></div><p>To search for a module or a software, use the command <code class="docutils literal notranslate"><span class="pre">spider</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">module<span class="w"> </span>spider<span class="w"> </span>search_term</span>
+</pre></div></div><p>E.g.: by default, <code class="docutils literal notranslate"><span class="pre">python2</span></code> will refer to the os-shipped installation of <code class="docutils literal notranslate"><span class="pre">python2.7</span></code> and <code class="docutils literal notranslate"><span class="pre">python3</span></code> to <code class="docutils literal notranslate"><span class="pre">python3.6</span></code>.
+If you want to use <code class="docutils literal notranslate"><span class="pre">python3.7</span></code> you can type:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">module<span class="w"> </span>load<span class="w"> </span>python3.7</span>
+</pre></div></div></section>
+<section id="available-software">
+<h1>Available Software<a class="headerlink" href="#available-software" title="Link to this heading"></a></h1>
+<p>Modules are divided in 5 main sections:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Section</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Core</p></td>
+<td><p>Base interpreter and software (Python, go, etc…)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Compiler</p></td>
+<td><p>Interpreter-dependent software (<em>see the note below</em>)</p></td>
+</tr>
+<tr class="row-even"><td><p>Cuda</p></td>
+<td><p>Toolkits, cudnn and related libraries</p></td>
+</tr>
+<tr class="row-odd"><td><p>Pytorch/Tensorflow</p></td>
+<td><p>Pytorch/TF built with a specific Cuda/Cudnn
+version for Mila’s GPUs (<em>see the related paragraph</em>)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Modules which are nested (../../..) usually depend on other software/module
+loaded alongside the main module.  No need to load the dependent software,
+the complex naming scheme allows an automatic detection of the dependent
+module(s):</p>
+<p>i.e.: Loading <code class="docutils literal notranslate"><span class="pre">cudnn/7.6/cuda/9.0/tensorrt/7.0</span></code> will load <code class="docutils literal notranslate"><span class="pre">cudnn/7.6</span></code> and
+<code class="docutils literal notranslate"><span class="pre">cuda/9.0</span></code> alongside</p>
+<p><code class="docutils literal notranslate"><span class="pre">python/3.X</span></code> is a particular dependency which can be served through
+<code class="docutils literal notranslate"><span class="pre">python/3.X</span></code> or <code class="docutils literal notranslate"><span class="pre">anaconda/3</span></code> and is not automatically loaded to let the
+user pick his favorite flavor.</p>
+</div>
+</section>
+<section id="default-package-location">
+<h1>Default package location<a class="headerlink" href="#default-package-location" title="Link to this heading"></a></h1>
+<p>Python by default uses the user site package first and packages provided by
+<code class="docutils literal notranslate"><span class="pre">module</span></code> last to not interfere with your installation.  If you want to skip
+packages installed in your site-packages folder (in your /home directory), you
+have to start Python with the <code class="docutils literal notranslate"><span class="pre">-s</span></code> flag.</p>
+<p>To check which package is loaded at import, you can print <code class="docutils literal notranslate"><span class="pre">package.__file__</span></code>
+to get the full path of the package.</p>
+<p><em>Example:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">module<span class="w"> </span>load<span class="w"> </span>pytorch/1.5.0</span>
+<span class="prompt1">python<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;import torch;print(torch.__file__)&#39;</span></span>
+<span class="prompt2">home/mila/my_home/.local/lib/python3.7/site-packages/torch/__init__.py<span class="w">   </span>&lt;<span class="o">==</span><span class="w"> </span>package<span class="w"> </span>from<span class="w"> </span>your<span class="w"> </span>own<span class="w"> </span>site-package</span>
+</pre></div></div><p>Now with the <code class="docutils literal notranslate"><span class="pre">-s</span></code> flag:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">module<span class="w"> </span>load<span class="w"> </span>pytorch/1.5.0</span>
+<span class="prompt1">python<span class="w"> </span>-s<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;import torch;print(torch.__file__)&#39;</span></span>
+<span class="prompt2">cvmfs/ai.mila.quebec/apps/x86_64/debian/pytorch/python3.7-cuda10.1-cudnn7.6-v1.5.0/lib/python3.7/site-packages/torch/__init__.py<span class="err">&#39;</span></span>
+</pre></div></div></section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+<script type="text/javascript">
+  window.onload = function() {
+      $(".toggle > *").hide();
+      $(".toggle .header").show();
+      $(".toggle .header").click(function() {
+          $(this).parent().children().not(".header").toggle(400);
+          $(this).parent().children(".header").toggleClass("open");
+      })
+  };
+</script>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

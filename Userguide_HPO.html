@@ -1,0 +1,328 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hyperparameter Optimization &mdash; Mila Technical Documentation latest documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=8da7d091" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=c6e86fd7"></script>
+      <script src="_static/doctools.js?v=888ff710"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script src="_static/documentation_options.js?v=c6e86fd7"></script>
+      <script src="_static/documentation_options_fix.js?v=1c8886ec"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/image.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Purpose.html">Purpose of this documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Purpose.html#contributing">Contributing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-tos and Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_quick_start.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_login.html">Logging in to the cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_running_code.html">Running your code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_portability.html">Portability concerns and solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_containers.html">Using containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_sharing_data.html">Sharing Data with ACLs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_datasets.html">Contributing datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_data_transfer.html">Data Transmission using Globus Connect Personal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_multigpu.html">Advanced SLURM usage and Multiple GPU jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_multinode.html">Multiple Nodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_wandb.html">Weight and Biases (WandB)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_comet.html">Comet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_jupyterhub.html">JupyterHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_singularity.html">Singularity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_faq.html">Frequently asked questions (FAQs)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Systems and services</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Information.html">Computing infrastructure and policies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Extra_compute.html">Computational resources outside of Mila</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Minimal Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="examples/frameworks/index.html">Software Frameworks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/distributed/index.html">Distributed Training</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/good_practices/index.html">Good practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/advanced/index.html">Advanced Examples</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/mila-iqia/ResearchTemplate">🔗 Research Project Template</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">General theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html">What is a computer cluster?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#parts-of-a-computing-cluster">Parts of a computing cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#unix">UNIX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#the-workload-manager">The workload manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#processing-data">Processing data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#software-on-the-cluster">Software on the cluster</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extras</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Acknowledgement.html">Acknowledging Mila</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://datasets.server.mila.quebec/">Mila Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Audio_video.html">Audio and video resources at Mila</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VSCode.html">Visual Studio Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IDT.html">Who, what, where is IDT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cheatsheet.html">Cheat Sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Environmental_impact.html">Environmental Impact</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Mila Technical Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Hyperparameter Optimization</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/mila-iqia/mila-docs/blob/master/docs/Userguide_HPO.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="hyperparameter-optimization">
+<h1>Hyperparameter Optimization<a class="headerlink" href="#hyperparameter-optimization" title="Link to this heading"></a></h1>
+<p>Hyperparameter optimization is very easy to parallelize as each trial (unique set of hyperparameters) are
+independant of each other. The easiest way is to launch as many jobs as possible each trying a different
+set of hyperparameters and reporting their results back to a synchronized location (database).</p>
+<p>You will need to estimate how much resources your training requires and update the provided example to fit.
+In the example below we use 100 tasks with each 4 CPU cores and one GPU.
+Each task will run 4 trainings in parallel on the same GPU to maximize its utilization.</p>
+<p>This means there could be 400 set of hyperparameters being worked on in parallel across 100 GPUs.</p>
+<p>The easiest way to run an hyperparameter search on the cluster is simply to use a job array,
+which will launch the same job n times. Your HPO library will generate different parameters to try
+for each instances.</p>
+<section id="configure-orion">
+<h2>Configure Orion<a class="headerlink" href="#configure-orion" title="Link to this heading"></a></h2>
+<p><a class="reference external" href="https://orion.readthedocs.io/en/stable/?badge=stable">Orion</a>
+is an asynchronous framework for black-box function optimization developped at Mila.</p>
+<p>Its purpose is to serve as a meta-optimizer for machine learning models and training,
+as well as a flexible experimentation platform for large scale asynchronous optimization procedures.</p>
+<p>Orion saves all the results of its optimization process in a database,
+by default it is using a local database on a shared filesystem named <code class="docutils literal notranslate"><span class="pre">pickleddb</span></code>.
+You will need to specify its location and the name of your experiment.
+Optionally you can configure workers which will run in parallel to maximize resource usage.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>&gt;<span class="w"> </span><span class="nv">$ORION_CONFIG</span><span class="w"> </span><span class="s">&lt;&lt;- EOM</span>
+<span class="s">    experiment:</span>
+<span class="s">        name: ${EXPERIMENT_NAME}</span>
+<span class="s">        algorithms:</span>
+<span class="s">            hyperband:</span>
+<span class="s">                seed: null</span>
+<span class="s">        max_broken: 10</span>
+
+<span class="s">    worker:</span>
+<span class="s">        n_workers: $SBATCH_CPUS_PER_GPU</span>
+<span class="s">        pool_size: 0</span>
+<span class="s">        executor: joblib</span>
+<span class="s">        heartbeat: 120</span>
+<span class="s">        max_broken: 10</span>
+<span class="s">        idle_timeout: 60</span>
+
+<span class="s">    database:</span>
+<span class="s">        host: $SCRATCH/${EXPERIMENT_NAME}_orion.pkl</span>
+<span class="s">        type: pickleddb</span>
+<span class="s">EOM</span>
+</pre></div>
+</div>
+</section>
+<section id="define-the-search-space">
+<h2>Define the search space<a class="headerlink" href="#define-the-search-space" title="Link to this heading"></a></h2>
+<p>We now need to define a search space that Orion will go through.
+The search space is going to be dependent on your model, optimizer and others.
+You find below an example of a common set of hyperparameters.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define your hyperparameter search space</span>
+cat<span class="w"> </span>&gt;<span class="w"> </span><span class="nv">$SPACE_CONFIG</span><span class="w"> </span><span class="s">&lt;&lt;- EOM</span>
+<span class="s">   {</span>
+<span class="s">      &quot;epochs&quot;: &quot;orion~fidelity(1, 100, base=2)&quot;,</span>
+<span class="s">      &quot;lr&quot;: &quot;orion~loguniform(1e-5, 1.0)&quot;,</span>
+<span class="s">      &quot;weight_decay&quot;: &quot;orion~loguniform(1e-10, 1e-3)&quot;,</span>
+<span class="s">      &quot;momentum&quot;: &quot;orion~loguniform(0.9, 1.0)&quot;</span>
+<span class="s">   }</span>
+<span class="s">EOM</span>
+</pre></div>
+</div>
+</section>
+<section id="run-orion-hunt">
+<h2>Run Orion hunt<a class="headerlink" href="#run-orion-hunt" title="Link to this heading"></a></h2>
+<p>Now that Orion is configured and has a search space we can execute orion-hunt
+which will start training with a different set of hyperparameters for each worker.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>orion<span class="w"> </span>hunt<span class="w"> </span>--config<span class="w"> </span><span class="nv">$ORION_CONFIG</span><span class="w"> </span>python<span class="w"> </span>train.py<span class="w"> </span>--config<span class="w"> </span><span class="nv">$SPACE_CONFIG</span><span class="w"> </span>--arg1<span class="w"> </span>value1
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Do not forget to move orion database out of <code class="docutils literal notranslate"><span class="pre">scratch</span></code> once the experiment is done.</p>
+</div>
+</section>
+<section id="full-example">
+<h2>Full Example<a class="headerlink" href="#full-example" title="Link to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sbatch<span class="w"> </span>--array<span class="o">=</span><span class="m">1</span>-100<span class="w"> </span>--gres<span class="o">=</span>gpu:1<span class="w"> </span>--cpus-per-gpu<span class="o">=</span><span class="m">2</span><span class="w"> </span>--mem-per-gpu<span class="o">=</span>16G<span class="w"> </span>hpo_launcher.sh<span class="w"> </span>train.py
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="ch">#!/bin/bash</span>
+<span class="linenos"> 2</span><span class="nb">set</span><span class="w"> </span>-v
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="c1"># Usage:</span>
+<span class="linenos"> 5</span><span class="c1">#</span>
+<span class="linenos"> 6</span><span class="c1">#   sbatch --array=1-100 --gres=gpu:1 --cpus-per-gpu=2 --mem-per-gpu=16G scripts/hpo_launcher.sh train.py</span>
+<span class="linenos"> 7</span><span class="c1">#</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span><span class="c1"># Slurm configuration</span>
+<span class="linenos">10</span><span class="c1"># ===================</span>
+<span class="linenos">11</span>
+<span class="linenos">12</span><span class="c1"># Python</span>
+<span class="linenos">13</span><span class="c1"># ===================</span>
+<span class="linenos">14</span>
+<span class="linenos">15</span>conda<span class="w"> </span>activate<span class="w"> </span>py39
+<span class="linenos">16</span>
+<span class="linenos">17</span><span class="c1"># Environment</span>
+<span class="linenos">18</span><span class="c1"># ===================</span>
+<span class="linenos">19</span>
+<span class="linenos">20</span><span class="nb">export</span><span class="w"> </span><span class="nv">EXPERIMENT_NAME</span><span class="o">=</span><span class="s2">&quot;MyExperiment&quot;</span>
+<span class="linenos">21</span>
+<span class="linenos">22</span><span class="c1"># Constant</span>
+<span class="linenos">23</span><span class="nb">export</span><span class="w"> </span><span class="nv">DATASET_DEST</span><span class="o">=</span><span class="nv">$SLURM_TMPDIR</span>/dataset
+<span class="linenos">24</span><span class="nb">export</span><span class="w"> </span><span class="nv">CHECKPOINT_PATH</span><span class="o">=</span><span class="nv">$SCRATCH</span>/checkpoint
+<span class="linenos">25</span><span class="nb">export</span><span class="w"> </span><span class="nv">ORION_CONFIG</span><span class="o">=</span><span class="nv">$SLURM_TMPDIR</span>/orion-config.yml
+<span class="linenos">26</span><span class="nb">export</span><span class="w"> </span><span class="nv">SPACE_CONFIG</span><span class="o">=</span><span class="nv">$SCRATCH</span>/space-config.json
+<span class="linenos">27</span>
+<span class="linenos">28</span><span class="c1"># Configure Orion</span>
+<span class="linenos">29</span><span class="c1"># ===================</span>
+<span class="linenos">30</span><span class="c1">#</span>
+<span class="linenos">31</span><span class="c1">#    - user hyperband</span>
+<span class="linenos">32</span><span class="c1">#    - launch 4 workers for each tasks (one for each CPU)</span>
+<span class="linenos">33</span><span class="c1">#    - worker dies if idle for more than a minute</span>
+<span class="linenos">34</span><span class="c1">#    - Each worker are sharing a single GPU to maximize usage</span>
+<span class="linenos">35</span><span class="c1">#</span>
+<span class="linenos">36</span>cat<span class="w"> </span>&gt;<span class="w"> </span><span class="nv">$ORION_CONFIG</span><span class="w"> </span><span class="s">&lt;&lt;- EOM</span>
+<span class="linenos">37</span><span class="s">    experiment:</span>
+<span class="linenos">38</span><span class="s">        name: ${EXPERIMENT_NAME}</span>
+<span class="linenos">39</span><span class="s">        algorithms:</span>
+<span class="linenos">40</span><span class="s">            hyperband:</span>
+<span class="linenos">41</span><span class="s">                seed: null</span>
+<span class="linenos">42</span><span class="s">        max_broken: 10</span>
+<span class="linenos">43</span>
+<span class="linenos">44</span><span class="s">    worker:</span>
+<span class="linenos">45</span><span class="s">        n_workers: $SBATCH_CPUS_PER_GPU</span>
+<span class="linenos">46</span><span class="s">        pool_size: 0</span>
+<span class="linenos">47</span><span class="s">        executor: joblib</span>
+<span class="linenos">48</span><span class="s">        heartbeat: 120</span>
+<span class="linenos">49</span><span class="s">        max_broken: 10</span>
+<span class="linenos">50</span><span class="s">        idle_timeout: 60</span>
+<span class="linenos">51</span>
+<span class="linenos">52</span><span class="s">    database:</span>
+<span class="linenos">53</span><span class="s">        host: $SCRATCH/${EXPERIMENT_NAME}_orion.pkl</span>
+<span class="linenos">54</span><span class="s">        type: pickleddb</span>
+<span class="linenos">55</span><span class="s">EOM</span>
+<span class="linenos">56</span>
+<span class="linenos">57</span><span class="c1"># Define your hyperparameter search space</span>
+<span class="linenos">58</span>cat<span class="w"> </span>&gt;<span class="w"> </span><span class="nv">$SPACE_CONFIG</span><span class="w"> </span><span class="s">&lt;&lt;- EOM</span>
+<span class="linenos">59</span><span class="s">    {</span>
+<span class="linenos">60</span><span class="s">        &quot;epochs&quot;: &quot;orion~fidelity(1, 100, base=2)&quot;,</span>
+<span class="linenos">61</span><span class="s">        &quot;lr&quot;: &quot;orion~loguniform(1e-5, 1.0)&quot;,</span>
+<span class="linenos">62</span><span class="s">        &quot;weight_decay&quot;: &quot;orion~loguniform(1e-10, 1e-3)&quot;,</span>
+<span class="linenos">63</span><span class="s">        &quot;momentum&quot;: &quot;orion~loguniform(0.9, 1.0)&quot;</span>
+<span class="linenos">64</span><span class="s">    }</span>
+<span class="linenos">65</span><span class="s">EOM</span>
+<span class="linenos">66</span>
+<span class="linenos">67</span><span class="c1"># Run</span>
+<span class="linenos">68</span><span class="c1"># ===================</span>
+<span class="linenos">69</span>
+<span class="linenos">70</span>orion<span class="w"> </span>hunt<span class="w"> </span>--config<span class="w"> </span><span class="nv">$ORION_CONFIG</span><span class="w"> </span>python<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$@</span><span class="s2"> --config </span><span class="nv">$SPACE_CONFIG</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Network Architecture Search (NAS) is a subset of hyperparameter optimization where hyperparameters
+are used to generate a network. You can use the same technique for both NAS and HPO.</p>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+<script type="text/javascript">
+  window.onload = function() {
+      $(".toggle > *").hide();
+      $(".toggle .header").show();
+      $(".toggle .header").click(function() {
+          $(this).parent().children().not(".header").toggle(400);
+          $(this).parent().children(".header").toggleClass("open");
+      })
+  };
+</script>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

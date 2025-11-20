@@ -1,0 +1,336 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Multiple Nodes &mdash; Mila Technical Documentation latest documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=8da7d091" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=c6e86fd7"></script>
+      <script src="_static/doctools.js?v=888ff710"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script src="_static/documentation_options.js?v=c6e86fd7"></script>
+      <script src="_static/documentation_options_fix.js?v=1c8886ec"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Weight and Biases (WandB)" href="Userguide_wandb.html" />
+    <link rel="prev" title="Advanced SLURM usage and Multiple GPU jobs" href="Userguide_multigpu.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/image.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Purpose.html">Purpose of this documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Purpose.html#contributing">Contributing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-tos and Guides</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Userguide_quick_start.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_login.html">Logging in to the cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_running_code.html">Running your code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_portability.html">Portability concerns and solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_containers.html">Using containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_sharing_data.html">Sharing Data with ACLs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_datasets.html">Contributing datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_data_transfer.html">Data Transmission using Globus Connect Personal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_multigpu.html">Advanced SLURM usage and Multiple GPU jobs</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Multiple Nodes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#data-parallel">Data Parallel</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_wandb.html">Weight and Biases (WandB)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_comet.html">Comet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_jupyterhub.html">JupyterHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_singularity.html">Singularity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_faq.html">Frequently asked questions (FAQs)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Systems and services</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Information.html">Computing infrastructure and policies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Extra_compute.html">Computational resources outside of Mila</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Minimal Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="examples/frameworks/index.html">Software Frameworks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/distributed/index.html">Distributed Training</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/good_practices/index.html">Good practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/advanced/index.html">Advanced Examples</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/mila-iqia/ResearchTemplate">🔗 Research Project Template</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">General theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html">What is a computer cluster?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#parts-of-a-computing-cluster">Parts of a computing cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#unix">UNIX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#the-workload-manager">The workload manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#processing-data">Processing data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#software-on-the-cluster">Software on the cluster</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extras</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Acknowledgement.html">Acknowledging Mila</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://datasets.server.mila.quebec/">Mila Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Audio_video.html">Audio and video resources at Mila</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VSCode.html">Visual Studio Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IDT.html">Who, what, where is IDT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cheatsheet.html">Cheat Sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Environmental_impact.html">Environmental Impact</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Mila Technical Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Multiple Nodes</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/mila-iqia/mila-docs/blob/master/docs/Userguide_multinode.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="multiple-nodes">
+<h1>Multiple Nodes<a class="headerlink" href="#multiple-nodes" title="Link to this heading"></a></h1>
+<section id="data-parallel">
+<h2>Data Parallel<a class="headerlink" href="#data-parallel" title="Link to this heading"></a></h2>
+<img alt="_images/dataparallel.png" src="_images/dataparallel.png" />
+<p>Request 3 nodes with at least 4 GPUs each.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="ch">#!/bin/bash</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="c1"># Number of Nodes</span>
+<span class="linenos"> 4</span><span class="c1">#SBATCH --nodes=3</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span><span class="c1"># Number of tasks. 3 (1 per node)</span>
+<span class="linenos"> 7</span><span class="c1">#SBATCH --ntasks=3</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span><span class="c1"># Number of GPU per node</span>
+<span class="linenos">10</span><span class="c1">#SBATCH --gres=gpu:4</span>
+<span class="linenos">11</span><span class="c1">#SBATCH --gpus-per-node=4</span>
+<span class="linenos">12</span>
+<span class="linenos">13</span><span class="c1"># 16 CPUs per node</span>
+<span class="linenos">14</span><span class="c1">#SBATCH --cpus-per-gpu=4</span>
+<span class="linenos">15</span>
+<span class="linenos">16</span><span class="c1"># 16Go per nodes (4Go per GPU)</span>
+<span class="linenos">17</span><span class="c1">#SBATCH --mem=16G</span>
+<span class="linenos">18</span>
+<span class="linenos">19</span><span class="c1"># we need all nodes to be ready at the same time</span>
+<span class="linenos">20</span><span class="c1">#SBATCH --wait-all-nodes=1</span>
+<span class="linenos">21</span>
+<span class="linenos">22</span><span class="c1"># Total resources:</span>
+<span class="linenos">23</span><span class="c1">#   CPU: 16 * 3 = 48</span>
+<span class="linenos">24</span><span class="c1">#   RAM: 16 * 3 = 48 Go</span>
+<span class="linenos">25</span><span class="c1">#   GPU:  4 * 3 = 12</span>
+<span class="linenos">26</span>
+<span class="linenos">27</span><span class="c1"># Setup our rendez-vous point</span>
+<span class="linenos">28</span><span class="nv">RDV_ADDR</span><span class="o">=</span><span class="k">$(</span>hostname<span class="k">)</span>
+<span class="linenos">29</span><span class="nv">WORLD_SIZE</span><span class="o">=</span><span class="nv">$SLURM_JOB_NUM_NODES</span>
+<span class="linenos">30</span><span class="c1"># -----</span>
+<span class="linenos">31</span>
+<span class="linenos">32</span>srun<span class="w"> </span>-l<span class="w"> </span>torchrun<span class="w"> </span><span class="se">\</span>
+<span class="linenos">33</span><span class="w">   </span>--nproc_per_node<span class="o">=</span><span class="nv">$SLURM_GPUS_PER_NODE</span><span class="se">\</span>
+<span class="linenos">34</span><span class="w">   </span>--nnodes<span class="o">=</span><span class="nv">$WORLD_SIZE</span><span class="se">\</span>
+<span class="linenos">35</span><span class="w">   </span>--rdzv_id<span class="o">=</span><span class="nv">$SLURM_JOB_ID</span><span class="se">\</span>
+<span class="linenos">36</span><span class="w">   </span>--rdzv_backend<span class="o">=</span>c10d<span class="se">\</span>
+<span class="linenos">37</span><span class="w">   </span>--rdzv_endpoint<span class="o">=</span><span class="nv">$RDV_ADDR</span><span class="se">\</span>
+<span class="linenos">38</span><span class="w">   </span>training_script.py
+</pre></div>
+</div>
+<p>You can find below a pytorch script outline on what a multi-node trainer could look like.</p>
+<div class="highlight-python notranslate" id="training-script-outline-for-multi-node-training"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">torch.distributed</span> <span class="k">as</span> <span class="nn">dist</span>
+
+<span class="k">class</span> <span class="nc">Trainer</span><span class="p">:</span>
+   <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">local_rank</span> <span class="o">=</span> <span class="kc">None</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">chk_path</span> <span class="o">=</span> <span class="o">...</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="o">...</span>
+
+   <span class="nd">@property</span>
+   <span class="k">def</span> <span class="nf">device_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">local_rank</span>
+
+   <span class="k">def</span> <span class="nf">load_checkpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">chk_path</span> <span class="o">=</span> <span class="n">path</span>
+      <span class="c1"># ...</span>
+
+   <span class="k">def</span> <span class="nf">should_checkpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="c1"># Note: only one worker saves its weights</span>
+      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">global_rank</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">local_rank</span> <span class="o">==</span> <span class="mi">0</span>
+
+   <span class="k">def</span> <span class="nf">save_checkpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">chk_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+
+      <span class="c1"># Save your states here</span>
+      <span class="c1"># Note: you should save the weights of self.model not ddp_model</span>
+      <span class="c1"># ...</span>
+
+   <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">global_rank</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;RANK&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">local_rank</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;LOCAL_RANK&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+
+      <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">global_rank</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;Global rank should be set (Only Rank 0 can save checkpoints)&#39;</span>
+      <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">local_rank</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;Local rank should be set&#39;</span>
+
+      <span class="n">dist</span><span class="o">.</span><span class="n">init_process_group</span><span class="p">(</span><span class="n">backend</span><span class="o">=</span><span class="s2">&quot;gloo|nccl&quot;</span><span class="p">)</span>
+
+   <span class="k">def</span> <span class="nf">sync_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resuming</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+      <span class="k">if</span> <span class="n">resuming</span><span class="p">:</span>
+            <span class="c1"># in the case of resuming all workers need to load the same checkpoint</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">load_checkpoint</span><span class="p">()</span>
+
+            <span class="c1"># Wait for everybody to finish loading the checkpoint</span>
+            <span class="n">dist</span><span class="o">.</span><span class="n">barrier</span><span class="p">()</span>
+            <span class="k">return</span>
+
+      <span class="c1"># Make sure all workers have the same initial weights</span>
+      <span class="c1"># This makes the leader save his weights</span>
+      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">should_checkpoint</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">save_checkpoint</span><span class="p">()</span>
+
+      <span class="c1"># All workers wait for the leader to finish</span>
+      <span class="n">dist</span><span class="o">.</span><span class="n">barrier</span><span class="p">()</span>
+
+      <span class="c1"># All followers load the leader&#39;s weights</span>
+      <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">should_checkpoint</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">load_checkpoint</span><span class="p">()</span>
+
+      <span class="c1"># Leader waits for the follower to load the weights</span>
+      <span class="n">dist</span><span class="o">.</span><span class="n">barrier</span><span class="p">()</span>
+
+   <span class="k">def</span> <span class="nf">dataloader</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">):</span>
+      <span class="n">train_sampler</span> <span class="o">=</span> <span class="n">ElasticDistributedSampler</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+      <span class="n">train_loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span>
+            <span class="n">dataset</span><span class="p">,</span>
+            <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span>
+            <span class="n">num_workers</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+            <span class="n">pin_memory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">sampler</span><span class="o">=</span><span class="n">train_sampler</span><span class="p">,</span>
+      <span class="p">)</span>
+      <span class="k">return</span> <span class="n">train_loader</span>
+
+   <span class="k">def</span> <span class="nf">train_step</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="c1"># Your batch processing step here</span>
+      <span class="c1"># ...</span>
+      <span class="k">pass</span>
+
+   <span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">sync_weights</span><span class="p">()</span>
+
+      <span class="n">ddp_model</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">parallel</span><span class="o">.</span><span class="n">DistributedDataParallel</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span>
+            <span class="n">device_ids</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">device_id</span><span class="p">],</span>
+            <span class="n">output_device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device_id</span>
+      <span class="p">)</span>
+
+      <span class="n">loader</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataloader</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">)</span>
+
+      <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="nb">iter</span><span class="p">(</span><span class="n">loader</span><span class="p">):</span>
+               <span class="bp">self</span><span class="o">.</span><span class="n">train_step</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span>
+
+               <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">should_checkpoint</span><span class="p">():</span>
+                  <span class="bp">self</span><span class="o">.</span><span class="n">save_checkpoint</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+   <span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">()</span>
+   <span class="n">trainer</span><span class="o">.</span><span class="n">load_checkpoint</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+   <span class="n">tainer</span><span class="o">.</span><span class="n">initialize</span><span class="p">()</span>
+
+   <span class="n">trainer</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To bypass Python GIL (Global interpreter lock) pytorch spawn one process for each GPU.
+In the example above this means at least 12 processes are spawn, at least 4 on each node.</p>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Userguide_multigpu.html" class="btn btn-neutral float-left" title="Advanced SLURM usage and Multiple GPU jobs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Userguide_wandb.html" class="btn btn-neutral float-right" title="Weight and Biases (WandB)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+<script type="text/javascript">
+  window.onload = function() {
+      $(".toggle > *").hide();
+      $(".toggle .header").show();
+      $(".toggle .header").click(function() {
+          $(this).parent().children().not(".header").toggle(400);
+          $(this).parent().children(".header").toggleClass("open");
+      })
+  };
+</script>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
