@@ -58,7 +58,7 @@ This doesn't change much, the only difference is that we add the Orion dependenc
 
 **main.py**
 
-Here we only really add the reporting of the objective to Orion at the end of the main function. 
+Here we only really add the reporting of the objective to Orion at the end of the main function.
 
 .. literalinclude:: main.py.diff
     :language: diff
