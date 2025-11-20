@@ -112,7 +112,7 @@ Optionally you can configure workers which will run in parallel to maximize reso
    +            type: pickleddb
    +EOM
    +
-   +srun --output=slurm-%A_%a_%t.out uv run orion hunt --config $ORION_CONFIG python main.py \
+   +srun uv run orion hunt --config $ORION_CONFIG python main.py \
    +    --learning-rate~'loguniform(1e-5, 1.0)'
 
 **pyproject.toml**
