@@ -12,6 +12,7 @@ import sphinx_theme
 extensions = [
     "sphinx_prompt",
     "sphinx_copybutton",
+    "sphinx_comments",
     # 'recommonmark',
     "sphinx.ext.autosectionlabel",
     "sphinx.ext.todo",
@@ -31,6 +32,13 @@ file_insertion_enabled = False
 latex_documents = [
     ("index", "mila-docs.tex", "Mila technical Documentation", "", "manual"),
 ]
+
+comments_config = {
+    "utterances": {
+        "repo": "mila-iqia/mila-docs",
+        "optional": "config",
+    }
+}
 
 exclude_patterns = [
     "_build",
