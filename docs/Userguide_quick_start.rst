@@ -5,6 +5,7 @@ Quick Start
 
 .. include:: Userguide_cluster_access.rst
 
+
 .. _mila_code:
 
 mila code
@@ -57,5 +58,26 @@ To open a terminal session on the cluster, connect using:
 This will connect you to a login node where you can run commands, submit jobs,
 and navigate the cluster filesystem.
 
-For a comprehensive reference of common terminal commands, see the `command line
-cheat sheet <https://cli-cheatsheet.readthedocs.io/>`_.
+
+Next Steps
+----------
+
+Once you have access to the cluster, you may want to:
+
+* **Set up a framework**: For a quick example of setting up PyTorch on the
+  cluster, see the :ref:`PyTorch Setup`.
+
+* **Keep these references handy**:
+
+  * The :ref:`Cheat Sheet` provides a quick reference for common commands and
+    information about the Mila and DRAC clusters.
+
+  * For a comprehensive reference of common terminal commands, see the
+    `command line cheat sheet <https://cli-cheatsheet.readthedocs.io/>`_.
+
+.. note::
+
+   Before running a minimal example, make sure to read the :ref:`Running your
+   code` guide, which explains how to submit jobs using Slurm and provides
+   essential information about job submission arguments, partitions, and useful
+   commands.
