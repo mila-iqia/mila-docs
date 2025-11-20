@@ -579,6 +579,7 @@ dev = [
     { name = "sphinx-copybutton" },
     { name = "sphinx-lint" },
     { name = "sphinx-prompt" },
+    { name = "sphinx-pushfeedback" },
     { name = "sphinx-readable-theme" },
     { name = "sphinx-rtd-theme" },
     { name = "sphinx-theme" },
@@ -597,6 +598,7 @@ dev = [
     { name = "sphinx-copybutton", specifier = ">=0.3.1" },
     { name = "sphinx-lint", specifier = ">=1.0.0" },
     { name = "sphinx-prompt", specifier = ">=1.4.0" },
+    { name = "sphinx-pushfeedback", specifier = ">=0.1.8" },
     { name = "sphinx-readable-theme", specifier = ">=1.3.0" },
     { name = "sphinx-rtd-theme", specifier = ">=0.5.2" },
     { name = "sphinx-theme", specifier = ">=1.0" },
@@ -800,7 +802,7 @@ name = "nvidia-cudnn-cu12"
 version = "9.10.2.21"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "nvidia-cublas-cu12" },
+    { name = "nvidia-cublas-cu12", marker = "sys_platform == 'linux'" },
 ]
 wheels = [
     { url = "https://files.pythonhosted.org/packages/fa/41/e79269ce215c857c935fd86bcfe91a451a584dfc27f1e068f568b9ad1ab7/nvidia_cudnn_cu12-9.10.2.21-py3-none-manylinux_2_27_aarch64.whl", hash = "sha256:c9132cc3f8958447b4910a1720036d9eff5928cc3179b0a51fb6d167c6cc87d8", size = 705026878, upload-time = "2025-06-06T21:52:51.348Z" },
@@ -812,7 +814,7 @@ name = "nvidia-cufft-cu12"
 version = "11.3.3.83"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "nvidia-nvjitlink-cu12" },
+    { name = "nvidia-nvjitlink-cu12", marker = "sys_platform == 'linux'" },
 ]
 wheels = [
     { url = "https://files.pythonhosted.org/packages/60/bc/7771846d3a0272026c416fbb7e5f4c1f146d6d80704534d0b187dd6f4800/nvidia_cufft_cu12-11.3.3.83-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:848ef7224d6305cdb2a4df928759dca7b1201874787083b6e7550dd6765ce69a", size = 193109211, upload-time = "2025-03-07T01:44:56.873Z" },
@@ -840,9 +842,9 @@ name = "nvidia-cusolver-cu12"
 version = "11.7.3.90"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "nvidia-cublas-cu12" },
-    { name = "nvidia-cusparse-cu12" },
-    { name = "nvidia-nvjitlink-cu12" },
+    { name = "nvidia-cublas-cu12", marker = "sys_platform == 'linux'" },
+    { name = "nvidia-cusparse-cu12", marker = "sys_platform == 'linux'" },
+    { name = "nvidia-nvjitlink-cu12", marker = "sys_platform == 'linux'" },
 ]
 wheels = [
     { url = "https://files.pythonhosted.org/packages/c8/32/f7cd6ce8a7690544d084ea21c26e910a97e077c9b7f07bf5de623ee19981/nvidia_cusolver_cu12-11.7.3.90-py3-none-manylinux_2_27_aarch64.whl", hash = "sha256:db9ed69dbef9715071232caa9b69c52ac7de3a95773c2db65bdba85916e4e5c0", size = 267229841, upload-time = "2025-03-07T01:46:54.356Z" },
@@ -854,7 +856,7 @@ name = "nvidia-cusparse-cu12"
 version = "12.5.8.93"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "nvidia-nvjitlink-cu12" },
+    { name = "nvidia-nvjitlink-cu12", marker = "sys_platform == 'linux'" },
 ]
 wheels = [
     { url = "https://files.pythonhosted.org/packages/bc/f7/cd777c4109681367721b00a106f491e0d0d15cfa1fd59672ce580ce42a97/nvidia_cusparse_cu12-12.5.8.93-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:9b6c161cb130be1a07a27ea6923df8141f3c295852f4b260c65f18f3e0a091dc", size = 288117129, upload-time = "2025-03-07T01:47:40.407Z" },
@@ -1501,6 +1503,18 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/6c/1b/ceb8d295275982121eefc8a4f0b71edf7f26c16f5bc53f4204527f173783/sphinx_prompt-1.10.1.tar.gz", hash = "sha256:2b8a18433ee3d9f2a7c4e51a768fb14c5177cce4bf0e2298ecc068a0ca9918bf", size = 5242, upload-time = "2025-08-13T09:21:35.971Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/33/23/dca289e67226222ce988f7a4a31cae0c0f4752338ead0c1e509203658080/sphinx_prompt-1.10.1-py3-none-any.whl", hash = "sha256:6cd34abbeedc14446bba76036b1821da142052f7043c5a8a3d6b84565ee54900", size = 7428, upload-time = "2025-08-13T09:21:35.192Z" },
+]
+
+[[package]]
+name = "sphinx-pushfeedback"
+version = "0.1.8"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "sphinx" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/a6/ff/614b4dee669b38116b844fea627bacde46c8bb110086ef6165b676eafe52/sphinx_pushfeedback-0.1.8.tar.gz", hash = "sha256:d4a4c48a1bab8d16a6dc1655f944b2a61804b0f4f8cfd062a72cb159f26ff1a1", size = 4684, upload-time = "2025-07-30T16:27:11.817Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/37/30/a72c31bf69f88eabe841a34d4ad391c3445ef2799a05ccb26af754c07359/sphinx_pushfeedback-0.1.8-py3-none-any.whl", hash = "sha256:0b56ee111e0551b3f2189ccb220d0fcdf37aabc12129d66479b2b2a2d775b11e", size = 4014, upload-time = "2025-07-30T16:27:10.508Z" },
 ]
 
 [[package]]
