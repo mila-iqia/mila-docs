@@ -1,5 +1,5 @@
 Cheat Sheet
-***************
+***********
 
 A "cheat sheet" is available to provide you with information about the Mila and DRAC clusters at a glance.
 
