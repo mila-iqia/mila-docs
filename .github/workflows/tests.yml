@@ -21,25 +21,25 @@ jobs:
     - name: Run files generation tests
       run:  pre-commit run --all-files && [[ -z "$(git status -s)" ]]
 
-  launch-slurm-actions-runner:
-    needs: [generate_files]
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-      - uses: actions/checkout@v4
-      - name: Copy job script to the cluster
-        run: |
-          ssh mila mkdir -p "/tmp/${GITHUB_RUN_ID}"
-          scp .github/setup_github_runner.sh mila:"/tmp/${GITHUB_RUN_ID}/setup_github_runner.sh"
+  # launch-slurm-actions-runner:
+  #   needs: [generate_files]
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: 5
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - name: Copy job script to the cluster
+  #       run: |
+  #         ssh mila mkdir -p "/tmp/${GITHUB_RUN_ID}"
+  #         scp .github/setup_github_runner.sh mila:"/tmp/${GITHUB_RUN_ID}/setup_github_runner.sh"
 
-      - name: Launch Slurm Actions Runner
-        run: |
-          ssh mila 'cd "${SCRATCH}" && sbatch --job-name="gh-actions-runner-${GITHUB_RUN_ID}" --parsable "/tmp/${GITHUB_RUN_ID}/setup_github_runner.sh"'
+  #     - name: Launch Slurm Actions Runner
+  #       run: |
+  #         ssh mila 'cd "${SCRATCH}" && sbatch --job-name="gh-actions-runner-${GITHUB_RUN_ID}" --parsable "/tmp/${GITHUB_RUN_ID}/setup_github_runner.sh"'
 
   # This step runs in a self-hosted Github Actions runner inside a SLURM job on a compute node of the cluster.
   slurm_integration_tests:
     name: Run integration tests on the Mila cluster in a SLURM job
-    needs: [launch-slurm-actions-runner]
+    # needs: [launch-slurm-actions-runner]
     runs-on: ["self-hosted", "mila-1"]
     timeout-minutes: 30
     steps:
