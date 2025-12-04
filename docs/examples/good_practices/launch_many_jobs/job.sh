@@ -1,12 +1,26 @@
 #!/bin/bash
-#SBATCH --gres=gpu:1
+#SBATCH --ntasks=1
+#SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=4
-#SBATCH --mem=16G
+#SBATCH --gpus-per-task=l40s:1
+#SBATCH --mem-per-gpu=16G
 #SBATCH --time=00:15:00
 
-set -e  # exit on error.
+# Exit on error
+set -e
+
+# Echo time and hostname into log
 echo "Date:     $(date)"
 echo "Hostname: $(hostname)"
+
+# To make your code as much reproducible as possible with
+# `torch.use_deterministic_algorithms(True)`, uncomment the following block:
+## === Reproducibility ===
+## Be warned that this can make your code slower. See
+## https://pytorch.org/docs/stable/notes/randomness.html#cublas-and-cudnn-deterministic-operations
+## for more details.
+# export CUBLAS_WORKSPACE_CONFIG=:4096:8
+## === Reproducibility (END) ===
 
 # Stage dataset into $SLURM_TMPDIR
 mkdir -p $SLURM_TMPDIR/data

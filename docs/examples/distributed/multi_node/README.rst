@@ -27,17 +27,29 @@ Click here to see `the source code for this example
 
     # distributed/multi_gpu/job.sh -> distributed/multi_node/job.sh
     #!/bin/bash
-   +#SBATCH --nodes=2
-   +#SBATCH --ntasks-per-node=4
-    #SBATCH --gres=gpu:4
+   -#SBATCH --ntasks=2
+   +#SBATCH --ntasks=4
+    #SBATCH --ntasks-per-node=2
     #SBATCH --cpus-per-task=4
-   -#SBATCH --ntasks-per-node=4
-    #SBATCH --mem=16G
+    #SBATCH --gpus-per-task=l40s:1
+    #SBATCH --mem-per-gpu=16G
     #SBATCH --time=00:15:00
 
-    set -e  # exit on error.
+    # Exit on error
+    set -e
+
+    # Echo time and hostname into log
     echo "Date:     $(date)"
     echo "Hostname: $(hostname)"
+
+    # To make your code as much reproducible as possible with
+    # `torch.use_deterministic_algorithms(True)`, uncomment the following block:
+    ## === Reproducibility ===
+    ## Be warned that this can make your code slower. See
+    ## https://pytorch.org/docs/stable/notes/randomness.html#cublas-and-cudnn-deterministic-operations
+    ## for more details.
+    # export CUBLAS_WORKSPACE_CONFIG=:4096:8
+    ## === Reproducibility (END) ===
 
    -# Stage dataset into $SLURM_TMPDIR
    -mkdir -p $SLURM_TMPDIR/data
@@ -47,7 +59,7 @@ Click here to see `the source code for this example
    -#     tar -xf /network/datasets/some/file.tar -C $SLURM_TMPDIR/data/
    +# Stage dataset into $SLURM_TMPDIR (only on the first worker of each node)
    +srun --ntasks=$SLURM_JOB_NUM_NODES --ntasks-per-node=1 bash -c \
-   +   'mkdir -p $SLURM_TMPDIR/data && ln -s /network/datasets/cifar10/cifar-10-python.tar.gz $SLURM_TMPDIR/data/'
+   +   'mkdir -p $SLURM_TMPDIR/data && cp /network/datasets/cifar10/cifar-10-python.tar.gz $SLURM_TMPDIR/data/'
 
     # Get a unique port for this job based on the job ID
     export MASTER_PORT=$(expr 10000 + $(echo -n $SLURM_JOBID | tail -c 4))
@@ -58,8 +70,16 @@ Click here to see `the source code for this example
     # Use the `--offline` option of `uv run` on clusters without internet access on compute nodes.
     # Using the `--locked` option can help make your experiments easier to reproduce (it forces
     # your uv.lock file to be up to date with the dependencies declared in pyproject.toml).
-    srun uv run python main.py
-   +
+    # --gres-flags=allow-task-sharing is required to allow tasks on the same node to
+    # access GPUs allocated to other tasks on that node. Without this flag,
+    # --gpus-per-task=1 would isolate each task to only see its own GPU, which
+    # causes a a mysterious NCCL error in
+    # nn.parallel.DistributedDataParallel:
+    # ncclUnhandledCudaError: Call to CUDA function failed.
+    # when NCCL tries to communicate to local GPUs via shared memory but fails due
+    # to cgroups isolation. See https://slurm.schedmd.com/srun.html#OPT_gres-flags
+    # and https://support.schedmd.com/show_bug.cgi?id=17875 for details.
+    srun --gres-flags=allow-task-sharing uv run python main.py
 
 **pyproject.toml**
 
@@ -70,9 +90,8 @@ Click here to see `the source code for this example
    version = "0.1.0"
    description = "Add your description here"
    readme = "README.rst"
-   requires-python = ">=3.12"
+   requires-python = ">=3.11,<3.14"
    dependencies = [
-       "numpy>=2.3.1",
        "rich>=14.0.0",
        "torch>=2.7.1",
        "torchvision>=0.22.1",
@@ -89,10 +108,12 @@ Click here to see `the source code for this example
     import argparse
     import logging
     import os
+    import random
+    import sys
    +from datetime import timedelta
     from pathlib import Path
-    import sys
 
+    import numpy as np
     import rich.logging
     import torch
     import torch.distributed
@@ -107,6 +128,16 @@ Click here to see `the source code for this example
     from tqdm import tqdm
 
 
+    # To make your code as much reproducible as possible, uncomment the following
+    # block:
+    ## === Reproducibility ===
+    ## Be warned that this can make your code slower. See
+    ## https://pytorch.org/docs/stable/notes/randomness.html#cublas-and-cudnn-deterministic-operations
+    ## for more details.
+    # torch.use_deterministic_algorithms(True)
+    ## === Reproducibility (END) ===
+
+
     def main():
         # Use an argument parser so we can pass hyperparameters from the command line.
         parser = argparse.ArgumentParser(description=__doc__)
@@ -114,6 +145,7 @@ Click here to see `the source code for this example
         parser.add_argument("--learning-rate", type=float, default=5e-4)
         parser.add_argument("--weight-decay", type=float, default=1e-4)
         parser.add_argument("--batch-size", type=int, default=128)
+        parser.add_argument("--seed", type=int, default=42)
         args = parser.parse_args()
 
         epochs: int = args.epochs
@@ -121,15 +153,23 @@ Click here to see `the source code for this example
         weight_decay: float = args.weight_decay
         # NOTE: This is the "local" batch size, per-GPU.
         batch_size: int = args.batch_size
+        seed: int = args.seed
+
+        # Seed the random number generators as early as possible for reproducibility
+        random.seed(seed)
+        np.random.seed(seed)
+        torch.random.manual_seed(seed)
+        torch.cuda.manual_seed_all(seed)
 
         # Check that the GPU is available
         assert torch.cuda.is_available() and torch.cuda.device_count() > 0
    -    rank, world_size = setup()
    +    rank, world_size, local_rank = setup()
         is_master = rank == 0
-   -    device = torch.device("cuda", rank % torch.cuda.device_count())
    +    is_local_master = local_rank == 0
-   +    device = torch.device("cuda", local_rank % torch.cuda.device_count())
+        # When using --gpus-per-task=1, SLURM sets CUDA_VISIBLE_DEVICES so each process
+        # only sees one GPU (index 0). Use device 0 directly.
+        device = torch.device("cuda", 0)
 
         # Setup logging (optional, but much better than using print statements)
         # Uses the `rich` package to make logs pretty.
@@ -159,9 +199,9 @@ Click here to see `the source code for this example
 
         # Wrap the model with DistributedDataParallel
         # (See https://pytorch.org/docs/stable/nn.html#torch.nn.parallel.DistributedDataParallel)
+        # When using --gpus-per-task=1, each process only sees one GPU (index 0).
         model = nn.parallel.DistributedDataParallel(
-   -        model, device_ids=[rank], output_device=rank
-   +        model, device_ids=[local_rank], output_device=local_rank
+            model, device_ids=[0], output_device=0
         )
 
         optimizer = torch.optim.AdamW(

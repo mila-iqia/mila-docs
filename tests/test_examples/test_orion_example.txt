@@ -1,0 +1,60 @@
+[(DATE) (TIME)] INFO     Args: {                                                                          main.py:LINE
+                              "epochs": 10,                                                                             
+                              "learning_rate": 0.0002119,                                                               
+                              "weight_decay": 0.0001,                                                                   
+                              "batch_size": 128,                                                                        
+                              "seed": 42                                                                                
+                             }                                                                                          
+[(DATE) (TIME)] INFO     Epoch 0: Val loss: 52.403 accuracy: 53.78%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 1: Val loss: 48.992 accuracy: 58.16%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 2: Val loss: 50.037 accuracy: 57.96%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 3: Val loss: 43.898 accuracy: 62.28%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 4: Val loss: 50.276 accuracy: 60.54%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 5: Val loss: 48.698 accuracy: 62.76%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 6: Val loss: 51.017 accuracy: 62.90%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 7: Val loss: 61.026 accuracy: 61.46%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 8: Val loss: 61.697 accuracy: 62.08%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 9: Val loss: 61.808 accuracy: 63.60%                                      main.py:LINE
+Done!
+[(DATE)T(TIME)]::WARNING::root::Script $SCRATCH/tmp/.workdir/good_practices_hpo_with_orion/main.py is not in a git repository. Code modification won't be detected.
+PYTHON_ENV/site-packages/orion/core/utils/__init__.py:18: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+[(DATE) (TIME)] INFO     Args: {                                                                          main.py:LINE
+                              "epochs": 10,                                                                             
+                              "learning_rate": 7.23e-05,                                                                
+                              "weight_decay": 0.0001,                                                                   
+                              "batch_size": 128,                                                                        
+                              "seed": 42                                                                                
+                             }                                                                                          
+[(DATE) (TIME)] INFO     Epoch 0: Val loss: 57.279 accuracy: 49.22%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 1: Val loss: 52.940 accuracy: 53.04%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 2: Val loss: 52.892 accuracy: 54.58%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 3: Val loss: 53.529 accuracy: 54.50%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 4: Val loss: 58.625 accuracy: 54.50%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 5: Val loss: 64.040 accuracy: 54.44%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 6: Val loss: 69.511 accuracy: 54.80%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 7: Val loss: 74.978 accuracy: 54.78%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 8: Val loss: 81.058 accuracy: 55.04%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 9: Val loss: 81.471 accuracy: 54.66%                                      main.py:LINE
+Done!
+[(DATE)T(TIME)]::WARNING::root::Script $SCRATCH/tmp/.workdir/good_practices_hpo_with_orion/main.py is not in a git repository. Code modification won't be detected.
+PYTHON_ENV/site-packages/orion/core/utils/__init__.py:18: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+[(DATE) (TIME)] INFO     Args: {                                                                          main.py:LINE
+                              "epochs": 10,                                                                             
+                              "learning_rate": 0.001441,                                                                
+                              "weight_decay": 0.0001,                                                                   
+                              "batch_size": 128,                                                                        
+                              "seed": 42                                                                                
+                             }                                                                                          
+[(DATE) (TIME)] INFO     Epoch 0: Val loss: 60.771 accuracy: 47.58%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 1: Val loss: 40.484 accuracy: 63.86%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 2: Val loss: 43.699 accuracy: 63.20%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 3: Val loss: 41.527 accuracy: 64.80%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 4: Val loss: 36.393 accuracy: 68.60%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 5: Val loss: 35.961 accuracy: 70.02%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 6: Val loss: 43.093 accuracy: 68.08%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 7: Val loss: 42.599 accuracy: 66.90%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 8: Val loss: 35.446 accuracy: 73.24%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 9: Val loss: 39.553 accuracy: 71.56%                                      main.py:LINE
+Done!

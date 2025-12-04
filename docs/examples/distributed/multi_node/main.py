@@ -3,10 +3,12 @@
 import argparse
 import logging
 import os
+import random
+import sys
 from datetime import timedelta
 from pathlib import Path
-import sys
 
+import numpy as np
 import rich.logging
 import torch
 import torch.distributed
@@ -21,6 +23,16 @@ from torchvision.models import resnet18
 from tqdm import tqdm
 
 
+# To make your code as much reproducible as possible, uncomment the following
+# block:
+## === Reproducibility ===
+## Be warned that this can make your code slower. See
+## https://pytorch.org/docs/stable/notes/randomness.html#cublas-and-cudnn-deterministic-operations
+## for more details.
+# torch.use_deterministic_algorithms(True)
+## === Reproducibility (END) ===
+
+
 def main():
     # Use an argument parser so we can pass hyperparameters from the command line.
     parser = argparse.ArgumentParser(description=__doc__)
@@ -28,6 +40,7 @@ def main():
     parser.add_argument("--learning-rate", type=float, default=5e-4)
     parser.add_argument("--weight-decay", type=float, default=1e-4)
     parser.add_argument("--batch-size", type=int, default=128)
+    parser.add_argument("--seed", type=int, default=42)
     args = parser.parse_args()
 
     epochs: int = args.epochs
@@ -35,13 +48,22 @@ def main():
     weight_decay: float = args.weight_decay
     # NOTE: This is the "local" batch size, per-GPU.
     batch_size: int = args.batch_size
+    seed: int = args.seed
+
+    # Seed the random number generators as early as possible for reproducibility
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.random.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
 
     # Check that the GPU is available
     assert torch.cuda.is_available() and torch.cuda.device_count() > 0
     rank, world_size, local_rank = setup()
     is_master = rank == 0
     is_local_master = local_rank == 0
-    device = torch.device("cuda", local_rank % torch.cuda.device_count())
+    # When using --gpus-per-task=1, SLURM sets CUDA_VISIBLE_DEVICES so each process
+    # only sees one GPU (index 0). Use device 0 directly.
+    device = torch.device("cuda", 0)
 
     # Setup logging (optional, but much better than using print statements)
     # Uses the `rich` package to make logs pretty.
@@ -70,8 +92,9 @@ def main():
 
     # Wrap the model with DistributedDataParallel
     # (See https://pytorch.org/docs/stable/nn.html#torch.nn.parallel.DistributedDataParallel)
+    # When using --gpus-per-task=1, each process only sees one GPU (index 0).
     model = nn.parallel.DistributedDataParallel(
-        model, device_ids=[local_rank], output_device=local_rank
+        model, device_ids=[0], output_device=0
     )
 
     optimizer = torch.optim.AdamW(

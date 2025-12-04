@@ -1,13 +1,13 @@
 """Job Arrays example."""
 
+import argparse
 import logging
 import os
-from pathlib import Path
-import argparse
 import random
 import sys
+from pathlib import Path
 
-import numpy
+import numpy as np
 import rich.logging
 import rich.pretty
 import torch
@@ -20,6 +20,16 @@ from torchvision.models import resnet18
 from tqdm import tqdm
 
 
+# To make your code as much reproducible as possible, uncomment the following
+# block:
+## === Reproducibility ===
+## Be warned that this can make your code slower. See
+## https://pytorch.org/docs/stable/notes/randomness.html#cublas-and-cudnn-deterministic-operations
+## for more details.
+# torch.use_deterministic_algorithms(True)
+## === Reproducibility (END) ===
+
+
 def main():
     job_index = int(os.environ.get("SLURM_ARRAY_TASK_ID", "0"))
     num_jobs = int(os.environ.get("SLURM_ARRAY_TASK_COUNT", "1"))
@@ -28,7 +38,7 @@ def main():
         # so that each job in the job array will have different set of hyper-parameters.
         # You can also view this as indexing into a predefined grid of hyper-parameters.
         # Here we just change the default values, but you can override a value from the command-line.
-        gen = numpy.random.default_rng(seed=job_index)
+        gen = np.random.default_rng(seed=job_index)
         # Use random number generator to generate the default values of hyper-parameters.
         # If a value is passed from the command-line, it will override this and be used instead.
         default_learning_rate = gen.uniform(1e-6, 1e-2)
@@ -49,9 +59,9 @@ def main():
     # This makes it so each task within each job uses a different initialization with the same
     # hyper-parameters. This works great in combination with --ntasks-per-gpu > 1 to use the GPU effectively!
     parser.add_argument(
-        "--random-seed",
+        "--seed",
         type=int,
-        default=int(os.environ.get("SLURM_PROCID", 0)),
+        default=int(os.environ.get("SLURM_PROCID", 42)),
         help="Random seed used for network initialization and the training loop.",
     )
     args = parser.parse_args()
@@ -60,13 +70,13 @@ def main():
     learning_rate: float = args.learning_rate
     weight_decay: float = args.weight_decay
     batch_size: int = args.batch_size
-    random_seed: int = args.random_seed
+    seed: int = args.seed
 
-    # Seed the random number generators as early as possible.
-    random.seed(random_seed)
-    numpy.random.seed(random_seed)
-    torch.random.manual_seed(random_seed)
-    torch.cuda.manual_seed_all(random_seed)
+    # Seed the random number generators as early as possible for reproducibility
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.random.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
 
     # Check that the GPU is available
     assert torch.cuda.is_available() and torch.cuda.device_count() > 0
@@ -79,7 +89,7 @@ def main():
     num_tasks_per_job = int(os.environ["SLURM_NTASKS"])
     logging.basicConfig(
         level=logging.INFO,
-        format=f"[Job {job_index + 1}/{num_jobs}][Task {task_index + 1}/{num_tasks_per_job}] %(message)s",
+        format=f"[Job {job_index}/{num_jobs}][Task {task_index + 1}/{num_tasks_per_job}] %(message)s",
         handlers=[
             rich.logging.RichHandler(
                 markup=True,

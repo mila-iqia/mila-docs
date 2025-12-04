@@ -1,0 +1,11 @@
+[(DATE) (TIME)] INFO     Epoch 0: Val loss: X.XX accuracy: X.XX%                                    main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 1: Val loss: X.XX accuracy: X.XX%                                    main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 2: Val loss: X.XX accuracy: X.XX%                                    main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 3: Val loss: X.XX accuracy: X.XX%                                    main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 4: Val loss: X.XX accuracy: X.XX%                                    main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 5: Val loss: X.XX accuracy: X.XX%                                    main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 6: Val loss: X.XX accuracy: X.XX%                                   main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 7: Val loss: X.XX accuracy: X.XX%                                   main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 8: Val loss: X.XX accuracy: X.XX%                                   main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 9: Val loss: X.XX accuracy: X.XX%                                   main.py:LINE
+Done!

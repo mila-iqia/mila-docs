@@ -1,0 +1,24 @@
+[(DATE) (TIME)] INFO     No checkpoints found in                                                         main.py:LINE
+                             $SCRATCH/checkpointing_example/$SLURM_JOB_ID/checkpoints. Training            
+                             from scratch.                                                                              
+[(DATE) (TIME)] INFO     Epoch 0: Val loss: 50.812 accuracy: 54.10%                                      main.py:LINE
+[(DATE)T(TIME)] error: *** JOB $SLURM_JOB_ID ON $SLURM_JOB_NODELIST CANCELLED AT [(DATE)T(TIME)] DUE TO JOB REQUEUE ***
+[(DATE) (TIME)] ERROR    Job received a SIGTERM signal!                                                  main.py:LINE
+Job has been preempted 1 times.
+Using CPython X.XX.XX
+Creating virtual environment at: /tmp/venv/TEST_JOB_NAME_good_practices_checkpointing
+         If the cache and target directories are on different filesystems, hardlinking may not be supported.
+         If this is intentional, set `export UV_LINK_MODE=copy` or use `--link-mode=copy` to suppress this warning.
+Installed X packages in X.XXs
+[(DATE) (TIME)] INFO     NOTE: This job has been restarted 1 times by SLURM.                             main.py:LINE
+                    INFO     Resuming training at epoch 1 (best_acc=54.10%).                                 main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 1: Val loss: 42.047 accuracy: 62.10%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 2: Val loss: 51.428 accuracy: 56.52%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 3: Val loss: 41.966 accuracy: 63.94%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 4: Val loss: 41.544 accuracy: 65.16%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 5: Val loss: 38.287 accuracy: 68.94%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 6: Val loss: 38.519 accuracy: 69.82%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 7: Val loss: 41.757 accuracy: 68.14%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 8: Val loss: 39.481 accuracy: 71.82%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 9: Val loss: 60.240 accuracy: 63.38%                                      main.py:LINE
+Done!

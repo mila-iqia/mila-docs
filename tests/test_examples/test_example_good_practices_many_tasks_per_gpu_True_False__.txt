@@ -1,0 +1,24 @@
+Task 0 output:
+[(DATE) (TIME)] INFO     Epoch 0: Val loss: 59.473 accuracy: 48.58%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 1: Val loss: 47.306 accuracy: 58.54%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 2: Val loss: 41.261 accuracy: 63.62%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 3: Val loss: 41.672 accuracy: 64.98%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 4: Val loss: 41.428 accuracy: 66.60%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 5: Val loss: 35.802 accuracy: 71.38%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 6: Val loss: 44.352 accuracy: 66.98%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 7: Val loss: 44.296 accuracy: 68.10%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 8: Val loss: 46.201 accuracy: 67.60%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 9: Val loss: 56.201 accuracy: 65.80%                                      main.py:LINE
+Done!
+Task 1 output:
+[(DATE) (TIME)] INFO     Epoch 0: Val loss: 53.305 accuracy: 52.36%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 1: Val loss: 42.137 accuracy: 62.54%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 2: Val loss: 49.756 accuracy: 59.68%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 3: Val loss: 38.041 accuracy: 66.60%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 4: Val loss: 35.414 accuracy: 70.08%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 5: Val loss: 36.338 accuracy: 69.30%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 6: Val loss: 41.323 accuracy: 68.04%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 7: Val loss: 50.189 accuracy: 64.68%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 8: Val loss: 43.183 accuracy: 70.14%                                      main.py:LINE
+[(DATE) (TIME)] INFO     Epoch 9: Val loss: 44.204 accuracy: 70.08%                                      main.py:LINE
+Done!

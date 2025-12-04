@@ -25,15 +25,28 @@ repository.
 .. code:: bash
 
    #!/bin/bash
-   #SBATCH --gpus-per-task=rtx8000:1
-   #SBATCH --cpus-per-task=4
+   #SBATCH --ntasks=1
    #SBATCH --ntasks-per-node=1
-   #SBATCH --mem=16G
+   #SBATCH --cpus-per-task=4
+   #SBATCH --gpus-per-task=l40s:1
+   #SBATCH --mem-per-gpu=16G
    #SBATCH --time=00:15:00
 
-   set -e  # exit on error.
+   # Exit on error
+   set -e
+
+   # Echo time and hostname into log
    echo "Date:     $(date)"
    echo "Hostname: $(hostname)"
+
+   # To make your code as much reproducible as possible, uncomment the following
+   # block:
+   ## === Reproducibility ===
+   ## BROKEN: This seams to block the training and nothing happens.
+   ## Be warned that this can make your code slower. See
+   ## https://github.com/jax-ml/jax/issues/13672 for more details.
+   ## export XLA_FLAGS=--xla_gpu_deterministic_ops=true
+   ## === Reproducibility (END) ===
 
    # Stage dataset into $SLURM_TMPDIR
    mkdir -p $SLURM_TMPDIR/data
@@ -44,7 +57,7 @@ repository.
 
    # Execute Python script
    # Use `uv run --offline` on clusters without internet access on compute nodes.
-   uv run python main.py
+   srun uv run python main.py
 
 
 **main.py**
@@ -64,6 +77,7 @@ repository.
    import math
    import os
    from pathlib import Path
+   import random
    import sys
    from typing import Any, Sequence
 
@@ -116,6 +130,7 @@ repository.
        parser.add_argument("--learning-rate", type=float, default=5e-4)
        parser.add_argument("--weight-decay", type=float, default=1e-4)
        parser.add_argument("--batch-size", type=int, default=128)
+       parser.add_argument("--seed", type=int, default=42)
        args = parser.parse_args()
 
        epochs: int = args.epochs
@@ -123,10 +138,17 @@ repository.
        weight_decay: float = args.weight_decay
        # NOTE: This is the "local" batch size, per-GPU.
        batch_size: int = args.batch_size
+       seed: int = args.seed
 
        # Check that the GPU is available
        assert torch.cuda.is_available() and torch.cuda.device_count() > 0
-       rng = jax.random.PRNGKey(0)
+
+       # Seed the random number generators as early as possible for reproducibility
+       random.seed(seed)
+       np.random.seed(seed)
+       torch.random.manual_seed(seed)
+       torch.cuda.manual_seed_all(seed)
+       rng = jax.random.PRNGKey(seed)
 
        # Setup logging (optional, but much better than using print statements)
        # Uses the `rich` package to make logs pretty.

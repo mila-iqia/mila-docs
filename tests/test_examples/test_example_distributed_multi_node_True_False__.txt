@@ -1,0 +1,45 @@
+Task 0 output:
+PyTorch Distributed available.
+  Backends:
+    Gloo: True
+    NCCL: True
+    MPI:  False
+[(DATE) (TIME)] INFO     [0/4] __main__ - World size: 4, global rank: 0, local rank: 0                    main.py:LINE
+PYTHON_ENV/site-packages/torch/distributed/distributed_c10d.py:4876: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  warnings.warn(  # warn only once
+[(DATE) (TIME)] INFO     [0/4] __main__ - Effective batch size: 512                                      main.py:LINE
+[(DATE) (TIME)] INFO     [0/4] __main__ - Epoch 0: Val loss: 55.623 accuracy: 50.24%                     main.py:LINE
+[(DATE) (TIME)] INFO     [0/4] __main__ - Epoch 1: Val loss: 47.779 accuracy: 57.62%                     main.py:LINE
+[(DATE) (TIME)] INFO     [0/4] __main__ - Epoch 2: Val loss: 55.212 accuracy: 54.70%                     main.py:LINE
+[(DATE) (TIME)] INFO     [0/4] __main__ - Epoch 3: Val loss: 49.470 accuracy: 58.14%                     main.py:LINE
+[(DATE) (TIME)] INFO     [0/4] __main__ - Epoch 4: Val loss: 53.140 accuracy: 59.76%                     main.py:LINE
+[(DATE) (TIME)] INFO     [0/4] __main__ - Epoch 5: Val loss: 46.881 accuracy: 63.74%                     main.py:LINE
+[(DATE) (TIME)] INFO     [0/4] __main__ - Epoch 6: Val loss: 53.358 accuracy: 62.60%                     main.py:LINE
+[(DATE) (TIME)] INFO     [0/4] __main__ - Epoch 7: Val loss: 58.882 accuracy: 61.80%                     main.py:LINE
+[(DATE) (TIME)] INFO     [0/4] __main__ - Epoch 8: Val loss: 65.060 accuracy: 60.76%                     main.py:LINE
+[(DATE) (TIME)] INFO     [0/4] __main__ - Epoch 9: Val loss: 59.424 accuracy: 64.76%                     main.py:LINE
+Done!
+Task 1 output:
+PyTorch Distributed available.
+  Backends:
+    Gloo: True
+    NCCL: True
+    MPI:  False
+[(DATE) (TIME)] INFO     [1/4] __main__ - World size: 4, global rank: 1, local rank: 1                    main.py:LINE
+Done!
+Task 2 output:
+PyTorch Distributed available.
+  Backends:
+    Gloo: True
+    NCCL: True
+    MPI:  False
+[(DATE) (TIME)] INFO     [2/4] __main__ - World size: 4, global rank: 2, local rank: 0                    main.py:LINE
+Done!
+Task 3 output:
+PyTorch Distributed available.
+  Backends:
+    Gloo: True
+    NCCL: True
+    MPI:  False
+[(DATE) (TIME)] INFO     [3/4] __main__ - World size: 4, global rank: 3, local rank: 1                    main.py:LINE
+Done!
