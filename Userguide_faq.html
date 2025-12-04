@@ -1,0 +1,404 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Frequently asked questions (FAQs) &mdash; Mila Technical Documentation latest documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=8da7d091" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=c6e86fd7"></script>
+      <script src="_static/doctools.js?v=888ff710"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script src="_static/documentation_options.js?v=c6e86fd7"></script>
+      <script src="_static/documentation_options_fix.js?v=1c8886ec"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Computing infrastructure and policies" href="Information.html" />
+    <link rel="prev" title="Singularity" href="Userguide_singularity.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/image.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Purpose.html">Purpose of this documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Purpose.html#contributing">Contributing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-tos and Guides</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Userguide_quick_start.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_login.html">Logging in to the cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_running_code.html">Running your code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_portability.html">Portability concerns and solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_containers.html">Using containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_sharing_data.html">Sharing Data with ACLs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_datasets.html">Contributing datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_data_transfer.html">Data Transmission using Globus Connect Personal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_multigpu.html">Advanced SLURM usage and Multiple GPU jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_multinode.html">Multiple Nodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_wandb.html">Weight and Biases (WandB)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_comet.html">Comet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_jupyterhub.html">JupyterHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_singularity.html">Singularity</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Frequently asked questions (FAQs)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#connection-ssh-issues">Connection/SSH issues</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#i-m-getting-connection-refused-while-trying-to-connect-to-a-login-node">I’m getting <code class="docutils literal notranslate"><span class="pre">connection</span> <span class="pre">refused</span></code> while trying to connect to a login node</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#shell-issues">Shell issues</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#how-do-i-change-my-shell">How do I change my shell ?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#slurm-issues">SLURM issues</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#how-can-i-get-an-interactive-shell-on-the-cluster">How can I get an interactive shell on the cluster ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#how-can-i-reset-my-cluster-password">How can I reset my cluster password ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#srun-error-mem-and-mem-per-cpu-are-mutually-exclusive">srun: error: –mem and –mem-per-cpu are mutually exclusive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#how-can-i-see-where-and-if-my-jobs-are-running">How can I see where and if my jobs are running ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#unable-to-allocate-resources-invalid-account-or-account-partition-combination-specified">Unable to allocate resources: Invalid account or account/partition combination specified</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#how-do-i-cancel-a-job">How do I cancel a job?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#how-can-i-access-a-node-on-which-one-of-my-jobs-is-running">How can I access a node on which one of my jobs is running ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#i-m-getting-permission-denied-publickey-while-trying-to-connect-to-a-node">I’m getting <code class="docutils literal notranslate"><span class="pre">Permission</span> <span class="pre">denied</span> <span class="pre">(publickey)</span></code> while trying to connect to a node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#where-do-i-put-my-data-during-a-job">Where do I put my data during a job ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#slurmstepd-error-detected-1-oom-kill-event-s-in-step-batch-cgroup">slurmstepd: error: Detected 1 oom-kill event(s) in step #####.batch cgroup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fork-retry-resource-temporarily-unavailable">fork: retry: Resource temporarily unavailable</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pytorch-issues">PyTorch issues</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#i-randomly-get-internal-assert-failed-at-aten-src-aten-mapallocator-cpp-263">I randomly get <code class="docutils literal notranslate"><span class="pre">INTERNAL</span> <span class="pre">ASSERT</span> <span class="pre">FAILED</span> <span class="pre">at</span> <span class="pre">&quot;../aten/src/ATen/MapAllocator.cpp&quot;:263</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#on-mig-gpus-i-get-torch-cuda-device-count-0-despite-torch-cuda-is-available">On MIG GPUs, I get <code class="docutils literal notranslate"><span class="pre">torch.cuda.device_count()</span> <span class="pre">==</span> <span class="pre">0</span></code> despite <code class="docutils literal notranslate"><span class="pre">torch.cuda.is_available()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#i-am-told-my-pytorch-job-abuses-the-filesystem-with-extreme-amounts-of-iops">I am told my PyTorch job abuses the filesystem with extreme amounts of IOPS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conda-refuses-to-create-an-environment-with-your-installed-cuda-driver-is-not-available">Conda refuses to create an environment with <code class="docutils literal notranslate"><span class="pre">Your</span> <span class="pre">installed</span> <span class="pre">CUDA</span> <span class="pre">driver</span> <span class="pre">is:</span> <span class="pre">not</span> <span class="pre">available</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Systems and services</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Information.html">Computing infrastructure and policies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Extra_compute.html">Computational resources outside of Mila</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Minimal Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="examples/frameworks/index.html">Software Frameworks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/distributed/index.html">Distributed Training</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/good_practices/index.html">Good practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/advanced/index.html">Advanced Examples</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/mila-iqia/ResearchTemplate">🔗 Research Project Template</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">General theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html">What is a computer cluster?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#parts-of-a-computing-cluster">Parts of a computing cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#unix">UNIX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#the-workload-manager">The workload manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#processing-data">Processing data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#software-on-the-cluster">Software on the cluster</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extras</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Acknowledgement.html">Acknowledging Mila</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://datasets.server.mila.quebec/">Mila Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Audio_video.html">Audio and video resources at Mila</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VSCode.html">Visual Studio Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IDT.html">Who, what, where is IDT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cheatsheet.html">Cheat Sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Environmental_impact.html">Environmental Impact</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Mila Technical Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Frequently asked questions (FAQs)</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/mila-iqia/mila-docs/blob/master/docs/Userguide_faq.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="frequently-asked-questions-faqs">
+<h1>Frequently asked questions (FAQs)<a class="headerlink" href="#frequently-asked-questions-faqs" title="Link to this heading"></a></h1>
+<section id="connection-ssh-issues">
+<h2>Connection/SSH issues<a class="headerlink" href="#connection-ssh-issues" title="Link to this heading"></a></h2>
+<section id="i-m-getting-connection-refused-while-trying-to-connect-to-a-login-node">
+<h3>I’m getting <code class="docutils literal notranslate"><span class="pre">connection</span> <span class="pre">refused</span></code> while trying to connect to a login node<a class="headerlink" href="#i-m-getting-connection-refused-while-trying-to-connect-to-a-login-node" title="Link to this heading"></a></h3>
+<p>Login nodes are protected against brute force attacks and might ban your IP if
+it detects too many connections/failures. You will be automatically unbanned
+after 1 hour. For any further problem, please <a class="reference external" href="https://mila-iqia.atlassian.net/servicedesk/customer/portals">submit a support ticket.</a></p>
+</section>
+</section>
+<section id="shell-issues">
+<h2>Shell issues<a class="headerlink" href="#shell-issues" title="Link to this heading"></a></h2>
+<section id="how-do-i-change-my-shell">
+<h3>How do I change my shell ?<a class="headerlink" href="#how-do-i-change-my-shell" title="Link to this heading"></a></h3>
+<p>By default you will be assigned <code class="docutils literal notranslate"><span class="pre">/bin/bash</span></code> as a shell. If you would like to
+change for another one, please <a class="reference external" href="https://mila-iqia.atlassian.net/servicedesk/customer/portals">submit a support ticket.</a></p>
+</section>
+</section>
+<section id="slurm-issues">
+<h2>SLURM issues<a class="headerlink" href="#slurm-issues" title="Link to this heading"></a></h2>
+<section id="how-can-i-get-an-interactive-shell-on-the-cluster">
+<h3>How can I get an interactive shell on the cluster ?<a class="headerlink" href="#how-can-i-get-an-interactive-shell-on-the-cluster" title="Link to this heading"></a></h3>
+<p>Use <code class="docutils literal notranslate"><span class="pre">salloc</span> <span class="pre">[--slurm_options]</span></code> without any executable at the end of the
+command, this will launch your default shell on an interactive session. Remember
+that an interactive session is bound to the login node where you start it so you
+could risk losing your job if the login node becomes unreachable.</p>
+</section>
+<section id="how-can-i-reset-my-cluster-password">
+<h3>How can I reset my cluster password ?<a class="headerlink" href="#how-can-i-reset-my-cluster-password" title="Link to this heading"></a></h3>
+<p>To reset your password, please <a class="reference external" href="https://mila-iqia.atlassian.net/servicedesk/customer/portals">submit a support ticket.</a></p>
+<p><strong>Warning</strong>: your cluster password is the same as your Google Workspace account. So,
+after reset, you must use the new password for all your Google services.</p>
+</section>
+<section id="srun-error-mem-and-mem-per-cpu-are-mutually-exclusive">
+<h3>srun: error: –mem and –mem-per-cpu are mutually exclusive<a class="headerlink" href="#srun-error-mem-and-mem-per-cpu-are-mutually-exclusive" title="Link to this heading"></a></h3>
+<p>You can safely ignore this, <code class="docutils literal notranslate"><span class="pre">salloc</span></code> has a default memory flag in case you
+don’t provide one.</p>
+</section>
+<section id="how-can-i-see-where-and-if-my-jobs-are-running">
+<h3>How can I see where and if my jobs are running ?<a class="headerlink" href="#how-can-i-see-where-and-if-my-jobs-are-running" title="Link to this heading"></a></h3>
+<p>Use <code class="docutils literal notranslate"><span class="pre">squeue</span> <span class="pre">-u</span> <span class="pre">YOUR_USERNAME</span></code> to see all your job status and locations.
+To get more info on a running job, try <code class="docutils literal notranslate"><span class="pre">scontrol</span> <span class="pre">show</span> <span class="pre">job</span> <span class="pre">#JOBID</span></code></p>
+</section>
+<section id="unable-to-allocate-resources-invalid-account-or-account-partition-combination-specified">
+<h3>Unable to allocate resources: Invalid account or account/partition combination specified<a class="headerlink" href="#unable-to-allocate-resources-invalid-account-or-account-partition-combination-specified" title="Link to this heading"></a></h3>
+<p>Chances are your account is not setup properly. You should <a class="reference external" href="https://mila-iqia.atlassian.net/servicedesk/customer/portals">submit a support
+ticket.</a></p>
+</section>
+<section id="how-do-i-cancel-a-job">
+<h3>How do I cancel a job?<a class="headerlink" href="#how-do-i-cancel-a-job" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>To cancel a specific job, use <code class="docutils literal notranslate"><span class="pre">scancel</span> <span class="pre">#JOBID</span></code></p></li>
+<li><p>To cancel all your jobs (running and pending), use <code class="docutils literal notranslate"><span class="pre">scancel</span> <span class="pre">-u</span> <span class="pre">YOUR_USERNAME</span></code></p></li>
+<li><p>To cancel all your pending jobs only, use <code class="docutils literal notranslate"><span class="pre">scancel</span> <span class="pre">-t</span> <span class="pre">PD</span></code></p></li>
+</ul>
+</section>
+<section id="how-can-i-access-a-node-on-which-one-of-my-jobs-is-running">
+<h3>How can I access a node on which one of my jobs is running ?<a class="headerlink" href="#how-can-i-access-a-node-on-which-one-of-my-jobs-is-running" title="Link to this heading"></a></h3>
+<p>You can ssh into a node on which you have a job running, your ssh connection
+will be adopted by your job, i.e.  if your job finishes your ssh connection will
+be automatically terminated. In order to connect to a node, you need to have
+password-less ssh either with a key present in your home or with an
+<code class="docutils literal notranslate"><span class="pre">ssh-agent</span></code>. You can generate a key on the login node like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
+span.prompt1:before {
+  content: "$ ";
+}
+</style><span class="prompt1">ssh-keygen<span class="w"> </span><span class="o">(</span>3xENTER<span class="o">)</span></span>
+<span class="prompt1">cat<span class="w"> </span>~/.ssh/id_rsa.pub<span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.ssh/authorized_keys</span>
+<span class="prompt1">chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>~/.ssh/authorized_keys</span>
+<span class="prompt1">chmod<span class="w"> </span><span class="m">700</span><span class="w"> </span>~/.ssh</span>
+</pre></div></div><p>The ECDSA, RSA and ED25519 fingerprints for Mila’s compute nodes are:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>SHA256:hGH64v72h/c0SfngAWB8WSyMj8WSAf5um3lqVsa7Cfk (ECDSA)
+SHA256:4Es56W5ANNMQza2sW2O056ifkl8QBvjjNjfMqpB7/1U (RSA)
+SHA256:gUQJw6l1lKjM1cCyennetPoQ6ST0jMhQAs/57LhfakA (ED25519)
+</pre></div>
+</div>
+</section>
+<section id="i-m-getting-permission-denied-publickey-while-trying-to-connect-to-a-node">
+<h3>I’m getting <code class="docutils literal notranslate"><span class="pre">Permission</span> <span class="pre">denied</span> <span class="pre">(publickey)</span></code> while trying to connect to a node<a class="headerlink" href="#i-m-getting-permission-denied-publickey-while-trying-to-connect-to-a-node" title="Link to this heading"></a></h3>
+<p>See previous question</p>
+</section>
+<section id="where-do-i-put-my-data-during-a-job">
+<h3>Where do I put my data during a job ?<a class="headerlink" href="#where-do-i-put-my-data-during-a-job" title="Link to this heading"></a></h3>
+<p>Your <code class="docutils literal notranslate"><span class="pre">/home</span></code> as well as the datasets are on shared file-systems, it is
+recommended to copy them to the <code class="docutils literal notranslate"><span class="pre">$SLURM_TMPDIR</span></code> to better process them and
+leverage higher-speed local drives. If you run a low priority job subject to
+preemption, it’s better to save any output you want to keep on the shared file
+systems, because the <code class="docutils literal notranslate"><span class="pre">$SLURM_TMPDIR</span></code> is deleted at the end of each job.</p>
+</section>
+<section id="slurmstepd-error-detected-1-oom-kill-event-s-in-step-batch-cgroup">
+<h3>slurmstepd: error: Detected 1 oom-kill event(s) in step #####.batch cgroup<a class="headerlink" href="#slurmstepd-error-detected-1-oom-kill-event-s-in-step-batch-cgroup" title="Link to this heading"></a></h3>
+<p>You exceeded the amount of memory allocated to your job, either you did not
+request enough memory or you have a memory leak in your process. Try increasing
+the amount of memory requested with <code class="docutils literal notranslate"><span class="pre">--mem=</span></code> or <code class="docutils literal notranslate"><span class="pre">--mem-per-cpu=</span></code>.</p>
+</section>
+<section id="fork-retry-resource-temporarily-unavailable">
+<h3>fork: retry: Resource temporarily unavailable<a class="headerlink" href="#fork-retry-resource-temporarily-unavailable" title="Link to this heading"></a></h3>
+<p>You exceeded the limit of 2000 tasks/PIDs in your job, it probably means there
+is an issue with a sub-process spawning too many processes in your script. For
+any help with your software, please <a class="reference external" href="https://mila-iqia.atlassian.net/servicedesk/customer/portals">submit a support ticket.</a></p>
+</section>
+</section>
+<section id="pytorch-issues">
+<h2>PyTorch issues<a class="headerlink" href="#pytorch-issues" title="Link to this heading"></a></h2>
+<section id="i-randomly-get-internal-assert-failed-at-aten-src-aten-mapallocator-cpp-263">
+<h3>I randomly get <code class="docutils literal notranslate"><span class="pre">INTERNAL</span> <span class="pre">ASSERT</span> <span class="pre">FAILED</span> <span class="pre">at</span> <span class="pre">&quot;../aten/src/ATen/MapAllocator.cpp&quot;:263</span></code><a class="headerlink" href="#i-randomly-get-internal-assert-failed-at-aten-src-aten-mapallocator-cpp-263" title="Link to this heading"></a></h3>
+<p>You are using PyTorch 1.10.x and hitting <a class="reference external" href="https://github.com/pytorch/pytorch/issues/67864">#67864</a>,
+for which the solution is <a class="reference external" href="https://github.com/pytorch/pytorch/pull/72232">PR #72232</a>
+merged in PyTorch 1.11.x. For an immediate fix, consider the following compilable Gist:
+<a class="reference external" href="https://gist.github.com/obilaniu/b133470cb70410d841faca819d3921e5">hack.cpp</a>.
+Compile the patch to <code class="docutils literal notranslate"><span class="pre">hack.so</span></code> and then <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">LD_PRELOAD=/absolute/path/to/hack.so</span></code>
+before executing the Python process that <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">torch</span></code> a broken PyTorch 1.10.</p>
+<p>For Hydra users who are using the submitit launcher plug-in, the <code class="docutils literal notranslate"><span class="pre">env_set</span></code> key cannot
+be used to set <code class="docutils literal notranslate"><span class="pre">LD_PRELOAD</span></code> in the environment as it does so too late at runtime. The
+dynamic loader reads <code class="docutils literal notranslate"><span class="pre">LD_PRELOAD</span></code> only once and very early during the startup of any
+process, before the variable can be set from inside the process. The hack must therefore
+be injected using the <code class="docutils literal notranslate"><span class="pre">setup</span></code> key in Hydra YAML config file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hydra</span><span class="p">:</span>
+  <span class="n">launcher</span><span class="p">:</span>
+    <span class="n">setup</span><span class="p">:</span>
+      <span class="o">-</span> <span class="n">export</span> <span class="n">LD_PRELOAD</span><span class="o">=/</span><span class="n">absolute</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">hack</span><span class="o">.</span><span class="n">so</span>
+</pre></div>
+</div>
+</section>
+<section id="on-mig-gpus-i-get-torch-cuda-device-count-0-despite-torch-cuda-is-available">
+<h3>On MIG GPUs, I get <code class="docutils literal notranslate"><span class="pre">torch.cuda.device_count()</span> <span class="pre">==</span> <span class="pre">0</span></code> despite <code class="docutils literal notranslate"><span class="pre">torch.cuda.is_available()</span></code><a class="headerlink" href="#on-mig-gpus-i-get-torch-cuda-device-count-0-despite-torch-cuda-is-available" title="Link to this heading"></a></h3>
+<p>You are using PyTorch 1.13.x and hitting <a class="reference external" href="https://github.com/pytorch/pytorch/issues/90543">#90543</a>,
+for which the solution is <a class="reference external" href="https://github.com/pytorch/pytorch/pull/92315">PR #92315</a>
+merged in PyTorch 2.0.</p>
+<p>To avoid thus problem, update to PyTorch 2.0. If PyTorch 1.13.x is required, a
+workaround is to add the following to your script:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">unset</span><span class="w"> </span>CUDA_VISIBLE_DEVICES
+</pre></div>
+</div>
+<p>But this is no longer necessary with PyTorch &gt;= 2.0.</p>
+</section>
+<section id="i-am-told-my-pytorch-job-abuses-the-filesystem-with-extreme-amounts-of-iops">
+<h3>I am told my PyTorch job abuses the filesystem with extreme amounts of IOPS<a class="headerlink" href="#i-am-told-my-pytorch-job-abuses-the-filesystem-with-extreme-amounts-of-iops" title="Link to this heading"></a></h3>
+<p>A fairly common issue in PyTorch is:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>RuntimeError: one of the variables needed for gradient computation has been
+modified by an inplace operation: [torch.cuda.FloatTensor [1, 50, 300]],
+which is output 0 of SplitBackward, is at version 2; expected version 0
+instead. Hint: enable anomaly detection to find the operation that failed to
+compute its gradient, with torch.autograd.set_detect_anomaly(True).
+</pre></div>
+</div>
+<p>PyTorch’s autograd engine contains an “anomaly detection mode”, which detects
+such things as NaN/infinities being created, and helps debugging in-place
+Tensor modifications. It is activated with</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">set_detect_anomaly</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>PyTorch’s implementation of the anomaly-detection mode tracks where every Tensor
+was created in the program. This involves the collection of the backtrace at the
+point the Tensor was created.</p>
+<p><strong>Unfortunately</strong>, the collection of a backtrace involves a <code class="docutils literal notranslate"><span class="pre">stat()</span></code> system
+call to <strong>every</strong> source file in the backtrace. This is considered a metadata
+access to <code class="docutils literal notranslate"><span class="pre">$HOME</span></code> and results in intolerably heavy traffic to the shared
+filesystem containing the source code, usually <code class="docutils literal notranslate"><span class="pre">$HOME</span></code>, <em>whatever the location
+of the dataset</em>, and <em>even if it is on</em> <code class="docutils literal notranslate"><span class="pre">$SLURM_TMPDIR</span></code>. It is the source-code
+files being polled, not the dataset. As there can be hundreds of PyTorch tensors
+created per iteration and thousands of iterations per second, this mode results
+in <strong>extreme</strong> amounts of IOPS to the filesystem.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<ul class="simple">
+<li><p><strong>Do not use</strong> <code class="docutils literal notranslate"><span class="pre">torch.autograd.set_detect_anomaly(True)</span></code> except for
+debugging an individual job interactively, and switch it off as soon as
+done using it.</p></li>
+<li><p><strong>Do not set</strong> <code class="docutils literal notranslate"><span class="pre">torch.autograd.set_detect_anomaly(True)</span></code> enabled
+unconditionally in all your jobs. <strong>It is not a consequence-free aid</strong>.
+Due to heavy use of filesystem calls, <strong>it has a performance impact and
+slows down your code</strong>, <em>on top</em> of abusing the filesystem.</p></li>
+<li><p><strong>You will be contacted</strong> if you violate these guidelines due to the
+severity of its impact on shared filesystems.</p></li>
+</ul>
+</div>
+</section>
+<section id="conda-refuses-to-create-an-environment-with-your-installed-cuda-driver-is-not-available">
+<h3>Conda refuses to create an environment with <code class="docutils literal notranslate"><span class="pre">Your</span> <span class="pre">installed</span> <span class="pre">CUDA</span> <span class="pre">driver</span> <span class="pre">is:</span> <span class="pre">not</span> <span class="pre">available</span></code><a class="headerlink" href="#conda-refuses-to-create-an-environment-with-your-installed-cuda-driver-is-not-available" title="Link to this heading"></a></h3>
+<p>Anaconda attempts to auto-detect the NVIDIA driver version of the system and
+thus the maximum CUDA toolkit supported, in an attempt at choosing an
+appropriate CUDA Toolkit version.</p>
+<p>However, on login and CPU nodes, there is no NVIDIA GPU and thus no need for
+NVIDIA drivers. But that means <code class="docutils literal notranslate"><span class="pre">conda</span></code>’s auto-detection will not work on
+those nodes, and packages declaring a minimum requirement on the drivers will
+fail to install.</p>
+<p>The solution in such a situation is to set the environment variable
+<code class="docutils literal notranslate"><span class="pre">CONDA_OVERRIDE_CUDA</span></code> to the desired CUDA Toolkit version; For example,</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">CONDA_OVERRIDE_CUDA</span><span class="o">=</span><span class="m">11</span>.8<span class="w"> </span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>ENVNAME<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.10<span class="w"> </span>pytorch<span class="w"> </span>torchvision<span class="w"> </span>torchaudio<span class="w"> </span>pytorch-cuda<span class="o">=</span><span class="m">11</span>.8<span class="w"> </span>-c<span class="w"> </span>pytorch<span class="w"> </span>-c<span class="w"> </span>nvidia
+</pre></div>
+</div>
+<p>This and other <code class="docutils literal notranslate"><span class="pre">CONDA_OVERRIDE_*</span></code> variables <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-virtual.html#overriding-detected-packages">are documented in the conda manual</a>.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Userguide_singularity.html" class="btn btn-neutral float-left" title="Singularity" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Information.html" class="btn btn-neutral float-right" title="Computing infrastructure and policies" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+<script type="text/javascript">
+  window.onload = function() {
+      $(".toggle > *").hide();
+      $(".toggle .header").show();
+      $(".toggle .header").click(function() {
+          $(this).parent().children().not(".header").toggle(400);
+          $(this).parent().children(".header").toggleClass("open");
+      })
+  };
+</script>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

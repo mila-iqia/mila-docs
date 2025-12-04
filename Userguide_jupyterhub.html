@@ -1,0 +1,234 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JupyterHub &mdash; Mila Technical Documentation latest documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=8da7d091" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=c6e86fd7"></script>
+      <script src="_static/doctools.js?v=888ff710"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script src="_static/documentation_options.js?v=c6e86fd7"></script>
+      <script src="_static/documentation_options_fix.js?v=1c8886ec"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Singularity" href="Userguide_singularity.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="Userguide_debugging.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/image.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Purpose.html">Purpose of this documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Purpose.html#contributing">Contributing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-tos and Guides</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Userguide_quick_start.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_login.html">Logging in to the cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_running_code.html">Running your code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_portability.html">Portability concerns and solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_containers.html">Using containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_sharing_data.html">Sharing Data with ACLs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_datasets.html">Contributing datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_data_transfer.html">Data Transmission using Globus Connect Personal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_multigpu.html">Advanced SLURM usage and Multiple GPU jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_multinode.html">Multiple Nodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_wandb.html">Weight and Biases (WandB)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_comet.html">Comet</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">JupyterHub</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#access-mila-storage-in-jupyterlab">Access Mila Storage in JupyterLab</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_singularity.html">Singularity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_faq.html">Frequently asked questions (FAQs)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Systems and services</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Information.html">Computing infrastructure and policies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Extra_compute.html">Computational resources outside of Mila</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Minimal Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="examples/frameworks/index.html">Software Frameworks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/distributed/index.html">Distributed Training</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/good_practices/index.html">Good practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/advanced/index.html">Advanced Examples</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/mila-iqia/ResearchTemplate">🔗 Research Project Template</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">General theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html">What is a computer cluster?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#parts-of-a-computing-cluster">Parts of a computing cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#unix">UNIX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#the-workload-manager">The workload manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#processing-data">Processing data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#software-on-the-cluster">Software on the cluster</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extras</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Acknowledgement.html">Acknowledging Mila</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://datasets.server.mila.quebec/">Mila Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Audio_video.html">Audio and video resources at Mila</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VSCode.html">Visual Studio Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IDT.html">Who, what, where is IDT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cheatsheet.html">Cheat Sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Environmental_impact.html">Environmental Impact</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Mila Technical Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">JupyterHub</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/mila-iqia/mila-docs/blob/master/docs/Userguide_jupyterhub.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="jupyterhub">
+<h1>JupyterHub<a class="headerlink" href="#jupyterhub" title="Link to this heading"></a></h1>
+<p><strong>JupyterHub</strong> is a platform connected to SLURM to start a <strong>JupyterLab</strong>
+session as a batch job then connects it when the allocation has been granted.
+It does not require any ssh tunnel or port redirection, the hub acts as a proxy
+server that will redirect you to a session as soon as it is available.</p>
+<p>It is currently available for Mila clusters and some Digital Research Alliance
+of Canada (Alliance) clusters.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Cluster</p></th>
+<th class="head"><p>Address</p></th>
+<th class="head"><p>Login type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Mila Local</p></td>
+<td><p><a class="reference external" href="https://jupyterhub.server.mila.quebec">https://jupyterhub.server.mila.quebec</a></p></td>
+<td><p>Google Oauth</p></td>
+</tr>
+<tr class="row-odd"><td><p>Alliance</p></td>
+<td><p><a class="reference external" href="https://docs.alliancecan.ca/wiki/JupyterHub">https://docs.alliancecan.ca/wiki/JupyterHub</a></p></td>
+<td><p>DRAC login</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Do not forget to close the JupyterLab session! Closing the window leaves
+running the session and the SLURM job it is linked to.</p>
+<p>To close it, use the <code class="docutils literal notranslate"><span class="pre">hub</span></code> menu and then <code class="docutils literal notranslate"><span class="pre">Control</span> <span class="pre">Panel</span> <span class="pre">&gt;</span> <span class="pre">Stop</span> <span class="pre">my</span> <span class="pre">server</span></code></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>For Mila Clusters:</strong></p>
+<p><em>mila.quebec</em> account credentials should be used to login and start a
+<strong>JupyterLab</strong> session.</p>
+</div>
+<section id="access-mila-storage-in-jupyterlab">
+<h2>Access Mila Storage in JupyterLab<a class="headerlink" href="#access-mila-storage-in-jupyterlab" title="Link to this heading"></a></h2>
+<p>Unfortunately, JupyterLab does not allow the navigation to parent directories of
+<code class="docutils literal notranslate"><span class="pre">$HOME</span></code>. This makes some file systems like <code class="docutils literal notranslate"><span class="pre">/network/datasets</span></code> or
+<code class="docutils literal notranslate"><span class="pre">$SLURM_TMPDIR</span></code> unavailable through their absolute path in the interface. It
+is however possible to create symbolic links to those resources. To do so, you
+can use the <code class="docutils literal notranslate"><span class="pre">ln</span> <span class="pre">-s</span></code> command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ln<span class="w"> </span>-s<span class="w"> </span>/network/datasets<span class="w"> </span><span class="nv">$HOME</span>
+</pre></div>
+</div>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">$SLURM_TMPDIR</span></code> is a directory that is dynamically created for each
+job so you would need to recreate the symbolic link every time you start a
+JupyterHub session:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ln<span class="w"> </span>-sf<span class="w"> </span><span class="nv">$SLURM_TMPDIR</span><span class="w"> </span><span class="nv">$HOME</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Userguide_debugging.html" class="btn btn-neutral float-left" title="&lt;no title&gt;" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Userguide_singularity.html" class="btn btn-neutral float-right" title="Singularity" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+<script type="text/javascript">
+  window.onload = function() {
+      $(".toggle > *").hide();
+      $(".toggle .header").show();
+      $(".toggle .header").click(function() {
+          $(this).parent().children().not(".header").toggle(400);
+          $(this).parent().children(".header").toggleClass("open");
+      })
+  };
+</script>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

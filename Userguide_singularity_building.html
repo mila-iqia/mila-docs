@@ -1,0 +1,562 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Building the containers &mdash; Mila Technical Documentation latest documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=8da7d091" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=c6e86fd7"></script>
+      <script src="_static/doctools.js?v=888ff710"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script src="_static/documentation_options.js?v=c6e86fd7"></script>
+      <script src="_static/documentation_options_fix.js?v=1c8886ec"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/image.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Purpose.html">Purpose of this documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Purpose.html#contributing">Contributing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-tos and Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_quick_start.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_login.html">Logging in to the cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_running_code.html">Running your code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_portability.html">Portability concerns and solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_containers.html">Using containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_sharing_data.html">Sharing Data with ACLs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_datasets.html">Contributing datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_data_transfer.html">Data Transmission using Globus Connect Personal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_multigpu.html">Advanced SLURM usage and Multiple GPU jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_multinode.html">Multiple Nodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_wandb.html">Weight and Biases (WandB)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_comet.html">Comet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_jupyterhub.html">JupyterHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_singularity.html">Singularity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_faq.html">Frequently asked questions (FAQs)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Systems and services</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Information.html">Computing infrastructure and policies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Extra_compute.html">Computational resources outside of Mila</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Minimal Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="examples/frameworks/index.html">Software Frameworks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/distributed/index.html">Distributed Training</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/good_practices/index.html">Good practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/advanced/index.html">Advanced Examples</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/mila-iqia/ResearchTemplate">🔗 Research Project Template</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">General theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html">What is a computer cluster?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#parts-of-a-computing-cluster">Parts of a computing cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#unix">UNIX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#the-workload-manager">The workload manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#processing-data">Processing data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#software-on-the-cluster">Software on the cluster</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extras</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Acknowledgement.html">Acknowledging Mila</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://datasets.server.mila.quebec/">Mila Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Audio_video.html">Audio and video resources at Mila</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VSCode.html">Visual Studio Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IDT.html">Who, what, where is IDT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cheatsheet.html">Cheat Sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Environmental_impact.html">Environmental Impact</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Mila Technical Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Building the containers</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/mila-iqia/mila-docs/blob/master/docs/Userguide_singularity_building.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="building-the-containers">
+<h1>Building the containers<a class="headerlink" href="#building-the-containers" title="Link to this heading"></a></h1>
+<p>Building a container is like creating a new environment except that containers
+are much more powerful since they are self-contained systems.  With
+singularity, there are two ways to build containers.</p>
+<p>The first one is by yourself, it’s like when you got a new Linux laptop and you
+don’t really know what you need, if you see that something is missing, you
+install it. Here you can get a vanilla container with Ubuntu called a sandbox,
+you log in and you install each packages by yourself.  This procedure can take
+time but will allow you to understand how things work and what you need. This is
+recommended if you need to figure out how things will be compiled or if you want
+to install packages on the fly. We’ll refer to this procedure as singularity
+sandboxes.</p>
+<p>The second way is more like you know what you want, so you write a list of
+everything you need, you send it to singularity and it will install everything
+for you. Those lists are called singularity recipes.</p>
+<section id="first-way-build-and-use-a-sandbox">
+<h2>First way: Build and use a sandbox<a class="headerlink" href="#first-way-build-and-use-a-sandbox" title="Link to this heading"></a></h2>
+<p>You might ask yourself: <em>On which machine should I build a container?</em></p>
+<p>First of all, you need to choose where you’ll build your container. This
+operation requires <strong>memory and high cpu usage</strong>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Do NOT build containers on any login nodes !</p>
+</div>
+<ul>
+<li><p>(Recommended for beginner) If you need to <strong>use apt-get</strong>, you should <strong>build
+the container on your laptop</strong> with sudo privileges. You’ll only need to
+install singularity on your laptop. Windows/Mac users can look <a class="reference external" href="https://www.sylabs.io/guides/3.0/user-guide/installation.html#install-on-windows-or-mac">there</a> and
+Ubuntu/Debian users can use directly:</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
+span.prompt1:before {
+  content: "$ ";
+}
+</style><span class="prompt1">sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>singularity-container</span>
+</pre></div></div></div></blockquote>
+</li>
+<li><p>If you <strong>can’t install singularity</strong> on your laptop and you <strong>don’t need
+apt-get</strong>, you can reserve a <strong>cpu node on the Mila cluster</strong> to build your
+container.</p></li>
+</ul>
+<p>In this case, in order to avoid too much I/O over the network, you should define
+the singularity cache locally:</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">export</span><span class="w"> </span><span class="nv">SINGULARITY_CACHEDIR</span><span class="o">=</span><span class="nv">$SLURM_TMPDIR</span></span>
+</pre></div></div></div></blockquote>
+<ul class="simple">
+<li><p>If you <strong>can’t install singularity</strong> on your laptop and you <strong>want to use
+apt-get</strong>, you can use <a class="reference external" href="https://www.singularity-hub.org/">singularity-hub</a> to build your containers and read
+<a class="reference internal" href="#recipe-section">Recipe_section</a>.</p></li>
+</ul>
+<section id="download-containers-from-the-web">
+<h3>Download containers from the web<a class="headerlink" href="#download-containers-from-the-web" title="Link to this heading"></a></h3>
+<p>Hopefully, you may not need to create containers from scratch as many have been
+already built for the most common deep learning software. You can find most of
+them on <a class="reference external" href="https://hub.docker.com/">dockerhub</a>.</p>
+<p>Go on <a class="reference external" href="https://hub.docker.com/">dockerhub</a> and select the container you want to pull.</p>
+<p>For example, if you want to get the latest PyTorch version with GPU support
+(Replace <em>runtime</em> by <em>devel</em> if you need the full Cuda toolkit):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">singularity<span class="w"> </span>pull<span class="w"> </span>docker://pytorch/pytorch:1.0.1-cuda10.0-cudnn7-runtime</span>
+</pre></div></div><p>Or the latest TensorFlow:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">singularity<span class="w"> </span>pull<span class="w"> </span>docker://tensorflow/tensorflow:latest-gpu-py3</span>
+</pre></div></div><p>Currently the pulled image <code class="docutils literal notranslate"><span class="pre">pytorch.simg</span></code> or <code class="docutils literal notranslate"><span class="pre">tensorflow.simg</span></code> is read-only
+meaning that you won’t be able to install anything on it.  Starting now, PyTorch
+will be taken as example. If you use TensorFlow, simply replace every
+<strong>pytorch</strong> occurrences by <strong>tensorflow</strong>.</p>
+</section>
+<section id="how-to-add-or-install-stuff-in-a-container">
+<h3>How to add or install stuff in a container<a class="headerlink" href="#how-to-add-or-install-stuff-in-a-container" title="Link to this heading"></a></h3>
+<p>The first step is to transform your read only container
+<code class="docutils literal notranslate"><span class="pre">pytorch-1.0.1-cuda10.0-cudnn7-runtime.simg</span></code> in a writable version that will
+allow you to add packages.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Depending on the version of singularity you are using, singularity
+will build a container with the extension .simg or .sif. If you’re using
+.sif files, replace every occurences of .simg by .sif.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If you want to use <strong>apt-get</strong> you have to put <strong>sudo</strong> ahead of the
+following commands</p>
+</div>
+<p>This command will create a writable image in the folder <code class="docutils literal notranslate"><span class="pre">pytorch</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">singularity<span class="w"> </span>build<span class="w"> </span>--sandbox<span class="w"> </span>pytorch<span class="w"> </span>pytorch-1.0.1-cuda10.0-cudnn7-runtime.simg</span>
+</pre></div></div><p>Then you’ll need the following command to log inside the container.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">singularity<span class="w"> </span>shell<span class="w"> </span>--writable<span class="w"> </span>-H<span class="w"> </span><span class="nv">$HOME</span>:/home<span class="w"> </span>pytorch</span>
+</pre></div></div><p>Once you get into the container, you can use pip and install anything you need
+(Or with <code class="docutils literal notranslate"><span class="pre">apt-get</span></code> if you built the container with sudo).</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Singularity mounts your home folder, so if you install things into
+the <code class="docutils literal notranslate"><span class="pre">$HOME</span></code> of your container, they will be installed in your real
+<code class="docutils literal notranslate"><span class="pre">$HOME</span></code>!</p>
+</div>
+<p>You should install your stuff in /usr/local instead.</p>
+</section>
+<section id="creating-useful-directories">
+<h3>Creating useful directories<a class="headerlink" href="#creating-useful-directories" title="Link to this heading"></a></h3>
+<p>One of the benefits of containers is that you’ll be able to use them across
+different clusters. However for each cluster the datasets and experiments
+folder location can be different. In order to be invariant to those locations,
+we will create some useful mount points inside the container:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
+span.prompt2:before {
+  content: "<Singularity_container>$ ";
+}
+</style><span class="prompt2">mkdir<span class="w"> </span>/dataset</span>
+<span class="prompt2">mkdir<span class="w"> </span>/tmp_log</span>
+<span class="prompt2">mkdir<span class="w"> </span>/final_log</span>
+</pre></div></div><p>From now, you won’t need to worry anymore when you write your code to specify
+where to pick up your dataset. Your dataset will always be in <code class="docutils literal notranslate"><span class="pre">/dataset</span></code>
+independently of the cluster you are using.</p>
+</section>
+<section id="testing">
+<h3>Testing<a class="headerlink" href="#testing" title="Link to this heading"></a></h3>
+<p>If you have some code that you want to test before finalizing your container,
+you have two choices.  You can either log into your container and run Python
+code inside it with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">singularity<span class="w"> </span>shell<span class="w"> </span>--nv<span class="w"> </span>pytorch</span>
+</pre></div></div><p>Or you can execute your command directly with</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">singularity<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--nv<span class="w"> </span>pytorch<span class="w"> </span>Python<span class="w"> </span>YOUR_CODE.py</span>
+</pre></div></div><div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>—nv allows the container to use gpus. You don’t need this if you
+don’t plan to use a gpu.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Don’t forget to clear the cache of the packages you installed in
+the containers.</p>
+</div>
+</section>
+<section id="creating-a-new-image-from-the-sandbox">
+<h3>Creating a new image from the sandbox<a class="headerlink" href="#creating-a-new-image-from-the-sandbox" title="Link to this heading"></a></h3>
+<p>Once everything you need is installed inside the container, you need to convert
+it back to a read-only singularity image with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">singularity<span class="w"> </span>build<span class="w"> </span>pytorch_final.simg<span class="w"> </span>pytorch</span>
+</pre></div></div></section>
+</section>
+<section id="second-way-use-recipes">
+<span id="recipe-section"></span><h2>Second way: Use recipes<a class="headerlink" href="#second-way-use-recipes" title="Link to this heading"></a></h2>
+<p>A singularity recipe is a file including specifics about installation software,
+environment variables, files to add, and container metadata.  It is a starting
+point for designing any custom container. Instead of pulling a container and
+installing your packages manually, you can specify in this file the packages
+you want and then build your container from this file.</p>
+<p>Here is a toy example of a singularity recipe installing some stuff:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">################# Header: Define the base system you want to use ################</span>
+<span class="c1"># Reference of the kind of base you want to use (e.g., docker, debootstrap, shub).</span>
+Bootstrap:<span class="w"> </span>docker
+<span class="c1"># Select the docker image you want to use (Here we choose tensorflow)</span>
+From:<span class="w"> </span>tensorflow/tensorflow:latest-gpu-py3
+
+<span class="c1">################# Section: Defining the system #################################</span>
+<span class="c1"># Commands in the %post section are executed within the container.</span>
+%post
+<span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Installing Tools with apt-get&quot;</span>
+<span class="w">        </span>apt-get<span class="w"> </span>update
+<span class="w">        </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>cmake<span class="w"> </span>libcupti-dev<span class="w"> </span>libyaml-dev<span class="w"> </span>wget<span class="w"> </span>unzip
+<span class="w">        </span>apt-get<span class="w"> </span>clean
+<span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Installing things with pip&quot;</span>
+<span class="w">        </span>pip<span class="w"> </span>install<span class="w"> </span>tqdm
+<span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Creating mount points&quot;</span>
+<span class="w">        </span>mkdir<span class="w"> </span>/dataset
+<span class="w">        </span>mkdir<span class="w"> </span>/tmp_log
+<span class="w">        </span>mkdir<span class="w"> </span>/final_log
+
+
+<span class="c1"># Environment variables that should be sourced at runtime.</span>
+%environment
+<span class="w">        </span><span class="c1"># use bash as default shell</span>
+<span class="w">        </span><span class="nv">SHELL</span><span class="o">=</span>/bin/bash
+<span class="w">        </span><span class="nb">export</span><span class="w"> </span>SHELL
+</pre></div>
+</div>
+<p>A recipe file contains two parts: the <code class="docutils literal notranslate"><span class="pre">header</span></code> and <code class="docutils literal notranslate"><span class="pre">sections</span></code>. In the
+<code class="docutils literal notranslate"><span class="pre">header</span></code> you specify which base system you want to use, it can be any docker
+or singularity container. In <code class="docutils literal notranslate"><span class="pre">sections</span></code>, you can list the things you want to
+install in the subsection <code class="docutils literal notranslate"><span class="pre">post</span></code> or list the environment’s variable you need
+to source at each runtime in the subsection <code class="docutils literal notranslate"><span class="pre">environment</span></code>. For a more detailed
+description, please look at the <a class="reference external" href="https://www.sylabs.io/guides/2.6/user-guide/container_recipes.html#container-recipes">singularity documentation</a>.</p>
+<p>In order to build a singularity container from a singularity recipe file, you
+should use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo<span class="w"> </span>singularity<span class="w"> </span>build<span class="w"> </span>&lt;NAME_CONTAINER&gt;<span class="w"> </span>&lt;YOUR_RECIPE_FILES&gt;</span>
+</pre></div></div><div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>You always need to use sudo when you build a container from a
+recipe. As there is no access to sudo on the cluster, a personal computer or
+the use singularity hub is needed to build a container</p>
+</div>
+<section id="build-recipe-on-singularity-hub">
+<h3>Build recipe on singularity hub<a class="headerlink" href="#build-recipe-on-singularity-hub" title="Link to this heading"></a></h3>
+<p>Singularity hub allows users to build containers from recipes directly on
+singularity-hub’s cloud meaning that you don’t need to build containers by
+yourself.  You need to register on <a class="reference external" href="https://www.singularity-hub.org/">singularity-hub</a> and link your
+singularity-hub account to your GitHub account, then:</p>
+<blockquote>
+<div><ol class="arabic">
+<li><p>Create a new github repository.</p></li>
+<li><p>Add a collection on <a class="reference external" href="https://www.singularity-hub.org/">singularity-hub</a> and select the github repository your created.</p></li>
+<li><p>Clone the github repository on your computer.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git clone &lt;url&gt;
+</pre></div>
+</div>
+</li>
+<li><p>Write the singularity recipe and save it as a file named <strong>Singularity</strong>.</p></li>
+<li><p>Git add <strong>Singularity</strong>, commit and push on the master branch</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git add Singularity
+$ git commit
+$ git push origin master
+</pre></div>
+</div>
+</li>
+</ol>
+</div></blockquote>
+<p>At this point, robots from singularity-hub will build the container for you, you
+will be able to download your container from the website or directly with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">singularity<span class="w"> </span>pull<span class="w"> </span>shub://&lt;github_username&gt;/&lt;repository_name&gt;</span>
+</pre></div></div></section>
+<section id="example-recipe-with-openai-gym-mujoco-and-miniworld">
+<h3>Example: Recipe with OpenAI gym, MuJoCo and Miniworld<a class="headerlink" href="#example-recipe-with-openai-gym-mujoco-and-miniworld" title="Link to this heading"></a></h3>
+<p>Here is an example on how you can use a singularity recipe to install complex
+environment such as OpenAI gym, MuJoCo and Miniworld on a PyTorch based
+container. In order to use MuJoCo, you’ll need to copy the key stored on the
+Mila cluster in <cite>/ai/apps/mujoco/license/mjkey.txt</cite> to your current directory.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">#This is a dockerfile that sets up a full Gym install with test dependencies</span>
+Bootstrap:<span class="w"> </span>docker
+
+<span class="c1"># Here we ll build our container upon the pytorch container</span>
+From:<span class="w"> </span>pytorch/pytorch:1.0-cuda10.0-cudnn7-runtime
+
+<span class="c1"># Now we&#39;ll copy the mjkey file located in the current directory inside the container&#39;s root</span>
+<span class="c1"># directory</span>
+%files
+<span class="w">        </span>mjkey.txt
+
+<span class="c1"># Then we put everything we need to install</span>
+%post
+<span class="w">        </span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:/opt/conda/bin
+<span class="w">        </span>apt<span class="w"> </span>-y<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>keyboard-configuration<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>python3-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>python-pyglet<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>python3-opengl<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>libhdf5-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>libjpeg-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>libboost-all-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>libsdl2-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>libosmesa6-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>patchelf<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>ffmpeg<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>xvfb<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>libhdf5-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>openjdk-8-jdk<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>wget<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>git<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>unzip<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>apt<span class="w"> </span>clean<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/apt/lists/*
+<span class="w">        </span>pip<span class="w"> </span>install<span class="w"> </span>h5py
+
+<span class="w">        </span><span class="c1"># Download Gym and MuJoCo</span>
+<span class="w">        </span>mkdir<span class="w"> </span>/Gym<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>/Gym
+<span class="w">        </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/openai/gym.git<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>mkdir<span class="w"> </span>/Gym/.mujoco<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>/Gym/.mujoco
+<span class="w">        </span>wget<span class="w"> </span>https://www.roboti.us/download/mjpro150_linux.zip<span class="w">  </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>unzip<span class="w"> </span>mjpro150_linux.zip<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>wget<span class="w"> </span>https://www.roboti.us/download/mujoco200_linux.zip<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>unzip<span class="w"> </span>mujoco200_linux.zip<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>mv<span class="w"> </span>mujoco200_linux<span class="w"> </span>mujoco200
+
+<span class="w">        </span><span class="c1"># Export global environment variables</span>
+<span class="w">        </span><span class="nb">export</span><span class="w"> </span><span class="nv">MUJOCO_PY_MJKEY_PATH</span><span class="o">=</span>/Gym/.mujoco/mjkey.txt
+<span class="w">        </span><span class="nb">export</span><span class="w"> </span><span class="nv">MUJOCO_PY_MUJOCO_PATH</span><span class="o">=</span>/Gym/.mujoco/mujoco150/
+<span class="w">        </span><span class="nb">export</span><span class="w"> </span><span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$LD_LIBRARY_PATH</span>:/Gym/.mujoco/mjpro150/bin
+<span class="w">        </span><span class="nb">export</span><span class="w"> </span><span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$LD_LIBRARY_PATH</span>:/Gym/.mujoco/mujoco200/bin
+<span class="w">        </span><span class="nb">export</span><span class="w"> </span><span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$LD_LIBRARY_PATH</span>:/usr/local/bin
+<span class="w">        </span>cp<span class="w"> </span>/mjkey.txt<span class="w"> </span>/Gym/.mujoco/mjkey.txt
+<span class="w">        </span><span class="c1"># Install Python dependencies</span>
+<span class="w">        </span>wget<span class="w"> </span>https://raw.githubusercontent.com/openai/mujoco-py/master/requirements.txt
+<span class="w">        </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+<span class="w">        </span><span class="c1"># Install Gym and MuJoCo</span>
+<span class="w">        </span><span class="nb">cd</span><span class="w"> </span>/Gym/gym
+<span class="w">        </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;.[all]&#39;</span>
+<span class="w">        </span><span class="c1"># Change permission to use mujoco_py as non sudoer user</span>
+<span class="w">        </span>chmod<span class="w"> </span>-R<span class="w"> </span><span class="m">777</span><span class="w"> </span>/opt/conda/lib/python3.6/site-packages/mujoco_py/
+<span class="w">        </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>minerl
+
+<span class="c1"># Export global environment variables</span>
+%environment
+<span class="w">        </span><span class="nb">export</span><span class="w"> </span><span class="nv">SHELL</span><span class="o">=</span>/bin/sh
+<span class="w">        </span><span class="nb">export</span><span class="w"> </span><span class="nv">MUJOCO_PY_MJKEY_PATH</span><span class="o">=</span>/Gym/.mujoco/mjkey.txt
+<span class="w">        </span><span class="nb">export</span><span class="w"> </span><span class="nv">MUJOCO_PY_MUJOCO_PATH</span><span class="o">=</span>/Gym/.mujoco/mujoco150/
+<span class="w">        </span><span class="nb">export</span><span class="w"> </span><span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$LD_LIBRARY_PATH</span>:/Gym/.mujoco/mjpro150/bin
+<span class="w">        </span><span class="nb">export</span><span class="w"> </span><span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$LD_LIBRARY_PATH</span>:/Gym/.mujoco/mujoco200/bin
+<span class="w">        </span><span class="nb">export</span><span class="w"> </span><span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$LD_LIBRARY_PATH</span>:/usr/local/bin
+<span class="w">        </span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span>/Gym/gym/.tox/py3/bin:<span class="nv">$PATH</span>
+
+%runscript
+<span class="w">        </span><span class="nb">exec</span><span class="w"> </span>/bin/sh<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p>Here is the same recipe but written for TensorFlow:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">#This is a dockerfile that sets up a full Gym install with test dependencies</span>
+Bootstrap:<span class="w"> </span>docker
+
+<span class="c1"># Here we ll build our container upon the tensorflow container</span>
+From:<span class="w"> </span>tensorflow/tensorflow:latest-gpu-py3
+
+<span class="c1"># Now we&#39;ll copy the mjkey file located in the current directory inside the container&#39;s root</span>
+<span class="c1"># directory</span>
+%files
+<span class="w">        </span>mjkey.txt
+
+<span class="c1"># Then we put everything we need to install</span>
+%post
+<span class="w">        </span>apt<span class="w"> </span>-y<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>keyboard-configuration<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>python3-setuptools<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>python3-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>python-pyglet<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>python3-opengl<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>libjpeg-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>libboost-all-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>libsdl2-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>libosmesa6-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>patchelf<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>ffmpeg<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>xvfb<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>wget<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>git<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>unzip<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>apt<span class="w"> </span>clean<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/apt/lists/*
+
+<span class="w">        </span><span class="c1"># Download Gym and MuJoCo</span>
+<span class="w">        </span>mkdir<span class="w"> </span>/Gym<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>/Gym
+<span class="w">        </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/openai/gym.git<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>mkdir<span class="w"> </span>/Gym/.mujoco<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>/Gym/.mujoco
+<span class="w">        </span>wget<span class="w"> </span>https://www.roboti.us/download/mjpro150_linux.zip<span class="w">  </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>unzip<span class="w"> </span>mjpro150_linux.zip<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>wget<span class="w"> </span>https://www.roboti.us/download/mujoco200_linux.zip<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>unzip<span class="w"> </span>mujoco200_linux.zip<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>mv<span class="w"> </span>mujoco200_linux<span class="w"> </span>mujoco200
+
+<span class="w">        </span><span class="c1"># Export global environment variables</span>
+<span class="w">        </span><span class="nb">export</span><span class="w"> </span><span class="nv">MUJOCO_PY_MJKEY_PATH</span><span class="o">=</span>/Gym/.mujoco/mjkey.txt
+<span class="w">        </span><span class="nb">export</span><span class="w"> </span><span class="nv">MUJOCO_PY_MUJOCO_PATH</span><span class="o">=</span>/Gym/.mujoco/mujoco150/
+<span class="w">        </span><span class="nb">export</span><span class="w"> </span><span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$LD_LIBRARY_PATH</span>:/Gym/.mujoco/mjpro150/bin
+<span class="w">        </span><span class="nb">export</span><span class="w"> </span><span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$LD_LIBRARY_PATH</span>:/Gym/.mujoco/mujoco200/bin
+<span class="w">        </span><span class="nb">export</span><span class="w"> </span><span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$LD_LIBRARY_PATH</span>:/usr/local/bin
+<span class="w">        </span>cp<span class="w"> </span>/mjkey.txt<span class="w"> </span>/Gym/.mujoco/mjkey.txt
+
+<span class="w">        </span><span class="c1"># Install Python dependencies</span>
+<span class="w">        </span>wget<span class="w"> </span>https://raw.githubusercontent.com/openai/mujoco-py/master/requirements.txt
+<span class="w">        </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+<span class="w">        </span><span class="c1"># Install Gym and MuJoCo</span>
+<span class="w">        </span><span class="nb">cd</span><span class="w"> </span>/Gym/gym
+<span class="w">        </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;.[all]&#39;</span>
+<span class="w">        </span><span class="c1"># Change permission to use mujoco_py as non sudoer user</span>
+<span class="w">        </span>chmod<span class="w"> </span>-R<span class="w"> </span><span class="m">777</span><span class="w"> </span>/usr/local/lib/python3.5/dist-packages/mujoco_py/
+
+<span class="w">        </span><span class="c1"># Then install miniworld</span>
+<span class="w">        </span><span class="nb">cd</span><span class="w"> </span>/usr/local/
+<span class="w">        </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/maximecb/gym-miniworld.git
+<span class="w">        </span><span class="nb">cd</span><span class="w"> </span>gym-miniworld
+<span class="w">        </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+
+<span class="c1"># Export global environment variables</span>
+%environment
+<span class="w">        </span><span class="nb">export</span><span class="w"> </span><span class="nv">SHELL</span><span class="o">=</span>/bin/bash
+<span class="w">        </span><span class="nb">export</span><span class="w"> </span><span class="nv">MUJOCO_PY_MJKEY_PATH</span><span class="o">=</span>/Gym/.mujoco/mjkey.txt
+<span class="w">        </span><span class="nb">export</span><span class="w"> </span><span class="nv">MUJOCO_PY_MUJOCO_PATH</span><span class="o">=</span>/Gym/.mujoco/mujoco150/
+<span class="w">        </span><span class="nb">export</span><span class="w"> </span><span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$LD_LIBRARY_PATH</span>:/Gym/.mujoco/mjpro150/bin
+<span class="w">        </span><span class="nb">export</span><span class="w"> </span><span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$LD_LIBRARY_PATH</span>:/Gym/.mujoco/mujoco200/bin
+<span class="w">        </span><span class="nb">export</span><span class="w"> </span><span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$LD_LIBRARY_PATH</span>:/usr/local/bin
+<span class="w">        </span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span>/Gym/gym/.tox/py3/bin:<span class="nv">$PATH</span>
+
+%runscript
+<span class="w">        </span><span class="nb">exec</span><span class="w"> </span>/bin/bash<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p>Keep in mind that those environment variables are sourced at runtime and not at
+build time. This is why, you should also define them in the <code class="docutils literal notranslate"><span class="pre">%post</span></code> section
+since they are required to install MuJoCo.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+<script type="text/javascript">
+  window.onload = function() {
+      $(".toggle > *").hide();
+      $(".toggle .header").show();
+      $(".toggle .header").click(function() {
+          $(this).parent().children().not(".header").toggle(400);
+          $(this).parent().children(".header").toggleClass("open");
+      })
+  };
+</script>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
