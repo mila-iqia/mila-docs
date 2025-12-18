@@ -47,6 +47,20 @@ test = [
     "submitit>=1.5.3",
 ]
 
+[tool.hatch.envs.default]
+installer = "uv"
+dependency-groups = ["dev"]
+post-install-commands = [
+    "uv sync",
+    "uv run pre-commit install",
+]
+
+[tool.hatch.envs.default.scripts]
+uv = 'UV_PROJECT_ENVIRONMENT="{env:VIRTUAL_ENV}" "$(which uv)" {args}'
+build = [
+    "uv run sphinx-build -b html '{root:real}/docs' '{root:real}/docs'/_build/",
+]
+
 [tool.hatch.envs.hatch-test]
 installer = "uv"
 dependency-groups = ["dev", "test"]
@@ -56,3 +70,112 @@ post-install-commands = [
 
 [tool.hatch.envs.hatch-test.extra-scripts]
 uv = 'UV_PROJECT_ENVIRONMENT="{env:VIRTUAL_ENV}" "$(which uv)" {args}'
+
+[tool.hatch.envs.docsgpt]
+template = "default"
+skip-install = true
+
+[tool.hatch.envs.docsgpt.env-vars]
+LLM_PROVIDER = "{env:LLM_PROVIDER:openai}"
+LLM_NAME = "{env:LLM_NAME:nemotron-3-nano:30b}"
+EMBEDDINGS_NAME = "{env:EMBEDDINGS_NAME:huggingface_sentence-transformers/all-mpnet-base-v2}"
+API_KEY = "{env:API_KEY:}"
+AUTH_TYPE = "{env:AUTH_TYPE:None}"
+OLLAMA_HOST = "{env:OLLAMA_HOST:localhost:11434}"
+OPENAI_BASE_URL = "{env:OPENAI_BASE_URL:http://{env:OLLAMA_HOST:localhost:11434}/v1}"
+UV_NO_SYNC = "1"
+
+[tool.hatch.envs.docsgpt.scripts]
+setup = [
+    "hatch run ollama:install",
+    "git submodule update --init --recursive '{root:real}'/DocsGPT",
+    "curl -sL https://d3dg1063dc54p9.cloudfront.net/models/embeddings/mpnet-base-v2.zip -o /tmp/mpnet-base-v2.zip",
+    "unzip /tmp/mpnet-base-v2.zip -d '{root:real}'/DocsGPT/models/",
+    "uv pip install -r '{root:real}'/DocsGPT/application/requirements.txt",
+    "docker compose -f '{root:real}'/DocsGPT/deployment/docker-compose-dev.yaml build",
+]
+serve = [
+    "- ollama serve &",
+    "docker compose -f '{root:real}'/DocsGPT/deployment/docker-compose-dev.yaml up --detach",
+    "uv run celery --workdir '{root:real}'/DocsGPT -A application.app.celery worker --loglevel INFO --pool solo -n 'docsgpt.%h.0' --detach",
+    "uv run celery --workdir '{root:real}'/DocsGPT -A application.app.celery worker --loglevel INFO --pool solo -n 'docsgpt.%h.1' --detach",
+    "uv run flask --app '{root:real}'/DocsGPT/application/app.py run --host=localhost --port=7091"
+]
+stop = [
+    "uv run celery --workdir '{root:real}'/DocsGPT -A application.app.celery control shutdown || true",
+    "docker compose -f '{root:real}'/DocsGPT/deployment/docker-compose-dev.yaml down",
+]
+
+[tool.hatch.envs.ollama]
+detached = true
+
+[tool.hatch.envs.ollama.scripts]
+install-linux = [
+    """which ollama >/dev/null \
+        || curl -fsSL https://ollama.com/install.sh | sh""",
+]
+install-macos = [
+    """which ollama >/dev/null \
+        || curl -sL https://ollama.com/download/Ollama.dmg -o /tmp/Ollama.dmg""",
+    """which ollama >/dev/null \
+        || echo Install Ollama using the downloaded dmg file at /tmp/Ollama.dmg""",
+    """which ollama >/dev/null \
+        || open /tmp/Ollama.dmg""",
+    """which ollama >/dev/null \
+        || read Press Enter to continue once Ollama is installed""",
+]
+
+[tool.hatch.envs.ollama.overrides]
+platform.linux.scripts = [
+  "install=install-linux",
+]
+platform.macos.scripts = [
+  "install=install-macos",
+]
+
+[tool.hatch.envs.npm]
+detached = true
+
+[tool.hatch.envs.npm.env-vars]
+NVM_VERSION = "{env:NVM_VERSION:0.40.3}"
+
+[tool.hatch.envs.npm.scripts]
+_load_nvm = '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"'
+install-linux = [
+    """_load_nvm \
+        || curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v{env:NVM_VERSION}/install.sh | bash""",
+    "_load_nvm",
+    """which npm >/dev/null \
+        || nvm install --lts""",
+]
+install-macos = [
+    """_load_nvm \
+        || curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v{env:NVM_VERSION}/install.sh | bash""",
+    "_load_nvm",
+    """which npm >/dev/null \
+        || nvm install --lts""",
+]
+
+[tool.hatch.envs.npm.overrides]
+platform.linux.scripts = [
+  "install=install-linux",
+]
+platform.macos.scripts = [
+  "install=install-macos",
+]
+
+[tool.hatch.envs.vite]
+template = "default"
+skip-install = true
+
+[tool.hatch.envs.vite.scripts]
+install = [
+    "hatch run npm:install",
+]
+build = [
+    "hatch run default:build",
+    "cd '{root:real}/docs/_build' && npm install"
+]
+serve = [
+    "cd '{root:real}/docs/_build' && npx vite {args}"
+]

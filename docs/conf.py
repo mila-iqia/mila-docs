@@ -2,12 +2,13 @@
 # test
 from __future__ import division, print_function, unicode_literals
 
+import shutil
 import subprocess
-import sys
 from datetime import datetime
 from pathlib import Path
 
 import sphinx_theme
+from sphinx.application import Sphinx
 
 extensions = [
     "sphinx_prompt",
@@ -107,5 +108,25 @@ except subprocess.CalledProcessError as err:
     )
 
 
-def setup(app):
+def copy_src_files(app: Sphinx):
+    """Copy src directory and JSON files to _static in build directory"""
+    srcdir = Path(app.srcdir)
+    outdir = Path(app.outdir)
+
+    for f in [
+        *srcdir.glob("**/*.json"),
+        *srcdir.glob("**/*.ts"),
+        *srcdir.glob("**/*.tsx"),
+    ]:
+        # ignore files in _build directory
+        if outdir in f.parents:
+            continue
+        relf = f.relative_to(srcdir)
+        (outdir / relf).parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(f, outdir / relf)
+
+
+def setup(app: Sphinx):
     app.add_css_file("custom.css")
+    # Connect to builder-inited event to copy files after build starts
+    app.connect("builder-inited", copy_src_files)
