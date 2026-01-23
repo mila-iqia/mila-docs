@@ -1,0 +1,523 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portability concerns and solutions &mdash; Mila Technical Documentation latest documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=8da7d091" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=c6e86fd7"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script src="_static/documentation_options.js?v=c6e86fd7"></script>
+      <script src="_static/documentation_options_fix.js?v=1c8886ec"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Using containers" href="Userguide_containers.html" />
+    <link rel="prev" title="Running your code" href="Userguide_running_code.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/image.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Purpose.html">Purpose of this documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Purpose.html#contributing">Contributing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-tos and Guides</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Userguide_quick_start.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_login.html">Logging in to the cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_running_code.html">Running your code</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Portability concerns and solutions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#virtual-environments">Virtual environments</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#uv">UV</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pip-virtualenv">Pip/Virtualenv</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#conda">Conda</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#mamba">Mamba</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#using-modules">Using Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#the-module-command">The module command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#available-software">Available Software</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#default-package-location">Default package location</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#on-using-containers">On using containers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_containers.html">Using containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_sharing_data.html">Sharing Data with ACLs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_datasets.html">Contributing datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_data_transfer.html">Data Transmission using Globus Connect Personal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_multigpu.html">Advanced SLURM usage and Multiple GPU jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_multinode.html">Multiple Nodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_wandb.html">Weight and Biases (WandB)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_comet.html">Comet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_jupyterhub.html">JupyterHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_singularity.html">Singularity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_faq.html">Frequently asked questions (FAQs)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Systems and services</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Information.html">Computing infrastructure and policies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Extra_compute.html">Computational resources outside of Mila</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Minimal Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="examples/frameworks/index.html">Software Frameworks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/distributed/index.html">Distributed Training</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/good_practices/index.html">Good practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/advanced/index.html">Advanced Examples</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/mila-iqia/ResearchTemplate">🔗 Research Project Template</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">General theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html">What is a computer cluster?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#parts-of-a-computing-cluster">Parts of a computing cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#unix">UNIX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#the-workload-manager">The workload manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#processing-data">Processing data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#software-on-the-cluster">Software on the cluster</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extras</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Acknowledgement.html">Acknowledging Mila</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://datasets.server.mila.quebec/">Mila Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Audio_video.html">Audio and video resources at Mila</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VSCode.html">Visual Studio Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IDT.html">Who, what, where is IDT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cheatsheet.html">Cheat Sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Environmental_impact.html">Environmental Impact</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Mila Technical Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Portability concerns and solutions</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/mila-iqia/mila-docs/blob/master/docs/Userguide_portability.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="portability-concerns-and-solutions">
+<h1>Portability concerns and solutions<a class="headerlink" href="#portability-concerns-and-solutions" title="Link to this heading"></a></h1>
+<p>When working on a software project, it is important to be aware of all the
+software and libraries the project relies on and to list them explicitly and
+<em>under a version control system</em> in such a way that they can easily be
+installed and made available on different systems. The upsides are significant:</p>
+<ul class="simple">
+<li><p>Easily install and run on the cluster</p></li>
+<li><p>Ease of collaboration</p></li>
+<li><p>Better reproducibility</p></li>
+</ul>
+<p>To achieve this, try to always keep in mind the following aspects:</p>
+<ul class="simple">
+<li><p><strong>Versions:</strong> For each dependency, make sure you have some record of the
+specific version you are using during development. That way, in the future, you
+will be able to reproduce the original environment which you know to be
+compatible. Indeed, the more time passes, the more likely it is that newer
+versions of some dependency have breaking changes. The <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">freeze</span></code> command can create
+such a record for Python dependencies.</p></li>
+<li><p><strong>Isolation:</strong> Ideally, each of your software projects should be isolated from
+the others. What this means is that updating the environment for project A
+should <em>not</em> update the environment for project B. That way, you can freely
+install and upgrade software and libraries for the former without worrying about
+breaking the latter (which you might not notice until weeks later, the next time
+you work on project B!) Isolation can be made easy using <a class="reference internal" href="#using-uv"><span class="std std-ref">UV</span></a>, as well as
+<a class="reference internal" href="Theory_cluster.html#python-virtual-environments"><span class="std std-ref">Python Virtual environments</span></a> and, as a last resort, <a class="reference internal" href="Theory_cluster.html#containers"><span class="std std-ref">Containers</span></a>.</p></li>
+</ul>
+<section id="virtual-environments">
+<span id="python"></span><h2>Virtual environments<a class="headerlink" href="#virtual-environments" title="Link to this heading"></a></h2>
+<p>A virtual environment in Python is a local, isolated environment in which you
+can install or uninstall Python packages without interfering with the global
+environment (or other virtual environments). It usually lives in a directory
+(location varies depending on whether you use venv, conda or poetry). In order
+to use a virtual environment, you have to <strong>activate</strong> it. Activating an
+environment essentially sets environment variables in your shell so that:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">python</span></code> points to the right Python version for that environment (different
+virtual environments can use different versions of Python!)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">python</span></code> looks for packages in the virtual environment</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code> installs packages into the virtual environment</p></li>
+<li><p>Any shell commands installed via <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code> are made available</p></li>
+</ul>
+<p>To run experiments within a virtual environment, you can simply activate it
+in the script given to <code class="docutils literal notranslate"><span class="pre">sbatch</span></code>.</p>
+<section id="uv">
+<span id="using-uv"></span><h3>UV<a class="headerlink" href="#uv" title="Link to this heading"></a></h3>
+<p>In many cases, where your dependencies are Python packages, we highly recommend using <a class="reference external" href="https://docs.astral.sh/uv">UV</a>, a modern package manager for Python.</p>
+<p>In addition to all the same features as pip, it also manages Python installations,
+virtual environments, and makes your environments easier to reproduce and reuse across compute clusters.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>UV is not currently available as a module on the Mila or DRAC clusters at the time of writing.
+To use it, you first need to install it using this command on a cluster login node:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
+span.prompt1:before {
+  content: "$ ";
+}
+</style><span class="prompt1">curl<span class="w"> </span>-LsSf<span class="w"> </span>https://astral.sh/uv/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh</span>
+</pre></div></div></div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p>Pip/virtualenv command</p></th>
+<th class="head"><p>UV pip equivalent</p></th>
+<th class="head"><p>UV <a class="reference external" href="https://docs.astral.sh/uv/guides/projects/">project</a> command (recommended)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Create your virtualenv</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">module</span> <span class="pre">load</span> <span class="pre">python/3.10</span></code>
+then <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">venv</span></code></p></td>
+<td><p><a class="reference external" href="https://docs.astral.sh/uv/reference/cli/#uv-venv">uv venv</a></p></td>
+<td><p><a class="reference external" href="https://docs.astral.sh/uv/reference/cli/#uv-init">uv init</a> and <a class="reference external" href="https://docs.astral.sh/uv/reference/cli/#uv-sync">uv sync</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Activate the virtualenv</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.</span> <span class="pre">.venv/bin/activate</span></code></p></td>
+<td><p>(same)</p></td>
+<td><p>(same, but often unnecessary)</p></td>
+</tr>
+<tr class="row-even"><td><p>Install a package</p></td>
+<td><p>activate venv then <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code></p></td>
+<td><p><a class="reference external" href="https://docs.astral.sh/uv/reference/cli/#uv-pip-install">uv pip install</a></p></td>
+<td><p><a class="reference external" href="https://docs.astral.sh/uv/reference/cli/#uv-add">uv add</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Run a command
+(ex. <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">main.py</span></code>)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">module</span> <span class="pre">load</span> <span class="pre">python</span></code>, then
+<code class="docutils literal notranslate"><span class="pre">.</span> <span class="pre">&lt;venv&gt;/bin/activate</span></code>, then
+<code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">main.py</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.</span> <span class="pre">&lt;venv&gt;/bin/activate</span></code>,
+then <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">main.py</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">run</span> <span class="pre">python</span> <span class="pre">main.py</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Where are
+dependencies declared?</p></td>
+<td><p><em>Maybe</em> in a <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code>,
+<code class="docutils literal notranslate"><span class="pre">setup.py</span></code> or <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code></p></td>
+<td><p><em>Maybe</em> in a <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code>,
+<code class="docutils literal notranslate"><span class="pre">setup.py</span></code> or <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code></p></td>
+<td><p><a class="reference external" href="https://docs.astral.sh/uv/guides/projects/#pyprojecttoml">pyproject.toml</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Easy to change Python
+versions?</p></td>
+<td><p>No</p></td>
+<td><p>somewhat</p></td>
+<td><p>Yes: <code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">python</span> <span class="pre">pin</span> <span class="pre">&lt;version&gt;</span></code> or
+<code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">sync</span> <span class="pre">--python</span> <span class="pre">&lt;version&gt;</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>While you can use UV as a drop-in replacement for pip, we recommend adopting a <a class="reference external" href="https://docs.astral.sh/uv/guides/projects/">project-based workflow</a>:</p>
+<ul>
+<li><p>Use <a class="reference external" href="https://docs.astral.sh/uv/reference/cli/#uv-init">uv init</a> to create a new project. A <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> file will be created. This is where your dependencies are listed.</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">uv<span class="w"> </span>init<span class="w"> </span>--python<span class="o">=</span><span class="m">3</span>.12</span>
+</pre></div></div></div></blockquote>
+</li>
+<li><p>Use <a class="reference external" href="https://docs.astral.sh/uv/reference/cli/#uv-add">uv add</a> to add (and <a class="reference external" href="https://docs.astral.sh/uv/reference/cli/#uv-remove">uv remove</a> to remove) dependencies to your project. This will update the <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> file and update the virtual environment.</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">uv<span class="w"> </span>add<span class="w"> </span>torch</span>
+</pre></div></div></div></blockquote>
+</li>
+<li><dl>
+<dt>Use <a class="reference external" href="https://docs.astral.sh/uv/reference/cli/#uv-run">uv run</a> to run commands, for example <code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">run</span> <span class="pre">python</span> <span class="pre">train.py</span></code>. This will automatically do the following:</dt><dd><ol class="arabic simple">
+<li><p>Create or update the virtualenv (with the correct Python version) if necessary, based the dependencies in <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>.</p></li>
+<li><p>Activates the virtualenv.</p></li>
+<li><p>Runs the command you provided, e.g. <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">train.py</span></code>.</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>main.py</span>
+</pre></div></div></dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="pip-virtualenv">
+<h3>Pip/Virtualenv<a class="headerlink" href="#pip-virtualenv" title="Link to this heading"></a></h3>
+<p>Pip is the most widely used package manager for Python and each cluster provides
+several Python versions through the associated module which comes with pip. In
+order to install new packages, you will first have to create a personal space
+for them to be stored.  The usual solution (as it is the recommended solution
+on Digital Research Alliance of Canada clusters) is to use <a class="reference external" href="https://virtualenv.pypa.io/en/stable/">virtual
+environments</a>, although <a class="reference internal" href="#using-uv"><span class="std std-ref">UV</span></a> is now
+the recommended way to manage Python installations, virtual environments and dependencies.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We recommend you use <a class="reference external" href="https://docs.astral.sh/uv">UV</a> to manage your Python
+virtual environments instead of doing it manually.
+<a class="reference internal" href="#uv"><span class="std std-ref">The next section</span></a> will give an overview of how to install it and use it.</p>
+</div>
+<p>First, load the Python module you want to use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">module<span class="w"> </span>load<span class="w"> </span>python/3.8</span>
+</pre></div></div><p>Then, create a virtual environment in your <code class="docutils literal notranslate"><span class="pre">home</span></code> directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span><span class="nv">$HOME</span>/&lt;env&gt;</span>
+</pre></div></div><p>Where <code class="docutils literal notranslate"><span class="pre">&lt;env&gt;</span></code> is the name of your environment. Finally, activate the environment:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">source</span><span class="w"> </span><span class="nv">$HOME</span>/&lt;env&gt;/bin/activate</span>
+</pre></div></div><p>You can now install any Python package you wish using the <code class="docutils literal notranslate"><span class="pre">pip</span></code> command, e.g.
+<a class="reference external" href="https://pytorch.org/get-started/locally">pytorch</a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
+span.prompt2:before {
+  content: "(<env>)$ ";
+}
+</style><span class="prompt2">pip<span class="w"> </span>install<span class="w"> </span>torch<span class="w"> </span>torchvision</span>
+</pre></div></div><p>Or <a class="reference external" href="https://www.tensorflow.org/install/gpu">Tensorflow</a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2">pip<span class="w"> </span>install<span class="w"> </span>tensorflow-gpu</span>
+</pre></div></div></section>
+</section>
+<section id="conda">
+<h2>Conda<a class="headerlink" href="#conda" title="Link to this heading"></a></h2>
+<p>Another solution for Python is to use <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">miniconda</a> or <a class="reference external" href="https://docs.anaconda.com">anaconda</a> which are also available through the <code class="docutils literal notranslate"><span class="pre">module</span></code>
+command: (the use of Conda is not recommended for Digital Research Alliance of
+Canada clusters due to the availability of custom-built packages for pip)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
+span.prompt3:before {
+  content: " ";
+}
+</style><span class="prompt1">module<span class="w"> </span>load<span class="w"> </span>miniconda/3</span>
+<span class="prompt3"><span class="o">===</span><span class="w"> </span>Module<span class="w"> </span>miniconda/3<span class="w"> </span><span class="nv">loaded</span><span class="w"> </span><span class="o">===]</span></span>
+<span class="prompt3">o<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>conda<span class="w"> </span>environment<span class="w"> </span>functions,<span class="w"> </span>first<span class="w"> </span>use:</span>
+</pre></div></div><p>To create an environment (see <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html">here</a>
+for details) using a specific Python version, you may write:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>&lt;env&gt;<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.9</span>
+</pre></div></div><p>Where <code class="docutils literal notranslate"><span class="pre">&lt;env&gt;</span></code> is the name of your environment. You can now activate it by doing:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">conda<span class="w"> </span>activate<span class="w"> </span>&lt;env&gt;</span>
+</pre></div></div><p>You are now ready to install any Python package you want in this environment.
+For instance, to install PyTorch, you can find the Conda command of any version
+you want on <a class="reference external" href="https://pytorch.org/get-started/locally">pytorch’s website</a>, e.g:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2">conda<span class="w"> </span>install<span class="w"> </span>pytorch<span class="w"> </span>torchvision<span class="w"> </span><span class="nv">cudatoolkit</span><span class="o">=</span><span class="m">10</span>.0<span class="w"> </span>-c<span class="w"> </span>pytorch</span>
+</pre></div></div><p>If you make a lot of environments and install/uninstall a lot of packages, it
+can be good to periodically clean up Conda’s cache:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2">conda<span class="w"> </span>clean<span class="w"> </span>-it</span>
+</pre></div></div><section id="mamba">
+<h3>Mamba<a class="headerlink" href="#mamba" title="Link to this heading"></a></h3>
+<p>When installing new packages with <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span></code>, conda uses a built-in
+dependency solver for solving the dependency graph of all packages (and their
+versions) requested such that package dependency conflicts are avoided.</p>
+<p>In some cases, especially when there are many packages already installed in a
+conda environment, conda’s built-in dependency solver can struggle to solve the
+dependency graph, taking several to tens of minutes, and sometimes never
+solving. In these cases, it is recommended to try <a class="reference external" href="https://conda.github.io/conda-libmamba-solver/getting-started/">libmamba</a>.</p>
+<p>To install and set the <code class="docutils literal notranslate"><span class="pre">libmamba</span></code> solver, run the following commands:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt3"><span class="c1"># Install miniconda</span></span>
+<span class="prompt3"><span class="c1"># (you can not use the preinstalled anaconda/miniconda as installing libmamba</span></span>
+<span class="prompt3"><span class="c1">#  requires ownership over the anaconda/miniconda install directory)</span></span>
+<span class="prompt1">wget<span class="w"> </span>https://repo.anaconda.com/miniconda/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh</span>
+<span class="prompt1">bash<span class="w"> </span>Miniconda3-py310_22.11.1-1-Linux-x86_64.sh</span>
+<span class="prompt3"></span>
+<span class="prompt3"><span class="c1"># Install libmamba</span></span>
+<span class="prompt1">conda<span class="w"> </span>install<span class="w"> </span>-n<span class="w"> </span>base<span class="w"> </span>conda-libmamba-solver</span>
+</pre></div></div><p>By default, conda uses the built-in solver when installing packages, even after
+installing other solvers. To try <code class="docutils literal notranslate"><span class="pre">libmamba</span></code> once, add <code class="docutils literal notranslate"><span class="pre">--solver=libmamba</span></code> in
+your <code class="docutils literal notranslate"><span class="pre">`conda</span> <span class="pre">install`</span></code> command. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">conda<span class="w"> </span>install<span class="w"> </span>tensorflow<span class="w"> </span>--solver<span class="o">=</span>libmamba</span>
+</pre></div></div><p>You can set <code class="docutils literal notranslate"><span class="pre">libmamba</span></code> as the default solver by adding <code class="docutils literal notranslate"><span class="pre">solver:</span> <span class="pre">libmamba</span></code>
+to your <code class="docutils literal notranslate"><span class="pre">.condarc</span></code> configuration file located under your <code class="docutils literal notranslate"><span class="pre">$HOME</span></code> directory.
+You can create it if it doesn’t exist. You can also run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">conda<span class="w"> </span>config<span class="w"> </span>--set<span class="w"> </span>solver<span class="w"> </span>libmamba</span>
+</pre></div></div></section>
+</section>
+<section id="using-modules">
+<h2>Using Modules<a class="headerlink" href="#using-modules" title="Link to this heading"></a></h2>
+<p>A lot of software, such as Python and Conda, is already compiled and available on
+the cluster through the <code class="docutils literal notranslate"><span class="pre">module</span></code> command and its sub-commands. In particular,
+if you wish to use <code class="docutils literal notranslate"><span class="pre">Python</span> <span class="pre">3.7</span></code> you can simply do:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">module<span class="w"> </span>load<span class="w"> </span>python/3.7</span>
+</pre></div></div><section id="the-module-command">
+<h3>The module command<a class="headerlink" href="#the-module-command" title="Link to this heading"></a></h3>
+<p>For a list of available modules, simply use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">module<span class="w"> </span>avail</span>
+<span class="prompt3">--------------------------------------------------------------------------------------------------------------<span class="w"> </span>Global<span class="w"> </span>Aliases<span class="w"> </span>---------------------------------------------------------------------------------------------------------------</span>
+<span class="prompt3"><span class="w">  </span>cuda/10.0<span class="w"> </span>-&gt;<span class="w"> </span>cudatoolkit/10.0<span class="w">    </span>cuda/9.2<span class="w">      </span>-&gt;<span class="w"> </span>cudatoolkit/9.2<span class="w">                                 </span>pytorch/1.4.1<span class="w">       </span>-&gt;<span class="w"> </span>python/3.7/cuda/10.2/cudnn/7.6/pytorch/1.4.1<span class="w">    </span>tensorflow/1.15<span class="w"> </span>-&gt;<span class="w"> </span>python/3.7/tensorflow/1.15</span>
+<span class="prompt3"><span class="w">  </span>cuda/10.1<span class="w"> </span>-&gt;<span class="w"> </span>cudatoolkit/10.1<span class="w">    </span>mujoco-py<span class="w">     </span>-&gt;<span class="w"> </span>python/3.7/mujoco-py/2.0<span class="w">                        </span>pytorch/1.5.0<span class="w">       </span>-&gt;<span class="w"> </span>python/3.7/cuda/10.2/cudnn/7.6/pytorch/1.5.0<span class="w">    </span>tensorflow/2.2<span class="w">  </span>-&gt;<span class="w"> </span>python/3.7/tensorflow/2.2</span>
+<span class="prompt3"><span class="w">  </span>cuda/10.2<span class="w"> </span>-&gt;<span class="w"> </span>cudatoolkit/10.2<span class="w">    </span>mujoco-py/2.0<span class="w"> </span>-&gt;<span class="w"> </span>python/3.7/mujoco-py/2.0<span class="w">                        </span>pytorch/1.5.1<span class="w">       </span>-&gt;<span class="w"> </span>python/3.7/cuda/10.2/cudnn/7.6/pytorch/1.5.1</span>
+<span class="prompt3"><span class="w">  </span>cuda/11.0<span class="w"> </span>-&gt;<span class="w"> </span>cudatoolkit/11.0<span class="w">    </span>pytorch<span class="w">       </span>-&gt;<span class="w"> </span>python/3.7/cuda/10.2/cudnn/7.6/pytorch/1.5.1<span class="w">    </span>tensorflow<span class="w">          </span>-&gt;<span class="w"> </span>python/3.7/tensorflow/2.2</span>
+<span class="prompt3"><span class="w">  </span>cuda/9.0<span class="w">  </span>-&gt;<span class="w"> </span>cudatoolkit/9.0<span class="w">     </span>pytorch/1.4.0<span class="w"> </span>-&gt;<span class="w"> </span>python/3.7/cuda/10.2/cudnn/7.6/pytorch/1.4.0<span class="w">    </span>tensorflow-cpu/1.15<span class="w"> </span>-&gt;<span class="w"> </span>python/3.7/tensorflow/1.15</span>
+<span class="prompt3"></span>
+<span class="prompt3">--------------------------------------------------------------------------------------------------<span class="w"> </span>/cvmfs/config.mila.quebec/modules/Core<span class="w"> </span>---------------------------------------------------------------------------------------------------</span>
+<span class="prompt3"><span class="w">  </span>Mila<span class="w">       </span><span class="o">(</span>S,L<span class="o">)</span><span class="w">    </span>anaconda/3<span class="w"> </span><span class="o">(</span>D<span class="o">)</span><span class="w">    </span>go/1.13.5<span class="w">        </span>miniconda/2<span class="w">        </span>mujoco/1.50<span class="w">        </span>python/2.7<span class="w">    </span>python/3.6<span class="w">        </span>python/3.8<span class="w">           </span>singularity/3.0.3<span class="w">    </span>singularity/3.2.1<span class="w">    </span>singularity/3.5.3<span class="w"> </span><span class="o">(</span>D<span class="o">)</span></span>
+<span class="prompt3"><span class="w">  </span>anaconda/2<span class="w">          </span>go/1.12.4<span class="w">         </span>go/1.14<span class="w">   </span><span class="o">(</span>D<span class="o">)</span><span class="w">    </span>miniconda/3<span class="w"> </span><span class="o">(</span>D<span class="o">)</span><span class="w">    </span>mujoco/2.0<span class="w">  </span><span class="o">(</span>D<span class="o">)</span><span class="w">    </span>python/3.5<span class="w">    </span>python/3.7<span class="w"> </span><span class="o">(</span>D<span class="o">)</span><span class="w">    </span>singularity/2.6.1<span class="w">    </span>singularity/3.1.1<span class="w">    </span>singularity/3.4.2</span>
+<span class="prompt3"></span>
+<span class="prompt3">------------------------------------------------------------------------------------------------<span class="w"> </span>/cvmfs/config.mila.quebec/modules/Compiler<span class="w"> </span>-------------------------------------------------------------------------------------------------</span>
+<span class="prompt3"><span class="w">  </span>python/3.7/mujoco-py/2.0</span>
+<span class="prompt3"></span>
+<span class="prompt3">--------------------------------------------------------------------------------------------------<span class="w"> </span>/cvmfs/config.mila.quebec/modules/Cuda<span class="w"> </span>---------------------------------------------------------------------------------------------------</span>
+<span class="prompt3"><span class="w">  </span>cuda/10.0/cudnn/7.3<span class="w">        </span>cuda/10.0/nccl/2.4<span class="w">         </span>cuda/10.1/nccl/2.4<span class="w">     </span>cuda/11.0/nccl/2.7<span class="w">        </span>cuda/9.0/nccl/2.4<span class="w">     </span>cudatoolkit/9.0<span class="w">     </span>cudatoolkit/10.1<span class="w">        </span>cudnn/7.6/cuda/10.0/tensorrt/7.0</span>
+<span class="prompt3"><span class="w">  </span>cuda/10.0/cudnn/7.5<span class="w">        </span>cuda/10.1/cudnn/7.5<span class="w">        </span>cuda/10.2/cudnn/7.6<span class="w">    </span>cuda/9.0/cudnn/7.3<span class="w">        </span>cuda/9.2/cudnn/7.6<span class="w">    </span>cudatoolkit/9.2<span class="w">     </span>cudatoolkit/10.2<span class="w">        </span>cudnn/7.6/cuda/10.1/tensorrt/7.0</span>
+<span class="prompt3"><span class="w">  </span>cuda/10.0/cudnn/7.6<span class="w"> </span><span class="o">(</span>D<span class="o">)</span><span class="w">    </span>cuda/10.1/cudnn/7.6<span class="w"> </span><span class="o">(</span>D<span class="o">)</span><span class="w">    </span>cuda/10.2/nccl/2.7<span class="w">     </span>cuda/9.0/cudnn/7.5<span class="w"> </span><span class="o">(</span>D<span class="o">)</span><span class="w">    </span>cuda/9.2/nccl/2.4<span class="w">     </span>cudatoolkit/10.0<span class="w">    </span>cudatoolkit/11.0<span class="w"> </span><span class="o">(</span>D<span class="o">)</span><span class="w">    </span>cudnn/7.6/cuda/9.0/tensorrt/7.0</span>
+<span class="prompt3"></span>
+<span class="prompt3">------------------------------------------------------------------------------------------------<span class="w"> </span>/cvmfs/config.mila.quebec/modules/Pytorch<span class="w"> </span>--------------------------------------------------------------------------------------------------</span>
+<span class="prompt3"><span class="w">  </span>python/3.7/cuda/10.1/cudnn/7.6/pytorch/1.4.1<span class="w">    </span>python/3.7/cuda/10.1/cudnn/7.6/pytorch/1.5.1<span class="w"> </span><span class="o">(</span>D<span class="o">)</span><span class="w">    </span>python/3.7/cuda/10.2/cudnn/7.6/pytorch/1.5.0</span>
+<span class="prompt3"><span class="w">  </span>python/3.7/cuda/10.1/cudnn/7.6/pytorch/1.5.0<span class="w">    </span>python/3.7/cuda/10.2/cudnn/7.6/pytorch/1.4.1<span class="w">        </span>python/3.7/cuda/10.2/cudnn/7.6/pytorch/1.5.1<span class="w"> </span><span class="o">(</span>D<span class="o">)</span></span>
+<span class="prompt3"></span>
+<span class="prompt3">-----------------------------------------------------------------------------------------------<span class="w"> </span>/cvmfs/config.mila.quebec/modules/Tensorflow<span class="w"> </span>------------------------------------------------------------------------------------------------</span>
+<span class="prompt3"><span class="w">  </span>python/3.7/tensorflow/1.15<span class="w">    </span>python/3.7/tensorflow/2.0<span class="w">    </span>python/3.7/tensorflow/2.2<span class="w"> </span><span class="o">(</span>D<span class="o">)</span></span>
+</pre></div></div><p>Modules can be loaded using the <code class="docutils literal notranslate"><span class="pre">load</span></code> command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">module<span class="w"> </span>load<span class="w"> </span>&lt;module&gt;</span>
+</pre></div></div><p>To search for a module or a software, use the command <code class="docutils literal notranslate"><span class="pre">spider</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">module<span class="w"> </span>spider<span class="w"> </span>search_term</span>
+</pre></div></div><p>E.g.: by default, <code class="docutils literal notranslate"><span class="pre">python2</span></code> will refer to the os-shipped installation of <code class="docutils literal notranslate"><span class="pre">python2.7</span></code> and <code class="docutils literal notranslate"><span class="pre">python3</span></code> to <code class="docutils literal notranslate"><span class="pre">python3.6</span></code>.
+If you want to use <code class="docutils literal notranslate"><span class="pre">python3.7</span></code> you can type:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">module<span class="w"> </span>load<span class="w"> </span>python3.7</span>
+</pre></div></div></section>
+<section id="available-software">
+<h3>Available Software<a class="headerlink" href="#available-software" title="Link to this heading"></a></h3>
+<p>Modules are divided in 5 main sections:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Section</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Core</p></td>
+<td><p>Base interpreter and software (Python, go, etc…)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Compiler</p></td>
+<td><p>Interpreter-dependent software (<em>see the note below</em>)</p></td>
+</tr>
+<tr class="row-even"><td><p>Cuda</p></td>
+<td><p>Toolkits, cudnn and related libraries</p></td>
+</tr>
+<tr class="row-odd"><td><p>Pytorch/Tensorflow</p></td>
+<td><p>Pytorch/TF built with a specific Cuda/Cudnn
+version for Mila’s GPUs (<em>see the related paragraph</em>)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Modules which are nested (../../..) usually depend on other software/module
+loaded alongside the main module.  No need to load the dependent software,
+the complex naming scheme allows an automatic detection of the dependent
+module(s):</p>
+<p>i.e.: Loading <code class="docutils literal notranslate"><span class="pre">cudnn/7.6/cuda/9.0/tensorrt/7.0</span></code> will load <code class="docutils literal notranslate"><span class="pre">cudnn/7.6</span></code> and
+<code class="docutils literal notranslate"><span class="pre">cuda/9.0</span></code> alongside</p>
+<p><code class="docutils literal notranslate"><span class="pre">python/3.X</span></code> is a particular dependency which can be served through
+<code class="docutils literal notranslate"><span class="pre">python/3.X</span></code> or <code class="docutils literal notranslate"><span class="pre">anaconda/3</span></code> and is not automatically loaded to let the
+user pick his favorite flavor.</p>
+</div>
+</section>
+<section id="default-package-location">
+<h3>Default package location<a class="headerlink" href="#default-package-location" title="Link to this heading"></a></h3>
+<p>Python by default uses the user site package first and packages provided by
+<code class="docutils literal notranslate"><span class="pre">module</span></code> last to not interfere with your installation.  If you want to skip
+packages installed in your site-packages folder (in your /home directory), you
+have to start Python with the <code class="docutils literal notranslate"><span class="pre">-s</span></code> flag.</p>
+<p>To check which package is loaded at import, you can print <code class="docutils literal notranslate"><span class="pre">package.__file__</span></code>
+to get the full path of the package.</p>
+<p><em>Example:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">module<span class="w"> </span>load<span class="w"> </span>pytorch/1.5.0</span>
+<span class="prompt1">python<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;import torch;print(torch.__file__)&#39;</span></span>
+<span class="prompt3">home/mila/my_home/.local/lib/python3.7/site-packages/torch/__init__.py<span class="w">   </span>&lt;<span class="o">==</span><span class="w"> </span>package<span class="w"> </span>from<span class="w"> </span>your<span class="w"> </span>own<span class="w"> </span>site-package</span>
+</pre></div></div><p>Now with the <code class="docutils literal notranslate"><span class="pre">-s</span></code> flag:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">module<span class="w"> </span>load<span class="w"> </span>pytorch/1.5.0</span>
+<span class="prompt1">python<span class="w"> </span>-s<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;import torch;print(torch.__file__)&#39;</span></span>
+<span class="prompt3">cvmfs/ai.mila.quebec/apps/x86_64/debian/pytorch/python3.7-cuda10.1-cudnn7.6-v1.5.0/lib/python3.7/site-packages/torch/__init__.py<span class="err">&#39;</span></span>
+</pre></div></div></section>
+</section>
+<section id="on-using-containers">
+<h2>On using containers<a class="headerlink" href="#on-using-containers" title="Link to this heading"></a></h2>
+<p>Another option for creating portable code is <a class="reference internal" href="Userguide_singularity_on_clusters.html#using-containers"><span class="std std-ref">Using containers on clusters</span></a>.</p>
+<p>Containers are a popular approach at deploying applications by packaging a lot
+of the required dependencies together. The most popular tool for this is
+<a class="reference external" href="https://www.docker.com/">Docker</a>, but Docker cannot be used on the Mila
+cluster (nor the other clusters from Digital Research Alliance of Canada).</p>
+<p>One popular mechanism for containerisation on a computational cluster is called
+<a class="reference external" href="https://podman.io/">Podman</a>.  This is the recommended approach for running
+containers on the Mila cluster. See section <a class="reference internal" href="Userguide_singularity_on_clusters.html#using-containers"><span class="std std-ref">Using containers on clusters</span></a> for more
+details.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Userguide_running_code.html" class="btn btn-neutral float-left" title="Running your code" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Userguide_containers.html" class="btn btn-neutral float-right" title="Using containers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+<script type="text/javascript">
+  window.onload = function() {
+      $(".toggle > *").hide();
+      $(".toggle .header").show();
+      $(".toggle .header").click(function() {
+          $(this).parent().children().not(".header").toggle(400);
+          $(this).parent().children(".header").toggleClass("open");
+      })
+  };
+</script>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

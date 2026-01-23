@@ -1,0 +1,349 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Using containers on clusters &mdash; Mila Technical Documentation latest documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=8da7d091" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=c6e86fd7"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script src="_static/documentation_options.js?v=c6e86fd7"></script>
+      <script src="_static/documentation_options_fix.js?v=1c8886ec"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/image.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Purpose.html">Purpose of this documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Purpose.html#contributing">Contributing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-tos and Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_quick_start.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_login.html">Logging in to the cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_running_code.html">Running your code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_portability.html">Portability concerns and solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_containers.html">Using containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_sharing_data.html">Sharing Data with ACLs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_datasets.html">Contributing datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_data_transfer.html">Data Transmission using Globus Connect Personal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_multigpu.html">Advanced SLURM usage and Multiple GPU jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_multinode.html">Multiple Nodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_wandb.html">Weight and Biases (WandB)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_comet.html">Comet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_jupyterhub.html">JupyterHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_singularity.html">Singularity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_faq.html">Frequently asked questions (FAQs)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Systems and services</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Information.html">Computing infrastructure and policies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Extra_compute.html">Computational resources outside of Mila</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Minimal Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="examples/frameworks/index.html">Software Frameworks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/distributed/index.html">Distributed Training</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/good_practices/index.html">Good practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/advanced/index.html">Advanced Examples</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/mila-iqia/ResearchTemplate">🔗 Research Project Template</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">General theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html">What is a computer cluster?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#parts-of-a-computing-cluster">Parts of a computing cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#unix">UNIX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#the-workload-manager">The workload manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#processing-data">Processing data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#software-on-the-cluster">Software on the cluster</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extras</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Acknowledgement.html">Acknowledging Mila</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://datasets.server.mila.quebec/">Mila Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Audio_video.html">Audio and video resources at Mila</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VSCode.html">Visual Studio Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IDT.html">Who, what, where is IDT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cheatsheet.html">Cheat Sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Environmental_impact.html">Environmental Impact</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Mila Technical Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Using containers on clusters</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/mila-iqia/mila-docs/blob/master/docs/Userguide_singularity_on_clusters.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="using-containers-on-clusters">
+<span id="using-containers"></span><h1>Using containers on clusters<a class="headerlink" href="#using-containers-on-clusters" title="Link to this heading"></a></h1>
+<section id="how-to-use-containers-on-clusters">
+<h2>How to use containers on clusters<a class="headerlink" href="#how-to-use-containers-on-clusters" title="Link to this heading"></a></h2>
+<p>On every cluster with Slurm, datasets and intermediate results should go in
+<code class="docutils literal notranslate"><span class="pre">$SLURM_TMPDIR</span></code> while the final experiment results should go in <code class="docutils literal notranslate"><span class="pre">$SCRATCH</span></code>.
+In order to use the container you built, you need to copy it on the cluster you
+want to use.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>You should always store your container in $SCRATCH !</p>
+</div>
+<p>Then reserve a node with srun/sbatch, copy the container and your dataset on the
+node given by SLURM (i.e in <code class="docutils literal notranslate"><span class="pre">$SLURM_TMPDIR</span></code>) and execute the code
+<code class="docutils literal notranslate"><span class="pre">&lt;YOUR_CODE&gt;</span></code> within the container <code class="docutils literal notranslate"><span class="pre">&lt;YOUR_CONTAINER&gt;</span></code> with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
+span.prompt1:before {
+  content: "$ ";
+}
+</style><span class="prompt1">singularity<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--nv<span class="w"> </span>-H<span class="w"> </span><span class="nv">$HOME</span>:/home<span class="w"> </span>-B<span class="w"> </span><span class="nv">$SLURM_TMPDIR</span>:/dataset/<span class="w"> </span>-B<span class="w"> </span><span class="nv">$SLURM_TMPDIR</span>:/tmp_log/<span class="w"> </span>-B<span class="w"> </span><span class="nv">$SCRATCH</span>:/final_log/<span class="w"> </span><span class="nv">$SLURM_TMPDIR</span>/&lt;YOUR_CONTAINER&gt;<span class="w"> </span>python<span class="w"> </span>&lt;YOUR_CODE&gt;</span>
+</pre></div></div><p>Remember that <code class="docutils literal notranslate"><span class="pre">/dataset</span></code>, <code class="docutils literal notranslate"><span class="pre">/tmp_log</span></code> and <code class="docutils literal notranslate"><span class="pre">/final_log</span></code> were created in the
+previous section. Now each time, we’ll use singularity, we are explicitly
+telling it to mount <code class="docutils literal notranslate"><span class="pre">$SLURM_TMPDIR</span></code> on the cluster’s node in the folder
+<code class="docutils literal notranslate"><span class="pre">/dataset</span></code> inside the container with the option <code class="docutils literal notranslate"><span class="pre">-B</span></code> such that each dataset
+downloaded by PyTorch in <code class="docutils literal notranslate"><span class="pre">/dataset</span></code> will be available in <code class="docutils literal notranslate"><span class="pre">$SLURM_TMPDIR</span></code>.</p>
+<p>This will allow us to have code and scripts that are invariant to the cluster
+environment. The option <code class="docutils literal notranslate"><span class="pre">-H</span></code> specify what will be the container’s home. For
+example, if you have your code in <code class="docutils literal notranslate"><span class="pre">$HOME/Project12345/Version35/</span></code> you can
+specify <code class="docutils literal notranslate"><span class="pre">-H</span> <span class="pre">$HOME/Project12345/Version35:/home</span></code>, thus the container will only
+have access to the code inside <code class="docutils literal notranslate"><span class="pre">Version35</span></code>.</p>
+<p>If you want to run multiple commands inside the container you can use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">singularity<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--nv<span class="w"> </span>-H<span class="w"> </span><span class="nv">$HOME</span>:/home<span class="w"> </span>-B<span class="w"> </span><span class="nv">$SLURM_TMPDIR</span>:/dataset/<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>-B<span class="w"> </span><span class="nv">$SLURM_TMPDIR</span>:/tmp_log/<span class="w"> </span>-B<span class="w"> </span><span class="nv">$SCRATCH</span>:/final_log/<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span><span class="nv">$SLURM_TMPDIR</span>/&lt;YOUR_CONTAINER&gt;<span class="w"> </span>bash<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;pwd &amp;&amp; ls &amp;&amp; python &lt;YOUR_CODE&gt;&#39;</span></span>
+</pre></div></div><section id="example-interactive-case-srun-salloc">
+<h3>Example: Interactive case (srun/salloc)<a class="headerlink" href="#example-interactive-case-srun-salloc" title="Link to this heading"></a></h3>
+<p>Once you get an interactive session with SLURM, copy <code class="docutils literal notranslate"><span class="pre">&lt;YOUR_CONTAINER&gt;</span></code> and
+<code class="docutils literal notranslate"><span class="pre">&lt;YOUR_DATASET&gt;</span></code> to <code class="docutils literal notranslate"><span class="pre">$SLURM_TMPDIR</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
+span.prompt2:before {
+  content: "# ";
+}
+</style><span class="prompt2"><span class="m">0</span>.<span class="w"> </span>Get<span class="w"> </span>an<span class="w"> </span>interactive<span class="w"> </span>session</span>
+<span class="prompt1">srun<span class="w"> </span>--gres<span class="o">=</span>gpu:1</span>
+<span class="prompt2"><span class="m">1</span>.<span class="w"> </span>Copy<span class="w"> </span>your<span class="w"> </span>container<span class="w"> </span>on<span class="w"> </span>the<span class="w"> </span>compute<span class="w"> </span>node</span>
+<span class="prompt1">rsync<span class="w"> </span>-avz<span class="w"> </span><span class="nv">$SCRATCH</span>/&lt;YOUR_CONTAINER&gt;<span class="w"> </span><span class="nv">$SLURM_TMPDIR</span></span>
+<span class="prompt2"><span class="m">2</span>.<span class="w"> </span>Copy<span class="w"> </span>your<span class="w"> </span>dataset<span class="w"> </span>on<span class="w"> </span>the<span class="w"> </span>compute<span class="w"> </span>node</span>
+<span class="prompt1">rsync<span class="w"> </span>-avz<span class="w"> </span><span class="nv">$SCRATCH</span>/&lt;YOUR_DATASET&gt;<span class="w"> </span><span class="nv">$SLURM_TMPDIR</span></span>
+</pre></div></div><p>Then use <code class="docutils literal notranslate"><span class="pre">singularity</span> <span class="pre">shell</span></code> to get a shell inside the container</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2"><span class="m">3</span>.<span class="w"> </span>Get<span class="w"> </span>a<span class="w"> </span>shell<span class="w"> </span><span class="k">in</span><span class="w"> </span>your<span class="w"> </span>environment</span>
+<span class="prompt1">singularity<span class="w"> </span>shell<span class="w"> </span>--nv<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-H<span class="w"> </span><span class="nv">$HOME</span>:/home<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-B<span class="w"> </span><span class="nv">$SLURM_TMPDIR</span>:/dataset/<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-B<span class="w"> </span><span class="nv">$SLURM_TMPDIR</span>:/tmp_log/<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-B<span class="w"> </span><span class="nv">$SCRATCH</span>:/final_log/<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span><span class="nv">$SLURM_TMPDIR</span>/&lt;YOUR_CONTAINER&gt;</span>
+</pre></div></div><div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
+span.prompt3:before {
+  content: "<Singularity_container>$ ";
+}
+</style><span class="prompt2"><span class="m">4</span>.<span class="w"> </span>Execute<span class="w"> </span>your<span class="w"> </span>code</span>
+<span class="prompt3">python<span class="w"> </span>&lt;YOUR_CODE&gt;</span>
+</pre></div></div><p><strong>or</strong> use <code class="docutils literal notranslate"><span class="pre">singularity</span> <span class="pre">exec</span></code> to execute <code class="docutils literal notranslate"><span class="pre">&lt;YOUR_CODE&gt;</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2"><span class="m">3</span>.<span class="w"> </span>Execute<span class="w"> </span>your<span class="w"> </span>code</span>
+<span class="prompt1">singularity<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--nv<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-H<span class="w"> </span><span class="nv">$HOME</span>:/home<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-B<span class="w"> </span><span class="nv">$SLURM_TMPDIR</span>:/dataset/<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-B<span class="w"> </span><span class="nv">$SLURM_TMPDIR</span>:/tmp_log/<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-B<span class="w"> </span><span class="nv">$SCRATCH</span>:/final_log/<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span><span class="nv">$SLURM_TMPDIR</span>/&lt;YOUR_CONTAINER&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>python<span class="w"> </span>&lt;YOUR_CODE&gt;</span>
+</pre></div></div><p>You can create also the following alias to make your life easier.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">alias</span><span class="w"> </span><span class="nv">my_env</span><span class="o">=</span><span class="s1">&#39;singularity exec --nv \</span>
+<span class="s1">        -H $HOME:/home \</span>
+<span class="s1">        -B $SLURM_TMPDIR:/dataset/ \</span>
+<span class="s1">        -B $SLURM_TMPDIR:/tmp_log/ \</span>
+<span class="s1">        -B $SCRATCH:/final_log/ \</span>
+<span class="s1">        $SLURM_TMPDIR/&lt;YOUR_CONTAINER&gt;&#39;</span></span>
+</pre></div></div><p>This will allow you to run any code with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">my_env<span class="w"> </span>python<span class="w"> </span>&lt;YOUR_CODE&gt;</span>
+</pre></div></div></section>
+<section id="example-sbatch-case">
+<h3>Example: sbatch case<a class="headerlink" href="#example-sbatch-case" title="Link to this heading"></a></h3>
+<p>You can also create a <code class="docutils literal notranslate"><span class="pre">sbatch</span></code> script:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>:linenos:
+
+<span class="c1">#!/bin/bash</span>
+<span class="c1">#SBATCH --cpus-per-task=6         # Ask for 6 CPUs</span>
+<span class="c1">#SBATCH --gres=gpu:1              # Ask for 1 GPU</span>
+<span class="c1">#SBATCH --mem=10G                 # Ask for 10 GB of RAM</span>
+<span class="c1">#SBATCH --time=0:10:00            # The job will run for 10 minutes</span>
+
+<span class="c1"># 1. Copy your container on the compute node</span>
+rsync<span class="w"> </span>-avz<span class="w"> </span><span class="nv">$SCRATCH</span>/&lt;YOUR_CONTAINER&gt;<span class="w"> </span><span class="nv">$SLURM_TMPDIR</span>
+<span class="c1"># 2. Copy your dataset on the compute node</span>
+rsync<span class="w"> </span>-avz<span class="w"> </span><span class="nv">$SCRATCH</span>/&lt;YOUR_DATASET&gt;<span class="w"> </span><span class="nv">$SLURM_TMPDIR</span>
+<span class="c1"># 3. Executing your code with singularity</span>
+singularity<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--nv<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-H<span class="w"> </span><span class="nv">$HOME</span>:/home<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-B<span class="w"> </span><span class="nv">$SLURM_TMPDIR</span>:/dataset/<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-B<span class="w"> </span><span class="nv">$SLURM_TMPDIR</span>:/tmp_log/<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-B<span class="w"> </span><span class="nv">$SCRATCH</span>:/final_log/<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span><span class="nv">$SLURM_TMPDIR</span>/&lt;YOUR_CONTAINER&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>python<span class="w"> </span><span class="s2">&quot;&lt;YOUR_CODE&gt;&quot;</span>
+<span class="c1"># 4. Copy whatever you want to save on $SCRATCH</span>
+rsync<span class="w"> </span>-avz<span class="w"> </span><span class="nv">$SLURM_TMPDIR</span>/&lt;to_save&gt;<span class="w"> </span><span class="nv">$SCRATCH</span>
+</pre></div>
+</div>
+</section>
+<section id="issue-with-pybullet-and-opengl-libraries">
+<h3>Issue with PyBullet and OpenGL libraries<a class="headerlink" href="#issue-with-pybullet-and-opengl-libraries" title="Link to this heading"></a></h3>
+<p>If you are running certain gym environments that require <code class="docutils literal notranslate"><span class="pre">pyglet</span></code>, you may
+encounter a problem when running your singularity instance with the Nvidia
+drivers using the <code class="docutils literal notranslate"><span class="pre">--nv</span></code> flag. This happens because the <code class="docutils literal notranslate"><span class="pre">--nv</span></code> flag also
+provides the OpenGL libraries:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>libGL.so.1<span class="w"> </span><span class="o">=</span>&gt;<span class="w"> </span>/.singularity.d/libs/libGL.so.1
+libGLX.so.0<span class="w"> </span><span class="o">=</span>&gt;<span class="w"> </span>/.singularity.d/libs/libGLX.so.0
+</pre></div>
+</div>
+<p>If you don’t experience those problems with <code class="docutils literal notranslate"><span class="pre">pyglet</span></code>, you probably don’t need
+to address this. Otherwise, you can resolve those problems by <code class="docutils literal notranslate"><span class="pre">apt-get</span> <span class="pre">install</span>
+<span class="pre">-y</span> <span class="pre">libosmesa6-dev</span> <span class="pre">mesa-utils</span> <span class="pre">mesa-utils-extra</span> <span class="pre">libgl1-mesa-glx</span></code>, and then making
+sure that your <code class="docutils literal notranslate"><span class="pre">LD_LIBRARY_PATH</span></code> points to those libraries before the ones in
+<code class="docutils literal notranslate"><span class="pre">/.singularity.d/libs</span></code>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>%environment
+<span class="w">        </span><span class="c1"># ...</span>
+<span class="w">        </span><span class="nb">export</span><span class="w"> </span><span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span>/usr/lib/x86_64-linux-gnu/mesa:<span class="nv">$LD_LIBRARY_PATH</span>
+</pre></div>
+</div>
+</section>
+<section id="mila-cluster">
+<h3>Mila cluster<a class="headerlink" href="#mila-cluster" title="Link to this heading"></a></h3>
+<p>On the Mila cluster <code class="docutils literal notranslate"><span class="pre">$SCRATCH</span></code> is not yet defined, you should add the
+experiment results you want to keep in <code class="docutils literal notranslate"><span class="pre">/network/scratch/&lt;u&gt;/&lt;username&gt;/</span></code>. In
+order to use the sbatch script above and to match other cluster environment’s
+names, you can define <code class="docutils literal notranslate"><span class="pre">$SCRATCH</span></code> as an alias for
+<code class="docutils literal notranslate"><span class="pre">/network/scratch/&lt;u&gt;/&lt;username&gt;</span></code> with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;export SCRATCH=/network/scratch/</span><span class="si">${</span><span class="nv">USER</span><span class="p">:</span><span class="nv">0</span><span class="p">:</span><span class="nv">1</span><span class="si">}</span><span class="s2">/</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc</span>
+</pre></div></div><p>Then, you can follow the general procedure explained above.</p>
+</section>
+<section id="digital-research-alliance-of-canada">
+<h3>Digital Research Alliance of Canada<a class="headerlink" href="#digital-research-alliance-of-canada" title="Link to this heading"></a></h3>
+<p>Using singularity on Digital Research Alliance of Canada is similar except that
+you need to add Yoshua’s account name and load singularity. Here is an example
+of a <code class="docutils literal notranslate"><span class="pre">sbatch</span></code> script using singularity on compute Canada cluster:</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>You should use singularity/2.6 or singularity/3.4. There is a bug
+in singularity/3.2 which makes gpu unusable.</p>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="ch">#!/bin/bash</span>
+<span class="linenos"> 2</span><span class="c1">#SBATCH --account=rpp-bengioy     # Yoshua pays for your job</span>
+<span class="linenos"> 3</span><span class="c1">#SBATCH --cpus-per-task=6         # Ask for 6 CPUs</span>
+<span class="linenos"> 4</span><span class="c1">#SBATCH --gres=gpu:1              # Ask for 1 GPU</span>
+<span class="linenos"> 5</span><span class="c1">#SBATCH --mem=32G                 # Ask for 32 GB of RAM</span>
+<span class="linenos"> 6</span><span class="c1">#SBATCH --time=0:10:00            # The job will run for 10 minutes</span>
+<span class="linenos"> 7</span><span class="c1">#SBATCH --output=&quot;/scratch/&lt;user&gt;/slurm-%j.out&quot; # Modify the output of sbatch</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span><span class="c1"># 1. You have to load singularity</span>
+<span class="linenos">10</span>module<span class="w"> </span>load<span class="w"> </span>singularity
+<span class="linenos">11</span><span class="c1"># 2. Then you copy the container to the local disk</span>
+<span class="linenos">12</span>rsync<span class="w"> </span>-avz<span class="w"> </span><span class="nv">$SCRATCH</span>/&lt;YOUR_CONTAINER&gt;<span class="w"> </span><span class="nv">$SLURM_TMPDIR</span>
+<span class="linenos">13</span><span class="c1"># 3. Copy your dataset on the compute node</span>
+<span class="linenos">14</span>rsync<span class="w"> </span>-avz<span class="w"> </span><span class="nv">$SCRATCH</span>/&lt;YOUR_DATASET&gt;<span class="w"> </span><span class="nv">$SLURM_TMPDIR</span>
+<span class="linenos">15</span><span class="c1"># 4. Executing your code with singularity</span>
+<span class="linenos">16</span>singularity<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--nv<span class="w"> </span><span class="se">\</span>
+<span class="linenos">17</span><span class="w">        </span>-H<span class="w"> </span><span class="nv">$HOME</span>:/home<span class="w"> </span><span class="se">\</span>
+<span class="linenos">18</span><span class="w">        </span>-B<span class="w"> </span><span class="nv">$SLURM_TMPDIR</span>:/dataset/<span class="w"> </span><span class="se">\</span>
+<span class="linenos">19</span><span class="w">        </span>-B<span class="w"> </span><span class="nv">$SLURM_TMPDIR</span>:/tmp_log/<span class="w"> </span><span class="se">\</span>
+<span class="linenos">20</span><span class="w">        </span>-B<span class="w"> </span><span class="nv">$SCRATCH</span>:/final_log/<span class="w"> </span><span class="se">\</span>
+<span class="linenos">21</span><span class="w">        </span><span class="nv">$SLURM_TMPDIR</span>/&lt;YOUR_CONTAINER&gt;<span class="w"> </span><span class="se">\</span>
+<span class="linenos">22</span><span class="w">        </span>python<span class="w"> </span><span class="s2">&quot;&lt;YOUR_CODE&gt;&quot;</span>
+<span class="linenos">23</span><span class="c1"># 5. Copy whatever you want to save on $SCRATCH</span>
+<span class="linenos">24</span>rsync<span class="w"> </span>-avz<span class="w"> </span><span class="nv">$SLURM_TMPDIR</span>/&lt;to_save&gt;<span class="w"> </span><span class="nv">$SCRATCH</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+<script type="text/javascript">
+  window.onload = function() {
+      $(".toggle > *").hide();
+      $(".toggle .header").show();
+      $(".toggle .header").click(function() {
+          $(this).parent().children().not(".header").toggle(400);
+          $(this).parent().children(".header").toggleClass("open");
+      })
+  };
+</script>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

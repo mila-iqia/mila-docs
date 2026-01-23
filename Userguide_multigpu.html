@@ -1,0 +1,348 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Advanced SLURM usage and Multiple GPU jobs &mdash; Mila Technical Documentation latest documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=8da7d091" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=c6e86fd7"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script src="_static/documentation_options.js?v=c6e86fd7"></script>
+      <script src="_static/documentation_options_fix.js?v=1c8886ec"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Multiple Nodes" href="Userguide_multinode.html" />
+    <link rel="prev" title="Data Transmission using Globus Connect Personal" href="Userguide_data_transfer.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/image.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Purpose.html">Purpose of this documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Purpose.html#contributing">Contributing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-tos and Guides</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Userguide_quick_start.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_login.html">Logging in to the cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_running_code.html">Running your code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_portability.html">Portability concerns and solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_containers.html">Using containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_sharing_data.html">Sharing Data with ACLs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_datasets.html">Contributing datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_data_transfer.html">Data Transmission using Globus Connect Personal</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Advanced SLURM usage and Multiple GPU jobs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#handling-preemption">Handling preemption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#packing-jobs">Packing jobs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sharing-a-gpu-between-processes">Sharing a GPU between processes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sharing-a-node-with-multiple-gpu-1process-gpu">Sharing a node with multiple GPU 1process/GPU</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sharing-a-node-with-multiple-gpu-multiple-processes-gpu">Sharing a node with multiple GPU &amp; multiple processes/GPU</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_multinode.html">Multiple Nodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_wandb.html">Weight and Biases (WandB)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_comet.html">Comet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_jupyterhub.html">JupyterHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_singularity.html">Singularity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_faq.html">Frequently asked questions (FAQs)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Systems and services</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Information.html">Computing infrastructure and policies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Extra_compute.html">Computational resources outside of Mila</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Minimal Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="examples/frameworks/index.html">Software Frameworks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/distributed/index.html">Distributed Training</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/good_practices/index.html">Good practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/advanced/index.html">Advanced Examples</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/mila-iqia/ResearchTemplate">🔗 Research Project Template</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">General theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html">What is a computer cluster?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#parts-of-a-computing-cluster">Parts of a computing cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#unix">UNIX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#the-workload-manager">The workload manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#processing-data">Processing data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#software-on-the-cluster">Software on the cluster</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extras</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Acknowledgement.html">Acknowledging Mila</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://datasets.server.mila.quebec/">Mila Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Audio_video.html">Audio and video resources at Mila</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VSCode.html">Visual Studio Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IDT.html">Who, what, where is IDT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cheatsheet.html">Cheat Sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Environmental_impact.html">Environmental Impact</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Mila Technical Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Advanced SLURM usage and Multiple GPU jobs</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/mila-iqia/mila-docs/blob/master/docs/Userguide_multigpu.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="advanced-slurm-usage-and-multiple-gpu-jobs">
+<h1>Advanced SLURM usage and Multiple GPU jobs<a class="headerlink" href="#advanced-slurm-usage-and-multiple-gpu-jobs" title="Link to this heading"></a></h1>
+<section id="handling-preemption">
+<h2>Handling preemption<a class="headerlink" href="#handling-preemption" title="Link to this heading"></a></h2>
+<p id="advanced-preemption">On the Mila cluster, jobs can preempt one-another depending on their priority
+(unkillable&gt;high&gt;low) (See the <a class="reference external" href="https://slurm.schedmd.com/preempt.html">Slurm documentation</a>)</p>
+<p>The default preemption mechanism is to kill and re-queue the job automatically
+without any notice. To allow a different preemption mechanism, every partition
+have been duplicated (i.e. have the same characteristics as their counterparts)
+allowing a <strong>120sec</strong> grace period before killing your job <em>but don’t requeue
+it automatically</em>: those partitions are referred by the suffix: <code class="docutils literal notranslate"><span class="pre">-grace</span></code>
+(<code class="docutils literal notranslate"><span class="pre">main-grace,</span> <span class="pre">long-grace,</span> <span class="pre">main-cpu-grace,</span> <span class="pre">long-cpu-grace</span></code>).</p>
+<p>When using a partition with a grace period, a series of signals consisting of
+first <code class="docutils literal notranslate"><span class="pre">SIGCONT</span></code> and <code class="docutils literal notranslate"><span class="pre">SIGTERM</span></code> then <code class="docutils literal notranslate"><span class="pre">SIGKILL</span></code> will be sent to the SLURM
+job.  It’s good practice to catch those signals using the Linux <code class="docutils literal notranslate"><span class="pre">trap</span></code> command
+to properly terminate a job and save what’s necessary to restart the job.  On
+each cluster, you’ll be allowed a <em>grace period</em> before SLURM actually kills
+your job (<code class="docutils literal notranslate"><span class="pre">SIGKILL</span></code>).</p>
+<p>The easiest way to handle preemption is by trapping the <code class="docutils literal notranslate"><span class="pre">SIGTERM</span></code> signal</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1">#SBATCH --ntasks=1</span>
+<span class="linenos"> 2</span><span class="c1">#SBATCH ....</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span>exit_script<span class="o">()</span><span class="w"> </span><span class="o">{</span>
+<span class="linenos"> 5</span><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Preemption signal, saving myself&quot;</span>
+<span class="linenos"> 6</span><span class="w">    </span><span class="nb">trap</span><span class="w"> </span>-<span class="w"> </span>SIGTERM<span class="w"> </span><span class="c1"># clear the trap</span>
+<span class="linenos"> 7</span><span class="w">    </span><span class="c1"># Optional: sends SIGTERM to child/sub processes</span>
+<span class="linenos"> 8</span><span class="w">    </span><span class="nb">kill</span><span class="w"> </span>--<span class="w"> </span>-<span class="nv">$$</span>
+<span class="linenos"> 9</span><span class="o">}</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span><span class="nb">trap</span><span class="w"> </span>exit_script<span class="w"> </span>SIGTERM
+<span class="linenos">12</span>
+<span class="linenos">13</span><span class="c1"># The main script part</span>
+<span class="linenos">14</span>python3<span class="w"> </span>my_script
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<div class="line-block">
+<div class="line"><strong>Requeuing</strong>:</div>
+<div class="line">The Slurm scheduler on the cluster does not allow a grace period before</div>
+<div class="line">preempting a job while requeuing it automatically, therefore your job will</div>
+<div class="line">be cancelled at the end of the grace period.</div>
+<div class="line">To automatically requeue it, you can just add the <code class="docutils literal notranslate"><span class="pre">sbatch</span></code> command inside</div>
+<div class="line">your <code class="docutils literal notranslate"><span class="pre">exit_script</span></code> function.</div>
+</div>
+</div>
+</section>
+<section id="packing-jobs">
+<h2>Packing jobs<a class="headerlink" href="#packing-jobs" title="Link to this heading"></a></h2>
+<section id="sharing-a-gpu-between-processes">
+<h3>Sharing a GPU between processes<a class="headerlink" href="#sharing-a-gpu-between-processes" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">srun</span></code>, when used in a batch job is responsible for starting tasks on the
+allocated resources (see srun) SLURM batch script</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="c1">#SBATCH --ntasks-per-node=2</span>
+<span class="linenos">2</span><span class="c1">#SBATCH --output=myjob_output_wrapper.out</span>
+<span class="linenos">3</span><span class="c1">#SBATCH --ntasks=2</span>
+<span class="linenos">4</span><span class="c1">#SBATCH --gres=gpu:1</span>
+<span class="linenos">5</span><span class="c1">#SBATCH --cpus-per-task=4</span>
+<span class="linenos">6</span><span class="c1">#SBATCH --mem=18G</span>
+<span class="linenos">7</span>srun<span class="w"> </span>-l<span class="w"> </span>--output<span class="o">=</span>myjob_output_%t.out<span class="w"> </span>python<span class="w"> </span>script<span class="w"> </span>args
+</pre></div>
+</div>
+<p>This will run Python 2 times, each process with 4 CPUs with the same arguments
+<code class="docutils literal notranslate"><span class="pre">--output=myjob_output_%t.out</span></code> will create 2 output files appending the task
+id (<code class="docutils literal notranslate"><span class="pre">%t</span></code>) to the filename and 1 global log file for things happening outside
+the <code class="docutils literal notranslate"><span class="pre">srun</span></code> command.</p>
+<p>Knowing that, if you want to have 2 different arguments to the Python program,
+you can use a multi-prog configuration file: <code class="docutils literal notranslate"><span class="pre">srun</span> <span class="pre">-l</span> <span class="pre">--multi-prog</span> <span class="pre">silly.conf</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">0</span>  <span class="n">python</span> <span class="n">script</span> <span class="n">firstarg</span>
+<span class="mi">1</span>  <span class="n">python</span> <span class="n">script</span> <span class="n">secondarg</span>
+</pre></div>
+</div>
+<p>Or by specifying a range of tasks</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">0</span><span class="o">-</span><span class="mi">1</span>  <span class="n">python</span> <span class="n">script</span> <span class="o">%</span><span class="n">t</span>
+</pre></div>
+</div>
+<p>%t being the taskid that your Python script will parse.  Note the <code class="docutils literal notranslate"><span class="pre">-l</span></code> on the
+<code class="docutils literal notranslate"><span class="pre">srun</span></code> command: this will prepend each line with the taskid (0:, 1:)</p>
+</section>
+<section id="sharing-a-node-with-multiple-gpu-1process-gpu">
+<h3>Sharing a node with multiple GPU 1process/GPU<a class="headerlink" href="#sharing-a-node-with-multiple-gpu-1process-gpu" title="Link to this heading"></a></h3>
+<p>On Digital Research Alliance of Canada, several nodes, especially nodes with
+<code class="docutils literal notranslate"><span class="pre">largeGPU</span></code> (P100) are reserved for jobs requesting the whole node, therefore
+packing multiple processes in a single job can leverage faster GPU.</p>
+<p>If you want different tasks to access different GPUs in a single allocation you
+need to create an allocation requesting a whole node and using <code class="docutils literal notranslate"><span class="pre">srun</span></code> with a
+subset of those resources (1 GPU).</p>
+<p>Keep in mind that every resource not specified on the <code class="docutils literal notranslate"><span class="pre">srun</span></code> command while
+inherit the global allocation specification so you need to split each resource
+in a subset (except –cpu-per-task which is a per-task requirement)</p>
+<p>Each <code class="docutils literal notranslate"><span class="pre">srun</span></code> represents a job step (<code class="docutils literal notranslate"><span class="pre">%s</span></code>).</p>
+<p>Example for a GPU node with 24 cores and 4 GPUs and 128G of RAM
+Requesting 1 task per GPU</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="ch">#!/bin/bash</span>
+<span class="linenos"> 2</span><span class="c1">#SBATCH --nodes=1-1</span>
+<span class="linenos"> 3</span><span class="c1">#SBATCH --ntasks-per-node=4</span>
+<span class="linenos"> 4</span><span class="c1">#SBATCH --output=myjob_output_wrapper.out</span>
+<span class="linenos"> 5</span><span class="c1">#SBATCH --gres=gpu:4</span>
+<span class="linenos"> 6</span><span class="c1">#SBATCH --cpus-per-task=6</span>
+<span class="linenos"> 7</span>srun<span class="w"> </span>--gres<span class="o">=</span>gpu:1<span class="w"> </span>-n1<span class="w"> </span>--mem<span class="o">=</span>30G<span class="w"> </span>-l<span class="w"> </span>--output<span class="o">=</span>%j-step-%s.out<span class="w"> </span>--exclusive<span class="w"> </span>--multi-prog<span class="w"> </span>python<span class="w"> </span>script<span class="w"> </span>args1<span class="w"> </span><span class="p">&amp;</span>
+<span class="linenos"> 8</span>srun<span class="w"> </span>--gres<span class="o">=</span>gpu:1<span class="w"> </span>-n1<span class="w"> </span>--mem<span class="o">=</span>30G<span class="w"> </span>-l<span class="w"> </span>--output<span class="o">=</span>%j-step-%s.out<span class="w"> </span>--exclusive<span class="w"> </span>--multi-prog<span class="w"> </span>python<span class="w"> </span>script<span class="w"> </span>args2<span class="w"> </span><span class="p">&amp;</span>
+<span class="linenos"> 9</span>srun<span class="w"> </span>--gres<span class="o">=</span>gpu:1<span class="w"> </span>-n1<span class="w"> </span>--mem<span class="o">=</span>30G<span class="w"> </span>-l<span class="w"> </span>--output<span class="o">=</span>%j-step-%s.out<span class="w"> </span>--exclusive<span class="w"> </span>--multi-prog<span class="w"> </span>python<span class="w"> </span>script<span class="w"> </span>args3<span class="w"> </span><span class="p">&amp;</span>
+<span class="linenos">10</span>srun<span class="w"> </span>--gres<span class="o">=</span>gpu:1<span class="w"> </span>-n1<span class="w"> </span>--mem<span class="o">=</span>30G<span class="w"> </span>-l<span class="w"> </span>--output<span class="o">=</span>%j-step-%s.out<span class="w"> </span>--exclusive<span class="w"> </span>--multi-prog<span class="w"> </span>python<span class="w"> </span>script<span class="w"> </span>args4<span class="w"> </span><span class="p">&amp;</span>
+<span class="linenos">11</span><span class="nb">wait</span>
+</pre></div>
+</div>
+<p>This will create 4 output files:</p>
+<ul class="simple">
+<li><p>JOBID-step-0.out</p></li>
+<li><p>JOBID-step-1.out</p></li>
+<li><p>JOBID-step-2.out</p></li>
+<li><p>JOBID-step-3.out</p></li>
+</ul>
+</section>
+<section id="sharing-a-node-with-multiple-gpu-multiple-processes-gpu">
+<h3>Sharing a node with multiple GPU &amp; multiple processes/GPU<a class="headerlink" href="#sharing-a-node-with-multiple-gpu-multiple-processes-gpu" title="Link to this heading"></a></h3>
+<p>Combining both previous sections, we can create a script requesting a whole node
+with four GPUs, allocating 1 GPU per <code class="docutils literal notranslate"><span class="pre">srun</span></code> and sharing each GPU with multiple
+processes</p>
+<p>Example still with a 24 cores/4 GPUs/128G RAM
+Requesting 2 tasks per GPU</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="ch">#!/bin/bash</span>
+<span class="linenos"> 2</span><span class="c1">#SBATCH --nodes=1-1</span>
+<span class="linenos"> 3</span><span class="c1">#SBATCH --ntasks-per-node=8</span>
+<span class="linenos"> 4</span><span class="c1">#SBATCH --output=myjob_output_wrapper.out</span>
+<span class="linenos"> 5</span><span class="c1">#SBATCH --gres=gpu:4</span>
+<span class="linenos"> 6</span><span class="c1">#SBATCH --cpus-per-task=3</span>
+<span class="linenos"> 7</span>srun<span class="w"> </span>--gres<span class="o">=</span>gpu:1<span class="w"> </span>-n2<span class="w"> </span>--mem<span class="o">=</span>30G<span class="w"> </span>-l<span class="w"> </span>--output<span class="o">=</span>%j-step-%s-task-%t.out<span class="w"> </span>--exclusive<span class="w"> </span>--multi-prog<span class="w"> </span>silly.conf<span class="w"> </span><span class="p">&amp;</span>
+<span class="linenos"> 8</span>srun<span class="w"> </span>--gres<span class="o">=</span>gpu:1<span class="w"> </span>-n2<span class="w"> </span>--mem<span class="o">=</span>30G<span class="w"> </span>-l<span class="w"> </span>--output<span class="o">=</span>%j-step-%s-task-%t.out<span class="w"> </span>--exclusive<span class="w"> </span>--multi-prog<span class="w"> </span>silly.conf<span class="w"> </span><span class="p">&amp;</span>
+<span class="linenos"> 9</span>srun<span class="w"> </span>--gres<span class="o">=</span>gpu:1<span class="w"> </span>-n2<span class="w"> </span>--mem<span class="o">=</span>30G<span class="w"> </span>-l<span class="w"> </span>--output<span class="o">=</span>%j-step-%s-task-%t.out<span class="w"> </span>--exclusive<span class="w"> </span>--multi-prog<span class="w"> </span>silly.conf<span class="w"> </span><span class="p">&amp;</span>
+<span class="linenos">10</span>srun<span class="w"> </span>--gres<span class="o">=</span>gpu:1<span class="w"> </span>-n2<span class="w"> </span>--mem<span class="o">=</span>30G<span class="w"> </span>-l<span class="w"> </span>--output<span class="o">=</span>%j-step-%s-task-%t.out<span class="w"> </span>--exclusive<span class="w"> </span>--multi-prog<span class="w"> </span>silly.conf<span class="w"> </span><span class="p">&amp;</span>
+<span class="linenos">11</span><span class="nb">wait</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">--exclusive</span></code> is important to specify subsequent step/srun to bind to different cpus.</p>
+<p>This will produce 8 output files, 2 for each step:</p>
+<ul class="simple">
+<li><p>JOBID-step-0-task-0.out</p></li>
+<li><p>JOBID-step-0-task-1.out</p></li>
+<li><p>JOBID-step-1-task-0.out</p></li>
+<li><p>JOBID-step-1-task-1.out</p></li>
+<li><p>JOBID-step-2-task-0.out</p></li>
+<li><p>JOBID-step-2-task-1.out</p></li>
+<li><p>JOBID-step-3-task-0.out</p></li>
+<li><p>JOBID-step-3-task-1.out</p></li>
+</ul>
+<p>Running <code class="docutils literal notranslate"><span class="pre">nvidia-smi</span></code> in silly.conf, while parsing the output, we can see 4
+GPUs allocated and 2 tasks per GPU</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
+span.prompt1:before {
+  content: "$ ";
+}
+</style><span class="prompt1">cat<span class="w"> </span>JOBID-step-*<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>Tesla
+<span class="m">0</span>:<span class="w"> </span><span class="p">|</span><span class="w">   </span><span class="m">0</span><span class="w">  </span>Tesla<span class="w"> </span>P100-PCIE...<span class="w">  </span>On<span class="w">   </span><span class="p">|</span><span class="w"> </span><span class="m">00000000</span>:04:00.0<span class="w"> </span>Off<span class="w"> </span><span class="p">|</span><span class="w">                    </span><span class="m">0</span><span class="w"> </span><span class="p">|</span>
+<span class="m">1</span>:<span class="w"> </span><span class="p">|</span><span class="w">   </span><span class="m">0</span><span class="w">  </span>Tesla<span class="w"> </span>P100-PCIE...<span class="w">  </span>On<span class="w">   </span><span class="p">|</span><span class="w"> </span><span class="m">00000000</span>:04:00.0<span class="w"> </span>Off<span class="w"> </span><span class="p">|</span><span class="w">                    </span><span class="m">0</span><span class="w"> </span><span class="p">|</span>
+<span class="m">0</span>:<span class="w"> </span><span class="p">|</span><span class="w">   </span><span class="m">0</span><span class="w">  </span>Tesla<span class="w"> </span>P100-PCIE...<span class="w">  </span>On<span class="w">   </span><span class="p">|</span><span class="w"> </span><span class="m">00000000</span>:83:00.0<span class="w"> </span>Off<span class="w"> </span><span class="p">|</span><span class="w">                    </span><span class="m">0</span><span class="w"> </span><span class="p">|</span>
+<span class="m">1</span>:<span class="w"> </span><span class="p">|</span><span class="w">   </span><span class="m">0</span><span class="w">  </span>Tesla<span class="w"> </span>P100-PCIE...<span class="w">  </span>On<span class="w">   </span><span class="p">|</span><span class="w"> </span><span class="m">00000000</span>:83:00.0<span class="w"> </span>Off<span class="w"> </span><span class="p">|</span><span class="w">                    </span><span class="m">0</span><span class="w"> </span><span class="p">|</span>
+<span class="m">0</span>:<span class="w"> </span><span class="p">|</span><span class="w">   </span><span class="m">0</span><span class="w">  </span>Tesla<span class="w"> </span>P100-PCIE...<span class="w">  </span>On<span class="w">   </span><span class="p">|</span><span class="w"> </span><span class="m">00000000</span>:82:00.0<span class="w"> </span>Off<span class="w"> </span><span class="p">|</span><span class="w">                    </span><span class="m">0</span><span class="w"> </span><span class="p">|</span>
+<span class="m">1</span>:<span class="w"> </span><span class="p">|</span><span class="w">   </span><span class="m">0</span><span class="w">  </span>Tesla<span class="w"> </span>P100-PCIE...<span class="w">  </span>On<span class="w">   </span><span class="p">|</span><span class="w"> </span><span class="m">00000000</span>:82:00.0<span class="w"> </span>Off<span class="w"> </span><span class="p">|</span><span class="w">                    </span><span class="m">0</span><span class="w"> </span><span class="p">|</span>
+<span class="m">0</span>:<span class="w"> </span><span class="p">|</span><span class="w">   </span><span class="m">0</span><span class="w">  </span>Tesla<span class="w"> </span>P100-PCIE...<span class="w">  </span>On<span class="w">   </span><span class="p">|</span><span class="w"> </span><span class="m">00000000</span>:03:00.0<span class="w"> </span>Off<span class="w"> </span><span class="p">|</span><span class="w">                    </span><span class="m">0</span><span class="w"> </span><span class="p">|</span>
+<span class="m">1</span>:<span class="w"> </span><span class="p">|</span><span class="w">   </span><span class="m">0</span><span class="w">  </span>Tesla<span class="w"> </span>P100-PCIE...<span class="w">  </span>On<span class="w">   </span><span class="p">|</span><span class="w"> </span><span class="m">00000000</span>:03:00.0<span class="w"> </span>Off<span class="w"> </span><span class="p">|</span><span class="w">                    </span><span class="m">0</span><span class="w"> </span><span class="p">|</span></span>
+</pre></div></div></section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Userguide_data_transfer.html" class="btn btn-neutral float-left" title="Data Transmission using Globus Connect Personal" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Userguide_multinode.html" class="btn btn-neutral float-right" title="Multiple Nodes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+<script type="text/javascript">
+  window.onload = function() {
+      $(".toggle > *").hide();
+      $(".toggle .header").show();
+      $(".toggle .header").click(function() {
+          $(this).parent().children().not(".header").toggle(400);
+          $(this).parent().children(".header").toggleClass("open");
+      })
+  };
+</script>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

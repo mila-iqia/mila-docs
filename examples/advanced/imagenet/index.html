@@ -1,0 +1,1349 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1. Multi-Node / Multi-GPU ImageNet Training &mdash; Mila Technical Documentation latest documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=8da7d091" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=c6e86fd7"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../../_static/documentation_options.js?v=c6e86fd7"></script>
+      <script src="../../../_static/documentation_options_fix.js?v=1c8886ec"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="What is a computer cluster?" href="../../../Theory_cluster.html" />
+    <link rel="prev" title="Advanced Examples" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html">
+            
+              <img src="../../../_static/image.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Purpose.html">Purpose of this documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Purpose.html#contributing">Contributing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-tos and Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Userguide_quick_start.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Userguide_login.html">Logging in to the cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Userguide_running_code.html">Running your code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Userguide_portability.html">Portability concerns and solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Userguide_containers.html">Using containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Userguide_sharing_data.html">Sharing Data with ACLs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Userguide_datasets.html">Contributing datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Userguide_data_transfer.html">Data Transmission using Globus Connect Personal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Userguide_multigpu.html">Advanced SLURM usage and Multiple GPU jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Userguide_multinode.html">Multiple Nodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Userguide_wandb.html">Weight and Biases (WandB)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Userguide_comet.html">Comet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Userguide_jupyterhub.html">JupyterHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Userguide_singularity.html">Singularity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Userguide_faq.html">Frequently asked questions (FAQs)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Systems and services</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Information.html">Computing infrastructure and policies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Extra_compute.html">Computational resources outside of Mila</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Minimal Examples</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../frameworks/index.html">Software Frameworks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../distributed/index.html">Distributed Training</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../good_practices/index.html">Good practices</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Advanced Examples</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">1. Multi-Node / Multi-GPU ImageNet Training</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/mila-iqia/ResearchTemplate">🔗 Research Project Template</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">General theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Theory_cluster.html">What is a computer cluster?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Theory_cluster.html#parts-of-a-computing-cluster">Parts of a computing cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Theory_cluster.html#unix">UNIX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Theory_cluster.html#the-workload-manager">The workload manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Theory_cluster.html#processing-data">Processing data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Theory_cluster.html#software-on-the-cluster">Software on the cluster</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extras</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Acknowledgement.html">Acknowledging Mila</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://datasets.server.mila.quebec/">Mila Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Audio_video.html">Audio and video resources at Mila</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../VSCode.html">Visual Studio Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../IDT.html">Who, what, where is IDT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Cheatsheet.html">Cheat Sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Environmental_impact.html">Environmental Impact</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Mila Technical Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Advanced Examples</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">1. </span>Multi-Node / Multi-GPU ImageNet Training</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/mila-iqia/mila-docs/blob/master/docs/examples/advanced/imagenet/index.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="multi-node-multi-gpu-imagenet-training">
+<h1><span class="section-number">1. </span>Multi-Node / Multi-GPU ImageNet Training<a class="headerlink" href="#multi-node-multi-gpu-imagenet-training" title="Link to this heading"></a></h1>
+<p>Prerequisites:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../../frameworks/pytorch_setup/index.html"><span class="doc">PyTorch Setup</span></a></p></li>
+<li><p><a class="reference internal" href="../../distributed/single_gpu/index.html"><span class="doc">Single GPU Job</span></a></p></li>
+<li><p><a class="reference internal" href="../../distributed/multi_gpu/index.html"><span class="doc">Multi-GPU Job</span></a></p></li>
+<li><p><a class="reference internal" href="../../distributed/multi_node/index.html"><span class="doc">Multi-Node (DDP) Job</span></a></p></li>
+<li><p><a class="reference internal" href="../../good_practices/checkpointing/index.html"><span class="doc">Checkpointing</span></a></p></li>
+<li><p><a class="reference internal" href="../../good_practices/launch_many_jobs/index.html"><span class="doc">Launch many jobs from same shell script</span></a></p></li>
+</ul>
+<p>Other interesting resources:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://sebarnold.net/dist_blog/">https://sebarnold.net/dist_blog/</a></p></li>
+<li><p><a class="reference external" href="https://lambdalabs.com/blog/multi-node-pytorch-distributed-training-guide">https://lambdalabs.com/blog/multi-node-pytorch-distributed-training-guide</a></p></li>
+</ul>
+<p>Click here to see <a class="reference external" href="https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/advanced/imagenet">the source code for this example</a></p>
+<p>This is an advanced and quite lengthy example. We recommend viewing the files directly
+on GitHub to get the best experience.</p>
+<p><strong>pyproject.toml</strong></p>
+<p>This is the configuration file for UV, which manages the dependencies for this project.</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[project]</span>
+<span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;distributed-imagenet-example&quot;</span>
+<span class="n">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;0.1.0&quot;</span>
+<span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Add your description here&quot;</span>
+<span class="n">readme</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;README.md&quot;</span>
+<span class="n">requires-python</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;&gt;=3.11,&lt;3.14&quot;</span>
+<span class="n">dependencies</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="s2">&quot;debugpy&gt;=1.8.16&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;scipy&gt;=1.16.2&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;torch&gt;=2.7.1&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;torch-tb-profiler&gt;=0.4.3&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;torchvision&gt;=0.22.1&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;tqdm&gt;=4.67.1&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;rich&gt;=14.1.0&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;simple-parsing&gt;=0.1.7&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;scikit-learn&gt;=1.7.2&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;wandb&gt;=0.21.4&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="c1">#ruff: increase max line length</span>
+<span class="k">[tool.ruff]</span>
+<span class="n">line-length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span>
+</pre></div>
+</div>
+<p><strong>safe_sbatch</strong></p>
+<p>This job script uses the <code class="docutils literal notranslate"><span class="pre">safe_sbatch</span></code> submission script to submit a job at the current git state.
+This practice is recommended to ensure reproducibility, and to prevent changes in the python files between when the job
+is submitted and when it starts to affect the results.</p>
+<p>Unlike the script passed to sbatch, which is copied and saved with the job in SLURM (and reused when resuming a job),
+the python files are not saved.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="nb">set</span><span class="w"> </span>-eof<span class="w"> </span>pipefail
+<span class="nv">git_status</span><span class="o">=</span><span class="sb">`</span>git<span class="w"> </span>status<span class="w"> </span>--porcelain<span class="sb">`</span>
+<span class="c1"># idea: Could add command-line arguments to control whether to add all changes and commit before sbatch.</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span>!<span class="w"> </span>-z<span class="w"> </span><span class="nv">$git_status</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Your working directory is dirty! Please add and commit changes before continuing.&quot;</span>
+<span class="w">    </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="k">fi</span><span class="p">;</span>
+<span class="c1"># This environment variable will be available in the job script.</span>
+<span class="c1"># It should be used to checkout the repo at this commit (in a different directory than the original).</span>
+<span class="c1"># For example:</span>
+<span class="c1"># ```</span>
+<span class="c1"># git clone &quot;$repo&quot; &quot;$dest&quot;</span>
+<span class="c1"># echo &quot;Checking out commit $GIT_COMMIT&quot;</span>
+<span class="c1"># cd &quot;$dest&quot;</span>
+<span class="c1"># git checkout $GIT_COMMIT</span>
+<span class="c1"># ```</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">GIT_COMMIT</span><span class="o">=</span><span class="sb">`</span>git<span class="w"> </span>rev-parse<span class="w"> </span>HEAD<span class="sb">`</span>
+<span class="nb">exec</span><span class="w"> </span>sbatch<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p><strong>job.sh</strong></p>
+<p>This file uses a <code class="docutils literal notranslate"><span class="pre">code_checkpointing.sh</span></code> utility script.
+For now, to keep this already very heavy example a bit lighter,
+we do not include it here, but you can find it in the GitHub repository <a class="reference external" href="https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/advanced/imagenet">here</a></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="c1">#SBATCH --ntasks=1</span>
+<span class="c1">#SBATCH --cpus-per-task=4</span>
+<span class="c1">#SBATCH --gpus-per-task=l40s:1</span>
+<span class="c1">#SBATCH --mem-per-gpu=16G</span>
+<span class="c1">#SBATCH --tmp=200G  # We need 200GB of storage on the local disk of each node.</span>
+<span class="c1">#SBATCH --time=02:00:00</span>
+<span class="c1">#SBATCH --output=checkpoints/%j/out.txt</span>
+
+<span class="nb">set</span><span class="w"> </span>-e<span class="w">  </span><span class="c1"># exit on error.</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Date:     </span><span class="k">$(</span>date<span class="k">)</span><span class="s2">&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Hostname: </span><span class="k">$(</span>hostname<span class="k">)</span><span class="s2">&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Attempt #</span><span class="si">${</span><span class="nv">SLURM_RESTART_COUNT</span><span class="k">:-</span><span class="nv">0</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="c1"># Make sure to use UV_OFFLINE=1 on DRAC clusters where compute nodes don&#39;t have internet access,</span>
+<span class="c1"># or use `module load httpproxy/1.0` if it works.</span>
+<span class="c1"># Note: You will either have to warm up the uv cache before submitting your job so  or use the drac wheelhouse as a source.</span>
+<span class="c1"># export UV_OFFLINE=1</span>
+
+<span class="c1">## Code checkpointing with git to avoid unexpected bugs ##</span>
+<span class="nv">UV_DIR</span><span class="o">=</span><span class="k">$(</span>./code_checkpointing.sh<span class="k">)</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Git commit used for this job: </span><span class="si">${</span><span class="nv">GIT_COMMIT</span><span class="k">:-</span><span class="nv">not</span><span class="p"> set - code checkpointing is not enabled</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Running uv commands in directory: </span><span class="nv">$UV_DIR</span><span class="s2">&quot;</span>
+
+<span class="c1"># Stage dataset into $SLURM_TMPDIR</span>
+<span class="c1"># Prepare the dataset on each node&#39;s local storage using all the CPUs (and memory) of each node.</span>
+mkdir<span class="w"> </span>-p<span class="w"> </span><span class="nv">$SLURM_TMPDIR</span>/data
+srun<span class="w"> </span>--ntasks-per-node<span class="o">=</span><span class="m">1</span><span class="w"> </span>--ntasks<span class="o">=</span><span class="si">${</span><span class="nv">SLURM_JOB_NUM_NODES</span><span class="k">:-</span><span class="nv">1</span><span class="si">}</span><span class="w"> </span>bash<span class="w"> </span>-c<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="s2">&quot;uv run --directory=</span><span class="nv">$UV_DIR</span><span class="s2"> python prepare_data.py --dest \$SLURM_TMPDIR/data&quot;</span>
+
+
+<span class="c1"># These environment variables are used by torch.distributed and should ideally be set</span>
+<span class="c1"># before running the python script, or at the very beginning of the python script.</span>
+<span class="c1"># Master address is the hostname of the first node in the job.</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">MASTER_ADDR</span><span class="o">=</span><span class="k">$(</span>scontrol<span class="w"> </span>show<span class="w"> </span>hostnames<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$SLURM_JOB_NODELIST</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="k">)</span>
+<span class="c1"># Get a unique port for this job based on the job ID</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">MASTER_PORT</span><span class="o">=</span><span class="k">$(</span>expr<span class="w"> </span><span class="m">10000</span><span class="w"> </span>+<span class="w"> </span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="nv">$SLURM_JOB_ID</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-c<span class="w"> </span><span class="m">4</span><span class="k">))</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">WORLD_SIZE</span><span class="o">=</span><span class="nv">$SLURM_NTASKS</span>
+
+<span class="c1"># srun is always used to launch the tasks.</span>
+<span class="c1"># Whether there is one &#39;task&#39; per GPU or one task per node can vary based on your setup.</span>
+<span class="c1"># In the latter case, you would typically use torchrun or accelerate to launch one processes</span>
+<span class="c1"># per GPU within each task.</span>
+<span class="c1"># See the commented examples below for different ways to launch the training script.</span>
+
+<span class="c1"># Important note: In all cases, some variables (for example RANK, LOCAL_RANK, or machine_rank</span>
+<span class="c1"># in accelerate) vary between tasks, so we need to escape env variables such as $SLURM_PROCID,</span>
+<span class="c1"># $SLURM_TMPDIR and $SLURM_NODEID so they are evaluated within each task, not just once here</span>
+<span class="c1"># on the first node.</span>
+
+<span class="c1">## Pure Slurm version ##</span>
+<span class="c1"># They can either be set here or as early as possible in the Python script.</span>
+<span class="c1"># Use `uv run --offline` on clusters without internet access on compute nodes.</span>
+<span class="c1"># Using `srun` executes the command once per task, once per GPU in our case.</span>
+<span class="c1"># --gres-flags=allow-task-sharing is required to allow tasks on the same node to</span>
+<span class="c1"># access GPUs allocated to other tasks on that node. Without this flag,</span>
+<span class="c1"># --gpus-per-task=1 would isolate each task to only see its own GPU, which</span>
+<span class="c1"># causes a a mysterious NCCL error in</span>
+<span class="c1"># nn.parallel.DistributedDataParallel:</span>
+<span class="c1"># ncclUnhandledCudaError: Call to CUDA function failed.</span>
+<span class="c1"># when NCCL tries to communicate to local GPUs via shared memory but fails due</span>
+<span class="c1"># to cgroups isolation. See https://slurm.schedmd.com/srun.html#OPT_gres-flags</span>
+<span class="c1"># and https://support.schedmd.com/show_bug.cgi?id=17875 for details.</span>
+srun<span class="w"> </span>--gres-flags<span class="o">=</span>allow-task-sharing<span class="w"> </span>bash<span class="w"> </span>-c<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="s2">&quot;RANK=\$SLURM_PROCID LOCAL_RANK=\$SLURM_LOCALID \</span>
+<span class="s2">    uv run --directory=</span><span class="nv">$UV_DIR</span><span class="s2"> \</span>
+<span class="s2">    python main.py --dataset_path=\$SLURM_TMPDIR/data </span><span class="nv">$@</span><span class="s2">&quot;</span>
+
+<span class="c1">## srun + torchrun version ##</span>
+<span class="c1"># srun --ntasks-per-node=1 bash -c &quot;\</span>
+<span class="c1">#     uv run torchrun --node-rank=\$SLURM_NODEID --nnodes=\$SLURM_STEP_NUM_NODES \</span>
+<span class="c1">#     --master-addr=$MASTER_ADDR --master-port=$MASTER_PORT --nproc-per-node=gpu \</span>
+<span class="c1">#     main.py $@&quot;</span>
+
+<span class="c1">## srun + accelerate version ##</span>
+<span class="c1">## NOTE: This particular example doesn&#39;t use accelerate, this is just here to illustrate.</span>
+<span class="c1"># srun --ntasks-per-node=1 bash -c &quot;\</span>
+<span class="c1">#     uv run --directory=$UV_DIR \</span>
+<span class="c1">#     accelerate launch \</span>
+<span class="c1">#     --machine_rank \$SLURM_NODEID \</span>
+<span class="c1">#     --main_process_ip $MASTER_ADDR --main_process_port $MASTER_PORT \</span>
+<span class="c1">#     --num_machines  $SLURM_NNODES --num_processes $SLURM_NTASKS \</span>
+<span class="c1">#     main.py $@&quot;</span>
+</pre></div>
+</div>
+<p><strong>prepare_data.py</strong></p>
+<p>This script downloads and prepares the ImageNet dataset.
+You need to run it once before running the main training script.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;Dataset preprocessing script.</span>
+
+<span class="sd">Run this with `srun --ntasks-per-node=1 --pty uv run python prepare_data.py`</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torchvision.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageNet</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="n">SLURM_TMPDIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;SLURM_TMPDIR&quot;</span><span class="p">])</span>
+<span class="n">NETWORK_IMAGENET_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;/network/datasets/imagenet&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="vm">__doc__</span><span class="p">,</span> <span class="n">formatter_class</span><span class="o">=</span><span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentDefaultsHelpFormatter</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--dest&quot;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="n">Path</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">SLURM_TMPDIR</span> <span class="o">/</span> <span class="s2">&quot;data&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Where to prepare the dataset.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--network-imagenet-dir&quot;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="n">Path</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">NETWORK_IMAGENET_DIR</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;The path to the folder containing the ILSVRC2012 train and val archives and devkit.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">dest</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span><span class="o">.</span><span class="n">dest</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dest</span><span class="p">,</span> <span class="n">Path</span><span class="p">)</span>
+    <span class="c1"># to see it as soon as it happens in logs.</span>
+    <span class="c1"># `srun` can keep output in a buffer for quite a while otherwise.</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Preparing ImageNet dataset in </span><span class="si">{</span><span class="n">dest</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">prepare_imagenet</span><span class="p">(</span><span class="n">dest</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Done preparing ImageNet dataset in </span><span class="si">{</span><span class="n">dest</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">prepare_imagenet</span><span class="p">(</span><span class="n">output_directory</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">network_imagenet_dir</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">NETWORK_IMAGENET_DIR</span><span class="p">):</span>
+    <span class="n">devkit_archive</span> <span class="o">=</span> <span class="n">network_imagenet_dir</span> <span class="o">/</span> <span class="s2">&quot;ILSVRC2012_devkit_t12.tar.gz&quot;</span>
+    <span class="n">train_archive</span> <span class="o">=</span> <span class="n">network_imagenet_dir</span> <span class="o">/</span> <span class="s2">&quot;ILSVRC2012_img_train.tar&quot;</span>
+    <span class="n">val_archive</span> <span class="o">=</span> <span class="n">network_imagenet_dir</span> <span class="o">/</span> <span class="s2">&quot;ILSVRC2012_img_val.tar&quot;</span>
+    <span class="n">checksums_file</span> <span class="o">=</span> <span class="n">network_imagenet_dir</span> <span class="o">/</span> <span class="s2">&quot;md5sums&quot;</span>
+    <span class="k">if</span> <span class="nb">any</span><span class="p">(</span>
+        <span class="ow">not</span> <span class="n">p</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="p">(</span><span class="n">network_imagenet_dir</span><span class="p">,</span> <span class="n">devkit_archive</span><span class="p">,</span> <span class="n">train_archive</span><span class="p">,</span> <span class="n">val_archive</span><span class="p">,</span> <span class="n">checksums_file</span><span class="p">)</span>
+    <span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Could not find the ImageNet dataset archives at </span><span class="si">{</span><span class="n">network_imagenet_dir</span><span class="si">}</span><span class="s2">! &quot;</span>
+            <span class="s2">&quot;Adjust the location with the argument as needed. &quot;</span>
+        <span class="p">)</span>
+    <span class="n">output_directory</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">_make_symlink_in_dest</span><span class="p">(</span><span class="n">devkit_archive</span><span class="p">,</span> <span class="n">output_directory</span><span class="p">)</span>
+    <span class="n">_make_symlink_in_dest</span><span class="p">(</span><span class="n">train_archive</span><span class="p">,</span> <span class="n">output_directory</span><span class="p">)</span>
+    <span class="n">_make_symlink_in_dest</span><span class="p">(</span><span class="n">val_archive</span><span class="p">,</span> <span class="n">output_directory</span><span class="p">)</span>
+    <span class="n">_make_symlink_in_dest</span><span class="p">(</span><span class="n">checksums_file</span><span class="p">,</span> <span class="n">output_directory</span><span class="p">)</span>
+
+    <span class="n">train_dataset</span> <span class="o">=</span> <span class="n">_make_split</span><span class="p">(</span><span class="n">output_directory</span><span class="p">,</span> <span class="s2">&quot;train&quot;</span><span class="p">)</span>
+    <span class="n">test_dataset</span> <span class="o">=</span> <span class="n">_make_split</span><span class="p">(</span><span class="n">output_directory</span><span class="p">,</span> <span class="s2">&quot;val&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">train_dataset</span><span class="p">,</span> <span class="n">test_dataset</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_make_symlink_in_dest</span><span class="p">(</span><span class="n">file</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">dest_dir</span><span class="p">:</span> <span class="n">Path</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">symlink_to_file</span> <span class="o">:=</span> <span class="p">(</span><span class="n">dest_dir</span> <span class="o">/</span> <span class="n">file</span><span class="o">.</span><span class="n">name</span><span class="p">))</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="n">symlink_to_file</span><span class="o">.</span><span class="n">symlink_to</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">symlink_to_file</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_make_split</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">split</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">,</span> <span class="s2">&quot;val&quot;</span><span class="p">]):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Use the torchvision.datasets.ImageNet class constructor to prepare the data.</span>
+
+<span class="sd">    There are faster ways of doing this with the `tarfile` package or fancy bash</span>
+<span class="sd">    commands but this is simplest.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Preparing ImageNet </span><span class="si">{</span><span class="n">split</span><span class="si">}</span><span class="s2"> split in </span><span class="si">{</span><span class="n">root</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">ImageNet</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">root</span><span class="p">),</span> <span class="n">split</span><span class="o">=</span><span class="n">split</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Preparing ImageNet </span><span class="si">{</span><span class="n">split</span><span class="si">}</span><span class="s2"> split took </span><span class="si">{</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">t</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">d</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>main.py</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;ImageNet Distributed training script.</span>
+
+<span class="sd"># Features:</span>
+<span class="sd">- Multi-GPU / Multi-node training with DDP</span>
+<span class="sd">- Wandb logging</span>
+<span class="sd">- Checkpointing</span>
+<span class="sd">- Profiling with the PyTorch profiler and tensorboard</span>
+<span class="sd">- Good sanity checks</span>
+<span class="sd">- Automatic mixed precision (AMP) support</span>
+
+<span class="sd"># Potential Improvements - to be added as an exercise! 😉</span>
+<span class="sd">- Use a larger model from HuggingFace or change the dataset from ImageNet to a language dataset from HuggingFace</span>
+<span class="sd">- Use FSDP to train a larger model that doesn&#39;t fit inside a single GPU</span>
+
+
+<span class="sd">Example:</span>
+
+<span class="sd">```bash</span>
+<span class="sd">srun --ntasks=2 --pty uv run python main.py --epochs=1 --limit_train_samples=50_000 \</span>
+<span class="sd">    --limit_val_samples=2000 --batch_size=512 --use_amp --compile=default \</span>
+<span class="sd">    --run_name=1024_amp_compile_default</span>
+<span class="sd">```</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">contextlib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">dataclasses</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">TypeVar</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">rich.logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">rich.pretty</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">simple_parsing</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sklearn</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sklearn.model_selection</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torchvision</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tqdm</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tqdm.rich</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">wandb</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">nn</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch.distributed</span><span class="w"> </span><span class="kn">import</span> <span class="n">ReduceOp</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="kn">import</span> <span class="n">functional</span> <span class="k">as</span> <span class="n">F</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch.profiler</span><span class="w"> </span><span class="kn">import</span> <span class="n">profile</span><span class="p">,</span> <span class="n">tensorboard_trace_handler</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch.utils.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataLoader</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch.utils.data.distributed</span><span class="w"> </span><span class="kn">import</span> <span class="n">DistributedSampler</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torchvision.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageNet</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torchvision.transforms</span><span class="w"> </span><span class="kn">import</span> <span class="n">v2</span> <span class="k">as</span> <span class="n">transforms</span>
+
+<span class="n">JOB_ID</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;SLURM_JOB_ID&quot;</span><span class="p">]</span>  <span class="c1"># you absolutely need to be within a slurm job!</span>
+<span class="n">SCRATCH</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;SCRATCH&quot;</span><span class="p">])</span>
+<span class="n">SLURM_TMPDIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;SLURM_TMPDIR&quot;</span><span class="p">,</span> <span class="s2">&quot;/tmp&quot;</span><span class="p">))</span>
+<span class="k">assert</span> <span class="n">SLURM_TMPDIR</span><span class="o">.</span><span class="n">exists</span><span class="p">(),</span> <span class="sa">f</span><span class="s2">&quot;SLURM_TMPDIR (assumed </span><span class="si">{</span><span class="n">SLURM_TMPDIR</span><span class="si">}</span><span class="s2">) should exist!&quot;</span>
+
+<span class="c1"># Set any missing environment variables so that `torch.distributed.init_process_group`</span>
+<span class="c1"># works properly, namely RANK, WORLD_SIZE, MASTER_ADDR, MASTER_PORT, (LOCAL_RANK).</span>
+<span class="c1">#</span>
+<span class="c1"># The accompanying sbatch script already does this in bash, which is preferable, since</span>
+<span class="c1"># you need to make sure that these environment variables are set before any torch operations</span>
+<span class="c1"># are executed. (Some modules might inadvertently initialize cuda when imported which is a problem).</span>
+<span class="c1">#</span>
+<span class="c1"># Also doing this here just in case you&#39;re using a different sbatch script or running this from</span>
+<span class="c1"># the vscode terminal or with the vscode debugger.</span>
+<span class="c1"># Using the Vscode debugger to debug multi-gpu jobs is very convenient.</span>
+<span class="c1">#</span>
+<span class="c1"># Note: here by using .setdefault we don&#39;t overwrite env variables that are already set,</span>
+<span class="c1"># so you could in principle use this in a workflow based on srun + torchrun or</span>
+<span class="c1"># srun + &#39;accelerate launch&#39;.</span>
+
+<span class="k">if</span> <span class="s2">&quot;SLURM_PROCID&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span> <span class="ow">and</span> <span class="s2">&quot;RANK&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">:</span>
+    <span class="c1"># If neither the SLURM nor the torch distributed env vars are set, raise an error.</span>
+    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+        <span class="s2">&quot;Both the SLURM and the torch distributed env vars are not set! &quot;</span>
+        <span class="s2">&quot;This indicates that you might be running this script in something like the &quot;</span>
+        <span class="s2">&quot;vscode terminal with `python main.py&gt;`.</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;Consider relaunching the same command with srun instead, like so: </span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;➡️    srun --pty python main.py </span><span class="si">{</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="s2">&quot;See https://slurm.schedmd.com/srun.html for more info.&quot;</span>
+    <span class="p">)</span>
+
+<span class="c1"># This will raise an error if both are unset. This is expected (see above).</span>
+<span class="n">RANK</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;RANK&quot;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;SLURM_PROCID&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)))</span>
+<span class="n">LOCAL_RANK</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;LOCAL_RANK&quot;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;SLURM_LOCALID&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)))</span>
+<span class="n">WORLD_SIZE</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;WORLD_SIZE&quot;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;SLURM_NTASKS&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)))</span>
+<span class="n">MASTER_PORT</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;MASTER_PORT&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="mi">10000</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">JOB_ID</span><span class="p">)</span> <span class="o">%</span> <span class="mi">10000</span><span class="p">)))</span>
+<span class="k">if</span> <span class="s2">&quot;SLURM_JOB_NODELIST&quot;</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">:</span>
+    <span class="c1"># Get the hostname of the first node, for example: &quot;cn-l[084-085]&quot; --&gt; cn-l084</span>
+    <span class="n">_first_node</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;scontrol show hostnames </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;SLURM_JOB_NODELIST&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">MASTER_ADDR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;MASTER_ADDR&quot;</span><span class="p">,</span> <span class="n">_first_node</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">MASTER_ADDR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;MASTER_ADDR&quot;</span><span class="p">,</span> <span class="s2">&quot;127.0.0.1&quot;</span><span class="p">)</span>
+
+<span class="c1"># Setup logging</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span>
+    <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span>
+    <span class="nb">format</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">RANK</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">WORLD_SIZE</span><span class="si">}</span><span class="s2">] - %(message)s &quot;</span><span class="p">,</span>
+    <span class="n">handlers</span><span class="o">=</span><span class="p">[</span><span class="n">rich</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">RichHandler</span><span class="p">(</span><span class="n">markup</span><span class="o">=</span><span class="kc">True</span><span class="p">)],</span>
+    <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">DummyModel</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Dummy model used while debugging - uses almost no compute or memory.</span>
+
+<span class="sd">    Examples of when this is useful:</span>
+<span class="sd">    -   to check if data loading is the bottleneck, we can pull samples from the dataloader</span>
+<span class="sd">        as fast as possible and compare that throughput (in samples/second) to the same</span>
+<span class="sd">        during training. If the two are similar, then the dataloader is the bottleneck.</span>
+<span class="sd">        Using a dummy model like this makes it so we don&#39;t have to modify our training loop</span>
+<span class="sd">        to do this kind of sanity check.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="o">**</span><span class="n">_kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_classes</span> <span class="o">=</span> <span class="n">num_classes</span>
+        <span class="c1"># A dummy weight..</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">linear</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+        <span class="n">mean_of_each_xi</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># [batch_size, 1]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">linear</span><span class="p">(</span><span class="n">mean_of_each_xi</span><span class="p">)</span>  <span class="c1"># [batch_size, num_classes]</span>
+
+
+<span class="n">models</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;dummy&quot;</span><span class="p">:</span> <span class="n">DummyModel</span><span class="p">,</span>
+    <span class="s2">&quot;resnet18&quot;</span><span class="p">:</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">resnet18</span><span class="p">,</span>
+    <span class="s2">&quot;resnet34&quot;</span><span class="p">:</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">resnet34</span><span class="p">,</span>
+    <span class="s2">&quot;resnet50&quot;</span><span class="p">:</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">resnet50</span><span class="p">,</span>
+    <span class="s2">&quot;resnet101&quot;</span><span class="p">:</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">resnet101</span><span class="p">,</span>
+    <span class="s2">&quot;resnet152&quot;</span><span class="p">:</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">resnet152</span><span class="p">,</span>
+    <span class="s2">&quot;vit_b_16&quot;</span><span class="p">:</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">vit_b_16</span><span class="p">,</span>
+    <span class="s2">&quot;vit_b_32&quot;</span><span class="p">:</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">vit_b_32</span><span class="p">,</span>  <span class="c1"># default model</span>
+    <span class="s2">&quot;vit_l_16&quot;</span><span class="p">:</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">vit_l_16</span><span class="p">,</span>
+    <span class="s2">&quot;vit_l_32&quot;</span><span class="p">:</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">vit_l_32</span><span class="p">,</span>
+<span class="p">}</span>
+
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Args</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Dataclass that contains the command-line arguments for this script.&quot;&quot;&quot;</span>
+
+    <span class="n">epochs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="n">learning_rate</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">3e-4</span>
+    <span class="n">weight_decay</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-4</span>
+    <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">512</span>
+
+    <span class="n">pretrained</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Whether to use a pretrained model or start from a random initialization.&quot;&quot;&quot;</span>
+
+    <span class="n">checkpoint_dir</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Where checkpoints are stored.&quot;&quot;&quot;</span>
+
+    <span class="n">checkpoint_interval_epochs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Interval (in epochs) between saving checkpoints.&quot;&quot;&quot;</span>
+
+    <span class="n">dataset_path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">SLURM_TMPDIR</span> <span class="o">/</span> <span class="s2">&quot;data&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Where to look for the dataset.&quot;&quot;&quot;</span>
+
+    <span class="n">use_fake_data</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;If true, use torchvision.datasets.FakeData instead of ImageNet.</span>
+
+<span class="sd">    Useful for debugging.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">limit_train_samples</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; If &gt; 0, limit the number of training samples to this value.</span>
+
+<span class="sd">    This can be very useful to debug the training loop, checkpointing, and validation, or to check that</span>
+<span class="sd">    the model can overfit on a small number of samples.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">limit_val_samples</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; If &gt; 0, limit the number of validation samples to this value.&quot;&quot;&quot;</span>
+
+    <span class="n">num_workers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;SLURM_CPUS_PER_TASK&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">sched_getaffinity</span><span class="p">(</span><span class="mi">0</span><span class="p">))))</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Number of dataloader workers.&quot;&quot;&quot;</span>
+
+    <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">42</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Base random seed for everything except the train/validation split.&quot;&quot;&quot;</span>
+
+    <span class="n">val_seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Random seed used to create the train/validation split.&quot;&quot;&quot;</span>
+
+    <span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">simple_parsing</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="o">*</span><span class="n">models</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;vit_b_32&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Which model function to use.&quot;&quot;&quot;</span>
+
+    <span class="nb">compile</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;If set, use torch.compile to compile the model with the given string as the &quot;mode&quot; argument.&quot;&quot;&quot;</span>
+
+    <span class="n">verbose</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">simple_parsing</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">alias</span><span class="o">=</span><span class="s2">&quot;-v&quot;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;count&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Increase logging verbosity (can be specified multiple times).&quot;&quot;&quot;</span>
+
+    <span class="c1"># IDEA: Can we instead use a logging interval in seconds?</span>
+    <span class="c1"># One problem is that this would make it hard to compare metric values at the same step.</span>
+    <span class="n">logging_interval</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Interval (in batches) between logging of training metrics to wandb or to the output file.&quot;&quot;&quot;</span>
+
+    <span class="n">use_amp</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;If True, use automatic mixed precision (AMP) for training.&quot;&quot;&quot;</span>
+
+    <span class="n">run_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">JOB_ID</span> <span class="o">+</span> <span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;_step</span><span class="si">{</span><span class="n">_step</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="p">(</span><span class="n">_step</span> <span class="o">:=</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;SLURM_STEP_ID&quot;</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">)))</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+    <span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Name for the run (in wandb and in tensorboard).&quot;&quot;&quot;</span>
+
+    <span class="n">wandb_run_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">JOB_ID</span> <span class="o">+</span> <span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;_step</span><span class="si">{</span><span class="n">_step</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="p">(</span><span class="n">_step</span> <span class="o">:=</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;SLURM_STEP_ID&quot;</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">)))</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+    <span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Unique ID for the Weights &amp; Biases run.</span>
+
+<span class="sd">    Used to resume a run if the job is restarted.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">wandb_group</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">wandb_project</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;codingtips_profiling_example&quot;</span>
+
+    <span class="n">no_wandb</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;When set, disables wandb logging.&quot;&quot;&quot;</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># Use an argument parser so we can pass hyperparameters from the command line.</span>
+    <span class="c1"># You can use plain argparse if you like. Simple-parsing is an extension of argparse for dataclasses.</span>
+    <span class="n">args</span><span class="p">:</span> <span class="n">Args</span> <span class="o">=</span> <span class="n">simple_parsing</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">Args</span><span class="p">)</span>
+
+    <span class="c1"># Create a checkpoints directory in $SCRATCH and symlink it so it appears in the current directory.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">_checkpoints_dir</span> <span class="o">:=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;checkpoints&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="n">_checkpoints_dir_in_scratch</span> <span class="o">=</span> <span class="n">SCRATCH</span> <span class="o">/</span> <span class="s2">&quot;checkpoints&quot;</span>
+        <span class="n">_checkpoints_dir_in_scratch</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Creating a symlink from </span><span class="si">{</span><span class="n">_checkpoints_dir</span><span class="si">}</span><span class="s2"> --&gt; </span><span class="si">{</span><span class="n">_checkpoints_dir_in_scratch</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">_checkpoints_dir</span><span class="o">.</span><span class="n">symlink_to</span><span class="p">(</span><span class="n">_checkpoints_dir_in_scratch</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">checkpoint_dir</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># Use the run name or run_id as the checkpoint folder by default if unset.</span>
+        <span class="c1"># This makes it so the names in wandb and the names in tensorboard line up nicely.</span>
+        <span class="n">args</span><span class="o">.</span><span class="n">checkpoint_dir</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">SCRATCH</span> <span class="o">/</span> <span class="s2">&quot;checkpoints&quot;</span> <span class="o">/</span> <span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">run_name</span> <span class="ow">or</span> <span class="n">args</span><span class="o">.</span><span class="n">wandb_run_id</span> <span class="ow">or</span> <span class="n">JOB_ID</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="k">assert</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="ow">and</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">device_count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="k">assert</span> <span class="n">torch</span><span class="o">.</span><span class="n">distributed</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span>
+    <span class="c1"># https://docs.pytorch.org/tutorials/beginner/ddp_series_multigpu.html#constructing-the-process-group</span>
+    <span class="c1"># Default timeout is 30 minutes. Reducing the timeout here, so the job fails quicker if there&#39;s</span>
+    <span class="c1"># a communication problem between nodes.</span>
+    <span class="c1"># NOTE: Since preparing imagenet on each node can take about 12-15 minutes on the Mila cluster,</span>
+    <span class="c1"># we set the timeout to 20 minutes here.</span>
+    <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">set_device</span><span class="p">(</span><span class="n">LOCAL_RANK</span><span class="p">)</span>
+    <span class="n">torch</span><span class="o">.</span><span class="n">distributed</span><span class="o">.</span><span class="n">init_process_group</span><span class="p">(</span>
+        <span class="n">backend</span><span class="o">=</span><span class="s2">&quot;nccl&quot;</span><span class="p">,</span>
+        <span class="n">rank</span><span class="o">=</span><span class="n">RANK</span><span class="p">,</span>
+        <span class="n">world_size</span><span class="o">=</span><span class="n">WORLD_SIZE</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">minutes</span><span class="o">=</span><span class="mi">20</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">is_master</span> <span class="o">=</span> <span class="n">RANK</span> <span class="o">==</span> <span class="mi">0</span>
+
+    <span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span><span class="p">,</span> <span class="n">LOCAL_RANK</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Using random seed: </span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">seed</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">seed</span><span class="p">)</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">seed</span><span class="p">)</span>
+    <span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">seed</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span>
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">verbose</span> <span class="o">==</span> <span class="mi">0</span>
+        <span class="k">else</span> <span class="n">logging</span><span class="o">.</span><span class="n">INFO</span>
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">verbose</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="k">else</span> <span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span>
+    <span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;World size: </span><span class="si">{</span><span class="n">WORLD_SIZE</span><span class="si">}</span><span class="s2">, global rank: </span><span class="si">{</span><span class="n">RANK</span><span class="si">}</span><span class="s2">, local rank: </span><span class="si">{</span><span class="n">LOCAL_RANK</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">is_master</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Args:&quot;</span><span class="p">)</span>
+        <span class="n">rich</span><span class="o">.</span><span class="n">pretty</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">dataclasses</span><span class="o">.</span><span class="n">asdict</span><span class="p">(</span><span class="n">args</span><span class="p">))</span>
+
+    <span class="c1"># Create a model and move it to the GPU.</span>
+    <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{}</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="o">.</span><span class="n">pretrained</span> <span class="k">else</span> <span class="p">{</span><span class="s2">&quot;weights&quot;</span><span class="p">:</span> <span class="s2">&quot;DEFAULT&quot;</span><span class="p">}</span>
+    <span class="k">with</span> <span class="n">device</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">models</span><span class="p">[</span><span class="n">args</span><span class="o">.</span><span class="n">model_name</span><span class="p">](</span><span class="n">num_classes</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+    <span class="c1"># https://docs.pytorch.org/tutorials/beginner/ddp_series_multigpu.html#multi-gpu-training-with-ddp</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">SyncBatchNorm</span><span class="o">.</span><span class="n">convert_sync_batchnorm</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">compile</span><span class="p">:</span>
+        <span class="c1"># TODO: Try different torch.compile modes, see how this affects performance!</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">set_float32_matmul_precision</span><span class="p">(</span><span class="s2">&quot;high&quot;</span><span class="p">)</span>  <span class="c1"># Use TensorFloat32 tensor cores.</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">compile</span><span class="p">)</span>
+    <span class="c1"># Wrap the model with DistributedDataParallel</span>
+    <span class="c1"># (See https://pytorch.org/docs/stable/nn.html#torch.nn.parallel.DistributedDataParallel)</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">parallel</span><span class="o">.</span><span class="n">DistributedDataParallel</span><span class="p">(</span>
+        <span class="n">model</span><span class="p">,</span> <span class="n">device_ids</span><span class="o">=</span><span class="p">[</span><span class="n">LOCAL_RANK</span><span class="p">],</span> <span class="n">output_device</span><span class="o">=</span><span class="n">LOCAL_RANK</span>
+    <span class="p">)</span>
+
+    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">AdamW</span><span class="p">(</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">learning_rate</span><span class="p">,</span> <span class="n">weight_decay</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">weight_decay</span>
+    <span class="p">)</span>
+    <span class="c1"># https://docs.pytorch.org/tutorials/recipes/recipes/amp_recipe.html</span>
+    <span class="n">scaler</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">use_amp</span><span class="p">:</span>
+        <span class="n">scaler</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">amp</span><span class="o">.</span><span class="n">grad_scaler</span><span class="o">.</span><span class="n">GradScaler</span><span class="p">(</span><span class="n">enabled</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">set_float32_matmul_precision</span><span class="p">(</span><span class="s2">&quot;high&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Using automatic mixed precision (AMP) with bfloat16&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Setup the dataset.</span>
+    <span class="n">train_dataset</span><span class="p">,</span> <span class="n">valid_dataset</span><span class="p">,</span> <span class="n">test_dataset</span> <span class="o">=</span> <span class="n">make_datasets</span><span class="p">(</span>
+        <span class="n">args</span><span class="o">.</span><span class="n">dataset_path</span><span class="p">,</span>
+        <span class="n">val_split_seed</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">val_seed</span><span class="p">,</span>
+        <span class="n">use_fake_data</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">use_fake_data</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="c1"># IDEA: Use a smaller subset of the dataset for faster debugging of the checkpointing / validation loop or</span>
+    <span class="c1"># to test if the model can overfit on a small number of samples.</span>
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">limit_train_samples</span><span class="p">:</span>
+        <span class="n">train_dataset</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Subset</span><span class="p">(</span>
+            <span class="n">train_dataset</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">limit_train_samples</span><span class="p">))</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">limit_val_samples</span><span class="p">:</span>
+        <span class="n">valid_dataset</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Subset</span><span class="p">(</span><span class="n">valid_dataset</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">limit_val_samples</span><span class="p">)))</span>
+
+    <span class="c1"># Restricts data loading to a subset of the dataset exclusive to the current process</span>
+    <span class="n">train_sampler</span> <span class="o">=</span> <span class="n">DistributedSampler</span><span class="p">(</span>
+        <span class="n">dataset</span><span class="o">=</span><span class="n">train_dataset</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">num_replicas</span><span class="o">=</span><span class="n">WORLD_SIZE</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="n">RANK</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">seed</span>
+    <span class="p">)</span>
+    <span class="n">valid_sampler</span> <span class="o">=</span> <span class="n">DistributedSampler</span><span class="p">(</span>
+        <span class="n">dataset</span><span class="o">=</span><span class="n">valid_dataset</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">num_replicas</span><span class="o">=</span><span class="n">WORLD_SIZE</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="n">RANK</span>
+    <span class="p">)</span>
+    <span class="n">test_sampler</span> <span class="o">=</span> <span class="n">DistributedSampler</span><span class="p">(</span>
+        <span class="n">dataset</span><span class="o">=</span><span class="n">test_dataset</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">num_replicas</span><span class="o">=</span><span class="n">WORLD_SIZE</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="n">RANK</span>
+    <span class="p">)</span>
+    <span class="c1"># TODO: make sure that the dataloader workers random state is restored properly.</span>
+    <span class="n">train_dataloader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span>
+        <span class="n">train_dataset</span><span class="p">,</span>
+        <span class="n">batch_size</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span>
+        <span class="n">num_workers</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">num_workers</span><span class="p">,</span>
+        <span class="n">sampler</span><span class="o">=</span><span class="n">train_sampler</span><span class="p">,</span>
+        <span class="n">pin_memory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">valid_dataloader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span>
+        <span class="n">valid_dataset</span><span class="p">,</span>
+        <span class="n">batch_size</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span>
+        <span class="n">num_workers</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">num_workers</span><span class="p">,</span>
+        <span class="n">sampler</span><span class="o">=</span><span class="n">valid_sampler</span><span class="p">,</span>
+        <span class="n">pin_memory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">_test_dataloader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span>  <span class="c1"># Not used in this example.</span>
+        <span class="n">test_dataset</span><span class="p">,</span>
+        <span class="n">batch_size</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span>
+        <span class="n">num_workers</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">num_workers</span><span class="p">,</span>
+        <span class="n">sampler</span><span class="o">=</span><span class="n">test_sampler</span><span class="p">,</span>
+        <span class="n">pin_memory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">effective_batch_size</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">batch_size</span> <span class="o">*</span> <span class="n">WORLD_SIZE</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Effective (global) batch size: </span><span class="si">{</span><span class="n">effective_batch_size</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Load the latest checkpoint if it exists.</span>
+    <span class="k">if</span> <span class="n">previous_checkpoints</span> <span class="o">:=</span> <span class="nb">list</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">checkpoint_dir</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;*.pt&quot;</span><span class="p">)):</span>
+        <span class="c1"># Checkpoints are named like `epoch_0.pt`, `epoch_1.pt`. Find the latest.</span>
+        <span class="c1"># Note: epoch_0 in this case is the initial checkpoint before any training.</span>
+        <span class="c1"># epoch_1 is after one epoch of training, etc.</span>
+        <span class="n">latest_checkpoint</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">previous_checkpoints</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">stem</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+        <span class="n">_num_epochs_done</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span> <span class="n">num_samples</span> <span class="o">=</span> <span class="n">load_checkpoint</span><span class="p">(</span>
+            <span class="n">latest_checkpoint</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="n">optimizer</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span>
+        <span class="p">)</span>
+        <span class="n">starting_epoch</span> <span class="o">=</span> <span class="n">_num_epochs_done</span>
+        <span class="n">total_updates</span> <span class="o">=</span> <span class="n">step</span>
+        <span class="n">total_samples</span> <span class="o">=</span> <span class="n">num_samples</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Resuming training from epoch </span><span class="si">{</span><span class="n">starting_epoch</span><span class="si">}</span><span class="s2"> (step </span><span class="si">{</span><span class="n">step</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">total_samples</span><span class="si">}</span><span class="s2"> total samples)&quot;</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">starting_epoch</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">total_updates</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">total_samples</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">args</span><span class="o">.</span><span class="n">checkpoint_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Starting training from scratch&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Initialize wandb logging.</span>
+    <span class="n">setup_wandb</span><span class="p">(</span>
+        <span class="n">args</span><span class="p">,</span>
+        <span class="n">effective_batch_size</span><span class="o">=</span><span class="n">effective_batch_size</span><span class="p">,</span>
+        <span class="n">previous_checkpoints</span><span class="o">=</span><span class="n">previous_checkpoints</span><span class="p">,</span>
+        <span class="n">total_updates</span><span class="o">=</span><span class="n">total_updates</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Save an initial checkpoint (epoch 0) before training to make sure we can easily get the exact same initial weights.</span>
+    <span class="c1"># Since code is supposed to be correctly seeded and reproducible, this is just an additional precaution.</span>
+    <span class="c1"># Doing this here also makes it so if there is a checkpoint, there is also a wandb run, so we can resume the wandb run</span>
+    <span class="c1"># more correctly than with just `resume=&quot;allow&quot;`.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">previous_checkpoints</span> <span class="ow">and</span> <span class="n">RANK</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">save_checkpoint</span><span class="p">(</span>
+            <span class="n">checkpoint_path</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">checkpoint_dir</span> <span class="o">/</span> <span class="s2">&quot;epoch_0.pt&quot;</span><span class="p">,</span>
+            <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+            <span class="n">optimizer</span><span class="o">=</span><span class="n">optimizer</span><span class="p">,</span>
+            <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span>
+            <span class="n">epoch</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">step</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">num_samples</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Create the PyTorch profiler with a schedule that will output some traces that can be inspected with tensorboard.</span>
+    <span class="c1"># https://docs.pytorch.org/tutorials/recipes/recipes/profiler_recipe.html#using-profiler-to-analyze-long-running-jobs</span>
+    <span class="c1"># To view the traces, run `uvx tensorboard --with=torch_tb_profiler --logdir checkpoints`</span>
+    <span class="n">profiler</span> <span class="o">=</span> <span class="n">profile</span><span class="p">(</span>
+        <span class="n">schedule</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">profiler</span><span class="o">.</span><span class="n">schedule</span><span class="p">(</span><span class="n">wait</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">warmup</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">active</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+        <span class="n">on_trace_ready</span><span class="o">=</span><span class="n">tensorboard_trace_handler</span><span class="p">(</span>
+            <span class="nb">str</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">checkpoint_dir</span><span class="p">),</span> <span class="n">worker_name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;rank_</span><span class="si">{</span><span class="n">RANK</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">),</span>
+        <span class="n">record_shapes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">profile_memory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="c1"># Warning: This can be a bit too verbose while debugging. Only enable this if you really need it.</span>
+        <span class="c1"># with_stack=True if &quot;debugpy&quot; not in sys.modules else True,</span>
+        <span class="n">with_stack</span><span class="o">=</span><span class="kc">True</span> <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">verbose</span> <span class="o">&gt;=</span> <span class="mi">3</span> <span class="k">else</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">with_flops</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">with_modules</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1">###################</span>
+    <span class="c1">## Training loop ##</span>
+    <span class="c1">###################</span>
+
+    <span class="c1"># Used at the end to display overall samples per second.</span>
+    <span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">starting_num_samples</span> <span class="o">=</span> <span class="n">total_samples</span>
+
+    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">starting_epoch</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">epochs</span><span class="p">):</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Starting epoch </span><span class="si">{</span><span class="n">epoch</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">epochs</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="c1"># Important so each epoch uses a different ordering for the training samples.</span>
+        <span class="n">train_sampler</span><span class="o">.</span><span class="n">set_epoch</span><span class="p">(</span><span class="n">epoch</span><span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+
+        <span class="c1"># Using a progress bar when in an interactive terminal. It also shows the throughput in samples/second.</span>
+        <span class="c1"># If we&#39;re going to enable verbose logging within an epoch (for example to help identify issues),</span>
+        <span class="c1"># it makes sense to use the progress bar from rich so that the logs are displayed nicely.</span>
+        <span class="c1"># However, it doesn&#39;t support the `unit_scale` and `unit` arguments atm so we disable those arguments.</span>
+        <span class="n">pbar_type</span> <span class="o">=</span> <span class="n">tqdm</span><span class="o">.</span><span class="n">rich</span><span class="o">.</span><span class="n">tqdm_rich</span> <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">verbose</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="k">else</span> <span class="n">tqdm</span><span class="o">.</span><span class="n">tqdm</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">train_dataloader</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+        <span class="n">progress_bar</span> <span class="o">=</span> <span class="n">pbar_type</span><span class="p">(</span>
+            <span class="n">train_dataloader</span><span class="p">,</span>
+            <span class="n">desc</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Train epoch </span><span class="si">{</span><span class="n">epoch</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">epochs</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="c1"># Don&#39;t use a progress bar if outputting to a slurm output file or when not in task 0</span>
+            <span class="n">disable</span><span class="o">=</span><span class="p">(</span><span class="ow">not</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">isatty</span><span class="p">()</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">is_master</span><span class="p">),</span>
+            <span class="n">unit_scale</span><span class="o">=</span><span class="kc">False</span> <span class="k">if</span> <span class="n">pbar_type</span> <span class="ow">is</span> <span class="n">tqdm</span><span class="o">.</span><span class="n">rich</span><span class="o">.</span><span class="n">tqdm_rich</span> <span class="k">else</span> <span class="n">effective_batch_size</span><span class="p">,</span>
+            <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;batches&quot;</span> <span class="k">if</span> <span class="n">pbar_type</span> <span class="ow">is</span> <span class="n">tqdm</span><span class="o">.</span><span class="n">rich</span><span class="o">.</span><span class="n">tqdm_rich</span> <span class="k">else</span> <span class="s2">&quot;samples&quot;</span><span class="p">,</span>
+            <span class="n">dynamic_ncols</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># allow window resizing</span>
+        <span class="p">)</span>
+        <span class="n">data_transfer_cuda_stream</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">Stream</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">epoch_loss</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">batch_index</span><span class="p">,</span> <span class="n">batch</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span>
+            <span class="c1"># We only create the profiling traces in the first two epochs.</span>
+            <span class="n">profile_loop</span><span class="p">(</span><span class="n">progress_bar</span><span class="p">,</span> <span class="n">profiler</span><span class="p">)</span> <span class="k">if</span> <span class="n">epoch</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">progress_bar</span>
+        <span class="p">):</span>
+            <span class="c1"># This allows the GPU to keep working on the previous step while the data is copied from CPU to GPU!</span>
+            <span class="c1"># https://docs.pytorch.org/tutorials/intermediate/pinmem_nonblock.html</span>
+            <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">stream</span><span class="p">(</span><span class="n">data_transfer_cuda_stream</span><span class="p">):</span>
+                <span class="c1"># Move the batch to the GPU before we pass it to the model</span>
+                <span class="n">batch</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="n">non_blocking</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">batch</span><span class="p">)</span>
+                <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">batch</span>
+
+            <span class="n">loss</span><span class="p">,</span> <span class="n">accuracy</span><span class="p">,</span> <span class="n">n_samples</span> <span class="o">=</span> <span class="n">training_step</span><span class="p">(</span>
+                <span class="n">model</span><span class="p">,</span>
+                <span class="n">x</span><span class="p">,</span>
+                <span class="n">y</span><span class="p">,</span>
+                <span class="n">optimizer</span><span class="p">,</span>
+                <span class="n">scaler</span><span class="o">=</span><span class="n">scaler</span><span class="p">,</span>
+                <span class="n">batch_index</span><span class="o">=</span><span class="n">batch_index</span><span class="p">,</span>
+            <span class="p">)</span>
+
+            <span class="n">epoch_loss</span> <span class="o">+=</span> <span class="n">loss</span>
+            <span class="n">total_updates</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">total_samples</span> <span class="o">+=</span> <span class="n">n_samples</span>
+
+            <span class="c1"># Simple training speed calculation in samples/sec using the effective batch size.</span>
+            <span class="n">new_t</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+            <span class="n">dt</span> <span class="o">=</span> <span class="n">new_t</span> <span class="o">-</span> <span class="n">t</span>
+            <span class="n">samples_per_sec</span> <span class="o">=</span> <span class="n">n_samples</span> <span class="o">/</span> <span class="n">dt</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="n">new_t</span>
+
+            <span class="c1"># Move the tensors to CPU so we can log them in the progress bar and to wandb.</span>
+            <span class="c1"># Perform some logging, but only on the first task, and only every `logging_interval` batches.</span>
+            <span class="c1"># Also only do this if wandb logging is enabled or if the progress bar is enabled.</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="n">is_master</span>
+                <span class="ow">and</span> <span class="p">((</span><span class="n">wandb</span><span class="o">.</span><span class="n">run</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">wandb</span><span class="o">.</span><span class="n">run</span><span class="o">.</span><span class="n">disabled</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="ow">not</span> <span class="n">progress_bar</span><span class="o">.</span><span class="n">disable</span><span class="p">))</span>
+                <span class="ow">and</span> <span class="p">(</span><span class="n">batch_index</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="p">((</span><span class="n">batch_index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">args</span><span class="o">.</span><span class="n">logging_interval</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="p">):</span>
+                <span class="c1"># TODO: if --limit_train_samples=100_000, the logs in wandb have their last logged metrics</span>
+                <span class="c1"># at samples=89_600 (7(updates) * 50(log interval) * 256(batch_size)). It would be nice to</span>
+                <span class="c1"># also log metrics at the last batch (when we reach the limit_num_steps) even if batch_index</span>
+                <span class="c1"># isnt a multiple of logging interval.</span>
+
+                <span class="n">_loss</span> <span class="o">=</span> <span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+                <span class="n">_accuracy</span> <span class="o">=</span> <span class="n">accuracy</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+                <span class="n">progress_bar</span><span class="o">.</span><span class="n">set_postfix</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">_loss</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">accuracy</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">_accuracy</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">wandb</span><span class="o">.</span><span class="n">log</span><span class="p">(</span>
+                    <span class="p">{</span>
+                        <span class="s2">&quot;train/loss&quot;</span><span class="p">:</span> <span class="n">_loss</span><span class="p">,</span>
+                        <span class="s2">&quot;train/accuracy&quot;</span><span class="p">:</span> <span class="n">_accuracy</span><span class="p">,</span>
+                        <span class="s2">&quot;train/samples_per_sec&quot;</span><span class="p">:</span> <span class="n">samples_per_sec</span><span class="p">,</span>
+                        <span class="s2">&quot;epoch&quot;</span><span class="p">:</span> <span class="n">epoch</span><span class="p">,</span>
+                        <span class="s2">&quot;updates&quot;</span><span class="p">:</span> <span class="n">total_updates</span><span class="p">,</span>
+                        <span class="s2">&quot;samples&quot;</span><span class="p">:</span> <span class="n">total_samples</span><span class="p">,</span>
+                    <span class="p">}</span>
+                <span class="p">)</span>
+        <span class="n">progress_bar</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="n">t</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+        <span class="n">val_loss</span><span class="p">,</span> <span class="n">val_accuracy</span><span class="p">,</span> <span class="n">val_samples</span> <span class="o">=</span> <span class="n">validation_loop</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">valid_dataloader</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span> <span class="o">-</span> <span class="n">t</span>
+        <span class="n">val_sps</span> <span class="o">=</span> <span class="n">val_samples</span> <span class="o">/</span> <span class="n">dt</span>
+        <span class="k">if</span> <span class="n">RANK</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">rich</span><span class="o">.</span><span class="n">print</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Epoch </span><span class="si">{</span><span class="n">epoch</span><span class="si">}</span><span class="s2">: Val loss: </span><span class="si">{</span><span class="n">val_loss</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> accuracy: </span><span class="si">{</span><span class="n">val_accuracy</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2"> samples/sec: </span><span class="si">{</span><span class="n">val_sps</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+        <span class="n">wandb</span><span class="o">.</span><span class="n">log</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;val/loss&quot;</span><span class="p">:</span> <span class="n">val_loss</span><span class="p">,</span>
+                <span class="s2">&quot;val/accuracy&quot;</span><span class="p">:</span> <span class="n">val_accuracy</span><span class="p">,</span>
+                <span class="s2">&quot;val/samples_per_sec&quot;</span><span class="p">:</span> <span class="n">val_sps</span><span class="p">,</span>
+                <span class="s2">&quot;epoch&quot;</span><span class="p">:</span> <span class="n">epoch</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Only save the checkpoint from the master process.</span>
+        <span class="c1"># Make sure this doesn&#39;t cause a torch.distributed.timeout if it takes too long.</span>
+        <span class="k">if</span> <span class="n">is_master</span> <span class="ow">and</span> <span class="p">(</span><span class="n">epoch</span> <span class="o">%</span> <span class="n">args</span><span class="o">.</span><span class="n">checkpoint_interval_epochs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># save as epoch_1 after having done 1 epoch of training.</span>
+            <span class="n">save_checkpoint</span><span class="p">(</span>
+                <span class="n">checkpoint_path</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">checkpoint_dir</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;epoch_</span><span class="si">{</span><span class="n">epoch</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">.pt&quot;</span><span class="p">,</span>
+                <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+                <span class="n">optimizer</span><span class="o">=</span><span class="n">optimizer</span><span class="p">,</span>
+                <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span>
+                <span class="n">epoch</span><span class="o">=</span><span class="n">epoch</span><span class="p">,</span>
+                <span class="n">step</span><span class="o">=</span><span class="n">total_updates</span><span class="p">,</span>
+                <span class="n">num_samples</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">total_samples</span><span class="p">),</span>
+            <span class="p">)</span>
+
+    <span class="n">torch</span><span class="o">.</span><span class="n">distributed</span><span class="o">.</span><span class="n">destroy_process_group</span><span class="p">()</span>
+    <span class="n">total_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span>
+    <span class="n">overall_samples</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">total_samples</span><span class="p">)</span> <span class="o">-</span> <span class="n">starting_num_samples</span>
+    <span class="n">overall_sps</span> <span class="o">=</span> <span class="n">overall_samples</span> <span class="o">/</span> <span class="n">total_time</span>
+    <span class="k">if</span> <span class="n">wandb</span><span class="o">.</span><span class="n">run</span><span class="p">:</span>
+        <span class="n">wandb</span><span class="o">.</span><span class="n">run</span><span class="o">.</span><span class="n">summary</span><span class="p">[</span><span class="s2">&quot;overall_train_samples_per_sec&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">overall_sps</span>
+        <span class="n">wandb</span><span class="o">.</span><span class="n">run</span><span class="o">.</span><span class="n">finish</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Done in </span><span class="si">{</span><span class="n">total_time</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> seconds, with </span><span class="si">{</span><span class="n">overall_sps</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> images/second&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">training_step</span><span class="p">(</span>
+    <span class="n">model</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">y</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">optimizer</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Optimizer</span><span class="p">,</span>
+    <span class="n">scaler</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">amp</span><span class="o">.</span><span class="n">grad_scaler</span><span class="o">.</span><span class="n">GradScaler</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">batch_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">autocast</span><span class="p">(</span>
+        <span class="n">device_type</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">bfloat16</span><span class="p">,</span> <span class="n">enabled</span><span class="o">=</span><span class="n">scaler</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">scaler</span><span class="o">.</span><span class="n">is_enabled</span><span class="p">()</span>
+    <span class="p">):</span>
+        <span class="c1"># Forward pass</span>
+        <span class="n">logits</span><span class="p">:</span> <span class="n">Tensor</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+        <span class="n">local_loss</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">cross_entropy</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">reduction</span><span class="o">=</span><span class="s2">&quot;mean&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">scaler</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># https://docs.pytorch.org/tutorials/recipes/recipes/amp_recipe.html#all-together-automatic-mixed-precision</span>
+        <span class="n">scaler</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">local_loss</span><span class="p">)</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+        <span class="n">scaler</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">optimizer</span><span class="p">)</span>
+        <span class="n">scaler</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># nn.DistributedDataParallel automatically averages the gradients across devices.</span>
+        <span class="n">local_loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+        <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+
+    <span class="c1"># Calculate some metrics</span>
+
+    <span class="c1"># local metrics calculated with the tensors on the current GPU.</span>
+    <span class="n">local_n_correct_predictions</span> <span class="o">=</span> <span class="n">logits</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">local_n_samples</span> <span class="o">=</span> <span class="n">logits</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">local_accuracy</span> <span class="o">=</span> <span class="n">local_n_correct_predictions</span> <span class="o">/</span> <span class="n">local_n_samples</span>
+
+    <span class="c1"># Global metrics calculated with the results from all workers</span>
+    <span class="c1"># Creating new tensors to hold the &quot;global&quot; values, but this isn&#39;t required.</span>
+    <span class="c1"># Reduce the local metrics across all workers, sending the result to rank 0.</span>
+    <span class="c1"># Summing n_correct and n_samples to get accuracy is resilient to</span>
+    <span class="c1"># workers having different number of samples.</span>
+    <span class="c1"># This could happen if the number of batches is not divisible by the number of batches</span>
+    <span class="c1"># and if the distributed sampler is not set to drop the last incomplete batch.</span>
+    <span class="n">n_correct_predictions</span> <span class="o">=</span> <span class="n">local_n_correct_predictions</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+    <span class="n">n_samples</span> <span class="o">=</span> <span class="n">local_n_samples</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">local_loss</span><span class="o">.</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">local_loss</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span>
+
+    <span class="n">torch</span><span class="o">.</span><span class="n">distributed</span><span class="o">.</span><span class="n">reduce</span><span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">op</span><span class="o">=</span><span class="n">ReduceOp</span><span class="o">.</span><span class="n">AVG</span><span class="p">)</span>
+    <span class="n">torch</span><span class="o">.</span><span class="n">distributed</span><span class="o">.</span><span class="n">reduce</span><span class="p">(</span><span class="n">n_correct_predictions</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">op</span><span class="o">=</span><span class="n">ReduceOp</span><span class="o">.</span><span class="n">SUM</span><span class="p">)</span>
+    <span class="n">torch</span><span class="o">.</span><span class="n">distributed</span><span class="o">.</span><span class="n">reduce</span><span class="p">(</span><span class="n">n_samples</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">op</span><span class="o">=</span><span class="n">ReduceOp</span><span class="o">.</span><span class="n">SUM</span><span class="p">)</span>
+    <span class="n">accuracy</span> <span class="o">=</span> <span class="n">n_correct_predictions</span> <span class="o">/</span> <span class="n">n_samples</span>
+
+    <span class="c1"># Using lazy formatting so these tensors are only moved to cpu when necessary.</span>
+    <span class="k">if</span> <span class="n">RANK</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;(local) Loss: </span><span class="si">%.2f</span><span class="s2"> Accuracy: </span><span class="si">%.2f</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">local_loss</span><span class="p">,</span> <span class="n">local_accuracy</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Average Loss: </span><span class="si">%.2f</span><span class="s2"> Accuracy: </span><span class="si">%.2%</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">loss</span><span class="p">,</span> <span class="n">accuracy</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">loss</span><span class="p">,</span> <span class="n">accuracy</span><span class="p">,</span> <span class="n">n_samples</span>
+
+
+<span class="nd">@torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">validation_loop</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">dataloader</span><span class="p">:</span> <span class="n">DataLoader</span><span class="p">,</span> <span class="n">device</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">):</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+
+    <span class="n">epoch_loss</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+    <span class="n">num_samples</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+    <span class="n">correct_predictions</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dataloader</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+
+    <span class="n">progress_bar</span> <span class="o">=</span> <span class="n">tqdm</span><span class="o">.</span><span class="n">tqdm</span><span class="p">(</span>
+        <span class="n">dataloader</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Validation&quot;</span><span class="p">,</span>
+        <span class="n">unit_scale</span><span class="o">=</span><span class="n">dataloader</span><span class="o">.</span><span class="n">batch_size</span> <span class="o">*</span> <span class="n">WORLD_SIZE</span><span class="p">,</span>
+        <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;samples&quot;</span><span class="p">,</span>
+        <span class="c1"># Don&#39;t use a progress bar if outputting to a slurm output file or when not in task 0</span>
+        <span class="n">disable</span><span class="o">=</span><span class="p">(</span><span class="ow">not</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">isatty</span><span class="p">()</span> <span class="ow">or</span> <span class="n">RANK</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="c1"># NOTE: Because of DDP and distributed sampler, the last batch might have repeated samples,</span>
+    <span class="c1"># leading to slightly imprecise metrics.</span>
+    <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="n">progress_bar</span><span class="p">:</span>
+        <span class="n">batch</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">batch</span><span class="p">)</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">batch</span>
+
+        <span class="n">logits</span><span class="p">:</span> <span class="n">Tensor</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">cross_entropy</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">reduction</span><span class="o">=</span><span class="s2">&quot;sum&quot;</span><span class="p">)</span>
+
+        <span class="n">batch_n_samples</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">batch_correct_predictions</span> <span class="o">=</span> <span class="n">logits</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+        <span class="n">epoch_loss</span> <span class="o">+=</span> <span class="n">loss</span>
+        <span class="n">num_samples</span> <span class="o">+=</span> <span class="n">batch_n_samples</span>
+        <span class="n">correct_predictions</span> <span class="o">+=</span> <span class="n">batch_correct_predictions</span>
+    <span class="c1"># Here we only need to reduce metrics once, after iterating over the entire dataset.</span>
+    <span class="n">torch</span><span class="o">.</span><span class="n">distributed</span><span class="o">.</span><span class="n">reduce</span><span class="p">(</span><span class="n">epoch_loss</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">op</span><span class="o">=</span><span class="n">ReduceOp</span><span class="o">.</span><span class="n">SUM</span><span class="p">)</span>
+    <span class="n">torch</span><span class="o">.</span><span class="n">distributed</span><span class="o">.</span><span class="n">reduce</span><span class="p">(</span><span class="n">num_samples</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">op</span><span class="o">=</span><span class="n">ReduceOp</span><span class="o">.</span><span class="n">SUM</span><span class="p">)</span>
+    <span class="n">torch</span><span class="o">.</span><span class="n">distributed</span><span class="o">.</span><span class="n">reduce</span><span class="p">(</span><span class="n">correct_predictions</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">op</span><span class="o">=</span><span class="n">ReduceOp</span><span class="o">.</span><span class="n">SUM</span><span class="p">)</span>
+    <span class="n">epoch_average_loss</span> <span class="o">=</span> <span class="n">epoch_loss</span> <span class="o">/</span> <span class="n">num_samples</span>
+    <span class="n">accuracy</span> <span class="o">=</span> <span class="n">correct_predictions</span> <span class="o">/</span> <span class="n">num_samples</span>
+    <span class="k">return</span> <span class="n">epoch_average_loss</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span> <span class="n">accuracy</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span> <span class="n">num_samples</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">setup_wandb</span><span class="p">(</span>
+    <span class="n">args</span><span class="p">:</span> <span class="n">Args</span><span class="p">,</span> <span class="n">effective_batch_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">previous_checkpoints</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Path</span><span class="p">],</span> <span class="n">total_updates</span><span class="p">:</span> <span class="nb">int</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calls `wandb.init` with the appropriate arguments.&quot;&quot;&quot;</span>
+    <span class="c1"># Normally you would only do this in the first task (rank 0), but here we do it in all tasks</span>
+    <span class="c1"># using the new &quot;shared&quot; feature of wandb. This makes it much easier to track the GPU util of</span>
+    <span class="c1"># all gpus on all nodes in the job.</span>
+    <span class="c1"># See this link for more info:</span>
+    <span class="c1"># - https://docs.wandb.ai/guides/track/log/distributed-training/#track-all-processes-to-a-single-run</span>
+    <span class="n">is_master</span> <span class="o">=</span> <span class="n">RANK</span> <span class="o">==</span> <span class="mi">0</span>
+    <span class="k">with</span> <span class="n">goes_first</span><span class="p">(</span><span class="n">is_master</span><span class="p">):</span>
+        <span class="n">run</span> <span class="o">=</span> <span class="n">wandb</span><span class="o">.</span><span class="n">init</span><span class="p">(</span>
+            <span class="n">project</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">wandb_project</span><span class="p">,</span>
+            <span class="c1"># if None, wandb will use a random name.</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">run_name</span> <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">run_name</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="nb">id</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">wandb_run_id</span><span class="p">,</span>
+            <span class="c1"># It&#39;s a good idea to log the SLURM environment variables to wandb.</span>
+            <span class="n">config</span><span class="o">=</span><span class="p">(</span>
+                <span class="n">dataclasses</span><span class="o">.</span><span class="n">asdict</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+                <span class="o">|</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;SLURM_&quot;</span><span class="p">)}</span>
+                <span class="o">|</span> <span class="nb">dict</span><span class="p">(</span>
+                    <span class="n">effective_batch_size</span><span class="o">=</span><span class="n">effective_batch_size</span><span class="p">,</span>
+                    <span class="n">WORLD_SIZE</span><span class="o">=</span><span class="n">WORLD_SIZE</span><span class="p">,</span>
+                    <span class="n">MASTER_ADDR</span><span class="o">=</span><span class="n">MASTER_ADDR</span><span class="p">,</span>
+                    <span class="n">MASTER_PORT</span><span class="o">=</span><span class="n">MASTER_PORT</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">),</span>
+            <span class="n">group</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">wandb_group</span><span class="p">,</span>
+            <span class="c1"># Use the new &quot;shared&quot; mode to log system utilization metrics from all tasks in the job:</span>
+            <span class="n">settings</span><span class="o">=</span><span class="n">wandb</span><span class="o">.</span><span class="n">Settings</span><span class="p">(</span>
+                <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;disabled&quot;</span> <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">no_wandb</span> <span class="k">else</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;WANDB_MODE&quot;</span><span class="p">,</span> <span class="s2">&quot;shared&quot;</span><span class="p">),</span>  <span class="c1"># type: ignore</span>
+                <span class="n">x_primary</span><span class="o">=</span><span class="n">is_master</span><span class="p">,</span>
+                <span class="n">x_label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;task_</span><span class="si">{</span><span class="n">RANK</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">x_stats_gpu_device_ids</span><span class="o">=</span><span class="p">[</span><span class="n">LOCAL_RANK</span><span class="p">],</span>
+                <span class="n">x_update_finish_state</span><span class="o">=</span><span class="ow">not</span> <span class="n">is_master</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="c1"># Resume an existing run with the same ID if the job is restarting after being preempted.</span>
+            <span class="c1"># It would be *really* nice to use this resume feature, but this is new</span>
+            <span class="c1"># at the time of writing (2025-09) and needs to be enabled for your project</span>
+            <span class="c1"># by contacting wandb support.</span>
+            <span class="c1"># resume_from=(</span>
+            <span class="c1">#     f&quot;{args.wandb_run_id}?_step={total_updates}&quot;</span>
+            <span class="c1">#     if previous_checkpoints and args.wandb_run_id</span>
+            <span class="c1">#     else None</span>
+            <span class="c1"># ),</span>
+            <span class="c1"># resume=None if previous_checkpoints and args.wandb_run_id else &quot;allow&quot;,</span>
+            <span class="c1"># Use this for the time being instead:</span>
+            <span class="n">resume</span><span class="o">=</span><span class="s2">&quot;allow&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="c1"># Wait a bit to make sure the run is created properly in wandb by the first task before other workers try to</span>
+        <span class="c1"># also create it. Otherwise we can get a 409 error from the wandb server.</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+
+    <span class="c1"># Specify the step metric (x-axis) and the metric to log against it (y-axis)</span>
+    <span class="n">run</span><span class="o">.</span><span class="n">define_metric</span><span class="p">(</span><span class="s2">&quot;train/*&quot;</span><span class="p">,</span> <span class="n">step_metric</span><span class="o">=</span><span class="s2">&quot;updates&quot;</span><span class="p">)</span>
+    <span class="n">run</span><span class="o">.</span><span class="n">define_metric</span><span class="p">(</span><span class="s2">&quot;val/*&quot;</span><span class="p">,</span> <span class="n">step_metric</span><span class="o">=</span><span class="s2">&quot;epoch&quot;</span><span class="p">)</span>
+    <span class="c1"># https://docs.wandb.ai/guides/track/log/log-summary/#customize-summary-metrics</span>
+    <span class="n">run</span><span class="o">.</span><span class="n">define_metric</span><span class="p">(</span><span class="s2">&quot;train/samples_per_sec&quot;</span><span class="p">,</span> <span class="n">summary</span><span class="o">=</span><span class="s2">&quot;max&quot;</span><span class="p">)</span>
+    <span class="n">run</span><span class="o">.</span><span class="n">define_metric</span><span class="p">(</span><span class="s2">&quot;train/samples_per_sec&quot;</span><span class="p">,</span> <span class="n">summary</span><span class="o">=</span><span class="s2">&quot;mean&quot;</span><span class="p">)</span>
+    <span class="n">run</span><span class="o">.</span><span class="n">define_metric</span><span class="p">(</span><span class="s2">&quot;train/samples_per_sec&quot;</span><span class="p">,</span> <span class="n">summary</span><span class="o">=</span><span class="s2">&quot;min&quot;</span><span class="p">)</span>
+    <span class="n">run</span><span class="o">.</span><span class="n">define_metric</span><span class="p">(</span><span class="s2">&quot;val/samples_per_sec&quot;</span><span class="p">,</span> <span class="n">summary</span><span class="o">=</span><span class="s2">&quot;max&quot;</span><span class="p">)</span>
+    <span class="n">run</span><span class="o">.</span><span class="n">define_metric</span><span class="p">(</span><span class="s2">&quot;val/samples_per_sec&quot;</span><span class="p">,</span> <span class="n">summary</span><span class="o">=</span><span class="s2">&quot;mean&quot;</span><span class="p">)</span>
+    <span class="n">run</span><span class="o">.</span><span class="n">define_metric</span><span class="p">(</span><span class="s2">&quot;val/samples_per_sec&quot;</span><span class="p">,</span> <span class="n">summary</span><span class="o">=</span><span class="s2">&quot;min&quot;</span><span class="p">)</span>
+
+
+<span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">profile_loop</span><span class="p">(</span><span class="n">dataloader</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">profiler</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">profiler</span><span class="o">.</span><span class="n">profile</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Wraps the dataloader (or progress bar) and calls .step after each batch.</span>
+
+<span class="sd">    This is used to save one level of indentation (with profiler block) and to call prof.step() at each step.</span>
+
+<span class="sd">    Note, this doesn&#39;t need to be done at every epoch. It creates files used by tensorboard.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">profiler</span> <span class="k">as</span> <span class="n">prof</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="n">dataloader</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">batch</span>
+            <span class="n">prof</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">make_datasets</span><span class="p">(</span>
+    <span class="n">path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
+    <span class="n">val_split</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span>
+    <span class="n">val_split_seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">42</span><span class="p">,</span>
+    <span class="n">use_fake_data</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns the training, validation, and test splits.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">use_fake_data</span><span class="p">:</span>
+        <span class="n">train_dataset</span> <span class="o">=</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">FakeData</span><span class="p">(</span>
+            <span class="n">size</span><span class="o">=</span><span class="mi">1_281_167</span><span class="p">,</span>
+            <span class="n">image_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">224</span><span class="p">,</span> <span class="mi">224</span><span class="p">),</span>
+            <span class="n">num_classes</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+            <span class="n">transform</span><span class="o">=</span><span class="n">transforms</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">(),</span>
+        <span class="p">)</span>
+        <span class="n">valid_dataset</span> <span class="o">=</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">FakeData</span><span class="p">(</span>
+            <span class="n">size</span><span class="o">=</span><span class="mi">20_000</span><span class="p">,</span>
+            <span class="n">image_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">224</span><span class="p">,</span> <span class="mi">224</span><span class="p">),</span>
+            <span class="n">num_classes</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+            <span class="n">transform</span><span class="o">=</span><span class="n">transforms</span><span class="o">.</span><span class="n">Compose</span><span class="p">(</span>
+                <span class="p">[</span><span class="n">transforms</span><span class="o">.</span><span class="n">ToImage</span><span class="p">(),</span> <span class="n">transforms</span><span class="o">.</span><span class="n">ToDtype</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="kc">True</span><span class="p">)]</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">test_dataset</span> <span class="o">=</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">FakeData</span><span class="p">(</span>
+            <span class="n">size</span><span class="o">=</span><span class="mi">50_000</span><span class="p">,</span>
+            <span class="n">image_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">224</span><span class="p">,</span> <span class="mi">224</span><span class="p">),</span>
+            <span class="n">num_classes</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+            <span class="n">transform</span><span class="o">=</span><span class="n">transforms</span><span class="o">.</span><span class="n">Compose</span><span class="p">(</span>
+                <span class="p">[</span><span class="n">transforms</span><span class="o">.</span><span class="n">ToImage</span><span class="p">(),</span> <span class="n">transforms</span><span class="o">.</span><span class="n">ToDtype</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="kc">True</span><span class="p">)]</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">train_dataset</span><span class="p">,</span> <span class="n">valid_dataset</span><span class="p">,</span> <span class="n">test_dataset</span>
+    <span class="c1"># todo: torchvision transforms can apparently moved to the GPU now? Would that speed up the training?</span>
+    <span class="n">train_transforms</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+        <span class="n">transforms</span><span class="o">.</span><span class="n">RandomResizedCrop</span><span class="p">(</span><span class="mi">224</span><span class="p">),</span>
+        <span class="n">transforms</span><span class="o">.</span><span class="n">RandomHorizontalFlip</span><span class="p">(),</span>
+        <span class="n">transforms</span><span class="o">.</span><span class="n">ToImage</span><span class="p">(),</span>
+        <span class="n">transforms</span><span class="o">.</span><span class="n">ToDtype</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="n">transforms</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="p">[</span><span class="mf">0.485</span><span class="p">,</span> <span class="mf">0.456</span><span class="p">,</span> <span class="mf">0.406</span><span class="p">],</span> <span class="n">std</span><span class="o">=</span><span class="p">[</span><span class="mf">0.229</span><span class="p">,</span> <span class="mf">0.224</span><span class="p">,</span> <span class="mf">0.225</span><span class="p">]),</span>
+    <span class="p">)</span>
+    <span class="n">test_transforms</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+        <span class="n">transforms</span><span class="o">.</span><span class="n">Resize</span><span class="p">(</span><span class="mi">256</span><span class="p">),</span>
+        <span class="n">transforms</span><span class="o">.</span><span class="n">CenterCrop</span><span class="p">(</span><span class="mi">224</span><span class="p">),</span>
+        <span class="n">transforms</span><span class="o">.</span><span class="n">ToImage</span><span class="p">(),</span>
+        <span class="n">transforms</span><span class="o">.</span><span class="n">ToDtype</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="n">transforms</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="p">[</span><span class="mf">0.485</span><span class="p">,</span> <span class="mf">0.456</span><span class="p">,</span> <span class="mf">0.406</span><span class="p">],</span> <span class="n">std</span><span class="o">=</span><span class="p">[</span><span class="mf">0.229</span><span class="p">,</span> <span class="mf">0.224</span><span class="p">,</span> <span class="mf">0.225</span><span class="p">]),</span>
+    <span class="p">)</span>
+    <span class="c1"># This takes ~12-15 minutes on the Mila cluster. The timeout value for the distributed process group</span>
+    <span class="c1"># needs to be higher than this to avoid a timeout.</span>
+    <span class="c1"># TODO: Could we setup a new process group just for this operation, with a high enough timeout,</span>
+    <span class="c1"># that way the default process group can keep a short timeout value to waste less time in case of errors.</span>
+    <span class="k">with</span> <span class="n">goes_first</span><span class="p">(</span><span class="n">LOCAL_RANK</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">prepare_data</span><span class="w"> </span><span class="kn">import</span> <span class="n">prepare_imagenet</span>
+
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Preparing the ImageNet dataset in </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">prepare_imagenet</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Done preparing the ImageNet dataset in </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">train_dataset</span> <span class="o">=</span> <span class="n">ImageNet</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="n">path</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">train_transforms</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="s2">&quot;train&quot;</span><span class="p">)</span>
+    <span class="n">valid_dataset</span> <span class="o">=</span> <span class="n">ImageNet</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="n">path</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">test_transforms</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="s2">&quot;train&quot;</span><span class="p">)</span>
+    <span class="n">test_dataset</span> <span class="o">=</span> <span class="n">ImageNet</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="n">path</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">test_transforms</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="s2">&quot;val&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Split the training dataset into a training and validation set, based on a stratified split.</span>
+    <span class="c1"># This is important to have a balanced distribution of classes in both sets.</span>
+    <span class="c1"># See the sklearn.model_selection.train_test_split documentation for more info.</span>
+    <span class="n">n_samples</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">)</span>
+    <span class="n">n_valid</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">val_split</span> <span class="o">*</span> <span class="n">n_samples</span><span class="p">)</span>
+    <span class="n">n_train</span> <span class="o">=</span> <span class="n">n_samples</span> <span class="o">-</span> <span class="n">n_valid</span>
+    <span class="n">train_indices</span><span class="p">,</span> <span class="n">val_indices</span> <span class="o">=</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">model_selection</span><span class="o">.</span><span class="n">train_test_split</span><span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_samples</span><span class="p">),</span>
+        <span class="n">train_size</span><span class="o">=</span><span class="n">n_train</span><span class="p">,</span>
+        <span class="n">test_size</span><span class="o">=</span><span class="n">n_valid</span><span class="p">,</span>
+        <span class="n">random_state</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="n">val_split_seed</span><span class="p">),</span>
+        <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">stratify</span><span class="o">=</span><span class="n">train_dataset</span><span class="o">.</span><span class="n">targets</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">train_dataset</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Subset</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">,</span> <span class="n">train_indices</span><span class="p">)</span>
+    <span class="n">valid_dataset</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Subset</span><span class="p">(</span><span class="n">valid_dataset</span><span class="p">,</span> <span class="n">val_indices</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">train_dataset</span><span class="p">,</span> <span class="n">valid_dataset</span><span class="p">,</span> <span class="n">test_dataset</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">load_checkpoint</span><span class="p">(</span>
+    <span class="n">checkpoint_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
+    <span class="n">model</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
+    <span class="n">optimizer</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Optimizer</span><span class="p">,</span>
+    <span class="n">device</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loading checkpoint </span><span class="si">{</span><span class="n">checkpoint_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">checkpoint</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">checkpoint_path</span><span class="p">,</span> <span class="n">map_location</span><span class="o">=</span><span class="n">device</span><span class="p">,</span> <span class="n">weights_only</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">checkpoint</span><span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">])</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">checkpoint</span><span class="p">[</span><span class="s2">&quot;optimizer&quot;</span><span class="p">])</span>
+    <span class="n">epoch</span> <span class="o">=</span> <span class="n">checkpoint</span><span class="p">[</span><span class="s2">&quot;epoch&quot;</span><span class="p">]</span>
+    <span class="n">step</span> <span class="o">=</span> <span class="n">checkpoint</span><span class="p">[</span><span class="s2">&quot;step&quot;</span><span class="p">]</span>
+    <span class="n">nsamples</span> <span class="o">=</span> <span class="n">checkpoint</span><span class="p">[</span><span class="s2">&quot;num_samples&quot;</span><span class="p">]</span>
+    <span class="n">random</span><span class="o">.</span><span class="n">setstate</span><span class="p">(</span><span class="n">checkpoint</span><span class="p">[</span><span class="s2">&quot;python_rng_state&quot;</span><span class="p">])</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">set_state</span><span class="p">(</span><span class="n">checkpoint</span><span class="p">[</span><span class="s2">&quot;numpy_rng_state&quot;</span><span class="p">])</span>
+    <span class="n">cpu_rng_state</span> <span class="o">=</span> <span class="n">checkpoint</span><span class="p">[</span><span class="s2">&quot;torch_rng_state_cpu&quot;</span><span class="p">]</span>
+    <span class="n">torch</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">set_rng_state</span><span class="p">(</span><span class="n">cpu_rng_state</span><span class="o">.</span><span class="n">cpu</span><span class="p">())</span>
+    <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">set_rng_state_all</span><span class="p">([</span><span class="n">t</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">checkpoint</span><span class="p">[</span><span class="s2">&quot;torch_rng_state_gpu&quot;</span><span class="p">]])</span>
+    <span class="k">return</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span> <span class="n">nsamples</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">save_checkpoint</span><span class="p">(</span>
+    <span class="n">checkpoint_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
+    <span class="n">model</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
+    <span class="n">optimizer</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Optimizer</span><span class="p">,</span>
+    <span class="n">device</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">,</span>
+    <span class="n">epoch</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">step</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">num_samples</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saving checkpoint at </span><span class="si">{</span><span class="n">checkpoint_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">checkpoint</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(),</span>
+        <span class="s2">&quot;optimizer&quot;</span><span class="p">:</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(),</span>
+        <span class="s2">&quot;epoch&quot;</span><span class="p">:</span> <span class="n">epoch</span><span class="p">,</span>
+        <span class="s2">&quot;step&quot;</span><span class="p">:</span> <span class="n">step</span><span class="p">,</span>
+        <span class="s2">&quot;num_samples&quot;</span><span class="p">:</span> <span class="n">num_samples</span><span class="p">,</span>
+        <span class="s2">&quot;python_rng_state&quot;</span><span class="p">:</span> <span class="n">random</span><span class="o">.</span><span class="n">getstate</span><span class="p">(),</span>
+        <span class="s2">&quot;numpy_rng_state&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">get_state</span><span class="p">(),</span>
+        <span class="s2">&quot;torch_rng_state_cpu&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">get_rng_state</span><span class="p">(),</span>
+        <span class="s2">&quot;torch_rng_state_gpu&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">get_rng_state_all</span><span class="p">(),</span>
+    <span class="p">}</span>
+    <span class="n">tmp_checkpoint_path</span> <span class="o">=</span> <span class="n">checkpoint_path</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">&quot;.temp&quot;</span><span class="p">)</span>
+    <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">checkpoint</span><span class="p">,</span> <span class="n">tmp_checkpoint_path</span><span class="p">)</span>
+    <span class="n">tmp_checkpoint_path</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">checkpoint_path</span><span class="p">)</span>
+
+
+<span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">goes_first</span><span class="p">(</span><span class="n">condition</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">group</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">distributed</span><span class="o">.</span><span class="n">ProcessGroup</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">condition</span><span class="p">:</span>
+        <span class="k">yield</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">distributed</span><span class="o">.</span><span class="n">barrier</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">group</span><span class="p">,</span> <span class="n">device_ids</span><span class="o">=</span><span class="p">[</span><span class="n">LOCAL_RANK</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">distributed</span><span class="o">.</span><span class="n">barrier</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">group</span><span class="p">,</span> <span class="n">device_ids</span><span class="o">=</span><span class="p">[</span><span class="n">LOCAL_RANK</span><span class="p">])</span>
+        <span class="k">yield</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>Running this example</strong></p>
+<p>You can submit this as a batch job with sbatch, or you can run it in an interactive job with <code class="docutils literal notranslate"><span class="pre">srun</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sbatch<span class="w"> </span>job.sh
+</pre></div>
+</div>
+<p>or, for example in an interactive job:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ssh<span class="w"> </span>mila<span class="w"> </span><span class="s1">&#39;git clone https://github.com/mila-iqia/mila-docs&#39;</span>
+
+$<span class="w"> </span><span class="c1"># Get an interactive job. You can use as many nodes or gpus, in whatever configuration you wish.</span>
+$<span class="w"> </span><span class="c1"># Here we choose to use between 1 and 2 nodes, with 4 GPUs distributed in any between the two nodes. (could be 4-0, 3-1, 2-2, etc.)</span>
+$<span class="w"> </span>ssh<span class="w"> </span>-tt<span class="w"> </span>mila<span class="w"> </span>salloc<span class="w"> </span>--nodes<span class="o">=</span><span class="m">1</span>-2<span class="w"> </span>--ntasks<span class="o">=</span><span class="m">4</span><span class="w"> </span>--gpus-per-task<span class="o">=</span>l40s:1<span class="w"> </span>--cpus-per-task<span class="o">=</span><span class="m">4</span><span class="w"> </span>--mem<span class="o">=</span>32G<span class="w"> </span>--tmp<span class="o">=</span>200G<span class="w"> </span>--time<span class="o">=</span><span class="m">02</span>:59:00<span class="w"> </span>--partition<span class="o">=</span>short-unkillable
+salloc:<span class="w"> </span>Granted<span class="w"> </span>job<span class="w"> </span>allocation<span class="w"> </span><span class="m">7782523</span>
+salloc:<span class="w"> </span>Waiting<span class="w"> </span><span class="k">for</span><span class="w"> </span>resource<span class="w"> </span>configuration
+salloc:<span class="w"> </span>Nodes<span class="w"> </span>cn-l<span class="o">[</span><span class="m">023</span>,054<span class="o">]</span><span class="w"> </span>are<span class="w"> </span>ready<span class="w"> </span><span class="k">for</span><span class="w"> </span>job
+
+$<span class="w"> </span><span class="c1"># Run the dataset preparation on each node:</span>
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>mila-docs/docs/examples/advanced/imagenet
+$<span class="w"> </span>srun<span class="w"> </span>--ntasks-per-node<span class="o">=</span><span class="m">1</span><span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>prepare_data.py
+
+$<span class="w"> </span><span class="c1"># Run the training script on each gpu on each node</span>
+$<span class="w"> </span><span class="c1"># NOTE: this only works in an interactive terminal with salloc! For the VsCode integrated terminal, see below.</span>
+$<span class="w"> </span>srun<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>prepare_data.py
+</pre></div>
+</div>
+<p>To open this example with VsCode:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>mila<span class="w"> </span>code<span class="w"> </span>mila-docs/docs/examples/advanced/imagenet<span class="w"> </span>--alloc<span class="w"> </span>--ntasks<span class="o">=</span><span class="m">4</span><span class="w"> </span>--gpus-per-task<span class="o">=</span>l40s:1<span class="w"> </span>--mem<span class="o">=</span>32G<span class="w"> </span>--tmp<span class="o">=</span>200G<span class="w"> </span>--time<span class="o">=</span><span class="m">02</span>:59:00<span class="w"> </span>--partition<span class="o">=</span>short-unkillable
+<span class="c1"># Or, if you are already in a terminal in an interactive job:</span>
+$<span class="w"> </span>mila<span class="w"> </span>code<span class="w"> </span>mila-docs/docs/examples/advanced/imagenet<span class="w"> </span>--job<span class="w"> </span><span class="m">7782523</span>
+</pre></div>
+</div>
+<p>Then, in the the vscode terminal, you will have to explicitly list out the number of nodes and tasks to use, since those
+can’t be inferred from the SLURM environment variables (which are not present, since you are SSH-ing into the compute node).</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="c1"># If your job has 2 nodes, for example:</span>
+$<span class="w"> </span>srun<span class="w"> </span>--ntasks-per-node<span class="o">=</span><span class="m">1</span><span class="w"> </span>--nodes<span class="o">=</span><span class="m">2</span><span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>prepare_data.py
+$<span class="w"> </span><span class="c1"># Launch the training script on each gpu on each node</span>
+$<span class="w"> </span>srun<span class="w"> </span>--ntasks<span class="o">=</span><span class="m">4</span><span class="w"> </span>--nodes<span class="o">=</span><span class="m">2</span><span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>main.py
+</pre></div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="Advanced Examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../../Theory_cluster.html" class="btn btn-neutral float-right" title="What is a computer cluster?" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+<script type="text/javascript">
+  window.onload = function() {
+      $(".toggle > *").hide();
+      $(".toggle .header").show();
+      $(".toggle .header").click(function() {
+          $(this).parent().children().not(".header").toggle(400);
+          $(this).parent().children(".header").toggleClass("open");
+      })
+  };
+</script>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

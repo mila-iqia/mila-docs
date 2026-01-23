@@ -1,0 +1,309 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sharing Data with ACLs &mdash; Mila Technical Documentation latest documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=8da7d091" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=c6e86fd7"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script src="_static/documentation_options.js?v=c6e86fd7"></script>
+      <script src="_static/documentation_options_fix.js?v=1c8886ec"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Contributing datasets" href="Userguide_datasets.html" />
+    <link rel="prev" title="Using containers" href="Userguide_containers.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/image.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Purpose.html">Purpose of this documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Purpose.html#contributing">Contributing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-tos and Guides</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Userguide_quick_start.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_login.html">Logging in to the cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_running_code.html">Running your code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_portability.html">Portability concerns and solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_containers.html">Using containers</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Sharing Data with ACLs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#viewing-and-verifying-acls">Viewing and Verifying ACLs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_datasets.html">Contributing datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_data_transfer.html">Data Transmission using Globus Connect Personal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_multigpu.html">Advanced SLURM usage and Multiple GPU jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_multinode.html">Multiple Nodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_wandb.html">Weight and Biases (WandB)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_comet.html">Comet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_jupyterhub.html">JupyterHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_singularity.html">Singularity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_faq.html">Frequently asked questions (FAQs)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Systems and services</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Information.html">Computing infrastructure and policies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Extra_compute.html">Computational resources outside of Mila</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Minimal Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="examples/frameworks/index.html">Software Frameworks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/distributed/index.html">Distributed Training</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/good_practices/index.html">Good practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/advanced/index.html">Advanced Examples</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/mila-iqia/ResearchTemplate">🔗 Research Project Template</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">General theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html">What is a computer cluster?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#parts-of-a-computing-cluster">Parts of a computing cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#unix">UNIX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#the-workload-manager">The workload manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#processing-data">Processing data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#software-on-the-cluster">Software on the cluster</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extras</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Acknowledgement.html">Acknowledging Mila</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://datasets.server.mila.quebec/">Mila Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Audio_video.html">Audio and video resources at Mila</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VSCode.html">Visual Studio Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IDT.html">Who, what, where is IDT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cheatsheet.html">Cheat Sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Environmental_impact.html">Environmental Impact</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Mila Technical Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Sharing Data with ACLs</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/mila-iqia/mila-docs/blob/master/docs/Userguide_sharing_data.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sharing-data-with-acls">
+<h1>Sharing Data with ACLs<a class="headerlink" href="#sharing-data-with-acls" title="Link to this heading"></a></h1>
+<p>Regular permissions bits are extremely blunt tools: They control access through
+only three sets of bits owning user, owning group and all others. Therefore,
+access is either too narrow (<code class="docutils literal notranslate"><span class="pre">0700</span></code> allows access only by oneself) or too wide
+(<code class="docutils literal notranslate"><span class="pre">770</span></code> gives all permissions to everyone in the same group, and <code class="docutils literal notranslate"><span class="pre">777</span></code> to
+literally everyone).</p>
+<p>ACLs (Access Control Lists) are an expansion of the permissions bits that allow
+more fine-grained, granular control of accesses to a file. They can be used to
+permit specific users access to files and folders even if conservative default
+permissions would have denied them such access.</p>
+<p>As an illustrative example, to use ACLs to allow <code class="docutils literal notranslate"><span class="pre">$USER</span></code> (<strong>oneself</strong>) to
+share with <code class="docutils literal notranslate"><span class="pre">$USER2</span></code> (<strong>another person</strong>) a “playground” folder hierarchy in
+Mila’s scratch filesystem at a location</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">$SCRATCH/X/Y/Z/...</span></code></p>
+</div></blockquote>
+<p>in a safe and secure fashion that allows both users to read, write, execute,
+search and delete each others’ files:</p>
+<hr class="docutils" />
+<div class="line-block">
+<div class="line"><strong>1.</strong> Grant <strong>oneself</strong> permissions to access any <strong>future</strong> files/folders created
+by the other <em>(or oneself)</em></div>
+<div class="line">(<code class="docutils literal notranslate"><span class="pre">-d</span></code> renders this permission a “default” / inheritable one)</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>setfacl<span class="w"> </span>-Rdm<span class="w"> </span>user:<span class="si">${</span><span class="nv">USER</span><span class="si">}</span>:rwx<span class="w">  </span><span class="nv">$SCRATCH</span>/X/Y/Z/
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The importance of doing this seemingly-redundant step first is that files
+and folders are <strong>always</strong> owned by only one person, almost always their
+creator (the UID will be the creator’s, the GID typically as well). If that
+user is not yourself, you will not have access to those files unless the
+other person specifically gives them to you – or these files inherited a
+default ACL allowing you full access.</p>
+<p><strong>This</strong> is the inherited, default ACL serving that purpose.</p>
+</div>
+<div class="line-block">
+<div class="line"><strong>2.</strong> Grant <strong>the other</strong> permission to access any <strong>future</strong> files/folders created
+by the other <em>(or oneself)</em></div>
+<div class="line">(<code class="docutils literal notranslate"><span class="pre">-d</span></code> renders this permission a “default” / inheritable one)</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>setfacl<span class="w"> </span>-Rdm<span class="w"> </span>user:<span class="si">${</span><span class="nv">USER2</span><span class="p">:?defineme</span><span class="si">}</span>:rwx<span class="w"> </span><span class="nv">$SCRATCH</span>/X/Y/Z/
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="line-block">
+<div class="line"><strong>3.</strong> Grant <strong>the other</strong> permission to access any <strong>existing</strong> files/folders created
+by <em>oneself</em>.</div>
+<div class="line">Such files and folders were created before the new default ACLs were added
+above and thus did not inherit them from their parent folder at the moment of
+their creation.</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>setfacl<span class="w"> </span>-Rm<span class="w">  </span>user:<span class="si">${</span><span class="nv">USER2</span><span class="p">:?defineme</span><span class="si">}</span>:rwx<span class="w"> </span><span class="nv">$SCRATCH</span>/X/Y/Z/
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="line-block">
+<div class="line"><strong>4.</strong> Grant <strong>another</strong> permission to search through one’s hierarchy down to the
+shared location in question.</div>
+</div>
+<ul class="simple">
+<li><p><strong>Non</strong>-recursive (!!!!)</p></li>
+<li><p>May also grant <code class="docutils literal notranslate"><span class="pre">:rx</span></code> in unlikely event others listing your folders on the
+path is not troublesome or desirable.</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>setfacl<span class="w"> </span>-m<span class="w">   </span>user:<span class="si">${</span><span class="nv">USER2</span><span class="p">:?defineme</span><span class="si">}</span>:x<span class="w">   </span><span class="nv">$SCRATCH</span>/X/Y/
+setfacl<span class="w"> </span>-m<span class="w">   </span>user:<span class="si">${</span><span class="nv">USER2</span><span class="p">:?defineme</span><span class="si">}</span>:x<span class="w">   </span><span class="nv">$SCRATCH</span>/X/
+setfacl<span class="w"> </span>-m<span class="w">   </span>user:<span class="si">${</span><span class="nv">USER2</span><span class="p">:?defineme</span><span class="si">}</span>:x<span class="w">   </span><span class="nv">$SCRATCH</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The purpose of granting permissions first for <em>future</em> files and then for
+<em>existing</em> files is to prevent a <strong>race condition</strong> whereby after the first
+<code class="docutils literal notranslate"><span class="pre">setfacl</span></code> command the other person could create files to which the
+second <code class="docutils literal notranslate"><span class="pre">setfacl</span></code> command does not apply.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In order to access a file, all folders from the root (<code class="docutils literal notranslate"><span class="pre">/</span></code>) down to the
+parent folder in question must be searchable (<code class="docutils literal notranslate"><span class="pre">+x</span></code>) by the concerned user.
+This is already the case for all users for folders such as <code class="docutils literal notranslate"><span class="pre">/</span></code>,
+<code class="docutils literal notranslate"><span class="pre">/network</span></code> and <code class="docutils literal notranslate"><span class="pre">/network/scratch</span></code>, but users must explicitly grant access
+to some or all users either through base permissions or by adding ACLs, for
+at least <code class="docutils literal notranslate"><span class="pre">/network/scratch/${USER:0:1}/$USER</span></code> (= <code class="docutils literal notranslate"><span class="pre">$SCRATCH</span></code>), <code class="docutils literal notranslate"><span class="pre">$HOME</span></code> and subfolders.</p>
+<p>To bluntly allow <strong>all</strong> users to search through a folder (<strong>think twice!</strong>),
+the following command can be used:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chmod<span class="w"> </span>a+X<span class="w"> </span><span class="nv">$SCRATCH</span>
+</pre></div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For more information on <code class="docutils literal notranslate"><span class="pre">setfacl</span></code> and path resolution/access checking,
+consider the following documentation viewing commands:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">man</span> <span class="pre">setfacl</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">man</span> <span class="pre">path_resolution</span></code></p></li>
+</ul>
+</div>
+<section id="viewing-and-verifying-acls">
+<h2>Viewing and Verifying ACLs<a class="headerlink" href="#viewing-and-verifying-acls" title="Link to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>getfacl<span class="w"> </span>/path/to/folder/or/file
+<span class="w">           </span><span class="m">1</span>:<span class="w">  </span><span class="c1"># file: somedir/</span>
+<span class="w">           </span><span class="m">2</span>:<span class="w">  </span><span class="c1"># owner: lisa</span>
+<span class="w">           </span><span class="m">3</span>:<span class="w">  </span><span class="c1"># group: staff</span>
+<span class="w">           </span><span class="m">4</span>:<span class="w">  </span><span class="c1"># flags: -s-</span>
+<span class="w">           </span><span class="m">5</span>:<span class="w">  </span>user::rwx
+<span class="w">           </span><span class="m">6</span>:<span class="w">  </span>user:joe:rwx<span class="w">               </span><span class="c1">#effective:r-x</span>
+<span class="w">           </span><span class="m">7</span>:<span class="w">  </span>group::rwx<span class="w">                 </span><span class="c1">#effective:r-x</span>
+<span class="w">           </span><span class="m">8</span>:<span class="w">  </span>group:cool:r-x
+<span class="w">           </span><span class="m">9</span>:<span class="w">  </span>mask::r-x
+<span class="w">          </span><span class="m">10</span>:<span class="w">  </span>other::r-x
+<span class="w">          </span><span class="m">11</span>:<span class="w">  </span>default:user::rwx
+<span class="w">          </span><span class="m">12</span>:<span class="w">  </span>default:user:joe:rwx<span class="w">       </span><span class="c1">#effective:r-x</span>
+<span class="w">          </span><span class="m">13</span>:<span class="w">  </span>default:group::r-x
+<span class="w">          </span><span class="m">14</span>:<span class="w">  </span>default:mask::r-x
+<span class="w">          </span><span class="m">15</span>:<span class="w">  </span>default:other::---
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">man</span> <span class="pre">getfacl</span></code></p></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Userguide_containers.html" class="btn btn-neutral float-left" title="Using containers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Userguide_datasets.html" class="btn btn-neutral float-right" title="Contributing datasets" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+<script type="text/javascript">
+  window.onload = function() {
+      $(".toggle > *").hide();
+      $(".toggle .header").show();
+      $(".toggle .header").click(function() {
+          $(this).parent().children().not(".header").toggle(400);
+          $(this).parent().children(".header").toggleClass("open");
+      })
+  };
+</script>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

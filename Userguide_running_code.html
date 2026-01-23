@@ -1,0 +1,588 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Running your code &mdash; Mila Technical Documentation latest documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=8da7d091" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=c6e86fd7"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script src="_static/documentation_options.js?v=c6e86fd7"></script>
+      <script src="_static/documentation_options_fix.js?v=1c8886ec"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Portability concerns and solutions" href="Userguide_portability.html" />
+    <link rel="prev" title="Logging in to the cluster" href="Userguide_login.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/image.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Purpose.html">Purpose of this documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Purpose.html#contributing">Contributing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-tos and Guides</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Userguide_quick_start.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_login.html">Logging in to the cluster</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Running your code</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#slurm-commands-guide">SLURM commands guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#basic-usage">Basic Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#submitting-jobs">Submitting jobs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#batch-job">Batch job</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#interactive-job">Interactive job</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#job-submission-arguments">Job submission arguments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#checking-job-status">Checking job status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#removing-a-job">Removing a job</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#partitioning">Partitioning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#information-on-partitions-nodes">Information on partitions/nodes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#useful-commands">Useful Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#special-gpu-requirements">Special GPU requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example-script">Example script</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_portability.html">Portability concerns and solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_containers.html">Using containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_sharing_data.html">Sharing Data with ACLs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_datasets.html">Contributing datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_data_transfer.html">Data Transmission using Globus Connect Personal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_multigpu.html">Advanced SLURM usage and Multiple GPU jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_multinode.html">Multiple Nodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_wandb.html">Weight and Biases (WandB)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_comet.html">Comet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_jupyterhub.html">JupyterHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_singularity.html">Singularity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_faq.html">Frequently asked questions (FAQs)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Systems and services</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Information.html">Computing infrastructure and policies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Extra_compute.html">Computational resources outside of Mila</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Minimal Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="examples/frameworks/index.html">Software Frameworks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/distributed/index.html">Distributed Training</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/good_practices/index.html">Good practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/advanced/index.html">Advanced Examples</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/mila-iqia/ResearchTemplate">🔗 Research Project Template</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">General theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html">What is a computer cluster?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#parts-of-a-computing-cluster">Parts of a computing cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#unix">UNIX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#the-workload-manager">The workload manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#processing-data">Processing data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#software-on-the-cluster">Software on the cluster</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extras</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Acknowledgement.html">Acknowledging Mila</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://datasets.server.mila.quebec/">Mila Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Audio_video.html">Audio and video resources at Mila</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VSCode.html">Visual Studio Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IDT.html">Who, what, where is IDT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cheatsheet.html">Cheat Sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Environmental_impact.html">Environmental Impact</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Mila Technical Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Running your code</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/mila-iqia/mila-docs/blob/master/docs/Userguide_running_code.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="running-your-code">
+<h1>Running your code<a class="headerlink" href="#running-your-code" title="Link to this heading"></a></h1>
+<section id="slurm-commands-guide">
+<h2>SLURM commands guide<a class="headerlink" href="#slurm-commands-guide" title="Link to this heading"></a></h2>
+<section id="basic-usage">
+<h3>Basic Usage<a class="headerlink" href="#basic-usage" title="Link to this heading"></a></h3>
+<p>The SLURM <a class="reference external" href="https://slurm.schedmd.com/documentation.html">documentation</a>
+provides extensive information on the available commands to query the cluster
+status or submit jobs.</p>
+<p>Below are some basic examples of how to use SLURM.</p>
+</section>
+<section id="submitting-jobs">
+<h3>Submitting jobs<a class="headerlink" href="#submitting-jobs" title="Link to this heading"></a></h3>
+<section id="batch-job">
+<h4>Batch job<a class="headerlink" href="#batch-job" title="Link to this heading"></a></h4>
+<p>In order to submit a batch job, you have to create a script containing the main
+command(s) you would like to execute on the allocated resources/nodes.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="ch">#!/bin/bash</span>
+<span class="linenos"> 2</span><span class="c1">#SBATCH --job-name=test</span>
+<span class="linenos"> 3</span><span class="c1">#SBATCH --output=job_output.txt</span>
+<span class="linenos"> 4</span><span class="c1">#SBATCH --error=job_error.txt</span>
+<span class="linenos"> 5</span><span class="c1">#SBATCH --ntasks=1</span>
+<span class="linenos"> 6</span><span class="c1">#SBATCH --time=10:00</span>
+<span class="linenos"> 7</span><span class="c1">#SBATCH --mem=100Gb</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span>module<span class="w"> </span>load<span class="w"> </span>python/3.5
+<span class="linenos">10</span>python<span class="w"> </span>my_script.py
+</pre></div>
+</div>
+<p>Your job script is then submitted to SLURM with <code class="docutils literal notranslate"><span class="pre">sbatch</span></code> (<a class="reference external" href="https://slurm.schedmd.com/sbatch.html">ref.</a>)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
+span.prompt1:before {
+  content: "$ ";
+}
+span.prompt2:before {
+  content: " ";
+}
+</style><span class="prompt1">sbatch<span class="w"> </span>job_script</span>
+<span class="prompt2">sbatch:<span class="w"> </span>Submitted<span class="w"> </span>batch<span class="w"> </span>job<span class="w"> </span><span class="m">4323674</span></span>
+</pre></div></div><p>The <em>working directory</em> of the job will be the one where your executed <code class="docutils literal notranslate"><span class="pre">sbatch</span></code>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Slurm directives can be specified on the command line alongside <code class="docutils literal notranslate"><span class="pre">sbatch</span></code> or
+inside the job script with a line starting with <code class="docutils literal notranslate"><span class="pre">#SBATCH</span></code>.</p>
+</div>
+</section>
+<section id="interactive-job">
+<h4>Interactive job<a class="headerlink" href="#interactive-job" title="Link to this heading"></a></h4>
+<p>Workload managers usually run batch jobs to avoid having to watch its
+progression and let the scheduler run it as soon as resources are available. If
+you want to get access to a shell while leveraging cluster resources, you can
+submit an interactive jobs where the main executable is a shell with the
+<code class="docutils literal notranslate"><span class="pre">srun/salloc</span></code> (<a class="reference external" href="https://slurm.schedmd.com/srun.html">srun</a>/<a class="reference external" href="https://slurm.schedmd.com/salloc.html">salloc</a>) commands</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">salloc</span>
+</pre></div></div><p>Will start an interactive job on the first node available with the default
+resources set in SLURM (1 task/1 CPU).  <code class="docutils literal notranslate"><span class="pre">srun</span></code> accepts the same arguments as
+<code class="docutils literal notranslate"><span class="pre">sbatch</span></code> with the exception that the environment is not passed.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>To pass your current environment to an interactive job, add
+<code class="docutils literal notranslate"><span class="pre">--preserve-env</span></code> to <code class="docutils literal notranslate"><span class="pre">srun</span></code>.</p>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">salloc</span></code> can also be used and is mostly a wrapper around <code class="docutils literal notranslate"><span class="pre">srun</span></code> if provided
+without more info but it gives more flexibility if for example you want to get
+an allocation on multiple nodes.</p>
+</section>
+</section>
+<section id="job-submission-arguments">
+<h3>Job submission arguments<a class="headerlink" href="#job-submission-arguments" title="Link to this heading"></a></h3>
+<p>In order to accurately select the resources for your job, several arguments are
+available. The most important ones are:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>-n, –ntasks=&lt;number&gt;</p></td>
+<td><p>The number of task in your script, usually =1</p></td>
+</tr>
+<tr class="row-odd"><td><p>-c, –cpus-per-task=&lt;ncpus&gt;</p></td>
+<td><p>The number of cores for each task</p></td>
+</tr>
+<tr class="row-even"><td><p>-t, –time=&lt;time&gt;</p></td>
+<td><p>Time requested for your job</p></td>
+</tr>
+<tr class="row-odd"><td><p>–mem=&lt;size[units]&gt;</p></td>
+<td><p>Memory requested for all your tasks</p></td>
+</tr>
+<tr class="row-even"><td><p>–gres=&lt;list&gt;</p></td>
+<td><p>Select generic resources such as GPUs for your job: <code class="docutils literal notranslate"><span class="pre">--gres=gpu:GPU_MODEL</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Always consider requesting the adequate amount of resources to improve the
+scheduling of your job (small jobs always run first).</p>
+</div>
+</section>
+<section id="checking-job-status">
+<h3>Checking job status<a class="headerlink" href="#checking-job-status" title="Link to this heading"></a></h3>
+<p>To display <em>jobs</em> currently in queue, use <code class="docutils literal notranslate"><span class="pre">squeue</span></code> and to get only your jobs type</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">squeue<span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span></span>
+<span class="prompt2">JOBID<span class="w">   </span>USER<span class="w">          </span>NAME<span class="w">    </span>ST<span class="w">  </span>START_TIME<span class="w">         </span>TIME<span class="w"> </span>NODES<span class="w"> </span>CPUS<span class="w"> </span>TRES_PER_NMIN_MEM<span class="w"> </span>NODELIST<span class="w"> </span><span class="o">(</span>REASON<span class="o">)</span><span class="w"> </span>COMMENT</span>
+<span class="prompt2"><span class="m">133</span><span class="w">     </span>my_username<span class="w">   </span>myjob<span class="w">   </span>R<span class="w">   </span><span class="m">2019</span>-03-28T18:33<span class="w">   </span><span class="m">0</span>:50<span class="w">     </span><span class="m">1</span><span class="w">    </span><span class="m">2</span><span class="w">        </span>N/A<span class="w">  </span>7000M<span class="w"> </span>node1<span class="w"> </span><span class="o">(</span>None<span class="o">)</span><span class="w"> </span><span class="o">(</span>null<span class="o">)</span></span>
+</pre></div></div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The maximum number of jobs able to be submitted to the system per user is 1000 (MaxSubmitJobs=1000)
+at any given time from the given association. If this limit is reached, new submission requests
+will be denied until existing jobs in this association complete.</p>
+</div>
+</section>
+<section id="removing-a-job">
+<h3>Removing a job<a class="headerlink" href="#removing-a-job" title="Link to this heading"></a></h3>
+<p>To cancel your job simply use <code class="docutils literal notranslate"><span class="pre">scancel</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">scancel<span class="w"> </span><span class="m">4323674</span></span>
+</pre></div></div></section>
+</section>
+<section id="partitioning">
+<h2>Partitioning<a class="headerlink" href="#partitioning" title="Link to this heading"></a></h2>
+<p>Since we don’t have many GPUs on the cluster, resources must be shared as fairly
+as possible.  The <code class="docutils literal notranslate"><span class="pre">--partition=/-p</span></code> flag of SLURM allows you to set the
+priority you need for a job.  Each job assigned with a priority can preempt jobs
+with a lower priority: <code class="docutils literal notranslate"><span class="pre">unkillable</span> <span class="pre">&gt;</span> <span class="pre">main</span> <span class="pre">&gt;</span> <span class="pre">long</span></code>. Once preempted, your job is
+killed without notice and is automatically re-queued on the same partition until
+resources are available. (To leverage a different preemption mechanism, see the
+<a class="reference internal" href="Userguide_multigpu.html#advanced-preemption"><span class="std std-ref">Handling preemption</span></a>)</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Flag</p></th>
+<th class="head"><p>Max Resource Usage</p></th>
+<th class="head"><p>Max Time</p></th>
+<th class="head"><p>Note</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>--partition=unkillable</p></td>
+<td><p>6  CPUs, mem=32G,  1 GPU</p></td>
+<td><p>2 days</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>--partition=unkillable-cpu</p></td>
+<td><p>2  CPUs, mem=16G</p></td>
+<td><p>2 days</p></td>
+<td><p>CPU-only jobs</p></td>
+</tr>
+<tr class="row-even"><td><p>--partition=short-unkillable</p></td>
+<td><p>mem=1000G, 4 GPUs</p></td>
+<td><p>3 hours (!)</p></td>
+<td><p>Large but short jobs</p></td>
+</tr>
+<tr class="row-odd"><td><p>--partition=main</p></td>
+<td><p>8  CPUs, mem=48G,  2 GPUs</p></td>
+<td><p>5 days</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>--partition=main-cpu</p></td>
+<td><p>8  CPUs, mem=64G</p></td>
+<td><p>5 days</p></td>
+<td><p>CPU-only jobs</p></td>
+</tr>
+<tr class="row-odd"><td><p>--partition=long</p></td>
+<td><p>no limit of resources</p></td>
+<td><p>7 days</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>--partition=long-cpu</p></td>
+<td><p>no limit of resources</p></td>
+<td><p>7 days</p></td>
+<td><p>CPU-only jobs</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Historically, before the 2022 introduction of CPU-only nodes (e.g. the <code class="docutils literal notranslate"><span class="pre">cn-f</span></code>
+series), CPU jobs ran side-by-side with the GPU jobs on GPU nodes. To prevent
+them obstructing any GPU job, they were always lowest-priority and preemptible.
+This was implemented by automatically assigning them to one of the now-obsolete
+partitions <code class="docutils literal notranslate"><span class="pre">cpu_jobs</span></code>, <code class="docutils literal notranslate"><span class="pre">cpu_jobs_low</span></code> or <code class="docutils literal notranslate"><span class="pre">cpu_jobs_low-grace</span></code>.
+<strong>Do not use these partition names anymore</strong>. Prefer the <code class="docutils literal notranslate"><span class="pre">*-cpu</span></code> partition
+names defined above.</p>
+<p>For backwards-compatibility purposes, the legacy partition names are translated
+to their effective equivalent <code class="docutils literal notranslate"><span class="pre">long-cpu</span></code>, but they will eventually be removed
+entirely.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><em>As a convenience</em>, should you request the <code class="docutils literal notranslate"><span class="pre">unkillable</span></code>, <code class="docutils literal notranslate"><span class="pre">main</span></code> or <code class="docutils literal notranslate"><span class="pre">long</span></code>
+partition for a CPU-only job, the partition will be translated to its <code class="docutils literal notranslate"><span class="pre">-cpu</span></code>
+equivalent automatically.</p>
+</div>
+<p>For instance, to request an unkillable job with 1 GPU, 4 CPUs, 10G of RAM and
+12h of computation do:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sbatch<span class="w"> </span>--gres<span class="o">=</span>gpu:1<span class="w"> </span>-c<span class="w"> </span><span class="m">4</span><span class="w"> </span>--mem<span class="o">=</span>10G<span class="w"> </span>-t<span class="w"> </span><span class="m">12</span>:00:00<span class="w"> </span>--partition<span class="o">=</span>unkillable<span class="w"> </span>&lt;job.sh&gt;</span>
+</pre></div></div><p>You can also make it an interactive job using <code class="docutils literal notranslate"><span class="pre">salloc</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">salloc<span class="w"> </span>--gres<span class="o">=</span>gpu:1<span class="w"> </span>-c<span class="w"> </span><span class="m">4</span><span class="w"> </span>--mem<span class="o">=</span>10G<span class="w"> </span>-t<span class="w"> </span><span class="m">12</span>:00:00<span class="w"> </span>--partition<span class="o">=</span>unkillable</span>
+</pre></div></div><p>The Mila cluster has many different types of nodes/GPUs. To request a specific
+type of node/GPU, you can add specific feature requirements to your job
+submission command.</p>
+<p>To access those special nodes you need to request them explicitly by adding the
+flag <code class="docutils literal notranslate"><span class="pre">--constraint=&lt;name&gt;</span></code>.  The full list of nodes in the Mila Cluster can be
+accessed <a class="reference internal" href="Information_nodes.html#node-profile-description"><span class="std std-ref">Node profile description</span></a>.</p>
+<p><em>Examples:</em></p>
+<p>To request a machine with 2 GPUs using NVLink, you can use</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sbatch<span class="w"> </span>-c<span class="w"> </span><span class="m">4</span><span class="w"> </span>--gres<span class="o">=</span>gpu:2<span class="w"> </span>--constraint<span class="o">=</span>nvlink</span>
+</pre></div></div><p>To request a DGX system with 8 A100 GPUs, you can use</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sbatch<span class="w"> </span>-c<span class="w"> </span><span class="m">16</span><span class="w"> </span>--gres<span class="o">=</span>gpu:8<span class="w"> </span>--constraint<span class="o">=</span><span class="s2">&quot;dgx&amp;ampere&quot;</span></span>
+</pre></div></div><table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Feature</p></th>
+<th class="head"><p>Particularities</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>12gb/32gb/40gb/48gb/80gb</p></td>
+<td><p>Request a specific amount of <em>GPU</em> memory</p></td>
+</tr>
+<tr class="row-odd"><td><p>volta/turing/ampere</p></td>
+<td><p>Request a specific <em>GPU</em> architecture</p></td>
+</tr>
+<tr class="row-even"><td><p>nvlink</p></td>
+<td><p>Machine with GPUs using the NVLink interconnect technology</p></td>
+</tr>
+<tr class="row-odd"><td><p>dgx</p></td>
+<td><p>NVIDIA <em>DGX</em> system with DGX OS</p></td>
+</tr>
+</tbody>
+</table>
+<section id="information-on-partitions-nodes">
+<h3>Information on partitions/nodes<a class="headerlink" href="#information-on-partitions-nodes" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">sinfo</span></code> (<a class="reference external" href="https://slurm.schedmd.com/sinfo.html">ref.</a>) provides most of the
+information about available nodes and partitions/queues to submit jobs to.</p>
+<p>Partitions are a group of nodes usually sharing similar features. On a
+partition, some job limits can be applied which will override those asked for a
+job (i.e. max time, max CPUs, etc…)</p>
+<p>To display available <em>partitions</em>, simply use</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sinfo</span>
+<span class="prompt2">PARTITION<span class="w"> </span>AVAIL<span class="w"> </span>TIMELIMIT<span class="w"> </span>NODES<span class="w"> </span>STATE<span class="w">  </span>NODELIST</span>
+<span class="prompt2">batch<span class="w">     </span>up<span class="w">     </span>infinite<span class="w">     </span><span class="m">2</span><span class="w"> </span>alloc<span class="w">  </span>node<span class="o">[</span><span class="m">1</span>,3,5-9<span class="o">]</span></span>
+<span class="prompt2">batch<span class="w">     </span>up<span class="w">     </span>infinite<span class="w">     </span><span class="m">6</span><span class="w"> </span>idle<span class="w">   </span>node<span class="o">[</span><span class="m">10</span>-15<span class="o">]</span></span>
+<span class="prompt2">cpu<span class="w">       </span>up<span class="w">     </span>infinite<span class="w">     </span><span class="m">6</span><span class="w"> </span>idle<span class="w">   </span>cpu_node<span class="o">[</span><span class="m">1</span>-15<span class="o">]</span></span>
+<span class="prompt2">gpu<span class="w">       </span>up<span class="w">     </span>infinite<span class="w">     </span><span class="m">6</span><span class="w"> </span>idle<span class="w">   </span>gpu_node<span class="o">[</span><span class="m">1</span>-15<span class="o">]</span></span>
+</pre></div></div><p>To display available <em>nodes</em> and their status, you can use</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sinfo<span class="w"> </span>-N<span class="w"> </span>-l</span>
+<span class="prompt2">NODELIST<span class="w">    </span>NODES<span class="w"> </span>PARTITION<span class="w"> </span>STATE<span class="w">  </span>CPUS<span class="w"> </span>MEMORY<span class="w"> </span>TMP_DISK<span class="w"> </span>WEIGHT<span class="w"> </span>FEATURES<span class="w"> </span>REASON</span>
+<span class="prompt2">node<span class="o">[</span><span class="m">1</span>,3,5-9<span class="o">]</span><span class="w">   </span><span class="m">2</span><span class="w"> </span>batch<span class="w">     </span>allocated<span class="w"> </span><span class="m">2</span><span class="w">    </span><span class="m">246</span><span class="w">    </span><span class="m">16000</span><span class="w">     </span><span class="m">0</span><span class="w">  </span><span class="o">(</span>null<span class="o">)</span><span class="w">   </span><span class="o">(</span>null<span class="o">)</span></span>
+<span class="prompt2">node<span class="o">[</span><span class="m">2</span>,4<span class="o">]</span><span class="w">       </span><span class="m">2</span><span class="w"> </span>batch<span class="w">     </span>drain<span class="w">     </span><span class="m">2</span><span class="w">    </span><span class="m">246</span><span class="w">    </span><span class="m">16000</span><span class="w">     </span><span class="m">0</span><span class="w">  </span><span class="o">(</span>null<span class="o">)</span><span class="w">   </span><span class="o">(</span>null<span class="o">)</span></span>
+<span class="prompt2">node<span class="o">[</span><span class="m">10</span>-15<span class="o">]</span><span class="w">     </span><span class="m">6</span><span class="w"> </span>batch<span class="w">     </span>idle<span class="w">      </span><span class="m">2</span><span class="w">    </span><span class="m">246</span><span class="w">    </span><span class="m">16000</span><span class="w">     </span><span class="m">0</span><span class="w">  </span><span class="o">(</span>null<span class="o">)</span><span class="w">   </span><span class="o">(</span>null<span class="o">)</span></span>
+<span class="prompt2">...</span>
+</pre></div></div><p>And to get statistics on a job running or terminated, use <code class="docutils literal notranslate"><span class="pre">sacct</span></code> with some of
+the fields you want to display</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sacct<span class="w"> </span>--format<span class="o">=</span>User,JobID,Jobname,partition,state,time,start,end,elapsed,nnodes,ncpus,nodelist,workdir<span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span></span>
+<span class="prompt2"><span class="w">     </span>User<span class="w">        </span>JobID<span class="w">    </span>JobName<span class="w">  </span>Partition<span class="w">      </span>State<span class="w">  </span>Timelimit<span class="w">               </span>Start<span class="w">                 </span>End<span class="w">    </span>Elapsed<span class="w">   </span>NNodes<span class="w">      </span>NCPUS<span class="w">        </span>NodeList<span class="w">              </span>WorkDir</span>
+<span class="prompt2">---------<span class="w"> </span>------------<span class="w"> </span>----------<span class="w"> </span>----------<span class="w"> </span>----------<span class="w"> </span>----------<span class="w"> </span>-------------------<span class="w"> </span>-------------------<span class="w"> </span>----------<span class="w"> </span>--------<span class="w"> </span>----------<span class="w"> </span>---------------<span class="w"> </span>--------------------</span>
+<span class="prompt2">my_usern+<span class="w"> </span><span class="m">2398</span><span class="w">         </span>run_extra+<span class="w">      </span>batch<span class="w">    </span>RUNNING<span class="w"> </span><span class="m">130</span>-05:00+<span class="w"> </span><span class="m">2019</span>-03-27T18:33:43<span class="w">             </span>Unknown<span class="w"> </span><span class="m">1</span>-01:07:54<span class="w">        </span><span class="m">1</span><span class="w">         </span><span class="m">16</span><span class="w"> </span>node9<span class="w">           </span>/home/mila/my_usern+</span>
+<span class="prompt2">my_usern+<span class="w"> </span><span class="m">2399</span><span class="w">         </span>run_extra+<span class="w">      </span>batch<span class="w">    </span>RUNNING<span class="w"> </span><span class="m">130</span>-05:00+<span class="w"> </span><span class="m">2019</span>-03-26T08:51:38<span class="w">             </span>Unknown<span class="w"> </span><span class="m">2</span>-10:49:59<span class="w">        </span><span class="m">1</span><span class="w">         </span><span class="m">16</span><span class="w"> </span>node9<span class="w">           </span>/home/mila/my_usern+</span>
+</pre></div></div><p>Or to get the list of all your previous jobs, use the <code class="docutils literal notranslate"><span class="pre">--start=YYYY-MM-DD</span></code> flag. You can check <code class="docutils literal notranslate"><span class="pre">sacct(1)</span></code> for further information about additional time formats.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sacct<span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>--start<span class="o">=</span><span class="m">2019</span>-01-01</span>
+</pre></div></div><p><code class="docutils literal notranslate"><span class="pre">scontrol</span></code> (<a class="reference external" href="https://slurm.schedmd.com/scontrol.html">ref.</a>) can be used to
+provide specific information on a job (currently running or recently terminated)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">scontrol<span class="w"> </span>show<span class="w"> </span>job<span class="w"> </span><span class="m">43123</span></span>
+<span class="prompt2"><span class="nv">JobId</span><span class="o">=</span><span class="m">43123</span><span class="w"> </span><span class="nv">JobName</span><span class="o">=</span>python_script.py</span>
+<span class="prompt2"><span class="nv">UserId</span><span class="o">=</span>my_username<span class="o">(</span><span class="m">1500000111</span><span class="o">)</span><span class="w"> </span><span class="nv">GroupId</span><span class="o">=</span>student<span class="o">(</span><span class="m">1500000000</span><span class="o">)</span><span class="w"> </span><span class="nv">MCS_label</span><span class="o">=</span>N/A</span>
+<span class="prompt2"><span class="nv">Priority</span><span class="o">=</span><span class="m">645895</span><span class="w"> </span><span class="nv">Nice</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="nv">Account</span><span class="o">=</span>my_username<span class="w"> </span><span class="nv">QOS</span><span class="o">=</span>normal</span>
+<span class="prompt2"><span class="nv">JobState</span><span class="o">=</span>RUNNING<span class="w"> </span><span class="nv">Reason</span><span class="o">=</span>None<span class="w"> </span><span class="nv">Dependency</span><span class="o">=(</span>null<span class="o">)</span></span>
+<span class="prompt2"><span class="nv">Requeue</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="nv">Restarts</span><span class="o">=</span><span class="m">3</span><span class="w"> </span><span class="nv">BatchFlag</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="nv">Reboot</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="nv">ExitCode</span><span class="o">=</span><span class="m">0</span>:0</span>
+<span class="prompt2"><span class="nv">RunTime</span><span class="o">=</span><span class="m">2</span>-10:41:57<span class="w"> </span><span class="nv">TimeLimit</span><span class="o">=</span><span class="m">130</span>-05:00:00<span class="w"> </span><span class="nv">TimeMin</span><span class="o">=</span>N/A</span>
+<span class="prompt2"><span class="nv">SubmitTime</span><span class="o">=</span><span class="m">2019</span>-03-26T08:47:17<span class="w"> </span><span class="nv">EligibleTime</span><span class="o">=</span><span class="m">2019</span>-03-26T08:49:18</span>
+<span class="prompt2"><span class="nv">AccrueTime</span><span class="o">=</span><span class="m">2019</span>-03-26T08:49:18</span>
+<span class="prompt2"><span class="nv">StartTime</span><span class="o">=</span><span class="m">2019</span>-03-26T08:51:38<span class="w"> </span><span class="nv">EndTime</span><span class="o">=</span><span class="m">2019</span>-08-03T13:51:38<span class="w"> </span><span class="nv">Deadline</span><span class="o">=</span>N/A</span>
+<span class="prompt2"><span class="nv">PreemptTime</span><span class="o">=</span>None<span class="w"> </span><span class="nv">SuspendTime</span><span class="o">=</span>None<span class="w"> </span><span class="nv">SecsPreSuspend</span><span class="o">=</span><span class="m">0</span></span>
+<span class="prompt2"><span class="nv">LastSchedEval</span><span class="o">=</span><span class="m">2019</span>-03-26T08:49:18</span>
+<span class="prompt2"><span class="nv">Partition</span><span class="o">=</span>slurm_partition<span class="w"> </span>AllocNode:Sid<span class="o">=</span>login-node-1:14586</span>
+<span class="prompt2"><span class="nv">ReqNodeList</span><span class="o">=(</span>null<span class="o">)</span><span class="w"> </span><span class="nv">ExcNodeList</span><span class="o">=(</span>null<span class="o">)</span></span>
+<span class="prompt2"><span class="nv">NodeList</span><span class="o">=</span>node2</span>
+<span class="prompt2"><span class="nv">BatchHost</span><span class="o">=</span>node2</span>
+<span class="prompt2"><span class="nv">NumNodes</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="nv">NumCPUs</span><span class="o">=</span><span class="m">16</span><span class="w"> </span><span class="nv">NumTasks</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>CPUs/Task<span class="o">=</span><span class="m">16</span><span class="w"> </span>ReqB:S:C:T<span class="o">=</span><span class="m">0</span>:0:*:*</span>
+<span class="prompt2"><span class="nv">TRES</span><span class="o">=</span><span class="nv">cpu</span><span class="o">=</span><span class="m">16</span>,mem<span class="o">=</span>32000M,node<span class="o">=</span><span class="m">1</span>,billing<span class="o">=</span><span class="m">3</span></span>
+<span class="prompt2">Socks/Node<span class="o">=</span>*<span class="w"> </span>NtasksPerN:B:S:C<span class="o">=</span><span class="m">1</span>:0:*:*<span class="w"> </span><span class="nv">CoreSpec</span><span class="o">=</span>*</span>
+<span class="prompt2"><span class="nv">MinCPUsNode</span><span class="o">=</span><span class="m">16</span><span class="w"> </span><span class="nv">MinMemoryNode</span><span class="o">=</span>32000M<span class="w"> </span><span class="nv">MinTmpDiskNode</span><span class="o">=</span><span class="m">0</span></span>
+<span class="prompt2"><span class="nv">Features</span><span class="o">=(</span>null<span class="o">)</span><span class="w"> </span><span class="nv">DelayBoot</span><span class="o">=</span><span class="m">00</span>:00:00</span>
+<span class="prompt2"><span class="nv">OverSubscribe</span><span class="o">=</span>OK<span class="w"> </span><span class="nv">Contiguous</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="nv">Licenses</span><span class="o">=(</span>null<span class="o">)</span><span class="w"> </span><span class="nv">Network</span><span class="o">=(</span>null<span class="o">)</span></span>
+<span class="prompt2"><span class="nv">WorkDir</span><span class="o">=</span>/home/mila/my_username</span>
+<span class="prompt2"><span class="nv">StdErr</span><span class="o">=</span>/home/mila/my_username/slurm-43123.out</span>
+<span class="prompt2"><span class="nv">StdIn</span><span class="o">=</span>/dev/null</span>
+<span class="prompt2"><span class="nv">StdOut</span><span class="o">=</span>/home/mila/my_username/slurm-43123.out</span>
+<span class="prompt2"><span class="nv">Power</span><span class="o">=</span></span>
+</pre></div></div><p>Or more info on a node and its resources</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">scontrol<span class="w"> </span>show<span class="w"> </span>node<span class="w"> </span>node9</span>
+<span class="prompt2"><span class="nv">NodeName</span><span class="o">=</span>node9<span class="w"> </span><span class="nv">Arch</span><span class="o">=</span>x86_64<span class="w"> </span><span class="nv">CoresPerSocket</span><span class="o">=</span><span class="m">4</span></span>
+<span class="prompt2"><span class="nv">CPUAlloc</span><span class="o">=</span><span class="m">16</span><span class="w"> </span><span class="nv">CPUTot</span><span class="o">=</span><span class="m">16</span><span class="w"> </span><span class="nv">CPULoad</span><span class="o">=</span><span class="m">1</span>.38</span>
+<span class="prompt2"><span class="nv">AvailableFeatures</span><span class="o">=(</span>null<span class="o">)</span></span>
+<span class="prompt2"><span class="nv">ActiveFeatures</span><span class="o">=(</span>null<span class="o">)</span></span>
+<span class="prompt2"><span class="nv">Gres</span><span class="o">=(</span>null<span class="o">)</span></span>
+<span class="prompt2"><span class="nv">NodeAddr</span><span class="o">=</span><span class="m">10</span>.252.232.4<span class="w"> </span><span class="nv">NodeHostName</span><span class="o">=</span>mila20684000000<span class="w"> </span><span class="nv">Port</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="nv">Version</span><span class="o">=</span><span class="m">18</span>.08</span>
+<span class="prompt2"><span class="nv">OS</span><span class="o">=</span>Linux<span class="w"> </span><span class="m">4</span>.15.0-1036<span class="w"> </span><span class="c1">#38-Ubuntu SMP Fri Dec 7 02:47:47 UTC 2018</span></span>
+<span class="prompt2"><span class="nv">RealMemory</span><span class="o">=</span><span class="m">32000</span><span class="w"> </span><span class="nv">AllocMem</span><span class="o">=</span><span class="m">32000</span><span class="w"> </span><span class="nv">FreeMem</span><span class="o">=</span><span class="m">23262</span><span class="w"> </span><span class="nv">Sockets</span><span class="o">=</span><span class="m">2</span><span class="w"> </span><span class="nv">Boards</span><span class="o">=</span><span class="m">1</span></span>
+<span class="prompt2"><span class="nv">State</span><span class="o">=</span>ALLOCATED+CLOUD<span class="w"> </span><span class="nv">ThreadsPerCore</span><span class="o">=</span><span class="m">2</span><span class="w"> </span><span class="nv">TmpDisk</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="nv">Weight</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="nv">Owner</span><span class="o">=</span>N/A<span class="w"> </span><span class="nv">MCS_label</span><span class="o">=</span>N/A</span>
+<span class="prompt2"><span class="nv">Partitions</span><span class="o">=</span>slurm_partition</span>
+<span class="prompt2"><span class="nv">BootTime</span><span class="o">=</span><span class="m">2019</span>-03-26T08:50:01<span class="w"> </span><span class="nv">SlurmdStartTime</span><span class="o">=</span><span class="m">2019</span>-03-26T08:51:15</span>
+<span class="prompt2"><span class="nv">CfgTRES</span><span class="o">=</span><span class="nv">cpu</span><span class="o">=</span><span class="m">16</span>,mem<span class="o">=</span>32000M,billing<span class="o">=</span><span class="m">3</span></span>
+<span class="prompt2"><span class="nv">AllocTRES</span><span class="o">=</span><span class="nv">cpu</span><span class="o">=</span><span class="m">16</span>,mem<span class="o">=</span>32000M</span>
+<span class="prompt2"><span class="nv">CapWatts</span><span class="o">=</span>n/a</span>
+<span class="prompt2"><span class="nv">CurrentWatts</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="nv">LowestJoules</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="nv">ConsumedJoules</span><span class="o">=</span><span class="m">0</span></span>
+<span class="prompt2"><span class="nv">ExtSensorsJoules</span><span class="o">=</span>n/s<span class="w"> </span><span class="nv">ExtSensorsWatts</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="nv">ExtSensorsTemp</span><span class="o">=</span>n/s</span>
+</pre></div></div></section>
+</section>
+<section id="useful-commands">
+<h2>Useful Commands<a class="headerlink" href="#useful-commands" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>salloc</dt><dd><p>Get an interactive job and give you a shell. (ssh like) CPU only</p>
+</dd>
+<dt>salloc --gres=gpu:1 -c 2 --mem=12000</dt><dd><p>Get an interactive job with one GPU, 2 CPUs and 12000 MB RAM</p>
+</dd>
+<dt>sbatch</dt><dd><p>start a batch job (same options as salloc)</p>
+</dd>
+<dt>sattach --pty &lt;jobid&gt;.0</dt><dd><p>Re-attach a dropped interactive job</p>
+</dd>
+<dt>sinfo</dt><dd><p>status of all nodes</p>
+</dd>
+<dt>sinfo -Ogres:27,nodelist,features -tidle,mix,alloc</dt><dd><p>List GPU type and FEATURES that you can request</p>
+</dd>
+<dt>savail</dt><dd><p>(Custom) List available gpu</p>
+</dd>
+<dt>scancel &lt;jobid&gt;</dt><dd><p>Cancel a job</p>
+</dd>
+<dt>squeue</dt><dd><p>summary status of all active jobs</p>
+</dd>
+<dt>squeue -u $USER</dt><dd><p>summary status of all YOUR active jobs</p>
+</dd>
+<dt>squeue -j &lt;jobid&gt;</dt><dd><p>summary status of a specific job</p>
+</dd>
+<dt>squeue -Ojobid,name,username,partition,state,timeused,nodelist,gres,tres</dt><dd><p>status of all jobs including requested resources (see the SLURM squeue doc for all output options)</p>
+</dd>
+<dt>scontrol show job &lt;jobid&gt;</dt><dd><p>Detailed status of a running job</p>
+</dd>
+<dt>sacct -j &lt;job_id&gt; -o NodeList</dt><dd><p>Get the node where a finished job ran</p>
+</dd>
+<dt>sacct -u $USER -S &lt;start_time&gt; -E &lt;stop_time&gt;</dt><dd><p>Find info about old jobs</p>
+</dd>
+<dt>sacct -oJobID,JobName,User,Partition,Node,State</dt><dd><p>List of current and recent jobs</p>
+</dd>
+</dl>
+</section>
+<section id="special-gpu-requirements">
+<h2>Special GPU requirements<a class="headerlink" href="#special-gpu-requirements" title="Link to this heading"></a></h2>
+<p>Specific GPU <em>architecture</em> and <em>memory</em> can be easily requested through the
+<code class="docutils literal notranslate"><span class="pre">--gres</span></code> flag by using either</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--gres=gpu:architecture:number</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--gres=gpu:memory:number</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--gres=gpu:model:number</span></code></p></li>
+</ul>
+<p><em>Example:</em></p>
+<p>To request 1 GPU with <em>at least</em> 48GB of memory use</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sbatch<span class="w"> </span>-c<span class="w"> </span><span class="m">4</span><span class="w"> </span>--gres<span class="o">=</span>gpu:48gb:1</span>
+</pre></div></div><p>The full list of GPU and their features can be accessed <a class="reference internal" href="Information_nodes.html#node-list"><span class="std std-ref">here</span></a>.</p>
+</section>
+<section id="example-script">
+<h2>Example script<a class="headerlink" href="#example-script" title="Link to this heading"></a></h2>
+<p>Here is a <code class="docutils literal notranslate"><span class="pre">sbatch</span></code> script that follows good practices on the Mila cluster:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="ch">#!/bin/bash</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="c1">#SBATCH --partition=unkillable                           # Ask for unkillable job</span>
+<span class="linenos"> 4</span><span class="c1">#SBATCH --cpus-per-task=2                                # Ask for 2 CPUs</span>
+<span class="linenos"> 5</span><span class="c1">#SBATCH --gres=gpu:1                                     # Ask for 1 GPU</span>
+<span class="linenos"> 6</span><span class="c1">#SBATCH --mem=10G                                        # Ask for 10 GB of RAM</span>
+<span class="linenos"> 7</span><span class="c1">#SBATCH --time=3:00:00                                   # The job will run for 3 hours</span>
+<span class="linenos"> 8</span><span class="c1">#SBATCH -o /network/scratch/&lt;u&gt;/&lt;username&gt;/slurm-%j.out  # Write the log on scratch</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="c1"># 1. Load the required modules</span>
+<span class="linenos">11</span>module<span class="w"> </span>--quiet<span class="w"> </span>load<span class="w"> </span>anaconda/3
+<span class="linenos">12</span>
+<span class="linenos">13</span><span class="c1"># 2. Load your environment</span>
+<span class="linenos">14</span>conda<span class="w"> </span>activate<span class="w"> </span><span class="s2">&quot;&lt;env_name&gt;&quot;</span>
+<span class="linenos">15</span>
+<span class="linenos">16</span><span class="c1"># 3. Copy your dataset on the compute node</span>
+<span class="linenos">17</span>cp<span class="w"> </span>/network/datasets/&lt;dataset&gt;<span class="w"> </span><span class="nv">$SLURM_TMPDIR</span>
+<span class="linenos">18</span>
+<span class="linenos">19</span><span class="c1"># 4. Launch your job, tell it to save the model in $SLURM_TMPDIR</span>
+<span class="linenos">20</span><span class="c1">#    and look for the dataset into $SLURM_TMPDIR</span>
+<span class="linenos">21</span>python<span class="w"> </span>main.py<span class="w"> </span>--path<span class="w"> </span><span class="nv">$SLURM_TMPDIR</span><span class="w"> </span>--data_path<span class="w"> </span><span class="nv">$SLURM_TMPDIR</span>
+<span class="linenos">22</span>
+<span class="linenos">23</span><span class="c1"># 5. Copy whatever you want to save on $SCRATCH</span>
+<span class="linenos">24</span>cp<span class="w"> </span><span class="nv">$SLURM_TMPDIR</span>/&lt;to_save&gt;<span class="w"> </span>/network/scratch/&lt;u&gt;/&lt;username&gt;/
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Userguide_login.html" class="btn btn-neutral float-left" title="Logging in to the cluster" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Userguide_portability.html" class="btn btn-neutral float-right" title="Portability concerns and solutions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+<script type="text/javascript">
+  window.onload = function() {
+      $(".toggle > *").hide();
+      $(".toggle .header").show();
+      $(".toggle .header").click(function() {
+          $(this).parent().children().not(".header").toggle(400);
+          $(this).parent().children(".header").toggleClass("open");
+      })
+  };
+</script>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,582 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Logging in to the cluster &mdash; Mila Technical Documentation latest documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=8da7d091" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=c6e86fd7"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script src="_static/documentation_options.js?v=c6e86fd7"></script>
+      <script src="_static/documentation_options_fix.js?v=1c8886ec"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Running your code" href="Userguide_running_code.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="Userguide_infra_choice.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/image.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Purpose.html">Purpose of this documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Purpose.html#contributing">Contributing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-tos and Guides</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Userguide_quick_start.html">Quick Start</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Logging in to the cluster</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#ssh-secure-shell">SSH (Secure Shell)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#mila-init">mila init</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#manual-ssh-configuration">Manual SSH configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#logging-in-with-ssh">Logging in with SSH</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#connecting-to-compute-nodes">Connecting to compute nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#auto-allocation-with-mila-cpu">Auto-allocation with mila-cpu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#more-about-ssh">More About SSH</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ssh-private-keys">SSH Private Keys</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ssh-public-keys">SSH Public Keys</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#checking-if-you-already-have-ssh-private-keys">Checking If You Already Have SSH (Private) Keys</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#generating-an-ssh-private-key">Generating an SSH Private Key</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#generating-an-ssh-public-key-from-a-private-key">Generating an SSH Public Key from a Private Key</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#using-a-non-bash-unix-shell">Using a non-Bash Unix shell</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_running_code.html">Running your code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_portability.html">Portability concerns and solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_containers.html">Using containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_sharing_data.html">Sharing Data with ACLs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_datasets.html">Contributing datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_data_transfer.html">Data Transmission using Globus Connect Personal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_multigpu.html">Advanced SLURM usage and Multiple GPU jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_multinode.html">Multiple Nodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_wandb.html">Weight and Biases (WandB)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_comet.html">Comet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_jupyterhub.html">JupyterHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_singularity.html">Singularity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_faq.html">Frequently asked questions (FAQs)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Systems and services</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Information.html">Computing infrastructure and policies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Extra_compute.html">Computational resources outside of Mila</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Minimal Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="examples/frameworks/index.html">Software Frameworks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/distributed/index.html">Distributed Training</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/good_practices/index.html">Good practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/advanced/index.html">Advanced Examples</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/mila-iqia/ResearchTemplate">🔗 Research Project Template</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">General theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html">What is a computer cluster?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#parts-of-a-computing-cluster">Parts of a computing cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#unix">UNIX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#the-workload-manager">The workload manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#processing-data">Processing data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#software-on-the-cluster">Software on the cluster</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extras</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Acknowledgement.html">Acknowledging Mila</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://datasets.server.mila.quebec/">Mila Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Audio_video.html">Audio and video resources at Mila</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VSCode.html">Visual Studio Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IDT.html">Who, what, where is IDT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cheatsheet.html">Cheat Sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Environmental_impact.html">Environmental Impact</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Mila Technical Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Logging in to the cluster</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/mila-iqia/mila-docs/blob/master/docs/Userguide_login.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="logging-in-to-the-cluster">
+<span id="logging-in"></span><h1>Logging in to the cluster<a class="headerlink" href="#logging-in-to-the-cluster" title="Link to this heading"></a></h1>
+<p id="id1">To access the Mila Cluster clusters, you will need a Mila account. Please contact
+Mila systems administrators if you don’t have it already. Our IT support service
+is available here: <a class="reference external" href="https://it-support.mila.quebec/">https://it-support.mila.quebec/</a></p>
+<p>You will also need to complete and return an IT Onboarding Training to get
+access to the cluster.  Please refer to the Mila Intranet for more
+informations:
+<a class="reference external" href="https://sites.google.com/mila.quebec/mila-intranet/it-infrastructure/it-onboarding-training">https://sites.google.com/mila.quebec/mila-intranet/it-infrastructure/it-onboarding-training</a></p>
+<p><strong>IMPORTANT</strong> : Your access to the Cluster is granted based on your status at
+Mila (for students, your status is the same as your main supervisor’ status),
+and on the duration of your stay, set during the creation of your account. The
+following have access to the cluster : <strong>Current Students of Core Professors -
+Core Professors - Staff</strong></p>
+<section id="ssh-secure-shell">
+<span id="ssh"></span><h2>SSH (Secure Shell)<a class="headerlink" href="#ssh-secure-shell" title="Link to this heading"></a></h2>
+<p><strong>All access to the Mila cluster is via SSH using public-key authentication.</strong>
+As of <strong>March 31, 2025</strong>, this will become the <strong>only</strong> means of authentication,
+and <strong>password-based authentication will no longer work</strong>.</p>
+<p>SSH uses a configuration file <code class="docutils literal notranslate"><span class="pre">~/.ssh/config</span></code> (right next to the SSH keys)
+to indicate which connection settings to use for each SSH server one can
+connect to.</p>
+<p>The Mila <strong>login</strong> nodes require:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Hostname</span></code>: <code class="docutils literal notranslate"><span class="pre">login.server.mila.quebec</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Port</span></code>: <code class="docutils literal notranslate"><span class="pre">2222</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">User</span></code>: <em>Your Mila account username</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PreferredAuthentications</span></code>: <code class="docutils literal notranslate"><span class="pre">publickey,keyboard-interactive</span></code></p></li>
+</ul>
+<p>A simple SSH configuration is automatically created and added for you to
+<code class="docutils literal notranslate"><span class="pre">~/.ssh/config</span></code> by <a class="reference internal" href="#mila-init"><span class="std std-ref">mila init</span></a>.</p>
+<p>Alternatively, more advanced users can edit the SSH <code class="docutils literal notranslate"><span class="pre">.config</span></code> file
+<a class="reference internal" href="#manual-ssh-config"><span class="std std-ref">manually</span></a>.</p>
+<section id="mila-init">
+<span id="id2"></span><h3>mila init<a class="headerlink" href="#mila-init" title="Link to this heading"></a></h3>
+<p>To make it easier to set up a productive environment, Mila publishes the
+<a class="reference external" href="https://github.com/mila-iqia/milatools">milatools</a> package, which defines a <code class="docutils literal notranslate"><span class="pre">mila</span> <span class="pre">init</span></code> command which will
+automatically perform some of the below steps for you. You can install it with
+<code class="docutils literal notranslate"><span class="pre">pip</span></code> and use it, provided your Python version is at least 3.9:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
+span.prompt1:before {
+  content: "$ ";
+}
+</style><span class="prompt1">pip<span class="w"> </span>install<span class="w"> </span>milatools</span>
+<span class="prompt1">mila<span class="w"> </span>init</span>
+</pre></div></div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This guide is current for <code class="docutils literal notranslate"><span class="pre">milatools</span> <span class="pre">&gt;=</span> <span class="pre">0.0.17</span></code>. If you have installed an older
+version previously, run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-U</span> <span class="pre">milatools</span></code> to upgrade and re-run
+<code class="docutils literal notranslate"><span class="pre">mila</span> <span class="pre">init</span></code> in order to apply new features or bug fixes.</p>
+</div>
+</section>
+<section id="manual-ssh-configuration">
+<span id="manual-ssh-config"></span><h3>Manual SSH configuration<a class="headerlink" href="#manual-ssh-configuration" title="Link to this heading"></a></h3>
+<p>If you would like to set entries in your <code class="docutils literal notranslate"><span class="pre">~/.ssh/config</span></code> file manually for
+advanced use-cases, you may use the following as inspiration:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>#   Mila
+Host mila             login.server.mila.quebec
+    Hostname          login.server.mila.quebec
+Host mila1    login-1.login.server.mila.quebec
+    Hostname  login-1.login.server.mila.quebec
+Host mila2    login-2.login.server.mila.quebec
+    Hostname  login-2.login.server.mila.quebec
+Host mila3    login-3.login.server.mila.quebec
+    Hostname  login-3.login.server.mila.quebec
+Host mila4    login-4.login.server.mila.quebec
+    Hostname  login-4.login.server.mila.quebec
+Host mila5    login-5.login.server.mila.quebec
+    Hostname  login-5.login.server.mila.quebec
+Host cn-????
+    Hostname             %h.server.mila.quebec
+Match host !*login.server.mila.quebec,*.server.mila.quebec
+    Hostname                 %h
+    ProxyJump                mila
+Match host           *login.server.mila.quebec
+    Port                     2222
+    ServerAliveInterval      120
+    ServerAliveCountMax      5
+Match host *.server.mila.quebec
+    PreferredAuthentications publickey,keyboard-interactive
+    AddKeysToAgent           yes
+    ## Consider uncommenting:
+    # ForwardAgent             yes
+    ## Delete if on Linux, uncomment if on Mac:
+    # UseKeychain              yes
+    User                     CHANGEME_YOUR_MILA_USERNAME
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Please make the required edits to the template above, especially regarding
+<code class="docutils literal notranslate"><span class="pre">CHANGEME_YOUR_MILA_USERNAME</span></code>!</p>
+</div>
+</section>
+<section id="logging-in-with-ssh">
+<h3>Logging in with SSH<a class="headerlink" href="#logging-in-with-ssh" title="Link to this heading"></a></h3>
+<p>Login to the Mila cluster is with <code class="docutils literal notranslate"><span class="pre">ssh</span></code> through four Internet-facing
+<em>login nodes</em> and a load-balancer. At each connection through the load-balancer,
+you will be redirected to the least loaded login node.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="c1"># Generic login, will send you to one of the 4 login nodes to spread the load</span></span>
+<span class="prompt1">ssh<span class="w"> </span>-p<span class="w"> </span><span class="m">2222</span><span class="w"> </span>&lt;user&gt;@login.server.mila.quebec</span>
+<span class="prompt1"></span>
+<span class="prompt1"><span class="c1"># To connect to a specific login node, X in [1, 2, 3, 4]</span></span>
+<span class="prompt1">ssh<span class="w"> </span>-p<span class="w"> </span><span class="m">2222</span><span class="w"> </span>&lt;user&gt;@login-X.login.server.mila.quebec</span>
+</pre></div></div><p>This is a significant amount of typing. You are <strong>strongly</strong> encouraged to add
+a <code class="docutils literal notranslate"><span class="pre">mila</span></code> “alias” to your SSH configuration file (see <span class="xref std std-ref">below</span>
+for how). With a correctly-configured SSH you can now simply run</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="c1"># Login with SSH configuration in place</span></span>
+<span class="prompt1">ssh<span class="w"> </span>mila</span>
+<span class="prompt1"></span>
+<span class="prompt1"><span class="c1"># Can also scp...        vvvv</span></span>
+<span class="prompt1">scp<span class="w">  </span>file-to-upload.zip<span class="w">  </span>mila:scratch/uploaded.zip</span>
+<span class="prompt1"></span>
+<span class="prompt1"><span class="c1">#          vvvv  ... and rsync!</span></span>
+<span class="prompt1">rsync<span class="w"> </span>-avz<span class="w"> </span>mila:my/remote/sourcecode/<span class="w">  </span>downloaded-source/</span>
+</pre></div></div><p>to connect to a login node. The <code class="docutils literal notranslate"><span class="pre">mila</span></code> alias will be available to <code class="docutils literal notranslate"><span class="pre">ssh</span></code>,
+<code class="docutils literal notranslate"><span class="pre">scp</span></code>, <code class="docutils literal notranslate"><span class="pre">rsync</span></code> and all other programs that consult the SSH configuration file.</p>
+<p>Upon first login, you may be asked to enter your SSH key passphrase. Use the
+passphrase you used to create your SSH key <a class="reference internal" href="#generating-ssh-keys"><span class="std std-ref">below</span></a>.</p>
+<p>Upon first login, you may also be asked whether you trust the <strong>*Mila*</strong> login
+servers’ <em>own</em> SSH keys.
+The ECDSA, RSA and ED25519 fingerprints for Mila’s login nodes are:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>SHA256:baEGIa311fhnxBWsIZJ/zYhq2WfCttwyHRKzAb8zlp8 (ECDSA)
+SHA256:Xr0/JqV/+5DNguPfiN5hb8rSG+nBAcfVCJoSyrR0W0o (RSA)
+SHA256:gfXZzaPiaYHcrPqzHvBi6v+BWRS/lXOS/zAjOKeoBJg (ED25519)
+</pre></div>
+</div>
+<p>If the fingerprints presented to you do not match one of the above, <strong>do not</strong>
+trust them!</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You can run commands on the login node with <code class="docutils literal notranslate"><span class="pre">ssh</span></code> directly, for example
+<code class="docutils literal notranslate"><span class="pre">ssh</span> <span class="pre">mila</span> <span class="pre">squeue</span> <span class="pre">-u</span> <span class="pre">'$USER'</span></code> (remember to put single quotes around any
+<code class="docutils literal notranslate"><span class="pre">$VARIABLE</span></code> you want to evaluate on the remote side, otherwise it will be
+evaluated locally before ssh is even executed).</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Login nodes are merely <em>entry points</em> to the cluster. They give you access
+to the compute nodes and to the filesystem, but they are not meant to run
+anything heavy. Do <strong>not</strong> run compute-heavy programs on these nodes,
+because in doing so you could bring them down, impeding cluster access for
+everyone.</p>
+<p>This means no training scripts or experiments and no compilation of software
+unless it is small or ends quickly. Do not run anything that demands a
+sustained large amount of computation or a large amount of memory.</p>
+<p><strong>Rule of thumb:</strong> Never run a program that takes more than a few seconds on
+a login node, unless it mostly sleeps or mostly moves data.</p>
+<p><strong>Examples:</strong> A non-exhaustive list of use-cases, to give a sense of what is
+and is not allowed on the login nodes:</p>
+<ul class="simple">
+<li><p>A Python training script is unacceptable on the login nodes.
+<em>(Too computationally- and memory-intensive)</em></p></li>
+<li><p>A Python or shell script that downloads a dataset and exits immediately
+after may be acceptable on the login nodes.
+<em>(Mostly moves data)</em></p></li>
+<li><p>A Python hyperparameter search script that uses <code class="docutils literal notranslate"><span class="pre">submitit</span></code> to launch
+jobs and only sleeps waiting for them to end and run other jobs is
+acceptable on the login nodes.
+<em>(Mostly sleeps; The actual jobs run on the compute nodes)</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code> of <code class="docutils literal notranslate"><span class="pre">vllm</span></code> or <code class="docutils literal notranslate"><span class="pre">flash-attn</span></code> from source code on the
+login nodes is unacceptable (and is likely to fail anyways).
+<em>(Takes far too much RAM to compile the CUDA kernels)</em></p></li>
+<li><p>Editing code with <code class="docutils literal notranslate"><span class="pre">nano</span></code>, <code class="docutils literal notranslate"><span class="pre">vim</span></code> or <code class="docutils literal notranslate"><span class="pre">emacs</span></code> is acceptable.
+<em>(Editors mostly sleep awaiting user keystrokes)</em></p></li>
+<li><p>Copying/moving files with <code class="docutils literal notranslate"><span class="pre">cp</span></code>, <code class="docutils literal notranslate"><span class="pre">mv</span></code>, … is acceptable.
+<em>(Mostly moves data)</em></p></li>
+<li><p>Connecting to compute nodes with <code class="docutils literal notranslate"><span class="pre">ssh</span></code> is acceptable.
+<em>(Mostly sleeps, forwarding keystrokes and ports to/from the node)</em></p></li>
+<li><p>Using <code class="docutils literal notranslate"><span class="pre">tmux</span></code> is acceptable.
+<em>(Mostly sleeps, managing the processes under its control)</em></p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In a similar vein, you should not run VSCode remote SSH instances directly
+on login nodes, because even though they are typically not very
+computationally expensive, when many people do it, they add up! See
+<a class="reference internal" href="VSCode.html#visual-studio-code"><span class="std std-ref">Visual Studio Code</span></a> for specific instructions.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="connecting-to-compute-nodes">
+<h2>Connecting to compute nodes<a class="headerlink" href="#connecting-to-compute-nodes" title="Link to this heading"></a></h2>
+<p>If (and only if) you have a job running on compute node <code class="docutils literal notranslate"><span class="pre">cnode</span></code>, you are
+allowed to SSH to it, if for some reason you need a second terminal.
+That session will be automatically ended when your job ends.</p>
+<p>First, however, you need to add your public key (the one you provided to IT-support)
+to the ~/.ssh/authorized_keys file on the cluster, or configure an
+<code class="docutils literal notranslate"><span class="pre">ssh-agent</span></code> that will forward that key when connecting to the compute node.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="c1"># ON A LOGIN NODE</span></span>
+<span class="prompt1">mkdir<span class="w"> </span>-p<span class="w"> </span>~/.ssh</span>
+<span class="prompt1"><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;THE SSH PUBLIC KEY THAT YOU GAVE TO IT-SUPPORT&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.ssh/authorized_keys</span>
+<span class="prompt1">chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>~/.ssh/authorized_keys</span>
+<span class="prompt1">chmod<span class="w"> </span><span class="m">700</span><span class="w"> </span>~/.ssh</span>
+<span class="prompt1">chmod<span class="w"> </span>go-w<span class="w"> </span>~<span class="w">   </span><span class="c1"># in case you accidentally gave too many permissions for $HOME in the past.</span></span>
+</pre></div></div><p>Then from the login node you can write <code class="docutils literal notranslate"><span class="pre">ssh</span> <span class="pre">cnode</span></code>. From your local
+machine, you can use <code class="docutils literal notranslate"><span class="pre">ssh</span> <span class="pre">-J</span> <span class="pre">mila</span> <span class="pre">USERNAME&#64;cnode</span></code> (<code class="docutils literal notranslate"><span class="pre">-J</span></code> represents a “jump”
+through the login node, necessary because the compute nodes are behind a
+firewall).</p>
+<p>If you wish, you may also add the following wildcard rule in your <code class="docutils literal notranslate"><span class="pre">.ssh/config</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Host *.server.mila.quebec !*login.server.mila.quebec
+    HostName %h
+    User YOUR-USERNAME
+    ProxyJump mila
+</pre></div>
+</div>
+<p>This will let you connect to a compute node with <code class="docutils literal notranslate"><span class="pre">ssh</span> <span class="pre">&lt;node&gt;.server.mila.quebec</span></code>.</p>
+</section>
+<section id="auto-allocation-with-mila-cpu">
+<h2>Auto-allocation with mila-cpu<a class="headerlink" href="#auto-allocation-with-mila-cpu" title="Link to this heading"></a></h2>
+<p>If you install <a class="reference external" href="https://github.com/mila-iqia/milatools">milatools</a> and run <code class="docutils literal notranslate"><span class="pre">mila</span> <span class="pre">init</span></code>, then you can automatically allocate
+a CPU on a compute node and connect to it by running:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">ssh<span class="w"> </span>mila-cpu</span>
+</pre></div></div><p>And that’s it! Multiple connections to <code class="docutils literal notranslate"><span class="pre">mila-cpu</span></code> will all reuse the same job, so
+you can use it liberally. It also works transparently with VSCode’s Remote SSH feature.</p>
+<p>We recommend using this for light work that is too heavy for a login node but does not
+require a lot of resources: editing via VSCode, building conda environments, tests, etc.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">mila-cpu</span></code> entry should be in your <code class="docutils literal notranslate"><span class="pre">.ssh/config</span></code>. Changes are at your own risk.</p>
+</section>
+<section id="more-about-ssh">
+<h2>More About SSH<a class="headerlink" href="#more-about-ssh" title="Link to this heading"></a></h2>
+<p>SSH key authentication is a technique using pairs of closely-linked keys: A
+private key, and a corresponding public key. The public key should be
+distributed to everyone, while the private key is known to only one person. The
+public key can be used by anyone to challenge a person to prove their identity.
+If they have the corresponding private key, that person can perform an
+electronic signature that everyone can validate but that no one else could have
+done themselves. The challenge is thus answered by demonstrating possession of
+the private key (and therefore their identity), without ever revealing the
+private key itself.</p>
+<p><em>Mila asks you to generate a pair of SSH keys, to provide Mila only with your
+public key,</em> which has no confidentiality implications, and to keep the private
+key for yourself. <em>The private key must remain secret and solely known to you,</em>
+because anyone who possesses it is capable of impersonating you by performing
+your electronic signature.</p>
+<p>During the IT Onboarding Training, you will be asked to submit that SSH
+public key.</p>
+<ul class="simple">
+<li><p>If you do not know what SSH keys are, or are not familiar with them, you can
+read the informative material <a class="reference internal" href="#ssh-private-keys"><span class="std std-ref">below</span></a>, then proceed to
+generate them.</p></li>
+<li><p>If you do not already have SSH keys, or are not sure if you have them, skip
+to the instructions on how to generate them <a class="reference internal" href="#checking-for-ssh-keys"><span class="std std-ref">here</span></a>.</p></li>
+<li><p>If you do have SSH keys, you can skip to <span class="xref std std-ref">configuring SSH for access to Mila</span>.</p></li>
+</ul>
+<section id="ssh-private-keys">
+<h3>SSH Private Keys<a class="headerlink" href="#ssh-private-keys" title="Link to this heading"></a></h3>
+<p>A private SSH key commonly takes the form of an obscure text file. It encodes
+the digital secret of how to make an electronic signature — specifically, yours.
+The content of a private SSH key might resemble</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>-----BEGIN OPENSSH PRIVATE KEY-----
+b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAABlwAAAAdzc2gtcn
+NhAAAAAwEAAQAAAYEAl5dD/UU2CvauaVS2/4/iWoUyO1Hey+m8KojCFMvIywL6PPdYRqVa
+FOidmOw/E9V2HVzHz/z/2Dj6TO5xNX1qJFk7A/ACGGc1+KguIDQWdjR6AZb5Tat+aAMYro
+…
+aSeJOS59knbQJeBwPm0g5G+iFz6R17446dXk5jn3/29AutF5MPnKwqE0mjywxCLYxVX3He
+YSOCZfE80P/z4sImW82BYxAzKtI8kKagLmHS4gXJEmE13Dfyq0xcB3q5OMuQ2fZwvukTx3
+xdWgyqFrMyC4wHAAAAAAEC
+-----END OPENSSH PRIVATE KEY-----
+</pre></div>
+</div>
+<p>In the real world, a handwritten signature is useless for authenticating you if
+it can be easily reproduced by others. In the virtual world, the same is true.
+Anyone who has your private key is capable of reproducing your electronic signature.
+It is therefore essential that only one person — you — holds this private key.
+The secrecy of the private key is the guarantor of your online identity.</p>
+<p>Mila will <strong>*never*</strong> ask you for your private SSH key, and any pretense of
+request for a private key constitutes an attempt at phishing and identity theft.
+Keep your private keys safe and do not share them with anyone. Do not put them
+in the cloud, your emails, Slack messages, or Git repos. Protect them with a
+passphrase.</p>
+</section>
+<section id="ssh-public-keys">
+<h3>SSH Public Keys<a class="headerlink" href="#ssh-public-keys" title="Link to this heading"></a></h3>
+<p>A public SSH key is a simple line of text, albeit sometimes very long, commonly
+found in a file with the <code class="docutils literal notranslate"><span class="pre">.pub</span></code> extension. It encodes the digital knowledge
+required to recognize and validate your electronic signature, without however
+making it possible to reproduce it elsewhere. Here are three examples of public
+SSH keys:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDMYpSndal/…mPL+NXs=
+ssh-ed25519 AAAA…d/ca2h  user@server
+ecdsa-sha2-nistp256 AAAA…hWQcQg8=  mylaptop
+</pre></div>
+</div>
+<p>You are requested to submit just such a public SSH key to Mila, which will
+allow Mila to recognize you when you connect to the Mila cluster, but without
+revealing the secret of how to perform your signature.</p>
+</section>
+<section id="checking-if-you-already-have-ssh-private-keys">
+<span id="checking-for-ssh-keys"></span><h3>Checking If You Already Have SSH (Private) Keys<a class="headerlink" href="#checking-if-you-already-have-ssh-private-keys" title="Link to this heading"></a></h3>
+<p>Usually, a private SSH key is found in the hidden directory <code class="docutils literal notranslate"><span class="pre">~/.ssh/</span></code> and is
+named <code class="docutils literal notranslate"><span class="pre">id_rsa</span></code>, <code class="docutils literal notranslate"><span class="pre">id_ed25519</span></code>, or <code class="docutils literal notranslate"><span class="pre">id_ecdsa</span></code>. Its corresponding public SSH
+key is usually in the same directory and shares the same filename, except with
+a <code class="docutils literal notranslate"><span class="pre">.pub</span></code> suffix.</p>
+</section>
+<section id="generating-an-ssh-private-key">
+<span id="generating-ssh-keys"></span><h3>Generating an SSH Private Key<a class="headerlink" href="#generating-an-ssh-private-key" title="Link to this heading"></a></h3>
+<p>If no private SSH key already exists, you can create one with the <code class="docutils literal notranslate"><span class="pre">ssh-keygen</span></code> utility:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>RSA</p></th>
+<th class="head"><p>Ed25519</p></th>
+</tr>
+<tr class="row-even"><th class="head"><p><em>Integer factorization</em></p></th>
+<th class="head"><p><em>Elliptic curve</em></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>Classic</p></li>
+<li><p>Ultra-compatible, standardized,
+the reference</p></li>
+<li><p>Large key size, but configurable</p></li>
+<li><p>Slow or even very slow</p></li>
+</ul>
+</td>
+<td><ul class="simple">
+<li><p>New</p></li>
+<li><p>Less compatible</p></li>
+<li><p>Fixed, small key size</p></li>
+<li><p>Fast</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">ssh-keygen</span> <span class="pre">-t</span> <span class="pre">rsa</span> <span class="pre">-b</span> <span class="pre">3072</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">(enter</span> <span class="pre">passphrase)</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">(re-enter</span> <span class="pre">passphrase)</span></code></p>
+</td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">ssh-keygen</span> <span class="pre">-t</span> <span class="pre">ed25519</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">(enter</span> <span class="pre">passphrase)</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">(re-enter</span> <span class="pre">passphrase)</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The pass-<strong>phrase</strong> protects the SSH private key <strong>on-disk</strong>. The
+passphrase is <strong>not</strong> the same thing as the pass-<strong>word</strong> used to <em>log into
+your personal computer account</em>. However, choosing them to be equal may
+allow for automatic unlocking of encrypted SSH private keys at login, in
+combination with software such as <code class="docutils literal notranslate"><span class="pre">pam_ssh(8)</span></code> (Linux) or Keychain
+(Mac OS X/macOS). This makes the good practice of using encrypted keys
+convenient as well.</p>
+</div>
+</section>
+<section id="generating-an-ssh-public-key-from-a-private-key">
+<h3>Generating an SSH Public Key from a Private Key<a class="headerlink" href="#generating-an-ssh-public-key-from-a-private-key" title="Link to this heading"></a></h3>
+<p>If a private SSH key exists, but not its corresponding SSH public key, it can
+be recalculated with the <code class="docutils literal notranslate"><span class="pre">ssh-keygen</span></code> utility as well:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>RSA</p></th>
+<th class="head"><p>Ed25519</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>SSH public key:</strong></p>
+<p>&gt;380 bytes &#64; 2048 bits (not rec.)</p>
+<p>&gt;550 bytes &#64; 3072 bits (recommended)</p>
+<p>&gt;725 bytes &#64; 4096 bits (slower)</p>
+<p>&gt;1400 bytes &#64; 8192 bits (much slower)</p>
+</td>
+<td><p><strong>SSH public key:</strong></p>
+<p>~82 bytes</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">ssh-keygen</span> <span class="pre">-y</span> <span class="pre">-f</span> <span class="pre">~/.ssh/id_rsa</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">(enter</span> <span class="pre">passphrase)</span></code></p>
+</td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">ssh-keygen</span> <span class="pre">-y</span> <span class="pre">-f</span> <span class="pre">~/.ssh/id_ed25519</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">(enter</span> <span class="pre">passphrase)</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>It is this SSH public key that you should submit in the IT Onboarding Training form.</p>
+</section>
+</section>
+<section id="using-a-non-bash-unix-shell">
+<h2>Using a non-Bash Unix shell<a class="headerlink" href="#using-a-non-bash-unix-shell" title="Link to this heading"></a></h2>
+<p>While Mila does not provide support in debugging your shell setup, Bash is the
+standard shell to be used on the cluster and the cluster is designed to support
+both Bash and Zsh shells. If you think things should work with Zsh and they
+don’t, please contact <a class="reference external" href="https://it-support.mila.quebec">Mila’s IT support</a>.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Userguide_infra_choice.html" class="btn btn-neutral float-left" title="&lt;no title&gt;" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Userguide_running_code.html" class="btn btn-neutral float-right" title="Running your code" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+<script type="text/javascript">
+  window.onload = function() {
+      $(".toggle > *").hide();
+      $(".toggle .header").show();
+      $(".toggle .header").click(function() {
+          $(this).parent().children().not(".header").toggle(400);
+          $(this).parent().children(".header").toggleClass("open");
+      })
+  };
+</script>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

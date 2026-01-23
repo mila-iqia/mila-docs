@@ -1,0 +1,327 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Using containers &mdash; Mila Technical Documentation latest documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=8da7d091" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=c6e86fd7"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script src="_static/documentation_options.js?v=c6e86fd7"></script>
+      <script src="_static/documentation_options_fix.js?v=1c8886ec"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Sharing Data with ACLs" href="Userguide_sharing_data.html" />
+    <link rel="prev" title="Portability concerns and solutions" href="Userguide_portability.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/image.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Purpose.html">Purpose of this documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Purpose.html#contributing">Contributing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-tos and Guides</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Userguide_quick_start.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_login.html">Logging in to the cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_running_code.html">Running your code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_portability.html">Portability concerns and solutions</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Using containers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#using-in-slurm">Using in SLURM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gpu">GPU</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_sharing_data.html">Sharing Data with ACLs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_datasets.html">Contributing datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_data_transfer.html">Data Transmission using Globus Connect Personal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_multigpu.html">Advanced SLURM usage and Multiple GPU jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_multinode.html">Multiple Nodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_wandb.html">Weight and Biases (WandB)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_comet.html">Comet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_jupyterhub.html">JupyterHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_singularity.html">Singularity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Userguide_faq.html">Frequently asked questions (FAQs)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Systems and services</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Information.html">Computing infrastructure and policies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Extra_compute.html">Computational resources outside of Mila</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Minimal Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="examples/frameworks/index.html">Software Frameworks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/distributed/index.html">Distributed Training</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/good_practices/index.html">Good practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/advanced/index.html">Advanced Examples</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/mila-iqia/ResearchTemplate">🔗 Research Project Template</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">General theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html">What is a computer cluster?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#parts-of-a-computing-cluster">Parts of a computing cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#unix">UNIX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#the-workload-manager">The workload manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#processing-data">Processing data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Theory_cluster.html#software-on-the-cluster">Software on the cluster</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extras</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Acknowledgement.html">Acknowledging Mila</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://datasets.server.mila.quebec/">Mila Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Audio_video.html">Audio and video resources at Mila</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VSCode.html">Visual Studio Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IDT.html">Who, what, where is IDT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cheatsheet.html">Cheat Sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Environmental_impact.html">Environmental Impact</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Mila Technical Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Using containers</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/mila-iqia/mila-docs/blob/master/docs/Userguide_containers.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="using-containers">
+<span id="id1"></span><h1>Using containers<a class="headerlink" href="#using-containers" title="Link to this heading"></a></h1>
+<p>Podman containers are now available as tech preview on the Mila cluster
+without root privileges using <a class="reference external" href="https://podman.io">podman</a>.</p>
+<p>Generally any command-line argument accepted by docker will work with podman.
+This means that you can mostly use the docker examples you find on the web by
+replacing <cite>docker</cite> with <cite>podman</cite> in the command line.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Complete Podman Documentation: <a class="reference external" href="https://docs.podman.io/en/stable/">https://docs.podman.io/en/stable/</a></p>
+</div>
+<section id="using-in-slurm">
+<h2>Using in SLURM<a class="headerlink" href="#using-in-slurm" title="Link to this heading"></a></h2>
+<p>To use podman you can just use the <cite>podman</cite> command in either a batch script or
+an interactive job.</p>
+<p>One difference in configuration is that for certain technical reasons all the
+storage for podman (images, containers, …) is on a job-specific location and
+will be lost after the job is complete or preempted. If you have data that must
+be preseved across jobs, you can <a class="reference external" href="https://docs.podman.io/en/v5.2.4/markdown/podman-run.1.html#mount-type-type-type-specific-option">mount</a>
+a local folder inside the container, such as <cite>$SCRATCH</cite> or your home to save
+data.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>podman<span class="w"> </span>run<span class="w"> </span>--mount<span class="w"> </span><span class="nv">type</span><span class="o">=</span>bind,source<span class="o">=</span><span class="nv">$SCRATCH</span>/exp,destination<span class="o">=</span>/data/exp<span class="w"> </span>bash<span class="w"> </span>touch<span class="w"> </span>/data/exp/file
+$<span class="w"> </span>ls<span class="w"> </span><span class="nv">$SCRATCH</span>/exp
+file
+</pre></div>
+</div>
+<p>You can use multiple containers in a single job, but you have to be careful
+about the memory and CPU limits of the job.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Due to the cluster environment you may see warning messages like
+<code class="docutils literal notranslate"><span class="pre">WARN[0000]</span> <span class="pre">&quot;/&quot;</span> <span class="pre">is</span> <span class="pre">not</span> <span class="pre">a</span> <span class="pre">shared</span> <span class="pre">mount,</span> <span class="pre">this</span> <span class="pre">could</span> <span class="pre">cause</span> <span class="pre">issues</span> <span class="pre">or</span> <span class="pre">missing</span> <span class="pre">mounts</span> <span class="pre">with</span> <span class="pre">rootless</span> <span class="pre">containers</span></code>,
+<code class="docutils literal notranslate"><span class="pre">ERRO[0000]</span> <span class="pre">cannot</span> <span class="pre">find</span> <span class="pre">UID/GID</span> <span class="pre">for</span> <span class="pre">user</span> <span class="pre">&lt;user&gt;:</span> <span class="pre">no</span> <span class="pre">subuid</span> <span class="pre">ranges</span> <span class="pre">found</span> <span class="pre">for</span> <span class="pre">user</span> <span class="pre">&quot;&lt;user&gt;&quot;</span> <span class="pre">in</span> <span class="pre">/etc/subuid</span> <span class="pre">-</span> <span class="pre">check</span> <span class="pre">rootless</span> <span class="pre">mode</span> <span class="pre">in</span> <span class="pre">man</span> <span class="pre">pages.</span></code>,
+<code class="docutils literal notranslate"><span class="pre">WARN[0000]</span> <span class="pre">Using</span> <span class="pre">rootless</span> <span class="pre">single</span> <span class="pre">mapping</span> <span class="pre">into</span> <span class="pre">the</span> <span class="pre">namespace.</span> <span class="pre">This</span> <span class="pre">might</span> <span class="pre">break</span> <span class="pre">some</span> <span class="pre">images.</span> <span class="pre">Check</span> <span class="pre">/etc/subuid</span> <span class="pre">and</span> <span class="pre">/etc/subgid</span> <span class="pre">for</span> <span class="pre">adding</span> <span class="pre">sub*ids</span> <span class="pre">if</span> <span class="pre">not</span> <span class="pre">using</span> <span class="pre">a</span> <span class="pre">network</span> <span class="pre">user</span></code>
+or
+<code class="docutils literal notranslate"><span class="pre">WARN[0005]</span> <span class="pre">Failed</span> <span class="pre">to</span> <span class="pre">add</span> <span class="pre">pause</span> <span class="pre">process</span> <span class="pre">to</span> <span class="pre">systemd</span> <span class="pre">sandbox</span> <span class="pre">cgroup:</span> <span class="pre">dbus:</span> <span class="pre">couldn't</span> <span class="pre">determine</span> <span class="pre">address</span> <span class="pre">of</span> <span class="pre">session</span> <span class="pre">bus</span></code>
+but as far as we can see those can be safely ignored and should not have
+an impact on your images.</p>
+</div>
+</section>
+<section id="gpu">
+<h2>GPU<a class="headerlink" href="#gpu" title="Link to this heading"></a></h2>
+<p>To use a GPU in a container, you need a GPU job and then use <code class="docutils literal notranslate"><span class="pre">--device</span>
+<span class="pre">nvidia.com/gpu=all</span></code> to make all GPUs allocated available in the container or
+<code class="docutils literal notranslate"><span class="pre">--device</span> <span class="pre">nvidia.com/gpu=N</span></code> where <cite>N</cite> is the gpu index you want in the
+container, starting at 0.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ nvidia-smi
+Fri Dec 13 12:47:34 2024
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 560.35.03              Driver Version: 560.35.03      CUDA Version: 12.6     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA L40S                    On  |   00000000:4A:00.0 Off |                    0 |
+| N/A   25C    P8             36W /  350W |       1MiB /  46068MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   1  NVIDIA L40S                    On  |   00000000:61:00.0 Off |                    0 |
+| N/A   26C    P8             35W /  350W |       1MiB /  46068MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+$ podman run --device nvidia.com/gpu=all nvidia/cuda:11.6.1-base-ubuntu20.04 nvidia-smi
+Fri Dec 13 17:48:21 2024
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 560.35.03              Driver Version: 560.35.03      CUDA Version: 12.6     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA L40S                    On  |   00000000:4A:00.0 Off |                    0 |
+| N/A   25C    P8             36W /  350W |       1MiB /  46068MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   1  NVIDIA L40S                    On  |   00000000:61:00.0 Off |                    0 |
+| N/A   25C    P8             35W /  350W |       1MiB /  46068MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+$ podman run --device nvidia.com/gpu=0 nvidia/cuda:11.6.1-base-ubuntu20.04 nvidia-smi
+Fri Dec 13 17:48:33 2024
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 560.35.03              Driver Version: 560.35.03      CUDA Version: 12.6     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA L40S                    On  |   00000000:4A:00.0 Off |                    0 |
+| N/A   25C    P8             36W /  350W |       1MiB /  46068MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+$ podman run --device nvidia.com/gpu=1 nvidia/cuda:11.6.1-base-ubuntu20.04 nvidia-smi
+Fri Dec 13 17:48:40 2024
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 560.35.03              Driver Version: 560.35.03      CUDA Version: 12.6     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA L40S                    On  |   00000000:61:00.0 Off |                    0 |
+| N/A   25C    P8             35W /  350W |       1MiB /  46068MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+</pre></div>
+</div>
+<p>You can pass <code class="docutils literal notranslate"><span class="pre">--device</span></code> multiple times to add more than one gpus to the container.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>CDI (GPU) support documentation:
+<a class="reference external" href="https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/cdi-support.html#running-a-workload-with-cdi">https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/cdi-support.html#running-a-workload-with-cdi</a></p>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Userguide_portability.html" class="btn btn-neutral float-left" title="Portability concerns and solutions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Userguide_sharing_data.html" class="btn btn-neutral float-right" title="Sharing Data with ACLs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+<script type="text/javascript">
+  window.onload = function() {
+      $(".toggle > *").hide();
+      $(".toggle .header").show();
+      $(".toggle .header").click(function() {
+          $(this).parent().children().not(".header").toggle(400);
+          $(this).parent().children(".header").toggleClass("open");
+      })
+  };
+</script>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
