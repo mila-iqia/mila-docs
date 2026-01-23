@@ -134,28 +134,41 @@ Clusters
 Fir:
    (`Digital Research Alliance of Canada doc <https://docs.alliancecan.ca/wiki/Fir>`__)
 
-   The successor to the legacy Cedar cluster. Retains its filesystem.
+   The successor to the legacy Cedar cluster. Retains its filesystem. Equipped with H100s.
 
 Nibi:
    (`Digital Research Alliance of Canada doc <https://docs.alliancecan.ca/wiki/Nibi>`__)
 
-   The successor to the legacy Graham cluster. Retains its filesystem.
+   The successor to the legacy Graham cluster. Retains its filesystem. Equipped with H100s.
 Rorqual:
    (`Digital Research Alliance of Canada doc <https://docs.alliancecan.ca/wiki/Rorqual/en>`__)
 
-   The successor to the legacy Beluga cluster. No internet access on compute nodes.
+   The successor to the legacy Beluga cluster. No internet access on compute nodes. Equipped with H100s.
 Trillium:
    (`Digital Research Alliance of Canada doc <https://docs.alliancecan.ca/wiki/Trillium>`__)
 
    The successor to the legacy Niagara cluster. It is principally but not exclusively a
    CPU cluster. This cluster is not recommended in general. Compute resources
    in Trillium are not assigned to jobs on a per-CPU, but on a per-node basis.
+   Equipped with H100s.
 Narval:
    (`Digital Research Alliance of Canada doc <https://docs.alliancecan.ca/wiki/Narval/en>`__)
 
    For some students, Narval might be a good choice if they have already set up there.
    Narval is the oldest cluster still online, and contains the oldest and smallest GPUs (A100-40GB).
    The A100 may however be a viable choice for jobs that cannot utilize a full H100.
+TamIA:
+   (`Digital Research Alliance of Canada doc <https://docs.alliancecan.ca/wiki/TamIA/en>`__)
+
+   This is a new cluster dedicated to AI jobs for Quebec-area research institutes, within
+   the framework of PAICE (Pan-Canadian AI Compute Environment). Compute resources
+   in TamIA are not assigned to jobs on a per-CPU, but on a per-node basis.
+   Equipped with H100s and H200s.
+
+   TamIA does not use regular DRAC allocations (``--account=rrg-bengioy-ad``). Instead, it
+   uses AIP allocations (``--account=aip-${PI_NAME}``), where ``${PI_NAME}`` is the name of
+   your supervising professor. Your professor must add you to their AIP allocation before
+   you will be able to submit jobs.
 
 
 Launching Jobs
