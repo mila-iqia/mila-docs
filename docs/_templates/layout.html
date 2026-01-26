@@ -1,0 +1,11 @@
+{% extends "!layout.html" %}
+
+{% block extrahead %}
+{{ super() }}
+<script type="module" src="{{ pathto('src/main.tsx', 1) }}"></script>
+{% endblock %}
+
+{% block navigation %}
+<div id="search-bar-container"></div>
+{{ super() }}
+{% endblock %}
