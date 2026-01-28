@@ -1,0 +1,17 @@
+{% extends "!layout.html" %}
+
+{% block extrahead %}
+{{ super() }}
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/biel-search/dist/biel-search/biel-search.css">
+<script type="module" src="https://cdn.jsdelivr.net/npm/biel-search/dist/biel-search/biel-search.esm.js"></script> -->
+{% endblock %}
+
+{% block navigation %}
+<div class="wy-side-nav-search">
+    <biel-search-button project="yn43oxstgm" header-title="Biel.ai Search" button-position="bottom-right"
+        modal-position="sidebar-right" button-style="rounded">
+        Search the docs...
+    </biel-search-button>
+</div>
+{{ super() }}
+{% endblock %}

@@ -38,6 +38,7 @@ dev = [
     "sphinx-rtd-theme>=0.5.2",
     "sphinx-theme>=1.0",
     "urllib3<2",
+    "sphinx-biel>=0.1.8",
 ]
 test = [
     "pytest>=9.0.1",
@@ -45,6 +46,20 @@ test = [
     "pytest-xdist>=3.8.0",
     "setuptools>=80.9.0",
     "submitit>=1.5.3",
+]
+
+[tool.hatch.envs.default]
+installer = "uv"
+dependency-groups = ["dev"]
+post-install-commands = [
+    "uv sync",
+    "uv run pre-commit install",
+]
+
+[tool.hatch.envs.default.scripts]
+uv = 'UV_PROJECT_ENVIRONMENT="{env:VIRTUAL_ENV}" "$(which uv)" {args}'
+build = [
+    "uv run sphinx-build -b html '{root:real}/docs' '{root:real}/docs'/_build/",
 ]
 
 [tool.hatch.envs.hatch-test]
