@@ -1,0 +1,75 @@
+site_name: Mila Technical Documentation
+site_url: https://mila-iqia.github.io/docs
+repo_name: mila-docs
+repo_url: https://www.github.com/mila-iqia/mila-docs
+docs_dir: docs
+theme:
+  name: material
+  features:
+    - content.code.copy
+    - navigation.tracking # https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#anchor-tracking
+    - navigation.sections
+    - navigation.expand
+    - navigation.path
+    - navigation.indexes
+    - search.suggest
+    - search.highlight
+    - search.share
+  palette:
+    # Palette toggle for automatic mode
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to system preference
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - toc:
+      permalink: true
+  - attr_list
+plugins:
+  - search
+  - include-markdown:
+      dedent: true
+nav:
+  - Introduction:
+      - Purpose of this documentation: Purpose.md
+      - Contributing: Contributing.md
+  - How-tos and Guides:
+      - Quick Start: Userguide_quick_start.rst
+      - Logging in to the cluster: Userguide_login.rst
+      - Running your code: Userguide_running_code.rst
+      - Portability concerns and solutions: Userguide_portability.rst
+      - Using containers: Userguide_containers.rst
+      - Sharing Data with ACLs: Userguide_sharing_data.rst
+      - Contributing datasets: Userguide_datasets.rst
+      - Data Transmission using Globus Connect Personal: Userguide_data_transfer.rst
+      - Advanced SLURM usage and Multiple GPU jobs: Userguide_multigpu.rst
+      - Multiple Nodes: Userguide_multinode.rst
+      - Weights and Biases (WandB): Userguide_wandb.rst
+      - Comet: Userguide_comet.rst
+      - JupyterHub: Userguide_jupyterhub.rst
+      - Singularity: Userguide_singularity.rst
+      - Frequently asked questions (FAQ): Userguide_faq.rst
+  - Systems and services:
+      - Computing infrastructure and policies:
+  - Examples:
+      - Data Management: todo.md
+      - Good Practices: todo.md
+      - Performance Monitoring: todo.md
