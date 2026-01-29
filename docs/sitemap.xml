@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/Purpose.html</loc>
+  <lastmod>2026-01-29T21:44:04+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/Userguide_quick_start.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/Userguide_login.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/Userguide_running_code.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/Userguide_portability.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/Userguide_containers.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/Userguide_sharing_data.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/Userguide_datasets.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/Userguide_data_transfer.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/Userguide_multigpu.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/Userguide_multinode.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/Userguide_wandb.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/Userguide_comet.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/Userguide_jupyterhub.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/Userguide_singularity.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/Userguide_faq.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/Information.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/Extra_compute.html</loc>
+  <lastmod>2026-01-29T21:29:22+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/examples/frameworks/index.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/examples/distributed/index.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/examples/good_practices/index.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/examples/advanced/index.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/Theory_cluster.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/Acknowledgement.html</loc>
+  <lastmod>2026-01-29T21:29:22+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/Audio_video.html</loc>
+  <lastmod>2026-01-29T21:29:22+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/VSCode.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/IDT.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/Cheatsheet.html</loc>
+  <lastmod>2026-01-29T21:29:22+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/Environmental_impact.html</loc>
+  <lastmod>2026-01-29T21:29:22+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/examples/frameworks/pytorch_setup/index.html</loc>
+  <lastmod>2026-01-29T21:29:24+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/examples/frameworks/jax_setup/index.html</loc>
+  <lastmod>2026-01-29T21:29:24+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/examples/frameworks/jax/index.html</loc>
+  <lastmod>2026-01-29T21:29:24+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/examples/distributed/single_gpu/index.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/examples/distributed/multi_gpu/index.html</loc>
+  <lastmod>2026-01-29T21:29:24+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/examples/distributed/multi_node/index.html</loc>
+  <lastmod>2026-01-29T21:29:24+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/examples/good_practices/checkpointing/index.html</loc>
+  <lastmod>2026-01-29T21:29:24+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/examples/good_practices/wandb_setup/index.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/examples/good_practices/launch_many_jobs/index.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/examples/good_practices/hpo_with_orion/index.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/examples/good_practices/many_tasks_per_gpu/index.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/examples/good_practices/slurm_job_arrays/index.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/examples/advanced/imagenet/index.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/index.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/Information_roles_and_resources.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/Userguide_comms.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/Userguide_infra_choice.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/Information_nodes.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/Userguide_singularity_on_clusters.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/Userguide_debugging.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/Information_storage.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/Information_sharing_policies.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/Information_data_transmission.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/Information_monitoring.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/Information_rd_projects.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/Userguide_portability_modules.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/_static/2025-06-27_Mila_compute_cheat_sheet_v3.pdf</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/Information_support_level.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/Information_naming_schema.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/Information_datasets.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mila-docs--304.org.readthedocs.build/en/304/Information_software_management.html</loc>
+  <lastmod>2026-01-29T21:29:23+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+
+
+</urlset>

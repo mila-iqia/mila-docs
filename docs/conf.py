@@ -2,12 +2,13 @@
 # test
 from __future__ import division, print_function, unicode_literals
 
+import shutil
 import subprocess
-import sys
 from datetime import datetime
 from pathlib import Path
 
 import sphinx_theme
+from sphinx.application import Sphinx
 
 extensions = [
     "sphinx_prompt",
@@ -16,6 +17,7 @@ extensions = [
     "sphinx.ext.autosectionlabel",
     "sphinx.ext.todo",
     "myst_parser",
+    "sphinx_biel",
 ]
 
 templates_path = ["templates", "_templates", ".templates"]
@@ -107,5 +109,22 @@ except subprocess.CalledProcessError as err:
     )
 
 
-def setup(app):
+biel_project = "yn43oxstgm"
+biel_header_title = "Biel.ai chatbot"
+biel_version = "latest"
+
+
+def add_file(app: Sphinx, filename: str):
+    """Copy a file to the build directory."""
+    srcdir = Path(app.srcdir)
+    outdir = Path(app.outdir)
+
+    if not (srcdir / filename).exists():
+        raise FileNotFoundError(f"File {filename} not found in {srcdir}")
+
+    shutil.copy2(srcdir / filename, outdir / filename)
+
+
+def setup(app: Sphinx):
     app.add_css_file("custom.css")
+    add_file(app, "sitemap.xml")
