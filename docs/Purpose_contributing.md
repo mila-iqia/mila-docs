@@ -2,4 +2,7 @@
 
 See the following file for contribution guidelines :
 
-.. literalinclude:: ../CONTRIBUTING.md
+
+{%
+    include-markdown "../CONTRIBUTING.md"
+%}

@@ -11,7 +11,7 @@ theme:
     - navigation.sections
     - navigation.expand
     - navigation.path
-    - navigation.indexes
+    # - navigation.indexes
     - search.suggest
     - search.highlight
     - search.share
@@ -43,33 +43,76 @@ markdown_extensions:
   - toc:
       permalink: true
   - attr_list
+  # https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#configuration
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+
 plugins:
   - search
   - include-markdown:
       dedent: true
+  - literate-nav:
+      nav_file: README.md
 nav:
+  - Home: index.md
   - Introduction:
       - Purpose of this documentation: Purpose.md
-      - Contributing: Contributing.md
+      - Contributing: CONTRIBUTING.md
   - How-tos and Guides:
-      - Quick Start: Userguide_quick_start.rst
-      - Logging in to the cluster: Userguide_login.rst
-      - Running your code: Userguide_running_code.rst
-      - Portability concerns and solutions: Userguide_portability.rst
-      - Using containers: Userguide_containers.rst
-      - Sharing Data with ACLs: Userguide_sharing_data.rst
-      - Contributing datasets: Userguide_datasets.rst
-      - Data Transmission using Globus Connect Personal: Userguide_data_transfer.rst
-      - Advanced SLURM usage and Multiple GPU jobs: Userguide_multigpu.rst
-      - Multiple Nodes: Userguide_multinode.rst
-      - Weights and Biases (WandB): Userguide_wandb.rst
-      - Comet: Userguide_comet.rst
-      - JupyterHub: Userguide_jupyterhub.rst
-      - Singularity: Userguide_singularity.rst
-      - Frequently asked questions (FAQ): Userguide_faq.rst
+      - Quick Start: Userguide_quick_start.md
+      - Logging in to the cluster: Userguide_login.md
+      - Running your code: Userguide_running_code.md
+      - Portability concerns and solutions: Userguide_portability.md
+      - Using containers: Userguide_containers.md
+      - Sharing Data with ACLs: Userguide_sharing_data.md
+      - Contributing datasets: Userguide_datasets.md
+      - Data Transmission using Globus Connect Personal: Userguide_data_transfer.md
+      - Advanced SLURM usage and Multiple GPU jobs: Userguide_multigpu.md
+      - Multiple Nodes: Userguide_multinode.md
+      - Weights and Biases (WandB): Userguide_wandb.md
+      - Comet: Userguide_comet.md
+      - JupyterHub: Userguide_jupyterhub.md
+      - Singularity: Userguide_singularity.md
+      - Frequently asked questions (FAQ): Userguide_faq.md
   - Systems and services:
-      - Computing infrastructure and policies:
-  - Examples:
-      - Data Management: todo.md
-      - Good Practices: todo.md
-      - Performance Monitoring: todo.md
+      - Computing infrastructure and policies: Information.md
+      - Computational resources outside of Mila: Extra_compute.md
+  - Minimal Examples:
+      - Software Frameworks:
+          - PyTorch Setup: examples/frameworks/pytorch_setup/index.md
+          - Jax Setup: examples/frameworks/jax_setup/index.md
+          - Jax: examples/frameworks/jax/index.md
+      - Distributed Training:
+          - Single GPU Job: examples/distributed/single_gpu/index.md
+          - Multi-GPU Job: examples/distributed/multi_gpu/index.md
+          - Multi-node Job: examples/distributed/multi_node/index.md
+      - Good Practices:
+          - Checkpointing: examples/good_practices/checkpointing/index.md
+          - Weights & Biases (wandb) setup: examples/good_practices/wandb_setup/index.md
+          - Launch many jobs from same shell script: examples/good_practices/launch_many_jobs/index.md
+          - Hyperparameter Optimization with Orion: examples/good_practices/hpo_with_orion/index.md
+          - Launch many tasks on the same GPU: examples/good_practices/many_tasks_per_gpu/index.md
+          - Launch many jobs using SLURM job arrays: examples/good_practices/slurm_job_arrays/index.md
+      - Advanced Examples:
+          - Multi-Node / Multi-GPU ImageNet Training: examples/advanced/imagenet/index.md
+          - 🔗 Research Project Template: "https://mila-iqia.github.io/ResearchTemplate"
+  - General Theory:
+      - What is a computer cluster?: Theory_cluster_intro.md
+      - Parts of a computing cluster: Theory_cluster_parts.md
+      - Unix: Theory_cluster_unix.md
+      - The workload manager: Theory_cluster_batch_scheduling.md
+      - Processing data: Theory_cluster_data.md
+      - Software on the cluster: Theory_cluster_software_deps.md
+  - Extras:
+      - Acknowledging Mila: Acknowledgement.md
+      - Mila Datasets: "https://datasets.server.mila.quebec/"
+      - Audio and video resources at Mila: Audio_video.md
+      - Visual Studio Code: VSCode.md
+      - Who, what, where is IDT: IDT.md
+      - Cheat Sheet: Cheatsheet.md
+      - Environmental Impact: Environmental_impact.md

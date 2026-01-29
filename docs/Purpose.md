@@ -7,6 +7,10 @@ members.
 It also aims to be an outlet for sharing know-how, tips and tricks and examples
 from the IDT team to the Mila researcher community.
 
-.. include:: Purpose_audience.rst
+{%
+    include-markdown "Purpose_audience.md"
+%}
 
-.. include:: Purpose_contributing.rst
+{%
+    include-markdown "Purpose_contributing.md"
+%}
