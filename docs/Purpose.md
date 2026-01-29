@@ -11,6 +11,4 @@ from the IDT team to the Mila researcher community.
     include-markdown "Purpose_audience.md"
 %}
 
-{%
-    include-markdown "Purpose_contributing.md"
-%}
+
