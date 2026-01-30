@@ -19,76 +19,124 @@ Here are some guidelines to help bring your contributions to life.
 
 ### Issues
 
-Issues can be used to report any error in the documentation, missing or unclear
-sections, broken tools or other suggestions to improve the overall
-documentation.
+Issues can be used to report any error in the documentation, missing or 
+unclear sections, broken tools or other suggestions to improve the 
+overall documentation.
 
 ### Pull Requests
 
-PRs are welcome and we value the contents of contributions over the appearance
-or functionality of the pull request. If you don't know how to write the proper
-markup in reStructuredText, simply provide the content you would like to add in
-the PR text form which supports markdown or with instructions to format the
-content. In the PR, reference the related issues like this:
+PRs are welcome and we value the contents of contributions over the 
+appearance or functionality of the Pull Request. If you encounter problems 
+with the Markdown formatting, simply provide the content you would like to 
+add in the PR with instructions to format it. In the PR, reference the 
+related issues like this:
 
 ```
 Resolves: #123
 See also: #456, #789
 ```
 
-If you would like to contribute directly in the code of the documentation, keep
-the lines width to 80 characters or less. You can attempt to build the docs
-yourself to see if the formating is right:
+If you would like to contribute directly in the code of the documentation, 
+keep the lines width to 80 characters or less. You can attempt to build 
+the docs yourself to see if the formating is right. This could be done:
 
-#### pip installation
-```console
-python3 -m pip install -r docs/requirements.txt
-pre-commit install
-sphinx-build -b html docs/ docs/_build/
-```
+* by using `uv`
+* by using `pip`.
 
-#### conda installation
-```console
-conda env create --file docs/environment.yaml
-conda activate mila-docs
-sphinx-build -b html docs/ docs/_build/
-```
 
-This will produce the html version of the documentation which you can navigate
-by opening the local file `docs/_build/index.html`.
+=== "with uv"
+
+    `uv` simplifies the environment handling.
+    ```console
+    # Install uv
+    python -m pip install uv
+    ```
+
+    You can use it to:
+
+    * build the documentation and access it by opening a file
+    * or set up a local version on localhost.
+
+    #### Build then use a file
+    ```console
+    # Build the documentation using MKDocs
+    build mkdocs
+    ```
+
+    This will produce a version of the documentation which you can navigate
+    by opening the local file `site/index.html`.
+
+    #### Access through [localhost](http://127.0.0.1:8000/docs/)
+    You can also try it locally as follows:
+
+    ```console
+    mkdocs serve --livereload
+    ```
+
+    You can then access the local site through your browser at the URL
+    [http://127.0.0.1:8000/docs/](http://127.0.0.1:8000/docs/).
+
+=== "with pip"
+
+    ```console
+    # Set up the virtual environment
+    python -m venv venv
+
+    # Activate it
+    source venv/bin/activate
+
+    # Install the dependencies
+    python -m pip install mkdocs
+    python -m pip install mkdocs-material
+    python -m pip install mkdocs-include-markdown-plugin
+    python -m pip install mkdocs-literate-nav
+    ```
+
+    You can then either:
+
+    * build the documentation and access it by opening a file
+    * or set up a local version on localhost.
+
+    #### Build then use a file
+    ```console
+    # Build the documentation using MKDocs
+    build mkdocs
+    ```
+
+    This will produce a version of the documentation which you can navigate
+    by opening the local file `site/index.html`.
+
+    #### Access through [localhost](http://127.0.0.1:8000/docs/)
+    You can also try it locally as follows:
+
+    ```console
+    mkdocs serve --livereload
+    ```
+
+    You can then access the local site through your browser at the URL
+    [http://127.0.0.1:8000/docs/](http://127.0.0.1:8000/docs/).
+
 
 If you have any trouble building the docs, don't hesitate to open an issue to
 request help.
 
-Regarding the restructured text format, you can simply provide the content
-you would like to add in markdown or plain text format if more convenient
-for you and someone down the line should take responsibility to convert
-the format.
+## Markdown (md)
 
-## Sphinx / reStructuredText (reST)
-
-The markup language used for the Mila Docs is
-[reStructuredText](http://docutils.sourceforge.net/rst.html) and we follow the
-[Python’s Style Guide for documenting](https://docs.python.org/devguide/documenting.html#style-guide).
-
-Here are some of reST syntax directives which are useful to know :
-(more can be found in
-[Sphinx's reST Primer](https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html)):
+The markup language used for the Mila Docs is Markdown.
 
 
 ### Inline markup
 
 * one asterisk: `*text*` for *emphasis* (italics),
 * two asterisks: `**text**` for **strong emphasis** (boldface), and
-* backquotes: ` ``text`` ` for `code samples`, and
-* external links: `` `Link text <http://target>`_ ``.
+* backquotes: `` `text` `` for `code samples`, and
+* external links: `` [Link text](http://target)` ``.
 
 ### Lists
 
-```reST
+```md
 * this is
 * a list
-
   * with a nested list
   * and some subitems
 
@@ -97,41 +145,63 @@ Here are some of reST syntax directives which are useful to know :
 
 ### Sections
 
-```reST
-#################
-This is a heading
-#################
+```md
+# This is one of the main headers
+
+And this is its alternative
+===========================
+
+## This is a sub-header
+
+And this is its alternative
+---------------------------
+
+### This is a sub-sub-header
+#### Etc
 ```
-
-There are no heading levels assigned to certain characters as the structure is
-determined from the succession of headings. However, the Python documentation
-suggests the following convention:
-
-    * `#` with overline, for parts
-    * `*` with overline, for chapters
-    * `=`, for sections
-    * `-`, for subsections
-    * `^`, for subsubsections
-    * `"`, for paragraphs
 
 ### Note box
-
-```reST
-.. note:: This is a long
-   long long note
+[Admonitions](https://squidfunk.github.io/mkdocs-material/reference/admonitions/) are used
+to add panels. This is done through the `!!!` shortcut, depicted below. There are several types, such as `note`, `abstract`, `info`, `tip`,
+`success`, `question`, `warning`, `failure`, `danger`, `bug`, `example` or `quote`.
+```md
+!!! note
+   This is a note panel.
 ```
 
-### Collapsible boxes
+!!! note
+    This is a note panel.
 
-This is a local extension, not part of Sphinx itself.  It works like this:
-
-```reST
-.. container:: toggle
-
-    .. container:: header
-
-        **Show/Hide Code**
-
-    .. code-block:: <type>
-       ...
+```md
+!!! example
+   This is an example panel, such as below.
 ```
+
+!!! example
+    This is an example panel.
+
+
+Panels could also be collapsible by using `???` instead of `!!!`, such as:
+
+```md
+??? tip
+    I am collapsible!
+```
+
+??? tip
+    I am collapsible!
+
+### Tables
+Tables can be added by following the format below:
+```
+| Header 1      | Header 2         | Header 3 |
+| :----------   | :--------------- | :------- |
+| `First line`  | Hello world      |          |
+| `Second line` | Juste a new line | The end  |
+```
+
+| Header 1      | Header 2         | Header 3 |
+| :----------   | :--------------- | :------- |
+| `First line`  | Hello world      |          |
+| `Second line` | Juste a new line | The end  |
+
