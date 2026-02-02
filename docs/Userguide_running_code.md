@@ -298,38 +298,56 @@ ExtSensorsJoules=n/s ExtSensorsWatts=0 ExtSensorsTemp=n/s
 
 #### Useful Commands
 
+```console title="Get an interactive job and give you a shell. (ssh like) CPU only"
 salloc
-        Get an interactive job and give you a shell. (ssh like) CPU only
-salloc \--gres=gpu:1 -c 2 \--mem=12000
-        Get an interactive job with one GPU, 2 CPUs and 12000 MB RAM
+```
+
+```console title="Get an interactive job with one GPU, 2 CPUs and 12000 MB RAM"
+salloc --gres=gpu:1 -c 2 --mem=12000
+```
+
+```console title="start a batch job (same options as salloc)"
 sbatch
-        start a batch job (same options as salloc)
+```
+```console title="Re-attach a dropped interactive job"
 sattach \--pty <jobid>.0
-        Re-attach a dropped interactive job
+```
+```console title="status of all nodes"
 sinfo
-        status of all nodes
+```
+```console title="List GPU type and FEATURES that you can request"
 sinfo -Ogres:27,nodelist,features -tidle,mix,alloc
-        List GPU type and FEATURES that you can request
+```
+```console title="(Custom) List available gpus"
 savail
-        (Custom) List available gpu
+```
+```console title="Cancel a job"
 scancel <jobid>
-        Cancel a job
+```
+```console title="summary status of all active jobs"
 squeue
-        summary status of all active jobs
+```
+```console title="summary status of all YOUR active jobs"
 squeue -u $USER
-        summary status of all YOUR active jobs
+```
+```console title="summary status of a specific job"
 squeue -j <jobid>
-        summary status of a specific job
+```
+```console title="status of all jobs including requested resources (see the SLURM squeue doc for all output options)"
 squeue -Ojobid,name,username,partition,state,timeused,nodelist,gres,tres
-        status of all jobs including requested resources (see the SLURM squeue doc for all output options)
+```
+```console title="Detailed status of a running job"
 scontrol show job <jobid>
-        Detailed status of a running job
+```
+```console title="Get the node where a finished job ran"
 sacct -j <job_id> -o NodeList
-        Get the node where a finished job ran
+```
+```console title="Find info about old jobs"
 sacct -u $USER -S <start_time> -E <stop_time>
-        Find info about old jobs
+```
+```console title="List of current and recent jobs"
 sacct -oJobID,JobName,User,Partition,Node,State
-        List of current and recent jobs
+```
 
 #### Special GPU requirements
 
@@ -340,42 +358,51 @@ Specific GPU *architecture* and *memory* can be easily requested through the
 * `--gres=gpu:memory:number`
 * `--gres=gpu:model:number`
 
-*Example:*
+*Example*:
 
 To request 1 GPU with *at least* 48GB of memory use
 
- sbatch -c 4 --gres=gpu:48gb:1
+```console
+sbatch -c 4 --gres=gpu:48gb:1
+```
 
-The full list of GPU and their features can be accessed [here ](#node_list).
+The full list of GPU and their features can be accessed [here ](Information_nodes.md#node-profile-description).
 
 #### Example script
 
 Here is a `sbatch` script that follows good practices on the Mila cluster:
 
-.. code-block:: bash
-   :linenos:
+!!! note
+    This example is a bit outdated and uses Conda. In practice, we now recommend
+    that you use [uv](https://docs.astral.sh/uv) to manage your Python
+    environments.
+    See the [Minimal Examples Section](examples/frameworks/index.md) for more information.
 
-   #!/bin/bash
+<!-- TODO: Switch this to UV rather than conda. -->
 
-   #SBATCH --partition=unkillable                           # Ask for unkillable job
-   #SBATCH --cpus-per-task=2                                # Ask for 2 CPUs
-   #SBATCH --gres=gpu:1                                     # Ask for 1 GPU
-   #SBATCH --mem=10G                                        # Ask for 10 GB of RAM
-   #SBATCH --time=3:00:00                                   # The job will run for 3 hours
-   #SBATCH -o /network/scratch/<u>/<username>/slurm-%j.out  # Write the log on scratch
+```bash
+#!/bin/bash
 
-   # 1. Load the required modules
-   module --quiet load anaconda/3
+#SBATCH --partition=unkillable                           # Ask for unkillable job
+#SBATCH --cpus-per-task=2                                # Ask for 2 CPUs
+#SBATCH --gres=gpu:1                                     # Ask for 1 GPU
+#SBATCH --mem=10G                                        # Ask for 10 GB of RAM
+#SBATCH --time=3:00:00                                   # The job will run for 3 hours
+#SBATCH -o /network/scratch/<u>/<username>/slurm-%j.out  # Write the log on scratch
 
-   # 2. Load your environment
-   conda activate "<env_name>"
+# 1. Load the required modules
+module --quiet load anaconda/3
 
-   # 3. Copy your dataset on the compute node
-   cp /network/datasets/<dataset> $SLURM_TMPDIR
+# 2. Load your environment
+conda activate "<env_name>"
 
-   # 4. Launch your job, tell it to save the model in $SLURM_TMPDIR
-   #    and look for the dataset into $SLURM_TMPDIR
-   python main.py --path $SLURM_TMPDIR --data_path $SLURM_TMPDIR
+# 3. Copy your dataset on the compute node
+cp /network/datasets/<dataset> $SLURM_TMPDIR
 
-   # 5. Copy whatever you want to save on $SCRATCH
-   cp $SLURM_TMPDIR/<to_save> /network/scratch/<u>/<username>/
+# 4. Launch your job, tell it to save the model in $SLURM_TMPDIR
+#    and look for the dataset into $SLURM_TMPDIR
+python main.py --path $SLURM_TMPDIR --data_path $SLURM_TMPDIR
+
+# 5. Copy whatever you want to save on $SCRATCH
+cp $SLURM_TMPDIR/<to_save> /network/scratch/<u>/<username>/
+```

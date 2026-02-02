@@ -7,11 +7,12 @@ theme:
   name: material
   features:
     - content.code.copy
+    - content.code.select
+    - content.code.annotate
     - navigation.tracking # https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#anchor-tracking
     - navigation.sections
     - navigation.expand
     - navigation.path
-    # - navigation.indexes
     - search.suggest
     - search.highlight
     - search.share
