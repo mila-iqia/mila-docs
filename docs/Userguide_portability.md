@@ -41,6 +41,11 @@ if you wish to use `Python 3.10` you can simply do:
 module load python/3.10
 ```
 
+{%
+  include-markdown "Userguide_portability_modules.md"
+%}
+
+
 ## On using containers
 
 Another option for creating portable code is [Using containers](#Using containers).
