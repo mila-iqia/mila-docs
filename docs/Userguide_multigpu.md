@@ -1,10 +1,9 @@
-### Advanced SLURM usage and Multiple GPU jobs
+# Advanced SLURM usage and Multiple GPU jobs
 
-#### Handling preemption
+## Handling preemption
 
 On the Mila cluster, jobs can preempt one-another depending on their priority
-(unkillable>high>low) (See the `Slurm documentation
-<https://slurm.schedmd.com/preempt.html>`_)
+(unkillable>high>low) (See the [Slurm documentation](https://slurm.schedmd.com/preempt.html))
 
 The default preemption mechanism is to kill and re-queue the job automatically
 without any notice. To allow a different preemption mechanism, every partition
@@ -22,49 +21,47 @@ your job (`SIGKILL`).
 
 The easiest way to handle preemption is by trapping the `SIGTERM` signal
 
-.. code-block:: bash
-   :linenos:
+```bash
+#SBATCH --ntasks=1
+#SBATCH ....
 
-   #SBATCH --ntasks=1
-   #SBATCH ....
+exit_script() {
+      echo "Preemption signal, saving myself"
+      trap - SIGTERM # clear the trap
+      # Optional: sends SIGTERM to child/sub processes
+      kill -- -$$
+}
 
-   exit_script() {
-       echo "Preemption signal, saving myself"
-       trap - SIGTERM # clear the trap
-       # Optional: sends SIGTERM to child/sub processes
-       kill -- -$$
-   }
+trap exit_script SIGTERM
 
-   trap exit_script SIGTERM
+# The main script part
+python3 my_script
+```
 
-   # The main script part
-   python3 my_script
+!!! note "Requeuing"
+    The Slurm scheduler on the cluster does not allow a grace period before
+    preempting a job while requeuing it automatically, therefore your job will
+    be cancelled at the end of the grace period.
+    To automatically requeue it, you can just add the ``sbatch`` command inside
+    your ``exit_script`` function.
 
-> **NOTE**
-> | **Requeuing**:
-> | The Slurm scheduler on the cluster does not allow a grace period before
-> | preempting a job while requeuing it automatically, therefore your job will
-> | be cancelled at the end of the grace period.
-> | To automatically requeue it, you can just add the ``sbatch`` command inside
-> | your ``exit_script`` function.
+## Packing jobs
 
-#### Packing jobs
-
-##### Sharing a GPU between processes
+### Sharing a GPU between processes
 
 `srun`, when used in a batch job is responsible for starting tasks on the
 allocated resources (see srun) SLURM batch script
 
-.. code-block:: bash
-   :linenos:
-
-   #SBATCH --ntasks-per-node=2
-   #SBATCH --output=myjob_output_wrapper.out
-   #SBATCH --ntasks=2
-   #SBATCH --gres=gpu:1
-   #SBATCH --cpus-per-task=4
-   #SBATCH --mem=18G
-   srun -l --output=myjob_output_%t.out python script args
+<!-- TODO: Why use `srun -l` (stands for `srun --label`)? -->
+```bash
+#SBATCH --ntasks-per-node=2
+#SBATCH --output=myjob_output_wrapper.out
+#SBATCH --ntasks=2
+#SBATCH --gres=gpu:1
+#SBATCH --cpus-per-task=4
+#SBATCH --mem=18G
+srun --label --output=myjob_output_%t.out python script args
+```
 
 This will run Python 2 times, each process with 4 CPUs with the same arguments
 `--output=myjob_output_%t.out` will create 2 output files appending the task
@@ -72,23 +69,23 @@ id (`%t`) to the filename and 1 global log file for things happening outside
 the `srun` command.
 
 Knowing that, if you want to have 2 different arguments to the Python program,
-you can use a multi-prog configuration file: `srun -l --multi-prog silly.conf`
+you can use a multi-prog configuration file: `srun --label --multi-prog silly.conf`
 
-.. code-block::
-
-   0  python script firstarg
-   1  python script secondarg
+```
+0  python script firstarg
+1  python script secondarg
+```
 
 Or by specifying a range of tasks
 
-.. code-block::
-
-   0-1  python script %t
+```
+0-1  python script %t
+```
 
 %t being the taskid that your Python script will parse.  Note the `-l` on the
 `srun` command: this will prepend each line with the taskid (0:, 1:)
 
-##### Sharing a node with multiple GPU 1process/GPU
+### Sharing a node with multiple GPU 1process/GPU
 
 On Digital Research Alliance of Canada, several nodes, especially nodes with
 `largeGPU` (P100) are reserved for jobs requesting the whole node, therefore
@@ -107,21 +104,20 @@ Each `srun` represents a job step (`%s`).
 Example for a GPU node with 24 cores and 4 GPUs and 128G of RAM
 Requesting 1 task per GPU
 
-.. code-block:: bash
-   :linenos:
-
-   #!/bin/bash
-   #SBATCH --nodes=1-1
-   #SBATCH --ntasks-per-node=4
-   #SBATCH --output=myjob_output_wrapper.out
-   #SBATCH --gres=gpu:4
-   #SBATCH --cpus-per-task=6
-   srun --gres=gpu:1 -n1 --mem=30G -l --output=%j-step-%s.out --exclusive --multi-prog python script args1 &
-   srun --gres=gpu:1 -n1 --mem=30G -l --output=%j-step-%s.out --exclusive --multi-prog python script args2 &
-   srun --gres=gpu:1 -n1 --mem=30G -l --output=%j-step-%s.out --exclusive --multi-prog python script args3 &
-   srun --gres=gpu:1 -n1 --mem=30G -l --output=%j-step-%s.out --exclusive --multi-prog python script args4 &
-   wait
-
+```bash
+#!/bin/bash
+#SBATCH --nodes=1-1
+#SBATCH --ntasks-per-node=4
+#SBATCH --output=myjob_output_wrapper.out
+#SBATCH --gres=gpu:4
+#SBATCH --cpus-per-task=6
+srun --gres=gpu:1 --ntasks=1 --mem=30G --label --output=%j-step-%s.out --exclusive --multi-prog python script args1 &
+srun --gres=gpu:1 --ntasks=1 --mem=30G --label --output=%j-step-%s.out --exclusive --multi-prog python script args2 &
+srun --gres=gpu:1 --ntasks=1 --mem=30G --label --output=%j-step-%s.out --exclusive --multi-prog python script args3 &
+srun --gres=gpu:1 --ntasks=1 --mem=30G --label --output=%j-step-%s.out --exclusive --multi-prog python script args4 &
+wait
+```
+ 
 This will create 4 output files:
 
 - JOBID-step-0.out
@@ -129,7 +125,7 @@ This will create 4 output files:
 - JOBID-step-2.out
 - JOBID-step-3.out
 
-##### Sharing a node with multiple GPU & multiple processes/GPU
+### Sharing a node with multiple GPU & multiple processes/GPU
 
 Combining both previous sections, we can create a script requesting a whole node
 with four GPUs, allocating 1 GPU per `srun` and sharing each GPU with multiple
@@ -138,21 +134,19 @@ processes
 Example still with a 24 cores/4 GPUs/128G RAM
 Requesting 2 tasks per GPU
 
-.. code-block:: bash
-   :linenos:
-
-   #!/bin/bash
-   #SBATCH --nodes=1-1
-   #SBATCH --ntasks-per-node=8
-   #SBATCH --output=myjob_output_wrapper.out
-   #SBATCH --gres=gpu:4
-   #SBATCH --cpus-per-task=3
-   srun --gres=gpu:1 -n2 --mem=30G -l --output=%j-step-%s-task-%t.out --exclusive --multi-prog silly.conf &
-   srun --gres=gpu:1 -n2 --mem=30G -l --output=%j-step-%s-task-%t.out --exclusive --multi-prog silly.conf &
-   srun --gres=gpu:1 -n2 --mem=30G -l --output=%j-step-%s-task-%t.out --exclusive --multi-prog silly.conf &
-   srun --gres=gpu:1 -n2 --mem=30G -l --output=%j-step-%s-task-%t.out --exclusive --multi-prog silly.conf &
-   wait
-
+```bash
+#!/bin/bash
+#SBATCH --nodes=1-1
+#SBATCH --ntasks-per-node=8
+#SBATCH --output=myjob_output_wrapper.out
+#SBATCH --gres=gpu:4
+#SBATCH --cpus-per-task=3
+srun --gres=gpu:1 --ntasks=2 --mem=30G --label --output=%j-step-%s-task-%t.out --exclusive --multi-prog silly.conf &
+srun --gres=gpu:1 --ntasks=2 --mem=30G --label --output=%j-step-%s-task-%t.out --exclusive --multi-prog silly.conf &
+srun --gres=gpu:1 --ntasks=2 --mem=30G --label --output=%j-step-%s-task-%t.out --exclusive --multi-prog silly.conf &
+srun --gres=gpu:1 --ntasks=2 --mem=30G --label --output=%j-step-%s-task-%t.out --exclusive --multi-prog silly.conf &
+wait
+```
 `--exclusive` is important to specify subsequent step/srun to bind to different cpus.
 
 This will produce 8 output files, 2 for each step:
@@ -168,7 +162,7 @@ This will produce 8 output files, 2 for each step:
 
 Running `nvidia-smi` in silly.conf, while parsing the output, we can see 4
 GPUs allocated and 2 tasks per GPU
-
+```bash
 $ cat JOBID-step-* | grep Tesla
 0: |   0  Tesla P100-PCIE...  On   | 00000000:04:00.0 Off |                    0 |
 1: |   0  Tesla P100-PCIE...  On   | 00000000:04:00.0 Off |                    0 |
@@ -178,3 +172,4 @@ $ cat JOBID-step-* | grep Tesla
 1: |   0  Tesla P100-PCIE...  On   | 00000000:82:00.0 Off |                    0 |
 0: |   0  Tesla P100-PCIE...  On   | 00000000:03:00.0 Off |                    0 |
 1: |   0  Tesla P100-PCIE...  On   | 00000000:03:00.0 Off |                    0 |
+```
