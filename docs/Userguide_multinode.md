@@ -1,5 +1,5 @@
 # Multiple Nodes
-
+<!-- TODO: Add link to the distributed and multi-node examples in the minimal examples section. -->
 ## Data Parallel
 
 ![Data Parallel diagram](_static/dataparallel.png)

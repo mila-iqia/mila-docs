@@ -1,5 +1,5 @@
 # Advanced SLURM usage and Multiple GPU jobs
-
+<!-- TODO: Add link to the job packing and multi-gpu examples in the minimal examples section. -->
 ## Handling preemption
 
 On the Mila cluster, jobs can preempt one-another depending on their priority
