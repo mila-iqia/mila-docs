@@ -15,15 +15,14 @@ Here are some guidelines to help bring your contributions to life.
 
 **_NOTE_**: Examples should aim to not consume much more than 1 GPU/hour and 2 CPU/hour
 
-## Issues / Pull Requests
 
-### Issues
+## Issues
 
 Issues can be used to report any error in the documentation, missing or 
 unclear sections, broken tools or other suggestions to improve the 
 overall documentation.
 
-### Pull Requests
+## Pull Requests
 
 PRs are welcome and we value the contents of contributions over the 
 appearance or functionality of the Pull Request. If you encounter problems 
@@ -38,91 +37,47 @@ See also: #456, #789
 
 If you would like to contribute directly in the code of the documentation, 
 keep the lines width to 80 characters or less. You can attempt to build 
-the docs yourself to see if the formating is right. This could be done:
+the docs yourself to see if the formating is right. This is done using [`uv`](https://docs.astral.sh/uv):
 
-* by using `uv`
-* by using `pip`.
+## Building the docs
 
+First, install `uv` if you don't have it yet, using the commands described in the [Getting Started section of the uv documentation](https://docs.astral.sh/uv/getting-started/installation/).
 
-=== "with uv"
+You can use it to:
 
-    `uv` simplifies the environment handling.
-    ```console
-    # Install uv
-    python -m pip install uv
-    ```
+* build the documentation and view it by opening an HTML file, or
+* serve the docs locally on localhost.
 
-    You can use it to:
+This command will build the documentation, which can be viewed by opening the local file `site/index.html`:
 
-    * build the documentation and access it by opening a file
-    * or set up a local version on localhost.
+```console
+uv run mkdocs build
+```
 
-    #### Build then use a file
-    ```console
-    # Build the documentation using MKDocs
-    build mkdocs
-    ```
+## Serving the docs locally
 
-    This will produce a version of the documentation which you can navigate
-    by opening the local file `site/index.html`.
+You can also serve the site with a simple HTTP server with live reloading when a file changes. This is particularly useful if you want to improve the docs and see your changes in real time.
 
-    #### Access through [localhost](http://127.0.0.1:8000/docs/)
-    You can also try it locally as follows:
+```console
+uv run mkdocs serve --livereload
+```
 
-    ```console
-    mkdocs serve --livereload
-    ```
-
-    You can then access the local site through your browser at the URL
-    [http://127.0.0.1:8000/docs/](http://127.0.0.1:8000/docs/).
-
-=== "with pip"
-
-    ```console
-    # Set up the virtual environment
-    python -m venv venv
-
-    # Activate it
-    source venv/bin/activate
-
-    # Install the dependencies
-    python -m pip install mkdocs
-    python -m pip install mkdocs-material
-    python -m pip install mkdocs-include-markdown-plugin
-    python -m pip install mkdocs-literate-nav
-    ```
-
-    You can then either:
-
-    * build the documentation and access it by opening a file
-    * or set up a local version on localhost.
-
-    #### Build then use a file
-    ```console
-    # Build the documentation using MKDocs
-    build mkdocs
-    ```
-
-    This will produce a version of the documentation which you can navigate
-    by opening the local file `site/index.html`.
-
-    #### Access through [localhost](http://127.0.0.1:8000/docs/)
-    You can also try it locally as follows:
-
-    ```console
-    mkdocs serve --livereload
-    ```
-
-    You can then access the local site through your browser at the URL
-    [http://127.0.0.1:8000/docs/](http://127.0.0.1:8000/docs/).
-
+You can then access the local site through your browser at the URL
+[http://127.0.0.1:8000/docs/](http://127.0.0.1:8000/docs/).
 
 If you have any trouble building the docs, don't hesitate to open an issue to
 request help.
 
-## Markdown (md)
+## Markdown examples
 
 The markup language used for the Mila Docs is Markdown.
+The documentation framework used is [MkDocs](https://www.mkdocs.org/), with the [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) theme.
+
+Here are some examples of the most common Markdown constructs used in the Mila Docs. We encourage you to take a look a the mkdocs and mkdocs-material documentation for more examples:
+
+- [MkDocs documentation](https://www.mkdocs.org/user-guide/writing-your-docs/)
+- [MkDocs-Material documentation](https://squidfunk.github.io/mkdocs-material/reference/)
+
 
 
 ### Inline markup
@@ -195,13 +150,19 @@ Panels could also be collapsible by using `???` instead of `!!!`, such as:
 Tables can be added by following the format below:
 ```
 | Header 1      | Header 2         | Header 3 |
-| :----------   | :--------------- | :------- |
+| ------------- | ---------------- | -------- |
 | `First line`  | Hello world      |          |
 | `Second line` | Juste a new line | The end  |
 ```
 
 | Header 1      | Header 2         | Header 3 |
-| :----------   | :--------------- | :------- |
+| ------------- | ---------------- | -------- |
 | `First line`  | Hello world      |          |
 | `Second line` | Juste a new line | The end  |
+
+
+For more examples of what is possible with Markdown in MkDocs, please refer to the mkdocs documentation and mkdocs-material documentation pages:
+
+- [MkDocs documentation](https://www.mkdocs.org/user-guide/writing-your-docs/)
+- [MkDocs-Material documentation](https://squidfunk.github.io/mkdocs-material/reference/)
 
