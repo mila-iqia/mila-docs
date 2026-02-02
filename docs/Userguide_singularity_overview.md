@@ -1,6 +1,6 @@
-#### Overview
+## Overview
 
-##### What is Singularity?
+### What is Singularity?
 
 Running Docker on SLURM is a security problem (e.g. running as root, being able
 to mount any directory).  The alternative is to use Singularity, which is a
@@ -13,14 +13,13 @@ Oftentimes, Docker images from DockerHub are 100% compatible with Singularity,
 and they can indeed be used without friction, but things get messy when
 we try to convert our own Docker build files to Singularity recipes.
 
-##### Links to official documentation
+### Links to official documentation
 
-* official `Singularity user guide
-  <https://singularity-docs.readthedocs.io/en/latest/>`_ (this is the one you
-  will use most often)
-* official [Singularity admin guide ](https://sylabs.io/guides/latest/admin-guide/)
+* official [Singularity user guide](https://singularity-docs.readthedocs.io/en/latest/
+  (this is the one you will use most often)
+* official [Singularity admin guide](https://sylabs.io/guides/latest/admin-guide/)
 
-##### Overview of the steps used in practice
+### Overview of the steps used in practice
 
 Most often, the process to create and use a Singularity container is:
 
@@ -44,7 +43,7 @@ Most often, the process to create and use a Singularity container is:
 In the following sections you will find specific examples or tips to accomplish
 in practice the steps highlighted above.
 
-##### Nope, not on MacOS
+### Nope, not on MacOS
 
 Singularity does not work on MacOS, as of the time of this writing in 2021.
 Docker does not *actually* run on MacOS, but there Docker silently installs a
@@ -55,7 +54,7 @@ Given its origins in HPC, Singularity does not provide that kind of seamless
 experience on MacOS, even though it's technically possible to run it
 inside a Linux virtual machine on MacOS.
 
-##### Where to build images
+### Where to build images
 
 Building Singularity images is a rather heavy task, which can take 20 minutes
 if you have a lot of steps in your recipe. This makes it a bad task to run on
@@ -65,8 +64,9 @@ On the Mila cluster, we are lucky to have unrestricted internet access on the co
 nodes, which means that anyone can request an interactive CPU node (no need for GPU)
 and build their images there without problem.
 
-> **WARNING**
-> job in a large batch.  This will be a colossal waste of GPU time as well as
-> internet bandwidth.  If you setup your workflow properly (e.g. using bind
-> paths for your code and data), you can spend months reusing the same
-> Singularity image ``my-pytorch-image.sif``.
+!!! warning
+    Do not build Singularity images from scratch every time your run a job in a
+    large batch.  This will be a colossal waste of GPU time as well as internet
+    bandwidth. If you setup your workflow properly (e.g. using bind paths for
+    your code and data), you can spend months reusing the same Singularity image
+    ``my-pytorch-image.sif``.
