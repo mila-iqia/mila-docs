@@ -1,4 +1,4 @@
-### Portability concerns and solutions
+# Portability concerns and solutions
 
 When working on a software project, it is important to be aware of all the
 software and libraries the project relies on and to list them explicitly and
@@ -22,27 +22,35 @@ To achieve this, try to always keep in mind the following aspects:
   should *not* update the environment for project B. That way, you can freely
   install and upgrade software and libraries for the former without worrying about
   breaking the latter (which you might not notice until weeks later, the next time
-  you work on project B!) Isolation can be made easy using [using_uv](#using_uv), as well as
-  [Python Virtual environments](#Python Virtual environments) and, as a last resort, [containers](#containers).
+  you work on project B!) Isolation can be made easy using [using uv](#uv), as well as
+  [Python Virtual environments](Theory_cluster_software_deps.md#python-virtual-environments)
+  and, as a last resort, [containers](Theory_cluster_software_deps.md#containers).
 
-#### Using Modules
+
+{%
+  include-markdown "Userguide_python.md"
+%}
+
+
+## Using Modules
 
 A lot of software, such as Python and Conda, is already compiled and available on
 the cluster through the `module` command and its sub-commands. In particular,
-if you wish to use `Python 3.7` you can simply do:
+if you wish to use `Python 3.10` you can simply do:
+```bash
+module load python/3.10
+```
 
- module load python/3.7
-
-#### On using containers
+## On using containers
 
 Another option for creating portable code is [Using containers](#Using containers).
 
 Containers are a popular approach at deploying applications by packaging a lot
 of the required dependencies together. The most popular tool for this is
-[Docker ](https://www.docker.com/), but Docker cannot be used on the Mila
+[Docker](https://www.docker.com/), but Docker cannot be used on the Mila
 cluster (nor the other clusters from Digital Research Alliance of Canada).
 
 One popular mechanism for containerisation on a computational cluster is called
-[Podman ](https://podman.io/).  This is the recommended approach for running
-containers on the Mila cluster. See section [Using containers](#Using containers) for more
+[Podman](https://podman.io/).  This is the recommended approach for running
+containers on the Mila cluster. See the [Using containers section](Userguide_containers.md#using-containers) for more
 details.
