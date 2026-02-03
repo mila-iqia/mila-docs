@@ -45,6 +45,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
     - [Frequently asked questions (FAQ)](Userguide_faq.md)
 - Systems and services
     - [Computing infrastructure and policies](Information.md)
+        - [Node profile description](Information_nodes.md)
     - [Computational resources outside of Mila](Extra_compute.md)
 - Minimal Examples
     - Software Frameworks
@@ -66,8 +67,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
         - [Multi-Node / Multi-GPU ImageNet Training](examples/advanced/imagenet/index.md)
         - [🔗 Research Project Template](https://mila-iqia.github.io/ResearchTemplate)
 - General Theory
-    - [What is a computer cluster?](Theory_cluster_intro.md)
-    - [Parts of a computing cluster](Theory_cluster_parts.md)
+    - [What is a computer cluster?](Theory_cluster_parts.md)
     - [Unix](Theory_cluster_unix.md)
     - [The workload manager](Theory_cluster_batch_scheduling.md)
     - [Processing data](Theory_cluster_data.md)
