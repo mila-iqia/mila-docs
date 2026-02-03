@@ -1,4 +1,4 @@
-### Roles and authorizations
+# Roles and authorizations
 
 There are mainly two types of researchers statuses at Mila :
 
@@ -9,13 +9,13 @@ This is determined by Mila policy. Core researchers have access to the Mila
 computing cluster. See your supervisor's Mila status to know what is your own
 status.
 
-### Overview of available computing resources at Mila
+# Overview of available computing resources at Mila
 
 The Mila cluster is to be used for regular development and relatively small
 number of jobs (< 5). It is a heterogeneous cluster. It uses
 [SLURM](#slurmpage) to schedule jobs.
 
-#### Mila cluster versus Digital Research Alliance of Canada clusters
+## Mila cluster versus Digital Research Alliance of Canada clusters
 
 There are a lot of commonalities between the Mila cluster and the clusters from
 Digital Research Alliance of Canada (the Alliance). At the time being, the

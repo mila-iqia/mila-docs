@@ -1,4 +1,4 @@
-### Data sharing policies
+# Data sharing policies
 
 > **NOTE**
 > `Access Control Lists (ACLs)

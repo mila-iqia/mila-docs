@@ -1,13 +1,12 @@
-## Computing infrastructure and policies
+# Computing infrastructure and policies
 
 This section seeks to provide factual information and policies on the Mila cluster computing environments.
 
-.. meta::
-   :http-equiv=Refresh: 0; url=Information_roles_and_resources.html
-
-.. raw:: html
-
-   <meta http-equiv="refresh" content="0; url=Information_roles_and_resources.html" />
-   <script>
-       window.location.href = "Information_roles_and_resources.html";
-   </script>
+<!--nav-->
+* [Roles and authorizations](Information_roles_and_resources.md)
+<!-- * [Overview of available computing resources at Mila](Information_computing_resources.md) -->
+* [Node profile description](Information_node_profiles.md)
+* [Storage](Information_storage.md)
+* [Data sharing policies](Information_sharing_policies.md)
+* [Data Transmission](Information_data_transmission.md)
+* [Monitoring](Information_monitoring.md)

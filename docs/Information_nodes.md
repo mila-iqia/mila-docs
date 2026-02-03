@@ -1,4 +1,4 @@
-### Node profile description
+# Node profile description
 
 .. role:: h(raw)
    :format: html

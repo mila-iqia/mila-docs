@@ -13,6 +13,7 @@ theme:
     - navigation.sections
     - navigation.expand
     - navigation.path
+    # - navigation.indexes
     - search.suggest
     - search.highlight
     - search.share

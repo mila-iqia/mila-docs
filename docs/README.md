@@ -44,8 +44,13 @@ If you find any errors in the documentation, missing or unclear sections, or wou
     - [Singularity](Userguide_singularity.md)
     - [Frequently asked questions (FAQ)](Userguide_faq.md)
 - Systems and services
-    - [Computing infrastructure and policies](Information.md)
+    - Computing infrastructure and policies
+        - [Roles and authorizations](Information_roles_and_resources.md)
         - [Node profile description](Information_nodes.md)
+        - [Storage](Information_storage.md)
+        - [Data sharing policies](Information_sharing_policies.md)
+        - [Data Transmission](Information_data_transmission.md)
+        - [Monitoring](Information_monitoring.md)
     - [Computational resources outside of Mila](Extra_compute.md)
 - Minimal Examples
     - Software Frameworks
