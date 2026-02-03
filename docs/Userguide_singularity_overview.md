@@ -15,7 +15,7 @@ we try to convert our own Docker build files to Singularity recipes.
 
 ### Links to official documentation
 
-* official [Singularity user guide](https://singularity-docs.readthedocs.io/en/latest/
+* official [Singularity user guide](https://singularity-docs.readthedocs.io/en/latest/)
   (this is the one you will use most often)
 * official [Singularity admin guide](https://sylabs.io/guides/latest/admin-guide/)
 
