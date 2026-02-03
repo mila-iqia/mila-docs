@@ -7,7 +7,7 @@ designed for high-performance computations, but clusters can also use
 specialized nodes to offer parallel file systems, databases, login nodes and
 even the cluster scheduling functionality as pictured in the image below.
 
-.. image:: cluster_overview2.png
+![Cluster overview](cluster_overview2.png)
 
 We will overview the different types of nodes which you can encounter on a
 typical cluster.
@@ -20,7 +20,7 @@ login nodes are the entry point to most clusters.
 
 Another entry point to some clusters such as the Mila cluster is the JupyterHub
 web interface, but we'll read about that later. For now let's return to the
-subject of this section; Login nodes. To connect to these, you would typically
+subject of this section: Login nodes. To connect to these, you would typically
 use a remote shell connection. The most usual tool to do so is SSH. You'll hear
 and read a lot about this tool. Imagine it as a very long (and somewhat
 magical) extension cord which connects the computer you are using now, such as
@@ -37,7 +37,7 @@ for nodes, this is not always possible in the field of artificial intelligence
 as the hardware evolve rapidly as is being complemented by new hardware and so
 on. Hence, you will often read about computational node classes. Some of which
 might have different GPU models or even no GPU at all. For the Mila cluster you
-will find this information in the [Node profile description](#Node profile description) section. For
+will find this information in the [Node profile description](Information_nodes.md#node-profile-description) section. For
 now, you should note that is important to keep in mind that you should be aware
 of *which* nodes your code is running on.  More on that later.
 
@@ -45,8 +45,8 @@ of *which* nodes your code is running on.  More on that later.
 
 Some computers on a cluster function to only store and serve files.  While the
 name of these computers might matter to some, as a user, you'll only be
-concerned about the path to the data. More on that in the :ref:`Processing
-data` section.
+concerned about the path to the data. More on that in the [Processing
+data](Theory_cluster_data.md) section.
 
 ### Different nodes for different uses
 
