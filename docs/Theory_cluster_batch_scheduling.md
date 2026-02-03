@@ -106,14 +106,13 @@ to ensure you estimate resource usage accurately.
 
 ### Mila information
 
-**Mila** as well as `Digital Research Alliance of Canada
-<https://docs.alliancecan.ca/wiki/Technical_documentation>`_ use the workload
-manager [Slurm ](https://slurm.schedmd.com/documentation.html) to schedule and
+**Mila** as well as 
+[Digital Research Alliance of Canada](https://docs.alliancecan.ca/wiki/Technical_documentation) 
+use the workload manager [Slurm](https://slurm.schedmd.com/documentation.html) to schedule and
 allocate resources on their infrastructure.
 
 **Slurm** client commands are available on the login nodes for you to submit
 jobs to the main controller and add your job to the queue. Jobs are of 2 types:
 *batch* jobs and *interactive* jobs.
 
-For practical examples of Slurm commands on the Mila cluster, see :ref:`Running
-your code`.
+For practical examples of Slurm commands on the Mila cluster, see [Running your code](Userguide_running_code.md).
