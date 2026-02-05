@@ -52,6 +52,18 @@ test = [
     "submitit>=1.5.3",
 ]
 
+[tool.hatch.envs.default]
+installer = "uv"
+dependency-groups = ["dev"]
+post-install-commands = [
+    "uv sync",
+    "uv run pre-commit install",
+]
+
+[tool.hatch.envs.default.scripts]
+uv = 'UV_PROJECT_ENVIRONMENT="{env:VIRTUAL_ENV}" "$(which uv)" {args}'
+serve = ["mkdocs serve --livereload --open {args}"]
+
 [tool.hatch.envs.hatch-test]
 installer = "uv"
 dependency-groups = ["dev", "test"]

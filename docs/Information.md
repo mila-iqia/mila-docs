@@ -2,12 +2,7 @@
 
 This section seeks to provide factual information and policies on the Mila cluster computing environments.
 
-.. meta::
-   :http-equiv=Refresh: 0; url=Information_roles_and_resources.html
+This page redirects to [Roles and computing resources](Information_roles_and_resources.md).
 
-.. raw:: html
-
-   <meta http-equiv="refresh" content="0; url=Information_roles_and_resources.html" />
-   <script>
-       window.location.href = "Information_roles_and_resources.html";
-   </script>
+<meta http-equiv="refresh" content="0; url=../Information_roles_and_resources/" />
+<script>window.location.href = "../Information_roles_and_resources/";</script>
