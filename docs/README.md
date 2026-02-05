@@ -50,6 +50,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
         - [Storage](Information_storage.md)
         - [Data sharing policies](Information_sharing_policies.md)
         - [Data Transmission](Information_data_transmission.md)
+        - [Monitoring](Information_monitoring.md)
     - [Computational resources outside of Mila](Extra_compute.md)
 - Minimal Examples
     - Software Frameworks
