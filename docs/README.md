@@ -45,6 +45,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
     - [Frequently asked questions (FAQ)](Userguide_faq.md)
 - Systems and services
     - [Computing infrastructure and policies](Information.md)
+        - [Roles and computing resources](Information_roles_and_resources.md)
         - [Node profile description](Information_nodes.md)
     - [Computational resources outside of Mila](Extra_compute.md)
 - Minimal Examples

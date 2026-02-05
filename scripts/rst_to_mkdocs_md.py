@@ -121,11 +121,7 @@ def rst_to_md(text: str, *, rst_path: Path, docs_root: Path) -> str:
         flags=re.M,
     )
 
-    # Remove stray underline-only lines that can remain when conversion isn't perfect.
-    text = re.sub(r"^=+\s*$", "", text, flags=re.M)
-    text = re.sub(r"^-+\s*$", "", text, flags=re.M)
-
-    # Headings: underline style to Markdown ATX style
+    # Headings: underline style to Markdown ATX style (must run before removing underlines)
     lines = text.splitlines()
     out: list[str] = []
     i = 0
@@ -137,12 +133,11 @@ def rst_to_md(text: str, *, rst_path: Path, docs_root: Path) -> str:
                 ch = ul.strip()[0]
                 level_map = {
                     "#": 1,
-                    "=": 1,
                     "*": 2,
-                    "-": 2,
-                    "^": 3,
-                    "~": 4,
-                    "+": 5,
+                    "=": 3,
+                    "-": 4,
+                    "^": 5,
+                    '"': 6,
                 }
                 lvl = level_map.get(ch, 2)
                 out.append("#" * lvl + " " + line.strip())
@@ -152,6 +147,10 @@ def rst_to_md(text: str, *, rst_path: Path, docs_root: Path) -> str:
         out.append(line)
         i += 1
     text = "\n".join(out) + "\n"
+
+    # Remove stray underline-only lines that can remain (e.g. from tables).
+    text = re.sub(r"^=+\s*$", "", text, flags=re.M)
+    text = re.sub(r"^-+\s*$", "", text, flags=re.M)
 
     # Convert literalinclude directives into a fenced block placeholder.
     # We don't inline files here (some are large or not meant to render), but this
