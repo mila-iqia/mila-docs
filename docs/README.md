@@ -47,6 +47,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
     - [Computing infrastructure and policies](Information.md)
         - [Roles and computing resources](Information_roles_and_resources.md)
         - [Node profile description](Information_nodes.md)
+        - [Storage](Information_storage.md)
     - [Computational resources outside of Mila](Extra_compute.md)
 - Minimal Examples
     - Software Frameworks
