@@ -57,7 +57,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
         - [PyTorch Setup](examples/frameworks/pytorch_setup/index.md)
         - [Jax Setup](examples/frameworks/jax_setup/index.md)
         - [Jax](examples/frameworks/jax/index.md)
-    - Distributed Training
+    - [Distributed Training](examples/distributed/index.md)
         - [Single GPU Job](examples/distributed/single_gpu/index.md)
         - [Multi-GPU Job](examples/distributed/multi_gpu/index.md)
         - [Multi-node Job](examples/distributed/multi_node/index.md)
