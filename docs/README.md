@@ -53,7 +53,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
         - [Monitoring](Information_monitoring.md)
     - [Computational resources outside of Mila](Extra_compute.md)
 - Minimal Examples
-    - Software Frameworks
+    - [Software Frameworks](examples/frameworks/index.md)
         - [PyTorch Setup](examples/frameworks/pytorch_setup/index.md)
         - [Jax Setup](examples/frameworks/jax_setup/index.md)
         - [Jax](examples/frameworks/jax/index.md)
