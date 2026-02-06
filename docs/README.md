@@ -68,7 +68,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
         - [Hyperparameter Optimization with Orion](examples/good_practices/hpo_with_orion/index.md)
         - [Launch many tasks on the same GPU](examples/good_practices/many_tasks_per_gpu/index.md)
         - [Launch many jobs using SLURM job arrays](examples/good_practices/slurm_job_arrays/index.md)
-    - Advanced Examples
+    - [Advanced Examples](examples/advanced/index.md)
         - [Multi-Node / Multi-GPU ImageNet Training](examples/advanced/imagenet/index.md)
         - [🔗 Research Project Template](https://mila-iqia.github.io/ResearchTemplate)
 - General Theory
