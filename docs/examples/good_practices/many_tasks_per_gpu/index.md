@@ -1,4 +1,7 @@
+<a id="many_tasks_per_gpu"></a>
+
 ### Launch many tasks on the same GPU
+
 
 If you want to use a powerful GPU efficiently, you can run many tasks on same GPU
 using a combination of `sbatch` arguments. In your `sbatch` script:
@@ -12,23 +15,31 @@ Each task will receive specific environment variables, such as `SLURM_PROCID`,
 which you can then use to parameterize the script execution.
 
 **Prerequisites**
+
 Make sure to read the following sections of the documentation before using this
 example:
 
-* :doc:`/examples/frameworks/pytorch_setup/index`
+* [PyTorch setup](../../frameworks/pytorch_setup/index.md)
 
 The full source code for this example is available on [the mila-docs GitHub
-repository.
-](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/good_practices/many_tasks_per_gpu)
+repository.](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/good_practices/many_tasks_per_gpu)
 
 **job.sh**
 
+```diff
+--8<-- "docs/examples/good_practices/many_tasks_per_gpu/job.sh.diff"
+```
+
 **main.py**
 
-**Running this example**
+```diff
+--8<-- "docs/examples/good_practices/many_tasks_per_gpu/main.py.diff"
+```
+
+#### Running this example
 
 You can launch this example with sbatch:
 
 ```bash
-
-    $ sbatch job.sh
+ $ sbatch job.sh
+```
