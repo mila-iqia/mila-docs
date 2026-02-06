@@ -44,7 +44,6 @@ If you find any errors in the documentation, missing or unclear sections, or wou
     - [Singularity](Userguide_singularity.md)
     - [Frequently asked questions (FAQ)](Userguide_faq.md)
 - Systems and services
-    - Computing infrastructure and policies
     - [Computing infrastructure and policies](Information.md)
         - [Node profile description](Information_nodes.md)
         - [Storage](Information_storage.md)
