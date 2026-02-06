@@ -66,7 +66,7 @@ def rst_to_md(text: str, *, rst_path: Path, docs_root: Path) -> str:
     def repl_include(m: re.Match) -> str:
         inc = m.group(1).strip()
         inc_md = re.sub(r"\.rst$", ".md", inc)
-        return f"<!-- include: {inc_md} -->\n\n"
+        return f'--8<-- "{inc_md}"\n\n'
 
     text = re.sub(r"^\.\. include::\s+(.+?)\s*\n\s*\n", repl_include, text, flags=re.M)
 
@@ -152,15 +152,22 @@ def rst_to_md(text: str, *, rst_path: Path, docs_root: Path) -> str:
     text = re.sub(r"^=+\s*$", "", text, flags=re.M)
     text = re.sub(r"^-+\s*$", "", text, flags=re.M)
 
-    # Convert literalinclude directives into a fenced block placeholder.
-    # We don't inline files here (some are large or not meant to render), but this
-    # eliminates warnings about unknown directives.
+    # Convert literalinclude directives to pymdownx.snippets syntax (--8<-- "path").
+    # Paths are resolved relative to the current RST file, then expressed from
+    # docs_root so MkDocs (run from project root) finds the file.
     def repl_literalinclude(m: re.Match) -> str:
         path = m.group(1).strip()
         lang = m.group(2)
         lang = (lang or "").strip()
         fence = lang if lang else "text"
-        return f"```{fence}\n# (literalinclude) {path}\n```\n\n"
+        try:
+            included_full = (rst_path.parent / path).resolve()
+            docs_abs = docs_root.resolve()
+            rel = included_full.relative_to(docs_abs)
+            snippet_path = (docs_root / rel).as_posix()
+        except (ValueError, TypeError):
+            snippet_path = path
+        return f'```{fence}\n--8<-- "{snippet_path}"\n```\n\n'
 
     text = re.sub(
         r"^\.\. literalinclude::\s+(.+?)\s*\n(?:\s+:language:\s*([^\n]+)\n)?\s*\n",
