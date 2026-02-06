@@ -61,7 +61,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
         - [Single GPU Job](examples/distributed/single_gpu/index.md)
         - [Multi-GPU Job](examples/distributed/multi_gpu/index.md)
         - [Multi-node Job](examples/distributed/multi_node/index.md)
-    - Good Practices
+    - [Good Practices](examples/good_practices/index.md)
         - [Checkpointing](examples/good_practices/checkpointing/index.md)
         - [Weights & Biases (wandb) setup](examples/good_practices/wandb_setup/index.md)
         - [Launch many jobs from same shell script](examples/good_practices/launch_many_jobs/index.md)
