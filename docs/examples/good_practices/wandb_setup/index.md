@@ -1,35 +1,43 @@
 ### Wandb Setup
 
+
 Prerequisites:
 
-* :doc:`/examples/frameworks/pytorch_setup/index`
-* :doc:`/examples/distributed/single_gpu/index`
+* [PyTorch setup](../../frameworks/pytorch_setup/index.md)
+* [Single GPU](../../distributed/single_gpu/index.md)
 
-Make sure to create a Wandb account, then you can either :
+Make sure to create a Wandb account, then you can either:
 
 * Set your `WANDB_API_KEY` environment variable
 * Run `wandb login` from the command line
 
 Other resources:
 
-* `<https://docs.wandb.ai/quickstart>`_
+* [Wandb quickstart](https://docs.wandb.ai/quickstart)
 
-Click here to see [the source code for this example
-](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/good_practices/wandb_setup)
+Click here to see [the source code for this example](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/good_practices/wandb_setup).
 
 **job.sh**
 
+```diff
+--8<-- "docs/examples/good_practices/wandb_setup/job.sh.diff"
+```
+
 **main.py**
 
-**Running this example**
+```diff
+--8<-- "docs/examples/good_practices/wandb_setup/main.py.diff"
+```
 
-Note : On DRAC clusters you will need to run `wandb off` to log your data as offline mode.
-You will then be able to upload your runs with the command `wandb sync --sync-all`
+#### Running this example
+
+**Note:** On DRAC clusters you will need to run `wandb off` to log your data as offline mode.
+You will then be able to upload your runs with the command `wandb sync --sync-all`.
 
 ```bash
-
-    $ wandb login
+$ wandb login
+```
 
 ```bash
-
-    $ sbatch job.sh
+$ sbatch job.sh
+```
