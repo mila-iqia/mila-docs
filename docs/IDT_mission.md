@@ -1,4 +1,5 @@
 ### IDT's mission
 
-.. image::
-   IDT.png
+
+![](IDT.png)
+
