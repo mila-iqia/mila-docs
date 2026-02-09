@@ -83,7 +83,7 @@ Click here to see [the source code for this example](https://github.com/mila-iqi
 name = "multi-node-example"
 version = "0.1.0"
 description = "Add your description here"
-readme = "README.rst"
+readme = "README.md"
 requires-python = ">=3.11,<3.14"
 dependencies = [
     "rich>=14.0.0",
