@@ -3,7 +3,6 @@
 from __future__ import division, print_function, unicode_literals
 
 import subprocess
-import sys
 from datetime import datetime
 from pathlib import Path
 
@@ -19,7 +18,7 @@ extensions = [
 ]
 
 templates_path = ["templates", "_templates", ".templates"]
-source_suffix = [".rst", ".md"]
+source_suffix = [".rst"]
 master_doc = "index"
 project = "Mila Technical Documentation"
 copyright = str(datetime.now().year)
@@ -42,6 +41,8 @@ exclude_patterns = [
     "IDT_*",
     "singularity/*",
     "examples/**/README.rst",
+    "*.md",
+    "**/*.md",
     # 'examples/*',
 ]
 # The name of the Pygments (syntax highlighting) style to use.
