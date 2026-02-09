@@ -1,7 +1,5 @@
-### Data sharing policies
+# Data sharing policies
 
-
-<a id="acl_note"></a>
 
 !!! note
     [`/network/scratch`](Information_storage.md#scratch) aims to support [Access
@@ -11,7 +9,7 @@
     model checkpoints, etc.
 
 
-[`/network/projects`](Information_storage.md) aims to offer a collaborative
+[`/network/projects`](Information_storage.md#projects) aims to offer a collaborative
 space for long-term projects. Data that should be kept for a longer period than
 90 days can be stored in that location but first a request to [Mila's
 helpdesk](https://it-support.mila.quebec) has to be made to create the project
