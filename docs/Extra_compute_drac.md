@@ -1,6 +1,4 @@
-<a id="drac_clusters"></a>
-
-### Digital Research Alliance of Canada Clusters
+# Digital Research Alliance of Canada Clusters
 
 
 The clusters named `Fir`, `Nibi`, `Narval`, `Rorqual` and `Trillium` are
@@ -29,7 +27,7 @@ computational resources throughout the year. From the Alliance's documentation:
 use for a period of time, usually a year.`
 
 
-#### Current Allocation Description
+## Current Allocation Description
 
 
 Depending on your supervisor's affiliations, you will have access to different
@@ -42,11 +40,11 @@ should have access to.
 The table below provides information on the allocation for ``rrg-bengioy-ad``
 for the period which spans from July 2025 to Summer 2026.
 
-| Cluster | CPUs | account | Model | RGUs allocated | # GPU equiv | SLURM type specifier | account |
-|---------|------|---------|-------|----------------|-------------|----------------------|---------|
-| [Fir](#fir) | 193 | rrg-bengioy-ad | H100-80G | 2000 | 165 | `h100` | rrg-bengioy-ad |
-| [Rorqual](#rorqual) | 873 | rrg-bengioy-ad | H100-80G | 1500 | 123 | `h100` | rrg-bengioy-ad |
-| [Nibi](#nibi) | 0 | rrg-bengioy-ad | H100-80G | 1000 | 82 | `h100` | rrg-bengioy-ad |
+| Cluster             | CPUs | account        | Model    | RGUs allocated | # GPU equiv | SLURM type specifier | account        |
+| ------------------- | ---- | -------------- | -------- | -------------- | ----------- | -------------------- | -------------- |
+| [Fir](#fir)         | 193  | rrg-bengioy-ad | H100-80G | 2000           | 165         | `h100`               | rrg-bengioy-ad |
+| [Rorqual](#rorqual) | 873  | rrg-bengioy-ad | H100-80G | 1500           | 123         | `h100`               | rrg-bengioy-ad |
+| [Nibi](#nibi)       | 0    | rrg-bengioy-ad | H100-80G | 1000           | 82          | `h100`               | rrg-bengioy-ad |
 
 
 On DRAC clusters where Mila has no allocated resources under ``rrg-bengioy-ad``
@@ -71,7 +69,7 @@ the control of Mila, and we are unable to provide support for such management.
     these installations.
 
 
-#### Account Creation
+## Account Creation
 
 
 To access the Alliance clusters you have to first create an account at
@@ -98,7 +96,7 @@ your supervisor is member of the ``rrg-bengioy-ad`` allocation, you should apply
 you should apply separately using your supervisor's CCRI to have access to ``def-<yoursupervisor>``. Ask your supervisor
 to share these CCRI with you.
 
-#### Account Renewal
+## Account Renewal
 
 
 All user accounts (Sponsor & Sponsored) have to be renewed annually in order to
@@ -112,27 +110,27 @@ If the FAQ is of no help, you can contact DRAC renewal support team at
 ``renewals@tech.alliancecan.ca`` or the general support team at
 ``support@tech.alliancecan.ca``.
 
-#### Clusters
+## Clusters
 
-##### Fir
+### Fir
 
 [Digital Research Alliance of Canada doc](https://docs.alliancecan.ca/wiki/Fir)
 
 The successor to the legacy Cedar cluster. Retains its filesystem. Equipped with H100s.
 
-##### Nibi
+### Nibi
 
 [Digital Research Alliance of Canada doc](https://docs.alliancecan.ca/wiki/Nibi)
 
 The successor to the legacy Graham cluster. Retains its filesystem. Equipped with H100s.
 
-##### Rorqual
+### Rorqual
 
 [Digital Research Alliance of Canada doc](https://docs.alliancecan.ca/wiki/Rorqual/en)
 
 The successor to the legacy Beluga cluster. No internet access on compute nodes. Equipped with H100s.
 
-##### Trillium
+### Trillium
 
 [Digital Research Alliance of Canada doc](https://docs.alliancecan.ca/wiki/Trillium)
 
@@ -141,7 +139,7 @@ CPU cluster. This cluster is not recommended in general. Compute resources
 in Trillium are not assigned to jobs on a per-CPU, but on a per-node basis.
 Equipped with H100s.
 
-##### Narval
+### Narval
 
 [Digital Research Alliance of Canada doc](https://docs.alliancecan.ca/wiki/Narval/en)
 
@@ -149,7 +147,7 @@ For some students, Narval might be a good choice if they have already set up the
 Narval is the oldest cluster still online, and contains the oldest and smallest GPUs (A100-40GB).
 The A100 may however be a viable choice for jobs that cannot utilize a full H100.
 
-##### TamIA
+### TamIA
 
 [Digital Research Alliance of Canada doc](https://docs.alliancecan.ca/wiki/TamIA/en)
 
@@ -164,7 +162,7 @@ your supervising professor. Your professor must add you to their AIP allocation 
 you will be able to submit jobs.
 
 
-#### Launching Jobs
+## Launching Jobs
 
 
 Users must specify the resource allocation Group Name using the flag
@@ -193,14 +191,14 @@ salloc --time=1:00:00 --account=rrg-bengioy-ad --gres=gpu:1
 The full documentation for jobs launching on Alliance clusters can be found
 [here](https://docs.alliancecan.ca/wiki/Running_jobs).
 
-#### DRAC Storage
+## DRAC Storage
 
-| Storage | Path | Usage |
-|---------|------|-------|
-| `$HOME` | /home/\<user\>/ | Code, specific libraries |
-| `$HOME/projects` | /project/rrg-bengioy-ad | Compressed raw datasets |
-| `$SCRATCH` | /scratch/\<user\> | Processed datasets, experimental results, logs of experiments |
-| `$SLURM_TMPDIR` | (on compute node) | Temporary job results |
+| Storage          | Path                      | Usage                                                         |
+| ---------------- | ------------------------- | ------------------------------------------------------------- |
+| `$HOME`          | `/home/<user>/`           | Code, specific libraries                                      |
+| `$HOME/projects` | `/project/rrg-bengioy-ad` | Compressed raw datasets                                       |
+| `$SCRATCH`       | `/scratch/<user>`         | Processed datasets, experimental results, logs of experiments |
+| `$SLURM_TMPDIR`  | (on compute node)         | Temporary job results                                         |
 
 They are roughly listed in order of increasing performance and optimized for
 different uses:
@@ -227,17 +225,17 @@ to Mila servers.
 More details on storage can be found [here](https://docs.alliancecan.ca/wiki/Storage_and_file_management).
 
 
-#### Modules
+## Modules
 
 
 Much software, such as Python or MATLAB, is already compiled and available on
 DRAC clusters through the ``module`` command and its subcommands. Their full
 documentation can be found [here](https://docs.alliancecan.ca/wiki/Utiliser_des_modules/en).
 
-| Command | Description |
-|---------|-------------|
-| `module avail` | Displays all the available modules |
-| `module load <module>` | Loads \<module\> |
+| Command                  | Description                             |
+| ------------------------ | --------------------------------------- |
+| `module avail`           | Displays all the available modules      |
+| `module load <module>`   | Loads \<module\>                        |
 | `module spider <module>` | Shows specific details about \<module\> |
 
 In particular, if you with to use ``Python 3.12`` you can simply do:
@@ -262,7 +260,7 @@ Such wheels can be installed using pip. Moreover, the most efficient way to use
 modules on the cluster is to [build your environnement inside your job](https://docs.alliancecan.ca/wiki/Python#Creating_virtual_environments_inside_of_your_jobs).
 See the script example below.
 
-#### Script Example
+## Script Example
 
 Here is a ``sbatch`` script that follows good practices on Narval and can serve
 as inspiration for more complicated scripts:
@@ -297,7 +295,7 @@ python main.py --path $SLURM_TMPDIR --data_path $SLURM_TMPDIR
 cp $SLURM_TMPDIR/RESULTS_CHANGEME $SCRATCH
 ```
 
-##### Using CometML and Wandb
+### Using CometML and Wandb
 
 
 The compute nodes for Narval, Rorqual and Tamia don't have access to the
@@ -319,10 +317,10 @@ More documentation about this can be found [here](https://docs.alliancecan.ca/wi
     to use the offline mode with wandb instead to avoid such waste.
 
 
-#### FAQ
+## FAQ
 
 
-##### What are RGUs?
+### What are RGUs?
 
 
 DRAC uses a concept called `RGUs` (Reference GPU Units) to measure the
@@ -338,13 +336,13 @@ That proposed RGU measurement can still be improved, but criticisms about it
 are outside the scope of this document.
 
 
-##### What to do with  `ImportError: /lib64/libm.so.6: version GLIBC_2.23 not found`?
+### What to do with  `ImportError: /lib64/libm.so.6: version GLIBC_2.23 not found`?
 
 
 The structure of the file system is different than a classical Linux, so your
 code has trouble finding libraries. See [how to install binary packages](https://docs.alliancecan.ca/wiki/Installing_software_in_your_home_directory#Installing_binary_packages).
 
-##### Disk quota exceeded error on `/project` file systems
+### Disk quota exceeded error on `/project` file systems
 
 
 You have files in ``/project`` with the wrong permissions. See [how to change
