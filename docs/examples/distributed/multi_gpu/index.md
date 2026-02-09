@@ -1,4 +1,4 @@
-### Multi-GPU Job
+# Multi-GPU Job
 
 
 Prerequisites:
@@ -31,7 +31,7 @@ Click here to see [the code for this example](https://github.com/mila-iqia/mila-
 --8<-- "docs/examples/distributed/multi_gpu/main.py.diff"
 ```
 
-#### Running this example
+## Running this example
 
 ```bash
 sbatch job.sh
