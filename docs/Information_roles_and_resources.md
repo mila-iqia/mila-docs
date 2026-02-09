@@ -1,4 +1,4 @@
-### Roles and authorizations
+# Roles and authorizations
 
 
 There are mainly two types of researchers statuses at Mila :
@@ -11,7 +11,7 @@ computing cluster. See your supervisor's Mila status to know what is your own
 status.
 
 
-### Overview of available computing resources at Mila
+## Overview of available computing resources at Mila
 
 
 The Mila cluster is to be used for regular development and relatively small
@@ -19,7 +19,7 @@ number of jobs (< 5). It is a heterogeneous cluster. It uses
 [SLURM](Userguide_running_code.md) to schedule jobs.
 
 
-#### Mila cluster versus Digital Research Alliance of Canada clusters
+### Mila cluster versus Digital Research Alliance of Canada clusters
 
 
 There are a lot of commonalities between the Mila cluster and the clusters from
@@ -39,7 +39,7 @@ true in times when your favorite cluster is oversubscribed, because you can
 easily switch over to a different one if you are used to it.
 
 
-#### Guarantees about one GPU as absolute minimum
+### Guarantees about one GPU as absolute minimum
 
 
 There are certain guarantees that the Mila cluster tries to honor when it comes
