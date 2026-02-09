@@ -51,7 +51,7 @@ uv run python main.py
 name = "pytorch-setup"
 version = "0.1.0"
 description = "Add your description here"
-readme = "README.rst"
+readme = "README.md"
 requires-python = ">=3.11,<3.14"
 dependencies = ["torch>=2.7.1"]
 
