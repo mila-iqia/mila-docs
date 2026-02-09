@@ -1,6 +1,4 @@
-<a id="single_gpu_job"></a>
-
-### Single GPU Job
+# Single GPU Job
 
 
 **Prerequisites**
@@ -30,7 +28,7 @@ repository.](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/di
 --8<-- "docs/examples/distributed/single_gpu/main.py"
 ```
 
-#### Running this example
+## Running this example
 
 ```bash
  $ sbatch job.sh

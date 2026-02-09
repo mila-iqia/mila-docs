@@ -2,9 +2,7 @@
      This is done so this file can be easily viewed from the GitHub UI.
      DO NOT EDIT -->
 
-<a id="single_gpu_job"></a>
-
-### Single GPU Job
+# Single GPU Job
 
 
 **Prerequisites**
@@ -304,7 +302,7 @@ if __name__ == "__main__":
 
 ```
 
-#### Running this example
+## Running this example
 
 ```bash
  $ sbatch job.sh

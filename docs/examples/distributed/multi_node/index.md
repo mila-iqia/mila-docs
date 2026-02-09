@@ -1,4 +1,4 @@
-### Multi-Node (DDP) Job
+# Multi-Node (DDP) Job
 
 
 Prerequisites:
@@ -33,7 +33,7 @@ Click here to see [the source code for this example](https://github.com/mila-iqi
 --8<-- "docs/examples/distributed/multi_node/main.py.diff"
 ```
 
-#### Running this example
+## Running this example
 
 ```bash
  $ sbatch job.sh

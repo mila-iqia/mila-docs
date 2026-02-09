@@ -1,4 +1,4 @@
-## Distributed Training
+# Distributed Training
 
 --8<-- "docs/examples/header.md"
 
