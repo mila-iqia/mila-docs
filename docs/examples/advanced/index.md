@@ -1,4 +1,4 @@
-## Advanced Examples
+# Advanced Examples
 
 --8<-- "docs/examples/header.md"
 

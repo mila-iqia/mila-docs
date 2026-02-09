@@ -1,4 +1,8 @@
-### Multi-Node / Multi-GPU ImageNet Training
+<!-- NOTE: This file is auto-generated from examples/advanced/imagenet/index.md
+     This is done so this file can be easily viewed from the GitHub UI.
+     DO NOT EDIT -->
+
+# Multi-Node / Multi-GPU ImageNet Training
 
 
 Prerequisites:
@@ -1201,7 +1205,7 @@ if __name__ == "__main__":
 
 ```
 
-#### Running this example
+## Running this example
 
 You can submit this as a batch job with sbatch, or you can run it in an interactive job with `srun`:
 

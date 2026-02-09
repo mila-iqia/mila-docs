@@ -1,4 +1,4 @@
-### Multi-Node / Multi-GPU ImageNet Training
+# Multi-Node / Multi-GPU ImageNet Training
 
 
 Prerequisites:
@@ -70,7 +70,7 @@ You need to run it once before running the main training script.
 --8<-- "docs/examples/advanced/imagenet/main.py"
 ```
 
-#### Running this example
+## Running this example
 
 You can submit this as a batch job with sbatch, or you can run it in an interactive job with `srun`:
 
