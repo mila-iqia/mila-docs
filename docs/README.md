@@ -52,7 +52,6 @@ If you find any errors in the documentation, missing or unclear sections, or wou
         - [Data Transmission](Information_data_transmission.md)
         - [Monitoring](Information_monitoring.md)
     - [Computational resources outside of Mila](Extra_compute.md)
-        - [Digital Research Alliance of Canada (DRAC) clusters](Extra_compute_drac.md)
 - Minimal Examples
     - Software Frameworks
         - [PyTorch Setup](examples/frameworks/pytorch_setup/index.md)
