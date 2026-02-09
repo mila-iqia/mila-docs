@@ -1,7 +1,8 @@
-"""Generate GitHub README's from index.rst files
+"""Generate GitHub README's from index.rst and index.md files
 
 GitHub doesn't support include of other files, even of the same type and
-location, so this file generates a README.rst with files content embedded.
+location, so this file generates README.rst and README.md with file content
+embedded.
 """
 
 from __future__ import annotations
@@ -26,7 +27,8 @@ def preprocess():
 
     1. Generates the diffs between examples and their base to be shown in the docs.
     2. Makes sure that each example has a link to the source code on GitHub.
-    3. Makes a GitHub-friendly version of the example and saves it as a `README.rst` file.
+    3. Makes a GitHub-friendly version of the example and saves it as README.rst
+       (from index.rst) and README.md (from index.md).
     """
 
     generate_diffs(DOCS_ROOT)
@@ -45,6 +47,18 @@ def preprocess():
             example_readme_template_path, new_content.splitlines()
         )
         example_readme_path = example_readme_template_path.with_name("README.rst")
+        example_readme_path.write_text("\n".join(new_content) + "\n")
+
+    # Same for Markdown: find index.md and generate README.md with inlined content.
+    for example_readme_template_path in DOCS_ROOT.rglob("examples/*/*/**/index.md"):
+        logger.debug(f"{example_readme_template_path}")
+        check_github_links(example_readme_template_path)
+
+        new_content = inline_docs_for_github_viewing_md(example_readme_template_path)
+        new_content = make_links_github_friendly_md(
+            example_readme_template_path, new_content.splitlines()
+        )
+        example_readme_path = example_readme_template_path.with_name("README.md")
         example_readme_path.write_text("\n".join(new_content) + "\n")
 
 
@@ -234,6 +248,100 @@ def inline_docs_for_github_viewing(example_readme_template_path: Path) -> str:
     # Replace tabs with 4 spaces (otherwise rstcheck complains):
     new_content = "\n".join(new_content_lines).replace("\t", " " * 4)
     return new_content
+
+
+def _get_path_to_file_md(filename: str, example_readme_template_path: Path) -> Path:
+    """Resolve snippet path for Markdown: from project root (docs/...) or relative."""
+    if filename.startswith("docs/"):
+        return DOCS_ROOT.parent / filename
+    if "/" not in filename:
+        return example_readme_template_path.parent / filename
+    raise NotImplementedError(
+        f"Example {example_readme_template_path} uses a path in --8<-- that is neither "
+        f"project-root (docs/...) nor a single filename: {filename!r}"
+    )
+
+
+def inline_docs_for_github_viewing_md(example_readme_template_path: Path) -> str:
+    """Replaces pymdown snippet blocks (--8<-- \"path\") with the contents of the file.
+
+    Replace this:
+    ```lang
+    --8<-- "path/to/file"
+    ```
+    with the actual file contents inside the same fenced block so the README.md
+    is self-contained for GitHub.
+    """
+    relative_readme_template_path = example_readme_template_path.relative_to(DOCS_ROOT)
+    content = example_readme_template_path.read_text()
+    # Match fenced code block with optional language: ```lang or ```
+    # then a single line --8<-- "path", then closing ```
+    snippet_pattern = re.compile(
+        r"(^```(\w*)\s*\n)"
+        r"(--8<--\s+\"([^\"]+)\"\s*\n)"
+        r"(```\s*$)",
+        re.MULTILINE,
+    )
+
+    def replacer(match: re.Match[str]) -> str:
+        opening, language, _snippet_line, file_path_str, closing = match.groups()
+        file_path = _get_path_to_file_md(
+            file_path_str.strip(), example_readme_template_path
+        )
+        if not file_path.exists():
+            raise RuntimeError(
+                f"The example at {example_readme_template_path} has a snippet "
+                f"--8<-- {file_path_str!r} which can't be found at {file_path}."
+            )
+        body = file_path.read_text()
+        # Keep the same fence and language so syntax highlighting still works
+        lang_part = language if language else ""
+        return f"```{lang_part}\n{body}\n```\n"
+
+    new_content = snippet_pattern.sub(replacer, content)
+    # Prepend an HTML comment so the file is clearly auto-generated (GitHub hides it)
+    header = (
+        f"<!-- NOTE: This file is auto-generated from {relative_readme_template_path}\n"
+        "     This is done so this file can be easily viewed from the GitHub UI.\n"
+        "     DO NOT EDIT -->\n\n"
+    )
+    return header + new_content
+
+
+def make_links_github_friendly_md(
+    readme_template_path: Path, content_lines: list[str]
+) -> list[str]:
+    """Converts relative links to other example index.md pages into GitHub tree links."""
+    current_dir = readme_template_path.parent
+    result = []
+    # Match [text](path) where path is relative and points to .../something/index.md
+    # (another example doc). We resolve and convert to GitHub tree URL.
+    link_pattern = re.compile(r"\[([^\]]+)\]\(([^)]+)\)")
+    examples_prefix = "docs/examples/"
+    for line in content_lines:
+        def repl(m: re.Match[str]) -> str:
+            link_text, href = m.group(1), m.group(2)
+            href_stripped = href.strip()
+            if href_stripped.startswith("http") or href_stripped.startswith("#"):
+                return m.group(0)
+            try:
+                resolved = (current_dir / href_stripped).resolve()
+            except Exception:
+                return m.group(0)
+            try:
+                rel = resolved.relative_to(DOCS_ROOT)
+            except ValueError:
+                return m.group(0)
+            rel_str = str(rel).replace("\\", "/")
+            if not rel_str.startswith("examples/") or not rel_str.endswith("index.md"):
+                return m.group(0)
+            folder = rel_str[: -len("index.md")].rstrip("/")
+            github_link = (
+                f"https://github.com/mila-iqia/mila-docs/tree/master/docs/{folder}"
+            )
+            return f"[{link_text}]({github_link})"
+        result.append(link_pattern.sub(repl, line))
+    return result
 
 
 if __name__ == "__main__":
