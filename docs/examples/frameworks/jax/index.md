@@ -1,6 +1,4 @@
-<a id="jax"></a>
-
-### Jax
+# Jax
 
 
 **Prerequisites**
@@ -33,7 +31,7 @@ repository.](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/fr
 --8<-- "docs/examples/frameworks/jax/model.py"
 ```
 
-#### Running this example
+## Running this example
 
 ```bash
 $ sbatch job.sh

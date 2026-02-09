@@ -1,6 +1,4 @@
-<a id="pytorch_setup"></a>
-
-### PyTorch Setup
+# PyTorch Setup
 
 
 **Prerequisites**: (Make sure to read the following before using this example!)
@@ -34,7 +32,7 @@ repository.](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/fr
 --8<-- "docs/examples/frameworks/pytorch_setup/main.py"
 ```
 
-#### Running this example
+## Running this example
 
 This assumes that you already installed UV on the cluster you are working on.
 

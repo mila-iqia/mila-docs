@@ -2,9 +2,7 @@
      This is done so this file can be easily viewed from the GitHub UI.
      DO NOT EDIT -->
 
-<a id="pytorch_setup"></a>
-
-### PyTorch Setup
+# PyTorch Setup
 
 
 **Prerequisites**: (Make sure to read the following before using this example!)
@@ -84,7 +82,7 @@ if __name__ == "__main__":
 
 ```
 
-#### Running this example
+## Running this example
 
 This assumes that you already installed UV on the cluster you are working on.
 
