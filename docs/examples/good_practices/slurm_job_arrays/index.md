@@ -1,6 +1,4 @@
-<a id="slurm_job_arrays"></a>
-
-### Launch many jobs using SLURM job arrays
+# Launch many jobs using SLURM job arrays
 
 
 Sometimes you may want to run many tasks by changing just a single parameter.
@@ -32,7 +30,7 @@ repository.](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/go
 --8<-- "docs/examples/good_practices/slurm_job_arrays/main.py.diff"
 ```
 
-#### Running this example
+## Running this example
 
 You can then launch a job array using `sbatch` with the `--array` argument, for example:
 

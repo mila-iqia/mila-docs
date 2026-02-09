@@ -1,4 +1,4 @@
-### Wandb Setup
+# Wandb Setup
 
 
 Prerequisites:
@@ -29,7 +29,7 @@ Click here to see [the source code for this example](https://github.com/mila-iqi
 --8<-- "docs/examples/good_practices/wandb_setup/main.py.diff"
 ```
 
-#### Running this example
+## Running this example
 
 **Note:** On DRAC clusters you will need to run `wandb off` to log your data as offline mode.
 You will then be able to upload your runs with the command `wandb sync --sync-all`.

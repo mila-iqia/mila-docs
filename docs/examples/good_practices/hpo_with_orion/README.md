@@ -2,9 +2,7 @@
      This is done so this file can be easily viewed from the GitHub UI.
      DO NOT EDIT -->
 
-<a id="hpo_with_orion"></a>
-
-### Hyperparameter Optimization with Oríon
+# Hyperparameter Optimization with Oríon
 
 
 There are different frameworks that allow you to do hyperparameter optimization, for example
@@ -397,7 +395,7 @@ Here we only really add the reporting of the objective to Orion at the end of th
 
 ```
 
-#### Running this example
+## Running this example
 
 In the example below we use 10 jobs each with 5 CPU cores and one GPU.
 Each job will run 5 tasks in parallel on the same GPU to maximize its utilization.

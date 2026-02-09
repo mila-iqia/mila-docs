@@ -1,4 +1,8 @@
-### Checkpointing
+<!-- NOTE: This file is auto-generated from examples/good_practices/checkpointing/index.md
+     This is done so this file can be easily viewed from the GitHub UI.
+     DO NOT EDIT -->
+
+# Checkpointing
 
 
 **Prerequisites**
@@ -505,7 +509,7 @@ dependencies = [
 
 ```
 
-#### Running this example
+## Running this example
 
 ```bash
 $ sbatch job.sh

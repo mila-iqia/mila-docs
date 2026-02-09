@@ -1,4 +1,4 @@
-### Checkpointing
+# Checkpointing
 
 
 **Prerequisites**
@@ -31,7 +31,7 @@ repository.](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/go
 --8<-- "docs/examples/good_practices/checkpointing/main.py.diff"
 ```
 
-#### Running this example
+## Running this example
 
 ```bash
 $ sbatch job.sh

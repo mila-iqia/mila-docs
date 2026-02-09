@@ -2,9 +2,7 @@
      This is done so this file can be easily viewed from the GitHub UI.
      DO NOT EDIT -->
 
-<a id="many_tasks_per_gpu"></a>
-
-### Launch many tasks on the same GPU
+# Launch many tasks on the same GPU
 
 
 If you want to use a powerful GPU efficiently, you can run many tasks on same GPU
@@ -313,7 +311,7 @@ repository.](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/go
 
 ```
 
-#### Running this example
+## Running this example
 
 You can launch this example with sbatch:
 

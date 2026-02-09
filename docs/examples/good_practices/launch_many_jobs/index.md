@@ -1,6 +1,4 @@
-<a id="launch_many_jobs"></a>
-
-### Launch many jobs from same shell script
+# Launch many jobs from same shell script
 
 
 Sometimes you may want to run the same job with different arguments.
@@ -44,7 +42,7 @@ For example:
 ```
 
 
-##### Next steps
+### Next steps
 
 
 These next examples build on top of this one and show how to properly launch lots of jobs for hyper-parameter sweeps:

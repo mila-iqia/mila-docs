@@ -1,4 +1,4 @@
-### Good practices
+# Good practices
 
 --8<-- "docs/examples/header.md"
 

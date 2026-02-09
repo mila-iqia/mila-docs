@@ -1,4 +1,8 @@
-### Wandb Setup
+<!-- NOTE: This file is auto-generated from examples/good_practices/wandb_setup/index.md
+     This is done so this file can be easily viewed from the GitHub UI.
+     DO NOT EDIT -->
+
+# Wandb Setup
 
 
 Prerequisites:
@@ -314,7 +318,7 @@ Click here to see [the source code for this example](https://github.com/mila-iqi
 
 ```
 
-#### Running this example
+## Running this example
 
 **Note:** On DRAC clusters you will need to run `wandb off` to log your data as offline mode.
 You will then be able to upload your runs with the command `wandb sync --sync-all`.
