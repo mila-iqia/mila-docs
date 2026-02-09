@@ -15,7 +15,7 @@ theme:
     ## Atm it's too many pages all at once, and doesn't match the sphinx structure.
     # - navigation.expand
     - navigation.path
-    # - navigation.indexes
+    - navigation.indexes
     - search.suggest
     - search.highlight
     - search.share
