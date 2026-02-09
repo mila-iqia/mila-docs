@@ -7,7 +7,7 @@ resources outside the Mila cluster itself.
     include-markdown "Extra_compute_drac.md"
     heading-offset=1
 %}
-
+<!-- TODO: Remove these, they are empty in both the .rst and .md docs: -->
 {%
     include-markdown "Extra_compute_University.md"
     heading-offset=1
