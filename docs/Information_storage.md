@@ -1,21 +1,19 @@
-<a id="milacluster_storage"></a>
+# Storage
 
-### Storage
-
-| Path | Performance | Usage | Quota (Space/Files) | Backup | Auto-cleanup |
-|------|-------------|-------|---------------------|--------|--------------|
-| `/network/datasets/` | High | Curated raw datasets (read only) | — | — | — |
-| `/network/weights/` | High | Curated models weights (read only) | — | — | — |
-| `$HOME` or `/home/mila/<u>/<username>/` | Low | Personal user space; specific libraries, code, binaries | 100GB/1000K | Daily | no |
-| `$SCRATCH` or `/network/scratch/<u>/<username>/` | High | Temporary job results; processed datasets; optimized for small files | 5TB/no | no | 90 days |
-| `$SLURM_TMPDIR` | Highest | High speed disk for temporary job results | no/no | no | at job end |
-| `/network/projects/<groupname>/` | Fair | Shared space for collaboration; long-term project storage | 1TB/1000K | Daily | no |
-| `$ARCHIVE` or `/network/archive/<u>/<username>/` | Low | Long-term personal storage | 5TB | no | no |
+| Path                                             | Performance | Usage                                                                | Quota (Space/Files) | Backup | Auto-cleanup |
+| ------------------------------------------------ | ----------- | -------------------------------------------------------------------- | ------------------- | ------ | ------------ |
+| `/network/datasets/`                             | High        | Curated raw datasets (read only)                                     | —                   | —      | —            |
+| `/network/weights/`                              | High        | Curated models weights (read only)                                   | —                   | —      | —            |
+| `$HOME` or `/home/mila/<u>/<username>/`          | Low         | Personal user space; specific libraries, code, binaries              | 100GB/1000K         | Daily  | no           |
+| `$SCRATCH` or `/network/scratch/<u>/<username>/` | High        | Temporary job results; processed datasets; optimized for small files | 5TB/no              | no     | 90 days      |
+| `$SLURM_TMPDIR`                                  | Highest     | High speed disk for temporary job results                            | no/no               | no     | at job end   |
+| `/network/projects/<groupname>/`                 | Fair        | Shared space for collaboration; long-term project storage            | 1TB/1000K           | Daily  | no           |
+| `$ARCHIVE` or `/network/archive/<u>/<username>/` | Low         | Long-term personal storage                                           | 5TB                 | no     | no           |
 
 !!! note
     The `$HOME` file system is backed up once a day. For any file restoration request, file a request to [Mila's IT support](https://it-support.mila.quebec) with the path to the file or directory to restore, with the required date.
 
-#### $HOME
+## $HOME
 
 `$HOME` is appropriate for codes and libraries which are small and read once,
 as well as the experimental results that would be needed at a later time (e.g.
@@ -29,7 +27,7 @@ million per user. The command to check the quota usage from a login node is:
 disk-quota
 ```
 
-#### $SCRATCH
+## $SCRATCH
 
 
 `$SCRATCH` can be used to store processed datasets, work in progress datasets
@@ -47,14 +45,14 @@ the quota usage from a login node is:
 disk-quota
 ```
 
-#### $SLURM_TMPDIR
+## $SLURM_TMPDIR
 
 
 `$SLURM_TMPDIR` points to the local disk of the node on which a job is
 running. It should be used to copy the data on the node at the beginning of the
 job and write intermediate checkpoints. This folder is cleared after each job.
 
-#### projects
+## projects
 
 
 `projects` can be used for collaborative projects. It aims to ease the
@@ -67,7 +65,7 @@ of files (inodes). The limits for blocks and inodes are respectively 1TiB and
 !!! note
     It is possible to request higher quota limits if the project requires it. File a request to [Mila's IT support](https://it-support.mila.quebec).
 
-#### $ARCHIVE
+## $ARCHIVE
 
 
 `$ARCHIVE` purpose is to store data other than datasets that has to be kept
@@ -96,7 +94,7 @@ df -h $ARCHIVE
 !!! note
     There is **NO** backup of this file system.
 
-#### datasets
+## datasets
 
 
 `datasets` contains curated datasets to the benefit of the Mila community. To
@@ -120,7 +118,7 @@ command:
 ssh [CLUSTER_LOGIN] -C "projects/rrg-bengioy-ad/data/curated/list_datasets_cc.sh"
 ```
 
-#### weights
+## weights
 
 
 `weights` contains curated models weights to the benefit of the Mila

@@ -1,4 +1,4 @@
-### Monitoring
+# Monitoring
 
 
 Every compute node on the Mila cluster has a [Netdata](https://www.netdata.cloud/)
@@ -26,7 +26,7 @@ of the Mila cluster and to sound the alarm if outages occur
 (e.g. if the nodes crash or if GPUs mysteriously become unavailable for SLURM).
 
 
-#### Example with Netdata on cn-c001
+## Example with Netdata on cn-c001
 
 
 For example, if we have a job running on `cn-c001`, we can type
@@ -36,7 +36,7 @@ page will appear.
 ![monitoring](monitoring.png)
 
 
-#### Example watching the CPU/RAM/GPU usage
+## Example watching the CPU/RAM/GPU usage
 
 
 Given that compute nodes are generally shared
@@ -95,7 +95,7 @@ make sure that this resources is always kept busy.
 ![monitoring_users](monitoring_users.png)
 
 
-#### Example with Mila dashboard
+## Example with Mila dashboard
 
 
 ![mila dashboard](mila_dashboard_2021-06-15.png)
