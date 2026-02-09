@@ -1,5 +1,4 @@
-### Data Transmission
-
+# Data Transmission
 
 Multiple methods can be used to transfer data to/from the cluster:
 
