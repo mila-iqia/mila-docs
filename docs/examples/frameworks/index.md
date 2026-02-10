@@ -2,7 +2,9 @@
 # Software Frameworks
 
 
---8<-- "docs/examples/header.md"
+{%
+    include-markdown "examples/header.md"
+%}
 
 This section shows how to setup a development environment for various frameworks.
 These examples use [uv](../../Userguide_python.md#uv) to create a virtual environment and manage dependencies.
