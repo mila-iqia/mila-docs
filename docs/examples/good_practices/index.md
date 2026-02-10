@@ -1,6 +1,8 @@
 # Good practices
 
---8<-- "docs/examples/header.md"
+{%
+    include-markdown "examples/header.md"
+%}
 
 Work-in-progress: This section will contain minimal examples illustrating
 various good practices that should be observed when using the Mila cluster.
