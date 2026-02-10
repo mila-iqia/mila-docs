@@ -11,7 +11,9 @@ theme:
     - content.code.annotate
     - navigation.tracking # https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#anchor-tracking
     - navigation.sections
-    - navigation.expand
+    ## Don't auto- expand until maybe after we reorganize the content a bit.
+    ## Atm it's too many pages all at once, and doesn't match the sphinx structure.
+    # - navigation.expand
     - navigation.path
     # - navigation.indexes
     - search.suggest
