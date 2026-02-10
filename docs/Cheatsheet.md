@@ -1,4 +1,4 @@
-## Cheat Sheet
+# Cheat Sheet
 
 
 A "cheat sheet" is available to provide you with information about the Mila and DRAC clusters at a glance.
@@ -21,19 +21,19 @@ Comments and suggestions are welcome ([idt.cheatsheet@mila.quebec](mailto:idt.ch
 Please also signal errors if you spot them before we do.
 
 
-### Errata
+## Errata
 
 
 Here is a list of the known errors in the cheat sheet that will have to be fixed in the next version.
 
-#### Typo in account name for DRAC allocation
+### Typo in account name for DRAC allocation
 
 
 There is a place that reads `rrg-bengio-ad_gpu` instead of `rrg-bengioy-ad_gpu`.
 Same goes for `rrg-bengio-ad_cpu` instead of `rrg-bengioy-ad_cpu`.
 
 
-#### Partition preemption is not explained accurately on page 2
+### Partition preemption is not explained accurately on page 2
 
 
 This is is not technically an error, but it is an oversimplification that might lead to some confusion.
@@ -48,7 +48,7 @@ Jobs for the `unkillable` partition can preempt everything except other jobs on 
 A good explanation of priorities and preemption will be added to the documentation,
 but the cheat sheet (or the cheat sheet errata) is not the place for this.
 
-#### `$ARCHIVE` is 5TB and not 500GB
+### `$ARCHIVE` is 5TB and not 500GB
 
 
 This is probably outdated information that we forgot to update. Your quota on `$ARCHIVE` is 5TB.
