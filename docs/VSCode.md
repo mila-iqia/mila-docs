@@ -1,5 +1,4 @@
-
-### Visual Studio Code
+# Visual Studio Code
 
 
 One editor of choice for many researchers is VSCode. One feature of VSCode is
@@ -8,7 +7,7 @@ they were local. You can also debug your programs using VSCode's debugger, open
 terminal sessions, etc.
 
 
-#### Connecting to the cluster
+## Connecting to the cluster
 
 
 VSCode cannot be used to edit code on the login nodes, because it is a heavy
@@ -28,7 +27,7 @@ choose `mila-cpu` in the dropdown menu for remote SSH connection.
 The milatools package also provides the [mila code command](Userguide_quick_start.md#mila-code) which
 gives you greater flexibility by letting you allocate more cores, RAM and/or GPUs.
 
-#### Activating an environment
+## Activating an environment
 
 [Reference](https://code.visualstudio.com/docs/python/environments)
 
@@ -44,10 +43,10 @@ path to the Python executable for your environment.
      that same environment.
 
 
-#### Troubleshooting
+## Troubleshooting
 
 
-##### "Cannot reconnect"
+### "Cannot reconnect"
 
 
 When connecting to multiple compute nodes (and/or from multiple computers), some
@@ -63,7 +62,7 @@ This will store the necessary lockfiles in `/tmp` on the compute nodes (which
 are local to the node).
 
 
-##### Debugger timeouts
+### Debugger timeouts
 
 
 Sometimes, slowness on the compute node or the networked filesystem might cause
