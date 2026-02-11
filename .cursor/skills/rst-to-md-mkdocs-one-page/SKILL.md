@@ -1,6 +1,6 @@
 ---
 name: rst-to-md-mkdocs-one-page
-description: Converts a single reStructuredText (.rst) page to MkDocs-compatible Markdown (.md) using the project converter, then applies post-conversion fixes (headings, lists, internal links). Use when the user wants one RST file converted to MD and ready for MkDocs, or when converting .rst to .md with proper headings and links.
+description: Converts a single reStructuredText (.rst) page to MkDocs-compatible Markdown (.md) using the project converter, then applies post-conversion fixes (headings, lists, internal links, literalinclude→snippets). Use when the user wants one RST file converted to MD and ready for MkDocs, or when converting .rst to .md with proper headings and links.
 ---
 
 # Convert One RST Page to MkDocs-Ready Markdown
@@ -15,7 +15,7 @@ description: Converts a single reStructuredText (.rst) page to MkDocs-compatible
 
 ### 1. Run the project converter
 
-From the **project root**, run the converter for the single RST file:
+From the **project root**, run the converter for the single RST file. It will convert `.. literalinclude:: file` to pymdown snippet syntax (`--8<-- "docs/.../file"`) automatically.
 
 ```bash
 python -c "
@@ -66,6 +66,13 @@ Open the generated `.md` and fix the following so the page renders correctly in 
   - Use the nav in `docs/README.md` (or the main nav file) to find the right `.md` file for the topic.
   - If the target page has a specific section, use `[Label](OtherPage.md#section-anchor)` (MkDocs generates anchors from heading text).
 
+**`.. literalinclude` (file includes)**
+
+- The converter turns `.. literalinclude:: filename` into **pymdownx.snippets** syntax so the file is inlined at build time.
+- Output looks like: ` ```bash ` then `--8<-- "docs/path/to/file.sh"` then ` ``` `.
+- Paths are relative to the project root (e.g. `docs/examples/frameworks/pytorch_setup/job.sh`). No extra step needed if the included file lives next to the RST; if the build fails with “snippet not found”, fix the path in the generated `.md` (e.g. ensure it’s under `docs/` and matches the real file location).
+- The project already enables `pymdownx.snippets` in `mkdocs.yml`; no config change is required.
+
 ### 3. Optional
 
 - Add the new page to the nav in `docs/README.md` (or the project’s nav file) if it is not already listed.
@@ -76,3 +83,4 @@ Open the generated `.md` and fix the following so the page renders correctly in 
 - **Output**: The `.md` file is written next to the `.rst` (same directory, same base name, `.md` extension).
 - **Docs root**: Always use `docs_root=Path('docs')` when calling `rst_to_md` so `:doc:` / `:ref:` resolve correctly.
 - **Batch**: For converting many files at once, run `python scripts/rst_to_mkdocs_md.py`; this skill is for **one page at a time** with MkDocs-ready fixes.
+- **literalinclude**: The converter emits `--8<-- "path"` (pymdownx.snippets); paths are from project root (e.g. `docs/...`) so they work when MkDocs builds. No plugin change is needed beyond existing `pymdownx.snippets` in `mkdocs.yml`.

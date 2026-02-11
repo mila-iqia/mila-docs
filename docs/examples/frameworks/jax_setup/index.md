@@ -1,22 +1,35 @@
-### Jax Setup
+# Jax Setup
+
 
 **Prerequisites**: (Make sure to read the following before using this example!)
 
-* [Quick Start`
-* [Running your code](#Running your code)
-* [uv](#uv)
+* [Quick Start](../../../Userguide_quick_start.md)
+* [Running your code](../../../Userguide_running_code.md)
+* [uv](../../../Userguide_python.md#uv)
 
-The full source code for this example is available on `the mila-docs GitHub
-repository.
-](#https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/frameworks/jax_setup)_
+The full source code for this example is available on [the mila-docs GitHub
+repository.](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/frameworks/jax_setup)
+
 
 **job.sh**
 
+```bash
+--8<-- "docs/examples/frameworks/jax_setup/job.sh"
+```
+
 **pyproject.toml**
+
+```toml
+--8<-- "docs/examples/frameworks/jax_setup/pyproject.toml"
+```
 
 **main.py**
 
-**Running this example**
+```python
+--8<-- "docs/examples/frameworks/jax_setup/main.py"
+```
+
+## Running this example
 
 This assumes that you already installed UV on the cluster you are working on.
 
@@ -26,28 +39,28 @@ install packages. This is because we want PyTorch to be installed with GPU
 support, and to have all the required libraries.
 
 ```bash
-
-    # On the Mila cluster: (on DRAC/PAICE, run `uv sync` on a login node)
-    $ salloc --gres=gpu:1 --cpus-per-task=4 --mem=16G --time=00:10:00
-    salloc: --------------------------------------------------------------------------------------------------
-    salloc: # Using default long partition
-    salloc: --------------------------------------------------------------------------------------------------
-    salloc: Pending job allocation 2959785
-    salloc: job 2959785 queued and waiting for resources
-    salloc: job 2959785 has been allocated resources
-    salloc: Granted job allocation 2959785
-    salloc: Waiting for resource configuration
-    salloc: Nodes cn-g022 are ready for job
-    $ # Create the virtual environment and install all dependencies
-    $ uv sync
-    (...)
-    $ # Optional: Activate the environment and run the python script:
-    $ . .venv/bin/activate
-    $ python main.py
+ # On the Mila cluster: (on DRAC/PAICE, run `uv sync` on a login node)
+ $ salloc --gres=gpu:1 --cpus-per-task=4 --mem=16G --time=00:10:00
+ salloc: --------------------------------------------------------------------------------------------------
+ salloc: # Using default long partition
+ salloc: --------------------------------------------------------------------------------------------------
+ salloc: Pending job allocation 2959785
+ salloc: job 2959785 queued and waiting for resources
+ salloc: job 2959785 has been allocated resources
+ salloc: Granted job allocation 2959785
+ salloc: Waiting for resource configuration
+ salloc: Nodes cn-g022 are ready for job
+ $ # Create the virtual environment and install all dependencies
+ $ uv sync
+ (...)
+ $ # Optional: Activate the environment and run the python script:
+ $ . .venv/bin/activate
+ $ python main.py
+```
 
 You can exit the interactive job once the environment has been created.
 Then, you can submit a job to run the example with sbatch:
 
 ```bash
-
-    $ sbatch job.sh
+ $ sbatch job.sh
+```
