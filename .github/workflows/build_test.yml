@@ -1,20 +1,14 @@
 ---
-name: build_the_docs_prod
+name: build_the_docs_test
 
 on:
-  push:
+  pull_request:
     branches:
       - master
 
 jobs:
-
-  publish_docs:
+  btd:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ['3.12']
-    permissions:
-      contents: write  # Required for pushing to gh-pages
     steps:
       - uses: actions/checkout@v4
 
@@ -41,8 +35,7 @@ jobs:
       - name: Build MkDocs site
         run: uv run mkdocs build --site-dir ./_build/html
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
+      - uses: actions/upload-artifact@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./_build/html
+          name: docs
+          path: ./_build/html
