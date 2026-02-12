@@ -86,21 +86,13 @@ if "SLURM_PROCID" not in os.environ and "RANK" not in os.environ:
 
 # This will raise an error if both are unset. This is expected (see above).
 RANK = int(os.environ.setdefault("RANK", os.environ.get("SLURM_PROCID", "")))
-LOCAL_RANK = int(
-    os.environ.setdefault("LOCAL_RANK", os.environ.get("SLURM_LOCALID", ""))
-)
-WORLD_SIZE = int(
-    os.environ.setdefault("WORLD_SIZE", os.environ.get("SLURM_NTASKS", ""))
-)
-MASTER_PORT = int(
-    os.environ.setdefault("MASTER_PORT", str(10000 + int(JOB_ID) % 10000))
-)
+LOCAL_RANK = int(os.environ.setdefault("LOCAL_RANK", os.environ.get("SLURM_LOCALID", "")))
+WORLD_SIZE = int(os.environ.setdefault("WORLD_SIZE", os.environ.get("SLURM_NTASKS", "")))
+MASTER_PORT = int(os.environ.setdefault("MASTER_PORT", str(10000 + int(JOB_ID) % 10000)))
 if "SLURM_JOB_NODELIST" in os.environ:
     # Get the hostname of the first node, for example: "cn-l[084-085]" --> cn-l084
     _first_node = subprocess.check_output(
-        f"scontrol show hostnames {os.environ['SLURM_JOB_NODELIST']}",
-        text=True,
-        shell=True,
+        f"scontrol show hostnames {os.environ['SLURM_JOB_NODELIST']}", text=True, shell=True
     ).split()[0]
     MASTER_ADDR = os.environ.setdefault("MASTER_ADDR", _first_node)
 else:
@@ -189,9 +181,7 @@ class Args:
     limit_val_samples: int = 0
     """ If > 0, limit the number of validation samples to this value."""
 
-    num_workers: int = int(
-        os.environ.get("SLURM_CPUS_PER_TASK", len(os.sched_getaffinity(0)))
-    )
+    num_workers: int = int(os.environ.get("SLURM_CPUS_PER_TASK", len(os.sched_getaffinity(0))))
     """Number of dataloader workers."""
 
     seed: int = 42
@@ -218,16 +208,12 @@ class Args:
     """If True, use automatic mixed precision (AMP) for training."""
 
     run_name: str | None = JOB_ID + (
-        f"_step{_step}"
-        if (_step := int(os.environ.get("SLURM_STEP_ID", "0"))) > 0
-        else ""
+        f"_step{_step}" if (_step := int(os.environ.get("SLURM_STEP_ID", "0"))) > 0 else ""
     )
     """Name for the run (in wandb and in tensorboard)."""
 
     wandb_run_id: str = JOB_ID + (
-        f"_step{_step}"
-        if (_step := int(os.environ.get("SLURM_STEP_ID", "0"))) > 0
-        else ""
+        f"_step{_step}" if (_step := int(os.environ.get("SLURM_STEP_ID", "0"))) > 0 else ""
     )
     """Unique ID for the Weights & Biases run.
 
@@ -251,9 +237,7 @@ def main():
     if not (_checkpoints_dir := Path("checkpoints")).exists():
         _checkpoints_dir_in_scratch = SCRATCH / "checkpoints"
         _checkpoints_dir_in_scratch.mkdir(parents=True, exist_ok=True)
-        logger.info(
-            f"Creating a symlink from {_checkpoints_dir} --> {_checkpoints_dir_in_scratch}"
-        )
+        logger.info(f"Creating a symlink from {_checkpoints_dir} --> {_checkpoints_dir_in_scratch}")
         _checkpoints_dir.symlink_to(_checkpoints_dir_in_scratch)
 
     if args.checkpoint_dir is None:
@@ -289,11 +273,11 @@ def main():
     logger.setLevel(
         logging.WARNING
         if args.verbose == 0
-        else logging.INFO if args.verbose == 1 else logging.DEBUG
+        else logging.INFO
+        if args.verbose == 1
+        else logging.DEBUG
     )
-    logger.info(
-        f"World size: {WORLD_SIZE}, global rank: {RANK}, local rank: {LOCAL_RANK}"
-    )
+    logger.info(f"World size: {WORLD_SIZE}, global rank: {RANK}, local rank: {LOCAL_RANK}")
     if is_master:
         print("Args:")
         rich.pretty.pprint(dataclasses.asdict(args))
@@ -338,17 +322,11 @@ def main():
             train_dataset, list(range(args.limit_train_samples))
         )
     if args.limit_val_samples:
-        valid_dataset = torch.utils.data.Subset(
-            valid_dataset, list(range(args.limit_val_samples))
-        )
+        valid_dataset = torch.utils.data.Subset(valid_dataset, list(range(args.limit_val_samples)))
 
     # Restricts data loading to a subset of the dataset exclusive to the current process
     train_sampler = DistributedSampler(
-        dataset=train_dataset,
-        shuffle=True,
-        num_replicas=WORLD_SIZE,
-        rank=RANK,
-        seed=args.seed,
+        dataset=train_dataset, shuffle=True, num_replicas=WORLD_SIZE, rank=RANK, seed=args.seed
     )
     valid_sampler = DistributedSampler(
         dataset=valid_dataset, shuffle=False, num_replicas=WORLD_SIZE, rank=RANK
@@ -386,9 +364,7 @@ def main():
         # Checkpoints are named like `epoch_0.pt`, `epoch_1.pt`. Find the latest.
         # Note: epoch_0 in this case is the initial checkpoint before any training.
         # epoch_1 is after one epoch of training, etc.
-        latest_checkpoint = max(
-            previous_checkpoints, key=lambda p: int(p.stem.split("_")[-1])
-        )
+        latest_checkpoint = max(previous_checkpoints, key=lambda p: int(p.stem.split("_")[-1]))
         _num_epochs_done, step, num_samples = load_checkpoint(
             latest_checkpoint, model=model, optimizer=optimizer, device=device
         )
@@ -470,9 +446,7 @@ def main():
             desc=f"Train epoch {epoch + 1}/{args.epochs}",
             # Don't use a progress bar if outputting to a slurm output file or when not in task 0
             disable=(not sys.stdout.isatty() or not is_master),
-            unit_scale=(
-                False if pbar_type is tqdm.rich.tqdm_rich else effective_batch_size
-            ),
+            unit_scale=False if pbar_type is tqdm.rich.tqdm_rich else effective_batch_size,
             unit="batches" if pbar_type is tqdm.rich.tqdm_rich else "samples",
             dynamic_ncols=True,  # allow window resizing
         )
@@ -481,9 +455,7 @@ def main():
         t = time.perf_counter()
         for batch_index, batch in enumerate(
             # We only create the profiling traces in the first two epochs.
-            profile_loop(progress_bar, profiler)
-            if epoch <= 1
-            else progress_bar
+            profile_loop(progress_bar, profiler) if epoch <= 1 else progress_bar
         ):
             # This allows the GPU to keep working on the previous step while the data is copied from CPU to GPU!
             # https://docs.pytorch.org/tutorials/intermediate/pinmem_nonblock.html
@@ -516,12 +488,8 @@ def main():
             # Also only do this if wandb logging is enabled or if the progress bar is enabled.
             if (
                 is_master
-                and (
-                    (wandb.run and not wandb.run.disabled) or (not progress_bar.disable)
-                )
-                and (
-                    batch_index == 0 or ((batch_index + 1) % args.logging_interval) == 0
-                )
+                and ((wandb.run and not wandb.run.disabled) or (not progress_bar.disable))
+                and (batch_index == 0 or ((batch_index + 1) % args.logging_interval) == 0)
             ):
                 # TODO: if --limit_train_samples=100_000, the logs in wandb have their last logged metrics
                 # at samples=89_600 (7(updates) * 50(log interval) * 256(batch_size)). It would be nice to
@@ -530,9 +498,7 @@ def main():
 
                 _loss = loss.item()
                 _accuracy = accuracy.item()
-                progress_bar.set_postfix(
-                    loss=f"{_loss:.3f}", accuracy=f"{_accuracy:.2%}"
-                )
+                progress_bar.set_postfix(loss=f"{_loss:.3f}", accuracy=f"{_accuracy:.2%}")
                 wandb.log(
                     {
                         "train/loss": _loss,
@@ -546,9 +512,7 @@ def main():
         progress_bar.close()
 
         t = time.perf_counter()
-        val_loss, val_accuracy, val_samples = validation_loop(
-            model, valid_dataloader, device
-        )
+        val_loss, val_accuracy, val_samples = validation_loop(model, valid_dataloader, device)
         dt = time.perf_counter() - t
         val_sps = val_samples / dt
         if RANK == 0:
@@ -597,9 +561,7 @@ def training_step(
     batch_index: int | None = None,
 ):
     with torch.autocast(
-        device_type="cuda",
-        dtype=torch.bfloat16,
-        enabled=scaler is not None and scaler.is_enabled(),
+        device_type="cuda", dtype=torch.bfloat16, enabled=scaler is not None and scaler.is_enabled()
     ):
         # Forward pass
         logits: Tensor = model(x)
@@ -632,9 +594,7 @@ def training_step(
     # This could happen if the number of batches is not divisible by the number of batches
     # and if the distributed sampler is not set to drop the last incomplete batch.
     n_correct_predictions = local_n_correct_predictions.clone()
-    n_samples = local_n_samples * torch.ones(
-        1, device=local_loss.device, dtype=torch.int32
-    )
+    n_samples = local_n_samples * torch.ones(1, device=local_loss.device, dtype=torch.int32)
     loss = local_loss.clone().detach()
 
     torch.distributed.reduce(loss, dst=0, op=ReduceOp.AVG)
@@ -691,10 +651,7 @@ def validation_loop(model: nn.Module, dataloader: DataLoader, device: torch.devi
 
 
 def setup_wandb(
-    args: Args,
-    effective_batch_size: int,
-    previous_checkpoints: list[Path],
-    total_updates: int,
+    args: Args, effective_batch_size: int, previous_checkpoints: list[Path], total_updates: int
 ):
     """Calls `wandb.init` with the appropriate arguments."""
     # Normally you would only do this in the first task (rank 0), but here we do it in all tasks
@@ -761,9 +718,7 @@ def setup_wandb(
 T = TypeVar("T")
 
 
-def profile_loop(
-    dataloader: Iterable[T], profiler: torch.profiler.profile
-) -> Iterable[T]:
+def profile_loop(dataloader: Iterable[T], profiler: torch.profiler.profile) -> Iterable[T]:
     """Wraps the dataloader (or progress bar) and calls .step after each batch.
 
     This is used to save one level of indentation (with profiler block) and to call prof.step() at each step.
@@ -874,9 +829,7 @@ def load_checkpoint(
     np.random.set_state(checkpoint["numpy_rng_state"])
     cpu_rng_state = checkpoint["torch_rng_state_cpu"]
     torch.random.set_rng_state(cpu_rng_state.cpu())
-    torch.cuda.random.set_rng_state_all(
-        [t.cpu() for t in checkpoint["torch_rng_state_gpu"]]
-    )
+    torch.cuda.random.set_rng_state_all([t.cpu() for t in checkpoint["torch_rng_state_gpu"]])
     return epoch, step, nsamples
 
 
