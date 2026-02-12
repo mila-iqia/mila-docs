@@ -70,7 +70,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
         - [Launch many jobs using SLURM job arrays](examples/good_practices/slurm_job_arrays/index.md)
     - [Advanced Examples](examples/advanced/index.md)
         - [Multi-Node / Multi-GPU ImageNet Training](examples/advanced/imagenet/index.md)
-        - [🔗 Research Project Template](https://mila-iqia.github.io/ResearchTemplate)
+    - [🔗 Research Project Template](https://mila-iqia.github.io/ResearchTemplate)
 - General Theory
     - [What is a computer cluster?](Theory_cluster_parts.md)
     - [Unix](Theory_cluster_unix.md)
