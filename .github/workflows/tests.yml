@@ -9,17 +9,28 @@ on:
 jobs:
   generate_files:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.12']
     steps:
     - uses: actions/checkout@v2
 
     - name: Set up Python
       uses: actions/setup-python@v1
 
+    - name: Install the latest version of uv
+      uses: astral-sh/setup-uv@v6
+      with:
+        version: "latest"
+        # https://github.com/astral-sh/setup-uv?tab=readme-ov-file#github-authentication-token
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        python-version: ${{ matrix.python-version }}
+
     - name: Install dependencies
-      run:  python3 -m pip install -r docs/requirements.txt
+      run: uv sync
 
     - name: Run files generation tests
-      run:  pre-commit run --all-files && [[ -z "$(git status -s)" ]]
+      run: uv run pre-commit run --all-files && [[ -z "$(git status -s)" ]]
 
   launch-slurm-actions-runner:
     needs: [generate_files]
