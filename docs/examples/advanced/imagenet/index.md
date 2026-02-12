@@ -12,7 +12,7 @@ Prerequisites:
 
 Other interesting resources:
 
-* [https://sebarnold.net/dist_blog/](https://sebarnold.net/dist_blog/)
+* https://sebarnold.net/dist_blog/
 * [Multi-node PyTorch distributed training guide](https://lambdalabs.com/blog/multi-node-pytorch-distributed-training-guide)
 
 
