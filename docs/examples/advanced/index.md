@@ -1,4 +1,7 @@
-*****************
-## Advanced Examples
+# Advanced Examples
 
-    imagenet/index
+{%
+    include-markdown "examples/header.md"
+%}
+
+- [Multi-Node / Multi-GPU ImageNet Training](imagenet/index.md)
