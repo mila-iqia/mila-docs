@@ -1,25 +1,38 @@
-### Checkpointing
+# Checkpointing
+
 
 **Prerequisites**
 
 Make sure to read the following sections of the documentation before using this
 example:
 
-* :doc:`/examples/frameworks/pytorch_setup/index`
-* :doc:`/examples/distributed/single_gpu/index`
+* [PyTorch Setup](../../frameworks/pytorch_setup/index.md)
+* [Single GPU](../../distributed/single_gpu/index.md)
 
 The full source code for this example is available on [the mila-docs GitHub
-repository.
-](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/good_practices/checkpointing)
+repository.](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/good_practices/checkpointing)
+
 
 **job.sh**
 
+```diff
+--8<-- "docs/examples/good_practices/checkpointing/job.sh.diff"
+```
+
 **pyproject.toml**
+
+```toml
+--8<-- "docs/examples/good_practices/checkpointing/pyproject.toml"
+```
 
 **main.py**
 
-**Running this example**
+```diff
+--8<-- "docs/examples/good_practices/checkpointing/main.py.diff"
+```
+
+## Running this example
 
 ```bash
-
-   $ sbatch job.sh
+$ sbatch job.sh
+```
