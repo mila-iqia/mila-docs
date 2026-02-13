@@ -4,7 +4,12 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "mkdocs>=1.6.1",
+    "mkdocs-material>=9.7.1",
+    "mkdocs-include-markdown-plugin>=7.2.1",
+    "mkdocs-literate-nav>=0.6.2",
+]
 
 [tool.uv.workspace]
 members = [
@@ -47,12 +52,22 @@ test = [
     "submitit>=1.5.3",
 ]
 
+[tool.hatch.envs.default]
+installer = "uv"
+dependency-groups = ["dev"]
+post-install-commands = [
+    "uv sync",
+    "uv run pre-commit install",
+]
+
+[tool.hatch.envs.default.scripts]
+uv = 'UV_PROJECT_ENVIRONMENT="{env:VIRTUAL_ENV}" "$(which uv)" {args}'
+serve = ["mkdocs serve --livereload --open {args}"]
+
 [tool.hatch.envs.hatch-test]
 installer = "uv"
 dependency-groups = ["dev", "test"]
-post-install-commands = [
-    "uv sync --group test --inexact",
-]
+post-install-commands = ["uv sync --group test --inexact"]
 
 [tool.hatch.envs.hatch-test.extra-scripts]
 uv = 'UV_PROJECT_ENVIRONMENT="{env:VIRTUAL_ENV}" "$(which uv)" {args}'

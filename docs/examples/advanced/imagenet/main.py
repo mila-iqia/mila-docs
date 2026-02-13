@@ -15,11 +15,9 @@
 
 Example:
 
-```bash
 srun --ntasks=2 --pty uv run python main.py --epochs=1 --limit_train_samples=50_000 \
     --limit_val_samples=2000 --batch_size=512 --use_amp --compile=default \
     --run_name=1024_amp_compile_default
-```
 """
 
 import contextlib
