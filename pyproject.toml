@@ -36,6 +36,7 @@ dev = [
     "recommonmark>=0.7.1",
     "rstcheck[sphinx]>=6.2.5",
     "sphinx>=4.0.2",
+    "sphinx-comments>=0.0.3",
     "sphinx-copybutton>=0.3.1",
     "sphinx-lint>=1.0.0",
     "sphinx-prompt>=1.4.0",
