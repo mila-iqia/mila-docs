@@ -1,0 +1,15 @@
+[project]
+name = "orion-example"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    # Fix orion to be compatible with Python >=3.12
+    "orion>=0.2.7",
+    "rich>=14.0.0",
+    "setuptools>=80.9.0",  # Required for pkg_resources used by orion
+    "torch>=2.7.1",
+    "torchvision>=0.22.1",
+    "tqdm>=4.67.1",
+]

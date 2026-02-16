@@ -1,0 +1,3269 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://mila-iqia.github.io/docs/singularity/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Index - Mila Technical Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#first-way-build-and-use-a-sandbox" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+              <button class="md-banner__button md-icon" aria-label="Don't show this again">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+              </button>
+            
+            
+🎉 We're giving the docs a fresh makeover! You can expect things to move around a bit while we redesign and reorganize the documentation.
+Fear not — the old docs are still available at <a href="https://mila-docs.readthedocs.io">mila-docs.readthedocs.io</a>.
+Spotted a
+bug? 🐛 <a href="https://github.com/mila-iqia/mila-docs/issues/new">File a
+    ticket</a> and we'll take a look at it!
+
+          </div>
+          
+            <script>var el=document.querySelector("[data-md-component=announce]");if(el){var content=el.querySelector(".md-typeset");__md_hash(content.innerHTML)===__md_get("__announce")&&(el.hidden=!0)}</script>
+          
+        </aside>
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Mila Technical Documentation" class="md-header__button md-logo" aria-label="Mila Technical Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mila Technical Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Index
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://www.github.com/mila-iqia/mila-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mila-docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Mila Technical Documentation" class="md-nav__button md-logo" aria-label="Mila Technical Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Mila Technical Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://www.github.com/mila-iqia/mila-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mila-docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Introduction
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Purpose/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Purpose of this documentation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CONTRIBUTING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How-tos and Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    How-tos and Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Userguide_quick_start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Userguide_login/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Logging in to the cluster
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Userguide_running_code/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Running your code
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Userguide_portability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Portability concerns and solutions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Userguide_containers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Using containers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Userguide_sharing_data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sharing Data with ACLs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Userguide_datasets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing datasets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Userguide_data_transfer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Transmission using Globus Connect Personal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Userguide_multigpu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced SLURM usage and Multiple GPU jobs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Userguide_multinode/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multiple Nodes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Userguide_wandb/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Weights and Biases (WandB)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Userguide_comet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Userguide_jupyterhub/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JupyterHub
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Userguide_singularity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Singularity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Userguide_faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frequently asked questions (FAQ)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Systems and services
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Systems and services
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Computing infrastructure and policies
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Computing infrastructure and policies
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Information/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Computing infrastructure and policies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Information_roles_and_resources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roles and computing resources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Information_nodes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Node profile description
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Information_storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Storage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Information_sharing_policies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data sharing policies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Information_data_transmission/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Transmission
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Information_monitoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Monitoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Extra_compute/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Computational resources outside of Mila
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minimal Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Minimal Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../examples/frameworks/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Software Frameworks
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Software Frameworks
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/frameworks/pytorch_setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PyTorch Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/frameworks/jax_setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Jax Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/frameworks/jax/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Jax
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../examples/distributed/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Training
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Distributed Training
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/distributed/single_gpu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Single GPU Job
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/distributed/multi_gpu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-GPU Job
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/distributed/multi_node/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-node Job
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../examples/good_practices/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Good Practices
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Good Practices
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/good_practices/checkpointing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Checkpointing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/good_practices/wandb_setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Weights & Biases (wandb) setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/good_practices/launch_many_jobs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Launch many jobs from same shell script
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/good_practices/hpo_with_orion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hyperparameter Optimization with Orion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/good_practices/many_tasks_per_gpu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Launch many tasks on the same GPU
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/good_practices/slurm_job_arrays/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Launch many jobs using SLURM job arrays
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../examples/advanced/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Examples
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Advanced Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/advanced/imagenet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-Node / Multi-GPU ImageNet Training
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://mila-iqia.github.io/ResearchTemplate" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🔗 Research Project Template
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    General Theory
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    General Theory
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Theory_cluster_parts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What is a computer cluster?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Theory_cluster_unix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unix
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Theory_cluster_batch_scheduling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The workload manager
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Theory_cluster_data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Processing data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Theory_cluster_software_deps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Software on the cluster
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Extras
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Extras
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Acknowledgement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Acknowledging Mila
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://datasets.server.mila.quebec/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mila Datasets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Audio_video/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Audio and video resources at Mila
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../VSCode/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visual Studio Code
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../IDT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Who, what, where is IDT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Cheatsheet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cheat Sheet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Environmental_impact/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Environmental Impact
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#first-way-build-and-use-a-sandbox" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        First way: Build and use a sandbox
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="First way: Build and use a sandbox">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#download-containers-from-the-web" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Download containers from the web
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-add-or-install-stuff-in-a-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to add or install stuff in a container
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-useful-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating useful directory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-new-image-from-the-sandbox" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating a new image from the sandbox
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#second-way-use-recipes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Second way: Use recipes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Second way: Use recipes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#build-recipe-on-singularity-hub" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Build recipe on singularity hub
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-recipe-with-openai-gym-mujoco-and-miniworld" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example: Recipe with openai gym, mujoco and miniworld
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-containers-on-clusters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using containers on clusters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using containers on clusters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-interactive-case-srunsalloc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example: Interactive case (srun/salloc)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-sbatch-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example: sbatch case
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-with-pybullet-and-opengl-libraries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue with PyBullet and OpenGL libraries
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mila-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mila cluster
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#digital-research-alliance-of-canada" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Digital Research Alliance of Canada
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Index</h1>
+
+<p>Singularity is a software container system designed to facilitate portability and reproducibility of high performance computing (HPC) workflows.
+It performs a function similar to docker, but with HPC in mind. It is compatible with existing docker containers, and provides tools for
+building new containers from recipe files or ad-hoc commands.</p>
+<p>Building a container is like creating a new environment except that containers are much more powerful since they are self-contain systems.
+With singularity, there are two ways to build containers.</p>
+<p>The first one is by yourself, it's like when you got a new Linux laptop and you don't really know what you need, if you see that something is missing,
+you install it. Here you can get a vanilla container with Ubuntu called a sandbox, you log in and you install each packages by yourself.
+This procedure can take time but will allow you to understand how things work and what you need. This is recommended if you need to figure out
+how things will be compiled or if you want to install packages on the fly. We'll refer to this procedure as singularity sandboxes.</p>
+<p>The second one way is more like you know what you want, so you write a list of everything you need, you sent it to singularity and it will install
+everything for you. Those lists are called singularity recipes.</p>
+<h5 id="first-way-build-and-use-a-sandbox">First way: Build and use a sandbox<a class="headerlink" href="#first-way-build-and-use-a-sandbox" title="Permanent link">&para;</a></h5>
+<p>You might ask yourself; <em>On which machine should I build a container ?</em></p>
+<p>First of all, you need to choose where you'll build your container. This operation requires <strong>memory and high cpu usage</strong>.</p>
+<ul>
+<li>
+<p>(Recommended for beginner) If you need to <strong>use apt-get</strong>, you should <strong>build the container on your laptop</strong> with sudo privileges. You'll only need to install singularity on your laptop. Windows/Mac users can look <code>there</code>_ and Ubuntu/Debian users can use directly:</p>
+<div class="language-text highlight"><pre><span></span><code>.. _there: https://www.sylabs.io/guides/3.0/user-guide/installation.html#install-on-windows-or-mac
+
+.. prompt:: bash $
+
+        sudo apt-get install singularity-container
+</code></pre></div>
+</li>
+<li>
+<p>If you <strong>can't install singularity</strong> on your laptop and you <strong>don't need apt-get</strong>, you can reserve a <strong>cpu node on the mila cluster</strong> to build your container.</p>
+</li>
+</ul>
+<p>In this case, in order to avoid too much I/O over the network, you should define the singularity cache locally:</p>
+<div class="language-text highlight"><pre><span></span><code>    .. prompt:: bash $
+
+            export SINGULARITY_CACHEDIR=$SLURM_TMPDIR
+</code></pre></div>
+<ul>
+<li>If you <strong>can't install singularity</strong> on your laptop and you <strong>want to use apt-get</strong>, you can use <code>singularity-hub</code><em> to build your containers and read Recipe_section</em>.</li>
+</ul>
+<p>.. _singularity-hub: <a href="https://www.singularity-hub.org/">https://www.singularity-hub.org/</a></p>
+<h6 id="download-containers-from-the-web">Download containers from the web<a class="headerlink" href="#download-containers-from-the-web" title="Permanent link">&para;</a></h6>
+<p>Hopefully, you may not need to create containers from scratch as many have been already built for the most common deep learning software.
+You can find most of them on <code>dockerhub</code>_.</p>
+<p>.. _dockerhub: <a href="https://hub.docker.com/">https://hub.docker.com/</a></p>
+<blockquote>
+<p><strong>tip:</strong>
+        (Optional) You can also pull containers from nvidia cloud see <a href="#nvidia">nvidia</a></p>
+</blockquote>
+<p>Go on <code>dockerhub</code>_ and select the container you want to pull.</p>
+<p>.. _dockerhub: <a href="https://hub.docker.com/">https://hub.docker.com/</a></p>
+<p>For example, if you want to get the latest pytorch version with gpu support (Replace <em>runtime</em> by <em>devel</em> if you need the full CUDA toolkit):</p>
+<div class="language-text highlight"><pre><span></span><code>    singularity pull docker://pytorch/pytorch:1.0.1-cuda10.0-cudnn7-runtime
+</code></pre></div>
+<p>or the latest tensorflow:</p>
+<div class="language-text highlight"><pre><span></span><code>    singularity pull docker://tensorflow/tensorflow:latest-gpu-py3
+</code></pre></div>
+<p>Currently the pulled image <code>pytorch.simg</code> or <code>tensorflow.simg</code> is read only meaning that you won't be able to install anything on it.
+Starting now, pytorch will be taken as example. If you use tensorflow, simply replace every <strong>pytorch</strong> occurrences by <strong>tensorflow</strong>.</p>
+<h6 id="how-to-add-or-install-stuff-in-a-container">How to add or install stuff in a container<a class="headerlink" href="#how-to-add-or-install-stuff-in-a-container" title="Permanent link">&para;</a></h6>
+<p>The first step is to transform your read only container <code>pytorch-1.0.1-cuda10.0-cudnn7-runtime.simg</code> in a writable version that will allow you to add packages.</p>
+<blockquote>
+<p><strong>tip:</strong>
+        If you want to use <strong>apt-get</strong> you have to put <strong>sudo</strong> ahead of the following commands</p>
+</blockquote>
+<p>This command will create a writable image in the folder <code>pytorch</code>.</p>
+<div class="language-text highlight"><pre><span></span><code>    singularity build --sandbox pytorch pytorch-1.0.1-cuda10.0-cudnn7-runtime.simg
+</code></pre></div>
+<p>Then you'll need the following command to log inside the container.</p>
+<div class="language-text highlight"><pre><span></span><code>    singularity shell --writable -H $HOME:/home pytorch
+</code></pre></div>
+<p>Once you get into the container, you can use pip and install anything you need (Or with <code>apt-get</code> if you built the container with sudo).</p>
+<p>You should install your stuff in /usr/local instead.</p>
+<h6 id="creating-useful-directory">Creating useful directory<a class="headerlink" href="#creating-useful-directory" title="Permanent link">&para;</a></h6>
+<p>One of the benefit of containers is that you'll be able to use them across different clusters. However for each cluster the dataset and experiment folder location
+can be different. In order to be invariant to those locations, we will create some useful mount points inside the container:</p>
+<div class="language-text highlight"><pre><span></span><code>    mkdir /dataset
+    mkdir /tmp_log
+    mkdir /final_log
+</code></pre></div>
+<p>From now, you won't need to worry anymore when you write your code to specify where to pick up your dataset. Your dataset will always be in <code>/dataset</code>
+independently of the cluster you are using.</p>
+<h6 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h6>
+<p>If you have some code that you want to test before finalizing your container, you have two choices.
+You can either log into your container and run python code inside it with</p>
+<div class="language-text highlight"><pre><span></span><code>    singularity shell --nv pytorch
+</code></pre></div>
+<p>or you can execute your command directly with</p>
+<div class="language-text highlight"><pre><span></span><code>    singularity exec --nv pytorch python YOUR_CODE.py
+</code></pre></div>
+<h6 id="creating-a-new-image-from-the-sandbox">Creating a new image from the sandbox<a class="headerlink" href="#creating-a-new-image-from-the-sandbox" title="Permanent link">&para;</a></h6>
+<p>Once everything you need is installed inside the container, you need to convert it back to a read-only singularity image with:</p>
+<div class="language-text highlight"><pre><span></span><code>    singularity build pytorch_final.simg pytorch
+</code></pre></div>
+<h5 id="second-way-use-recipes">Second way: Use recipes<a class="headerlink" href="#second-way-use-recipes" title="Permanent link">&para;</a></h5>
+<p>A singularity recipe is a file including specifics about installation software, environment variables, files to add, and container metadata.
+It is a starting point for designing any custom container. Instead of pulling a container and install your packages manually, you can specify
+in this file the packages you want and then build your container from this file.</p>
+<p>Here is a toy example of a singularity recipe installing some stuff:</p>
+<p>```bash</p>
+<div class="language-text highlight"><pre><span></span><code>    ################# Header: Define the base system you want to use ################
+    # Reference of the kind of base you want to use (e.g., docker, debootstrap, shub).
+    Bootstrap: docker
+    # Select the docker image you want to use (Here we choose tensorflow)
+    From: tensorflow/tensorflow:latest-gpu-py3
+
+    ################# Section: Defining the system #################################
+    # Commands in the %post section are executed within the container.
+    %post
+            echo &quot;Installing Tools with apt-get&quot;
+            apt-get update
+            apt-get install -y cmake libcupti-dev libyaml-dev wget unzip
+            apt-get clean
+            echo &quot;Installing things with pip&quot;
+            pip install tqdm
+            echo &quot;Creating mount points&quot;
+            mkdir /dataset
+            mkdir /tmp_log
+            mkdir /final_log
+
+    # Environment variables that should be sourced at runtime.
+    %environment
+            # use bash as default shell
+            SHELL=/bin/bash
+            export SHELL
+</code></pre></div>
+<p>A recipe file contains two parts: the <code>header</code> and <code>sections</code>. In the <code>header</code> you specify which base system you want to
+use, it can be any docker or singularity container. In <code>sections</code>, you can list the things you want to install in the subsection
+<code>post</code> or list the environment's variable you need to source at each runtime in the subsection <code>environment</code>. For a more detailed
+description, please look at the <code>singularity documentation</code>_.</p>
+<p>.. _singularity documentation: <a href="https://www.sylabs.io/guides/2.6/user-guide/container_recipes.html#container-recipes">https://www.sylabs.io/guides/2.6/user-guide/container_recipes.html#container-recipes</a></p>
+<p>In order to build a singularity container from a singularity recipe file, you should use:</p>
+<div class="language-text highlight"><pre><span></span><code>    sudo singularity build &lt;NAME_CONTAINER&gt; &lt;YOUR_RECIPE_FILES&gt;
+</code></pre></div>
+<h6 id="build-recipe-on-singularity-hub">Build recipe on singularity hub<a class="headerlink" href="#build-recipe-on-singularity-hub" title="Permanent link">&para;</a></h6>
+<p>Singularity hub allows users to build containers from recipes directly on singularity-hub's cloud meaning that you don't need anymore to build containers by yourself.
+You need to register on <code>singularity-hub</code>_ and link your singularity-hub account to your github account, then</p>
+<p>.. _singularity-hub: <a href="https://www.singularity-hub.org/">https://www.singularity-hub.org/</a></p>
+<div class="language-text highlight"><pre><span></span><code>    1) Create a new github repository.
+    2) Add a collection on `singularity-hub`_ and select the github repository your created.
+    3) Clone the github repository on your computer.
+    4) Write the singularity recipe and save it as a file nammed **Singularity**.
+    5) Git add **Singularity**, commit and push on the master branch.
+</code></pre></div>
+<p>At this point, robots from singularity-hub will build the container for you, you will be able to download your container from the website or directly with:</p>
+<div class="language-text highlight"><pre><span></span><code>    singularity pull shub://&lt;github_username&gt;/&lt;repository_name&gt;
+</code></pre></div>
+<h6 id="example-recipe-with-openai-gym-mujoco-and-miniworld">Example: Recipe with openai gym, mujoco and miniworld<a class="headerlink" href="#example-recipe-with-openai-gym-mujoco-and-miniworld" title="Permanent link">&para;</a></h6>
+<p>Here is an example on how you can use singularity recipe to install complex environment as opanai gym, mujoco and miniworld on a pytorch based container.
+In order to use mujoco, you'll need to copy the key stored on the mila cluster in <code>/ai/apps/mujoco/license/mjkey.txt</code> to your current directory.</p>
+<p>```bash</p>
+<div class="language-text highlight"><pre><span></span><code>    #This is a dockerfile that sets up a full Gym install with test dependencies
+    Bootstrap: docker
+
+    # Here we ll build our container upon the pytorch container
+    From: pytorch/pytorch:1.0-cuda10.0-cudnn7-runtime
+
+    # Now we&#39;ll copy the mjkey file located in the current directory inside the container&#39;s root
+    # directory
+    %files
+            mjkey.txt
+
+    # Then we put everything we need to install
+    %post
+            export PATH=$PATH:/opt/conda/bin
+            apt -y update &amp;&amp; \
+            apt install -y keyboard-configuration &amp;&amp; \
+            apt install -y \
+            python3-dev \
+            python-pyglet \
+            python3-opengl \
+            libhdf5-dev \
+            libjpeg-dev \
+            libboost-all-dev \
+            libsdl2-dev \
+            libosmesa6-dev \
+            patchelf \
+            ffmpeg \
+            xvfb \
+            libhdf5-dev \
+            openjdk-8-jdk \
+            wget \
+            git \
+            unzip &amp;&amp; \
+            apt clean &amp;&amp; \
+            rm -rf /var/lib/apt/lists/*
+            pip install h5py
+
+            # Download Gym and Mujoco
+            mkdir /Gym &amp;&amp; cd /Gym
+            git clone https://github.com/openai/gym.git || true &amp;&amp; \
+            mkdir /Gym/.mujoco &amp;&amp; cd /Gym/.mujoco
+            wget https://www.roboti.us/download/mjpro150_linux.zip  &amp;&amp; \
+            unzip mjpro150_linux.zip &amp;&amp; \
+            wget https://www.roboti.us/download/mujoco200_linux.zip &amp;&amp; \
+            unzip mujoco200_linux.zip &amp;&amp; \
+            mv mujoco200_linux mujoco200
+
+            # Export global environment variables
+            export MUJOCO_PY_MJKEY_PATH=/Gym/.mujoco/mjkey.txt
+            export MUJOCO_PY_MUJOCO_PATH=/Gym/.mujoco/mujoco150/
+            export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/Gym/.mujoco/mjpro150/bin
+            export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/Gym/.mujoco/mujoco200/bin
+            export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/bin
+            cp /mjkey.txt /Gym/.mujoco/mjkey.txt
+            # Install python dependencies
+            wget https://raw.githubusercontent.com/openai/mujoco-py/master/requirements.txt
+            pip install -r requirements.txt
+            # Install Gym and Mujoco
+            cd /Gym/gym
+            pip install -e &#39;.[all]&#39;
+            # Change permission to use mujoco_py as non sudoer user
+            chmod -R 777 /opt/conda/lib/python3.6/site-packages/mujoco_py/
+            pip install --upgrade minerl
+
+    # Export global environment variables
+    %environment
+            export SHELL=/bin/sh
+            export MUJOCO_PY_MJKEY_PATH=/Gym/.mujoco/mjkey.txt
+            export MUJOCO_PY_MUJOCO_PATH=/Gym/.mujoco/mujoco150/
+            export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/Gym/.mujoco/mjpro150/bin
+            export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/Gym/.mujoco/mujoco200/bin
+            export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/bin
+            export PATH=/Gym/gym/.tox/py3/bin:$PATH
+
+    %runscript
+            exec /bin/sh &quot;$@&quot;
+</code></pre></div>
+<p>Here is the same recipe but written for TensorFlow.</p>
+<p>```bash</p>
+<div class="language-text highlight"><pre><span></span><code>    #This is a dockerfile that sets up a full Gym install with test dependencies
+    Bootstrap: docker
+
+    # Here we ll build our container upon the tensorflow container
+    From: tensorflow/tensorflow:latest-gpu-py3
+
+    # Now we&#39;ll copy the mjkey file located in the current directory inside the container&#39;s root
+    # directory
+    %files
+            mjkey.txt
+
+    # Then we put everything we need to install
+    %post
+            apt -y update &amp;&amp; \
+            apt install -y keyboard-configuration &amp;&amp; \
+            apt install -y \
+            python3-setuptools \
+            python3-dev \
+            python-pyglet \
+            python3-opengl \
+            libjpeg-dev \
+            libboost-all-dev \
+            libsdl2-dev \
+            libosmesa6-dev \
+            patchelf \
+            ffmpeg \
+            xvfb \
+            wget \
+            git \
+            unzip &amp;&amp; \
+            apt clean &amp;&amp; \
+            rm -rf /var/lib/apt/lists/*
+
+            # Download Gym and Mujoco
+            mkdir /Gym &amp;&amp; cd /Gym
+            git clone https://github.com/openai/gym.git || true &amp;&amp; \
+            mkdir /Gym/.mujoco &amp;&amp; cd /Gym/.mujoco
+            wget https://www.roboti.us/download/mjpro150_linux.zip  &amp;&amp; \
+            unzip mjpro150_linux.zip &amp;&amp; \
+            wget https://www.roboti.us/download/mujoco200_linux.zip &amp;&amp; \
+            unzip mujoco200_linux.zip &amp;&amp; \
+            mv mujoco200_linux mujoco200
+
+            # Export global environment variables
+            export MUJOCO_PY_MJKEY_PATH=/Gym/.mujoco/mjkey.txt
+            export MUJOCO_PY_MUJOCO_PATH=/Gym/.mujoco/mujoco150/
+            export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/Gym/.mujoco/mjpro150/bin
+            export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/Gym/.mujoco/mujoco200/bin
+            export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/bin
+            cp /mjkey.txt /Gym/.mujoco/mjkey.txt
+
+            # Install python dependencies
+            wget https://raw.githubusercontent.com/openai/mujoco-py/master/requirements.txt
+            pip install -r requirements.txt
+            # Install Gym and Mujoco
+            cd /Gym/gym
+            pip install -e &#39;.[all]&#39;
+            # Change permission to use mujoco_py as non sudoer user
+            chmod -R 777 /usr/local/lib/python3.5/dist-packages/mujoco_py/
+
+            # Then install miniworld
+            cd /usr/local/
+            git clone https://github.com/maximecb/gym-miniworld.git
+            cd gym-miniworld
+            pip install -e .
+
+    # Export global environment variables
+    %environment
+            export SHELL=/bin/bash
+            export MUJOCO_PY_MJKEY_PATH=/Gym/.mujoco/mjkey.txt
+            export MUJOCO_PY_MUJOCO_PATH=/Gym/.mujoco/mujoco150/
+            export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/Gym/.mujoco/mjpro150/bin
+            export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/Gym/.mujoco/mujoco200/bin
+            export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/bin
+            export PATH=/Gym/gym/.tox/py3/bin:$PATH
+
+    %runscript
+            exec /bin/bash &quot;$@&quot;
+</code></pre></div>
+<p>Keep in mind that those environment variables are sourced at runtime and not at build time. This is why, you should also define them in the <code>%post</code> section since they are required to install mujuco.</p>
+<h5 id="using-containers-on-clusters">Using containers on clusters<a class="headerlink" href="#using-containers-on-clusters" title="Permanent link">&para;</a></h5>
+<p>On every cluster with SLURM, dataset and intermediate results should go in <code>$SLURM_TMPDIR</code> while the final experiments results should go in <code>$SCRATCH</code>.
+In order to use the container you built, you need to copy it on the cluster you want to use.</p>
+<p>Then reserve a node with srun/sbatch, copy the container and your dataset on the node given by slurm (i.e in <code>$SLURM_TMPDIR</code>) and execute the code <code>&lt;YOUR_CODE&gt;</code> within the container <code>&lt;YOUR_CONTAINER&gt;</code> with:</p>
+<div class="language-text highlight"><pre><span></span><code>    singularity exec --nv -H $HOME:/home -B $SLURM_TMPDIR:/dataset/ -B $SLURM_TMPDIR:/tmp_log/ -B $SCRATCH:/final_log/ $SLURM_TMPDIR/&lt;YOUR_CONTAINER&gt; python &lt;YOUR_CODE&gt;
+</code></pre></div>
+<p>Remember that <code>/dataset</code>, <code>/tmp_log</code> and <code>/final_log</code> were created in the previous section. Now each time, we'll use singularity, we are
+explicitly telling it to mount <code>$SLURM_TMPDIR</code> on the cluster's node in the folder <code>/dataset</code> inside the container with the option <code>-B</code> such that
+each dataset downloaded by pytorch in <code>/dataset</code> will be available in <code>$SLURM_TMPDIR</code>.</p>
+<p>This will allow us to have code and scripts that are invariant to the cluster environment. The option <code>-H</code> specify what will be the container's home. For example,
+if you have your code in <code>$HOME/Project12345/Version35/</code> you can specify <code>-H $HOME/Project12345/Version35:/home</code>, thus the container will only have access to
+the code inside <code>Version35</code>.</p>
+<p>If you want to run multiple commands inside the container you can use:</p>
+<div class="language-text highlight"><pre><span></span><code>    singularity exec --nv -H $HOME:/home -B $SLURM_TMPDIR:/dataset/ -B $SLURM_TMPDIR:/tmp_log/ -B $SCRATCH:/final_log/ $SLURM_TMPDIR/&lt;YOUR_CONTAINER&gt; bash -c &#39;pwd &amp;&amp; ls &amp;&amp; python &lt;YOUR_CODE&gt;&#39;
+</code></pre></div>
+<h6 id="example-interactive-case-srunsalloc">Example: Interactive case (srun/salloc)<a class="headerlink" href="#example-interactive-case-srunsalloc" title="Permanent link">&para;</a></h6>
+<p>Once you get an interactive session with slurm, copy <code>&lt;YOUR_CONTAINER&gt;</code> and <code>&lt;YOUR_DATASET&gt;</code> to <code>$SLURM_TMPDIR</code></p>
+<div class="language-text highlight"><pre><span></span><code>    # 0. Get an interactive session
+    $ srun --gres=gpu:1
+    # 1. Copy your container on the compute node
+    $ rsync -avz $SCRATCH/&lt;YOUR_CONTAINER&gt; $SLURM_TMPDIR
+    # 2. Copy your dataset on the compute node
+    $ rsync -avz $SCRATCH/&lt;YOUR_DATASET&gt; $SLURM_TMPDIR
+</code></pre></div>
+<p>then use <code>singularity shell</code> to get a shell inside the container</p>
+<div class="language-text highlight"><pre><span></span><code>    # 3. Get a shell in your environment
+    $ singularity shell --nv \
+            -H $HOME:/home \
+            -B $SLURM_TMPDIR:/dataset/ \
+            -B $SLURM_TMPDIR:/tmp_log/ \
+            -B $SCRATCH:/final_log/ \
+            $SLURM_TMPDIR/&lt;YOUR_CONTAINER&gt;
+
+    # 4. Execute your code
+    &lt;Singularity_container&gt;$ python &lt;YOUR_CODE&gt;
+</code></pre></div>
+<p><strong>or</strong> use <code>singularity exec</code> to execute <code>&lt;YOUR_CODE&gt;</code>.</p>
+<div class="language-text highlight"><pre><span></span><code>    # 3. Execute your code
+    $ singularity exec --nv \
+            -H $HOME:/home \
+            -B $SLURM_TMPDIR:/dataset/ \
+            -B $SLURM_TMPDIR:/tmp_log/ \
+            -B $SCRATCH:/final_log/ \
+            $SLURM_TMPDIR/&lt;YOUR_CONTAINER&gt; \
+            python &lt;YOUR_CODE&gt;
+</code></pre></div>
+<p>You can create also the following alias to make your life easier.</p>
+<div class="language-text highlight"><pre><span></span><code>    alias my_env=&#39;singularity exec --nv \
+            -H $HOME:/home \
+            -B $SLURM_TMPDIR:/dataset/ \
+            -B $SLURM_TMPDIR:/tmp_log/ \
+            -B $SCRATCH:/final_log/ \
+            $SLURM_TMPDIR/&lt;YOUR_CONTAINER&gt;&#39;
+</code></pre></div>
+<p>This will allow you to run any code with:</p>
+<div class="language-text highlight"><pre><span></span><code>    my_env python &lt;YOUR_CODE&gt;
+</code></pre></div>
+<h6 id="example-sbatch-case">Example: sbatch case<a class="headerlink" href="#example-sbatch-case" title="Permanent link">&para;</a></h6>
+<p>You can also create a <code>sbatch</code> script:</p>
+<p>```bash
+        :linenos:</p>
+<div class="language-text highlight"><pre><span></span><code>    #!/bin/bash
+    #SBATCH --cpus-per-task=6         # Ask for 6 CPUs
+    #SBATCH --gres=gpu:1              # Ask for 1 GPU
+    #SBATCH --mem=10G                 # Ask for 10 GB of RAM
+    #SBATCH --time=0:10:00            # The job will run for 10 minutes
+
+    # 1. Copy your container on the compute node
+    rsync -avz $SCRATCH/&lt;YOUR_CONTAINER&gt; $SLURM_TMPDIR
+    # 2. Copy your dataset on the compute node
+    rsync -avz $SCRATCH/&lt;YOUR_DATASET&gt; $SLURM_TMPDIR
+    # 3. Executing your code with singularity
+    singularity exec --nv \
+            -H $HOME:/home \
+            -B $SLURM_TMPDIR:/dataset/ \
+            -B $SLURM_TMPDIR:/tmp_log/ \
+            -B $SCRATCH:/final_log/ \
+            $SLURM_TMPDIR/&lt;YOUR_CONTAINER&gt; \
+            python &quot;&lt;YOUR_CODE&gt;&quot;
+    # 4. Copy whatever you want to save on $SCRATCH
+    rsync -avz $SLURM_TMPDIR/&lt;to_save&gt; $SCRATCH
+</code></pre></div>
+<h6 id="issue-with-pybullet-and-opengl-libraries">Issue with PyBullet and OpenGL libraries<a class="headerlink" href="#issue-with-pybullet-and-opengl-libraries" title="Permanent link">&para;</a></h6>
+<p>If you are running certain gym environments that require <code>pyglet</code>, you may encounter a problem when running your singularity instance with the Nvidia drivers using the <code>--nv</code> flag. This happens because the <code>--nv</code> flag also provides the OpenGL libraries:</p>
+<p>```bash</p>
+<div class="language-text highlight"><pre><span></span><code>    libGL.so.1 =&gt; /.singularity.d/libs/libGL.so.1
+    libGLX.so.0 =&gt; /.singularity.d/libs/libGLX.so.0
+</code></pre></div>
+<p>If you don't experience those problems with <code>pyglet</code>, you probably don't need to address this. Otherwise, you can resolve those problems by <code>apt-get install -y libosmesa6-dev mesa-utils mesa-utils-extra libgl1-mesa-glx</code>, and then making sure that your <code>LD_LIBRARY_PATH</code> points to those libraries before the ones in <code>/.singularity.d/libs</code>.</p>
+<p>```bash</p>
+<div class="language-text highlight"><pre><span></span><code>    %environment
+            # ...
+            export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/mesa:$LD_LIBRARY_PATH
+</code></pre></div>
+<h6 id="mila-cluster">Mila cluster<a class="headerlink" href="#mila-cluster" title="Permanent link">&para;</a></h6>
+<p>On the Mila cluster <code>$SCRATCH</code> is not yet defined, you should add the
+experiment results you want to keep in <code>/network/scratch/&lt;u&gt;/&lt;username&gt;/</code>. In
+order to use the sbatch script above and to match other cluster environment's
+names, you can define <code>$SCRATCH</code> as an alias for
+<code>/network/scratch/&lt;u&gt;/&lt;username&gt;</code> with:</p>
+<div class="language-text highlight"><pre><span></span><code>    echo &quot;export SCRATCH=/network/scratch/${USER:0:1}/$USER&quot; &gt;&gt; ~/.bashrc
+</code></pre></div>
+<p>Then, you can follow the general procedure explained above.</p>
+<h6 id="digital-research-alliance-of-canada">Digital Research Alliance of Canada<a class="headerlink" href="#digital-research-alliance-of-canada" title="Permanent link">&para;</a></h6>
+<p>Using singularity on Digital Research Alliance of Canada is similar except that
+you need to add Yoshua's account name and load singularity.  Here is an example
+of a <code>sbatch</code> script using singularity on compute Canada cluster:</p>
+<p>```bash
+        :linenos:</p>
+<div class="language-text highlight"><pre><span></span><code>    #!/bin/bash
+    #SBATCH --account=rpp-bengioy     # Yoshua pays for your job
+    #SBATCH --cpus-per-task=6         # Ask for 6 CPUs
+    #SBATCH --gres=gpu:1              # Ask for 1 GPU
+    #SBATCH --mem=32G                 # Ask for 32 GB of RAM
+    #SBATCH --time=0:10:00            # The job will run for 10 minutes
+    #SBATCH --output=&quot;/scratch/&lt;user&gt;/slurm-%j.out&quot; # Modify the output of sbatch
+
+    # 1. You have to load singularity
+    module load singularity
+    # 2. Then you copy the container to the local disk
+    rsync -avz $SCRATCH/&lt;YOUR_CONTAINER&gt; $SLURM_TMPDIR
+    # 3. Copy your dataset on the compute node
+    rsync -avz $SCRATCH/&lt;YOUR_DATASET&gt; $SLURM_TMPDIR
+    # 4. Executing your code with singularity
+    singularity exec --nv \
+            -H $HOME:/home \
+            -B $SLURM_TMPDIR:/dataset/ \
+            -B $SLURM_TMPDIR:/tmp_log/ \
+            -B $SCRATCH:/final_log/ \
+            $SLURM_TMPDIR/&lt;YOUR_CONTAINER&gt; \
+            python &quot;&lt;YOUR_CODE&gt;&quot;
+    # 5. Copy whatever you want to save on $SCRATCH
+    rsync -avz $SLURM_TMPDIR/&lt;to_save&gt; $SCRATCH
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["announce.dismiss", "content.code.copy", "content.code.select", "content.code.annotate", "navigation.tracking", "navigation.sections", "navigation.path", "navigation.indexes", "search.suggest", "search.highlight", "search.share"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

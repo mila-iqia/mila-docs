@@ -1,0 +1,3525 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://mila-iqia.github.io/docs/Extra_compute/">
+      
+      
+        <link rel="prev" href="../Information_monitoring/">
+      
+      
+        <link rel="next" href="../examples/frameworks/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Computational resources outside of Mila - Mila Technical Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#computational-resources-outside-of-mila" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+              <button class="md-banner__button md-icon" aria-label="Don't show this again">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+              </button>
+            
+            
+🎉 We're giving the docs a fresh makeover! You can expect things to move around a bit while we redesign and reorganize the documentation.
+Fear not — the old docs are still available at <a href="https://mila-docs.readthedocs.io">mila-docs.readthedocs.io</a>.
+Spotted a
+bug? 🐛 <a href="https://github.com/mila-iqia/mila-docs/issues/new">File a
+    ticket</a> and we'll take a look at it!
+
+          </div>
+          
+            <script>var el=document.querySelector("[data-md-component=announce]");if(el){var content=el.querySelector(".md-typeset");__md_hash(content.innerHTML)===__md_get("__announce")&&(el.hidden=!0)}</script>
+          
+        </aside>
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Mila Technical Documentation" class="md-header__button md-logo" aria-label="Mila Technical Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mila Technical Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Computational resources outside of Mila
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://www.github.com/mila-iqia/mila-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mila-docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Mila Technical Documentation" class="md-nav__button md-logo" aria-label="Mila Technical Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Mila Technical Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://www.github.com/mila-iqia/mila-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mila-docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Introduction
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Purpose/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Purpose of this documentation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CONTRIBUTING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How-tos and Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    How-tos and Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Userguide_quick_start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Userguide_login/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Logging in to the cluster
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Userguide_running_code/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Running your code
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Userguide_portability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Portability concerns and solutions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Userguide_containers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Using containers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Userguide_sharing_data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sharing Data with ACLs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Userguide_datasets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing datasets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Userguide_data_transfer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Transmission using Globus Connect Personal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Userguide_multigpu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced SLURM usage and Multiple GPU jobs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Userguide_multinode/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multiple Nodes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Userguide_wandb/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Weights and Biases (WandB)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Userguide_comet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Userguide_jupyterhub/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JupyterHub
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Userguide_singularity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Singularity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Userguide_faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frequently asked questions (FAQ)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Systems and services
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Systems and services
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Computing infrastructure and policies
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Computing infrastructure and policies
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Information/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Computing infrastructure and policies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Information_roles_and_resources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roles and computing resources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Information_nodes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Node profile description
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Information_storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Storage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Information_sharing_policies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data sharing policies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Information_data_transmission/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Transmission
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Information_monitoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Monitoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Computational resources outside of Mila
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Computational resources outside of Mila
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#digital-research-alliance-of-canada-clusters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Digital Research Alliance of Canada Clusters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Digital Research Alliance of Canada Clusters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#current-allocation-description" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Current Allocation Description
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#account-creation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Account Creation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#account-renewal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Account Renewal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clusters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Clusters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Clusters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fir" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fir
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nibi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nibi
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rorqual" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rorqual
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trillium" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trillium
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#narval" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Narval
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tamia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TamIA
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#launching-jobs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Launching Jobs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#drac-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DRAC Storage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modules
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#script-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Script Example
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Script Example">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-cometml-and-wandb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using CometML and Wandb
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#faq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FAQ
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FAQ">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-are-rgus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What are RGUs?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-to-do-with-importerror-lib64libmso6-version-glibc_223-not-found" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What to do with ImportError: /lib64/libm.so.6: version GLIBC_2.23 not found?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disk-quota-exceeded-error-on-project-file-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Disk quota exceeded error on /project file systems
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minimal Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Minimal Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../examples/frameworks/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Software Frameworks
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Software Frameworks
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/frameworks/pytorch_setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PyTorch Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/frameworks/jax_setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Jax Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/frameworks/jax/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Jax
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../examples/distributed/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Training
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Distributed Training
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/distributed/single_gpu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Single GPU Job
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/distributed/multi_gpu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-GPU Job
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/distributed/multi_node/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-node Job
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../examples/good_practices/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Good Practices
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Good Practices
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/good_practices/checkpointing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Checkpointing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/good_practices/wandb_setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Weights & Biases (wandb) setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/good_practices/launch_many_jobs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Launch many jobs from same shell script
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/good_practices/hpo_with_orion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hyperparameter Optimization with Orion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/good_practices/many_tasks_per_gpu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Launch many tasks on the same GPU
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/good_practices/slurm_job_arrays/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Launch many jobs using SLURM job arrays
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../examples/advanced/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Examples
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Advanced Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/advanced/imagenet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-Node / Multi-GPU ImageNet Training
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://mila-iqia.github.io/ResearchTemplate" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🔗 Research Project Template
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    General Theory
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    General Theory
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Theory_cluster_parts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What is a computer cluster?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Theory_cluster_unix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unix
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Theory_cluster_batch_scheduling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The workload manager
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Theory_cluster_data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Processing data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Theory_cluster_software_deps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Software on the cluster
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Extras
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Extras
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Acknowledgement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Acknowledging Mila
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://datasets.server.mila.quebec/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mila Datasets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Audio_video/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Audio and video resources at Mila
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../VSCode/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visual Studio Code
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../IDT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Who, what, where is IDT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Cheatsheet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cheat Sheet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Environmental_impact/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Environmental Impact
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#digital-research-alliance-of-canada-clusters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Digital Research Alliance of Canada Clusters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Digital Research Alliance of Canada Clusters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#current-allocation-description" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Current Allocation Description
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#account-creation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Account Creation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#account-renewal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Account Renewal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clusters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Clusters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Clusters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fir" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fir
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nibi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nibi
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rorqual" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rorqual
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trillium" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trillium
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#narval" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Narval
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tamia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TamIA
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#launching-jobs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Launching Jobs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#drac-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DRAC Storage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modules
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#script-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Script Example
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Script Example">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-cometml-and-wandb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using CometML and Wandb
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#faq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FAQ
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FAQ">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-are-rgus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What are RGUs?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-to-do-with-importerror-lib64libmso6-version-glibc_223-not-found" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What to do with ImportError: /lib64/libm.so.6: version GLIBC_2.23 not found?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disk-quota-exceeded-error-on-project-file-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Disk quota exceeded error on /project file systems
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="computational-resources-outside-of-mila">Computational resources outside of Mila<a class="headerlink" href="#computational-resources-outside-of-mila" title="Permanent link">&para;</a></h1>
+<p>This section seeks to provide insights and information on computational
+resources outside the Mila cluster itself.</p>
+<h2 id="digital-research-alliance-of-canada-clusters">Digital Research Alliance of Canada Clusters<a class="headerlink" href="#digital-research-alliance-of-canada-clusters" title="Permanent link">&para;</a></h2>
+<p>The clusters named <code>Fir</code>, <code>Nibi</code>, <code>Narval</code>, <code>Rorqual</code> and <code>Trillium</code> are
+clusters provided by the <a href="https://alliancecan.ca/">Digital Research Alliance of Canada organisation</a> (the Alliance). For Mila researchers, these
+clusters are to be used for larger experiments having many jobs, multi-node
+computation and/or multi-GPU jobs as well as long running jobs.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you use DRAC resources for your research, please remember to <a href="https://alliancecan.ca/en/services/advanced-research-computing/acknowledging-alliance">acknowledge
+their use in your papers</a></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Compute Canada ceased its operational responsibilities for supporting Canada’s
+national advanced research computing (ARC) platform on March 31, 2022. The services
+will be supported by the new Digital Research Alliance of Canada.</p>
+<p><a href="https://ace-net.ca/compute-canada-operations-move-to-the-digital-research-alliance-of-canada-(the-alliance).html">https://ace-net.ca/compute-canada-operations-move-to-the-digital-research-alliance-of-canada-(the-alliance).html</a></p>
+</div>
+<p>Clusters of the Alliance are <strong>shared with researchers across the country</strong>,
+in part through a system of <strong>allocations</strong>. Allocations are given by the
+Alliance to selected research groups to ensure a steady availability of
+computational resources throughout the year. From the Alliance's documentation:
+<code>An allocation is an amount of resources that a research group can target for
+use for a period of time, usually a year.</code></p>
+<h3 id="current-allocation-description">Current Allocation Description<a class="headerlink" href="#current-allocation-description" title="Permanent link">&para;</a></h3>
+<p>Depending on your supervisor's affiliations, you will have access to different
+allocations. Almost all students at Mila supervised by "core" professors
+should have access to the <code>rrg-bengioy-ad</code> allocation described below, but
+it is not the only one; Each supervisor also has a <code>def-profname</code> allocation.
+Your supervisor is your first point of contact in knowing which allocations you
+should have access to.</p>
+<p>The table below provides information on the allocation for <code>rrg-bengioy-ad</code>
+for the period which spans from July 2025 to Summer 2026.</p>
+<table>
+<thead>
+<tr>
+<th>Cluster</th>
+<th>CPUs</th>
+<th>account</th>
+<th>Model</th>
+<th>RGUs allocated</th>
+<th># GPU equiv</th>
+<th>SLURM type specifier</th>
+<th>account</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#fir">Fir</a></td>
+<td>193</td>
+<td>rrg-bengioy-ad</td>
+<td>H100-80G</td>
+<td>2000</td>
+<td>165</td>
+<td><code>h100</code></td>
+<td>rrg-bengioy-ad</td>
+</tr>
+<tr>
+<td><a href="#rorqual">Rorqual</a></td>
+<td>873</td>
+<td>rrg-bengioy-ad</td>
+<td>H100-80G</td>
+<td>1500</td>
+<td>123</td>
+<td><code>h100</code></td>
+<td>rrg-bengioy-ad</td>
+</tr>
+<tr>
+<td><a href="#nibi">Nibi</a></td>
+<td>0</td>
+<td>rrg-bengioy-ad</td>
+<td>H100-80G</td>
+<td>1000</td>
+<td>82</td>
+<td><code>h100</code></td>
+<td>rrg-bengioy-ad</td>
+</tr>
+</tbody>
+</table>
+<p>On DRAC clusters where Mila has no allocated resources under <code>rrg-bengioy-ad</code>
+this year, users can still use the default allocation associated with their
+supervisor, <em>so long as the supervisor adds them to it on the DRAC web site</em>.
+Every university professor in Canada gets a default allocation, and they can add
+their collaborators to it. The default accounts are of the form
+<code>def-&lt;yourprofname&gt;-gpu</code> and <code>def-&lt;yourprofname&gt;-cpu</code>. Management of a
+professor's default DRAC allocation is their personal responsibility, is beyond
+the control of Mila, and we are unable to provide support for such management.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>An allocation is not a <em>maximal</em> amount of resources that can be used
+simultaneously, it is a weighting factor of the workload manager to balance
+jobs. For instance, even though we are allocated 408 GPU-years across all
+clusters, we can use more or less than 408 GPUs simultaneously depending on the
+history of usage from our group and other groups using the cluster at a given
+period of time. Please see the Alliance's <a href="https://docs.alliancecan.ca/wiki/Allocations_and_resource_scheduling">documentation</a> for
+more information on how allocations and resource scheduling are configured for
+these installations.</p>
+</div>
+<h3 id="account-creation">Account Creation<a class="headerlink" href="#account-creation" title="Permanent link">&para;</a></h3>
+<p>To access the Alliance clusters you have to first create an account at
+<a href="https://ccdb.alliancecan.ca">https://ccdb.alliancecan.ca</a>. Use a password with at least 8 characters, mixed
+case letters, digits and special characters. Later you will be asked to create
+another password with those rules, and it’s really convenient that the two
+password are the same.</p>
+<p>Then, you have to apply for a <code>role</code> at
+<a href="https://ccdb.alliancecan.ca/me/add_role">https://ccdb.alliancecan.ca/me/add_role</a>, which basically means telling the
+Alliance that you are part of the lab so they know which cluster you can have
+access to, and track your usage.</p>
+<p>You will be asked for the CCRI (See screenshot below). Please reach out to your
+sponsor to get the CCRI.</p>
+<p><img alt="role" src="../role.png" /></p>
+<p>You will need to <strong>wait</strong> for your sponsor to accept before being able to login
+to the Alliance clusters.</p>
+<p>You should apply to a <code>role</code> using this form <strong>for each allocation you can have access to</strong>. If, for instance,
+your supervisor is member of the <code>rrg-bengioy-ad</code> allocation, you should apply using Yoshua Bengio's CCRI, and
+you should apply separately using your supervisor's CCRI to have access to <code>def-&lt;yoursupervisor&gt;</code>. Ask your supervisor
+to share these CCRI with you.</p>
+<h3 id="account-renewal">Account Renewal<a class="headerlink" href="#account-renewal" title="Permanent link">&para;</a></h3>
+<p>All user accounts (Sponsor &amp; Sponsored) have to be renewed annually in order to
+keep up-to-date information on active accounts and to deactivate unused
+accounts.</p>
+<p>To find out how to renew your account or for any other question regarding
+DRAC's accounts renewal, please head over to their <a href="https://alliancecan.ca/en/services/advanced-research-computing/account-management/account-renewals/account-renewals-faq">FAQ</a>.</p>
+<p>If the FAQ is of no help, you can contact DRAC renewal support team at
+<code>renewals@tech.alliancecan.ca</code> or the general support team at
+<code>support@tech.alliancecan.ca</code>.</p>
+<h3 id="clusters">Clusters<a class="headerlink" href="#clusters" title="Permanent link">&para;</a></h3>
+<h4 id="fir">Fir<a class="headerlink" href="#fir" title="Permanent link">&para;</a></h4>
+<p><a href="https://docs.alliancecan.ca/wiki/Fir">Digital Research Alliance of Canada doc</a></p>
+<p>The successor to the legacy Cedar cluster. Retains its filesystem. Equipped with H100s.</p>
+<h4 id="nibi">Nibi<a class="headerlink" href="#nibi" title="Permanent link">&para;</a></h4>
+<p><a href="https://docs.alliancecan.ca/wiki/Nibi">Digital Research Alliance of Canada doc</a></p>
+<p>The successor to the legacy Graham cluster. Retains its filesystem. Equipped with H100s.</p>
+<h4 id="rorqual">Rorqual<a class="headerlink" href="#rorqual" title="Permanent link">&para;</a></h4>
+<p><a href="https://docs.alliancecan.ca/wiki/Rorqual/en">Digital Research Alliance of Canada doc</a></p>
+<p>The successor to the legacy Beluga cluster. No internet access on compute nodes. Equipped with H100s.</p>
+<h4 id="trillium">Trillium<a class="headerlink" href="#trillium" title="Permanent link">&para;</a></h4>
+<p><a href="https://docs.alliancecan.ca/wiki/Trillium">Digital Research Alliance of Canada doc</a></p>
+<p>The successor to the legacy Niagara cluster. It is principally but not exclusively a
+CPU cluster. This cluster is not recommended in general. Compute resources
+in Trillium are not assigned to jobs on a per-CPU, but on a per-node basis.
+Equipped with H100s.</p>
+<h4 id="narval">Narval<a class="headerlink" href="#narval" title="Permanent link">&para;</a></h4>
+<p><a href="https://docs.alliancecan.ca/wiki/Narval/en">Digital Research Alliance of Canada doc</a></p>
+<p>For some students, Narval might be a good choice if they have already set up there.
+Narval is the oldest cluster still online, and contains the oldest and smallest GPUs (A100-40GB).
+The A100 may however be a viable choice for jobs that cannot utilize a full H100.</p>
+<h4 id="tamia">TamIA<a class="headerlink" href="#tamia" title="Permanent link">&para;</a></h4>
+<p><a href="https://docs.alliancecan.ca/wiki/TamIA/en">Digital Research Alliance of Canada doc</a></p>
+<p>This is a new cluster dedicated to AI jobs for Quebec-area research institutes, within
+the framework of PAICE (Pan-Canadian AI Compute Environment). Compute resources
+in TamIA are not assigned to jobs on a per-CPU, but on a per-node basis.
+Equipped with H100s and H200s.</p>
+<p>TamIA does not use regular DRAC allocations (<code>--account=rrg-bengioy-ad</code>). Instead, it
+uses AIP allocations (<code>--account=aip-${PI_NAME}</code>), where <code>${PI_NAME}</code> is the name of
+your supervising professor. Your professor must add you to their AIP allocation before
+you will be able to submit jobs.</p>
+<h3 id="launching-jobs">Launching Jobs<a class="headerlink" href="#launching-jobs" title="Permanent link">&para;</a></h3>
+<p>Users must specify the resource allocation Group Name using the flag
+<code>--account=rrg-bengioy-ad</code>.  To launch a CPU-only job:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>sbatch<span class="w"> </span>--time<span class="o">=</span><span class="m">1</span>:00:00<span class="w"> </span>--account<span class="o">=</span>rrg-bengioy-ad<span class="w"> </span>job.sh
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The account name will differ based on your affiliation.</p>
+</div>
+<p>To launch a GPU job:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>sbatch<span class="w"> </span>--time<span class="o">=</span><span class="m">1</span>:00:00<span class="w"> </span>--account<span class="o">=</span>rrg-bengioy-ad<span class="w"> </span>--gres<span class="o">=</span>gpu:1<span class="w"> </span>job.sh
+</span></code></pre></div>
+<p>And to get an interactive session, use the <code>salloc</code> command:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>salloc<span class="w"> </span>--time<span class="o">=</span><span class="m">1</span>:00:00<span class="w"> </span>--account<span class="o">=</span>rrg-bengioy-ad<span class="w"> </span>--gres<span class="o">=</span>gpu:1
+</span></code></pre></div>
+<p>The full documentation for jobs launching on Alliance clusters can be found
+<a href="https://docs.alliancecan.ca/wiki/Running_jobs">here</a>.</p>
+<h3 id="drac-storage">DRAC Storage<a class="headerlink" href="#drac-storage" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Storage</th>
+<th>Path</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$HOME</code></td>
+<td><code>/home/&lt;user&gt;/</code></td>
+<td>Code, specific libraries</td>
+</tr>
+<tr>
+<td><code>$HOME/projects</code></td>
+<td><code>/project/rrg-bengioy-ad</code></td>
+<td>Compressed raw datasets</td>
+</tr>
+<tr>
+<td><code>$SCRATCH</code></td>
+<td><code>/scratch/&lt;user&gt;</code></td>
+<td>Processed datasets, experimental results, logs of experiments</td>
+</tr>
+<tr>
+<td><code>$SLURM_TMPDIR</code></td>
+<td>(on compute node)</td>
+<td>Temporary job results</td>
+</tr>
+</tbody>
+</table>
+<p>They are roughly listed in order of increasing performance and optimized for
+different uses:</p>
+<ul>
+<li>The <code>$HOME</code> folder on Lustre is appropriate for code and libraries, which
+  are small and read once. <strong>Do not write experiemental results here!</strong></li>
+<li>The <code>$HOME/projects</code> folder should only contain <strong>compressed raw</strong> datasets
+  (<strong>processed</strong> datasets should go in <code>$SCRATCH</code>). We have a limit on the
+  size and number of file in <code>$HOME/projects</code>, so do not put anything else
+  there.  If you add a new dataset there (make sure it is readable by every
+  member of the group using <code>chgrp -R rpp-bengioy &lt;dataset&gt;</code>).</li>
+<li>The <code>$SCRATCH</code> space can be used for short term storage. It has good
+  performance and large quotas, but is purged regularly (every file that has
+  not been used in the last 3 months gets deleted, but you receive an email
+  before this happens).</li>
+<li><code>$SLURM_TMPDIR</code> points to the local disk of the node on which a job is
+  running. It should be used to copy the data on the node at the beginning of
+  the job and write intermediate checkpoints. This folder is cleared after each
+  job, so results there must be copied to <code>$SCRATCH</code> at the end of a job.</li>
+</ul>
+<p>When a series of experiments is finished, results should be transferred back
+to Mila servers.</p>
+<p>More details on storage can be found <a href="https://docs.alliancecan.ca/wiki/Storage_and_file_management">here</a>.</p>
+<h3 id="modules">Modules<a class="headerlink" href="#modules" title="Permanent link">&para;</a></h3>
+<p>Much software, such as Python or MATLAB, is already compiled and available on
+DRAC clusters through the <code>module</code> command and its subcommands. Their full
+documentation can be found <a href="https://docs.alliancecan.ca/wiki/Utiliser_des_modules/en">here</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>module avail</code></td>
+<td>Displays all the available modules</td>
+</tr>
+<tr>
+<td><code>module load &lt;module&gt;</code></td>
+<td>Loads \&lt;module&gt;</td>
+</tr>
+<tr>
+<td><code>module spider &lt;module&gt;</code></td>
+<td>Shows specific details about \&lt;module&gt;</td>
+</tr>
+</tbody>
+</table>
+<p>In particular, if you with to use <code>Python 3.12</code> you can simply do:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>module<span class="w"> </span>load<span class="w"> </span>python/3.12
+</span></code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Python on the cluster</p>
+<p>If you wish to use Python on the cluster, we strongly encourage you to
+read <a href="https://docs.alliancecan.ca/wiki/Python">Alliance Python Documentation</a>, and in particular the <a href="https://docs.alliancecan.ca/wiki/PyTorch">Pytorch</a> and/or <a href="https://docs.alliancecan.ca/wiki/TensorFlow">Tensorflow</a> pages.</p>
+</div>
+<p>The cluster has many Python packages (or <code>wheels</code>), such already compiled for
+the cluster. See <a href="https://docs.alliancecan.ca/wiki/Python/en">here</a> for the
+details. In particular, you can browse the packages by doing:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>avail_wheels<span class="w"> </span>&lt;wheel&gt;
+</span></code></pre></div>
+<p>Such wheels can be installed using pip. Moreover, the most efficient way to use
+modules on the cluster is to <a href="https://docs.alliancecan.ca/wiki/Python#Creating_virtual_environments_inside_of_your_jobs">build your environnement inside your job</a>.
+See the script example below.</p>
+<h3 id="script-example">Script Example<a class="headerlink" href="#script-example" title="Permanent link">&para;</a></h3>
+<p>Here is a <code>sbatch</code> script that follows good practices on Narval and can serve
+as inspiration for more complicated scripts:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="ch">#!/bin/bash</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="c1">#SBATCH --account=rrg-bengioy-ad         # Yoshua pays for your job</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="c1">#SBATCH --cpus-per-task=12               # Ask for 12 CPUs</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1">#SBATCH --gres=gpu:1                     # Ask for 1 GPU</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="c1">#SBATCH --mem=124G                       # Ask for 124 GB of RAM</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="c1">#SBATCH --time=03:00:00                  # The job will run for 3 hours</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="c1">#SBATCH -o /scratch/&lt;user&gt;/slurm-%j.out  # Write the log in $SCRATCH</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="c1"># 1. Create your environement locally</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>module<span class="w"> </span>load<span class="w"> </span>StdEnv/2023<span class="w"> </span>python/3.12
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>virtualenv<span class="w"> </span>--no-download<span class="w"> </span><span class="nv">$SLURM_TMPDIR</span>/env
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="nb">source</span><span class="w"> </span><span class="nv">$SLURM_TMPDIR</span>/env/bin/activate
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>pip<span class="w"> </span>install<span class="w"> </span>--no-index<span class="w"> </span>torch<span class="w"> </span>torchvision
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="c1"># 2. Copy your dataset on the compute node, simultaneously unpacking if</span>
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="c1">#    needed (Zip, tar); Alternatively, copy the dataset if it&#39;s in an</span>
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="c1">#    advanced format like HDF5, or if you can use Zip directly.</span>
+</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>unzip<span class="w">     </span><span class="nv">$SCRATCH</span>/DATASET_CHANGEME.zip<span class="w">    </span>-d<span class="w"> </span><span class="nv">$SLURM_TMPDIR</span>
+</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="c1"># tar -xf $SCRATCH/DATASET_CHANGEME.tar.gz -C $SLURM_TMPDIR</span>
+</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a><span class="c1"># cp      $SCRATCH/DATASET_CHANGEME.hdf5      $SLURM_TMPDIR</span>
+</span><span id="__span-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>
+</span><span id="__span-5-22"><a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a><span class="c1"># 3. Launch your job, tell it to save the model in $SLURM_TMPDIR</span>
+</span><span id="__span-5-23"><a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a><span class="c1">#    and look for the dataset into $SLURM_TMPDIR</span>
+</span><span id="__span-5-24"><a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a>python<span class="w"> </span>main.py<span class="w"> </span>--path<span class="w"> </span><span class="nv">$SLURM_TMPDIR</span><span class="w"> </span>--data_path<span class="w"> </span><span class="nv">$SLURM_TMPDIR</span>
+</span><span id="__span-5-25"><a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a>
+</span><span id="__span-5-26"><a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a><span class="c1"># 4. Copy whatever you want to save on $SCRATCH</span>
+</span><span id="__span-5-27"><a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a>cp<span class="w"> </span><span class="nv">$SLURM_TMPDIR</span>/RESULTS_CHANGEME<span class="w"> </span><span class="nv">$SCRATCH</span>
+</span></code></pre></div>
+<h4 id="using-cometml-and-wandb">Using CometML and Wandb<a class="headerlink" href="#using-cometml-and-wandb" title="Permanent link">&para;</a></h4>
+<p>The compute nodes for Narval, Rorqual and Tamia don't have access to the
+internet, but there is a special module that can be loaded in order to allow
+training scripts to access some specific servers, which includes
+the necessary servers for using CometML and Wandb ("Weights and Biases").</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>module<span class="w"> </span>load<span class="w"> </span>httpproxy
+</span></code></pre></div>
+<p>More documentation about this can be found <a href="https://docs.alliancecan.ca/wiki/Weights_%26_Biases_(wandb)">here</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Be careful when using Wandb with <code>httpproxy</code>. It does not support sending
+artifacts and wandb's logger will hang in the background when your training
+is completed, wasting ressources until the job times out. It is recommended
+to use the offline mode with wandb instead to avoid such waste.</p>
+</div>
+<h3 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">&para;</a></h3>
+<h4 id="what-are-rgus">What are RGUs?<a class="headerlink" href="#what-are-rgus" title="Permanent link">&para;</a></h4>
+<p>DRAC uses a concept called <code>RGUs</code> (Reference GPU Units) to measure the
+allocated GPU resources based on the type of device. This measurement combines
+the FP32 and FP16 performance of the GPU as well as the memory size.
+For example, an NVIDIA A100-40G counts has 4.0 RGUs,
+while a while an H100-80G counts as 12.15 RGUs.
+This is an improvement over the previous system of counting physical GPU devices
+and disregarding their actual performance.
+For example, saying that "we have 4 GPUs per researcher" omits
+which kind of GPUs we're talking about, which is fundamentally important.
+That proposed RGU measurement can still be improved, but criticisms about it
+are outside the scope of this document.</p>
+<h4 id="what-to-do-with-importerror-lib64libmso6-version-glibc_223-not-found">What to do with  <code>ImportError: /lib64/libm.so.6: version GLIBC_2.23 not found</code>?<a class="headerlink" href="#what-to-do-with-importerror-lib64libmso6-version-glibc_223-not-found" title="Permanent link">&para;</a></h4>
+<p>The structure of the file system is different than a classical Linux, so your
+code has trouble finding libraries. See <a href="https://docs.alliancecan.ca/wiki/Installing_software_in_your_home_directory#Installing_binary_packages">how to install binary packages</a>.</p>
+<h4 id="disk-quota-exceeded-error-on-project-file-systems">Disk quota exceeded error on <code>/project</code> file systems<a class="headerlink" href="#disk-quota-exceeded-error-on-project-file-systems" title="Permanent link">&para;</a></h4>
+<p>You have files in <code>/project</code> with the wrong permissions. See <a href="https://docs.alliancecan.ca/wiki/Frequently_Asked_Questions/en#Disk_quota_exceeded_error_on_.2Fproject_filesystems">how to change
+permissions</a>.</p>
+<!-- TODO: Remove these, they are empty in both the .rst and .md docs: -->
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["announce.dismiss", "content.code.copy", "content.code.select", "content.code.annotate", "navigation.tracking", "navigation.sections", "navigation.path", "navigation.indexes", "search.suggest", "search.highlight", "search.share"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
