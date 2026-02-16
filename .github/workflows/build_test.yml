@@ -1,19 +1,14 @@
 ---
-name: build_the_docs_prod
+name: build_test
 
 on:
-  push:
+  pull_request:
     branches:
       - master
 
 jobs:
-  publish_docs:
+  build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ['3.12']
-    permissions:
-      contents: write  # Required for pushing to gh-pages
     steps:
       - uses: actions/checkout@v4
 
@@ -38,7 +33,8 @@ jobs:
       - name: Build MkDocs site
         run: uv run mkdocs build --site-dir ./_build/html
 
-      - name: Upload to GitHub Pages
-        uses: actions/upload-pages-artifact@v4
+      - name: Save artifact to GitHub
+        uses: actions/upload-artifact@v4
         with:
+          name: docs-build-test
           path: ./_build/html
