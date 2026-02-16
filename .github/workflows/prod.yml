@@ -1,5 +1,5 @@
 ---
-name: build_the_docs_prod
+name: publish_prod
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
       - master
 
 jobs:
-  publish_docs:
+  publish:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -38,7 +38,10 @@ jobs:
       - name: Build MkDocs site
         run: uv run mkdocs build --site-dir ./_build/html
 
-      - name: Upload to GitHub Pages
+      - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
           path: ./_build/html
+
+      - name: Deploy docs
+        run: uv run mkdocs gh-deploy --force --no-history --site-dir ./_build/html
