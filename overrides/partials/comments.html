@@ -1,0 +1,66 @@
+{% if page.meta.comments %}
+<h2 id="__comments">{{ lang.t("meta.comments") }}</h2>
+<!--
+  Giscus configuration: Get your repo-id and category-id from https://giscus.app/
+  1. Install the Giscus GitHub App: https://github.com/apps/giscus
+  2. Enable Discussions on your repository
+  3. Visit https://giscus.app/ and generate the snippet for mila-iqia/mila-docs
+  4. Replace the data-repo-id and data-category-id values below
+-->
+<script src="https://giscus.app/client.js"
+  data-repo="mila-iqia/mila-docs"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzNTk1MDE4MTc="
+  data-category="Giscus"
+  data-category-id="DIC_kwDOFW2P-c4C3D6n"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="fr"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async>
+</script>
+
+<!-- Synchronize Giscus theme with palette -->
+<script>
+  var giscus = document.querySelector("script[src*=giscus]")
+
+  // Set palette on initial load
+  var palette = __md_get("__palette")
+  if (palette && typeof palette.color === "object") {
+    var theme = palette.color.scheme === "slate"
+      ? "transparent_dark"
+      : "light"
+
+    // Instruct Giscus to set theme
+    giscus.setAttribute("data-theme", theme)
+  }
+
+  // Register event handlers after document loaded
+  document.addEventListener("DOMContentLoaded", function () {
+    var ref = document.querySelector("[data-md-component=palette]")
+    if (ref) {
+      ref.addEventListener("change", function () {
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+          var theme = palette.color.scheme === "slate"
+            ? "transparent_dark"
+            : "light"
+
+          // Instruct Giscus to change theme
+          var frame = document.querySelector(".giscus-frame")
+          if (frame && frame.contentWindow) {
+            frame.contentWindow.postMessage(
+              { giscus: { setConfig: { theme } } },
+              "https://giscus.app"
+            )
+          }
+        }
+      })
+    }
+  })
+</script>
+{% endif %}
