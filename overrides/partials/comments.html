@@ -1,0 +1,18 @@
+{% if page.meta.comments %}
+<h2 id="__comments">{{ lang.t("meta.comments") }}</h2>
+<!--
+  Giscus configuration: Get your repo-id and category-id from https://utteranc.es/
+  1. Install the Giscus GitHub App: https://github.com/apps/utterances
+  2. Enable Discussions on your repository
+  3. Visit https://utteranc.es/ and generate the snippet for mila-iqia/mila-docs
+  4. Replace the data-repo-id and data-category-id values below
+-->
+<script src="https://utteranc.es/client.js"
+  repo="mila-iqia/mila-docs"
+  issue-term="pathname"
+  label="comment"
+  theme="preferred-color-scheme"
+  crossorigin="anonymous"
+  async>
+</script>
+{% endif %}
