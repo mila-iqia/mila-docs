@@ -1,7 +1,7 @@
 # Logging in to the cluster
 
 {%
-    include-markdown "Userguide_cluster_access.md"
+    include-markdown "guides/quick_start/Userguide_cluster_access.md"
 %}
 
 

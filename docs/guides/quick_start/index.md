@@ -1,14 +1,13 @@
 # Quick Start
 
-<!--
-This page is auto-converted from `Userguide_quick_start.rst` during the
-MkDocs transition.
--->
+
+At Mila, you are given access to one or more clusters in order to run your experiments. To be very general, a cluster is a set of several computers working together to be accessed as a single system. Thus, it provides shared computing resources among the researchers to help them running their experiments. You can have more details about clusters on the page [What is a computer cluster?](../../Theory_cluster_parts.md).
+
 
 ## Cluster access
 
 {%
-    include-markdown "Userguide_cluster_access.md"
+    include-markdown "guides/quick_start/Userguide_cluster_access.md"
 %}
 
 

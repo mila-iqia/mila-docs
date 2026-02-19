@@ -18,6 +18,7 @@ theme:
     # - navigation.expand
     - navigation.path
     - navigation.indexes
+    - navigation.tabs
     - search.suggest
     - search.highlight
     - search.share
@@ -60,6 +61,11 @@ markdown_extensions:
   - pymdownx.magiclink
   - pymdownx.tabbed:
       alternate_style: true
+  
+  - md_in_html # cards
+  - pymdownx.emoji: # emoji
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
 
 plugins:
   - search
