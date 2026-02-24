@@ -3,6 +3,8 @@ site_url: https://mila-iqia.github.io/docs
 repo_name: mila-docs
 repo_url: https://www.github.com/mila-iqia/mila-docs
 docs_dir: docs
+extra_css:
+   - _style/extra.css
 theme:
   name: material
   custom_dir: overrides
@@ -32,7 +34,6 @@ theme:
     # Palette toggle for light mode
     - media: "(prefers-color-scheme: light)"
       scheme: default
-
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode

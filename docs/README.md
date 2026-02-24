@@ -5,14 +5,13 @@ description: Technical documentation for Mila's computing infrastructure.
 
 # Mila technical documentation
 
-
 Welcome to Mila's technical documentation. If this is your first time here, we
-recommend you start by checking out the [short quick start guide](Userguide_quick_start.md).
+recommend you start by checking out the [short quick start guide](guides/quick_start/index.md).
 
-<!-- include: Acknowledgement_text.md -->
-{%
-    include-markdown "Acknowledgement_text.md"
-%}
+!!! info "Acknowledging Mila"
+    {%
+        include-markdown "Acknowledgement_summary.md"
+    %}
 
 ## Support
 To reach the Mila infrastructure support, please [submit a support ticket.](https://mila-iqia.atlassian.net/servicedesk/customer/portals)
@@ -24,7 +23,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
 ## Documentation
 
 <!--nav-->
-- Introduction
+- [Introduction](README.md)
     - [Purpose of this documentation](Purpose.md)
     - [Contributing](CONTRIBUTING.md)
 - [How-tos and Guides](guides/index.md)
