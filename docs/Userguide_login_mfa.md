@@ -50,6 +50,10 @@ verification:
 -   **Status:** This is a planned implementation feature and will be
     available in a future update.
 
+## ** Initial Registartion Process**
+
+To configure your MFA factors (TOTP, Push, or Email), you must first access the MFA Web Interface. Follow these steps to register your account:
+ 
 ### **1. Receive Your Registration Token**
 
 Before your first login, you will receive an automated email containing
@@ -65,19 +69,19 @@ a **Registration Token**.
 
 1.  Navigate to the MFA Web Interface: https://mfa.mila.quebec
 
-![](media/image2.png){width="6.5in" height="2.013888888888889in"}
+![Login-interafce](mila-docs/docs/mfa-login-interface.png){width="6.5in" height="2.013888888888889in"}
 
-2.  **Username:** Enter your standard **Cluster User** credentials.
+2.  **Username:** Enter your standard **Cluster Username**.
 
 3.  **Password Field:** When prompted for a password, enter the
     **Registration Token** you received via email.
 
-![](media/image3.png){width="6.5in" height="1.2638888888888888in"}
+![User-dashboard](mila-docs/docs/mfa-login-interface2.png){width="6.5in" height="1.2638888888888888in"}
 
 4.  Once logged in, you **must** immediately generate and link your
     permanent factors (TOTP or Push token).
 
-![](media/image1.png){width="6.5in" height="1.5138888888888888in"}
+![Token-selector](mila-docs/docs/mfa-user-interace.png){width="6.5in" height="1.5138888888888888in"}
 
 ### **3. Subsequent Logins**
 
@@ -112,6 +116,8 @@ a **Registration Token**.
 -   **Create a Backup:** We highly recommend setting up at least **two**
     factors (e.g., both a Push notification and a TOTP app) so you have
     a fallback method if you lose your phone or have no internet access.
+
+-   **Update your SSH Config:** onsider adding the ControlMaster=auto and ControlPersist=yes options in your SSH configuration entry for the Mila cluster login and compute nodes. This will allow you to go through 2FA only once per machine boot, rather than once per SSH command. Note that these options are supported on Linux and MacOS. For Windows users, consider installing WSL.
 
 ## **How it Works: Accessing the Cluster**
 
