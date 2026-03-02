@@ -1,3 +1,5 @@
+<!-- SPDX-License-Identifier: MIT-0 -->
+
 MIT No Attribution License (MIT-0)
 
 Copyright 2026 Mila
