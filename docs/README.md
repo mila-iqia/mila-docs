@@ -1,7 +1,6 @@
 ---
 title: Mila Technical Documentation
 description: Technical documentation for Mila's computing infrastructure.
-comments: true
 ---
 
 # Mila technical documentation
