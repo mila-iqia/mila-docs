@@ -69,19 +69,19 @@ a **Registration Token**.
 
 1.  Navigate to the MFA Web Interface: https://mfa.mila.quebec
 
-![Login-interafce](mfa-login-interface.png)
+    ![Login-interafce](mfa-login-interface.png)
 
 2.  **Username:** Enter your standard **Cluster Username**.
 
 3.  **Password Field:** When prompted for a password, enter the
     **Registration Token** you received via email.
 
-![User-dashboard](mfa-login-interface2.png)
+    ![User-dashboard](mfa-login-interface2.png)
 
 4.  Once logged in, you **must** immediately generate and link your
     permanent factors (TOTP or Push token).
 
-![Token-selector](mfa-user-interace.png)
+    ![Token-selector](mfa-user-interace.png)
 
 ### 3. Subsequent Logins
 
@@ -143,5 +143,5 @@ flow will proceed as follows:
     contact the IT support team immediately to reset your MFA tokens.
 
 **Support Contact:**
-[[it-support@mila.quebec]{.underline}](mailto:it-support@mila.quebec)
+[Mila's helpdesk](https://it-support.mila.quebec)
 
