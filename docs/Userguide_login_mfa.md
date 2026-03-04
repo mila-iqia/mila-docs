@@ -85,19 +85,17 @@ a **Registration Token**.
 
 ### 3. Subsequent Logins
 
-> \[!IMPORTANT\]
->
-> **Access to the Web Interface is restricted after the first setup.**
-> \> You can no longer use an email token to log into this portal.
-> Access is strictly guaranteed via your **TOTP token only**.
->
-> **Warning:** Ensure you have successfully scanned your TOTP QR code or
-> enrolled your Push device before logging out of your first session. If
-> you fail to set up a permanent TOTP token during this first visit, you
-> will be locked out and will require a new registration token from IT
-> Support.
+!!! warning "IMPORTANT"
+    **Access to the Web Interface is restricted after the first setup:** You can
+    *no longer* use an email token to log into this portal. Access is
+    strictly guaranteed via your **TOTP token only**.
 
-### **Summary Table: Which Token to Use?**
+    **Warning:** Ensure you have successfully scanned your TOTP QR code or
+    enrolled your Push device before logging out of your first session. If you
+    fail to set up a permanent TOTP token during this first visit, you will be
+    locked out and will require a new registration token from IT Support.
+
+### Summary Table: Which Token to Use?
 
 | Access Type          | First Time (Setup)         | Every Time After     |
 | -------------------- | -------------------------- | -------------------- |
