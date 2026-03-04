@@ -62,8 +62,9 @@ markdown_extensions:
       alternate_style: true
 
 plugins:
-  - search
   - include-markdown:
       dedent: true
   - literate-nav:
       nav_file: README.md
+  - meta
+  - search
