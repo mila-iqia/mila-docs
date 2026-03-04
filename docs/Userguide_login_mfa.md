@@ -50,7 +50,7 @@ verification:
 -   **Status:** This is a planned implementation feature and will be
     available in a future update.
 
-## ** Initial Registartion Process**
+## ** Initial Registration Process**
 
 To configure your MFA factors (TOTP, Push, or Email), you must first access the MFA Web Interface. Follow these steps to register your account:
  
