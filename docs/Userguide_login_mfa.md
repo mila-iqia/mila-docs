@@ -147,8 +147,3 @@ flow will proceed as follows:
 **Support Contact:**
 [[it-support@mila.quebec]{.underline}](mailto:it-support@mila.quebec)
 
-### 
-
-### 
-
-
