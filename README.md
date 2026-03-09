@@ -6,6 +6,6 @@ The docs are generated with Sphinx, and are published on the Internet thanks to 
 
 The official URL for the docs is https://docs.mila.quebec/
 
-Please feel free to [create an issue](https://github.com/mila-iqia/mila-docs/issues/new) in case your are facing any problem.
+Please feel free to reach out at [Mila support](https://github.com/mila-iqia/mila-docs/issues/new) in case your are facing any issue with the cluster, or to create a [Git issue](https://github.com/mila-iqia/mila-docs/issues/new) if you are facing a problem with this documentation.
 
 This repository AND the website is managed by the Mila IDT team.  
