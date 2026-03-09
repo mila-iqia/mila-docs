@@ -30,6 +30,13 @@ file_insertion_enabled = False
 latex_documents = [
     ("index", "mila-docs.tex", "Mila technical Documentation", "", "manual"),
 ]
+rst_prolog = """\
+.. warning::
+
+    You are currently viewing an old version of the documentation.
+
+    Please visit https://docs.mila.quebec for up-to-date information and an improved UI.
+"""
 
 exclude_patterns = [
     "_build",
