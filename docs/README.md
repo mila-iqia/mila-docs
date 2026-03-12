@@ -80,7 +80,6 @@ If you find any errors in the documentation, missing or unclear sections, or wou
     - [Software on the cluster](Theory_cluster_software_deps.md)
 - Extras
     - [Acknowledging Mila](Acknowledgement.md)
-    - [Mila Datasets](https://datasets.server.mila.quebec/)
     - [Audio and video resources at Mila](Audio_video.md)
     - [Visual Studio Code](VSCode.md)
     - [Who, what, where is IDT](IDT.md)
