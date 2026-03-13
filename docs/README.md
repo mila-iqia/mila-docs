@@ -89,5 +89,5 @@ If you find any errors in the documentation, missing or unclear sections, or wou
     - [Comet](Userguide_comet.md)
     - [JupyterHub](Userguide_jupyterhub.md)
     - [Singularity](Userguide_singularity.md)
-
+- [Get help](help/index.md)
 
