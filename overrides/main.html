@@ -1,9 +1,28 @@
 {% extends "base.html" %}
 
 {% block announce %}
-🎉 We're giving the docs a fresh makeover! You can expect things to move around a bit while we redesign and reorganize the documentation.
-Fear not — the old docs are still available at <a href="https://mila-docs.readthedocs.io">mila-docs.readthedocs.io</a>.
-Spotted a
-bug? 🐛 <a href="https://github.com/mila-iqia/mila-docs/issues/new">File a
-    ticket</a> and we'll take a look at it!
+🎉 We're giving the docs a fresh makeover! You can expect things to move around
+a bit while we redesign and reorganize the documentation. Fear not — the old
+docs are still available at
+<a href="https://mila-docs.readthedocs.io">mila-docs.readthedocs.io</a>.
+Spotted a bug? 🐛
+<a href="https://github.com/mila-iqia/mila-docs/issues/new">File a ticket</a>
+and we'll take a look at it!
+{% endblock %}
+
+{% block extrahead %}
+<!-- Biel.ai styles -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/biel-search/dist/biel-search/biel-search.css">
+
+<!-- Biel.ai script -->
+<script type="module" src="https://cdn.jsdelivr.net/npm/biel-search/dist/biel-search/biel-search.esm.js"></script>
+{% endblock %}
+
+{% block content %}
+{{ super() }}
+
+<biel-button project="yn43oxstgm" header-title="Documentation AI" button-position="bottom-right"
+    modal-position="bottom-right" button-style="dark">
+    Ask AI
+</biel-button>
 {% endblock %}
