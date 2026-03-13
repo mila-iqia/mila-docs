@@ -1,9 +1,19 @@
 {% extends "base.html" %}
 
 {% block announce %}
-🎉 We're giving the docs a fresh makeover! You can expect things to move around a bit while we redesign and reorganize the documentation.
-Fear not — the old docs are still available at <a href="https://mila-docs.readthedocs.io">mila-docs.readthedocs.io</a>.
-Spotted a
-bug? 🐛 <a href="https://github.com/mila-iqia/mila-docs/issues/new">File a
-    ticket</a> and we'll take a look at it!
+🎉 We're giving the docs a fresh makeover! You can expect things to move around
+a bit while we redesign and reorganize the documentation. Fear not — the old
+docs are still available at
+<a href="https://mila-docs.readthedocs.io">mila-docs.readthedocs.io</a>. Spotted
+a bug? 🐛
+<a href="https://github.com/mila-iqia/mila-docs/issues/new">File a ticket</a>
+and we'll take a look at it!
+{% endblock %}
+
+{% block extrahead %}
+{{ super() }}
+<script type="application/json" class="js-hypothesis-config">
+  {"showHighlights": false}
+</script>
+<script src="https://hypothes.is/embed.js" async></script>
 {% endblock %}
