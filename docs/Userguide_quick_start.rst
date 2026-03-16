@@ -8,6 +8,101 @@ Quick Start
 
 .. _mila_code:
 
+Windows
+-------
+
+If you are using Windows, here is how you should go about setting up access to the cluster:
+Note: we're assuming Windows 11, but this guide should also work for Windows 10 without too much
+trouble.
+
+.. * Install the Windows Subsystem for Linux
+   
+..    We recommend using the newest version of WSL, which is available for Windows 10 and Windows 11.
+   
+..    1. Open a command prompt (cmd)
+..    2. Enter the following command to install WSL.
+
+..          .. code-block:: console
+
+..             $ wsl --install -d ubuntu
+
+..    3. Restart your computer.
+
+..    If you encounter any difficulties or want more information, please check out `the official
+..    instructions for installing the Windows Subsystem for Linux <https://learn.microsoft.com/en-us/windows/wsl/install>`_ 
+
+* Install `Visual Studio Code <https://code.visualstudio.com/>`_.
+   * Install the Remote-SSH extension for VSCode
+     This extension can be found at `this link <https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh>`_.
+     
+     You can also install it from within VsCode: launch the VS Code Quick Open (Ctrl+P), paste the
+     following command, and press enter:
+     ``ext install ms-vscode-remote.remote-ssh``
+
+* Install Miniconda:
+
+   We recommend using Miniconda. It's a minimal version of Anaconda without as many pre-installed
+   packages. This makes it smaller, meaning a faster download and less disk space used.
+
+   .. code-block:: console
+
+      $ # This will download the Anaconda installer.
+      $ wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+      $ bash Miniconda3-latest-Linux-x86_64.sh -b
+      $ source ~/miniconda3/bin/activate
+      $ conda init bash
+
+   * This will run the installer and accept the license agreement.
+
+   Alternatively, you can also use Anaconda:
+   
+   .. code-block:: console
+
+      $ # This will download the Anaconda installer.
+      $ wget https://repo.anaconda.com/archive/Anaconda3-2023.09-0-Linux-x86_64.sh
+      $ bash Anaconda3-2023.09-0-Linux-x86_64.sh -b
+      $ conda init bash
+   
+   Make sure to close the shell and open a new one after running the above commands.
+
+* In a Powershell window, install the milatools_ python package inside the "base" conda environment:
+   Note: Assuming you ran ``conda init`` above, your new shell should now have the "base"
+   environment activated.
+   * If the ``conda`` command isn't found, you may need to add Anaconda to your Path environment
+     variable. TODO: Until we write some instructions on how to do this, please search online for
+     "add anaconda to path on windows" and try that.
+
+   .. code-block:: console
+
+      $ conda activate  # This is only required if you aren't already in the base environment.
+      (base) $ pip install milatools
+
+
+* Run ``mila init`` to setup a (part of) your SSH configuration.
+
+   NOTE: This will NOT work completely! You should get an error involving the `ssh-copy-id` command
+   not being found. This is a known issue that is being worked on at IDT.
+
+   .. code-block:: console
+
+      (base) $ mila init  # Enter all required information. You WILL get an error at the end.
+
+* Add your public key to the authorized keys on the cluster:
+   
+   .. code-block:: console
+
+      $ cat ~/.ssh/id_rsa.pub | ssh mila 'cat >> ~/.ssh/authorized_keys'
+      password: # (enter your password)
+
+* Logout, then try logging-in again
+   If everything went well, you should not be prompted with a password.
+
+* Launch `mila code .` from a Powershell window.
+   This will open a VSCode window on the cluster. You can now edit files and run commands on the
+   cluster from within VSCode.
+
+If you're having any problems, please create an issue on the milatools GitHub repository.
+
 mila code
 ---------
 
