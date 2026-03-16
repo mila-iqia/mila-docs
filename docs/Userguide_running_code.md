@@ -130,7 +130,7 @@ resources are available. (To leverage a different preemption mechanism, see the
 
 ???+ warning "Important: H100 GPUs Partition Restrictions"
 
-    H100 GPUs are **only** available in the short-unkillable partition.
+    H100 GPUs are **ONLY** available in the `short-unkillable` partition.
     
     The `short-unkillable` partition is restricted to 4-GPU nodes only,
     specifically:
