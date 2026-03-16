@@ -130,14 +130,17 @@ resources are available. (To leverage a different preemption mechanism, see the
 
 ???+ warning "Important: H100 GPUs Partition Restrictions"
 
-    **H100 GPUs are NOT available in the** `long` **partition.** If you need
-    *H100* GPUs, use the `unkillable` or `main` partitions instead.
+    H100 GPUs are **only** available in the short-unkillable partition.
     
     The `short-unkillable` partition is restricted to 4-GPU nodes only,
     specifically:
     
     - **cn-g nodes**: A100 80GB GPUs (4 GPUs per node)
     - **cn-l nodes**: L40S GPUs (4 GPUs per node)
+
+    As an exception, it also contains the H100 nodes:
+
+    - **cn-n nodes**: H100 GPUs (8 GPUs per node, but only 4 can be used per job)
     
     For a complete list of node specifications and GPU details, see [Node
     profile description](Information_nodes.md#node-profile-description).
