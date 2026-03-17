@@ -83,8 +83,8 @@ extra:
     description: >- 
       We use cookies 🍪 to see which pages get the most love 💜, what folks
       search for 🔍, and what gets downloaded 📥 — all anonymous, zero personal
-      data, no tracking of who your device or where you're from️. With your
-      consent, you're helping us make the docs better
+      data, no tracking of your device or where you're from️. With your consent,
+      you're helping us make the docs better
     actions:
       - accept
       - reject
