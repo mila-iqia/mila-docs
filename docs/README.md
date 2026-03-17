@@ -29,6 +29,8 @@ If you find any errors in the documentation, missing or unclear sections, or wou
     - [Contributing](CONTRIBUTING.md)
 - How-tos and Guides
     - [Quick Start](Userguide_quick_start.md)
+    - [My First Job](Userguide_quick_start_my_first_job.md)
+    - [Train Your First Model](Userguide_quick_start_train_first_model.md)
     - [Multi-Factor Authentication (MFA) for Cluster Access](Userguide_login_mfa.md)
     - [Logging in to the cluster](Userguide_login.md)
     - [Running your code](Userguide_running_code.md)

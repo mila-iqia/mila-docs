@@ -3,6 +3,8 @@ site_url: https://mila-iqia.github.io/docs
 repo_name: mila-docs
 repo_url: https://www.github.com/mila-iqia/mila-docs
 docs_dir: docs
+watch:
+  - includes
 theme:
   name: material
   custom_dir: overrides
@@ -11,6 +13,7 @@ theme:
     - content.code.copy
     - content.code.select
     - content.code.annotate
+    - content.tooltips
     - navigation.tracking # https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#anchor-tracking
     - navigation.sections
     ## Don't auto- expand until maybe after we reorganize the content a bit.
@@ -43,23 +46,30 @@ theme:
         icon: material/brightness-4
         name: Switch to system preference
 markdown_extensions:
+  - abbr
   - admonition
-  - pymdownx.details
-  - pymdownx.superfences
-  - toc:
-      permalink: true
   - attr_list
+  - md_in_html
+  - pymdownx.details
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.snippets:
+      auto_append:
+        - includes/abbreviations.md
+  - pymdownx.superfences
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   # https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#configuration
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span
       pygments_lang_class: true
-  - pymdownx.inlinehilite
-  - pymdownx.snippets
-  - pymdownx.superfences
-  - pymdownx.magiclink
+      linenums: true  # line numbers on all code blocks (start at 1)
   - pymdownx.tabbed:
       alternate_style: true
+  - toc:
+      permalink: true
 
 extra:
   analytics:
@@ -83,8 +93,8 @@ extra:
     description: >- 
       We use cookies 🍪 to see which pages get the most love 💜, what folks
       search for 🔍, and what gets downloaded 📥 — all anonymous, zero personal
-      data, no tracking of your device or where you're from️. With your consent,
-      you're helping us make the docs better
+      data, no device or location tracking. With your consent, you're helping us
+      make the docs better.
     actions:
       - accept
       - reject
@@ -95,11 +105,16 @@ copyright: >
   <a href="#__consent">Change cookie settings</a>
 
 plugins:
-  - include-markdown:
-      dedent: true
-  - literate-nav:
-      nav_file: README.md
   - meta
   # privacy plugin currently breaks giscus comments
   # - privacy
   - search
+  - include-markdown:
+      dedent: true
+  - literate-nav:
+      nav_file: README.md
+  # TODO: It would be interesting to test this but it currently crash with:
+  # AttributeError: 'OptimizePlugin' object has no attribute 'pool'
+  # - optimize:
+  #     optimize_include:
+  #       - screenshots/*
