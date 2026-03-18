@@ -1,4 +1,4 @@
-# My First Job
+# Run Your First Job
 
 This guide walks you through running your first job on the Mila cluster. You
 will create a minimal PyTorch project that checks CUDA and GPU availability, run
@@ -11,12 +11,13 @@ editor's terminal.
 
 <div class="grid cards" markdown>
 
--   [:material-run-fast:{ .lg .middle } __Quick Start__](Userguide_quick_start.md)
+-   [:material-run-fast:{ .lg .middle } __Get Started with the Cluster__](Userguide_quick_start.md)
     { .card }
 
     ---
 
-    Quick start
+    Get your Mila account, enable cluster access and MFA, then install `uv` and
+    `milatools` to connect via SSH.
 
 - 
 
@@ -135,7 +136,7 @@ the `mila code` session and relinquish the allocation.
 
     ---
 
-    Train a ResNet18 on CIFAR-10 on a single GPU
+    Train a ResNet18 on CIFAR-10 on a single GPU using `sbatch`.
 
 - 
 

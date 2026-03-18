@@ -8,19 +8,21 @@ into fast local storage, and run a Slurm batch job.
 
 <div class="grid cards" markdown>
 
--   [:material-run-fast:{ .lg .middle } __Quick Start__](Userguide_quick_start.md)
+-   [:material-run-fast:{ .lg .middle } __Get Started with the Cluster__](Userguide_quick_start.md)
     { .card }
 
     ---
 
-    Quick start
+    Get your Mila account, enable cluster access and MFA, then install `uv` and
+    `milatools` to connect via SSH.
 
--   [:material-run-fast:{ .lg .middle } __Run your first job__](Userguide_quick_start_my_first_job.md)
+-   [:material-run-fast:{ .lg .middle } __Run Your First Job__](Userguide_quick_start_my_first_job.md)
     { .card }
 
     ---
 
-    Run your first job on the cluster with PyTorch
+    Run your first job on the cluster with PyTorch using VSCode on a GPU compute
+    node.
 
 </div>
 

@@ -1,4 +1,4 @@
-# Quick Start
+# Get Started with the Cluster
 
 This guide walks you through obtaining a Mila account, connecting to the cluster, and
 setting up the tools you need to run jobs. Follow the steps in order.
@@ -14,8 +14,8 @@ setting up the tools you need to run jobs. Follow the steps in order.
    and connect to the cluster.
 
 !!! tip "Still waiting for your account?"
-    If you feel like this is taking longer than expected, contact [IT
-    support](https://it-support.mila.quebec/).
+    If you feel like this is taking longer than expected, contact [MyMila
+    support](https://mila-iqia.atlassian.net/servicedesk/customer/portal/8).
 
 ## Enable your cluster access { #enable-your-cluster-access }
 
@@ -133,13 +133,16 @@ it as soon as possible; it expires after use.
         2. [Microsoft WSL install guide](https://learn.microsoft.com/en-us/windows/wsl/install)
 
     !!! note
-        All commands in this Quick Start (`uv`, `milatools`, `ssh`) should be
-        run inside the WSL terminal, not in Windows PowerShell or Command
-        Prompt.
+        All commands in this guide (`uv`, `milatools`, `ssh`) should be run
+        inside the WSL terminal, not in Windows PowerShell or Command Prompt.
 
 ---
 
 ## Install `uv` on your local machine
+
+`uv` is a fast Python package manager and workflow tool that serves as a drop-in
+replacement for `pip` and `virtualenv`, allowing you to quickly install project
+dependencies, manage packages, and create isolated Python environments.
 
 On your **local machine**, run:
 
@@ -304,12 +307,6 @@ everything's installed!
 ```
 </div>
 
-## Cluster scope note
-
-This guide focuses on the **Mila cluster**. Similar steps apply to DRAC clusters
-(Cedar, Graham, etc.); see [Computational resources outside of
-Mila](Extra_compute.md) for details.
-
 ---
 
 ## Next steps
@@ -319,18 +316,19 @@ first job and train your first model:
 
 <div class="grid cards" markdown>
 
--   [:material-run-fast:{ .lg .middle } __Run your first job__](Userguide_quick_start_my_first_job.md)
+-   [:material-run-fast:{ .lg .middle } __Run Your First Job__](Userguide_quick_start_my_first_job.md)
     { .card }
 
     ---
 
-    Run your first job on the cluster with PyTorch
+    Run your first job on the cluster with PyTorch using VSCode on a GPU compute
+    node.
 
 -   [:material-run-fast:{ .lg .middle } __Train Your First Model__](Userguide_quick_start_train_first_model.md)
     { .card }
 
     ---
 
-    Train a ResNet18 on CIFAR-10 on a single GPU
+    Train a ResNet18 on CIFAR-10 on a single GPU using `sbatch`.
 
 </div>
