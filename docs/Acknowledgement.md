@@ -1,4 +1,4 @@
-# Acknowledging Mila
+## Acknowledging Mila
 
 {% include-markdown "Acknowledgement_text.md" %}
 
