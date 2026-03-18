@@ -3,6 +3,8 @@ site_url: https://mila-iqia.github.io/docs
 repo_name: mila-docs
 repo_url: https://www.github.com/mila-iqia/mila-docs
 docs_dir: docs
+copyright: Copyright &copy; 2026 Mila
+
 theme:
   name: material
   custom_dir: overrides
@@ -11,6 +13,7 @@ theme:
     - content.code.copy
     - content.code.select
     - content.code.annotate
+    - navigation.footer
     - navigation.tracking # https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#anchor-tracking
     - navigation.sections
     ## Don't auto- expand until maybe after we reorganize the content a bit.
@@ -18,7 +21,9 @@ theme:
     # - navigation.expand
     - navigation.path
     - navigation.indexes
+    - navigation.instant
     - navigation.tabs
+    - navigation.tabs.sticky
     - search.suggest
     - search.highlight
     - search.share
@@ -62,6 +67,13 @@ markdown_extensions:
   - pymdownx.tabbed:
       alternate_style: true
 
+extra:
+  footer_sections:
+    - name: "About us"
+      link: IDT.md
+    - name: "Support"
+      link: help/index.html
+
 plugins:
   - include-markdown:
       dedent: true
@@ -69,3 +81,4 @@ plugins:
       nav_file: README.md
   - meta
   - search
+

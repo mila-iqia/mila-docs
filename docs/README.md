@@ -9,10 +9,9 @@ description: Technical documentation for Mila's computing infrastructure.
 Welcome to Mila's technical documentation. If this is your first time here, we
 recommend you start by checking out the [short quick start guide](Userguide_quick_start.md).
 
-<!-- include: Acknowledgement_text.md -->
-{%
-    include-markdown "Acknowledgement_text.md"
-%}
+## Acknowledgement
+
+{% include-markdown "Acknowledgement_text.md" %}
 
 ## Support
 To reach the Mila infrastructure support, please [submit a support ticket.](https://mila-iqia.atlassian.net/servicedesk/customer/portals)
@@ -26,19 +25,15 @@ If you find any errors in the documentation, missing or unclear sections, or wou
 <!--nav-->
 - [Introduction](README.md)
     - [Purpose of this documentation](Purpose.md)
-    - [Contributing](CONTRIBUTING.md)
-- [Quick Start](Userguide_quick_start.md)
-- How-tos and Guides
+    - [Acknowledging Mila](Acknowledgement_text.md)
+    - [Cheat Sheet](Cheatsheet.md)
+- [Quick Start](quick_start/index.md)
     - [Multi-Factor Authentication (MFA) for Cluster Access](Userguide_login_mfa.md)
     - [Logging in to the cluster](Userguide_login.md)
     - [Running your code](Userguide_running_code.md)
-    - [Portability concerns and solutions](Userguide_portability.md)
-    - [Using containers](Userguide_containers.md)
+- [How-tos and Guides](userguides/index.md)
     - [Sharing Data with ACLs](Userguide_sharing_data.md)
-    - [Contributing datasets](Userguide_datasets.md)
-    - [Data Transmission using Globus Connect Personal](Userguide_data_transfer.md)
-    - [Advanced SLURM usage and Multiple GPU jobs](Userguide_multigpu.md)
-    - [Multiple Nodes](Userguide_multinode.md)
+    - [Weights and Biases (WandB)](Userguide_wandb.md)
     - Minimal Examples
         - [Software Frameworks](examples/frameworks/index.md)
             - [PyTorch Setup](examples/frameworks/pytorch_setup/index.md)
@@ -57,10 +52,9 @@ If you find any errors in the documentation, missing or unclear sections, or wou
             - [Launch many jobs using SLURM job arrays](examples/good_practices/slurm_job_arrays/index.md)
         - [Advanced Examples](examples/advanced/index.md)
             - [Multi-Node / Multi-GPU ImageNet Training](examples/advanced/imagenet/index.md)
-        - [🔗 Research Project Template](https://mila-iqia.github.io/ResearchTemplate)
-    - [Frequently asked questions (FAQ)](Userguide_faq.md)
-- [Research](research/index.md)
+- [AI agents](research/index.md)
 - Technical reference
+    - [Glossary](technical_reference/glossary.md)
     - Systems and services
         - [Computing infrastructure and policies](Information.md)
             - [Roles and computing resources](Information_roles_and_resources.md)
@@ -69,7 +63,10 @@ If you find any errors in the documentation, missing or unclear sections, or wou
             - [Data sharing policies](Information_sharing_policies.md)
             - [Data Transmission](Information_data_transmission.md)
             - [Monitoring](Information_monitoring.md)
-        - [Computational resources outside of Mila](Extra_compute.md)
+            - [Environmental Impact](Environmental_impact.md)
+            - [Mila intranet](technical_reference/mila_intranet.md)
+        - Computational resources outside of Mila
+            - [DRAC](Extra_compute.md)
     - General Theory
         - [What is a computer cluster?](Theory_cluster_parts.md)
         - [Unix](Theory_cluster_unix.md)
@@ -77,17 +74,19 @@ If you find any errors in the documentation, missing or unclear sections, or wou
         - [Processing data](Theory_cluster_data.md)
         - [Software on the cluster](Theory_cluster_software_deps.md)
     - Extras
-        - [Acknowledging Mila](Acknowledgement.md)
-        - [Mila Datasets](https://datasets.server.mila.quebec/)
-        - [Audio and video resources at Mila](Audio_video.md)
+        - [Portability concerns and solutions](Userguide_portability.md)
+        - [Using containers](Userguide_containers.md)
+        - [Contributing datasets](Userguide_datasets.md)
+        - [Data Transmission using Globus Connect Personal](Userguide_data_transfer.md)
+        - [Advanced SLURM usage and Multiple GPU jobs](Userguide_multigpu.md)
+        - [Multiple Nodes](Userguide_multinode.md)
         - [Visual Studio Code](VSCode.md)
-        - [Who, what, where is IDT](IDT.md)
-        - [Cheat Sheet](Cheatsheet.md)
-        - [Environmental Impact](Environmental_impact.md)
+        - [Useful links](technical_reference/useful_links.md)
 - [Toolbox](toolbox/index.md)
-    - [Weights and Biases (WandB)](Userguide_wandb.md)
     - [Comet](Userguide_comet.md)
     - [JupyterHub](Userguide_jupyterhub.md)
     - [Singularity](Userguide_singularity.md)
+    - [🔗 Research Project Template](https://mila-iqia.github.io/ResearchTemplate)
 - [Get help](help/index.md)
+    - [Frequently asked questions (FAQ)](Userguide_faq.md)
 
