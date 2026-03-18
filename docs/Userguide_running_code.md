@@ -118,16 +118,32 @@ killed without notice and is automatically re-queued on the same partition until
 resources are available. (To leverage a different preemption mechanism, see the
 [Handling preemption ](#advanced_preemption))
 
-| Flag                           | Max Resource Usage        | Max Time    | Note                 |
-| ------------------------------ | ------------------------- | ----------- | -------------------- |
-| `--partition=unkillable`       | 6  CPUs, mem=32G,  1 GPU  | 2 days      |                      |
-| `--partition=unkillable-cpu`   | 2  CPUs, mem=16G          | 2 days      | CPU-only jobs        |
-| `--partition=short-unkillable` | mem=1000G, 4 GPUs         | 3 hours (!) | Large but short jobs |
-| `--partition=main`             | 8  CPUs, mem=48G,  2 GPUs | 5 days      |                      |
-| `--partition=main-cpu`         | 8  CPUs, mem=64G          | 5 days      | CPU-only jobs        |
-| `--partition=long`             | no limit of resources     | 7 days      |                      |
-| `--partition=long-cpu`         | no limit of resources     | 7 days      | CPU-only jobs        |
+| Flag                           | Max Resource Usage        | Max Time    | Note                                                 |
+| ------------------------------ | ------------------------- | ----------- | ---------------------------------------------------- |
+| `--partition=unkillable`       | 6  CPUs, mem=32G,  1 GPU  | 2 days      |                                                      |
+| `--partition=unkillable-cpu`   | 2  CPUs, mem=16G          | 2 days      | CPU-only jobs                                        |
+| `--partition=short-unkillable` | mem=1000G, 4 GPUs         | 3 hours (!) | Large but short jobs. Restricted to 4-GPU nodes only |
+| `--partition=main`             | 8  CPUs, mem=48G,  2 GPUs | 5 days      |                                                      |
+| `--partition=main-cpu`         | 8  CPUs, mem=64G          | 5 days      | CPU-only jobs                                        |
+| `--partition=long`             | no limit of resources     | 7 days      |                                                      |
+| `--partition=long-cpu`         | no limit of resources     | 7 days      | CPU-only jobs                                        |
 
+???+ warning "Important: H100 GPUs Partition Restrictions"
+
+    H100 GPUs are **ONLY** available in the `short-unkillable` partition.
+    
+    The `short-unkillable` partition is restricted to 4-GPU nodes only,
+    specifically:
+    
+    - **cn-g nodes**: A100 80GB GPUs (4 GPUs per node)
+    - **cn-l nodes**: L40S GPUs (4 GPUs per node)
+
+    As an exception, it also contains the H100 nodes:
+
+    - **cn-n nodes**: H100 GPUs (8 GPUs per node, but only 4 can be used per job)
+    
+    For a complete list of node specifications and GPU details, see [Node
+    profile description](Information_nodes.md#node-profile-description).
 
 ??? warning "About outdated partitions (`cpu_jobs`, `cpu_jobs_low`, etc.)"
 
@@ -189,6 +205,19 @@ sbatch -c 16 --gres=gpu:8 --constraint="dgx&ampere"
 | volta/turing/ampere      | Request a specific *GPU* architecture                      |
 | nvlink                   | Machine with GPUs using the NVLink interconnect technology |
 | dgx                      | NVIDIA *DGX* system with DGX OS                            |
+
+##### Partition details and GPU availability
+
+The following table provides a quick reference guide for choosing partitions and
+understanding GPU availability:
+
+| Partition          | When to use                                                            | Available GPUs |
+|--------------------|------------------------------------------------------------------------|----------------|
+| `unkillable`       | High-priority jobs that cannot be interrupted. Maximum 2 days runtime. | All GPU types |
+| `short-unkillable` | Large, short jobs (3 hours max) that need high priority and cannot be interrupted. | **Restricted to 4-GPU nodes only** |
+| `main`             | Standard priority jobs with moderate runtime needs (5 days max).       | All GPU types |
+| `long`             | Long-running jobs (7 days max) that can tolerate preemption.           | All GPU types **except H100** |
+| `*-cpu`            | CPU-only jobs (no GPU required).                                       | N/A (CPU-only nodes) |
 
 ### Information on partitions/nodes
 

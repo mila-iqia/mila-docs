@@ -13,23 +13,23 @@ Here are some guidelines to help bring your contributions to life.
 * Software development good practices
 * Useful tools
 
-**_NOTE_**: Examples should aim to not consume much more than 1 GPU/hour and 2 CPU/hour
+**_NOTE_** </br>
+Examples should aim to not consume much more than 1 GPU/hour and 2 CPU/hour
 
-## Issues / Pull Requests
 
-### Issues
+## Issues
 
 Issues can be used to report any error in the documentation, missing or unclear
 sections, broken tools or other suggestions to improve the overall
 documentation.
 
-### Pull Requests
+## Pull Requests
 
 PRs are welcome and we value the contents of contributions over the appearance
-or functionality of the pull request. If you don't know how to write the proper
-markup in reStructuredText, simply provide the content you would like to add in
-the PR text form which supports markdown or with instructions to format the
-content. In the PR, reference the related issues like this:
+or functionality of the Pull Request. If you encounter problems with the
+Markdown formatting, simply provide the content you would like to add in the PR
+with instructions to format it. In the PR, reference the related issues like
+this:
 
 ```
 Resolves: #123
@@ -38,57 +38,82 @@ See also: #456, #789
 
 If you would like to contribute directly in the code of the documentation, keep
 the lines width to 80 characters or less. You can attempt to build the docs
-yourself to see if the formating is right:
+yourself to see if the formating is right.
 
-#### pip installation
-```console
-python3 -m pip install -r docs/requirements.txt
-pre-commit install
-sphinx-build -b html docs/ docs/_build/
+### `uv` installation
+
+```
+uv run pre-commit install
+uv run mkdocs serve --livereload
 ```
 
-#### conda installation
+Install `uv` if you don't have it yet, using the commands described in the
+[Getting Started section of the uv
+documentation](https://docs.astral.sh/uv/getting-started/installation/).
+
+You can use it to:
+
+* build the documentation and view it by opening an HTML file, or
+* serve the docs locally on localhost.
+
+This command will build the documentation, which can be viewed by opening the
+local file `site/index.html`:
+
 ```console
-conda env create --file docs/environment.yaml
-conda activate mila-docs
-sphinx-build -b html docs/ docs/_build/
+uv run mkdocs build
 ```
 
-This will produce the html version of the documentation which you can navigate
-by opening the local file `docs/_build/index.html`.
+#### Serving the docs locally
+
+You can also serve the site with a simple HTTP server with live reloading when a
+file changes. This is particularly useful if you want to improve the docs and
+see your changes in real time.
+
+```console
+uv run mkdocs serve --livereload
+```
+
+You can then access the local site through your browser at the URL
+[http://127.0.0.1:8000/docs/](http://127.0.0.1:8000/docs/).
 
 If you have any trouble building the docs, don't hesitate to open an issue to
 request help.
 
-Regarding the restructured text format, you can simply provide the content
-you would like to add in markdown or plain text format if more convenient
-for you and someone down the line should take responsibility to convert
-the format.
+### `hatch` installation
 
-## Sphinx / reStructuredText (reST)
+If using [hatch](https://hatch.pypa.io/latest/), simply execute the following to
+setup the project and run the mkdocs builtin development server.
 
-The markup language used for the Mila Docs is
-[reStructuredText](http://docutils.sourceforge.net/rst.html) and we follow the
-[Python’s Style Guide for documenting](https://docs.python.org/devguide/documenting.html#style-guide).
+```
+hatch run serve
+```
 
-Here are some of reST syntax directives which are useful to know :
-(more can be found in
-[Sphinx's reST Primer](https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html)):
+## Markdown examples
 
+The markup language used for the Mila Docs is Markdown.  The documentation
+framework used is [MkDocs](https://www.mkdocs.org/), with the [Material for
+MkDocs](https://squidfunk.github.io/mkdocs-material/) theme.
+
+Here are some examples of the most common Markdown constructs used in the Mila
+Docs. We encourage you to take a look a the mkdocs and mkdocs-material
+documentation for more examples:
+
+- [MkDocs documentation](https://www.mkdocs.org/user-guide/writing-your-docs/)
+- [MkDocs-Material
+  documentation](https://squidfunk.github.io/mkdocs-material/reference/)
 
 ### Inline markup
 
 * one asterisk: `*text*` for *emphasis* (italics),
 * two asterisks: `**text**` for **strong emphasis** (boldface), and
-* backquotes: ` ``text`` ` for `code samples`, and
-* external links: `` `Link text <http://target>`_ ``.
+* backquotes: `` `text` `` for `code samples`, and
+* external links: `` [Link text](http://target) ``.
 
 ### Lists
 
-```reST
+```md
 * this is
 * a list
-
   * with a nested list
   * and some subitems
 
@@ -97,41 +122,66 @@ Here are some of reST syntax directives which are useful to know :
 
 ### Sections
 
-```reST
-#################
-This is a heading
-#################
+```md
+# This is one of the main headers
+
+And this is its alternative
+===========================
+
+## This is a sub-header
+
+And this is its alternative
+---------------------------
+
+### This is a sub-sub-header
+#### Etc
 ```
-
-There are no heading levels assigned to certain characters as the structure is
-determined from the succession of headings. However, the Python documentation
-suggests the following convention:
-
-    * `#` with overline, for parts
-    * `*` with overline, for chapters
-    * `=`, for sections
-    * `-`, for subsections
-    * `^`, for subsubsections
-    * `"`, for paragraphs
 
 ### Note box
 
-```reST
-.. note:: This is a long
-   long long note
+[Admonitions](https://squidfunk.github.io/mkdocs-material/reference/admonitions/)
+are used to add panels. This is done through the `!!!` shortcut, depicted below.
+There are [several
+types](https://squidfunk.github.io/mkdocs-material/reference/admonitions/#supported-types),
+such as `note`, `abstract`, `info`, `tip`, `success`, `question`, `warning`,
+`failure`, `danger`, `bug`, `example` or `quote`.
+
+```md
+!!! note
+   This is a note panel.
 ```
 
-### Collapsible boxes
-
-This is a local extension, not part of Sphinx itself.  It works like this:
-
-```reST
-.. container:: toggle
-
-    .. container:: header
-
-        **Show/Hide Code**
-
-    .. code-block:: <type>
-       ...
+```md
+!!! example
+   This is an example panel.
 ```
+
+Panels could also be collapsible by using `???` instead of `!!!`, such as:
+
+```md
+??? tip
+    I am collapsible!
+```
+
+### Tables
+
+Tables can be added by following the format below:
+
+```
+| Header 1    | Header 2         | Header 3 |
+| ----------- | ---------------- | -------- |
+| First line  | Hello world      |          |
+| Second line | Juste a new line | The end  |
+```
+
+| Header 1    | Header 2         | Header 3 |
+| ----------- | ---------------- | -------- |
+| First line  | Hello world      |          |
+| Second line | Juste a new line | The end  |
+
+For more examples of what is possible with Markdown in MkDocs, please refer to
+the mkdocs documentation and mkdocs-material documentation pages:
+
+- [MkDocs documentation](https://www.mkdocs.org/user-guide/writing-your-docs/)
+- [MkDocs-Material
+  documentation](https://squidfunk.github.io/mkdocs-material/reference/)

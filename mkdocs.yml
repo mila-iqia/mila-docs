@@ -3,7 +3,9 @@ site_url: https://mila-iqia.github.io/docs
 repo_name: mila-docs
 repo_url: https://www.github.com/mila-iqia/mila-docs
 docs_dir: docs
-copyright: Copyright &copy; 2026 Mila
+copyright: >
+  Copyright &copy; 2026 Mila –
+  <a href="#__consent">Change cookie settings</a>
 
 theme:
   name: material
@@ -74,11 +76,43 @@ extra:
     - name: "Support"
       link: help/index.html
 
+  analytics:
+    provider: google
+    property: G-2SSH8HHK4L
+    feedback:
+      title: Was this page helpful?
+      ratings:
+        - icon: material/emoticon-happy-outline
+          name: This page was helpful
+          data: 1
+          note: >-
+            Thanks for your feedback!
+        - icon: material/emoticon-sad-outline
+          name: This page could be improved
+          data: 0
+          note: >- 
+            Thanks for your feedback!
+  consent:
+    title: Cookie consent
+    description: >- 
+      We use cookies 🍪 to see which pages get the most love 💜, what folks
+      search for 🔍, and what gets downloaded 📥 — all anonymous, zero personal
+      data, no tracking of your device or where you're from️. With your consent,
+      you're helping us make the docs better
+    actions:
+      - accept
+      - reject
+      - manage
+
+
+
 plugins:
   - include-markdown:
       dedent: true
   - literate-nav:
       nav_file: README.md
   - meta
+  # privacy plugin currently breaks giscus comments
+  # - privacy
   - search
 
