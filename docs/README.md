@@ -89,4 +89,5 @@ If you find any errors in the documentation, missing or unclear sections, or wou
     - [🔗 Research Project Template](https://mila-iqia.github.io/ResearchTemplate)
 - [Get help](help/index.md)
     - [Frequently asked questions (FAQ)](Userguide_faq.md)
+    - [IDT and IT teams](help/teams.md)
 

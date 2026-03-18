@@ -72,9 +72,9 @@ markdown_extensions:
 extra:
   footer_sections:
     - name: "About us"
-      link: IDT.md
+      link: docs/help/teams
     - name: "Support"
-      link: help/index.html
+      link: docs/help
 
   analytics:
     provider: google
