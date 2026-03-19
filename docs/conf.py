@@ -14,6 +14,7 @@ extensions = [
     # 'recommonmark',
     "sphinx.ext.autosectionlabel",
     "sphinx.ext.todo",
+    "sphinx_pushfeedback",
     "myst_parser",
 ]
 
@@ -37,6 +38,9 @@ rst_prolog = """\
 
     Please visit https://docs.mila.quebec for up-to-date information and an improved UI.
 """
+
+pushfeedback_project = "gmp4en0b9x"
+pushfeedback_feedback_button_text = "Feedback"
 
 exclude_patterns = [
     "_build",
