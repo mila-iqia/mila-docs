@@ -11,6 +11,7 @@ import sphinx_theme
 extensions = [
     "sphinx_prompt",
     "sphinx_copybutton",
+    "sphinx_comments",
     # 'recommonmark',
     "sphinx.ext.autosectionlabel",
     "sphinx.ext.todo",
@@ -37,6 +38,13 @@ rst_prolog = """\
 
     Please visit https://docs.mila.quebec for up-to-date information and an improved UI.
 """
+
+comments_config = {
+    "utterances": {
+        "repo": "mila-iqia/mila-docs",
+        "optional": "config",
+    }
+}
 
 exclude_patterns = [
     "_build",
