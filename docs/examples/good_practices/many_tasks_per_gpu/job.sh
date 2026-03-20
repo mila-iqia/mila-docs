@@ -2,7 +2,7 @@
 #SBATCH --ntasks=2
 #SBATCH --ntasks-per-gpu=2
 #SBATCH --cpus-per-task=4
-#SBATCH --gres=gpu:l40s:1
+#SBATCH --gres=gpu:1
 #SBATCH --mem-per-gpu=16G
 #SBATCH --time=00:15:00
 

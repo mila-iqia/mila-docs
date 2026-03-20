@@ -2,7 +2,7 @@
 #SBATCH --ntasks=2
 #SBATCH --ntasks-per-node=2
 #SBATCH --cpus-per-task=4
-#SBATCH --gpus-per-task=l40s:1
+#SBATCH --gpus-per-task=1
 #SBATCH --mem-per-gpu=16G
 #SBATCH --time=00:15:00
 
