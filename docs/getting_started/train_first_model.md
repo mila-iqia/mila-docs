@@ -1,14 +1,21 @@
+---
+title: Train Your First Model
+description: >-
+  Train a ResNet18 on CIFAR-10 on a single GPU using sbatch, including
+  data staging to $SLURM_TMPDIR.
+---
+
 # Train Your First Model
 
-This guide walks you through training a small model (ResNet18) on CIFAR-10 using
-a single GPU on the Mila cluster. You will use Mila's CIFAR-10 dataset, stage it
-into fast local storage, and run a Slurm batch job.
+This guide covers training a small model (ResNet18) on CIFAR-10 using a single
+GPU on the Mila cluster. The guide uses Mila's CIFAR-10 dataset, stages it into
+fast local storage, and runs a Slurm batch job.
 
 ## Prerequisites
 
 <div class="grid cards" markdown>
 
--   [:material-run-fast:{ .lg .middle } __Get Started with the Cluster__](../../getting_started/)
+-   [:material-run-fast:{ .lg .middle } __Get Started with the Cluster__](index.md)
     { .card }
 
     ---
@@ -16,7 +23,7 @@ into fast local storage, and run a Slurm batch job.
     Get your Mila account, enable cluster access and MFA, then install `uv` and
     `milatools` to connect via SSH.
 
--   [:material-run-fast:{ .lg .middle } __Run Your First Job__](../../getting_started/my_first_job)
+-   [:material-run-fast:{ .lg .middle } __Run Your First Job__](my_first_job.md)
     { .card }
 
     ---
@@ -26,7 +33,7 @@ into fast local storage, and run a Slurm batch job.
 
 </div>
 
-## What you will do
+## What this guide covers
 
 * Train a ResNet18 on CIFAR-10 using a single GPU.
 * Use Mila's CIFAR-10 dataset in `/network/datasets/cifar10/`.
@@ -48,8 +55,8 @@ ssh mila 'mkdir -p CODE/train_first_model'
 
 ### Start VSCode on a CPU node
 
-For this step, we're only preparing code and job scripts—not actually running
-training—so we'll use a CPU node for a faster to allocate and less
+Only code and job scripts will be prepared at this stage—not actually running
+training—so a CPU node suffices for a faster to allocate and a less
 resource-intensive editor session.
 
 ```bash
@@ -77,7 +84,7 @@ salloc: Granted job allocation 8888888
     
     1. **`#SBATCH` directives** — Request 1 GPU, 4 CPUs, 16G memory, 15 minutes.
     2. **Data staging** — Copy CIFAR-10 from `/network/datasets/` into `$SLURM_TMPDIR/data`. Compute nodes read from `$SLURM_TMPDIR` much faster than from network storage.
-    3. **Run the training script** — `srun uv run python main.py` runs your script inside the allocation.
+    3. **Run the training script** — `srun uv run python main.py` runs the script inside the allocation.
 
     ```bash title="job.sh"
     --8<-- "docs/examples/distributed/single_gpu/job.sh"
@@ -115,7 +122,8 @@ Submitted batch job 8888888
 ```
 </div>
 
-You will see something like `Submitted batch job 8888888`. Note the job ID.
+The output will confirm the job was submitted (something like `Submitted batch
+job 8888888.` should be displayed). Note the job ID.
 
 
 !!! tip "Job stuck with `ReqNodeNotAvail`?"
@@ -139,8 +147,8 @@ You will see something like `Submitted batch job 8888888`. Note the job ID.
   </div>
   
 * **Watch the output file:** Once the job starts, a file `slurm-<JOBID>.out`
-  will be created in which you'll find the log of the job being executed. Open
-  it to watch the model being trained:
+  will be created containing the job log. Open it to watch the model being
+  trained:
   ``` title="slurm-JOBID.out"
   Date:     Tue Mar 17 02:55:56 PM EDT 2026
   Hostname: cn-l023.server.mila.quebec
@@ -160,10 +168,15 @@ You will see something like `Submitted batch job 8888888`. Note the job ID.
   Done!
   ```
 
+---
+
 ## Key concepts
 
-* **Data staging to `$SLURM_TMPDIR`** — Network storage is shared and slower.
-  Copying the dataset into `$SLURM_TMPDIR` at the start of the job gives the
-  compute node fast local access for the rest of the run.
-* **srun** — Runs a command inside the allocated resources. In our script, `srun
-  uv run python main.py` runs the training on the GPU node.
+**Data staging to `$SLURM_TMPDIR`**
+:   Network storage is shared and slower. Copying the dataset into
+    `$SLURM_TMPDIR` at job start gives the compute node fast local access for
+    the rest of the run.
+
+`srun`
+:   Runs a command inside the allocated resources. In the job script,
+    `srun uv run python main.py` runs training on the GPU node.
