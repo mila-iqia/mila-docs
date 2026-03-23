@@ -1,0 +1,16 @@
+.persistent-element {
+    color: white;
+    font-size:.6rem;
+
+    padding-left: .8rem;
+    padding-right: .8rem;
+    padding-top: 0.5rem;
+}
+
+.persistent-banner{
+    width: 61rem;
+}
+
+.persistent-banner-container{
+    background-color: teal;
+}

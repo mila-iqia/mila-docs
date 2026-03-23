@@ -1,0 +1,8 @@
+<h3 style="margin-top:-0.2rem;">Office Hours</h3>
+
+Come ask for help in {{ config.extra.office_hours.location}}:
+<ul>
+    {% for date in config.extra.office_hours.dates %}
+        <li>from {{ date.start }} to {{ date.end }} on {{ date.day }}s</li>
+    {% endfor %}
+</ul>
