@@ -9,3 +9,14 @@ Spotted a bug? 🐛
 <a href="https://github.com/mila-iqia/mila-docs/issues/new">File a ticket</a>
 and we'll take a look at it!
 {% endblock %}
+
+{% block tabs %}
+    <div class="persistent-banner-container">
+        <div class="md-grid md-typeset persistent-banner">
+            <div class="md-typeset persistent-element">
+                {% include "content/office_hours.html" %}
+            </div>
+        </div>
+    </div>
+    {{ super() }}
+{% endblock %}

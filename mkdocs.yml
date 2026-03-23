@@ -103,8 +103,21 @@ extra:
       - accept
       - reject
       - manage
+  office_hours:
+    location: Lab A
+    dates:
+      - start: 3pm
+        end: 5pm
+        day: Tuesday
+      - start: 2pm
+        end: 4pm
+        day: Wednesday
 
+extra_css:
+  - stylesheets/extra.css
 
+hooks:
+  - hooks/copy_office_hours.py
 
 plugins:
   - include-markdown:
