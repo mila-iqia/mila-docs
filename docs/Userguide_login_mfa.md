@@ -132,6 +132,13 @@ flow will proceed as follows:
     -   If using **Push**, tap "Approve" on your phone.
     -   If using **TOTP** or **Email**, type the provided code into your
         terminal prompt.
+
+!!! warning "IMPORTANT"
+    **Warning:** If both push and OTP token were triggered, the module will
+    prompt for the OTP and poll once after the user presses enter. The user can
+    press enter with empty input to use push, just make sure the authentication
+    was already confirmed on the smartphone.
+
 ## Troubleshooting & Support
 
 -   **Time Synchronization:** TOTP codes are time-sensitive. Ensure your
