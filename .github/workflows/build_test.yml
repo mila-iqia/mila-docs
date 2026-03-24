@@ -6,6 +6,14 @@ on:
     branches:
       - master
 
+permissions:
+  contents: read
+  pull-requests: write # Required for commenting on PRs
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -38,3 +46,64 @@ jobs:
         with:
           name: docs-build-test
           path: ./_build/html
+
+  test-mila-docs:
+    name: Evaluate the usefulness of the docs using DocMetrics
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          version: "latest"
+          enable-cache: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          cache-suffix: "3.14"
+
+      - name: Pin Python version
+        run: uv python pin 3.14
+
+      - name: Install dependencies
+        run: uv sync --frozen
+
+      - name: Build PR documentation
+        run: uv run mkdocs build
+
+      - name: Serve PR docs in background
+        run: |
+          cd site
+          python -m http.server 8000 &
+          echo $! > /tmp/docs_server.pid
+          cd ..
+
+      - name: Wait for docs server to be ready
+        run: |
+          for i in {1..10}; do
+            if curl -s http://localhost:8000/ > /dev/null; then
+              echo "Docs server is ready"
+              exit 0
+            fi
+            echo "Waiting for docs server... attempt $i"
+            sleep 1
+          done
+          echo "Docs server failed to start"
+          exit 1
+
+      - name: Run DocMetrics action on docmetrics docs
+        uses: mila-iqia/docmetrics
+        with:
+          questions-file: quiz.yaml
+          docs-url: http://localhost:8000
+          base-docs-url: https://docs.mila.quebec
+          model: gemini-2.5-flash
+          gemini-api-key: ${{ secrets.GEMINI_API_KEY }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Stop docs server
+        if: always()
+        run: |
+          if [ -f /tmp/docs_server.pid ]; then
+            kill $(cat /tmp/docs_server.pid) || true
+          fi
