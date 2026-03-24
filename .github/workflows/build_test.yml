@@ -60,10 +60,6 @@ jobs:
           version: "latest"
           enable-cache: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          cache-suffix: "3.14"
-
-      - name: Pin Python version
-        run: uv python pin 3.14
 
       - name: Install dependencies
         run: uv sync --frozen
