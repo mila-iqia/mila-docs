@@ -76,7 +76,11 @@ markdown_extensions:
   - pymdownx.snippets:
       auto_append:
         - includes/abbreviations.md
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   # https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#configuration
   - pymdownx.tabbed:
       alternate_style: true
