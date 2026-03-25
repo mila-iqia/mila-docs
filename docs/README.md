@@ -9,7 +9,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
     - [Acknowledging Mila](home/acknowledgement.md)
     - [About us](home/teams.md)
     - [🔗 Mila intranet](https://intranet.mila.quebec/)
-- [Quick Start](quick_start/index.md)
+- [Getting started](quick_start/index.md)
     - [Multi-Factor Authentication (MFA) for Cluster Access](Userguide_login_mfa.md)
     - [Logging in to the cluster](Userguide_login.md)
     - [Running your code](Userguide_running_code.md)
