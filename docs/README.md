@@ -16,7 +16,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
     - [Logging in to the cluster](getting_started/login.md)
     - [Running your code](getting_started/running_code.md)
 - [How-tos and Guides](userguides/index.md)
-    - [Sharing Data with ACLs](Userguide_sharing_data.md)
+    - [Sharing Data with ACLs](userguides/sharing_data.md)
     - [Weights and Biases (WandB)](Userguide_wandb.md)
     - Minimal Examples
         - [Software Frameworks](examples/frameworks/index.md)
