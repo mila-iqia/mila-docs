@@ -6,7 +6,7 @@ A "cheat sheet" is available to provide you with information about the Mila and 
 The production run consists of about 250 copies.
 If you want to have a copy, you can always come to the IDT lab during office hours (usually Tuesday 3pm-5pm and Wednesday 2pm-4pm).
 
-The [IDT Cheat Sheet pdf](_static/2025-06-27_Mila_compute_cheat_sheet_v3.pdf) is available if you want to access it online.
+The [IDT Cheat Sheet pdf](/_static/2025-06-27_Mila_compute_cheat_sheet_v3.pdf) is available if you want to access it online.
 The layout of the pdf has been set to be compatible with the printers at Mila
 so you can always print your own copy on regular paper
 (hint: set printer scale 100% with no margins).

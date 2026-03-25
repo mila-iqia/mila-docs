@@ -4,21 +4,21 @@ This section seeks to provide insights and information on computational
 resources outside the Mila cluster itself.
 
 {%
-    include-markdown "Extra_compute_drac.md"
+    include-markdown "technical_reference/clusters/drac/index.md"
     heading-offset=1
 %}
 <!-- TODO: Remove these, they are empty in both the .rst and .md docs: -->
 {%
-    include-markdown "Extra_compute_University.md"
+    include-markdown "technical_reference/clusters/external/extra_compute_university.md"
     heading-offset=1
 %}
 
 {%
-    include-markdown "Extra_compute_industry.md"
+    include-markdown "technical_reference/clusters/external/extra_compute_industry.md"
     heading-offset=1
 %}
 
 {%
-    include-markdown "Extra_compute_large.md"
+    include-markdown "technical_reference/clusters/external/extra_compute_large.md"
     heading-offset=1
 %}

@@ -2,6 +2,8 @@
 
 This section seeks to provide factual information and policies on the Mila cluster computing environments.
 
+{% include-markdown "home/acknowledgement.md" %}
+
 <!--nav-->
 * [Roles and authorizations](Information_roles_and_resources.md)
 * [Node profile description](Information_nodes.md)
