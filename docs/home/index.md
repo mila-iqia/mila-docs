@@ -33,7 +33,7 @@ recommend you start by checking out the [short quick start guide](/getting_start
 
     Discover more advanced guides to help you in your research
 
-    [:octicons-arrow-right-24: Learn new things](/docs/userguides)
+    [:octicons-arrow-right-24: Learn new things](/userguides)
 
 -   :material-account-question:{ .lg .middle } __Get help__
 
@@ -41,13 +41,13 @@ recommend you start by checking out the [short quick start guide](/getting_start
 
     Find how to solve your problems
 
-    [:octicons-arrow-right-24: Find your answers in the FAQ](/docs/help)
+    [:octicons-arrow-right-24: Find your answers in the FAQ](/help)
 
-    [:octicons-arrow-right-24: Join us on Slack (#mila-cluster)](/docs/help)
+    [:octicons-arrow-right-24: Join us on Slack (#mila-cluster)](/help)
 
-    [:octicons-arrow-right-24: Ask your question to IT support](/docs/help)
+    [:octicons-arrow-right-24: Ask your question to IT support](/help)
     
-    [:octicons-arrow-right-24: Join us at the Tue 3-5pm/Wed 2-4pm Office Hours](/docs/help)
+    [:octicons-arrow-right-24: Join us at the Tue 3-5pm/Wed 2-4pm Office Hours](/help)
 
 -     :material-book-open-page-variant:{ .lg .middle } __Technical reference__
 
@@ -55,7 +55,7 @@ recommend you start by checking out the [short quick start guide](/getting_start
 
     Find advanced notions to better understand how everything works
 
-    [:octicons-arrow-right-24: Dig deeper](/docs/technical_reference/)
+    [:octicons-arrow-right-24: Dig deeper](/technical_reference/)
 
 -    :material-hammer-wrench:{ .lg .middle } __Toolbox__
 
@@ -63,7 +63,7 @@ recommend you start by checking out the [short quick start guide](/getting_start
 
     Obtain tools for your projects
 
-    [:octicons-arrow-right-24: Browse the tools](/docs/toolbox)
+    [:octicons-arrow-right-24: Browse the tools](/toolbox)
 
 </div>
 

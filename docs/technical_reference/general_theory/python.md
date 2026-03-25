@@ -75,7 +75,7 @@ several Python versions through the associated module which comes with pip. In
 order to install new packages, you will first have to create a personal space
 for them to be stored.  The usual solution (as it is the recommended solution
 on Digital Research Alliance of Canada clusters) is to use `virtual
-environments <https://virtualenv.pypa.io/en/stable/>`_, although [using_uv](#using_uv) is now
+environments <https://virtualenv.pypa.io/en/stable/>`_, although [uv](./#uv) is now
 the recommended way to manage Python installations, virtual environments and dependencies.
 
 !!! note
@@ -114,7 +114,7 @@ pip install tensorflow-gpu
 ### Conda
 
 Another solution for Python is to use [miniconda](https://docs.conda.io/en/latest/miniconda.html)
-or [anaconda](httpshttps://docs.anaconda.com) which are also available through
+or [anaconda](https://docs.anaconda.com) which are also available through
 the `module` command: (the use of Conda is not recommended for Digital Research
 Alliance of Canada clusters due to the availability of custom-built packages for pip)
 

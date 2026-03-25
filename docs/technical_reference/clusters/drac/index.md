@@ -9,7 +9,7 @@ computation and/or multi-GPU jobs as well as long running jobs.
 !!! note
 
     If you use DRAC resources for your research, please remember to [acknowledge
-    their use in your papers](https://alliancecan.ca/en/services/advanced-research-computing/acknowledging-alliance)
+    their use in your papers](https://www.alliancecan.ca/en/our-services/advanced-research-computing/acknowledging-alliance)
 
 !!! note
 
@@ -86,7 +86,7 @@ access to, and track your usage.
 You will be asked for the CCRI (See screenshot below). Please reach out to your
 sponsor to get the CCRI.
 
-![role](role.png)
+![role](/_static/images/role.png)
 
 You will need to **wait** for your sponsor to accept before being able to login
 to the Alliance clusters.
@@ -104,7 +104,7 @@ keep up-to-date information on active accounts and to deactivate unused
 accounts.
 
 To find out how to renew your account or for any other question regarding
-DRAC's accounts renewal, please head over to their [FAQ](https://alliancecan.ca/en/services/advanced-research-computing/account-management/account-renewals/account-renewals-faq).
+DRAC's accounts renewal, please head over to their [FAQ](https://www.alliancecan.ca/en/our-services/advanced-research-computing/account-management/account-renewals/account-renewals-faq).
 
 If the FAQ is of no help, you can contact DRAC renewal support team at
 ``renewals@tech.alliancecan.ca`` or the general support team at
@@ -189,7 +189,7 @@ salloc --time=1:00:00 --account=rrg-bengioy-ad --gres=gpu:1
 ```
 
 The full documentation for jobs launching on Alliance clusters can be found
-[here](https://docs.alliancecan.ca/wiki/Running_jobs).
+[here](https://docs.alliancecan.ca/wiki/Running_jobs#).
 
 ## DRAC Storage
 
@@ -344,7 +344,7 @@ code has trouble finding libraries. See [how to install binary packages](https:/
 
 ### Disk quota exceeded error on `/project` file systems
 
-
 You have files in ``/project`` with the wrong permissions. See [how to change
 permissions](https://docs.alliancecan.ca/wiki/Frequently_Asked_Questions/en#Disk_quota_exceeded_error_on_.2Fproject_filesystems).
 
+!!! warning "This last question might be obsolete"

@@ -2,12 +2,13 @@
 
 This section seeks to provide factual information and policies on the Mila cluster computing environments.
 
-{% include-markdown "home/acknowledgement.md" %}
+!!! note "Acknowledging Mila"
+    {% include-markdown "home/acknowledgement.md" %}
 
 <!--nav-->
-* [Roles and authorizations](Information_roles_and_resources.md)
-* [Node profile description](Information_nodes.md)
-* [Storage](Information_storage.md)
-* [Data sharing policies](Information_sharing_policies.md)
-* [Data Transmission](Information_data_transmission.md)
-* [Monitoring](Information_monitoring.md)
+* [Roles and authorizations](/technical_reference/clusters/mila/roles_and_resources)
+* [Node profile description](/technical_reference/clusters/mila/nodes)
+* [Storage](/technical_reference/clusters/mila/storage)
+* [Data sharing policies](/technical_reference/clusters/mila/sharing_policies)
+* [Data Transmission](/technical_reference/clusters/mila/data_transmission)
+* [Monitoring](/technical_reference/clusters/mila/monitoring)

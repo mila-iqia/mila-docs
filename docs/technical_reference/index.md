@@ -7,7 +7,7 @@
 
     Access a summary of useful commands and notions
 
-    [:octicons-arrow-right-24: Display the cheatsheet](/technical_reference/cheatsheet)
+    [:octicons-arrow-right-24: Display the cheatsheet](/_static/2025-06-27_Mila_compute_cheat_sheet_v3.pdf)
 
 - :octicons-note-24:{ .lg .middle } __Glossary__
 

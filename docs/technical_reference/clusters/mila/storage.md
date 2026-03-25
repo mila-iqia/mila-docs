@@ -108,7 +108,7 @@ dataset's access group (ex.: `scannet_users`), your cluster's username and the
 approbation of the group owner. You can find the dataset's access group by
 listing the content of `/network/datasets/restricted` with the [ls command](https://cli-cheatsheet.readthedocs.io/en/latest/#ls).
 
-Those datasets are mirrored to the [Alliance clusters](Extra_compute_drac.md) in
+Those datasets are mirrored to the [Alliance clusters](/technical_reference/clusters/drac) in
 `~/projects/rrg-bengioy-ad/data/curated/` if they follow Digital Research
 Alliance of Canada's [good practices on data](https://docs.alliancecan.ca/wiki/AI_and_Machine_Learning#Managing_your_datasets).
 To list the local datasets on an Alliance cluster, you can execute the following
@@ -126,7 +126,7 @@ community.  To request the addition of a weight you think could benefit the
 research of others, you can fill [the weights form](https://forms.gle/HLeBkJBozjC3jG2D9).
 
 Weights in `weights/restricted` are restricted and require an explicit request
-to gain access. Please [submit a support ticket](https://mila-iqia.atlassian.net/servicedesk/customer/portals) mentioning the
+to gain access. Please [submit a support ticket](https://mila-iqia.atlassian.net/servicedesk/customer/portal/5) mentioning the
 weights's access group (ex.: `NAME_OF_A_RESTRICTED_MODEL_WEIGHTS_users`), your
 cluster's username and the approbation of the group owner. You can find the
 weights's access group by listing the content of `/network/weights/restricted`

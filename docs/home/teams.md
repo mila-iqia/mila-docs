@@ -8,7 +8,7 @@ the IDT team.
 ## IDT's mission
 
 
-![](IDT.png)
+![IDT](/_static/images/IDT.png)
 
 
 ## The IDT team

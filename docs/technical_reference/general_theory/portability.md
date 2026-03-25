@@ -22,13 +22,13 @@ To achieve this, try to always keep in mind the following aspects:
   should *not* update the environment for project B. That way, you can freely
   install and upgrade software and libraries for the former without worrying about
   breaking the latter (which you might not notice until weeks later, the next time
-  you work on project B!) Isolation can be made easy using [using uv](#uv), as well as
-  [Python Virtual environments](Theory_cluster_software_deps.md#python-virtual-environments)
-  and, as a last resort, [containers](Theory_cluster_software_deps.md#containers).
+  you work on project B!) Isolation can be made easy using [uv](#uv), as well as
+  [Python Virtual environments](/technical_reference/general_theory/software_deps/#python-virtual-environments)
+  and, as a last resort, [containers](/technical_reference/general_theory/software_deps/#containers).
 
 
 {%
-  include-markdown "Userguide_python.md"
+  include-markdown "technical_reference/general_theory/python.md"
 %}
 
 
@@ -42,7 +42,7 @@ module load python/3.10
 ```
 
 {%
-  include-markdown "Userguide_portability_modules.md"
+  include-markdown "technical_reference/general_theory/portability_modules.md"
 %}
 
 
@@ -57,5 +57,5 @@ cluster (nor the other clusters from Digital Research Alliance of Canada).
 
 One popular mechanism for containerisation on a computational cluster is called
 [Podman](https://podman.io/).  This is the recommended approach for running
-containers on the Mila cluster. See the [Using containers section](Userguide_containers.md#using-containers) for more
+containers on the Mila cluster. See the [Using containers section](/technical_reference/general_theory/containers) for more
 details.

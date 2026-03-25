@@ -20,7 +20,7 @@ might provide the `python` command to point to Python 3.7, another might
 activate CUDA version 11.0, another might provide the `torch` package, and so
 on.
 
-For more information, see [The module command](#The module command).
+For more information, see [The module command](/technical_reference/clusters/drac/#modules).
 
 ### Containers
 
@@ -34,7 +34,7 @@ packages using `apt`, modify settings as you would as a root user, and so on,
 but without interfering with your main installation. Once built, a container can
 be run on any compatible system.
 
-For more information, see [Using containers](#Using containers).
+For more information, see [Using containers](/technical_reference/general_theory/containers).
 
 ### Python Virtual environments
 
@@ -42,5 +42,3 @@ A virtual environment in Python is a local, isolated environment in which you
 can install or uninstall Python packages without interfering with the global
 environment (or other virtual environments). In order to use a virtual
 environment, you first have to activate it.
-
-For more information, see [Virtual environments](#Virtual environments).

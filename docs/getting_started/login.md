@@ -101,7 +101,7 @@ ssh -p 2222 <user>@login-X.login.server.mila.quebec
 ```
 
 This is a significant amount of typing. You are **strongly** encouraged to add
-a `mila` "alias" to your SSH configuration file (see [below](#Configuring SSH)
+a `mila` "alias" to your SSH configuration file (see [before](./#manual-ssh-configuration)
 for how). With a correctly-configured SSH you can now simply run
 
 ```bash
@@ -119,7 +119,7 @@ to connect to a login node. The `mila` alias will be available to `ssh`,
 `scp`, `rsync` and all other programs that consult the SSH configuration file.
 
 Upon first login, you may be asked to enter your SSH key passphrase. Use the
-passphrase you used to create your SSH key [below](#generating_ssh_keys).
+passphrase you used to create your SSH key [below](./#generating-an-ssh-private-key).
 
 Upon first login, you may also be asked whether you trust the ***Mila*** login
 servers' *own* SSH keys.
@@ -244,11 +244,11 @@ During the IT Onboarding Training, you will be asked to submit that SSH
 public key.
 
 - If you do not know what SSH keys are, or are not familiar with them, you can
-  read the informative material [below](#SSH Private Keys), then proceed to
+  read the informative material below, then proceed to
   generate them.
 - If you do not already have SSH keys, or are not sure if you have them, skip
-  to the instructions on how to generate them [here](#checking_for_ssh_keys).
-- If you do have SSH keys, you can skip to [configuring SSH for access to Mila](#Configuring SSH).
+  to the instructions on how to generate them [here](./#checking-if-you-already-have-ssh-private-keys).
+- If you do have SSH keys, you can skip to [configuring SSH for access to Mila](./#manual-ssh-configuration).
 
 ### SSH Private Keys
 
