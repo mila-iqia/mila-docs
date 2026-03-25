@@ -6,7 +6,7 @@ description: Technical documentation for Mila's computing infrastructure.
 # Mila technical documentation
 
 Welcome to Mila's technical documentation. If this is your first time here, we
-recommend you start by checking out the [short quick start guide](Userguide_quick_start.md).
+recommend you start by checking out the [short quick start guide](/getting_started/).
 
 
 <div class="grid cards" markdown>
@@ -17,7 +17,7 @@ recommend you start by checking out the [short quick start guide](Userguide_quic
 
     Learn to logging in to the cluster, run your first job and train your first model
 
-    [:octicons-arrow-right-24: Getting started](/docs/quick_start)
+    [:octicons-arrow-right-24: Getting started](/getting_started/)
 
 
 -   :material-robot:{ .lg .middle } __Use AI agent__

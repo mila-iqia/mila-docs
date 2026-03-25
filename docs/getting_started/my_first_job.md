@@ -11,7 +11,7 @@ editor's terminal.
 
 <div class="grid cards" markdown>
 
--   [:material-run-fast:{ .lg .middle } __Get Started with the Cluster__](Userguide_quick_start.md)
+-   [:material-run-fast:{ .lg .middle } __Get Started with the Cluster__](/getting_started)
     { .card }
 
     ---
@@ -131,7 +131,7 @@ the `mila code` session and relinquish the allocation.
 
 <div class="grid cards" markdown>
 
--   [:material-run-fast:{ .lg .middle } __Train Your First Model__](Userguide_quick_start_train_first_model.md)
+-   [:material-run-fast:{ .lg .middle } __Train Your First Model__](/getting_started/train_first_model)
     { .card }
 
     ---

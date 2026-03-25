@@ -316,7 +316,7 @@ first job and train your first model:
 
 <div class="grid cards" markdown>
 
--   [:material-run-fast:{ .lg .middle } __Run Your First Job__](Userguide_quick_start_my_first_job.md)
+-   [:material-run-fast:{ .lg .middle } __Run Your First Job__](/getting_started/my_first_job/)
     { .card }
 
     ---
@@ -324,7 +324,7 @@ first job and train your first model:
     Run your first job on the cluster with PyTorch using VSCode on a GPU compute
     node.
 
--   [:material-run-fast:{ .lg .middle } __Train Your First Model__](Userguide_quick_start_train_first_model.md)
+-   [:material-run-fast:{ .lg .middle } __Train Your First Model__](/getting_started/train_first_model/)
     { .card }
 
     ---
