@@ -4,7 +4,6 @@ We try to provide you different levels of help at Mila, for you to not stay stuc
 
 
 ``` mermaid
-    %%{init: {'theme': 'base', 'themeVariables': {'fontColor': 'purple', 'fontSize': '20px', 'fontFamily': 'Inter'}}}%%
     graph LR
         User(😔):::emoji
         Slack("`Ask on Slack
@@ -25,7 +24,7 @@ We try to provide you different levels of help at Mila, for you to not stay stuc
         click Helpdesk "https://mila-iqia.atlassian.net/servicedesk/customer/portal/5"
 
         classDef bigger font-size:26px
-        classDef emoji font-size:40px
+        classDef emoji font-size:40px, fill:transparent
 ```
 
 ## Check the FAQ
