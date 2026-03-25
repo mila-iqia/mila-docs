@@ -23,6 +23,7 @@ build:
     install:
       - UV_PROJECT_ENVIRONMENT="${READTHEDOCS_VIRTUALENV_PATH}" uv sync
     pre_build:
+      - rm overrides/partials/search.html
       - UV_PROJECT_ENVIRONMENT="${READTHEDOCS_VIRTUALENV_PATH}" uv run
         --script docs/examples/preprocess.py
 
