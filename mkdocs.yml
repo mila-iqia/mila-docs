@@ -52,12 +52,16 @@ theme:
         name: Switch to system preference
 markdown_extensions:
   - admonition
+  - attr_list
+  - md_in_html
   - pymdownx.details
   - pymdownx.superfences
   - toc:
       permalink: true
-  - attr_list
   # https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#configuration
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span
@@ -72,7 +76,7 @@ markdown_extensions:
 extra:
   footer_sections:
     - name: "About us"
-      link: docs/help/teams
+      link: docs/home/teams
     - name: "Support"
       link: docs/help
 

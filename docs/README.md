@@ -1,32 +1,14 @@
----
-title: Mila Technical Documentation
-description: Technical documentation for Mila's computing infrastructure.
----
-
-# Mila technical documentation
-
-
-Welcome to Mila's technical documentation. If this is your first time here, we
-recommend you start by checking out the [short quick start guide](Userguide_quick_start.md).
-
-## Acknowledgement
-
-{% include-markdown "Acknowledgement_text.md" %}
-
-## Support
-To reach the Mila infrastructure support, please [submit a support ticket.](https://mila-iqia.atlassian.net/servicedesk/customer/portals)
-
-
 ## Contribution
 If you find any errors in the documentation, missing or unclear sections, or would simply like to contribute, please open an issue or make a pull request on the [github page](https://github.com/mila-iqia/mila-docs).
 
 ## Documentation
 
 <!--nav-->
-- [Introduction](README.md)
-    - [Purpose of this documentation](Purpose.md)
-    - [Acknowledging Mila](Acknowledgement_text.md)
-    - [Cheat Sheet](Cheatsheet.md)
+- [Introduction](home/index.md)
+    - [Cheat Sheet](home/cheatsheet.md)
+    - [Acknowledging Mila](home/acknowledgement.md)
+    - [About us](home/teams.md)
+    - [🔗 Mila intranet](https://intranet.mila.quebec/)
 - [Quick Start](quick_start/index.md)
     - [Multi-Factor Authentication (MFA) for Cluster Access](Userguide_login_mfa.md)
     - [Logging in to the cluster](Userguide_login.md)
@@ -53,10 +35,9 @@ If you find any errors in the documentation, missing or unclear sections, or wou
         - [Advanced Examples](examples/advanced/index.md)
             - [Multi-Node / Multi-GPU ImageNet Training](examples/advanced/imagenet/index.md)
 - [AI agents](research/index.md)
-- Technical reference
-    - [Glossary](technical_reference/glossary.md)
+- [Technical reference](technical_reference/index.md)
     - Systems and services
-        - [Computing infrastructure and policies](Information.md)
+        - [Mila cluster](Information.md)
             - [Roles and computing resources](Information_roles_and_resources.md)
             - [Node profile description](Information_nodes.md)
             - [Storage](Information_storage.md)
@@ -73,7 +54,6 @@ If you find any errors in the documentation, missing or unclear sections, or wou
         - [The workload manager](Theory_cluster_batch_scheduling.md)
         - [Processing data](Theory_cluster_data.md)
         - [Software on the cluster](Theory_cluster_software_deps.md)
-    - Extras
         - [Portability concerns and solutions](Userguide_portability.md)
         - [Using containers](Userguide_containers.md)
         - [Contributing datasets](Userguide_datasets.md)
@@ -81,6 +61,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
         - [Advanced SLURM usage and Multiple GPU jobs](Userguide_multigpu.md)
         - [Multiple Nodes](Userguide_multinode.md)
         - [Visual Studio Code](VSCode.md)
+        - [Glossary](technical_reference/glossary.md)
         - [Useful links](technical_reference/useful_links.md)
 - [Toolbox](toolbox/index.md)
     - [Comet](Userguide_comet.md)
