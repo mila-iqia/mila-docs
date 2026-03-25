@@ -9,6 +9,9 @@ copyright: >
 watch:
   - includes
 theme:
+  icon:
+    admonition:
+      wip: fontawesome/solid/brush
   name: material
   custom_dir: overrides
   features:
@@ -115,7 +118,8 @@ extra:
       - reject
       - manage
 
-
+extra_css:
+  - stylesheets/extra.css
 
 plugins:
   - meta

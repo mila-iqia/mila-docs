@@ -36,7 +36,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
             - [Launch many jobs using SLURM job arrays](examples/good_practices/slurm_job_arrays/index.md)
         - [Advanced Examples](examples/advanced/index.md)
             - [Multi-Node / Multi-GPU ImageNet Training](examples/advanced/imagenet/index.md)
-- [AI agents](research/index.md)
+- [AI agents](ai/index.md)
 - [Technical reference](technical_reference/index.md)
     - Systems and services
         - [Mila cluster](Information.md)
