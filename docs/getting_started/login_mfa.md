@@ -1,7 +1,7 @@
 # Multi-Factor Authentication (MFA) for Cluster Access
 
 {%
-    include-markdown "Userguide_cluster_access.md"
+    include-markdown "getting_started/cluster_access.md"
 %}
 
 ## Overview
