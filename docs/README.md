@@ -106,7 +106,6 @@ If you find any errors in the documentation, missing or unclear sections, or wou
     - [Logging in to the cluster](userguides/login.md)
     - [Running your code](userguides/running_code.md)
     - [Sharing Data with ACLs](userguides/sharing_data.md)
-    - [Weights and Biases (WandB)](userguides/wandb.md)
     - Minimal Examples
         - [Software Frameworks](examples/frameworks/index.md)
             - [PyTorch Setup](examples/frameworks/pytorch_setup/index.md)
@@ -159,6 +158,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
     - [JupyterHub](toolbox/jupyterhub.md)
     - [Singularity](toolbox/singularity.md)
     - [VSCode](toolbox/VSCode.md)
+    - [Weights and Biases (WandB)](toolbox/wandb.md)
     - [🔗 Research Project Template](https://mila-iqia.github.io/ResearchTemplate)
 - [Get help](help/index.md)
     - [Frequently asked questions (FAQ)](help/faq.md)
