@@ -1,0 +1,8 @@
+*
+!.gitignore
+!README.md
+!skills/
+!skills/mila-*/
+!skills/mila-*/SKILL.md
+!skills/mila-*/references/
+!skills/mila-*/references/**

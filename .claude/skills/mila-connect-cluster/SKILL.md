@@ -1,0 +1,90 @@
+---
+name: mila-connect-cluster
+description: >-
+  Use this skill when the user asks about connecting to the Mila cluster via
+  SSH, verifying the connection, entering an OTP, or troubleshooting
+  connection failures. Trigger phrases include: "How do I connect to the
+  cluster", "How do I SSH into the cluster", "ssh mila", "How do I verify
+  my connection", "I can't connect", "connection refused", "OTP",
+  "one-time password", "The login node banner does not appear",
+  "Not prompted for OTP", "How do I install uv on the cluster",
+  "I'm connected, what's next".
+version: 1.0.0
+argument-hint: <connect|troubleshoot>
+---
+
+# Connect to the Mila Cluster via SSH
+
+This skill guides users through connecting to the Mila cluster for the first
+time, entering the OTP from their authenticator app, and troubleshooting
+common connection failures.
+
+## Reference documentation
+
+Primary source: **https://docs.mila.quebec/Userguide_quick_start/**
+— sections "Verify your connection" and "Install uv on the cluster".
+
+## Workflow
+
+### Step 1: Check prerequisites
+
+Before connecting, confirm the user has:
+- A Mila account and cluster username (see **mila-account-setup**)
+- MFA set up with a TOTP authenticator app (see **mila-account-setup**)
+- `milatools` installed and `mila init` completed (see **mila-local-setup**)
+
+If any prerequisite is missing, point to the appropriate skill first.
+
+### Step 2: Fetch the documentation
+
+Fetch **https://docs.mila.quebec/Userguide_quick_start/** and locate the
+"Verify your connection" section.
+
+### Step 3: Guide through the SSH connection
+
+Walk through the connection steps:
+
+1. Open a terminal (or WSL terminal on Windows).
+2. Run:
+   ```bash
+   ssh mila
+   ```
+3. When prompted for an OTP, open the authenticator app and enter the
+   current 6-digit code. The code will **not** appear on screen as it is
+   typed — this is expected.
+4. On success, the Mila login-node banner appears (the ASCII art logo
+   followed by system information).
+
+Key points to communicate:
+- The OTP is time-based and expires every 30 seconds; if it fails, wait
+  for the next code to generate.
+- The `ssh mila` shortcut works because `mila init` wrote the SSH config;
+  the full hostname is `login.server.mila.quebec`.
+
+### Step 4: Handle troubleshooting
+
+**Not prompted to enter an OTP:**
+→ `mila init` was not completed or the SSH config is missing. Run
+`mila init` again (see **mila-local-setup**).
+
+**Prompted for OTP but the login-node banner does not appear after entering
+the code:**
+→ MFA setup is incomplete (TOTP token missing or wrong). Return to
+https://mfa.mila.quebec and add a TOTP token (see **mila-account-setup**).
+
+**OTP rejected repeatedly:**
+→ Check that the device clock is synchronized (TOTP is time-sensitive).
+Contact IT support at https://it-support.mila.quebec if the issue persists.
+
+### Step 5: Install uv on the cluster
+
+Once connected, guide the user to install `uv` on the cluster (login node):
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+This is the same command as on the local machine but runs on the cluster.
+
+### Step 6: Point to the next skill
+
+Once the connection is confirmed and `uv` is installed on the cluster,
+point the user to **mila-run-jobs** to run their first job.
