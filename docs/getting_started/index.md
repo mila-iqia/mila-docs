@@ -43,7 +43,7 @@ it as soon as possible; it expires after use.
 
 1. Go to **https://mfa.mila.quebec**.
 
-    ![Login-interface](_static/screenshots/mfa-login.png)
+    ![Login-interface](../_static/screenshots/mfa-login.png)
 
 2. **Username:** your cluster username.
 
@@ -53,7 +53,7 @@ it as soon as possible; it expires after use.
 4. After logging in, **immediately** add at least one **TOTP** token to your
    account:
 
-    ![Token-selector](_static/screenshots/mfa-enroll-token-totp.png)
+    ![Token-selector](../_static/screenshots/mfa-enroll-token-totp.png)
 
     1. If you don't have a TOTP authenticator app yet, install one on your phone
        first:
@@ -78,7 +78,7 @@ it as soon as possible; it expires after use.
     2. In your authenticator app, scan the QR code shown on the MFA page to add
        the token:
 
-        ![Token-selector](_static/screenshots/mfa-enroll-token-totp-2.png)
+        ![Token-selector](../_static/screenshots/mfa-enroll-token-totp-2.png)
 
 !!! warning "Set up TOTP before you leave"
     After this first visit, the MFA web portal **only** accepts a TOTP code. If

@@ -13,7 +13,7 @@ designed for high-performance computations, but clusters can also use
 specialized nodes to offer parallel file systems, databases, login nodes and
 even the cluster scheduling functionality as pictured in the image below.
 
-![Cluster overview](_static/images/cluster_overview2.png)
+![Cluster overview](../../../_static/images/cluster_overview2.png)
 
 We will overview the different types of nodes which you can encounter on a
 typical cluster.
