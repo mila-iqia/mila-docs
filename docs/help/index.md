@@ -31,19 +31,54 @@ We try to provide you different levels of help at Mila, for you to not stay stuc
         classDef emoji font-size:40px, fill:transparent
 ```
 
-## Check the FAQ
-Your answers may be in the [FAQ page](../help/faq).
 
-## Ask help on Slack
-Feel free to ask your question on the [#mila-cluster](https://mila-umontreal.slack.com/archives/CFAS8455H) channel on the Mila Slack.
 
-## Contact Mila support
-Writing to the support is done through [this portal](https://mila-iqia.atlassian.net/servicedesk/customer/portal/5).
+</br >
 
-## Come to the Office Hours
-Office Hours take place in Lab A:
 
-* from 3pm to 5pm on Tuesdays
-* from 2pm to 4pm on Wednesdays.
+<div class="grid cards" markdown>
 
-They also take place online at the same dates: the virtual invite is on your Mila calendar.
+
+-   <a href="../help/faq" class="full-card">
+    :octicons-discussion-closed-24:{ .lg .middle } __Check the FAQ__
+
+    ---
+
+    Your answers may be in the **FAQ page**
+
+    </a>
+
+-   <a href="https://mila-umontreal.slack.com/archives/CFAS8455H" class="full-card">
+    :fontawesome-brands-slack:{ .lg .middle } __Ask help on Slack__
+
+    ---
+
+    Feel free to ask your question on the **#mila-cluster** channel on the Mila Slack
+
+    </a>
+
+
+-   <a href="https://mila-iqia.atlassian.net/servicedesk/customer/portal/5" class="full-card">
+    :octicons-code-of-conduct-24:{ .lg .middle } __Contact Mila support__
+
+    ---
+
+    Writing to the support is done through this portal
+
+    </a>
+
+-   <a href="#" class="full-card">
+    :material-door-open:{ .lg .middle } __Come to the Office Hours__
+
+    ---
+
+    Office Hours take place in Lab A:
+
+    * from 3pm to 5pm on Tuesdays
+    * from 2pm to 4pm on Wednesdays.
+
+    They also take place online at the same dates: the virtual invite is on your Mila calendar.
+
+    </a>
+
+</div>
