@@ -59,6 +59,7 @@ jobs:
         with:
           version: "latest"
           enable-cache: true
+          python-version: 3.13
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install dependencies
