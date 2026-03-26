@@ -127,6 +127,8 @@ If you find any errors in the documentation, missing or unclear sections, or wou
             - [Multi-Node / Multi-GPU ImageNet Training](examples/advanced/imagenet/index.md)
 - [AI agents](ai/index.md)
 - [Technical reference](technical_reference/index.md)
+    - [Cheatsheet](technical_reference/cheatsheet.md)
+    - [Glossary](technical_reference/glossary.md)
     - Clusters
         - [Mila cluster](technical_reference/clusters/mila/index.md)
             - [Roles and computing resources](technical_reference/clusters/mila/roles_and_resources.md)
@@ -140,8 +142,6 @@ If you find any errors in the documentation, missing or unclear sections, or wou
         - [External clusters](technical_reference/clusters/external/index.md)
             - [DRAC clusters](technical_reference/clusters/drac/index.md)
     - General Theory
-        - [Cheatsheet](technical_reference/cheatsheet.md)
-        - [Glossary](technical_reference/glossary.md)
         - [What is a computer cluster?](technical_reference/general_theory/cluster_parts.md)
         - [Unix](technical_reference/general_theory/unix.md)
         - [The workload manager](technical_reference/general_theory/batch_scheduling.md)
