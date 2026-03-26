@@ -80,7 +80,7 @@ a **Registration Token**.
 4.  Once logged in, you **must** immediately generate and link your
     permanent factors (TOTP or Push token).
 
-    ![Token-selector](../../_static/screenshots/mfa-user-interace.png)
+    ![Token-selector](../../_static/screenshots/mfa-user-interface.png)
 
 ### 3. Subsequent Logins
 
