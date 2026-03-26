@@ -83,7 +83,7 @@ jobs:
           exit 1
 
       - name: Run DocMetrics action on docmetrics docs
-        uses: mila-iqia/docmetrics@v0.0.3
+        uses: mila-iqia/docmetrics@v0.0.4
         with:
           questions-file: quiz.yaml
           docs-url: http://localhost:8000
