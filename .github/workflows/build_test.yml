@@ -26,7 +26,7 @@ jobs:
           version: "latest"
           # https://github.com/astral-sh/setup-uv?tab=readme-ov-file#github-authentication-token
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          python-version: ${{ matrix.python-version }}
+          python-version: 3.13
 
       - name: Install MkDocs and dependencies
         run: uv sync --no-dev
