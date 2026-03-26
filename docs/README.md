@@ -90,7 +90,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
 - [Getting started](getting_started/index.md)
     - [Run Your First Job](getting_started/my_first_job.md)
     - [Train Your First Model](getting_started/train_first_model.md)
-    - [Multi-Factor Authentication (MFA) for Cluster Access](getting_started/login_mfa.md)
+    - [Multi-Factor Authentication (MFA) for Cluster Access](Userguide_login_mfa.md)
     - [Logging in to the cluster](getting_started/login.md)
     - [Running your code](getting_started/running_code.md)
 - [How-tos and Guides](userguides/index.md)
