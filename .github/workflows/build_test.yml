@@ -88,7 +88,7 @@ jobs:
           questions-file: quiz.yaml
           docs-url: http://localhost:8000
           base-docs-url: https://docs.mila.quebec
-          model: gpt-oss:120b
+          model: ollama:gpt-oss:120b
           ollama-url: dgx:11434
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
