@@ -74,6 +74,11 @@ recommend you start by checking out the [short quick start guide](getting_starte
 ## Contribution
 If you find any errors in the documentation, missing or unclear sections, or would simply like to contribute, please open an issue or make a pull request on the [github page](https://github.com/mila-iqia/mila-docs).
 
+## Acknowledging Mila
+
+{% include-markdown "home/acknowledgement.md" %}
+
+
 ## Documentation
 
 <!--nav-->
