@@ -23,7 +23,7 @@ We try to provide you different levels of help at Mila, for you to not stay stuc
         User@{ shape: text }
         Yay@{ shape: text }
 
-        click FAQ "/help/faq/"
+        click FAQ "../help/faq/"
         click Slack "https://mila-umontreal.slack.com/archives/CFAS8455H"
         click Helpdesk "https://mila-iqia.atlassian.net/servicedesk/customer/portal/5"
 
