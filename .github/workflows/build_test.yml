@@ -49,7 +49,7 @@ jobs:
 
   test-mila-docs:
     name: Evaluate the usefulness of the docs using DocMetrics
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: [build]
     steps:
       - uses: actions/checkout@v4
@@ -64,15 +64,10 @@ jobs:
       - name: Install dependencies
         run: uv sync --frozen
 
-      - name: Build PR documentation
-        run: uv run mkdocs build
-
       - name: Serve PR docs in background
         run: |
-          cd site
-          python -m http.server 8000 &
+          uv run mkdocs serve &
           echo $! > /tmp/docs_server.pid
-          cd ..
 
       - name: Wait for docs server to be ready
         run: |
@@ -88,13 +83,13 @@ jobs:
           exit 1
 
       - name: Run DocMetrics action on docmetrics docs
-        uses: mila-iqia/docmetrics@v0.0.2
+        uses: mila-iqia/docmetrics@v0.0.3
         with:
           questions-file: quiz.yaml
           docs-url: http://localhost:8000
           base-docs-url: https://docs.mila.quebec
-          model: gemini-2.5-flash
-          gemini-api-key: ${{ secrets.GEMINI_API_KEY }}
+          model: gpt-oss:120b
+          ollama-url: dgx:11434
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Stop docs server
