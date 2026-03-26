@@ -16,3 +16,14 @@
   -webkit-mask-image: var(--md-admonition-icon--wip);
           mask-image: var(--md-admonition-icon--wip);
 }
+
+a.full-card {
+  display: block;
+  color: var(--md-typeset-color);
+  width: 100%;
+  height: 100%;
+}
+
+a.full-card:hover {
+  color: var(--md-typeset-color);
+}
