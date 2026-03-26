@@ -5,7 +5,7 @@
 
 * [Quick Start](../../../getting_started/)
 * [Running your code](../../../getting_started/running_code)
-* [uv](Userguide_python#uv)
+* [uv](../../../technical_reference/general_theory/portability/#uv)
 
 The full source code for this example is available on [the mila-docs GitHub
 repository.](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/frameworks/jax_setup)

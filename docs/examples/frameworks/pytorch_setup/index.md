@@ -10,7 +10,7 @@ repository.](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/fr
 
 * [Quick Start](../../../getting_started/)
 * [Running your code](../../../getting_started/running_code)
-* [uv](Userguide_python#uv)
+* [uv](../../../technical_reference/general_theory/portability/#uv)
 
 
 **job.sh**
