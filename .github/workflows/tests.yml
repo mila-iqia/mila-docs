@@ -4,8 +4,12 @@ on:
   push:
     branches: [master]
     paths:
-      - "docs/examples/**"
-      - "tests/**"
+      - "docs/examples/**/*.py"
+      - "docs/examples/**/*.toml"
+      - "docs/examples/**/*.sh"
+      - "tests/**/*.py"
+      - "tests/**/*.toml"
+      - "tests/**/*.sh"
       - ".github/workflows/tests.yml"
   pull_request:
     branches: [master]
