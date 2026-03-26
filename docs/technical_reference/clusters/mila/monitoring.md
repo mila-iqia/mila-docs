@@ -12,7 +12,7 @@ This information is exposed in two ways:
 
     * `ssh -L 19999:<node>.server.mila.quebec:19999 -p 2222 login.server.mila.quebec`
     * or `ssh -L 19999:<node>.server.mila.quebec:19999 mila` if you have
-      already setup your [SSH Login](../../../../getting_started/login/#ssh-secure-shell),
+      already setup your [SSH Login](../../../../userguides/login/#ssh-secure-shell),
   * then open http://localhost:19999 in your browser.
 * The Mila dashboard at [dashboard.server.mila.quebec](https://dashboard.server.mila.quebec/)
   exposes aggregated statistics with the use of [grafana](https://grafana.com/).

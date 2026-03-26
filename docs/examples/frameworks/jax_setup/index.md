@@ -4,7 +4,7 @@
 **Prerequisites**: (Make sure to read the following before using this example!)
 
 * [Quick Start](../../../getting_started/)
-* [Running your code](../../../getting_started/running_code)
+* [Running your code](../../../userguides/running_code)
 * [uv](../../../technical_reference/general_theory/portability/#uv)
 
 The full source code for this example is available on [the mila-docs GitHub

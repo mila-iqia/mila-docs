@@ -1,1 +1,1 @@
-{% include-markdown "getting_started/login_mfa.md" %}
+{% include-markdown "userguides/login_mfa.md" %}

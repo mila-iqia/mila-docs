@@ -115,4 +115,4 @@ allocate resources on their infrastructure.
 jobs to the main controller and add your job to the queue. Jobs are of 2 types:
 *batch* jobs and *interactive* jobs.
 
-For practical examples of Slurm commands on the Mila cluster, see [Running your code](../../../getting_started/running_code/).
+For practical examples of Slurm commands on the Mila cluster, see [Running your code](../../../userguides/running_code/).
