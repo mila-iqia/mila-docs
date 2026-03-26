@@ -3,8 +3,8 @@
 
 **Prerequisites**: (Make sure to read the following before using this example!)
 
-* [Quick Start](getting_started/)
-* [Running your code](getting_started/running_code)
+* [Quick Start](../../../getting_started/)
+* [Running your code](../../../getting_started/running_code)
 * [uv](Userguide_python#uv)
 
 The full source code for this example is available on [the mila-docs GitHub

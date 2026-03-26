@@ -116,7 +116,7 @@ priority you need for a job.  Each job assigned with a priority can preempt jobs
 with a lower priority: `unkillable > main > long`. Once preempted, your job is
 killed without notice and is automatically re-queued on the same partition until
 resources are available. (To leverage a different preemption mechanism, see the
-[Handling preemption ](technical_reference/general_theory/multigpu/#handling-preemption))
+[Handling preemption ](../../technical_reference/general_theory/multigpu/#handling-preemption))
 
 | Flag                           | Max Resource Usage        | Max Time    | Note                                                 |
 | ------------------------------ | ------------------------- | ----------- | ---------------------------------------------------- |
@@ -143,7 +143,7 @@ resources are available. (To leverage a different preemption mechanism, see the
     - **cn-n nodes**: H100 GPUs (8 GPUs per node, but only 4 can be used per job)
     
     For a complete list of node specifications and GPU details, see [Node
-    profile description](technical_reference/clusters/mila/nodes).
+    profile description](../../technical_reference/clusters/mila/nodes).
 
 ??? warning "About outdated partitions (`cpu_jobs`, `cpu_jobs_low`, etc.)"
 
@@ -183,7 +183,7 @@ submission command.
 
 To access those special nodes you need to request them explicitly by adding the
 flag `--constraint=<name>`.  The full list of nodes in the Mila Cluster can be
-accessed [Node profile description](technical_reference/clusters/mila/nodes).
+accessed at [Node profile description](../../technical_reference/clusters/mila/nodes).
 
 *Examples:*
 
@@ -395,7 +395,7 @@ To request 1 GPU with *at least* 48GB of memory use
 sbatch -c 4 --gres=gpu:48gb:1
 ```
 
-The full list of GPU and their features can be accessed [here ](technical_reference/clusters/mila/nodes).
+The full list of GPU and their features can be accessed [here](../../technical_reference/clusters/mila/nodes).
 
 #### Example script
 
@@ -405,7 +405,7 @@ Here is a `sbatch` script that follows good practices on the Mila cluster:
     This example is a bit outdated and uses Conda. In practice, we now recommend
     that you use [uv](https://docs.astral.sh/uv) to manage your Python
     environments.
-    See the [Minimal Examples Section](examples/frameworks) for more information.
+    See the [Minimal Examples Section](../../examples/frameworks) for more information.
 
 <!-- TODO: Switch this to UV rather than conda. -->
 

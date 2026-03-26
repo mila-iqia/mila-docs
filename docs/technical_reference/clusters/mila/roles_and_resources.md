@@ -16,7 +16,7 @@ status.
 
 The Mila cluster is to be used for regular development and relatively small
 number of jobs (< 5). It is a heterogeneous cluster. It uses
-[SLURM](getting_started/running_code) to schedule jobs.
+[SLURM](../../../../getting_started/running_code) to schedule jobs.
 
 
 ### Mila cluster versus Digital Research Alliance of Canada clusters
