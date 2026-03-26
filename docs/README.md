@@ -18,7 +18,7 @@ recommend you start by checking out the [short quick start guide](getting_starte
 
     ---
 
-    Learn to logging in to the cluster, run your first job and train your first model
+    Learn to log in to the cluster, run your first job, and train your first mode
 
     </a>
 
