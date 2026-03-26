@@ -86,7 +86,7 @@ access to, and track your usage.
 You will be asked for the CCRI (See screenshot below). Please reach out to your
 sponsor to get the CCRI.
 
-![role](/_static/images/role.png)
+![role](_static/images/role.png)
 
 You will need to **wait** for your sponsor to accept before being able to login
 to the Alliance clusters.

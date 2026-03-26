@@ -2,7 +2,7 @@
 <!-- TODO: Add link to the distributed and multi-node examples in the minimal examples section. -->
 ## Data Parallel
 
-![Data Parallel diagram](/_static/images/dataparallel.png)
+![Data Parallel diagram](_static/images/dataparallel.png)
 
 Request 3 nodes with at least 4 GPUs each.
 

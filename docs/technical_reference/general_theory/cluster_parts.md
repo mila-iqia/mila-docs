@@ -13,7 +13,7 @@ designed for high-performance computations, but clusters can also use
 specialized nodes to offer parallel file systems, databases, login nodes and
 even the cluster scheduling functionality as pictured in the image below.
 
-![Cluster overview](/_static/images/cluster_overview2.png)
+![Cluster overview](_static/images/cluster_overview2.png)
 
 We will overview the different types of nodes which you can encounter on a
 typical cluster.
@@ -43,7 +43,7 @@ for nodes, this is not always possible in the field of artificial intelligence
 as the hardware evolve rapidly as is being complemented by new hardware and so
 on. Hence, you will often read about computational node classes. Some of which
 might have different GPU models or even no GPU at all. For the Mila cluster you
-will find this information in the [Node profile description](/technical_reference/clusters/mila/nodes) section. For
+will find this information in the [Node profile description](technical_reference/clusters/mila/nodes) section. For
 now, you should note that is important to keep in mind that you should be aware
 of *which* nodes your code is running on.  More on that later.
 
@@ -52,7 +52,7 @@ of *which* nodes your code is running on.  More on that later.
 Some computers on a cluster function to only store and serve files.  While the
 name of these computers might matter to some, as a user, you'll only be
 concerned about the path to the data. More on that in the [Processing
-data](/technical_reference/general_theory/data) section.
+data](technical_reference/general_theory/data) section.
 
 ### Different nodes for different uses
 

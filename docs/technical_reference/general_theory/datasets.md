@@ -1,7 +1,7 @@
 # Contributing datasets
 
 If a dataset could help the research of others at Mila, [this form](https://docs.google.com/forms/d/e/1FAIpQLSe-EnHndjdxWWc5zXeIG-bWcOmsJXkG9_FoGkwMZuWDn7x4Kw/viewform) can be filled to request its addition
-to [/network/datasets](/technical_reference/clusters/mila/storage/#datasets).
+to [/network/datasets](technical_reference/clusters/mila/storage/#datasets).
 
 ## Publicly share a Mila dataset
 

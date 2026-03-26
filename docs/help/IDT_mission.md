@@ -1,5 +1,5 @@
 ### IDT's mission
 
 
-![](/_static/images/IDT.png)
+![](_static/images/IDT.png)
 

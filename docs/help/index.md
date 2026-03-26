@@ -32,7 +32,7 @@ We try to provide you different levels of help at Mila, for you to not stay stuc
 ```
 
 ## Check the FAQ
-Your answers may be in the [FAQ page](/help/faq).
+Your answers may be in the [FAQ page](help/faq).
 
 ## Ask help on Slack
 Feel free to ask your question on the [#mila-cluster](https://mila-umontreal.slack.com/archives/CFAS8455H) channel on the Mila Slack.

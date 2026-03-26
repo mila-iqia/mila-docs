@@ -12,7 +12,7 @@ This information is exposed in two ways:
 
     * `ssh -L 19999:<node>.server.mila.quebec:19999 -p 2222 login.server.mila.quebec`
     * or `ssh -L 19999:<node>.server.mila.quebec:19999 mila` if you have
-      already setup your [SSH Login](/getting_started/login/#ssh-secure-shell),
+      already setup your [SSH Login](getting_started/login/#ssh-secure-shell),
   * then open http://localhost:19999 in your browser.
 * The Mila dashboard at [dashboard.server.mila.quebec](https://dashboard.server.mila.quebec/)
   exposes aggregated statistics with the use of [grafana](https://grafana.com/).
@@ -33,7 +33,7 @@ For example, if we have a job running on `cn-c001`, we can type
 `cn-c001.server.mila.quebec:19999` in a browser address bar and the following
 page will appear.
 
-![monitoring](/_static/images/monitoring.png)
+![monitoring](_static/images/monitoring.png)
 
 
 ## Example watching the CPU/RAM/GPU usage
@@ -53,7 +53,7 @@ make sure that this resources is always kept busy.
 * CPU
     * iowait (pink line): High values means your model is waiting on IO a lot (disk or network).
 
-![monitoring_cpu](/_static/images/monitoring_cpu.png)
+![monitoring_cpu](_static/images/monitoring_cpu.png)
 
 * CPU RAM
     * You can see how much CPU RAM is being used by your script in practice,
@@ -63,7 +63,7 @@ make sure that this resources is always kept busy.
       because they run out of RAM. However, you should not request blindly 32GB of RAM
       when you actually require only 8GB.
 
-![monitoring_ram](/_static/images/monitoring_ram.png)
+![monitoring_ram](_static/images/monitoring_ram.png)
 
 * GPU
     * Monitors the GPU usage using an [nvidia-smi plugin for Netdata](https://learn.netdata.cloud/docs/agent/collectors/python.d.plugin/nvidia_smi/).
@@ -82,7 +82,7 @@ make sure that this resources is always kept busy.
       to other researchers who have experiments that can make best use of them.
       Sometimes you really just need a k80 and not a v100.
 
-![monitoring_gpu](/_static/images/monitoring_gpu.png)
+![monitoring_gpu](_static/images/monitoring_gpu.png)
 
 * Other users or jobs
     * If the node seems unresponsive or slow,
@@ -92,10 +92,10 @@ make sure that this resources is always kept busy.
       but in practice it is useful to be able to
       inspect this to diagnose certain problems.
 
-![monitoring_users](/_static/images/monitoring_users.png)
+![monitoring_users](_static/images/monitoring_users.png)
 
 
 ## Example with Mila dashboard
 
 
-![mila dashboard](/_static/images/mila_dashboard_2021-06-15.png)
+![mila dashboard](_static/images/mila_dashboard_2021-06-15.png)

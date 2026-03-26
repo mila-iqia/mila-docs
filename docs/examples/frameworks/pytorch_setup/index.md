@@ -8,9 +8,9 @@ The full source code for this example is available on [the mila-docs GitHub
 repository.](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/frameworks/pytorch_setup)
 
 
-* [Quick Start](/getting_started/)
-* [Running your code](/getting_started/running_code)
-* [uv](/Userguide_python#uv)
+* [Quick Start](getting_started/)
+* [Running your code](getting_started/running_code)
+* [uv](Userguide_python#uv)
 
 
 **job.sh**
