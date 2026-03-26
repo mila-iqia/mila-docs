@@ -168,7 +168,7 @@ trust them!
     - Using ``tmux`` is acceptable. *(Mostly sleeps, managing the processes under its control)*
 
     !!! note
-        In a similar vein, you should not run VSCode remote SSH instances directly on login nodes, because even though they are typically not very computationally expensive, when many people do it, they add up! See [Visual Studio Code](VSCode.md) for specific instructions.
+        In a similar vein, you should not run VSCode remote SSH instances directly on login nodes, because even though they are typically not very computationally expensive, when many people do it, they add up! See [Visual Studio Code](../../toolbox/VSCode) for specific instructions.
 
 ## Connecting to compute nodes
 
