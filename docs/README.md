@@ -68,8 +68,6 @@ recommend you start by checking out the [short quick start guide](getting_starte
 
     Find how to solve your problems
 
-    :octicons-arrow-right-24: Find your answers in the FAQ
-
     :octicons-arrow-right-24: Join us on Slack (#mila-cluster)
 
     :octicons-arrow-right-24: Ask your question to IT support
