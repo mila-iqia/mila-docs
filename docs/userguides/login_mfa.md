@@ -1,7 +1,7 @@
 # Multi-Factor Authentication (MFA) for Cluster Access
 
 {%
-    include-markdown "getting_started/cluster_access.md"
+    include-markdown "userguides/cluster_access.md"
 %}
 
 ## Overview
@@ -150,4 +150,3 @@ flow will proceed as follows:
 
 **Support Contact:**
 [Mila's helpdesk](https://it-support.mila.quebec)
-

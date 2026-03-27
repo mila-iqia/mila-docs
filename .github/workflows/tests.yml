@@ -2,35 +2,55 @@ name: Tests
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
+    paths:
+      - "docs/examples/**/*.py"
+      - "docs/examples/**/*.toml"
+      - "docs/examples/**/*.sh"
+      - "tests/**/*.py"
+      - "tests/**/*.toml"
+      - "tests/**/*.sh"
+      - ".github/workflows/tests.yml"
   pull_request:
-    branches: [ master ]
+    branches: [master]
+    paths:
+      - "docs/examples/**/*.py"
+      - "docs/examples/**/*.toml"
+      - "docs/examples/**/*.sh"
+      - "tests/**/*.py"
+      - "tests/**/*.toml"
+      - "tests/**/*.sh"
+      - ".github/workflows/tests.yml"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   generate_files:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ['3.12']
+        python-version: ["3.12"]
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Set up Python
-      uses: actions/setup-python@v1
+      - name: Set up Python
+        uses: actions/setup-python@v1
 
-    - name: Install the latest version of uv
-      uses: astral-sh/setup-uv@v6
-      with:
-        version: "latest"
-        # https://github.com/astral-sh/setup-uv?tab=readme-ov-file#github-authentication-token
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        python-version: ${{ matrix.python-version }}
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          version: "latest"
+          # https://github.com/astral-sh/setup-uv?tab=readme-ov-file#github-authentication-token
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          python-version: ${{ matrix.python-version }}
 
-    - name: Install dependencies
-      run: uv sync
+      - name: Install dependencies
+        run: uv sync
 
-    - name: Run files generation tests
-      run: uv run pre-commit run --all-files && [[ -z "$(git status -s)" ]]
+      - name: Run files generation tests
+        run: uv run pre-commit run --all-files && [[ -z "$(git status -s)" ]]
 
   launch-slurm-actions-runner:
     needs: [generate_files]
