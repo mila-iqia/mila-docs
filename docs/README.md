@@ -22,18 +22,9 @@ recommend you start by checking out the [short quick start guide](getting_starte
 
     </a>
 
--   <a href="ai" class="full-card">
-    :material-robot:{ .lg .middle } __Use AI agent__
-
-    ---
-
-    Coming soon!
-
-    </a>
-
 
 -   <a href="userguides" class="full-card">
-    :material-map:{ .lg .middle } __User guides__
+    :material-map:{ .lg .middle } __How-tos and Guides__
 
     ---
 
@@ -41,20 +32,14 @@ recommend you start by checking out the [short quick start guide](getting_starte
 
     </a>
 
--   <a href="help" class="full-card">
-    :material-account-question:{ .lg .middle } __Get help__
+-   <a href="ai" class="full-card">
+    :material-robot:{ .lg .middle } __AI agents__
 
     ---
 
-    Find how to solve your problems
+    Coming soon!
 
-    :octicons-arrow-right-24: Find your answers in the FAQ
-
-    :octicons-arrow-right-24: Join us on Slack (#mila-cluster)
-
-    :octicons-arrow-right-24: Ask your question to IT support
-    
-    :octicons-arrow-right-24: Join us at the Tue 3-5pm/Wed 2-4pm Office Hours in Lab A
+    Powercharge your AI agent with curated resources
 
     </a>
 
@@ -73,6 +58,23 @@ recommend you start by checking out the [short quick start guide](getting_starte
     ---
 
     Obtain tools for your projects
+
+    </a>
+
+-   <a href="help" class="full-card">
+    :material-account-question:{ .lg .middle } __Get help__
+
+    ---
+
+    Find how to solve your problems
+
+    :octicons-arrow-right-24: Find your answers in the FAQ
+
+    :octicons-arrow-right-24: Join us on Slack (#mila-cluster)
+
+    :octicons-arrow-right-24: Ask your question to IT support
+    
+    :octicons-arrow-right-24: Join us at the Tue 3-5pm/Wed 2-4pm Office Hours in Lab A
 
     </a>
 
