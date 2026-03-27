@@ -46,6 +46,5 @@ For example:
 
 
 These next examples build on top of this one and show how to properly launch lots of jobs for hyper-parameter sweeps:
-
 * [Using SLURM Job Arrays to launch lots of jobs](../slurm_job_arrays/index.md)
 * [Running more effective Hyper-Parameter Sweeps with Orion](../hpo_with_orion/index.md)

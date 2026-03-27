@@ -3,9 +3,9 @@
 
 **Prerequisites**: (Make sure to read the following before using this example!)
 
-* [Quick Start](../../../getting_started/)
-* [Running your code](../../../userguides/running_code)
-* [uv](../../../technical_reference/general_theory/portability/#uv)
+* [Quick Start](../../../Userguide_quick_start.md)
+* [Running your code](../../../Userguide_running_code.md)
+* [uv](../../../Userguide_python.md#uv)
 
 The full source code for this example is available on [the mila-docs GitHub
 repository.](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/frameworks/jax_setup)

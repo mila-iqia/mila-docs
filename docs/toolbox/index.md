@@ -1,2 +1,0 @@
-# Toolbox
-This section lists some tools you can use in your research. Check out the [Research templates](https://mila-iqia.github.io/ResearchTemplate/) containing applications using [Hydra](https://hydra.cc/), [Pytorch Lightning](https://lightning.ai/docs/pytorch/stable/), [Jax](https://docs.jax.dev/en/latest/), [Weights&Biases](https://wandb.ai/) and [pytest](https://docs.pytest.org/en/stable/).

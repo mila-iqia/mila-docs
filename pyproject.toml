@@ -61,7 +61,6 @@ post-install-commands = [
 
 [tool.hatch.envs.default.scripts]
 uv = 'UV_PROJECT_ENVIRONMENT="{env:VIRTUAL_ENV}" "$(which uv)" {args}'
-build = ["mkdocs build"]
 serve = ["mkdocs serve --livereload --open {args}"]
 
 [tool.hatch.envs.hatch-test]
