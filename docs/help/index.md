@@ -7,6 +7,7 @@ We try to provide you different levels of help at Mila, for you to not stay stuc
     graph LR
         User(😔):::emoji
         FAQ(<span>Check the FAQ</span>):::bigger
+        AI(<span>Ask an AI agent</span>):::bigger
         Slack("`<span>Ask on Slack
         chan #mila-cluster</span>`"):::bigger
         Helpdesk(<span>Contact Mila helpdesk</span>):::bigger
@@ -14,7 +15,8 @@ We try to provide you different levels of help at Mila, for you to not stay stuc
         Yay(😃):::emoji
 
         User ==> FAQ
-        FAQ ==> Slack
+        FAQ ==> AI
+        AI ==> Slack
         Slack ==> Helpdesk
         Helpdesk ==> OfficeHours
         OfficeHours ==> Yay
@@ -45,6 +47,17 @@ We try to provide you different levels of help at Mila, for you to not stay stuc
     ---
 
     Your answers may be in the **FAQ page**
+
+    </a>
+    
+-   <a href="#" class="full-card">
+    :material-robot:{ .lg .middle } __Ask an AI agent__
+
+    ---
+
+    Maybe an AI agent can help you.
+
+    You can click on the "Ask AI" button in the bottom-right corner
 
     </a>
 
