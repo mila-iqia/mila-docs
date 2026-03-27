@@ -3,9 +3,16 @@ site_url: https://docs.mila.quebec
 repo_name: mila-docs
 repo_url: https://www.github.com/mila-iqia/mila-docs
 docs_dir: docs
+
+copyright: >
+  Copyright &copy; 2026 Mila –
+  <a href="#__consent">Change cookie settings</a>
 watch:
   - includes
 theme:
+  icon:
+    admonition:
+      wip: fontawesome/solid/brush
   name: material
   custom_dir: overrides
   features:
@@ -14,6 +21,7 @@ theme:
     - content.code.select
     - content.code.annotate
     - content.tooltips
+    - navigation.footer
     - navigation.tracking # https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#anchor-tracking
     - navigation.sections
     ## Don't auto- expand until maybe after we reorganize the content a bit.
@@ -21,6 +29,9 @@ theme:
     # - navigation.expand
     - navigation.path
     - navigation.indexes
+    - navigation.instant
+    - navigation.tabs
+    - navigation.tabs.sticky
     - search.suggest
     - search.highlight
     - search.share
@@ -51,27 +62,37 @@ markdown_extensions:
   - attr_list
   - md_in_html
   - pymdownx.details
-  - pymdownx.inlinehilite
-  - pymdownx.magiclink
-  - pymdownx.snippets:
-      auto_append:
-        - includes/abbreviations.md
-  - pymdownx.superfences
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
-  # https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#configuration
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span
       pygments_lang_class: true
       linenums: true  # line numbers on all code blocks (start at 1)
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.snippets:
+      auto_append:
+        - includes/abbreviations.md
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  # https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#configuration
   - pymdownx.tabbed:
       alternate_style: true
   - toc:
       permalink: true
 
 extra:
+  footer_sections:
+    - name: "About us"
+      link: docs/home/teams
+    - name: "Support"
+      link: docs/help
+
   analytics:
     provider: google
     property: G-2SSH8HHK4L
@@ -100,9 +121,8 @@ extra:
       - reject
       - manage
 
-copyright: >
-  Copyright &copy; 2026 Mila –
-  <a href="#__consent">Change cookie settings</a>
+extra_css:
+  - stylesheets/extra.css
 
 plugins:
   - meta

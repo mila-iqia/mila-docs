@@ -5,88 +5,165 @@ description: Technical documentation for Mila's computing infrastructure.
 
 # Mila technical documentation
 
-
 Welcome to Mila's technical documentation. If this is your first time here, we
-recommend you start by checking out the [short quick start guide](Userguide_quick_start.md).
+recommend you start by checking out the [short quick start guide](getting_started/).
 
-<!-- include: Acknowledgement_text.md -->
-{%
-    include-markdown "Acknowledgement_text.md"
-%}
 
-## Support
-To reach the Mila infrastructure support, please [submit a support ticket.](https://mila-iqia.atlassian.net/servicedesk/customer/portals)
+<div class="grid cards" markdown>
+
+
+
+-   :material-clock-fast:{ .lg .middle } __Getting started__
+
+    ---
+
+    Learn to log in to the cluster, run your first job, and train your first mode
+
+    [:octicons-arrow-right-24: Getting started](getting_started)
+
+
+
+-   :material-map:{ .lg .middle } __How-tos and Guides__
+
+    ---
+
+    Discover more advanced guides to help you in your research
+
+    [:octicons-arrow-right-24: Learn new things](userguides)
+
+
+-   :material-robot:{ .lg .middle } __AI agents__
+
+    ---
+
+    Coming soon!
+
+    Powercharge your AI agent with curated resources
+
+
+-   :material-book-open-page-variant:{ .lg .middle } __Technical reference__
+
+    ---
+
+    Find advanced notions to better understand how everything works
+
+    [:octicons-arrow-right-24: Dig deeper](technical_reference)
+
+-   :material-hammer-wrench:{ .lg .middle } __Toolbox__
+
+    ---
+
+    Obtain tools for your projects
+
+    [:octicons-arrow-right-24: Browse the tools](toolbox)
+
+-   :material-account-question:{ .lg .middle } __Get help__
+
+    ---
+
+    Find how to solve your problems
+
+    [:octicons-arrow-right-24: Join us on Slack (#mila-cluster)](https://mila-umontreal.slack.com/archives/CFAS8455H)
+
+    [:octicons-arrow-right-24: Ask your question to IT support](https://mila-iqia.atlassian.net/servicedesk/customer/portal/5)
+    
+    :octicons-arrow-right-24: Join us at the Tue 3-5pm/Wed 2-4pm Office Hours in Lab A
+
+
+-   :material-bookmark:{ .lg .middle } __Cheatsheet__
+
+    ---
+
+    Access a summary of useful commands and notions
+
+    [:octicons-arrow-right-24: Browse the Cheatsheet](_static/2025-06-27_Mila_compute_cheat_sheet_v3.pdf)
+        
+    </a>
+
+</div>
+
+
+{% include-markdown "home/purpose.md" %}
 
 
 ## Contribution
 If you find any errors in the documentation, missing or unclear sections, or would simply like to contribute, please open an issue or make a pull request on the [github page](https://github.com/mila-iqia/mila-docs).
 
+## Acknowledging Mila
+
+{% include-markdown "home/acknowledgement.md" %}
+
+
 ## Documentation
 
 <!--nav-->
-- Introduction
-    - [Purpose of this documentation](Purpose.md)
-    - [Contributing](CONTRIBUTING.md)
-- How-tos and Guides
-    - [Quick Start](Userguide_quick_start.md)
-    - [Run Your First Job](Userguide_quick_start_my_first_job.md)
-    - [Train Your First Model](Userguide_quick_start_train_first_model.md)
+- [Introduction](README.md)
+    - [Cheat Sheet](home/cheatsheet.md)
+    - [Acknowledging Mila](home/acknowledgement.md)
+    - [About us](home/teams.md)
+    - [🔗 Mila intranet](https://intranet.mila.quebec/)
+- [Getting started](getting_started/index.md)
+    - [Run Your First Job](getting_started/my_first_job.md)
+    - [Train Your First Model](getting_started/train_first_model.md)
+- [How-tos and Guides](userguides/index.md)
     - [Multi-Factor Authentication (MFA) for Cluster Access](Userguide_login_mfa.md)
-    - [Logging in to the cluster](Userguide_login.md)
-    - [Running your code](Userguide_running_code.md)
-    - [Portability concerns and solutions](Userguide_portability.md)
-    - [Using containers](Userguide_containers.md)
-    - [Sharing Data with ACLs](Userguide_sharing_data.md)
-    - [Contributing datasets](Userguide_datasets.md)
-    - [Data Transmission using Globus Connect Personal](Userguide_data_transfer.md)
-    - [Advanced SLURM usage and Multiple GPU jobs](Userguide_multigpu.md)
-    - [Multiple Nodes](Userguide_multinode.md)
-    - [Weights and Biases (WandB)](Userguide_wandb.md)
-    - [Comet](Userguide_comet.md)
-    - [JupyterHub](Userguide_jupyterhub.md)
-    - [Singularity](Userguide_singularity.md)
-    - [Frequently asked questions (FAQ)](Userguide_faq.md)
-- Systems and services
-    - [Computing infrastructure and policies](Information.md)
-        - [Roles and computing resources](Information_roles_and_resources.md)
-        - [Node profile description](Information_nodes.md)
-        - [Storage](Information_storage.md)
-        - [Data sharing policies](Information_sharing_policies.md)
-        - [Data Transmission](Information_data_transmission.md)
-        - [Monitoring](Information_monitoring.md)
-    - [Computational resources outside of Mila](Extra_compute.md)
-- Minimal Examples
-    - [Software Frameworks](examples/frameworks/index.md)
-        - [PyTorch Setup](examples/frameworks/pytorch_setup/index.md)
-        - [Jax Setup](examples/frameworks/jax_setup/index.md)
-        - [Jax](examples/frameworks/jax/index.md)
-    - [Distributed Training](examples/distributed/index.md)
-        - [Single GPU Job](examples/distributed/single_gpu/index.md)
-        - [Multi-GPU Job](examples/distributed/multi_gpu/index.md)
-        - [Multi-node Job](examples/distributed/multi_node/index.md)
-    - [Good Practices](examples/good_practices/index.md)
-        - [Checkpointing](examples/good_practices/checkpointing/index.md)
-        - [Weights & Biases (wandb) setup](examples/good_practices/wandb_setup/index.md)
-        - [Launch many jobs from same shell script](examples/good_practices/launch_many_jobs/index.md)
-        - [Hyperparameter Optimization with Orion](examples/good_practices/hpo_with_orion/index.md)
-        - [Launch many tasks on the same GPU](examples/good_practices/many_tasks_per_gpu/index.md)
-        - [Launch many jobs using SLURM job arrays](examples/good_practices/slurm_job_arrays/index.md)
-    - [Advanced Examples](examples/advanced/index.md)
-        - [Multi-Node / Multi-GPU ImageNet Training](examples/advanced/imagenet/index.md)
+    - [Logging in to the cluster](userguides/login.md)
+    - [Running your code](userguides/running_code.md)
+    - [Sharing Data with ACLs](userguides/sharing_data.md)
+    - Minimal Examples
+        - [Software Frameworks](examples/frameworks/index.md)
+            - [PyTorch Setup](examples/frameworks/pytorch_setup/index.md)
+            - [Jax Setup](examples/frameworks/jax_setup/index.md)
+            - [Jax](examples/frameworks/jax/index.md)
+        - [Distributed Training](examples/distributed/index.md)
+            - [Single GPU Job](examples/distributed/single_gpu/index.md)
+            - [Multi-GPU Job](examples/distributed/multi_gpu/index.md)
+            - [Multi-node Job](examples/distributed/multi_node/index.md)
+        - [Good Practices](examples/good_practices/index.md)
+            - [Checkpointing](examples/good_practices/checkpointing/index.md)
+            - [Weights & Biases (wandb) setup](examples/good_practices/wandb_setup/index.md)
+            - [Launch many jobs from same shell script](examples/good_practices/launch_many_jobs/index.md)
+            - [Hyperparameter Optimization with Orion](examples/good_practices/hpo_with_orion/index.md)
+            - [Launch many tasks on the same GPU](examples/good_practices/many_tasks_per_gpu/index.md)
+            - [Launch many jobs using SLURM job arrays](examples/good_practices/slurm_job_arrays/index.md)
+        - [Advanced Examples](examples/advanced/index.md)
+            - [Multi-Node / Multi-GPU ImageNet Training](examples/advanced/imagenet/index.md)
+- [AI agents](ai/index.md)
+- [Technical reference](technical_reference/index.md)
+    - [Cheatsheet](technical_reference/cheatsheet.md)
+    - [Glossary](technical_reference/glossary.md)
+    - Clusters
+        - [Mila cluster](technical_reference/clusters/mila/index.md)
+            - [Roles and computing resources](technical_reference/clusters/mila/roles_and_resources.md)
+            - [Node profile description](technical_reference/clusters/mila/nodes.md)
+            - [Storage](technical_reference/clusters/mila/storage.md)
+            - [Data sharing policies](technical_reference/clusters/mila/sharing_policies.md)
+            - [Data Transmission](technical_reference/clusters/mila/data_transmission.md)
+            - [Monitoring](technical_reference/clusters/mila/monitoring.md)
+            - [Environmental Impact](technical_reference/clusters/mila/environmental_impact.md)
+            - [🔗 Mila intranet](https://sites.google.com/mila.quebec/mila-intranet)
+        - [External clusters](technical_reference/clusters/external/index.md)
+            - [DRAC clusters](technical_reference/clusters/drac/index.md)
+    - General Theory
+        - [What is a computer cluster?](technical_reference/general_theory/cluster_parts.md)
+        - [Unix](technical_reference/general_theory/unix.md)
+        - [The workload manager](technical_reference/general_theory/batch_scheduling.md)
+        - [Processing data](technical_reference/general_theory/data.md)
+        - [Software on the cluster](technical_reference/general_theory/software_deps.md)
+        - [Portability concerns and solutions](technical_reference/general_theory/portability.md)
+        - [Using containers](technical_reference/general_theory/containers.md)
+        - [Contributing datasets](technical_reference/general_theory/datasets.md)
+        - [Data Transmission using Globus Connect Personal](technical_reference/general_theory/data_transfer.md)
+        - [Advanced SLURM usage and Multiple GPU jobs](technical_reference/general_theory/multigpu.md)
+        - [Multiple Nodes](technical_reference/general_theory/multinode.md)
+        - [Useful links](technical_reference/useful_links.md)
+- [Toolbox](toolbox/index.md)
+    - [Comet](toolbox/comet.md)
+    - [JupyterHub](toolbox/jupyterhub.md)
+    - [Singularity](toolbox/singularity.md)
+    - [VSCode](toolbox/VSCode.md)
+    - [Weights and Biases (WandB)](toolbox/wandb.md)
     - [🔗 Research Project Template](https://mila-iqia.github.io/ResearchTemplate)
-- General Theory
-    - [What is a computer cluster?](Theory_cluster_parts.md)
-    - [Unix](Theory_cluster_unix.md)
-    - [The workload manager](Theory_cluster_batch_scheduling.md)
-    - [Processing data](Theory_cluster_data.md)
-    - [Software on the cluster](Theory_cluster_software_deps.md)
-- Extras
-    - [Acknowledging Mila](Acknowledgement.md)
-    - [Mila Datasets](https://datasets.server.mila.quebec/)
-    - [Audio and video resources at Mila](Audio_video.md)
-    - [Visual Studio Code](VSCode.md)
-    - [Who, what, where is IDT](IDT.md)
-    - [Cheat Sheet](Cheatsheet.md)
-    - [Environmental Impact](Environmental_impact.md)
-
+- [Get help](help/index.md)
+    - [Frequently asked questions (FAQ)](help/faq.md)
 
