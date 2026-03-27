@@ -26,6 +26,21 @@ Primary source: **https://docs.mila.quebec/Userguide_quick_start/**
 For detailed MFA management (adding/removing tokens, recovery):
 **https://docs.mila.quebec/Userguide_login_mfa/**
 
+## Command execution
+
+Whenever a terminal command is presented to the user, display it in a code
+block as usual. If the command can be run directly in the current shell
+(without SSH-ing into another machine), also ask:
+
+> Would you like me to run this command for you?
+
+If the user says yes, execute it using the Bash tool. If the user says no
+or does not respond, continue guiding them to run it themselves.
+
+Do NOT offer to run commands that require an active SSH connection to another
+machine (e.g., commands shown as running on the cluster, inside the VSCode
+remote terminal, or via `srun`/`sbatch`).
+
 ## Workflow
 
 ### Step 1: Identify the sub-topic
@@ -41,7 +56,7 @@ content.
 
 ### Step 2: Fetch the documentation
 
-Fetch **https://docs.mila.quebec/Userguide_quick_start/** and locate the
+Use the WebFetch tool to fetch **https://docs.mila.quebec/Userguide_quick_start/** and locate the
 relevant section:
 
 - Account → "Obtain your Mila account" (under "Before you begin")
@@ -49,7 +64,7 @@ relevant section:
 - MFA → "Set up Multi-Factor Authentication (MFA)"
 
 If the user needs MFA recovery or wants to add/remove tokens after initial
-setup, also fetch **https://docs.mila.quebec/Userguide_login_mfa/**.
+setup, also use the WebFetch tool to fetch **https://docs.mila.quebec/Userguide_login_mfa/**.
 
 ### Step 3: Guide the user
 

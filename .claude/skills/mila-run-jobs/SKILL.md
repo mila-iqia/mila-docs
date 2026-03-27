@@ -27,6 +27,21 @@ Interactive development:
 Batch training:
 **https://docs.mila.quebec/Userguide_quick_start_train_first_model/**
 
+## Command execution
+
+Whenever a terminal command is presented to the user, display it in a code
+block as usual. If the command can be run directly in the current shell
+(without SSH-ing into another machine), also ask:
+
+> Would you like me to run this command for you?
+
+If the user says yes, execute it using the Bash tool. If the user says no
+or does not respond, continue guiding them to run it themselves.
+
+Do NOT offer to run commands that require an active SSH connection to another
+machine (e.g., commands shown as running on the cluster, inside the VSCode
+remote terminal, or via `srun`/`sbatch`).
+
 ## Workflow
 
 ### Step 1: Identify what the user wants
@@ -43,9 +58,9 @@ node, or submit a batch job that runs on its own?"
 
 ### Step 2: Fetch the documentation
 
-- For interactive: fetch **https://docs.mila.quebec/Userguide_quick_start_my_first_job/**
-- For batch: fetch **https://docs.mila.quebec/Userguide_quick_start_train_first_model/**
-- If the user asks about both, fetch both pages.
+- For interactive: use the WebFetch tool to fetch **https://docs.mila.quebec/Userguide_quick_start_my_first_job/**
+- For batch: use the WebFetch tool to fetch **https://docs.mila.quebec/Userguide_quick_start_train_first_model/**
+- If the user asks about both, use the WebFetch tool to fetch both pages.
 
 ### Step 3a: Guide through interactive development (`mila code`)
 

@@ -24,6 +24,21 @@ common connection failures.
 Primary source: **https://docs.mila.quebec/Userguide_quick_start/**
 — sections "Verify your connection" and "Install uv on the cluster".
 
+## Command execution
+
+Whenever a terminal command is presented to the user, display it in a code
+block as usual. If the command can be run directly in the current shell
+(without SSH-ing into another machine), also ask:
+
+> Would you like me to run this command for you?
+
+If the user says yes, execute it using the Bash tool. If the user says no
+or does not respond, continue guiding them to run it themselves.
+
+Do NOT offer to run commands that require an active SSH connection to another
+machine (e.g., commands shown as running on the cluster, inside the VSCode
+remote terminal, or via `srun`/`sbatch`).
+
 ## Workflow
 
 ### Step 1: Check prerequisites
@@ -37,7 +52,7 @@ If any prerequisite is missing, point to the appropriate skill first.
 
 ### Step 2: Fetch the documentation
 
-Fetch **https://docs.mila.quebec/Userguide_quick_start/** and locate the
+Use the WebFetch tool to fetch **https://docs.mila.quebec/Userguide_quick_start/** and locate the
 "Verify your connection" section.
 
 ### Step 3: Guide through the SSH connection
@@ -78,11 +93,10 @@ Contact IT support at https://it-support.mila.quebec if the issue persists.
 
 ### Step 5: Install uv on the cluster
 
-Once connected, guide the user to install `uv` on the cluster (login node):
-```bash
-curl -LsSf https://astral.sh/uv/install.sh | sh
-```
-This is the same command as on the local machine but runs on the cluster.
+Once connected, guide the user to install `uv` on the cluster (login node).
+Use the WebFetch tool to fetch **https://docs.astral.sh/uv/getting-started/installation/** for
+up-to-date installation instructions. The cluster runs Linux, so follow
+the Linux installation steps.
 
 ### Step 6: Point to the next skill
 
