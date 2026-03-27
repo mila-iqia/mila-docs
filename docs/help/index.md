@@ -41,17 +41,15 @@ We try to provide you different levels of help at Mila, for you to not stay stuc
 <div class="grid cards" markdown>
 
 
--   <a href="../help/faq" class="full-card">
-    :octicons-discussion-closed-24:{ .lg .middle } __Check the FAQ__
+-   :octicons-discussion-closed-24:{ .lg .middle } __Check the FAQ__
 
     ---
 
     Your answers may be in the **FAQ page**
 
-    </a>
+    [:octicons-arrow-right-24: Check the FAQ](../help/faq)
     
--   <a href="#" class="full-card">
-    :material-robot:{ .lg .middle } __Ask an AI agent__
+-   :material-robot:{ .lg .middle } __Ask an AI agent__
 
     ---
 
@@ -59,29 +57,25 @@ We try to provide you different levels of help at Mila, for you to not stay stuc
 
     You can click on the "Ask AI" button in the bottom-right corner
 
-    </a>
 
--   <a href="https://mila-umontreal.slack.com/archives/CFAS8455H" class="full-card">
-    :fontawesome-brands-slack:{ .lg .middle } __Ask help on Slack__
+-   :fontawesome-brands-slack:{ .lg .middle } __Ask help on Slack__
 
     ---
 
     Feel free to ask your question on the **#mila-cluster** channel on the Mila Slack
 
-    </a>
+    [:octicons-arrow-right-24: Ask your questions on Slack](https://mila-umontreal.slack.com/archives/CFAS8455H)
 
 
--   <a href="https://mila-iqia.atlassian.net/servicedesk/customer/portal/5" class="full-card">
-    :octicons-code-of-conduct-24:{ .lg .middle } __Contact Mila support__
+-   :octicons-code-of-conduct-24:{ .lg .middle } __Contact Mila support__
 
     ---
 
     Writing to the support is done through this portal
 
-    </a>
+    [:octicons-arrow-right-24: Contact the Helpdesk](https://mila-iqia.atlassian.net/servicedesk/customer/portal/5)
 
--   <a href="#" class="full-card">
-    :material-door-open:{ .lg .middle } __Come to the Office Hours__
+-   :material-door-open:{ .lg .middle } __Come to the Office Hours__
 
     ---
 
@@ -92,6 +86,5 @@ We try to provide you different levels of help at Mila, for you to not stay stuc
 
     They also take place online at the same dates: the virtual invite is on your Mila calendar.
 
-    </a>
 
 </div>
