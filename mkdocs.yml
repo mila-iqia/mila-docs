@@ -60,8 +60,11 @@ markdown_extensions:
   - abbr
   - admonition
   - attr_list
+  - def_list
   - md_in_html
   - pymdownx.details
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
@@ -69,9 +72,7 @@ markdown_extensions:
       anchor_linenums: true
       line_spans: __span
       pygments_lang_class: true
-      linenums: true  # line numbers on all code blocks (start at 1)
-  - pymdownx.inlinehilite
-  - pymdownx.magiclink
+      linenums: true # line numbers on all code blocks (start at 1)
   - pymdownx.snippets:
       auto_append:
         - includes/abbreviations.md
@@ -80,8 +81,7 @@ markdown_extensions:
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
-  # https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#configuration
-  - pymdownx.tabbed:
+  - pymdownx.tabbed: # https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#configuration
       alternate_style: true
   - toc:
       permalink: true
@@ -107,11 +107,11 @@ extra:
         - icon: material/emoticon-sad-outline
           name: This page could be improved
           data: 0
-          note: >- 
+          note: >-
             Thanks for your feedback!
   consent:
     title: Cookie consent
-    description: >- 
+    description: >-
       We use cookies 🍪 to see which pages get the most love 💜, what folks
       search for 🔍, and what gets downloaded 📥 — all anonymous, zero personal
       data, no device or location tracking. With your consent, you're helping us
