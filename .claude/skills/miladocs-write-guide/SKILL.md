@@ -1,6 +1,7 @@
 ---
 name: miladocs-write-guide
-description: This skill should be used when the user asks to "write a guide", "create a guide", "draft a guide", "add a how-to", "write documentation for X", "create documentation for X", "add a new page about X", or wants to document a new workflow or procedure for the Mila cluster. Also use when the user asks to "modify a guide", "improve a guide", "update a guide", "edit a guide", "revise a guide", "fix a guide", or wants to make changes to an existing documentation page.
+description: Use for creating, writing, editing, updating, or improving guides
+and how-to pages in the Mila documentation.
 version: 1.0.0
 argument-hint: <topic>
 ---
@@ -42,43 +43,49 @@ Use the structure and MkDocs Material patterns defined in `references/guide-temp
 Key structural rules:
 - Start with a one-paragraph introduction that states what the reader will accomplish
 - Use a **Prerequisites** section with grid cards linking to prerequisite pages (if any)
-- Use a **What you will do** section as a bullet list of high-level steps
+- Use a **What this guide covers** section as a bullet list of high-level steps
 - Break instructions into H2 sections, H3 subsections for sub-steps
 - End with a **Next step** section using grid cards (if there is a logical next guide)
 - Use a **Key concepts** section when the guide introduces new terminology
 
-### Step 3: Standardize tone
+### Step 3: Standardize format
 
-After drafting, run the `miladocs-standardize-tone` skill on the draft. The content is already in context — skip Step 1 (reading the file) and run Steps 2–5 directly:
-- Audit the draft for tone violations (pronouns, voice, vague language, tense, terminology)
+Apply the `miladocs-standardize-format` steps **inline** on the draft — do
+NOT invoke it via the Skill tool (that would start a fresh context and lose
+the draft). The content is already in context — skip Step 0 and run Steps
+1–4 directly:
+- Audit for violations (frontmatter, headings, code blocks, admonitions,
+  grid cards, separators)
 - Present the structured violation preview
 - Ask the user which categories to apply
 - Apply the approved changes to the draft
 
-Continue to Step 4 with the tone-corrected content.
+Continue to Step 4 with the format-corrected content.
 
-### Step 4: Present the draft
+### Step 4: Standardize tone
+
+Apply the `miladocs-standardize-tone` steps **inline** on the
+format-corrected draft — do NOT invoke it via the Skill tool. The content
+is already in context — skip Step 1 (reading the file) and run Steps 2–5
+directly:
+- Audit the draft for tone violations (pronouns, voice, vague language,
+  tense, terminology)
+- Present the structured violation preview
+- Ask the user which categories to apply
+- Apply the approved changes to the draft
+
+Continue to Step 5 with the tone-corrected content.
+
+### Step 5: Present the draft
 
 Output the complete tone-corrected markdown file content in a code block. Then offer to:
 - Save it directly to `docs/` with a suggested filename
 - Make specific revisions before saving
 
-## MkDocs Material Conventions
-
-For full patterns and templates, see `references/guide-template.md`. Quick reference:
-
-- Commands: fenced ` ```bash ` blocks
-- Expected output: `<div class="result" style="border:None; padding:0" markdown>` wrapping a code block with `linenums="0"`
-- Prerequisite/next-step navigation: grid cards (see template)
-- Notes/warnings: `!!! note "Title"`, `!!! warning "Title"`, `!!! tip "Title"`
-- Alternative implementations: `=== "Option A"` / `=== "Option B"` tabs
-- Inline commands/flags: backticks
-- **Mermaid diagrams**: add when a visual significantly clarifies a process —
-  use `sequenceDiagram` for auth/request flows (e.g. SSH + MFA handshake),
-  `flowchart` for decision logic, `graph LR` for topology. Skip diagrams when
-  a numbered list is equally clear. See `references/guide-template.md` for
-  examples of each type.
-
 ## Additional Resources
 
-- **`references/guide-template.md`** — Full section templates, MkDocs Material patterns, and a complete example guide skeleton
+- **`references/guide-template.md`** — Full guide skeleton, writing style rules,
+  and pre-save checklist
+- **`../shared/miladocs-mkdocs-patterns.md`** — Frontmatter, naming conventions,
+  and all MkDocs Material patterns (admonitions, code blocks, grid cards,
+  Mermaid diagrams, etc.)

@@ -2,14 +2,18 @@
 
 Complete rules with before/after examples. Apply all rules when standardizing a page.
 
+## Goal
+
+The target tone is **formal and objective** — the register of a technical reference manual, not a tutorial or conversation. Rules below enforce this: they remove direct address, vague filler, and casual constructions in favor of precise, impersonal language.
+
 ---
 
-## Rule 1: Third-Person Pronouns
+## Rule 1: Second-Person Pronouns
 
-Replace second-person pronouns ("you", "your", "yourself") with third-person or imperative constructions.
+Replace second-person pronouns ("you", "your", "yourself") using the strategy that produces the most natural result. Do not force a rewrite that is syntactically awkward or harder to parse than the original.
 
-**Strategy A — Imperative mood** (preferred for instructions):
-Remove the subject entirely and start with the verb.
+**Strategy A — Imperative mood** (preferred for action steps):
+Remove the subject and start with the verb.
 
 | Before | After |
 |--------|-------|
@@ -18,26 +22,36 @@ Remove the subject entirely and start with the verb.
 | You should submit your job using `sbatch`. | Submit the job using `sbatch`. |
 | Once you've done that, you can proceed. | Once that is done, proceed. |
 
-**Strategy B — Restructure to third-person** (for descriptive/explanatory sentences):
-Use "the user", "researchers", or a noun describing the reader role.
+**Strategy B — Restructure** (for descriptive/explanatory sentences):
+Rewrite using a noun phrase or gerund when no subject can be dropped.
 
 | Before | After |
 |--------|-------|
 | If you are running a multi-GPU job... | For multi-GPU jobs... |
 | Your job will be queued until a node is available. | The job is queued until a compute node is available. |
 | This allows you to monitor progress. | This allows monitoring of job progress. |
+| You will see the output below. | The output appears below. |
 
-**Strategy C — Passive or noun phrase** (when neither A nor B fits naturally):
+**Strategy C — Possessives ("your X"):**
+Choose based on whether the reader genuinely owns or is assigned the item.
+
+- **Personally owned items** — credentials, personal relationships, owned devices (e.g. password, supervisor): **preserve "your"**.
+- **Tools and shared resources** — software tools, cluster infrastructure, job artifacts: **use definite or indefinite article**.
 
 | Before | After |
 |--------|-------|
-| You will see the output below. | The output appears below. |
-| This is what you should expect to see. | Expected output: |
+| your terminal | a terminal |
+| your browser | a browser |
+| your job ID | the job ID |
+| your script | the script |
+
+**Rule of thumb:** If the item is a credential, a personal relationship, or a personally owned device, keep "your". If it is a tool or infrastructure the reader happens to be using, replace it. Use "the user's X" only as a last resort when neither article fits.
 
 **Do NOT change:**
 - "your" in file paths that are meant to be replaced by the user (e.g., `your_script.py`, `/home/your_username/`) — these are placeholders, not pronouns.
 - Second-person in quoted or cited content.
 - Comments inside code blocks.
+- Any case where the rewrite would be syntactically awkward or harder to understand.
 
 ---
 

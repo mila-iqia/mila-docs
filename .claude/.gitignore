@@ -1,6 +1,7 @@
 *
+!skills/
+!skills/shared/
+!skills/miladocs-*/**
 !.gitignore
 !README.md
-!skills/
-!skills/miladocs-*/
-!skills/miladocs-*/**
+!miladocs-*

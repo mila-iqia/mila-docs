@@ -1,13 +1,13 @@
 ---
 name: miladocs-standardize-tone
-description: This skill should be used when the user asks to "standardize the tone", "fix the tone", "rewrite this page", "improve tone consistency", "apply tone rules", "standardize this documentation", or mentions tone, voice, or pronoun issues in a documentation page. Also applies when the user says a page uses too much "you" or second-person language.
+description: Use when writing, editing, updating, or improving any Mila documentation page, or when the user asks about tone, voice, or pronoun consistency.
 version: 1.0.0
 argument-hint: <path-to-doc>
 ---
 
 # Standardize Tone for Mila Documentation
 
-This skill audits a Mila documentation page for tone violations and proposes corrections. It covers pronoun usage, voice, vague language, verb tense, and Mila-specific terminology.
+This skill audits a Mila documentation page for tone violations and proposes corrections. The target tone is **formal and objective** — the register of a technical reference manual, not a tutorial or conversation. Rules cover pronoun usage, voice, vague language, verb tense, and Mila-specific terminology.
 
 ## Workflow
 
@@ -59,7 +59,12 @@ After the preview, ask:
 
 ### Step 5: Apply approved changes
 
-Edit the file applying only the approved changes. Prefer minimal edits — change only the flagged phrases, not surrounding content.
+Apply only the approved changes. Prefer minimal edits — change only the flagged phrases, not surrounding content.
+
+- **Standalone use** (a file path was provided): edit the file on disk.
+- **Inline use** (called from `miladocs-write-guide` with no saved file yet):
+  output the corrected content as a markdown block so the parent skill can
+  continue with it.
 
 ## Rules Summary
 
@@ -67,7 +72,10 @@ Full rules with examples are in `references/tone-rules.md`. Summary:
 
 | Rule | Replace | With |
 |------|---------|------|
-| Third-person | "you", "your" | restructure or use "the user" |
+| Second-person (actions) | "you can X", "you need to X" | imperative "X" |
+| Second-person (owned items) | "your email", "your password", "your computer" | preserve "your" — reader genuinely owns these |
+| Second-person (tools/resources) | "your terminal", "your script", "your job" | "a terminal", "the script", "the job" |
+| Second-person (specific possessive) | "your job ID", "your script" | "the job ID", "the script" |
 | Active voice | passive constructions | active verb phrases |
 | No vague language | simply, just, easy, obviously, etc. | remove or rephrase |
 | Present tense | "you will X", "you'll X" | imperative "X" |
