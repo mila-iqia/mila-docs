@@ -23,7 +23,8 @@ build:
     install:
       - UV_PROJECT_ENVIRONMENT="${READTHEDOCS_VIRTUALENV_PATH}" uv sync
     pre_build:
-      - rm -f overrides/partials/search.html
+      # Uncomment this if you want to disable Biel search
+      # - rm -f overrides/partials/search.html
       - UV_PROJECT_ENVIRONMENT="${READTHEDOCS_VIRTUALENV_PATH}" uv run
         --script docs/examples/preprocess.py
 
