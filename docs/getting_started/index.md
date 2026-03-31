@@ -3,6 +3,10 @@ title: Get Started with the Cluster
 description: >-
   Obtain a Mila account, set up MFA, install uv and milatools,
   and connect to the cluster for the first time.
+skills:
+  - skill-mila-account-setup
+  - skill-mila-connect-cluster
+  - skill-mila-local-setup
 ---
 
 # Get Started with the Cluster

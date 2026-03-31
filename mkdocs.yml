@@ -124,6 +124,9 @@ extra:
 extra_css:
   - stylesheets/extra.css
 
+hooks:
+  - docs/hooks/skill_tags.py
+
 plugins:
   - meta
   # privacy plugin currently breaks giscus comments

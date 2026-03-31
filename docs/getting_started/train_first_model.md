@@ -3,6 +3,8 @@ title: Train Your First Model
 description: >-
   Train a ResNet18 on CIFAR-10 on a single GPU using sbatch, including
   data staging to $SLURM_TMPDIR.
+skills:
+  - skill-mila-run-jobs
 ---
 
 # Train Your First Model

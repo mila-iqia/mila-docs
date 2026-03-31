@@ -3,6 +3,8 @@ title: Run Your First Job
 description: >-
   Create a minimal PyTorch project, open VSCode on a GPU compute node
   using mila code, and verify CUDA availability.
+skills:
+  - skill-mila-run-jobs
 ---
 
 # Run Your First Job
