@@ -139,10 +139,6 @@ token** that expires after use.
           ([:material-android:](https://play.google.com/store/search?q=google%20authenticator&c=apps)
           /
           [:material-apple:](https://apps.apple.com/iphone/search?term=google%20authenticator)).
-        - Microsoft Authenticator
-          ([:material-android:](https://play.google.com/store/search?q=microsoft%20authenticator&c=apps)
-          /
-          [:material-apple:](https://apps.apple.com/iphone/search?term=microsoft%20authenticator)).
 
     2. In the authenticator app, scan the QR code shown on the MFA page to add
        the token:

@@ -84,6 +84,18 @@ salloc: Granted job allocation 8888888
 Wait until the allocation is granted and VSCode opens, connected to a shell on
 the compute node.
 
+??? question "VSCode stuck on "Opening Remote..."?"
+
+    If VSCode appears to hang while connecting, it may be waiting for an OTP
+    code in a hidden terminal. Enable **Remote.SSH: Show Login Terminal** in
+    VSCode settings to make the prompt visible:
+
+    1. Open the Command Palette (**Ctrl+Shift+P** / **Cmd+Shift+P**).
+    2. Run **Preferences: Open Settings (UI)**.
+    3. Search for `remote.SSH.showLoginTerminal` and enable it.
+
+    Re-run the `mila code` command after enabling the setting.
+
 ## Run a script in VSCode
 
 ### Create the project files
