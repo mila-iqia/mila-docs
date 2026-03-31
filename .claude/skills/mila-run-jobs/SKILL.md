@@ -29,11 +29,21 @@ before proceeding with the workflow below.
 ## Reference documentation
 
 Interactive development:
-**https://docs.mila.quebec/Userguide_quick_start_my_first_job/**
+**https://docs.mila.quebec/getting_started/my_first_job/**
 
 Batch training:
-**https://docs.mila.quebec/Userguide_quick_start_train_first_model/**
+**https://docs.mila.quebec/getting_started/train_first_model/**
 
+## Discover documentation
+
+Use the WebSearch tool with this query to find the current URLs of the pages
+above:
+
+    site:docs.mila.quebec "__skill-mila-run-jobs"
+
+The query should return two pages (interactive and batch). Use those URLs in
+the WebFetch steps below. If the search returns no results, fall back to the
+hardcoded URLs in "Reference documentation".
 
 ## Workflow
 
@@ -51,8 +61,10 @@ node, or submit a batch job that runs on its own?"
 
 ### Step 2: Fetch the documentation
 
-- For interactive: use the WebFetch tool to fetch **https://docs.mila.quebec/Userguide_quick_start_my_first_job/**
-- For batch: use the WebFetch tool to fetch **https://docs.mila.quebec/Userguide_quick_start_train_first_model/**
+- For interactive: use the WebFetch tool to fetch the interactive URL discovered
+  above (fallback: **https://docs.mila.quebec/getting_started/my_first_job/**)
+- For batch: use the WebFetch tool to fetch the batch URL discovered above
+  (fallback: **https://docs.mila.quebec/getting_started/train_first_model/**)
 - If the user asks about both, use the WebFetch tool to fetch both pages.
 
 ### Step 3a: Guide through interactive development (`mila code`)

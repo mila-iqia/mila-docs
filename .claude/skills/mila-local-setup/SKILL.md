@@ -27,9 +27,19 @@ before proceeding with the workflow below.
 
 ## Reference documentation
 
-Primary source: **https://docs.mila.quebec/Userguide_quick_start/**
+Primary source: **https://docs.mila.quebec/getting_started/index**
 — sections "I'm using Windows, how do I install WSL?", "Install uv on your
 local machine", "Install milatools", and "Configure milatools".
+
+## Discover documentation
+
+Use the WebSearch tool with this query to find the current URL of the primary
+source above:
+
+    site:docs.mila.quebec "__skill-mila-local-setup"
+
+Use the URL from the search result in the WebFetch steps below. If the search
+returns no results, fall back to the hardcoded URL in "Reference documentation".
 
 ## Workflow
 
@@ -44,7 +54,7 @@ If not mentioned, ask: "Are you on Windows, macOS, or Linux?"
 
 ### Step 2: Fetch the documentation
 
-Use the WebFetch tool to fetch **https://docs.mila.quebec/Userguide_quick_start/** and locate the
+Use the WebFetch tool to fetch **https://docs.mila.quebec/getting_started/index** and locate the
 sections relevant to the user's OS and question.
 
 ### Step 3: Guide through the setup steps in order

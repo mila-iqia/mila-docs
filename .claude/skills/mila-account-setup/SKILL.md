@@ -27,11 +27,21 @@ before proceeding with the workflow below.
 
 ## Reference documentation
 
-Primary source: **https://docs.mila.quebec/Userguide_quick_start/**
+Primary source: **https://docs.mila.quebec/getting_started/index**
 — sections "Before you begin" and "Set up Multi-Factor Authentication (MFA)".
 
 For detailed MFA management (adding/removing tokens, recovery):
 **https://docs.mila.quebec/Userguide_login_mfa/**
+
+## Discover documentation
+
+Use the WebSearch tool with this query to find the current URL of the primary
+source above:
+
+    site:docs.mila.quebec "__skill-mila-account-setup"
+
+Use the URL from the search result in the WebFetch steps below. If the search
+returns no results, fall back to the hardcoded URL in "Reference documentation".
 
 ## Workflow
 
@@ -48,7 +58,7 @@ content.
 
 ### Step 2: Fetch the documentation
 
-Use the WebFetch tool to fetch **https://docs.mila.quebec/Userguide_quick_start/** and locate the
+Use the WebFetch tool to fetch **https://docs.mila.quebec/getting_started/index** and locate the
 relevant section:
 
 - Account → "Obtain your Mila account" (under "Before you begin")
