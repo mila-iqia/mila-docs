@@ -64,7 +64,7 @@ Prefer active constructions over passive ones.
 | The job should be submitted with `sbatch`. | Submit the job with `sbatch`. |
 | A GPU node can be requested using `--gres`. | Request a GPU node using `--gres`. |
 | The environment is activated automatically. | The environment activates automatically. *(or: uv activates the environment automatically.)* |
-| The results are saved to `$SCRATCH`. | The results save to `$SCRATCH`. *(or: SLURM saves results to `$SCRATCH`.)* |
+| The results are saved to `$SCRATCH`. | The results save to `$SCRATCH`. *(or: Slurm saves results to `$SCRATCH`.)* |
 | It is recommended to use `uv`. | Use `uv` for environment management. |
 | Care should be taken to... | Take care to... |
 
@@ -117,7 +117,7 @@ Use present tense (or imperative mood) for instructions. Future tense distances 
 | Running this command will allocate a node. | Running this command allocates a node. |
 
 **Exception** — future tense is fine for:
-- Describing consequences: "If the job fails, SLURM will send an email."
+- Describing consequences: "If the job fails, Slurm will send an email."
 - Time-bound outcomes: "The allocation will expire after 1 hour."
 
 ---
@@ -131,8 +131,8 @@ Use the canonical terms for Mila infrastructure components.
 | `cluster` | server, supercomputer, HPC, system |
 | `compute node` | worker, worker node, machine, host |
 | `login node` | head node, master node, front-end |
-| `job` (for SLURM) | task, workload, process, run |
-| `SLURM` (all caps) | Slurm, slurm |
+| `job` (for Slurm) | task, workload, process, run |
+| `Slurm` | SLURM, slurm |
 | `$SCRATCH` | scratch, scratch storage, /scratch |
 | `$HOME` | home directory, home folder |
 | `sbatch` | batch submission, batch job command |
@@ -143,7 +143,10 @@ Use the canonical terms for Mila infrastructure components.
 | `mila code` | mila-code, milacode |
 
 **Capitalization:**
-- `SLURM` — always all-caps
+- `Slurm` — title case (not all-caps)
+  - Exception: `$SLURM_*` environment variable names
+    (e.g. `$SLURM_TMPDIR`) must stay all-caps — they are
+    shell variable names, not references to the scheduler.
 - `GPU`, `CPU` — always all-caps
 - `SSH` — always all-caps
 - `MFA` — always all-caps
@@ -175,4 +178,4 @@ Apply all rules to the description text inside grid cards.
 - `--8<--` include directives
 - `{%  include-markdown ... %}` directives
 - URLs and link targets
-- SLURM flags and command-line arguments
+- Slurm flags and command-line arguments

@@ -25,23 +25,32 @@ description: <One sentence describing the page (used in search previews)>
 
 ```markdown
 !!! note "Title (optional)"
-    Content here. Indented 4 spaces.
+    Indented 4 spaces. For context or supplementary information the reader
+    should be aware of.
 
 !!! warning "Title"
-    For important warnings that could cause data loss or unexpected behavior.
+    For important warnings that could cause data loss, unexpected behavior, or
+    breaking something.
 
 !!! tip "Title"
-    For helpful shortcuts or best practices.
+    For helpful shortcut, best practice, or time-saving suggestion.
 
 !!! important "Title"
     For critical information the reader must not miss.
 
+!!! success "Title"
+    For tool or account prerequisites the reader must have before starting.
+
+??? question "Title"
+    For anticipated reader questions: troubleshooting scenarios or conceptual
+    FAQs that interrupt the main flow.
+
 ??? tip "Collapsible tip"
-    Collapsed by default. Good for optional/advanced content.
+    Collapsed by default. Good for optional or advanced content that would
+    clutter the main flow.
 
 ???+ warning "Windows users: WSL required"
-    Open by default. Use for platform-specific variations.
-    All commands must be run inside a WSL terminal.
+    Open by default. Use for platform-specific variations or alternatives.
 ```
 
 ### Code blocks
@@ -86,7 +95,7 @@ sbatch --gres=gpu:1 --cpus-per-task=4 job.sh  # (1)!
 
 ```markdown
 The job runs on a [compute node][compute-node].
-[compute-node]: #key-concepts "A cluster node with GPUs allocated via SLURM"
+[compute-node]: #key-concepts "A cluster node with GPUs allocated via Slurm"
 ```
 
 Or add site-wide abbreviations to `includes/abbreviations.md`.
@@ -102,7 +111,7 @@ variables:
     Disappears when the job ends.
 
 `sbatch`
-:   SLURM command for submitting a batch job script.
+:   Slurm command for submitting a batch job script.
 ```
 
 Use bold terms for named options, token types, or labeled concepts (e.g. a
@@ -154,7 +163,7 @@ sequenceDiagram
 flowchart TD
     A[Submit job with sbatch] --> B{Resources available?}
     B -- Yes --> C[Job starts on compute node]
-    B -- No --> D[Job queued by SLURM]
+    B -- No --> D[Job queued by Slurm]
     D --> B
     C --> E[Job completes — output written to $SLURM_TMPDIR]
 ```

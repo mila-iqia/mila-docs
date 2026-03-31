@@ -79,12 +79,12 @@ Full rules with examples are in `references/tone-rules.md`. Summary:
 | Active voice | passive constructions | active verb phrases |
 | No vague language | simply, just, easy, obviously, etc. | remove or rephrase |
 | Present tense | "you will X", "you'll X" | imperative "X" |
-| Mila terminology | server, worker, task (SLURM) | cluster, compute node, job |
+| Mila terminology | server, worker, task (Slurm) | cluster, compute node, job |
 
 ## Important Constraints
 
 - Do not change code blocks, command examples, or expected output blocks.
-- Do not change file names, SLURM flags, or other technical identifiers.
+- Do not change file names, Slurm flags, or other technical identifiers.
 - Do not alter the meaning of sentences — if a safe third-person rewrite is not obvious, flag it for human review rather than guessing.
 - Do not change admonition titles or MkDocs directives.
 - Preserve all markdown formatting (bold, links, admonitions, tabs, etc.).

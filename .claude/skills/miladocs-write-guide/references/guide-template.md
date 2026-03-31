@@ -103,7 +103,7 @@ matters. Do not use "you" — use imperative mood or third-person.>
     Disappears when the job ends.
 
 `sbatch`
-:   SLURM command for submitting a batch job script.
+:   Slurm command for submitting a batch job script.
 
 ---
 
@@ -177,6 +177,6 @@ ambiguity can cause user errors.
 - [ ] Next step / Next steps grid card (if a logical next guide exists)
 - [ ] Tone rules applied (no "you", active voice, present tense, no vague words)
 - [ ] Parallel alternatives are grammatically complete (no implied-verb ellipsis)
-- [ ] Consistent Mila terminology (`cluster`, `compute node`, `SLURM`, etc.)
+- [ ] Consistent Mila terminology (`cluster`, `compute node`, `Slurm`, etc.)
 - [ ] No numbered headings (remove any `1.`, `2.`, etc. prefixes from titles)
 - [ ] Line width ≤ 80 characters (per CONTRIBUTING.md)

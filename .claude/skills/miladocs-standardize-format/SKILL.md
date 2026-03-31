@@ -32,7 +32,8 @@ violations into these categories:
   case (title case on section headings, sentence case on page title)
 - **Code blocks** — shell commands not in ` ```bash ` blocks, expected output
   not wrapped in `<div class="result" style="border:None; padding:0" markdown>`
-- **Admonitions** — wrong syntax, missing 4-space indent on content
+- **Admonitions** — wrong syntax, missing 4-space indent on content, or wrong
+  admonition type for the content
 - **Grid cards** — navigation cards (Before you begin / Next step) not using
   the standard grid card pattern; single card missing `&nbsp;` spacer
 - **Separators** — `---` used between regular content sections (should only
