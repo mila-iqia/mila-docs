@@ -72,7 +72,7 @@ Before the first login, an automated email arrives containing a
 
 1. Navigate to [mfa.mila.quebec](https://mfa.mila.quebec).
 
-    ![Login interface](screenshots/mfa-login-interface.png)
+    ![Login interface](screenshots/mfa-login.png)
 
 2. Enter the cluster username in the **Username** field.
 
