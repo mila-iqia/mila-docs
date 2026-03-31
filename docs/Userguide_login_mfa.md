@@ -72,19 +72,19 @@ Before the first login, an automated email arrives containing a
 
 1. Navigate to [mfa.mila.quebec](https://mfa.mila.quebec).
 
-    ![Login interface](screenshots/mfa-login-interface.png)
+    ![Login interface](_static/screenshots/mfa-login.png)
 
 2. Enter the cluster username in the **Username** field.
 
 3. Enter the **Registration Token** from the email in the
    **Password** field.
 
-    ![User dashboard](screenshots/mfa-login-interface2.png)
+    ![User dashboard](_static/screenshots/mfa-login-interface2.png)
 
 4. Immediately enroll a permanent factor (TOTP or Push) before
    ending the session.
 
-    ![Token selector](screenshots/mfa-user-interface.png)
+    ![Token selector](_static/screenshots/mfa-user-interface.png)
 
 !!! warning "Enroll a permanent factor before ending the first session"
     The MFA portal accepts email-token login during the first session
