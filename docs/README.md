@@ -67,7 +67,7 @@ recommend you start by checking out the [short quick start guide](getting_starte
 
     [:octicons-arrow-right-24: Ask your question to IT support](https://mila-iqia.atlassian.net/servicedesk/customer/portal/5)
     
-    :octicons-arrow-right-24: Join us at the Tue 3-5pm/Wed 2-4pm Office Hours in Lab A
+    [:octicons-arrow-right-24: {% include-markdown "generated_from_config/office_hours_short.md" %}](help/office_hours/)
 
 
 -   :material-bookmark:{ .lg .middle } __Cheatsheet__
@@ -165,5 +165,6 @@ If you find any errors in the documentation, missing or unclear sections, or wou
     - [Weights and Biases (WandB)](toolbox/wandb.md)
     - [🔗 Research Project Template](https://mila-iqia.github.io/ResearchTemplate)
 - [Get help](help/index.md)
+    - [How to come to the Office Hours](help/office_hours.md)
     - [Frequently asked questions (FAQ)](help/faq.md)
 

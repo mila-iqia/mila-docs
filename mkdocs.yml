@@ -133,6 +133,9 @@ extra:
 extra_css:
   - stylesheets/extra.css
 
+hooks:
+  - hooks/copy_office_hours.py
+
 plugins:
   - meta
   # privacy plugin currently breaks giscus comments

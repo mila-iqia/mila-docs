@@ -28,6 +28,7 @@ We try to provide you different levels of help at Mila, for you to not stay stuc
         click FAQ "../help/faq/"
         click Slack "https://mila-umontreal.slack.com/archives/CFAS8455H"
         click Helpdesk "https://mila-iqia.atlassian.net/servicedesk/customer/portal/5"
+        click OfficeHours "../help/office_hours/"
 
         classDef bigger font-size:26px, fill:#4051b5, stroke:#4051b5, color:white
         classDef emoji font-size:40px, fill:transparent
@@ -79,12 +80,11 @@ We try to provide you different levels of help at Mila, for you to not stay stuc
 
     ---
 
-    Office Hours take place in Lab A:
+    {% include-markdown "generated_from_config/office_hours.md" %}
 
-    * from 3pm to 5pm on Tuesdays
-    * from 2pm to 4pm on Wednesdays.
+    They also take place online at the same dates: the virtual invite is on the Mila-core calendar.
 
-    They also take place online at the same dates: the virtual invite is on your Mila calendar.
+    [:octicons-arrow-right-24: Join us at the Office Hours](help/office_hours/)
 
 
 </div>
