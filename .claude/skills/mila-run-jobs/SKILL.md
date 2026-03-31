@@ -5,10 +5,11 @@ description: >-
   cluster. Trigger phrases include: "How do I run a job", "How do I run my
   first job", "How do I train a model", "mila code", "sbatch", "salloc",
   "VSCode on the cluster", "How do I use a GPU", "How do I request a GPU",
-  "How do I submit a batch job", "How do I run Python on the cluster",
-  "How do I open VSCode on a compute node", "SLURM job", "squeue",
-  "slurm output file", "How do I stage data", "SLURM_TMPDIR",
-  "How do I run PyTorch on the cluster", "interactive job".
+  "check available GPUs", "nvidia-smi", "How do I submit a batch job",
+  "How do I run Python on the cluster", "How do I open VSCode on a compute
+  node", "SLURM job", "squeue", "job queue", "slurm output file",
+  "How do I stage data", "SLURM_TMPDIR", "How do I run PyTorch on the
+  cluster", "interactive job".
 version: 1.0.0
 argument-hint: <interactive|batch>
 ---
@@ -19,6 +20,12 @@ This skill guides users through running jobs on the Mila cluster: either
 interactive development sessions using `mila code` (VSCode on a compute
 node), or batch jobs submitted with `sbatch`.
 
+## Base policies
+
+At the start of each response, use the Read tool to load
+`.claude/skills/mila-base/SKILL.md` and apply all policies defined there
+before proceeding with the workflow below.
+
 ## Reference documentation
 
 Interactive development:
@@ -27,20 +34,6 @@ Interactive development:
 Batch training:
 **https://docs.mila.quebec/Userguide_quick_start_train_first_model/**
 
-## Command execution
-
-Whenever a terminal command is presented to the user, display it in a code
-block as usual. If the command can be run directly in the current shell
-(without SSH-ing into another machine), also ask:
-
-> Would you like me to run this command for you?
-
-If the user says yes, execute it using the Bash tool. If the user says no
-or does not respond, continue guiding them to run it themselves.
-
-Do NOT offer to run commands that require an active SSH connection to another
-machine (e.g., commands shown as running on the cluster, inside the VSCode
-remote terminal, or via `srun`/`sbatch`).
 
 ## Workflow
 
@@ -76,7 +69,8 @@ node, or submit a batch job that runs on its own?"
 3. Wait for the allocation to be granted and VSCode to open, connected to
    the compute node.
 4. In VSCode, create `pyproject.toml` and `main.py` in the project folder.
-5. Open the integrated terminal (**Terminal → New Terminal**) and run:
+5. Open the VSCode integrated terminal (**Terminal → New Terminal**) — this
+   terminal runs on the **compute node** — and run:
    ```bash
    uv run python main.py
    ```

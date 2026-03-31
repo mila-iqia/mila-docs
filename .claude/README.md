@@ -6,10 +6,11 @@ This directory contains Claude Code configuration for the [Mila documentation](h
 
 | Skill | Trigger phrases | Description |
 |-------|----------------|-------------|
-| `mila-account-setup` | "How do I get a Mila account", "How do I set up MFA", "I received a registration token" | Guides through obtaining a Mila account, enabling cluster access, and setting up MFA |
-| `mila-local-setup` | "How do I install WSL", "How do I install uv", "How do I install milatools", "mila init" | Guides through setting up WSL (Windows), uv, and milatools on a local machine |
-| `mila-connect-cluster` | "How do I connect to the cluster", "How do I SSH", "I can't connect", "OTP" | Guides through SSH connection, OTP entry, and connection troubleshooting |
-| `mila-run-jobs` | "How do I run a job", "mila code", "sbatch", "How do I use a GPU", "train a model" | Guides through interactive development with `mila code` and batch job submission with `sbatch` |
+| `mila-account-setup` | "How do I get a Mila account", "I got an email from IT", "registration email", "How do I set up MFA", "I received a registration token" | Guides through obtaining a Mila account, enabling cluster access, and setting up MFA |
+| `mila-local-setup` | "How do I install WSL", "How do I install uv", "How do I install milatools", "What is milatools", "mila init", "SSH config", "authorized_keys" | Guides through setting up WSL 2 (Windows), uv, and milatools on a local machine |
+| `mila-connect-cluster` | "How do I connect to the cluster", "How do I SSH", "I can't connect", "permission denied", "host key verification failed", "OTP" | Guides through SSH connection, OTP entry, and connection troubleshooting |
+| `mila-run-jobs` | "How do I run a job", "mila code", "sbatch", "How do I use a GPU", "check available GPUs", "nvidia-smi", "train a model", "job queue" | Guides through interactive development with `mila code` and batch job submission with `sbatch` |
+| `mila-base` | *(shared policy — not invoked directly)* | Provides the command execution policy and skill chain routing used by all mila-* skills |
 
 ## Usage
 

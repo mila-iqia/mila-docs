@@ -3,9 +3,10 @@ name: mila-account-setup
 description: >-
   Use this skill when the user asks about obtaining a Mila account, enabling
   cluster access, or setting up Multi-Factor Authentication (MFA). Trigger
-  phrases include: "How do I get a Mila account", "How do I get cluster
-  access", "How do I set up MFA", "How do I enable MFA", "I received a
-  registration token", "MFA setup", "I can't log in to the MFA portal",
+  phrases include: "How do I get a Mila account", "I need a Mila account",
+  "How do I get cluster access", "How do I set up MFA", "How do I enable MFA",
+  "I received a registration token", "registration email", "registrationcode",
+  "I got an email from IT", "MFA setup", "I can't log in to the MFA portal",
   "How do I add a TOTP", "What is my cluster username", "How long does
   cluster access take", "IT onboarding quiz", "mfa.mila.quebec".
 version: 1.0.0
@@ -18,6 +19,12 @@ This skill helps cluster users obtain their Mila account, enable cluster
 access, and configure Multi-Factor Authentication (MFA) — the three
 prerequisites before connecting via SSH for the first time.
 
+## Base policies
+
+At the start of each response, use the Read tool to load
+`.claude/skills/mila-base/SKILL.md` and apply all policies defined there
+before proceeding with the workflow below.
+
 ## Reference documentation
 
 Primary source: **https://docs.mila.quebec/Userguide_quick_start/**
@@ -25,21 +32,6 @@ Primary source: **https://docs.mila.quebec/Userguide_quick_start/**
 
 For detailed MFA management (adding/removing tokens, recovery):
 **https://docs.mila.quebec/Userguide_login_mfa/**
-
-## Command execution
-
-Whenever a terminal command is presented to the user, display it in a code
-block as usual. If the command can be run directly in the current shell
-(without SSH-ing into another machine), also ask:
-
-> Would you like me to run this command for you?
-
-If the user says yes, execute it using the Bash tool. If the user says no
-or does not respond, continue guiding them to run it themselves.
-
-Do NOT offer to run commands that require an active SSH connection to another
-machine (e.g., commands shown as running on the cluster, inside the VSCode
-remote terminal, or via `srun`/`sbatch`).
 
 ## Workflow
 

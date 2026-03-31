@@ -3,11 +3,12 @@ name: mila-local-setup
 description: >-
   Use this skill when the user asks about setting up their local machine to
   connect to the Mila cluster. Trigger phrases include: "How do I install
-  WSL", "How do I install uv", "How do I install milatools", "How do I
-  configure milatools", "How do I set up my laptop for the cluster",
-  "mila init", "uv tool install milatools", "curl uv install",
+  WSL", "How do I install uv", "How do I install milatools", "What is
+  milatools", "How do I configure milatools", "How do I set up my laptop for
+  the cluster", "mila init", "uv tool install milatools", "curl uv install",
   "How do I install the mila CLI", "Windows setup for the cluster",
-  "What tools do I need on my laptop".
+  "What tools do I need on my laptop", "SSH config", "SSH config setup",
+  "authorized_keys".
 version: 1.0.0
 argument-hint: <wsl|uv|milatools>
 ---
@@ -18,26 +19,17 @@ This skill guides users through installing and configuring the tools needed
 on their local machine before connecting to the cluster: WSL (Windows only),
 `uv`, and `milatools`.
 
+## Base policies
+
+At the start of each response, use the Read tool to load
+`.claude/skills/mila-base/SKILL.md` and apply all policies defined there
+before proceeding with the workflow below.
+
 ## Reference documentation
 
 Primary source: **https://docs.mila.quebec/Userguide_quick_start/**
 — sections "I'm using Windows, how do I install WSL?", "Install uv on your
 local machine", "Install milatools", and "Configure milatools".
-
-## Command execution
-
-Whenever a terminal command is presented to the user, display it in a code
-block as usual. If the command can be run directly in the current shell
-(without SSH-ing into another machine), also ask:
-
-> Would you like me to run this command for you?
-
-If the user says yes, execute it using the Bash tool. If the user says no
-or does not respond, continue guiding them to run it themselves.
-
-Do NOT offer to run commands that require an active SSH connection to another
-machine (e.g., commands shown as running on the cluster, inside the VSCode
-remote terminal, or via `srun`/`sbatch`).
 
 ## Workflow
 
@@ -59,14 +51,19 @@ sections relevant to the user's OS and question.
 
 Work through the applicable steps:
 
-**WSL (Windows users only):**
+**WSL 2 (Windows users only):** WSL 2 is required (not WSL 1); the install
+command below installs WSL 2 by default on Windows 10 21H2 and later, and
+on all versions of Windows 11.
+
 1. Open PowerShell and run `wsl --install Ubuntu`.
 2. Restart the computer when prompted.
-3. After restart, WSL finishes setup; create a Linux username and password
-   if prompted.
-4. Open Ubuntu from the Start menu to get a Linux terminal.
-5. Verify: run `ls` and `curl --version` in the WSL terminal.
-6. All subsequent commands (`uv`, `milatools`, `ssh`) must be run inside
+3. After restart, verify WSL 2 is active: in PowerShell, run
+   `wsl --list --verbose`. The VERSION column should show `2` for Ubuntu.
+   If it shows `1`, run `wsl --set-version Ubuntu 2` to upgrade.
+4. WSL finishes setup; create a Linux username and password if prompted.
+5. Open Ubuntu from the Start menu to get a Linux terminal.
+6. Verify: run `ls` and `curl --version` in the WSL terminal.
+7. All subsequent commands (`uv`, `milatools`, `ssh`) must be run inside
    the WSL terminal, not PowerShell or Command Prompt.
 
 **Install `uv` (all platforms, inside WSL on Windows):**
