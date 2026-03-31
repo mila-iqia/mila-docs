@@ -84,7 +84,7 @@ Before the first login, an automated email arrives containing a
 4. Immediately enroll a permanent factor (TOTP or Push) before
    ending the session.
 
-    ![Token selector](screenshots/mfa-user-interface.png)
+    ![Token selector](_static/screenshots/mfa-user-interface.png)
 
 !!! warning "Enroll a permanent factor before ending the first session"
     The MFA portal accepts email-token login during the first session
