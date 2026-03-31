@@ -79,7 +79,7 @@ Before the first login, an automated email arrives containing a
 3. Enter the **Registration Token** from the email in the
    **Password** field.
 
-    ![User dashboard](screenshots/mfa-login-interface2.png)
+    ![User dashboard](_static/screenshots/mfa-login-interface2.png)
 
 4. Immediately enroll a permanent factor (TOTP or Push) before
    ending the session.
