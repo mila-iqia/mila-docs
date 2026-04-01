@@ -3,6 +3,7 @@
 #SBATCH --ntasks-per-node=2
 #SBATCH --cpus-per-task=4
 #SBATCH --gpus-per-task=l40s:1
+## Or --gpus-per-task=rtx8000:1    to request a different GPU model
 #SBATCH --mem-per-gpu=16G
 #SBATCH --time=00:15:00
 
