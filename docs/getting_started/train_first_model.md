@@ -13,7 +13,7 @@ This guide covers training a small model (ResNet18) on CIFAR-10 using a single
 GPU on the Mila cluster. The guide uses Mila's CIFAR-10 dataset, stages it into
 fast local storage, and runs a Slurm batch job.
 
-## Prerequisites
+## Before you begin
 
 <div class="grid cards" markdown>
 
@@ -21,7 +21,6 @@ fast local storage, and runs a Slurm batch job.
     { .card }
 
     ---
-
     Get your Mila account, enable cluster access and MFA, then install `uv` and
     `milatools` to connect via SSH.
 
@@ -29,7 +28,6 @@ fast local storage, and runs a Slurm batch job.
     { .card }
 
     ---
-
     Run your first job on the cluster with PyTorch using VSCode on a GPU compute
     node.
 
@@ -44,7 +42,7 @@ fast local storage, and runs a Slurm batch job.
 
 ---
 
-## Open VSCode on a compute node
+## Open VSCode on a CPU node
 
 ### Create the project directory on the cluster
 
@@ -58,7 +56,7 @@ ssh mila 'mkdir -p CODE/train_first_model'
 ### Start VSCode on a CPU node
 
 Only code and job scripts will be prepared at this stage—not actually running
-training—so a CPU node suffices for a faster to allocate and a less
+training—so a CPU node suffices for a faster-to-allocate and less
 resource-intensive editor session.
 
 ```bash
@@ -124,16 +122,8 @@ Submitted batch job 8888888
 ```
 </div>
 
-The output will confirm the job was submitted (something like `Submitted batch
-job 8888888.` should be displayed). Note the job ID.
-
-
-!!! tip "Job stuck with `ReqNodeNotAvail`?"
-    The examples request an `l40s` GPU. If those nodes are temporarily
-    unavailable, you can override the GPU type at submit time:
-
-        sbatch --gpus-per-task=1 job.sh
-
+The output will confirm the submission of the job (e.g. `Submitted batch job
+8888888.`). Note the job ID.
 
 ## Monitor the job
 
@@ -147,21 +137,22 @@ job 8888888.` should be displayed). Note the job ID.
    8888888 username         long         job.sh   R 2026-03-16T19:48       1:08     1    4        N/A     16G cn-l016 (None) (null)
   ```
   </div>
-
-??? question "Job stuck with `ReqNodeNotAvail`"
-
-    No node matching the job's requirements is currently available — for
-    example, all nodes with the requested GPU type may be busy, or some nodes
-    may be DOWN or reserved for maintenance. This is **not** an error — the job
-    will start automatically once a matching node is free.
-
-    **Options:**
-
-    - **Wait.** The job will start on its own. Check back with `squeue --me`.
-    - **Request a different GPU type.** Cancel the queued job with `scancel
-      <JOBID>`, then resubmit with a different `--gres` flag, e.g.: `sbatch
-      --gres=gpu:rtx8000:1 job.sh`
   
+    ??? question "Job stuck with `ReqNodeNotAvail`"
+    
+        No node matching the job's requirements is currently available — for
+        example, all nodes with the requested GPU type may be busy, or some
+        nodes may be DOWN or reserved for maintenance. This is **not** an error
+        — the job will start automatically once a matching node is free.
+    
+        **Options:**
+    
+        - **Wait.** The job will start on its own. Check back with `squeue
+          --me`.
+        - **Request a different GPU type.** Cancel the queued job with `scancel
+          <JOBID>`, then resubmit with a different `--gres` flag, e.g.: `sbatch
+          --gres=gpu:rtx8000:1 job.sh`
+
 * **Watch the output file:** Once the job starts, a file `slurm-<JOBID>.out`
   will be created containing the job log. Open it to watch the model being
   trained:

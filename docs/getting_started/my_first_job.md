@@ -15,7 +15,7 @@ cluster using [VSCode](VSCode.md) on a compute node via the [`mila
 code`](https://github.com/mila-iqia/milatools) command from
 [milatools](https://github.com/mila-iqia/milatools).
 
-## Prerequisites
+## Before you begin
 
 <div class="grid cards" markdown>
 
@@ -23,7 +23,6 @@ code`](https://github.com/mila-iqia/milatools) command from
     { .card }
 
     ---
-
     Get your Mila account, enable cluster access and MFA, then install `uv` and
     `milatools` to connect via SSH.
 
@@ -139,6 +138,8 @@ The output should confirm that PyTorch is built with CUDA and detects the GPU.
 When done, close VSCode and press **Ctrl+C** in the terminal to end the `mila
 code` session and relinquish the allocation.
 
+---
+
 ## Key concepts
 
 `mila code`
@@ -155,7 +156,6 @@ code` session and relinquish the allocation.
     { .card }
 
     ---
-
     Train a ResNet18 on CIFAR-10 on a single GPU using `sbatch`.
 
 &nbsp;

@@ -96,6 +96,8 @@ setting up the tools needed to run jobs. Follow the steps in order.
 * Verify the SSH connection to the cluster.
 * Install `uv` on the cluster.
 
+---
+
 ## Set up Multi-Factor Authentication (MFA) { #set-up-mfa }
 
 Cluster access requires **two factors**: an SSH key (first factor) and a second
@@ -112,7 +114,7 @@ token** that expires after use.
 
 1. Go to **https://mfa.mila.quebec**.
 
-    ![Login-interface](screenshots/mfa-login.png)
+    ![Login-interface](../_static/screenshots/mfa-login.png)
 
 2. **Username:** your cluster username (**not** your `@mila.quebec` email
    address).
@@ -123,7 +125,7 @@ token** that expires after use.
 4. After logging in, **immediately** add at least one **TOTP** token to your
    account:
 
-    ![Token-selector](screenshots/mfa-enroll-token-totp.png)
+    ![Token-selector](../_static/screenshots/mfa-enroll-token-totp.png)
 
     1. Install a TOTP authenticator app:
 
@@ -143,7 +145,7 @@ token** that expires after use.
     2. In the authenticator app, scan the QR code shown on the MFA page to add
        the token:
 
-        ![Token-selector](screenshots/mfa-enroll-token-totp-2.png)
+        ![Token-selector](../_static/screenshots/mfa-enroll-token-totp-2.png)
 
 !!! warning "Set up TOTP before leaving"
     After the first visit, the MFA web portal **only** accepts a TOTP code.
@@ -302,11 +304,11 @@ Last login: Fri Feb 27 09:29:48 2026 from 74.58.126.98
 ```
 </div>
 
-!!! failure "Not prompted to enter an OTP?"
+??? question "Not prompted to enter an OTP?"
 
     Review the steps to [install and configure `milatools`](#install-milatools).
 
-!!! failure "The Login node banner does not appear after entering the OTP?"
+??? question "The Login node banner does not appear after entering the OTP?"
 
     Review the steps to [set up Multi-Factor Authentication](#set-up-mfa).
 
@@ -349,8 +351,8 @@ everything's installed!
 
 ## Next steps
 
-Once the access to the cluster is established, head to the following sections to
-run a first job and train a first model:
+With cluster access established, proceed to the following guides to run a first
+job and train a first model:
 
 <div class="grid cards" markdown>
 
@@ -358,7 +360,6 @@ run a first job and train a first model:
     { .card }
 
     ---
-
     Run your first job on the cluster with PyTorch using VSCode on a GPU compute
     node.
 
@@ -366,7 +367,6 @@ run a first job and train a first model:
     { .card }
 
     ---
-
     Train a ResNet18 on CIFAR-10 on a single GPU using `sbatch`.
 
 </div>
