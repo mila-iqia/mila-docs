@@ -1,17 +1,25 @@
+---
+title: Run Your First Job
+description: >-
+  Create a minimal PyTorch project, open VSCode on a GPU compute node
+  using mila code, and verify CUDA availability.
+skills:
+  - skill-mila-run-jobs
+---
+
 # Run Your First Job
 
-This guide walks you through running your first job on the Mila cluster. You
-will create a minimal PyTorch project that checks CUDA and GPU availability, run
-it in [VSCode](../../toolbox/VSCode) on a compute node using the [`mila
+This guide covers running a first job on the Mila cluster. Create a minimal
+PyTorch project that checks CUDA and GPU availability, and develop on the
+cluster using [VSCode](VSCode.md) on a compute node via the [`mila
 code`](https://github.com/mila-iqia/milatools) command from
-[milatools](https://github.com/mila-iqia/milatools), and run the script in the
-editor's terminal.
+[milatools](https://github.com/mila-iqia/milatools).
 
 ## Prerequisites
 
 <div class="grid cards" markdown>
 
--   [:material-run-fast:{ .lg .middle } __Get Started with the Cluster__](../../getting_started)
+-   [:material-run-fast:{ .lg .middle } __Get Started with the Cluster__](index.md)
     { .card }
 
     ---
@@ -19,18 +27,18 @@ editor's terminal.
     Get your Mila account, enable cluster access and MFA, then install `uv` and
     `milatools` to connect via SSH.
 
-- 
+&nbsp;
 
 </div>
 
-!!! note "VSCode or compatible editor"
+!!! success "VSCode or compatible editor"
 
     The `mila code` command opens [VSCode](https://code.visualstudio.com/) (or a
     compatible editor such as Cursor) on a compute node. [Install
     VSCode](https://code.visualstudio.com/Download) on your local machine before
     starting.
 
-## What you will do
+## What this guide covers
 
 * Open VSCode on a compute node with one GPU using `mila code` (from your local
   machine).
@@ -53,8 +61,8 @@ ssh mila 'mkdir -p CODE/my_first_job'
 ### Start VSCode on a GPU node
 
 Run `mila code` with allocation options to request one GPU. This allocates a
-compute node and opens VSCode with your project path; everything after `--alloc`
-is passed to Slurm:
+compute node and opens VSCode in a project path; everything after `--alloc` is
+passed to Slurm:
 
 ```bash
 mila code CODE/my_first_job --alloc --gres=gpu:1 --cpus-per-task=2 --mem=16G --time=01:00:00
@@ -73,15 +81,26 @@ salloc: Granted job allocation 8888888
 ```
 </div>
 
+Wait until the allocation is granted and VSCode opens, connected to a shell on
+the compute node.
 
-Wait until the allocation is granted and VSCode opens. You will be connected to
-a shell on the compute node inside VSCode.
+??? question "VSCode stuck on "Opening Remote..."?"
+
+    If VSCode appears to hang while connecting, it may be waiting for an OTP
+    code in a hidden terminal. Enable **Remote.SSH: Show Login Terminal** in
+    VSCode settings to make the prompt visible:
+
+    1. Open the Command Palette (**Ctrl+Shift+P** / **Cmd+Shift+P**).
+    2. Run **Preferences: Open Settings (UI)**.
+    3. Search for `remote.SSH.showLoginTerminal` and enable it.
+
+    Re-run the `mila code` command after enabling the setting.
 
 ## Run a script in VSCode
 
 ### Create the project files
 
-In VSCode, create the following two files in your project folder (e.g. in the
+In VSCode, create the following two files in the project folder (e.g. in the
 explorer or via **File → New File**). The files live on the compute node.
 
 === "pyproject.toml"
@@ -116,14 +135,15 @@ PyTorch-detected #GPUs:          1
 ```
 </div>
 
-You should see output indicating that PyTorch is built with CUDA and detects the
-GPU. When you are done, close VSCode and press **Ctrl+C** in the terminal to end
-the `mila code` session and relinquish the allocation.
+The output should confirm that PyTorch is built with CUDA and detects the GPU.
+When done, close VSCode and press **Ctrl+C** in the terminal to end the `mila
+code` session and relinquish the allocation.
 
 ## Key concepts
 
-* **`mila code`** — Allocates a compute node and opens VSCode on it. Use it for
-  interactive development and running scripts with a full editor and terminal.
+`mila code`
+:   Allocates a compute node and opens VSCode on it. Use for interactive
+    development and running scripts with a full editor and terminal.
 
 ---
 
@@ -131,13 +151,13 @@ the `mila code` session and relinquish the allocation.
 
 <div class="grid cards" markdown>
 
--   [:material-run-fast:{ .lg .middle } __Train Your First Model__](../../getting_started/train_first_model)
+-   [:material-run-fast:{ .lg .middle } __Train Your First Model__](train_first_model.md)
     { .card }
 
     ---
 
     Train a ResNet18 on CIFAR-10 on a single GPU using `sbatch`.
 
-- 
+&nbsp;
 
 </div>

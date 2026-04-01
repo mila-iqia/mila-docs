@@ -27,3 +27,7 @@ a.full-card {
 a.full-card:hover {
   color: var(--md-typeset-color);
 }
+
+.skill-identifiers {
+  display: none;
+}
