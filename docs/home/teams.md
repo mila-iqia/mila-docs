@@ -9,9 +9,3 @@ the IDT team.
 
 
 ![IDT](../_static/images/IDT.png)
-
-
-## The IDT team
-
-
-See https://mila.quebec/en/mila/team/?cat_id=143
