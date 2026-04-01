@@ -117,6 +117,14 @@ Submitted batch job 8888888
 
 You will see something like `Submitted batch job 8888888`. Note the job ID.
 
+
+!!! tip "Job stuck with `ReqNodeNotAvail`?"
+    The examples request an `l40s` GPU. If those nodes are temporarily
+    unavailable, you can override the GPU type at submit time:
+
+        sbatch --gpus-per-task=1 job.sh
+
+
 ## Monitor the job
 
 * **Queue status:** `squeue --me`
