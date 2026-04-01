@@ -251,3 +251,45 @@ Common Material icons for guides:
 --8<-- "docs/examples/frameworks/pytorch_setup/main.py"
 ```
 ````
+
+### Content includes (include-markdown)
+
+Use `include-markdown` to reuse prose content from another documentation page
+without duplicating it. This is appropriate when a section of text belongs to
+multiple pages.
+
+Use **single-line syntax** when only `start` is needed (the common case):
+
+```markdown
+{% include-markdown "path/to/doc_page.md" start="<!-- START -->" %}
+```
+
+Use **multi-line syntax** (2-space indent) when adding parameters beyond
+`start`:
+
+```markdown
+{%
+  include-markdown "path/to/doc_page.md"
+  start="<!-- START -->"
+  heading-offset=1
+%}
+```
+
+- `start="<!-- START -->"` is **always required** — it skips the included file's
+  frontmatter, starting inclusion from the `<!-- START -->` marker.
+- The included file **must** contain a `<!-- START -->` HTML comment at the
+  point where inclusion should begin.
+
+**In the included file:**
+
+```markdown
+---
+title: Title
+description: Page description.
+---
+
+<!-- START -->
+# Title
+
+...
+```

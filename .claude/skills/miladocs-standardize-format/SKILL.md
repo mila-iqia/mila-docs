@@ -38,6 +38,9 @@ violations into these categories:
   the standard grid card pattern; single card missing `&nbsp;` spacer
 - **Separators** — `---` used between regular content sections (should only
   appear before `## Key concepts` and `## Next step / Next steps`)
+- **Includes** — any `{% include-markdown %}` tag missing the `start="<!-- START
+  -->"` attribute; or any included file (read it) that lacks the `<!-- START
+  -->` HTML comment marker.
 
 ### Step 2: Present violations
 

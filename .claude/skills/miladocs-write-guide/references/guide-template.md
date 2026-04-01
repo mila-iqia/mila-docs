@@ -85,9 +85,10 @@ matters. Do not use "you" — use imperative mood or third-person.>
     <command for option B>
     ```
 
-<!-- do not place --- separators between content sections; headings already
-     provide visual separation. Reserve --- for the bookend breaks before
-     "Key concepts" and "Next step / Next steps", as shown in this template. -->
+<!-- Do not place --- separators between content sections; headings already
+     provide visual separation. Reserve --- only for the two bookends that
+     wrap the content sections: one after "What this guide covers" and one
+     before "Key concepts", as shown in this template. -->
 
 ## <Section 2: second major action>
 
@@ -104,8 +105,6 @@ matters. Do not use "you" — use imperative mood or third-person.>
 
 `sbatch`
 :   Slurm command for submitting a batch job script.
-
----
 
 ## Next step / Next steps
 
@@ -179,4 +178,6 @@ ambiguity can cause user errors.
 - [ ] Parallel alternatives are grammatically complete (no implied-verb ellipsis)
 - [ ] Consistent Mila terminology (`cluster`, `compute node`, `Slurm`, etc.)
 - [ ] No numbered headings (remove any `1.`, `2.`, etc. prefixes from titles)
+- [ ] No `---` between content sections — only the two bookends are permitted
+      (after "What this guide covers" and before "Key concepts")
 - [ ] Line width ≤ 80 characters (per CONTRIBUTING.md)
