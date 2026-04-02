@@ -126,6 +126,7 @@ extra_css:
 
 hooks:
   - docs/hooks/skill_tags.py
+  - docs/hooks/sitemap_exclude.py
 
 plugins:
   - meta
