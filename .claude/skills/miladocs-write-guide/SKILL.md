@@ -79,7 +79,9 @@ Continue to Step 5 with the tone-corrected content.
 ### Step 5: Present the draft
 
 Output the complete tone-corrected markdown file content in a code block. Then offer to:
-- Save it directly to `docs/` with a suggested filename
+- Save it to `docs/` — ask the user which subdirectory is most appropriate
+  (`getting_started/`, `userguides/`, `toolbox/`, `technical_reference/`,
+  `help/`, or other), then suggest a `lowercase_with_underscores.md` filename
 - Make specific revisions before saving
 
 ## Additional Resources

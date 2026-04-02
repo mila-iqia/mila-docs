@@ -131,8 +131,15 @@ matters. Do not use "you" — use imperative mood or third-person.>
 
 ## Naming Conventions
 
-- Filename: `Userguide_<topic>.md` for user-facing how-to guides
-- Filename: `Information_<topic>.md` for reference/informational pages
+- Filename: `lowercase_with_underscores.md`, placed in the appropriate
+  subdirectory under `docs/`:
+  - `docs/getting_started/` — onboarding guides for new users
+  - `docs/userguides/` — step-by-step user-facing how-to guides
+  - `docs/toolbox/` — guides for specific tools (VSCode, WandB, etc.)
+  - `docs/technical_reference/` — reference material and general theory
+  - `docs/help/` — FAQ and support content
+- Note: `.md` files in the root of `docs/` use a legacy naming convention and
+  should not be used as naming examples.
 - Title case for page titles: "Run a Multi-GPU Job"
 - Sentence case for section headings: "Create the project directory"
 - No numbers in section headings — use descriptive titles only
