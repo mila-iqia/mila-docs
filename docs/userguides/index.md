@@ -4,6 +4,7 @@ Check out our guides picturing different ways to use the cluster:
 
 | Guide | Quick description |
 | ----- | ----------------- |
+| [Manage Python Dependencies with uv](../userguides/python_uv.md) | Set up uv to manage project dependencies |
 | [Multi-Factor authentication](../Userguide_login_mfa) | Use MFA to access the Mila cluster |
 | [Logging in to the cluster](../userguides/login) | Log in to the Mila cluster |
 | [Running your code](../userguides/running_code.md) | Run your code on the cluster |
