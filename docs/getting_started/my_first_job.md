@@ -4,7 +4,7 @@ description: >-
   Create a minimal PyTorch project, open VSCode on a GPU compute node
   using mila code, and verify CUDA availability.
 skills:
-  - skill-mila-run-jobs
+  - __skill-mila-run-jobs
 ---
 
 # Run Your First Job
@@ -34,13 +34,12 @@ code`](https://github.com/mila-iqia/milatools) command from
 
     The `mila code` command opens [VSCode](https://code.visualstudio.com/) (or a
     compatible editor such as Cursor) on a compute node. [Install
-    VSCode](https://code.visualstudio.com/Download) on your local machine before
-    starting.
+    VSCode](https://code.visualstudio.com/Download) on a personal computer
+    before starting.
 
 ## What this guide covers
 
-* Open VSCode on a compute node with one GPU using `mila code` (from your local
-  machine).
+* Open VSCode on a compute node with one GPU using `mila code`.
 * Create a minimal PyTorch project with `pyproject.toml` and `main.py`.
 * Run the script with `uv run python main.py` in VSCode.
 
@@ -50,8 +49,8 @@ code`](https://github.com/mila-iqia/milatools) command from
 
 ### Create the project directory on the cluster
 
-From your **local machine**, create the project directory on the cluster so that
-`mila code` can open it (the path is on the cluster):
+From a **personal computer**, create the project directory on the cluster so
+that `mila code` can open it (the path is on the cluster):
 
 ```bash
 ssh mila 'mkdir -p CODE/my_first_job'
@@ -102,16 +101,16 @@ the compute node.
 In VSCode, create the following two files in the project folder (e.g. in the
 explorer or via **File → New File**). The files live on the compute node.
 
-=== "pyproject.toml"
-
-    ```toml title="pyproject.toml"
-    --8<-- "docs/examples/frameworks/pytorch_setup/pyproject.toml"
-    ```
-
 === "main.py"
 
     ```py title="main.py"
     --8<-- "docs/examples/frameworks/pytorch_setup/main.py"
+    ```
+
+=== "pyproject.toml"
+
+    ```toml title="pyproject.toml"
+    --8<-- "docs/examples/frameworks/pytorch_setup/pyproject.toml"
     ```
 
 ### Run the script in the VSCode terminal

@@ -4,7 +4,7 @@ description: >-
   Train a ResNet18 on CIFAR-10 on a single GPU using sbatch, including
   data staging to $SLURM_TMPDIR.
 skills:
-  - skill-mila-run-jobs
+  - __skill-mila-run-jobs
 ---
 
 # Train Your First Model
@@ -46,8 +46,8 @@ fast local storage, and runs a Slurm batch job.
 
 ### Create the project directory on the cluster
 
-From your **local machine**, create the project directory on the cluster so that
-`mila code` can open it (the path is on the cluster):
+From a **personal computer**, create the project directory on the cluster so
+that `mila code` can open it (the path is on the cluster):
 
 ```bash
 ssh mila 'mkdir -p CODE/train_first_model'
@@ -90,12 +90,6 @@ salloc: Granted job allocation 8888888
     --8<-- "docs/examples/distributed/single_gpu/job.sh"
     ```
 
-=== "pyproject.toml"
-
-    ```toml title="pyproject.toml"
-    --8<-- "docs/examples/distributed/single_gpu/pyproject.toml"
-    ```
-
 === "main.py"
 
     The training script uses PyTorch to load CIFAR-10 from `$SLURM_TMPDIR/data`,
@@ -104,6 +98,12 @@ salloc: Granted job allocation 8888888
 
     ```py title="main.py"
     --8<-- "docs/examples/distributed/single_gpu/main.py"
+    ```
+
+=== "pyproject.toml"
+
+    ```toml title="pyproject.toml"
+    --8<-- "docs/examples/distributed/single_gpu/pyproject.toml"
     ```
 
 ## Submit the job

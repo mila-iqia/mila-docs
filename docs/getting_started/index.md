@@ -4,9 +4,9 @@ description: >-
   Obtain a Mila account, set up MFA, install uv and milatools,
   and connect to the cluster for the first time.
 skills:
-  - skill-mila-account-setup
-  - skill-mila-connect-cluster
-  - skill-mila-local-setup
+  - __skill-mila-account-setup
+  - __skill-mila-connect-cluster
+  - __skill-mila-local-setup
 ---
 
 # Get Started with the Cluster
@@ -20,7 +20,7 @@ setting up the tools needed to run jobs. Follow the steps in order.
 
     1. Ask your supervisor how to get invited into the Mila organization and
        obtain your `@mila.quebec` account.
-    2. After the supervisor submits the application, a confirmation email will
+    2. After your supervisor submits the application, a confirmation email will
        arrive from IT support with instructions to access the account and
        connect to the cluster.
     
@@ -101,7 +101,7 @@ setting up the tools needed to run jobs. Follow the steps in order.
 ## Set up Multi-Factor Authentication (MFA) { #set-up-mfa }
 
 Cluster access requires **two factors**: an SSH key (first factor) and a second
-factor (TOTP, push notification, or email token). The MFA setup must be
+factor (TOTP, push notification, or email token). The MFA setup **must** be
 completed before connecting via SSH.
 
 ### Get your registration token
@@ -111,6 +111,12 @@ Your temporary access registrationcode*; it contains a **one-time registration
 token** that expires after use.
 
 ### First-time MFA setup
+
+!!! warning "Set up TOTP before leaving"
+    After the first visit, the MFA web portal will **only** accepts a TOTP code.
+    Leaving without setting up TOTP locks out the account, and a new
+    registration token will be needed from [IT
+    support](https://it-support.mila.quebec).
 
 1. Go to **https://mfa.mila.quebec**.
 
@@ -147,19 +153,13 @@ token** that expires after use.
 
         ![Token-selector](../_static/screenshots/mfa-enroll-token-totp-2.png)
 
-!!! warning "Set up TOTP before leaving"
-    After the first visit, the MFA web portal **only** accepts a TOTP code.
-    Leaving without setting up TOTP locks out the account, and a new
-    registration token will be needed from [IT
-    support](https://it-support.mila.quebec).
-
-## Install `uv` on your local machine
+## Install `uv` on a local machine
 
 `uv` is a fast Python package manager and workflow tool, that serves as a
 drop-in replacement for `pip` and `virtualenv`, for quickly installing project
 dependencies, managing packages, and creating isolated Python environments.
 
-On your **local machine**, run:
+On a **personal computer**, run:
 
 ```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
@@ -189,7 +189,11 @@ everything's installed!
 
 ### Install `milatools`
 
-Install `milatools` locally (after [installing `uv`](#install-uv-on-your-local-machine)):
+`milatools` is a command-line tool that simplifies connecting to the Mila
+cluster. It configures SSH automatically and provides `mila code` to open VSCode
+directly on a compute node.
+
+Install a **personal computer** (after [installing `uv`](#install-uv-on-a-local-machine)):
 
 ```bash
 uv tool install --upgrade milatools
@@ -212,7 +216,8 @@ See the [milatools README](https://github.com/mila-iqia/milatools) for more deta
 
 ### Configure `milatools`
 
-Run `mila init` with your cluster username ready. This sets up the SSH config, public keys, and passwordless auth.
+Run `mila init` with your cluster username ready. This sets up the SSH config,
+public keys, and passwordless auth.
 
 ```bash
 mila init           
@@ -304,6 +309,10 @@ Last login: Fri Feb 27 09:29:48 2026 from 74.58.126.98
 ```
 </div>
 
+After entering the OTP, the session opens on a **login node** — a shared entry
+point to the cluster. Login nodes are for submitting jobs and managing files,
+not for running computations directly.
+
 ??? question "Not prompted to enter an OTP?"
 
     Review the steps to [install and configure `milatools`](#install-milatools).
@@ -337,7 +346,7 @@ everything's installed!
 
 `uv`
 :   Fast Python package manager and virtual environment tool. Used on both
-    the local machine and the cluster.
+    a local machine and the cluster.
 
 `milatools`
 :   CLI tool (`mila`) for setting up SSH config and opening VSCode on
