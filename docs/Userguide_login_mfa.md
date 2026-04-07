@@ -3,6 +3,7 @@ title: Multi-Factor Authentication (MFA)
 description: Configure MFA and use it to access the Mila cluster securely.
 ---
 
+<!-- START -->
 # Set Up Multi-Factor Authentication
 
 Multi-Factor Authentication (MFA) adds a security layer beyond SSH keys.

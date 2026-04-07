@@ -1,3 +1,9 @@
+---
+search:
+  exclude: true
+---
+
+<!-- START -->
 ## Building the containers
 
 Building a container is like creating a new environment except that containers

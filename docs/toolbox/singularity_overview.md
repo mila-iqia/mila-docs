@@ -1,3 +1,9 @@
+---
+search:
+  exclude: true
+---
+
+<!-- START -->
 ## Overview
 
 ### What is Singularity?

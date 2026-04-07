@@ -28,7 +28,7 @@ To achieve this, try to always keep in mind the following aspects:
 
 
 {%
-  include-markdown "technical_reference/general_theory/python.md"
+  include-markdown "technical_reference/general_theory/python.md" start="<!-- START -->"
 %}
 
 
@@ -42,7 +42,7 @@ module load python/3.10
 ```
 
 {%
-  include-markdown "technical_reference/general_theory/portability_modules.md"
+  include-markdown "technical_reference/general_theory/portability_modules.md" start="<!-- START -->"
 %}
 
 

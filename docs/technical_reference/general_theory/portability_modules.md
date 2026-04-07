@@ -1,3 +1,9 @@
+---
+search:
+  exclude: true
+---
+
+<!-- START -->
 ### The module command
 
 For a list of available modules, simply use:

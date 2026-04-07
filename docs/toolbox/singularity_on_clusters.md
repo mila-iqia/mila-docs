@@ -1,3 +1,9 @@
+---
+search:
+  exclude: true
+---
+
+<!-- START -->
 ## Using containers on clusters
 
 ### How to use containers on clusters
