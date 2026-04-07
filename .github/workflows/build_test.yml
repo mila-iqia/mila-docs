@@ -82,13 +82,14 @@ jobs:
           exit 1
 
       - name: Run DocMetrics action on docmetrics docs
-        uses: mila-iqia/docmetrics@v0.0.5
+        uses: mila-iqia/docmetrics@v0.0.7
         with:
           questions-file: quiz.yaml
           docs-url: http://localhost:8000
           base-docs-url: https://docs.mila.quebec
           model: ollama:gpt-oss:120b
           ollama-url: dgx:11434
+          num-candidates: 3
           post-comment: 'false'
 
       - name: Upload DocMetrics artifacts
