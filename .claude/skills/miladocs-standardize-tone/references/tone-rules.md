@@ -28,14 +28,14 @@ Rewrite using a noun phrase or gerund when no subject can be dropped.
 | Before | After |
 |--------|-------|
 | If you are running a multi-GPU job... | For multi-GPU jobs... |
-| Your job will be queued until a node is available. | The job is queued until a compute node is available. |
+| Your job will be queued until a node is available. | The job will be queued until a compute node is available. |
 | This allows you to monitor progress. | This allows monitoring of job progress. |
 | You will see the output below. | The output appears below. |
 
 **Strategy C — Possessives ("your X"):**
 Choose based on whether the reader genuinely owns or is assigned the item.
 
-- **Personally owned items** — credentials, personal relationships, owned devices (e.g. password, supervisor): **preserve "your"**.
+- **Privately owned items** — credentials, personal relationships, privately owned devices (e.g. password, email, account, supervisor, computer): **preserve "your"**.
 - **Tools and shared resources** — software tools, cluster infrastructure, job artifacts: **use definite or indefinite article**.
 
 | Before | After |
@@ -63,14 +63,12 @@ Prefer active constructions over passive ones.
 |------------------|----------------|
 | The job should be submitted with `sbatch`. | Submit the job with `sbatch`. |
 | A GPU node can be requested using `--gres`. | Request a GPU node using `--gres`. |
-| The environment is activated automatically. | The environment activates automatically. *(or: uv activates the environment automatically.)* |
-| The results are saved to `$SCRATCH`. | The results save to `$SCRATCH`. *(or: Slurm saves results to `$SCRATCH`.)* |
 | It is recommended to use `uv`. | Use `uv` for environment management. |
 | Care should be taken to... | Take care to... |
 
 **Exceptions** — passive is acceptable when:
-- The agent is unknown or irrelevant: "The cluster is maintained by IDT."
-- The subject is the natural focus: "Logs are written to `/tmp/slurm-<jobid>.out`."
+- The agent is unknown or irrelevant: *"The results will be saved to `$SCRATCH`."*
+- The destination or outcome is the natural focus of the sentence (not who causes the action): *"Logs will be written to `/tmp/slurm-<jobid>.out`."*
 
 ---
 
@@ -106,19 +104,18 @@ Remove words that imply a task is trivial or obvious. These create friction for 
 
 ## Rule 4: Present Tense for Instructions
 
-Use present tense (or imperative mood) for instructions. Future tense distances the reader from the action.
+Use present tense (or imperative mood) for instructions. Future tense distances the reader from the action. Both are acceptable — choose whichever reads more naturally for the sentence. This rule applies primarily when the subject is the reader. When the subject is a tool or script describing automatic behavior (not a command the user triggers), future tense is acceptable.
 
 | Before (future) | After (present/imperative) |
 |-----------------|---------------------------|
 | You will create a file called `job.sh`. | Create a file called `job.sh`. |
-| This will install all dependencies. | This installs all dependencies. |
-| The script will print the GPU name. | The script prints the GPU name. |
 | You'll need to activate the environment. | Activate the environment. |
 | Running this command will allocate a node. | Running this command allocates a node. |
 
 **Exception** — future tense is fine for:
 - Describing consequences: "If the job fails, Slurm will send an email."
 - Time-bound outcomes: "The allocation will expire after 1 hour."
+- Describing what a script, tool, or command will automatically do: "The script will print the GPU name.", "This will install all dependencies."
 
 ---
 
@@ -142,6 +139,8 @@ Use the canonical terms for Mila infrastructure components.
 | `milatools` | mila-tools, mila tools |
 | `mila code` | mila-code, milacode |
 
+**Note:** Replace "task" with "job" only when referring to Slurm-submitted work. "Task" is acceptable in general computational contexts (e.g., *"data preprocessing task"*).
+
 **Capitalization:**
 - `Slurm` — title case (not all-caps)
   - Exception: `$SLURM_*` environment variable names
@@ -161,9 +160,11 @@ Headings often use second-person implicitly. Prefer gerund or noun phrases.
 
 | Before | After |
 |--------|-------|
-| "Getting your first job to run" | "Running your first job" → "Running a first job" |
+| "Getting your first job to run" | "Running your first job" |
 | "What you will learn" | "What this guide covers" |
 | "Your next steps" | "Next steps" |
+
+In headings, preserve "your" when it refers to the reader's personal milestone or experience (e.g., "Running your first job", "Debugging your first script") — not just credentials and devices. Apply second-person removal only when "your" refers to a tool or shared resource.
 
 ### Admonition content
 Apply all rules inside `!!! note`, `!!! warning`, etc. blocks.

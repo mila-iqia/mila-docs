@@ -73,20 +73,21 @@ Full rules with examples are in `references/tone-rules.md`. Summary:
 | Rule | Replace | With |
 |------|---------|------|
 | Second-person (actions) | "you can X", "you need to X" | imperative "X" |
-| Second-person (owned items) | "your email", "your password", "your computer" | preserve "your" — reader genuinely owns these |
-| Second-person (tools/resources) | "your terminal", "your script", "your job" | "a terminal", "the script", "the job" |
-| Second-person (specific possessive) | "your job ID", "your script" | "the job ID", "the script" |
-| Active voice | passive constructions | active verb phrases |
+| Second-person (privately owned items) | "your email", "your password", "your computer" | preserve "your" — reader genuinely owns these |
+| Second-person (tools/resources) | "your terminal", "your browser", "your job ID" | "a terminal", "a browser", "the job ID" |
+| Active voice | passive constructions (where agent matters) | active verb phrases; passive OK when agent is unknown or destination is the focus |
 | No vague language | simply, just, easy, obviously, etc. | remove or rephrase |
 | Present tense | "you will X", "you'll X" | imperative "X" |
 | Mila terminology | server, worker, task (Slurm) | cluster, compute node, job |
 
 ## Important Constraints
 
-- Do not change code blocks, command examples, or expected output blocks.
-- Do not change file names, Slurm flags, or other technical identifiers.
-- Do not alter the meaning of sentences — if a safe third-person rewrite is not obvious, flag it for human review rather than guessing.
-- Do not change admonition titles or MkDocs directives.
+- Do not change code blocks, command examples, or expected output blocks (`<div class="result">` blocks).
+- Do not change YAML frontmatter, `--8<--` include directives, or `{%  include-markdown ... %}` directives.
+- Do not change URLs or link targets.
+- Do not change file names, Slurm flags, command-line arguments, or other technical identifiers.
+- Do not alter the meaning of sentences — if a safe rewrite is not obvious, flag it for human review rather than guessing.
+- Do not change admonition titles.
 - Preserve all markdown formatting (bold, links, admonitions, tabs, etc.).
 
 ## Additional Resources

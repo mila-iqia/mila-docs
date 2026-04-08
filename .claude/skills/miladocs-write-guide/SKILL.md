@@ -1,7 +1,9 @@
 ---
 name: miladocs-write-guide
-description: Use for creating, writing, editing, updating, or improving guides
-and how-to pages in the Mila documentation.
+description: >-
+  Use when writing, creating, drafting, or editing any user guide or how-to page
+  in the Mila documentation. Always invoke before writing any doc content — do
+  not write markdown directly.
 version: 1.0.0
 argument-hint: <topic>
 ---
