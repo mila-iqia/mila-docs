@@ -200,6 +200,13 @@ The output will confirm the submission of the job (e.g. `Submitted batch job
     Install uv, manage project dependencies, run reproducible Slurm jobs, and run
     standalone scripts.
 
+-   [:material-run-fast:{ .lg .middle } __Track Experiments with WandB__](../userguides/wandb.md)
+    { .card }
+
+    ---
+    Set up WandB and follow best practices for logging experiments, organizing
+    runs, and diagnosing bottlenecks on the cluster.
+
 &nbsp;
 
 </div>

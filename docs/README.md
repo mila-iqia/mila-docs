@@ -107,6 +107,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
     - [Train Your First Model](getting_started/train_first_model.md)
 - [How-tos and Guides](userguides/index.md)
     - [Manage Python Dependencies with uv](userguides/python_uv.md)
+    - [Track Experiments with Weights & Biases (WandB)](userguides/wandb.md)
     - [Multi-Factor Authentication (MFA) for Cluster Access](Userguide_login_mfa.md)
     - [Logging in to the cluster](userguides/login.md)
     - [Running your code](userguides/running_code.md)
