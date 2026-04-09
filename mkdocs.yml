@@ -125,6 +125,7 @@ extra_css:
   - stylesheets/extra.css
 
 hooks:
+  - docs/hooks/external_links.py
   - docs/hooks/skill_tags.py
   - docs/hooks/sitemap_exclude.py
 

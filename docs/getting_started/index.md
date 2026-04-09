@@ -4,9 +4,9 @@ description: >-
   Obtain a Mila account, set up MFA, install uv and milatools,
   and connect to the cluster for the first time.
 skills:
-  - skill-mila-account-setup
-  - skill-mila-connect-cluster
-  - skill-mila-local-setup
+  - __skill-mila-account-setup
+  - __skill-mila-connect-cluster
+  - __skill-mila-local-setup
 ---
 
 # Get Started with the Cluster
@@ -20,7 +20,7 @@ setting up the tools needed to run jobs. Follow the steps in order.
 
     1. Ask your supervisor how to get invited into the Mila organization and
        obtain your `@mila.quebec` account.
-    2. After the supervisor submits the application, a confirmation email will
+    2. After your supervisor submits the application, a confirmation email will
        arrive from IT support with instructions to access the account and
        connect to the cluster.
     
@@ -96,10 +96,12 @@ setting up the tools needed to run jobs. Follow the steps in order.
 * Verify the SSH connection to the cluster.
 * Install `uv` on the cluster.
 
+---
+
 ## Set up Multi-Factor Authentication (MFA) { #set-up-mfa }
 
 Cluster access requires **two factors**: an SSH key (first factor) and a second
-factor (TOTP, push notification, or email token). The MFA setup must be
+factor (TOTP, push notification, or email token). The MFA setup **must** be
 completed before connecting via SSH.
 
 ### Get your registration token
@@ -110,9 +112,15 @@ token** that expires after use.
 
 ### First-time MFA setup
 
+!!! warning "Set up TOTP before leaving"
+    After the first visit, the MFA web portal will **only** accepts a TOTP code.
+    Leaving without setting up TOTP locks out the account, and a new
+    registration token will be needed from [IT
+    support](https://it-support.mila.quebec).
+
 1. Go to **https://mfa.mila.quebec**.
 
-    ![Login-interface](screenshots/mfa-login.png)
+    ![Login-interface](../_static/screenshots/mfa-login.png)
 
 2. **Username:** your cluster username (**not** your `@mila.quebec` email
    address).
@@ -123,7 +131,7 @@ token** that expires after use.
 4. After logging in, **immediately** add at least one **TOTP** token to your
    account:
 
-    ![Token-selector](screenshots/mfa-enroll-token-totp.png)
+    ![Token-selector](../_static/screenshots/mfa-enroll-token-totp.png)
 
     1. Install a TOTP authenticator app:
 
@@ -143,21 +151,15 @@ token** that expires after use.
     2. In the authenticator app, scan the QR code shown on the MFA page to add
        the token:
 
-        ![Token-selector](screenshots/mfa-enroll-token-totp-2.png)
+        ![Token-selector](../_static/screenshots/mfa-enroll-token-totp-2.png)
 
-!!! warning "Set up TOTP before leaving"
-    After the first visit, the MFA web portal **only** accepts a TOTP code.
-    Leaving without setting up TOTP locks out the account, and a new
-    registration token will be needed from [IT
-    support](https://it-support.mila.quebec).
-
-## Install `uv` on your local machine
+## Install `uv` on a local machine
 
 `uv` is a fast Python package manager and workflow tool, that serves as a
 drop-in replacement for `pip` and `virtualenv`, for quickly installing project
 dependencies, managing packages, and creating isolated Python environments.
 
-On your **local machine**, run:
+On a **personal computer**, run:
 
 ```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
@@ -187,7 +189,11 @@ everything's installed!
 
 ### Install `milatools`
 
-Install `milatools` locally (after [installing `uv`](#install-uv-on-your-local-machine)):
+`milatools` is a command-line tool that simplifies connecting to the Mila
+cluster. It configures SSH automatically and provides `mila code` to open VSCode
+directly on a compute node.
+
+Install a **personal computer** (after [installing `uv`](#install-uv-on-a-local-machine)):
 
 ```bash
 uv tool install --upgrade milatools
@@ -210,7 +216,8 @@ See the [milatools README](https://github.com/mila-iqia/milatools) for more deta
 
 ### Configure `milatools`
 
-Run `mila init` with your cluster username ready. This sets up the SSH config, public keys, and passwordless auth.
+Run `mila init` with your cluster username ready. This sets up the SSH config,
+public keys, and passwordless auth.
 
 ```bash
 mila init           
@@ -302,11 +309,15 @@ Last login: Fri Feb 27 09:29:48 2026 from 74.58.126.98
 ```
 </div>
 
-!!! failure "Not prompted to enter an OTP?"
+After entering the OTP, the session opens on a **login node** — a shared entry
+point to the cluster. Login nodes are for submitting jobs and managing files,
+not for running computations directly.
+
+??? question "Not prompted to enter an OTP?"
 
     Review the steps to [install and configure `milatools`](#install-milatools).
 
-!!! failure "The Login node banner does not appear after entering the OTP?"
+??? question "The Login node banner does not appear after entering the OTP?"
 
     Review the steps to [set up Multi-Factor Authentication](#set-up-mfa).
 
@@ -335,7 +346,7 @@ everything's installed!
 
 `uv`
 :   Fast Python package manager and virtual environment tool. Used on both
-    the local machine and the cluster.
+    a local machine and the cluster.
 
 `milatools`
 :   CLI tool (`mila`) for setting up SSH config and opening VSCode on
@@ -349,8 +360,8 @@ everything's installed!
 
 ## Next steps
 
-Once the access to the cluster is established, head to the following sections to
-run a first job and train a first model:
+With cluster access established, proceed to the following guides to run a first
+job and train a first model:
 
 <div class="grid cards" markdown>
 
@@ -358,7 +369,6 @@ run a first job and train a first model:
     { .card }
 
     ---
-
     Run your first job on the cluster with PyTorch using VSCode on a GPU compute
     node.
 
@@ -366,7 +376,6 @@ run a first job and train a first model:
     { .card }
 
     ---
-
     Train a ResNet18 on CIFAR-10 on a single GPU using `sbatch`.
 
 </div>
