@@ -1,6 +1,6 @@
-# How to ask for help
+# How to get help
 
-We try to provide you different levels of help at Mila, for you to not stay stuck in your research.
+Need a hand getting your experiments running on the cluster? You'll find everything you need on this website. We also provide different levels of support to ensure you never stay stuck in your research. Our staff is dedicated to helping you overcome any technical hurdle, whether it's via email, on Slack, or in person.
 
 
 ``` mermaid
@@ -88,3 +88,30 @@ We try to provide you different levels of help at Mila, for you to not stay stuc
 
 
 </div>
+## 1. Try these resources first
+
+Before reaching out, there's a 90% chance you'll find an appropriate and immediate solution by consulting the resources built specifically for the Mila community:
+
+* **The Documentation & FAQ:** Most common issues regarding the cluster and environment setup are covered right here.
+* **On-site Chatbot:** Our embedded specialized chatbot allows you to get quick answers or easily navigate our technical docs.
+* **AI Assistants:** Feel free to leverage Mila-specific context and feed your own AI agent for helping your research. Whether you are using it for experimenting or troubleshooting, it will always be ready, directly in your environment.
+
+## 2. Contact the right team
+
+If you've checked the docs and still need assistance, we've got your back! To get the fastest resolution, please direct your request to the team that matches your needs:
+
+| Team | Scope of Support | Contact Method |
+|------|-----------------|----------------|
+| MyMila | Community Integration. General administrative onboarding and community-related inquiries. | MyMila Portal |
+| IT Support | Technical Onboarding & Access. Account creation, VPN, hardware, and access management. | Email or Slack |
+| IDT | Scientific Computing. Experts for running jobs, software optimization, and cluster hurdles. | Slack or IDT Office Hours (Lab A) |
+
+## 3. Reach out
+
+Whatever the issue, we are here to help you get your experiments back on track. You can reach us through the following channels:
+
+* **Email:** For technical and access issues, you can email the IT Support team directly.
+* **Slack:** This is the fastest way to chat with us. Join the dedicated help channels to interact directly with the IT or IDT experts.
+* **Office Hours:** Pay us a visit at Lab A for any questions/issues you may have when running your jobs on the clusters.
+
+Let's get your research moving!
