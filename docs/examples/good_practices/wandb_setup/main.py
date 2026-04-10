@@ -5,7 +5,6 @@ import logging
 import os
 import random
 import sys
-import time
 from pathlib import Path
 
 import numpy as np
@@ -91,7 +90,8 @@ def main():
         resume="allow",  # See https://docs.wandb.ai/guides/runs/resuming
         tags=["example", "resnet18"],
         # Track hyperparameters and run metadata
-        config=vars(args),
+        config=vars(args)
+        | {f"env/{k}": v for k, v in os.environ.items() if k.startswith("SLURM")},
     )
     # --8<-- [end:wandb-init]
 
@@ -143,16 +143,7 @@ def main():
         )
 
         # Training loop
-        # t_step_end marks the boundary between the end of the previous compute
-        # step and the start of the next data load. On the first iteration this
-        # captures any overhead before the loop begins.
-        t_step_end = time.perf_counter()
         for batch in train_dataloader:
-            # The dataloader has already fetched the batch by the time we reach
-            # here, so the elapsed time since t_step_end is the data-load wait.
-            t_data_load_end = time.perf_counter()
-            data_load_s = t_data_load_end - t_step_end
-
             # Move the batch to the GPU before we pass it to the model
             batch = tuple(item.to(device) for item in batch)
             x, y = batch
@@ -166,9 +157,6 @@ def main():
             loss.backward()
             optimizer.step()
 
-            t_step_end = time.perf_counter()
-            compute_s = t_step_end - t_data_load_end
-
             # Calculate some metrics:
             n_correct_predictions = logits.detach().argmax(-1).eq(y).sum()
             n_samples = y.shape[0]
@@ -178,16 +166,14 @@ def main():
             logger.debug(f"Average Loss: {loss.item()}")
 
             # Log metrics with wandb
-            # --8<-- [start:wandb-log-train-perf]
+            # --8<-- [start:wandb-log-train]
             wandb.log(
                 {
                     "train/accuracy": accuracy,
                     "train/loss": loss,
-                    "perf/data_load_s": data_load_s,
-                    "perf/compute_s": compute_s,
                 }
             )
-            # --8<-- [end:wandb-log-train-perf]
+            # --8<-- [end:wandb-log-train]
 
             # Advance the progress bar one step and update the progress bar text.
             progress_bar.update(1)

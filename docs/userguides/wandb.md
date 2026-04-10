@@ -150,20 +150,24 @@ import wandb
 wandb.init(
     project="wandb-example",                # (1)!
     name=os.environ.get("SLURM_JOB_ID"),    # (2)!
-    id=os.environ.get("SLURM_JOB_ID"),
-    resume="allow",                         # (3)!
-    config=vars(args) | {f"env/{k}": v for k, v in os.environ.items() if k.startswith("SLURM"},    # (4)!
+    id=os.environ.get("SLURM_JOB_ID"),      # (3)!
+    resume="allow",                         # (4)!
+    config=vars(args)
+    | {f"env/{k}": v for k, v in os.environ.items() if k.startswith("SLURM")},  # (5)!
 )
 ```
 { .annotate }
 
 1. Groups runs in the WandB UI. Use one project per research question.
-2. Links the run to its log file (`slurm-<JOBID>.out`) for easy
-   cross-referencing.
-3. Creates a new run if the ID does not exist, or resumes it if it does. Useful
+2. Human-readable display name shown in the WandB Runs table.
+3. Sets the unique run ID. `resume="allow"` uses this to find and resume the run
+   if it was preempted. Setting it to the Slurm job ID also links the run to its
+   log file (`slurm-<JOBID>.out`).
+4. Creates a new run if the ID does not exist, or resumes it if it does. Useful
    when combined with checkpointing to recover from preemption.
-4. Pass the full `argparse` namespace and SLURM environment variables for easier debugging.
-    Every key becomes a searchable, filterable column in the WandB Runs table under **Config**.
+5. Pass the full `argparse` namespace and SLURM environment variables for easier
+   debugging. Every key becomes a searchable, filterable column in the WandB
+   Runs table under **Config**.
 
 ### Log metrics
 
@@ -212,15 +216,17 @@ wandb.init(
     project="wandb-example",
     name=os.environ.get("SLURM_JOB_ID"),
     id=os.environ.get("SLURM_JOB_ID"),
-    group=os.environ.get("SLURM_ARRAY_JOB_ID"),   # (1)!
+    group=os.environ.get("SLURM_ARRAY_JOB_ID"),     # (1)!
     resume="allow",
-    tags=["example", "resnet18"],                       # (2)!
-    config=vars(args),
+    tags=["example", "resnet18"],                   # (2)!
+    config=vars(args)
+    | {f"env/{k}": v for k, v in os.environ.items() if k.startswith("SLURM")},
 )
 ```
 { .annotate }
 
-1. Using `SLURM_ARRAY_JOB_ID` automatically as the group clusters all jobs into a single expandable row.
+1. Using `SLURM_ARRAY_JOB_ID` automatically as the group clusters all jobs into
+   a single expandable row.
 2. Labels runs for filtering in the Runs table.
 
 ## Diagnose training bottlenecks
@@ -242,42 +248,6 @@ Two patterns indicate different root causes:
 - **Low or oscillating utilization** — the GPU idles while waiting for the next
   batch. The data pipeline cannot deliver batches fast enough; the job is
   I/O-bound.
-
-### Add step timing metrics
-
-GPU utilization alone confirms that a bottleneck exists but does not show where
-time is lost. Log data-loading time and compute time separately to quantify each
-phase:
-
-```python
-import time
-
-# Before the batch loop:
-t_step_end = time.perf_counter()
-
-for batch in train_dataloader:
-    # The dataloader has already fetched the batch by the time the loop body
-    # starts, so the elapsed time since t_step_end is the data-load wait.
-    t_data_load_end = time.perf_counter()
-    data_load_s = t_data_load_end - t_step_end
-
-    # forward pass, loss computation, backward pass, optimizer step
-
-    t_step_end = time.perf_counter()
-    compute_s = t_step_end - t_data_load_end
-
-    wandb.log(
-        {
-            "train/loss": loss,
-            "train/accuracy": accuracy,
-            "perf/data_load_s": data_load_s,
-            "perf/compute_s": compute_s,
-        }
-    )
-```
-
-When `perf/data_load_s` is consistently larger than `perf/compute_s`, the job is
-I/O-bound.
 
 !!! tip
     Common fixes for an I/O bottleneck: increase `num_workers` in the
@@ -312,12 +282,14 @@ integration:
 
 `wandb.init()`
 :   Starts a WandB run. The most commonly used arguments are `project`, `name`,
-    `group`, `config` and `resume`.
+    `id`, `group`, `config` and `resume`.
 
 `config=` (in `wandb.init()`)
 :   Stores a dictionary of hyperparameters alongside the run. Each key becomes a
     searchable, filterable column in the WandB Runs table. Pass
-    `config=vars(args)` to capture the full `argparse` namespace automatically.
+    `config=vars(args) | {f"env/{k}": v for k, v in os.environ.items() if
+    k.startswith("SLURM")}` to capture the full `argparse` namespace and Slurm
+    environment variables for easier debugging.
 
 `group=` (in `wandb.init()`)
 :   Groups related runs under a single expandable row in the WandB Runs table.
