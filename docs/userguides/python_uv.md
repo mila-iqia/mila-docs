@@ -28,14 +28,13 @@ reproducibly, and submitting Slurm batch jobs.
 
 ## What this guide covers
 
-* Install `uv` on a local machine, on the Mila cluster, and on DRAC clusters
+* Install `uv` on a local machine and on the Mila cluster
 * Create a project and declare dependencies in `pyproject.toml`
 * Add, update, and remove packages
 * Understand how `uv` resolves dependencies safely
 * Reproduce the environment on a new node using `uv.lock`
 * Run standalone scripts with inline dependencies
 * Submit a Slurm job that runs your script with `uv run python`
-* Use `uv` on DRAC clusters
 
 ---
 
@@ -93,39 +92,6 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 !!! note "If `uv` is not found"
     If `uv --version` returns `command not found`, exit the SSH session and
     reconnect to apply the updated `PATH`.
-
-### On a DRAC cluster
-
-Connect to a DRAC login node, then run the same install command:
-
-```bash
-curl -LsSf https://astral.sh/uv/install.sh | sh
-```
-
-!!! warning "`uv` is not officially supported on DRAC"
-    DRAC does not provide support for `uv`. If you encounter issues using `uv`
-    on a DRAC cluster, contact the Mila IDT team on [Slack or during Office
-    Hours](../help/index.md).
-
-#### Configure `uv` on DRAC
-
-DRAC provides Python through environment modules rather than letting tools
-download their own interpreter. Tell `uv` to prefer the system Python by adding
-the following to `~/.config/uv/uv.toml` on your DRAC account:
-
-```toml title="~/.config/uv/uv.toml"
-python-preference = "system"
-```
-
-This file is read by `uv` whenever it runs on that cluster. Because it lives on
-DRAC's filesystem, it has no effect on your local machine or on the Mila
-cluster.
-
-!!! warning "Load a Python module before running `uv`"
-    With `python-preference = "system"`, `uv` looks for Python in your `PATH`.
-    If no Python module is loaded, `uv` may fail to find the right interpreter.
-    Always run `module load python/3.x` (or the version your project requires)
-    before calling `uv run` or `uv sync` on a DRAC node.
 
 ## Create a project
 
@@ -379,19 +345,6 @@ Submitted batch job 8888888
 the job always uses the pinned dependencies regardless of which compute node
 runs it.
 
-!!! warning "DRAC clusters"
-    `uv run` works the same way on DRAC with two requirements:
-
-    - Set `python-preference = "system"` in `~/.config/uv/uv.toml`
-      (see [Configure `uv` on DRAC](#configure-uv-on-drac)).
-    - Load a Python module in `job.sh` before calling `uv run`:
-
-    ```bash title="job.sh" linenums="10"
-    module load python/3.12
-
-    srun uv run python train.py
-    ```
-
 ---
 
 ## Key concepts
@@ -420,12 +373,6 @@ runs it.
 :   A named set of dependencies in `pyproject.toml`. The default development group
     (`--dev`) holds tools like `pytest` that are only needed during local
     development, not when running your research code on the cluster.
-
-`python-preference = "system"` (`~/.config/uv/uv.toml`)
-:   Tells `uv` to prefer a Python interpreter already present on the system (e.g.,
-    loaded via `module load`) rather than downloading its own. Set this once in
-    your DRAC user-level config so every project on that cluster uses the system
-    Python automatically.
 
 **PEP 723 script metadata**
 :   A `# /// script` block at the top of a `.py` file that declares the script's
