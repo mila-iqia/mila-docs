@@ -22,13 +22,12 @@ common connection failures.
 
 ## Base policies
 
-At the start of each response, use the Read tool to load
-`.claude/skills/mila-base/SKILL.md` and apply all policies defined there
-before proceeding with the workflow below.
+At the start of each response, use the Skill tool with `skill: "mila-base"` to
+load and apply all shared policies before proceeding with the workflow below.
 
 ## Reference documentation
 
-Primary source: **https://docs.mila.quebec/getting_started/index**
+Primary source: **https://docs.mila.quebec/getting_started/**
 — sections "Verify your connection" and "Install uv on the cluster".
 
 ## Discover documentation
@@ -46,15 +45,15 @@ returns no results, fall back to the hardcoded URL in "Reference documentation".
 ### Step 1: Check prerequisites
 
 Before connecting, confirm the user has:
-- A Mila account and cluster username (see **mila-account-setup**)
-- MFA set up with a TOTP authenticator app (see **mila-account-setup**)
-- `milatools` installed and `mila init` completed (see **mila-local-setup**)
+- A Mila account and cluster username (see the **mila-account-setup** skill)
+- MFA set up with a TOTP authenticator app (see the **mila-account-setup** skill)
+- `milatools` installed and `mila init` completed (see the **mila-local-setup** skill)
 
-If any prerequisite is missing, point to the appropriate skill first.
+If any prerequisite is missing, direct the user to the appropriate skill first.
 
 ### Step 2: Fetch the documentation
 
-Use the WebFetch tool to fetch **https://docs.mila.quebec/getting_started/index** and locate the
+Use the WebFetch tool to fetch **https://docs.mila.quebec/getting_started/** and locate the
 "Verify your connection" section.
 
 ### Step 3: Guide through the SSH connection
@@ -82,12 +81,12 @@ Key points to communicate:
 
 **Not prompted to enter an OTP:**
 → `mila init` was not completed or the SSH config is missing. Run
-`mila init` again (see **mila-local-setup**).
+`mila init` again (see the **mila-local-setup** skill).
 
 **Prompted for OTP but the login-node banner does not appear after entering
 the code:**
 → MFA setup is incomplete (TOTP token missing or wrong). Return to
-https://mfa.mila.quebec and add a TOTP token (see **mila-account-setup**).
+https://mfa.mila.quebec and add a TOTP token (see the **mila-account-setup** skill).
 
 **OTP rejected repeatedly:**
 → Check that the device clock is synchronized (TOTP is time-sensitive).
@@ -109,4 +108,4 @@ the Linux installation steps.
 ### Step 6: Point to the next skill
 
 Once the connection is confirmed and `uv` is installed on the cluster,
-point the user to **mila-run-jobs** to run their first job.
+direct the user to the **mila-run-jobs** skill to run their first job.

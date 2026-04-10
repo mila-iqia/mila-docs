@@ -22,9 +22,8 @@ node), or batch jobs submitted with `sbatch`.
 
 ## Base policies
 
-At the start of each response, use the Read tool to load
-`.claude/skills/mila-base/SKILL.md` and apply all policies defined there
-before proceeding with the workflow below.
+At the start of each response, use the Skill tool with `skill: "mila-base"` to
+load and apply all shared policies before proceeding with the workflow below.
 
 ## Reference documentation
 
@@ -90,8 +89,8 @@ node, or submit a batch job that runs on its own?"
    `mila code` is running to end the session and release the allocation.
 
 Key points:
-- `mila code` requires `milatools` and a working SSH connection (see
-  **mila-connect-cluster**).
+- `mila code` requires `milatools` and a working SSH connection (see the
+  **mila-connect-cluster** skill).
 - VSCode must be installed locally; Cursor is also supported.
 - Adjust `--gres=gpu:1`, `--mem`, and `--time` for the actual workload.
 
@@ -108,10 +107,18 @@ Key points:
 3. In VSCode, create three files: `job.sh`, `pyproject.toml`, and `main.py`.
 
    **`job.sh`** does three things:
-   - `#SBATCH` directives — request resources (GPU, CPUs, memory, time).
+   - `#SBATCH` directives — request resources (GPU, CPUs, memory, time). Typical
+     values:
+     `--ntasks=1`, `--cpus-per-task=4`, `--gpus-per-task=<type>:1`.
+     Use `--mem-per-gpu` (not `--mem`) when requesting GPUs.
    - Data staging — copy the dataset from `/network/datasets/` into
-     `$SLURM_TMPDIR/data`. Compute nodes read from `$SLURM_TMPDIR` much
-     faster than from network storage.
+     `$SLURM_TMPDIR/data/` before training. Example:
+     ```bash
+     mkdir -p $SLURM_TMPDIR/data
+     cp /network/datasets/cifar10/cifar-10-python.tar.gz $SLURM_TMPDIR/data/
+     ```
+     Compute nodes read from `$SLURM_TMPDIR` much faster than from
+     network storage.
    - Run the training script — `srun uv run python main.py`.
 
 4. Submit the job from the VSCode terminal:
@@ -121,6 +128,9 @@ Key points:
 5. Monitor the job:
    - **Queue status:** `squeue --me`
    - **Output:** once running, watch `slurm-<JOBID>.out` for logs.
+   - **`ReqNodeNotAvail` status:** means no matching node is available
+     right now; the job waits in the queue automatically. If waiting
+     too long, resubmit requesting a different GPU type.
 
 Key points:
 - `$SLURM_TMPDIR` is fast local storage on the compute node, available

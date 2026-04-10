@@ -21,13 +21,12 @@ on their local machine before connecting to the cluster: WSL (Windows only),
 
 ## Base policies
 
-At the start of each response, use the Read tool to load
-`.claude/skills/mila-base/SKILL.md` and apply all policies defined there
-before proceeding with the workflow below.
+At the start of each response, use the Skill tool with `skill: "mila-base"` to
+load and apply all shared policies before proceeding with the workflow below.
 
 ## Reference documentation
 
-Primary source: **https://docs.mila.quebec/getting_started/index**
+Primary source: **https://docs.mila.quebec/getting_started/**
 — sections "I'm using Windows, how do I install WSL?", "Install uv on your
 local machine", "Install milatools", and "Configure milatools".
 
@@ -54,7 +53,7 @@ If not mentioned, ask: "Are you on Windows, macOS, or Linux?"
 
 ### Step 2: Fetch the documentation
 
-Use the WebFetch tool to fetch **https://docs.mila.quebec/getting_started/index** and locate the
+Use the WebFetch tool to fetch **https://docs.mila.quebec/getting_started/** and locate the
 sections relevant to the user's OS and question.
 
 ### Step 3: Guide through the setup steps in order
@@ -89,8 +88,8 @@ uv tool install --upgrade milatools
 **Configure `milatools` with `mila init`:**
 - Have the cluster username ready (received from IT after passing the
   onboarding quiz).
-- MFA must already be set up before running `mila init` (see
-  **mila-account-setup**).
+- MFA must already be set up before running `mila init` (see the
+  **mila-account-setup** skill).
 - Run `mila init` and follow the prompts: it sets up the SSH config,
   generates SSH keys, and copies the public key to the cluster's
   `~/.ssh/authorized_keys`.
@@ -111,9 +110,9 @@ Common questions:
 - "How do I update `milatools`?" — `uv tool install --upgrade milatools`
   (same install command).
 - "Can I use Cursor instead of VSCode?" — Yes, `mila code` supports
-  Cursor and other compatible editors. See **mila-run-jobs** for details.
+  Cursor and other compatible editors. See the **mila-run-jobs** skill for details.
 
 ### Step 5: Point to the next skill
 
-Once tools are installed and `mila init` has completed successfully, point
-the user to **mila-connect-cluster** to verify the SSH connection.
+Once tools are installed and `mila init` has completed successfully, direct
+the user to the **mila-connect-cluster** skill to verify the SSH connection.

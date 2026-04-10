@@ -21,13 +21,12 @@ prerequisites before connecting via SSH for the first time.
 
 ## Base policies
 
-At the start of each response, use the Read tool to load
-`.claude/skills/mila-base/SKILL.md` and apply all policies defined there
-before proceeding with the workflow below.
+At the start of each response, use the Skill tool with `skill: "mila-base"` to
+load and apply all shared policies before proceeding with the workflow below.
 
 ## Reference documentation
 
-Primary source: **https://docs.mila.quebec/getting_started/index**
+Primary source: **https://docs.mila.quebec/getting_started/**
 — sections "Before you begin" and "Set up Multi-Factor Authentication (MFA)".
 
 For detailed MFA management (adding/removing tokens, recovery):
@@ -58,7 +57,7 @@ content.
 
 ### Step 2: Fetch the documentation
 
-Use the WebFetch tool to fetch **https://docs.mila.quebec/getting_started/index** and locate the
+Use the WebFetch tool to fetch **https://docs.mila.quebec/getting_started/** and locate the
 relevant section:
 
 - Account → "Obtain your Mila account" (under "Before you begin")
@@ -90,18 +89,23 @@ Walk through the steps for the identified sub-topic. Key points to cover:
   registrationcode".
 - Go to https://mfa.mila.quebec, enter the cluster username and the
   registration token as the password.
-- Immediately add at least one TOTP token: install an authenticator app
-  (privacyIDEA Authenticator, Authy, Google Authenticator, or Microsoft
-  Authenticator) and scan the QR code.
-- Warn the user: leaving without adding TOTP will lock the account out;
-  a new registration token would then be needed from IT support.
+- Immediately add at least one TOTP token: install a TOTP-compatible
+  authenticator app (privacyIDEA Authenticator, Authy, Google Authenticator, or
+  any RFC 6238-compliant app) and scan the QR code.
+- The MFA reference recommends enrolling **at least two factors** for
+  redundancy (e.g., two TOTP apps on different devices).
+- Warn the user: the portal only accepts the registration token on the
+  first login. Leaving without adding a TOTP token means you cannot
+  log in to the portal again; contact IT support at
+  https://it-support.mila.quebec to get a new registration token.
 
 ### Step 4: Answer follow-up questions
 
 Respond to follow-up questions about the same area. Common ones:
 
-- "Which authenticator app should I use?" — any TOTP app works; privacyIDEA
-  Authenticator and Authy are good choices.
+- "Which authenticator app should I use?" — any RFC 6238-compliant TOTP app
+  works; privacyIDEA Authenticator, Authy, and Google Authenticator are all good
+  choices. Enroll at least two for redundancy.
 - "I didn't set up TOTP before leaving the portal" — contact IT support at
   https://it-support.mila.quebec to get a new registration token.
 - "How do I add more MFA methods?" — refer to
@@ -109,5 +113,5 @@ Respond to follow-up questions about the same area. Common ones:
 
 ### Step 5: Point to the next skill
 
-Once account, access, and MFA are in place, point the user to **mila-local-setup**
-for installing the tools needed to connect.
+Once account, access, and MFA are in place, direct the user to the
+**mila-local-setup** skill to install the tools needed to connect.
