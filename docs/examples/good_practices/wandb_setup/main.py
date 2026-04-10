@@ -86,7 +86,8 @@ def main():
         # Set the project where this run will be logged
         project="wandb-example",
         name=os.environ.get("SLURM_JOB_ID"),
-        group=os.environ.get("SLURM_ARRAY_JOB_ID", None),
+        id=os.environ.get("SLURM_JOB_ID"),
+        group=os.environ.get("SLURM_ARRAY_JOB_ID"),
         resume="allow",  # See https://docs.wandb.ai/guides/runs/resuming
         tags=["example", "resnet18"],
         # Track hyperparameters and run metadata

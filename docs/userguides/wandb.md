@@ -118,7 +118,7 @@ mode and sync after the job completes:
 
 ```bash
 export WANDB_MODE=offline
-srun uv run python main.py
+srun uv run --offline python main.py
 ```
 
 After the job finishes, sync the run from the login node:
@@ -150,8 +150,9 @@ import wandb
 wandb.init(
     project="wandb-example",                # (1)!
     name=os.environ.get("SLURM_JOB_ID"),    # (2)!
+    id=os.environ.get("SLURM_JOB_ID"),
     resume="allow",                         # (3)!
-    config=vars(args),                      # (4)!
+    config=vars(args) | {f"env/{k}": v for k, v in os.environ.items() if k.startswith("SLURM"},    # (4)!
 )
 ```
 { .annotate }
@@ -161,8 +162,8 @@ wandb.init(
    cross-referencing.
 3. Creates a new run if the ID does not exist, or resumes it if it does. Useful
    when combined with checkpointing to recover from preemption.
-4. Pass the full `argparse` namespace — every key becomes a searchable,
-   filterable column in the WandB Runs table under **Config**.
+4. Pass the full `argparse` namespace and SLURM environment variables for easier debugging.
+    Every key becomes a searchable, filterable column in the WandB Runs table under **Config**.
 
 ### Log metrics
 
@@ -210,7 +211,8 @@ single expandable row.
 wandb.init(
     project="wandb-example",
     name=os.environ.get("SLURM_JOB_ID"),
-    group=os.environ.get("SLURM_ARRAY_JOB_ID", None),   # (1)!
+    id=os.environ.get("SLURM_JOB_ID"),
+    group=os.environ.get("SLURM_ARRAY_JOB_ID"),   # (1)!
     resume="allow",
     tags=["example", "resnet18"],                       # (2)!
     config=vars(args),
@@ -218,14 +220,13 @@ wandb.init(
 ```
 { .annotate }
 
-1. Clusters multi-seed under a single expandable row. Passing
-   `SLURM_ARRAY_JOB_ID` groups every task in a job array together automatically.
+1. Using `SLURM_ARRAY_JOB_ID` automatically as the group clusters all jobs into a single expandable row.
 2. Labels runs for filtering in the Runs table.
 
 ## Diagnose training bottlenecks
 
 WandB records GPU utilization, CPU usage, and memory under the **System** tab of
-every run automatically — no extra code required. These metrics are the first
+every run automatically, no extra code is required. These metrics are the first
 place to check when a training job is slower than expected.
 
 ### Read system metrics
