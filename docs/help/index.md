@@ -103,7 +103,7 @@ If you've checked the docs and still need assistance, we've got your back! To ge
 | Team | Scope of Support | Contact Method |
 |------|-----------------|----------------|
 | MyMila | Community Integration. General administrative onboarding and community-related inquiries. | MyMila Portal |
-| IT Support | Technical Onboarding & Access. Account creation, VPN, hardware, and access management. | Email or Slack |
+| IT Support | Technical Onboarding & Access. Account creation, **SSH issues**, VPN, hardware, and access management. | Email or Slack |
 | IDT | Scientific Computing. Experts for running jobs, software optimization, and cluster hurdles. | Slack or IDT Office Hours (Lab A) |
 
 ## 3. Reach out
