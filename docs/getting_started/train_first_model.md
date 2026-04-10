@@ -1,8 +1,8 @@
 ---
 title: Train Your First Model
 description: >-
-  Train a ResNet18 on CIFAR-10 on a single GPU using sbatch, including
-  data staging to $SLURM_TMPDIR.
+  Train your first ResNet18 model on CIFAR-10 on a single GPU using `sbatch`.
+  #__skill-mila-run-jobs
 skills:
   - __skill-mila-run-jobs
 ---
@@ -21,15 +21,16 @@ fast local storage, and runs a Slurm batch job.
     { .card }
 
     ---
-    Get your Mila account, enable cluster access and MFA, then install `uv` and
-    `milatools` to connect via SSH.
+    Obtain a Mila account, enable cluster access and MFA, install `uv` and
+    `milatools`, configure SSH access and connect to the cluster for the first
+    time.
 
 -   [:material-run-fast:{ .lg .middle } __Run Your First Job__](my_first_job.md)
     { .card }
 
     ---
-    Run your first job on the cluster with PyTorch using VSCode on a GPU compute
-    node.
+    Run your first job on the cluster with PyTorch using `mila code` and VSCode
+    on a GPU compute node.
 
 </div>
 
@@ -187,3 +188,18 @@ The output will confirm the submission of the job (e.g. `Submitted batch job
 `srun`
 :   Runs a command inside the allocated resources. In the job script,
     `srun uv run python main.py` runs training on the GPU node.
+
+## Next step
+
+<div class="grid cards" markdown>
+
+-   [:material-run-fast:{ .lg .middle } __Manage Python Dependencies with `uv`__](../userguides/python_uv.md)
+    { .card }
+
+    ---
+    Install uv, manage project dependencies, run reproducible Slurm jobs, and run
+    standalone scripts.
+
+&nbsp;
+
+</div>

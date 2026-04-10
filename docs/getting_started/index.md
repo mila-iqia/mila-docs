@@ -1,8 +1,12 @@
 ---
 title: Get Started with the Cluster
 description: >-
-  Obtain a Mila account, set up MFA, install uv and milatools,
-  and connect to the cluster for the first time.
+  Obtain a Mila account, enable cluster access and MFA, install `uv` and
+  `milatools`, configure SSH access and connect to the cluster for the first
+  time.
+  #__skill-mila-account-setup
+  #__skill-mila-connect-cluster
+  #__skill-mila-local-setup
 skills:
   - __skill-mila-account-setup
   - __skill-mila-connect-cluster
@@ -369,13 +373,13 @@ job and train a first model:
     { .card }
 
     ---
-    Run your first job on the cluster with PyTorch using VSCode on a GPU compute
-    node.
+    Run your first job on the cluster with PyTorch using `mila code` and VSCode
+    on a GPU compute node.
 
 -   [:material-run-fast:{ .lg .middle } __Train Your First Model__](train_first_model.md)
     { .card }
 
     ---
-    Train a ResNet18 on CIFAR-10 on a single GPU using `sbatch`.
+    Train your first ResNet18 model on CIFAR-10 on a single GPU using `sbatch`.
 
 </div>

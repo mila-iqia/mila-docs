@@ -1,7 +1,8 @@
 ---
 title: Manage Python Dependencies with uv
 description: >-
-  Set up uv, declare dependencies, and run reproducible Slurm jobs.
+  Install uv, manage project dependencies, run reproducible Slurm jobs, install
+  CLI tools, and run standalone scripts.
 ---
 
 # Manage Python Dependencies with `uv`
@@ -19,8 +20,9 @@ reproducibly, and submitting Slurm batch jobs.
     { .card }
 
     ---
-    Obtain a Mila account, set up MFA, install `uv` and `milatools`, and connect to
-    the cluster for the first time.
+    Obtain a Mila account, enable cluster access and MFA, install `uv` and
+    `milatools`, configure SSH access and connect to the cluster for the first
+    time.
 
 &nbsp;
 
@@ -35,6 +37,7 @@ reproducibly, and submitting Slurm batch jobs.
 * Reproduce the environment on a new node using `uv.lock`
 * Run standalone scripts with inline dependencies
 * Submit a Slurm job that runs your script with `uv run python`
+* Install CLI tools system-wide with `uv tool`
 
 ---
 
@@ -259,48 +262,6 @@ Run a Python script with the project environment loaded:
 uv run python train.py
 ```
 
-### Standalone scripts with inline dependencies
-
-For one-off scripts or utilities that do not belong to a project, [PEP
-723](https://peps.python.org/pep-0723/) metadata lets you declare dependencies
-directly inside the script file.
-
-Use `uv add --script` to add dependencies to the script. `uv` will write the `#
-/// script` metadata block automatically:
-
-```bash
-uv add --script experiment.py numpy matplotlib
-```
-
-The resulting script looks like:
-
-```python title="experiment.py"
-# /// script
-# requires-python = ">=3.12"
-# dependencies = [
-#   "matplotlib",
-#   "numpy",
-# ]
-# ///
-
-import numpy as np
-import matplotlib.pyplot as plt
-
-data = np.random.randn(1000)
-plt.hist(data)
-plt.savefig("hist.png")
-```
-
-Run the script with:
-
-```bash
-uv run --script experiment.py
-```
-
-`uv` reads the metadata block, creates a temporary isolated environment with
-those exact dependencies, runs the script, and discards the environment. The
-project's `pyproject.toml` is not modified.
-
 ## Use `uv` in a Slurm job
 
 Declare the training script's dependencies in `pyproject.toml` using `uv add`:
@@ -345,6 +306,133 @@ Submitted batch job 8888888
 the job always uses the pinned dependencies regardless of which compute node
 runs it.
 
+## Install CLI tools with `uv tool`
+
+`uv tool install` installs a package's CLI executables into a persistent,
+isolated environment and adds them to PATH. Use this for command-line tools
+needed across projects — separate from `uv add`, which adds packages imported in
+project code.
+
+### Install a tool
+
+Install `wandb` to access the Weights & Biases CLI:
+
+```bash
+uv tool install wandb
+```
+
+<div class="result" style="border:None; padding:0" markdown>
+``` linenums="0"
+Resolved 20 packages in 371ms
+Prepared 20 packages in 1.87s
+Installed 20 packages in 2.16s
+ + annotated-types==0.7.0
+ + certifi==2026.2.25
+ [...]
+ + urllib3==2.6.3
+ + wandb==0.25.1
+Installed 2 executables: wandb, wb
+```
+</div>
+
+The `wandb` command is now available system-wide.
+
+### List installed tools
+
+```bash
+uv tool list
+```
+
+<div class="result" style="border:None; padding:0" markdown>
+``` linenums="0"
+milatools v0.4.1
+- mila
+wandb v0.19.1
+- wandb
+```
+</div>
+
+### Upgrade tools
+
+Upgrade a single tool:
+
+```bash
+uv tool upgrade wandb
+```
+
+<div class="result" style="border:None; padding:0" markdown>
+``` linenums="0"
+Updated wandb v0.19.1 -> v0.19.2
+Installed 2 executables: wandb, wb
+```
+</div>
+
+Upgrade all installed tools at once:
+
+```bash
+uv tool upgrade --all
+```
+
+<div class="result" style="border:None; padding:0" markdown>
+``` linenums="0"
+Updated wandb v0.19.1 -> v0.19.2
+```
+</div>
+
+### Uninstall a tool
+
+```bash
+uv tool uninstall wandb
+```
+
+<div class="result" style="border:None; padding:0" markdown>
+``` linenums="0"
+Uninstalled 1 executable: wandb
+```
+</div>
+
+## Standalone scripts with inline dependencies
+
+For one-off scripts or utilities that do not belong to a project, [PEP
+723](https://peps.python.org/pep-0723/) metadata lets you declare dependencies
+directly inside the script file.
+
+Use `uv add --script` to add dependencies to the script. `uv` will write the `#
+/// script` metadata block automatically:
+
+```bash
+uv add --script experiment.py numpy matplotlib
+```
+
+The resulting script looks like:
+
+```python title="experiment.py"
+# /// script
+# requires-python = ">=3.12"
+# dependencies = [
+#   "matplotlib",
+#   "numpy",
+# ]
+# ///
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+data = np.random.randn(1000)
+plt.hist(data)
+plt.savefig("hist.png")
+```
+
+Run the script with:
+
+```bash
+uv run --script experiment.py
+```
+
+`uv` reads the metadata block, creates a temporary isolated environment with
+those exact dependencies, runs the script, and discards the environment. The
+project's `pyproject.toml` is not modified.
+
 ---
 
 ## Key concepts
@@ -373,6 +461,17 @@ runs it.
 :   A named set of dependencies in `pyproject.toml`. The default development group
     (`--dev`) holds tools like `pytest` that are only needed during local
     development, not when running your research code on the cluster.
+
+`uv tool install`
+:   Installs a CLI tool into a persistent isolated environment and adds its
+    executables to PATH. Use for command-line tools needed across projects
+    (e.g. `wandb`, `mila`). For packages imported in code, use `uv add`
+    instead.
+
+**tool environment**
+:   A persistent isolated virtual environment created by `uv tool install`,
+    stored separately from any project's `.venv`. Removed with
+    `uv tool uninstall`.
 
 **PEP 723 script metadata**
 :   A `# /// script` block at the top of a `.py` file that declares the script's
