@@ -84,7 +84,7 @@ We try to provide you different levels of help at Mila, for you to not stay stuc
 
     They also take place online at the same dates: the virtual invite is on the Mila-core calendar.
 
-    [:octicons-arrow-right-24: Join us at the Office Hours](help/office_hours/)
+    [:octicons-arrow-right-24: Join us at the Office Hours](../help/office_hours/)
 
 
 </div>

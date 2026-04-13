@@ -165,6 +165,6 @@ If you find any errors in the documentation, missing or unclear sections, or wou
     - [Weights and Biases (WandB)](toolbox/wandb.md)
     - [🔗 Research Project Template](https://mila-iqia.github.io/ResearchTemplate)
 - [Get help](help/index.md)
-    - [How to come to the Office Hours](help/office_hours.md)
+    - [IDT Office Hours](help/office_hours.md)
     - [Frequently asked questions (FAQ)](help/faq.md)
 
