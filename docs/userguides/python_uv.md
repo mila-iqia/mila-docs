@@ -479,3 +479,18 @@ project's `pyproject.toml` is not modified.
     to a project. `uv add --script` writes this block automatically; `uv run
     --script` reads it and creates a temporary isolated environment, leaving
     `pyproject.toml` unchanged.
+
+## Next step
+
+<div class="grid cards" markdown>
+
+-   [:material-run-fast:{ .lg .middle } __Track Experiments with WandB__](../userguides/wandb.md)
+    { .card }
+
+    ---
+    Set up WandB and follow best practices for logging experiments, organizing
+    runs, and diagnosing bottlenecks on the cluster.
+
+&nbsp;
+
+</div>

@@ -207,6 +207,4 @@ The output will confirm the submission of the job (e.g. `Submitted batch job
     Set up WandB and follow best practices for logging experiments, organizing
     runs, and diagnosing bottlenecks on the cluster.
 
-&nbsp;
-
 </div>
