@@ -89,9 +89,13 @@ markdown_extensions:
 extra:
   footer_sections:
     - name: "About us"
-      link: docs/home/teams
-    - name: "Support"
-      link: docs/help
+      link: home/teams
+    - name: "Get help"
+      link: help
+    - name: "Acknowledging Mila"
+      link: home/acknowledgement
+    - name: "Mila intranet"
+      link: https://sites.google.com/mila.quebec/mila-intranet
 
   analytics:
     provider: google
