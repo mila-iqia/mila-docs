@@ -22,7 +22,7 @@ wandb.ai for team-level project visibility and collaboration.
     ---
     Train your first ResNet18 model on CIFAR-10 on a single GPU using `sbatch`.
 
--   [:material-run-fast:{ .lg .middle } __Manage Python Dependencies with `uv`__](../userguides/python_uv.md)
+-   [:material-language-python:{ .lg .middle } __Manage Python Dependencies with `uv`__](../userguides/python_uv.md)
     { .card }
 
     ---

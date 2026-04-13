@@ -16,7 +16,7 @@ reproducibly, and submitting Slurm batch jobs.
 
 <div class="grid cards" markdown>
 
--   [:material-server:{ .lg .middle } __Get Started with the Cluster__](../getting_started/index.md)
+-   [:material-run-fast:{ .lg .middle } __Get Started with the Cluster__](../getting_started/index.md)
     { .card }
 
     ---
@@ -484,7 +484,7 @@ project's `pyproject.toml` is not modified.
 
 <div class="grid cards" markdown>
 
--   [:material-run-fast:{ .lg .middle } __Track Experiments with WandB__](../userguides/wandb.md)
+-   [:material-trending-up:{ .lg .middle } __Track Experiments with WandB__](../userguides/wandb.md)
     { .card }
 
     ---
