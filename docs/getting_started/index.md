@@ -1,94 +1,44 @@
+---
+title: Get Started with the Cluster
+description: >-
+  Obtain a Mila account, set up MFA, install uv and milatools,
+  and connect to the cluster for the first time.
+skills:
+  - __skill-mila-account-setup
+  - __skill-mila-connect-cluster
+  - __skill-mila-local-setup
+---
+
 # Get Started with the Cluster
 
-This guide walks you through obtaining a Mila account, connecting to the cluster, and
-setting up the tools you need to run jobs. Follow the steps in order.
+This guide covers obtaining a Mila account, connecting to the cluster, and
+setting up the tools needed to run jobs. Follow the steps in order.
 
----
+## Before you begin { #obtain-your-mila-account #enable-your-cluster-access }
 
-## Obtain your Mila account (`@mila.quebec`) { #obtain-your-mila-account }
+???+ success "Obtain your Mila account (`@mila.quebec`)"
 
-1. Ask your supervisor how to get invited into the Mila organization and obtain
-   your `@mila.quebec` account.
-2. After your supervisor submits the application, you will receive a
-   confirmation email from IT support with instructions to access your account
-   and connect to the cluster.
+    1. Ask your supervisor how to get invited into the Mila organization and
+       obtain your `@mila.quebec` account.
+    2. After your supervisor submits the application, a confirmation email will
+       arrive from IT support with instructions to access the account and
+       connect to the cluster.
+    
+    !!! tip "Still waiting for your account?"
+        If this takes longer than expected, contact [MyMila
+        support](https://mila-iqia.atlassian.net/servicedesk/customer/portal/8).
 
-!!! tip "Still waiting for your account?"
-    If you feel like this is taking longer than expected, contact [MyMila
-    support](https://mila-iqia.atlassian.net/servicedesk/customer/portal/8).
+???+ success "Enable your cluster access"
 
-## Enable your cluster access { #enable-your-cluster-access }
+    1. Read the [IT Onboarding
+       Guide](https://sites.google.com/mila.quebec/mila-intranet/it-infrastructure/it-onboarding-training)
+       and complete and submit the quiz.
+    2. After passing the quiz, IT will send the connection details by email or
+       on Slack, including the cluster username. Cluster access can take up to
+       48 hours to become effective.
+    3. IT will send an email to activate Multi-Factor Authentication.
 
-1. Read the [IT Onboarding
-   Guide](https://sites.google.com/mila.quebec/mila-intranet/it-infrastructure/it-onboarding-training)
-   and complete and submit the quiz.
-2. Once you'll pass the quiz, you'll get contacted either by email or on Slack
-   with the information to connect to the cluster for the first time. Take note
-   of your cluster's username. It can take up to 48h for your access to the
-   cluster to be effective.
-3. An email will be sent for you to activate your Multi-Factor Authentication.
-
-## Set up Multi-Factor Authentication (MFA)
-
-Cluster access requires **two factors**: your SSH key (first factor) and a
-second factor (TOTP, push notification, or email token). You must complete MFA
-setup before you can connect via SSH.
-
-### Get your registration token
-
-You will receive an automated email with a **one-time registration token**. Use
-it as soon as possible; it expires after use.
-
-### First-time MFA setup
-
-1. Go to **https://mfa.mila.quebec**.
-
-    ![Login-interface](../_static/screenshots/mfa-login.png)
-
-2. **Username:** your cluster username.
-
-3. **Password:** enter the **registration token** from the email (not your
-   account password).
-
-4. After logging in, **immediately** add at least one **TOTP** token to your
-   account:
-
-    ![Token-selector](../_static/screenshots/mfa-enroll-token-totp.png)
-
-    1. If you don't have a TOTP authenticator app yet, install one on your phone
-       first:
-
-        - privacyIDEA Authenticator
-          ([:material-android:](https://play.google.com/store/search?q=privacyidea%20authenticator&c=apps)
-          /
-          [:material-apple:](https://apps.apple.com/iphone/search?term=privacyidea%20authenticator)).
-        - Authy
-          ([:material-android:](https://play.google.com/store/search?q=authy&c=apps)
-          /
-          [:material-apple:](https://apps.apple.com/iphone/search?term=authy)).
-        - Google Authenticator
-          ([:material-android:](https://play.google.com/store/search?q=google%20authenticator&c=apps)
-          /
-          [:material-apple:](https://apps.apple.com/iphone/search?term=google%20authenticator)).
-        - Microsoft Authenticator
-          ([:material-android:](https://play.google.com/store/search?q=microsoft%20authenticator&c=apps)
-          /
-          [:material-apple:](https://apps.apple.com/iphone/search?term=microsoft%20authenticator)).
-
-    2. In your authenticator app, scan the QR code shown on the MFA page to add
-       the token:
-
-        ![Token-selector](../_static/screenshots/mfa-enroll-token-totp-2.png)
-
-!!! warning "Set up TOTP before you leave"
-    After this first visit, the MFA web portal **only** accepts a TOTP code. If
-    you leave without setting up TOTP or Push, you will be locked out and will
-    need a new registration token from [IT
-    support](https://it-support.mila.quebec).
-
----
-
-???+ warning "I'm using :material-microsoft-windows-classic:Windows, how do I install WSL?"
+???+ warning ":material-microsoft-windows-classic: Windows users: install WSL first"
 
     Windows users need [WSL (Windows Subsystem for Linux)](https://learn.microsoft.com/en-us/windows/wsl/) to run the commands in this guide (`curl`, `ssh`, `uv`, etc.).
 
@@ -99,11 +49,13 @@ it as soon as possible; it expires after use.
        ```bash
        wsl --install Ubuntu
        ```
-    3. Restart your computer when prompted.
-    4. After restart, WSL will finish setup. You may be asked to create a Linux username and password.
+    3. Restart the computer when prompted.
+    4. After restart, WSL will finish setup. A prompt may appear to create a
+       Linux username and password.
     5. Open **Ubuntu** from the Start menu to get a Linux terminal.
 
-    **Verify:** In the WSL terminal, run `ls` and `curl --version` to confirm you have a working shell.
+    **Verify:** In the WSL terminal, run `ls` and `curl --version` to confirm
+    the shell is functional.
 
     === "`ls`"
         ```bash
@@ -133,18 +85,81 @@ it as soon as possible; it expires after use.
         2. [Microsoft WSL install guide](https://learn.microsoft.com/en-us/windows/wsl/install)
 
     !!! note
-        All commands in this guide (`uv`, `milatools`, `ssh`) should be run
-        inside the WSL terminal, not in Windows PowerShell or Command Prompt.
+        Run all commands in this guide (`uv`, `milatools`, `ssh`) inside the
+        WSL terminal, not in Windows PowerShell or Command Prompt.
+
+## What this guide covers
+
+* Set up Multi-Factor Authentication (MFA).
+* Install `uv` and `milatools` locally.
+* Configure SSH access with `mila init`.
+* Verify the SSH connection to the cluster.
+* Install `uv` on the cluster.
 
 ---
 
-## Install `uv` on your local machine
+## Set up Multi-Factor Authentication (MFA) { #set-up-mfa }
 
-`uv` is a fast Python package manager and workflow tool that serves as a drop-in
-replacement for `pip` and `virtualenv`, allowing you to quickly install project
-dependencies, manage packages, and create isolated Python environments.
+Cluster access requires **two factors**: an SSH key (first factor) and a second
+factor (TOTP, push notification, or email token). The MFA setup **must** be
+completed before connecting via SSH.
 
-On your **local machine**, run:
+### Get your registration token
+
+Look for an email with the subject *Votre accès temporaire registrationcode /
+Your temporary access registrationcode*; it contains a **one-time registration
+token** that expires after use.
+
+### First-time MFA setup
+
+!!! warning "Set up TOTP before leaving"
+    After the first visit, the MFA web portal will **only** accepts a TOTP code.
+    Leaving without setting up TOTP locks out the account, and a new
+    registration token will be needed from [IT
+    support](https://it-support.mila.quebec).
+
+1. Go to **https://mfa.mila.quebec**.
+
+    ![Login-interface](../_static/screenshots/mfa-login.png)
+
+2. **Username:** your cluster username (**not** your `@mila.quebec` email
+   address).
+
+3. **Password:** enter the **registration token** from the email (**not** your
+   account password).
+
+4. After logging in, **immediately** add at least one **TOTP** token to your
+   account:
+
+    ![Token-selector](../_static/screenshots/mfa-enroll-token-totp.png)
+
+    1. Install a TOTP authenticator app:
+
+        - privacyIDEA Authenticator
+          ([:material-android:](https://play.google.com/store/search?q=privacyidea%20authenticator&c=apps)
+          /
+          [:material-apple:](https://apps.apple.com/iphone/search?term=privacyidea%20authenticator)).
+        - Authy
+          ([:material-android:](https://play.google.com/store/search?q=authy&c=apps)
+          /
+          [:material-apple:](https://apps.apple.com/iphone/search?term=authy)).
+        - Google Authenticator
+          ([:material-android:](https://play.google.com/store/search?q=google%20authenticator&c=apps)
+          /
+          [:material-apple:](https://apps.apple.com/iphone/search?term=google%20authenticator)).
+
+    2. In the authenticator app, scan the QR code shown on the MFA page to add
+       the token:
+
+        ![Token-selector](../_static/screenshots/mfa-enroll-token-totp-2.png)
+
+## Install `uv` on a local machine
+
+`uv` is a fast Python package manager and workflow tool, that serves as a
+drop-in replacement for `pip` and `virtualenv`, for quickly installing project
+dependencies, managing packages, and creating isolated Python environments.
+
+On a **personal computer**, run:
 
 ```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
@@ -165,14 +180,20 @@ everything's installed!
 
 ## Connect to the cluster
 
-**Prerequisite:** It is required to complete the [Obtain your Mila
-                  account](#obtain-your-mila-account) and [Enable your cluster
-                  access](#enable-your-cluster-access) sections before
-                  connecting to the cluster.
+!!! success "Cluster access"
+    Before proceeding, complete:
+    
+    - [Obtain your Mila account](#obtain-your-mila-account)
+    - [Enable your cluster access](#enable-your-cluster-access)
+    - [Set up Multi-Factor Authentication (MFA)](#set-up-mfa)
 
 ### Install `milatools`
 
-Install `milatools` locally (after [`uv` is installed on your local machine](#install-uv-on-your-local-machine)):
+`milatools` is a command-line tool that simplifies connecting to the Mila
+cluster. It configures SSH automatically and provides `mila code` to open VSCode
+directly on a compute node.
+
+Install a **personal computer** (after [installing `uv`](#install-uv-on-a-local-machine)):
 
 ```bash
 uv tool install --upgrade milatools
@@ -195,7 +216,8 @@ See the [milatools README](https://github.com/mila-iqia/milatools) for more deta
 
 ### Configure `milatools`
 
-Run `mila init` with your username and password ready. This sets up your SSH config, public keys, and passwordless auth.
+Run `mila init` with your cluster username ready. This sets up the SSH config,
+public keys, and passwordless auth.
 
 ```bash
 mila init           
@@ -233,13 +255,16 @@ permissions are correct. You should now be able to connect to compute nodes with
 
 ## Verify your connection
 
-Open a terminal and run:
+Open a terminal and run `ssh mila`. When prompted for an OTP, enter the 6-digit
+TOTP code from the [authenticator app](#set-up-mfa) — *the code will not appear
+on screen as it is typed*:
 
 ```bash
 ssh mila
 ```
 <div class="result" style="border:None; padding:0" markdown>
 ``` linenums="0"
+(username@login.server.mila.quebec) please enter otp:
 ================================================================================
 
 
@@ -284,14 +309,22 @@ Last login: Fri Feb 27 09:29:48 2026 from 74.58.126.98
 ```
 </div>
 
-You should land on a Mila login node. If this works, your connection is set up
-correctly. If not, check again the steps to [install and configure
-`milatools`](#install-milatools)
+After entering the OTP, the session opens on a **login node** — a shared entry
+point to the cluster. Login nodes are for submitting jobs and managing files,
+not for running computations directly.
+
+??? question "Not prompted to enter an OTP?"
+
+    Review the steps to [install and configure `milatools`](#install-milatools).
+
+??? question "The Login node banner does not appear after entering the OTP?"
+
+    Review the steps to [set up Multi-Factor Authentication](#set-up-mfa).
 
 ## Install `uv` on the cluster
 
-Once you can [connect via SSH to the Mila cluster](#verify-your-connection), run
-the same install command as before but on a **login node**:
+Once [connected via SSH to the Mila cluster](#verify-your-connection), run the
+same `uv` install command as before but on a **login node**:
 
 ```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
@@ -309,26 +342,40 @@ everything's installed!
 
 ---
 
+## Key concepts
+
+`uv`
+:   Fast Python package manager and virtual environment tool. Used on both
+    a local machine and the cluster.
+
+`milatools`
+:   CLI tool (`mila`) for setting up SSH config and opening VSCode on
+    compute nodes.
+
+**MFA**
+:   Multi-Factor Authentication. Required for every SSH login to the
+    cluster.
+
+---
+
 ## Next steps
 
-Once you have access to the cluster, head to the following sections to run your
-first job and train your first model:
+With cluster access established, proceed to the following guides to run a first
+job and train a first model:
 
 <div class="grid cards" markdown>
 
--   [:material-run-fast:{ .lg .middle } __Run Your First Job__](../getting_started/my_first_job.md)
+-   [:material-run-fast:{ .lg .middle } __Run Your First Job__](my_first_job.md)
     { .card }
 
     ---
-
     Run your first job on the cluster with PyTorch using VSCode on a GPU compute
     node.
 
--   [:material-run-fast:{ .lg .middle } __Train Your First Model__](../getting_started/train_first_model.md)
+-   [:material-run-fast:{ .lg .middle } __Train Your First Model__](train_first_model.md)
     { .card }
 
     ---
-
     Train a ResNet18 on CIFAR-10 on a single GPU using `sbatch`.
 
 </div>

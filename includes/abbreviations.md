@@ -12,5 +12,6 @@
 <!-- Access and environment -->
 *[MFA]:             Multi-Factor Authentication; signing in with more than one check (e.g. password plus a code).
 *[SSH]:             Secure SHell; a secure way to connect from your computer to a remote machine.
+*[OTP]:             One-Time Password; a single-use code used to verify identity during authentication, providing an additional layer of security.
 *[TOTP]:            Time-based One-Time Password; a short-lived code from an app (e.g. Google Authenticator).
 *[WSL]:             Windows Subsystem for Linux; lets you run a Linux environment on Windows so you can use the same commands as in this guide.

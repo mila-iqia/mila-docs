@@ -1,3 +1,4 @@
+<!-- START -->
 # Contributing to the Mila Docs
 
 Thank you for your interest into making a better documentation for all at Mila.

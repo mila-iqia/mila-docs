@@ -1,3 +1,1 @@
-{%
-    include-markdown "home/cheatsheet.md"
-%}
+{% include-markdown "home/cheatsheet.md" start="<!-- START -->" %}

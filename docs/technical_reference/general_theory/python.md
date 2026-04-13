@@ -1,3 +1,9 @@
+---
+search:
+  exclude: true
+---
+
+<!-- START -->
 ## Virtual environments
 
 A virtual environment in Python is a local, isolated environment in which you

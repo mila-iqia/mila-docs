@@ -3,6 +3,8 @@
 #SBATCH --ntasks-per-gpu=2
 #SBATCH --cpus-per-task=4
 #SBATCH --gres=gpu:l40s:1
+## Or --gres=gpu:rtx8000:1    to request a different GPU model
+## Or --gres=gpu:1            for any GPU model
 #SBATCH --mem-per-gpu=16G
 #SBATCH --time=00:15:00
 

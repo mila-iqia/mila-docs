@@ -1,8 +1,6 @@
 # Distributed Training
 
-{%
-    include-markdown "examples/header.md"
-%}
+{% include-markdown "examples/header.md" start="<!-- START -->" %}
 
 - [Single GPU Job](single_gpu/index.md)
 - [Multi-GPU Job](multi_gpu/index.md)

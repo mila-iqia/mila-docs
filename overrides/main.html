@@ -28,4 +28,53 @@ and we'll take a look at it!
     modal-position="bottom-right" button-style="dark">
     Ask AI
 </biel-button>
+{% endblock %} {% block scripts %} {{ super() }}
+<!--
+  Biel replaces Material’s built-in search UI, but Material’s keyboard layer
+  still decides "search mode" from the hidden #__search checkbox (see
+  mkdocs-material watchKeyboard + bundle global shortcuts). While that box stays
+  unchecked, keys like n/p still run prev/next navigation even when a Biel modal
+  is open.
+
+  Material reads #__search.checked synchronously on every keydown event, so we
+  don’t need continuous MutationObserver sync. A capture-phase listener fires
+  before Material’s bubble-phase handler on window, giving us time to sync the
+  checkbox lazily — only when a key is actually pressed.
+
+  We set .checked and dispatch "change" instead of .click() so we don’t move
+  focus to the hidden input (which would blur Biel and close its modals).
+-->
+<script>
+    (function () {
+        // Attribute names used by each Biel element to signal an open modal.
+        var MATERIAL_SEARCH_ID = "__search";
+        var BIEL_SEARCH_ATTR = "show-search-modal";
+        var BIEL_BOT_ATTR = "show-modal";
+
+        // Returns true if any Biel modal is currently open.
+        function anyBielOverlayOpen() {
+            var search = document.querySelector("biel-search");
+            var bot = document.querySelector("biel-bot");
+            return (
+                Boolean(search && search.hasAttribute(BIEL_SEARCH_ATTR)) ||
+                Boolean(bot && bot.hasAttribute(BIEL_BOT_ATTR))
+            );
+        }
+
+        // Sync the checkbox in the capture phase so Material reads the correct
+        // mode when its bubble-phase handler fires on window.
+        document.addEventListener(
+            "keydown",
+            function () {
+                var toggle = document.getElementById(MATERIAL_SEARCH_ID);
+                if (!toggle || toggle.type !== "checkbox") return;
+                var isOpen = anyBielOverlayOpen();
+                if (toggle.checked === isOpen) return;
+                toggle.checked = isOpen;
+                toggle.dispatchEvent(new Event("change", { bubbles: true }));
+            },
+            true,
+        );
+    })();
+</script>
 {% endblock %}

@@ -13,7 +13,7 @@ designed for high-performance computations, but clusters can also use
 specialized nodes to offer parallel file systems, databases, login nodes and
 even the cluster scheduling functionality as pictured in the image below.
 
-![Cluster overview](../../../_static/images/cluster_overview2.png)
+![Cluster overview](../../_static/images/cluster_overview2.png)
 
 We will overview the different types of nodes which you can encounter on a
 typical cluster.
@@ -23,6 +23,14 @@ typical cluster.
 To execute computing processes on a cluster, you must first connect to a
 cluster and this is accomplished through a *login node*. These so-called
 login nodes are the entry point to most clusters.
+
+!!! warning "Scheduled reboot for login nodes"
+    Regular reboot for continuous updates: A monthly reboot policy is being established to ensure the continuous application of automatic security updates:
+    Every first Tuesday of the month at 2:00 PM EST: Reboot of nodes **login-1 and login-2**
+    Every last Tuesday of the month at 2:00 PM EST: Reboot of nodes **login-3 and login-4**
+    Please wrap up your terminal activity and log out.
+    Unsaved progress in text editors (vim/nano) will be lost.
+    Compute jobs are NOT affected.
 
 Another entry point to some clusters such as the Mila cluster is the JupyterHub
 web interface, but we'll read about that later. For now let's return to the

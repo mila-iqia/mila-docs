@@ -3,7 +3,7 @@
 This section seeks to provide factual information and policies on the Mila cluster computing environments.
 
 !!! note "Acknowledging Mila"
-    {% include-markdown "home/acknowledgement.md" %}
+    {% include-markdown "home/acknowledgement.md" start="<!-- START -->" %}
 
 <!--nav-->
 * [Roles and authorizations](../../../technical_reference/clusters/mila/roles_and_resources)

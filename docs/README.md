@@ -83,7 +83,7 @@ recommend you start by checking out the [short quick start guide](getting_starte
 </div>
 
 
-{% include-markdown "home/purpose.md" %}
+{% include-markdown "home/purpose.md" start="<!-- START -->" %}
 
 
 ## Contribution
@@ -91,7 +91,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
 
 ## Acknowledging Mila
 
-{% include-markdown "home/acknowledgement.md" %}
+{% include-markdown "home/acknowledgement.md" start="<!-- START -->" %}
 
 
 ## Documentation
@@ -160,6 +160,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
 - [Toolbox](toolbox/index.md)
     - [Comet](toolbox/comet.md)
     - [JupyterHub](toolbox/jupyterhub.md)
+    - [Orion](toolbox/orion.md)
     - [Singularity](toolbox/singularity.md)
     - [VSCode](toolbox/VSCode.md)
     - [Weights and Biases (WandB)](toolbox/wandb.md)

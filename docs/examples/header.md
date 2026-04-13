@@ -1,3 +1,9 @@
+---
+search:
+  exclude: true
+---
+
+<!-- START -->
 ???+ note "About these examples"
 
     This section contains some minimal examples of how to run jobs on the Mila

@@ -1,3 +1,9 @@
+---
+search:
+  exclude: true
+---
+
+<!-- START -->
 ## Purpose of this documentation
 
 This documentation aims to cover the information required to run scientific
@@ -7,8 +13,4 @@ members.
 It also aims to be an outlet for sharing know-how, tips and tricks and examples
 from the IDT team to the Mila researcher community.
 
-{%
-    include-markdown "home/purpose_audience.md"
-%}
-
-
+{% include-markdown "home/purpose_audience.md" start="<!-- START -->" %}
