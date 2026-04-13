@@ -1,8 +1,9 @@
 ---
 title: Run Your First Job
 description: >-
-  Create a minimal PyTorch project, open VSCode on a GPU compute node
-  using mila code, and verify CUDA availability.
+  Run your first job on the cluster with PyTorch using `mila code` and VSCode on
+  a GPU compute node.
+  #__skill-mila-run-jobs
 skills:
   - __skill-mila-run-jobs
 ---
@@ -23,8 +24,9 @@ code`](https://github.com/mila-iqia/milatools) command from
     { .card }
 
     ---
-    Get your Mila account, enable cluster access and MFA, then install `uv` and
-    `milatools` to connect via SSH.
+    Obtain a Mila account, enable cluster access and MFA, install `uv` and
+    `milatools`, configure SSH access and connect to the cluster for the first
+    time.
 
 &nbsp;
 
@@ -155,7 +157,7 @@ code` session and relinquish the allocation.
     { .card }
 
     ---
-    Train a ResNet18 on CIFAR-10 on a single GPU using `sbatch`.
+    Train your first ResNet18 model on CIFAR-10 on a single GPU using `sbatch`.
 
 &nbsp;
 
