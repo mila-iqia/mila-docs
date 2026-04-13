@@ -112,6 +112,6 @@ Whatever the issue, we are here to help you get your experiments back on track. 
 
 * **Email:** For technical and access issues, you can email the IT Support team directly.
 * **Slack:** This is the fastest way to chat with us. Join the dedicated help channels to interact directly with the IT or IDT experts.
-* **Office Hours:** Pay us a visit at Lab A for any questions/issues you may have when running your jobs on the clusters.
+* **Office Hours:** Pay us a visit at Lab A or online for any questions/issues you may have when running your jobs on the clusters.
 
 Let's get your research moving!
