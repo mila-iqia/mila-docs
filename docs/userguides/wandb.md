@@ -281,6 +281,10 @@ integration:
     --8<-- "docs/examples/good_practices/wandb_setup/pyproject.toml"
     ```
 
+!!! tip "Example run"
+    Running these scripts produces a run like this
+    [wandb-example run](https://wandb.ai/lebrice/wandb-example).
+
 ---
 
 ## Key concepts
