@@ -193,13 +193,18 @@ The output will confirm the submission of the job (e.g. `Submitted batch job
 
 <div class="grid cards" markdown>
 
--   [:material-run-fast:{ .lg .middle } __Manage Python Dependencies with `uv`__](../userguides/python_uv.md)
+-   [:material-language-python:{ .lg .middle } __Manage Python Dependencies with `uv`__](../userguides/python_uv.md)
     { .card }
 
     ---
     Install uv, manage project dependencies, run reproducible Slurm jobs, and run
     standalone scripts.
 
-&nbsp;
+-   [:material-trending-up:{ .lg .middle } __Track Experiments with WandB__](../userguides/wandb.md)
+    { .card }
+
+    ---
+    Set up WandB and follow best practices for logging experiments, organizing
+    runs, and diagnosing bottlenecks on the cluster.
 
 </div>
