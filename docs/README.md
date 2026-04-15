@@ -36,9 +36,9 @@ recommend you start by checking out the [short quick start guide](getting_starte
 
     ---
 
-    Coming soon!
+    Powercharge your workflow with AI coding tools tailored for Mila researchers
 
-    Powercharge your AI agent with curated resources
+    [:octicons-arrow-right-24: Explore AI agents](ai)
 
 
 -   :material-book-open-page-variant:{ .lg .middle } __Technical reference__
@@ -131,6 +131,8 @@ If you find any errors in the documentation, missing or unclear sections, or wou
         - [Advanced Examples](examples/advanced/index.md)
             - [Multi-Node / Multi-GPU ImageNet Training](examples/advanced/imagenet/index.md)
 - [AI agents](ai/index.md)
+    - [Set Up Claude Code](ai/claude_code.md)
+    - [Install Mila Skills for Claude Code](ai/mila_skills.md)
 - [Technical reference](technical_reference/index.md)
     - [Cheatsheet](technical_reference/cheatsheet.md)
     - [Glossary](technical_reference/glossary.md)

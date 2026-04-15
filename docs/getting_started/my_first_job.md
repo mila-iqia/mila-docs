@@ -12,7 +12,7 @@ skills:
 
 This guide covers running a first job on the Mila cluster. Create a minimal
 PyTorch project that checks CUDA and GPU availability, and develop on the
-cluster using [VSCode](VSCode.md) on a compute node via the [`mila
+cluster using [VSCode](https://code.visualstudio.com/) on a compute node via the [`mila
 code`](https://github.com/mila-iqia/milatools) command from
 [milatools](https://github.com/mila-iqia/milatools).
 
