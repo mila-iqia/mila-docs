@@ -90,7 +90,7 @@ Need a hand getting your experiments running on the cluster? You'll find everyth
 </div>
 ## 1. Try these resources first
 
-Before reaching out, there's a 90% chance you'll find an appropriate and immediate solution by consulting the resources built specifically for the Mila community:
+Before reaching out, there's a very good chance you'll find an appropriate and immediate solution by consulting the resources built specifically for the Mila community:
 
 * **The Documentation & FAQ:** Most common issues regarding the cluster and environment setup are covered right here.
 * **On-site Chatbot:** Our embedded specialized chatbot allows you to get quick answers or easily navigate our technical docs.
@@ -104,7 +104,7 @@ If you've checked the docs and still need assistance, we've got your back! To ge
 |------|-----------------|----------------|
 | MyMila | Community Integration. General administrative onboarding and community-related inquiries. | [MyMila Portal](https://portal.mila.quebec/) |
 | IT Support | Technical Onboarding & Access. Account creation, **SSH issues**, VPN, hardware, and access management. | [Portal](https://it-support.mila.quebec) or Slack ([#mila-cluster](https://mila-umontreal.slack.com/archives/CFAS8455H), [#tamia-cluster](https://mila-umontreal.slack.com/archives/C08KMD8FJNA), [#compute-canada](https://mila-umontreal.slack.com/archives/C2TL9FRBP)) |
-| IDT | Scientific Computing. Experts for running jobs, software optimization, and cluster hurdles. | Slack ([#mila-cluster](https://mila-umontreal.slack.com/archives/CFAS8455H), [#tamia-cluster](https://mila-umontreal.slack.com/archives/C08KMD8FJNA), [#compute-canada](https://mila-umontreal.slack.com/archives/C2TL9FRBP)) or IDT Office Hours (Lab A) <!-- TODO: link Office Hours page once mila-docs#372 is merged --> |
+| IDT | Computing expertise. Debug your jobs, optimize your experiments, remove cluster hurdles. | Slack ([#mila-cluster](https://mila-umontreal.slack.com/archives/CFAS8455H), [#tamia-cluster](https://mila-umontreal.slack.com/archives/C08KMD8FJNA), [#compute-canada](https://mila-umontreal.slack.com/archives/C2TL9FRBP)) or IDT Office Hours (Lab A) <!-- TODO: link Office Hours page once mila-docs#372 is merged --> |
 
 ## 3. Reach out
 
