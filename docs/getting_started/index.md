@@ -18,7 +18,7 @@ skills:
 This guide covers obtaining a Mila account, connecting to the cluster, and
 setting up the tools needed to run jobs. Follow the steps in order.
 
-## Before you begin { #obtain-your-mila-account #enable-your-cluster-access }
+## Before you begin { #obtain-your-mila-account #enable-your-cluster-access #install-wsl }
 
 ???+ success "Obtain your Mila account (`@mila.quebec`)"
 
