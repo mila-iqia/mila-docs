@@ -1,4 +1,5 @@
 from jinja2 import Environment, FileSystemLoader
+import os
 
 
 def on_pre_build(config, **kwargs):
@@ -17,6 +18,12 @@ def on_pre_build(config, **kwargs):
         ]:
         template = env.get_template(template_file)
         output = template.render(office_hours_data=office_hours_data)
+        output_path = f"docs/generated_from_config/{output_file}"
 
-        with open(f"docs/generated_from_config/{output_file}", "w") as outfile:
+        if os.path.exists(output_path):
+            with open(output_path, "r") as infile:
+                if infile.read() == output:
+                    continue # We skip the next steps (writing the file) if it should not be modified
+    
+        with open(output_path, "w") as outfile:
             outfile.write(output)
