@@ -1,8 +1,6 @@
-# Running your code
+# SLURM commands guide
 
-## SLURM commands guide
-
-### Basic Usage
+## Basic Usage
 
 The SLURM [documentation](https://slurm.schedmd.com/documentation.html)
 provides extensive information on the available commands to query the cluster
@@ -10,9 +8,9 @@ status or submit jobs.
 
 Below are some basic examples of how to use SLURM.
 
-#### Submitting jobs
+### Submitting jobs
 
-#### Batch job
+### Batch job
 
 In order to submit a batch job, you have to create a script containing the main
 command(s) you would like to execute on the allocated resources/nodes.
@@ -26,8 +24,7 @@ command(s) you would like to execute on the allocated resources/nodes.
 #SBATCH --time=10:00
 #SBATCH --mem=100Gb
 
-module load python/3.10
-python my_script.py
+uv run python my_script.py
 ```
 
 Your job script is then submitted to SLURM with [`sbatch`](https://slurm.schedmd.com/sbatch.html).
@@ -43,7 +40,7 @@ The *working directory* of the job will be the one where your executed `sbatch`.
     Slurm directives can be specified on the command line alongside ``sbatch`` or
     inside the job script with a line starting with ``#SBATCH``.
 
-#### Interactive job
+### Interactive job
 
 Workload managers usually run batch jobs to avoid having to watch its
 progression and let the scheduler run it as soon as resources are available. If
@@ -67,7 +64,7 @@ resources set in SLURM (1 task/1 CPU).  `srun` accepts the same arguments as
 without more info but it gives more flexibility if for example you want to get
 an allocation on multiple nodes.
 
-#### Job submission arguments
+### Job submission arguments
 
 In order to accurately select the resources for your job, several arguments are
 available. The most important ones are:
@@ -84,7 +81,7 @@ available. The most important ones are:
     Always consider requesting the adequate amount of resources to improve the
     scheduling of your job (small jobs always run first).
 
-#### Checking job status
+### Checking job status
 
 To display *jobs* currently in queue, use `squeue` and to get only your jobs type
 
@@ -100,7 +97,7 @@ $ squeue -u $USER
     at any given time from the given association. If this limit is reached, new submission requests
     will be denied until existing jobs in this association complete.
 
-#### Removing a job
+### Removing a job
 
 To cancel your job simply use `scancel`
 
@@ -108,7 +105,7 @@ To cancel your job simply use `scancel`
 scancel 4323674
 ```
 
-#### Partitioning
+### Partitioning
 
 Since we don't have many GPUs on the cluster, resources must be shared as fairly
 as possible.  The `--partition=/-p` flag of SLURM allows you to set the
@@ -206,7 +203,7 @@ sbatch -c 16 --gres=gpu:8 --constraint="dgx&ampere"
 | nvlink                   | Machine with GPUs using the NVLink interconnect technology |
 | dgx                      | NVIDIA *DGX* system with DGX OS                            |
 
-##### Partition details and GPU availability
+#### Partition details and GPU availability
 
 The following table provides a quick reference guide for choosing partitions and
 understanding GPU availability:
@@ -219,7 +216,7 @@ understanding GPU availability:
 | `long`             | Long-running jobs (7 days max) that can tolerate preemption.           | All GPU types **except H100** |
 | `*-cpu`            | CPU-only jobs (no GPU required).                                       | N/A (CPU-only nodes) |
 
-### Information on partitions/nodes
+## Information on partitions/nodes
 
 [`sinfo`](https://slurm.schedmd.com/sinfo.html) provides most of the
 information about available nodes and partitions/queues to submit jobs to.
@@ -325,7 +322,7 @@ CurrentWatts=0 LowestJoules=0 ConsumedJoules=0
 ExtSensorsJoules=n/s ExtSensorsWatts=0 ExtSensorsTemp=n/s
 ```
 
-#### Useful Commands
+## Useful Commands
 
 ```console title="Get an interactive job and give you a shell. (ssh like) CPU only"
 salloc
@@ -378,7 +375,7 @@ sacct -u $USER -S <start_time> -E <stop_time>
 sacct -oJobID,JobName,User,Partition,Node,State
 ```
 
-#### Special GPU requirements
+### Special GPU requirements
 
 Specific GPU *architecture* and *memory* can be easily requested through the
 `--gres` flag by using either
@@ -397,7 +394,7 @@ sbatch -c 4 --gres=gpu:48gb:1
 
 The full list of GPU and their features can be accessed [here](../../technical_reference/clusters/mila/nodes).
 
-#### Example script
+### Example script
 
 Here is a `sbatch` script that follows good practices on the Mila cluster:
 
@@ -419,19 +416,13 @@ Here is a `sbatch` script that follows good practices on the Mila cluster:
 #SBATCH --time=3:00:00                                   # The job will run for 3 hours
 #SBATCH -o /network/scratch/<u>/<username>/slurm-%j.out  # Write the log on scratch
 
-# 1. Load the required modules
-module --quiet load anaconda/3
-
-# 2. Load your environment
-conda activate "<env_name>"
-
-# 3. Copy your dataset on the compute node
+# 1. Copy your dataset on the compute node
 cp /network/datasets/<dataset> $SLURM_TMPDIR
 
-# 4. Launch your job, tell it to save the model in $SLURM_TMPDIR
+# 2. Launch your job, tell it to save the model in $SLURM_TMPDIR
 #    and look for the dataset into $SLURM_TMPDIR
-python main.py --path $SLURM_TMPDIR --data_path $SLURM_TMPDIR
+srun uv run python main.py --path $SLURM_TMPDIR --data_path $SLURM_TMPDIR
 
-# 5. Copy whatever you want to save on $SCRATCH
+# 3. Copy whatever you want to save on $SCRATCH
 cp $SLURM_TMPDIR/<to_save> /network/scratch/<u>/<username>/
 ```
