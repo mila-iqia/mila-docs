@@ -24,7 +24,7 @@ command(s) you would like to execute on the allocated resources/nodes.
 #SBATCH --time=10:00
 #SBATCH --mem=100Gb
 
-uv run python my_script.py
+srun uv run python my_script.py
 ```
 
 Your job script is then submitted to SLURM with [`sbatch`](https://slurm.schedmd.com/sbatch.html).
