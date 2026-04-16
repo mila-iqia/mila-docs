@@ -1,3 +1,7 @@
+---
+biel_boost: 0.5
+---
+
 # Node profile description
 
 <!-- Je trouve cela un peu futile de maintenir cette documentation à jour

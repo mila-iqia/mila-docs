@@ -3,6 +3,7 @@ title: AI Agents
 description: >-
   Guides for AI coding tools available to Mila researchers, including Claude
   Code and Mila-specific skills.
+biel_boost: 0.5
 ---
 
 # AI agents

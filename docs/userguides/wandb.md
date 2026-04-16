@@ -3,6 +3,7 @@ title: Track Experiments with Weights & Biases (WandB)
 description: >-
   Set up WandB and follow best practices for logging experiments, organizing
   runs, and diagnosing bottlenecks on the cluster.
+biel_boost: 0.5
 ---
 
 # Track Experiments with Weights & Biases (WandB)
