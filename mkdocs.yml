@@ -1,7 +1,7 @@
 site_name: Mila Technical Documentation
 site_url: https://docs.mila.quebec
 repo_name: mila-docs
-repo_url: https://www.github.com/mila-iqia/mila-docs
+repo_url: https://github.com/mila-iqia/mila-docs
 docs_dir: docs
 edit_uri: edit/master/docs/
 

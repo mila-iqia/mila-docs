@@ -31,3 +31,18 @@ a.full-card:hover {
 .skill-identifiers {
   display: none;
 }
+
+/* DocSearch: fix small text (higher specificity needed — DocSearch CSS loads after extra.css) */
+.DocSearch-Modal .DocSearch-Input,
+.DocSearch-Modal .DocSearch-Hits,
+.DocSearch-Modal .DocSearch-AskAi-Section,
+.DocSearch-Modal .DocSearch-AskAiScreen-Response {
+    font-size: 0.8rem;
+}
+
+.DocSearch-Modal .DocSearch-Label,
+.DocSearch-Modal .DocSearch-Clear,
+.DocSearch-Modal .DocSearch-AskAiScreen-Disclaimer,
+.DocSearch-Modal .DocSearch-AskAiScreen-RelatedSources-Item-Link {
+    font-size: 0.6rem;
+}
