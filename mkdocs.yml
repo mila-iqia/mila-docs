@@ -3,6 +3,7 @@ site_url: https://docs.mila.quebec
 repo_name: mila-docs
 repo_url: https://www.github.com/mila-iqia/mila-docs
 docs_dir: docs
+edit_uri: edit/master/docs/
 
 copyright: >
   Copyright &copy; 2026 Mila –
@@ -17,6 +18,8 @@ theme:
   custom_dir: overrides
   features:
     - announce.dismiss
+    - content.action.edit
+    - content.action.view
     - content.code.copy
     - content.code.select
     - content.code.annotate
