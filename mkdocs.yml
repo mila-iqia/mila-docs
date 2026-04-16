@@ -92,6 +92,15 @@ extra:
       link: docs/home/teams
     - name: "Support"
       link: docs/help
+  office_hours:
+    location: Lab A
+    dates:
+      - start: 3pm
+        end: 5pm
+        day: Tuesday
+      - start: 2pm
+        end: 4pm
+        day: Wednesday
 
   analytics:
     provider: google
@@ -125,6 +134,7 @@ extra_css:
   - stylesheets/extra.css
 
 hooks:
+  - hooks/copy_office_hours.py
   - docs/hooks/external_links.py
   - docs/hooks/skill_tags.py
   - docs/hooks/sitemap_exclude.py

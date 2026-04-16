@@ -80,14 +80,20 @@ def main():
     # This specific example here does not do that.
 
     # Setup Wandb
+    # --8<-- [start:wandb-init]
     wandb.init(
         # Set the project where this run will be logged
         project="wandb-example",
         name=os.environ.get("SLURM_JOB_ID"),
+        id=os.environ.get("SLURM_JOB_ID"),
+        group=os.environ.get("SLURM_ARRAY_JOB_ID"),
         resume="allow",  # See https://docs.wandb.ai/guides/runs/resuming
+        tags=["example", "resnet18"],
         # Track hyperparameters and run metadata
-        config=vars(args),
+        config=vars(args)
+        | {f"env/{k}": v for k, v in os.environ.items() if k.startswith("SLURM")},
     )
+    # --8<-- [end:wandb-init]
 
     # Create a model and move it to the GPU.
     model = resnet18(num_classes=10)
@@ -160,7 +166,14 @@ def main():
             logger.debug(f"Average Loss: {loss.item()}")
 
             # Log metrics with wandb
-            wandb.log({"train/accuracy": accuracy, "train/loss": loss})
+            # --8<-- [start:wandb-log-train]
+            wandb.log(
+                {
+                    "train/accuracy": accuracy,
+                    "train/loss": loss,
+                }
+            )
+            # --8<-- [end:wandb-log-train]
 
             # Advance the progress bar one step and update the progress bar text.
             progress_bar.update(1)
@@ -171,7 +184,19 @@ def main():
         logger.info(
             f"Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%}"
         )
+        # --8<-- [start:wandb-log-val]
+        wandb.log(
+            {
+                "val/accuracy": val_accuracy,
+                "val/loss": val_loss,
+                "epoch": epoch,
+            }
+        )
+        # --8<-- [end:wandb-log-val]
 
+    # --8<-- [start:wandb-finish]
+    wandb.finish()
+    # --8<-- [end:wandb-finish]
     print("Done!")
 
 
