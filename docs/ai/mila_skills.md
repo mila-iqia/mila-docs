@@ -160,3 +160,18 @@ I can't seem to login to the 2FA thing, I use my username and the supplied passw
   - https://docs.mila.quebec/getting_started/
 ```
 </div>
+
+## Next step
+
+<div class="grid cards" markdown>
+
+-   [:material-brain:{ .lg .middle } __Mila-Aware AI Assistance with MCP__](mcp.md)
+    { .card }
+
+    ---
+    Configure the Mila Docs MCP server so that AI assistants can draw on Mila
+    documentation automatically.
+
+&nbsp;
+
+</div>

@@ -1,4 +1,7 @@
 site_name: Mila Technical Documentation
+# TODO: it might be possible to use something like
+# https://docs.mila.quebec/en/401/ as the site_url to avoid relying on relative
+# paths in the doc (../resource instead of /resource)
 site_url: https://docs.mila.quebec
 repo_name: mila-docs
 repo_url: https://github.com/mila-iqia/mila-docs

@@ -11,23 +11,17 @@ and we'll take a look at it!
 {% endblock %}
 
 {% block extrahead %}
-<!-- Biel.ai styles -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/biel-search/dist/biel-search/biel-search.css">
-
-<!-- Biel.ai script -->
-<script type="module" src="https://cdn.jsdelivr.net/npm/biel-search/dist/biel-search/biel-search.esm.js"></script>
-
-<!-- Biel.ai search boost -->
-<meta name="biel:boost_score" content="0.5">
-
 <!-- DocSearch verification -->
 <meta name="algolia-site-verification"  content="3EAD36F59F913078" />
 
 <!-- DocSearch styles -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@4" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css/dist/style.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css/dist/sidepanel.css" />
 
-<!-- DocSearch script -->
+<!-- DocSearch scripts -->
 <script src="https://cdn.jsdelivr.net/npm/@docsearch/js@4"></script>
+<script src="https://cdn.jsdelivr.net/npm/@docsearch/sidepanel-js"></script>
 {% endblock %}
 
 {% block content %}
@@ -37,13 +31,25 @@ and we'll take a look at it!
 {% block scripts %}
 {{ super() }}
 {% raw %}
+<div id="docsearch-sidepanel"></div>
 <script>
-    let currentQuery = '';
-    document.addEventListener('input', function(e) {
-        if (e.target.classList.contains('DocSearch-Input')) {
-            currentQuery = e.target.value;
-        }
-    }, true);
+    let currentQuery = "";
+    document.addEventListener(
+        "input",
+        function (e) {
+            if (e.target.classList.contains("DocSearch-Input")) {
+                currentQuery = e.target.value;
+            }
+        },
+        true,
+    );
+
+    var palette = __md_get("__palette");
+    theme = "light";
+    if (palette && typeof palette.color === "object") {
+        var theme = palette.color.scheme === "slate" ? "dark" : "light";
+    }
+
     docsearch({
         container: "#docsearch",
         appId: "558773LESW",
@@ -53,9 +59,13 @@ and we'll take a look at it!
                 name: "MILA Docs",
             },
         ],
+        insights: true,
         placeholder: "Search the docs",
+        translations: {
+            button: { buttonText: "Search the docs" },
+        },
         hitComponent({ hit, children }, { html }) {
-            const separator = hit.url.includes('?') ? '&' : '?';
+            const separator = hit.url.includes("?") ? "&" : "?";
             const url = currentQuery
                 ? `${hit.url}${separator}h=${encodeURIComponent(currentQuery)}`
                 : hit.url;
@@ -65,8 +75,37 @@ and we'll take a look at it!
         askAi: {
             assistantId: "d9b031b9-047c-4b63-a794-010d037dce19",
             agentStudio: true,
-            suggestedQuestions: true,
+            // suggestedQuestions: true,
         },
+        theme: theme,
+    });
+
+    docsearchSidepanel({
+        container: "#docsearch-sidepanel",
+        appId: "558773LESW",
+        apiKey: "c025866a1987f29d1b086637d06853a6",
+        indices: [
+            {
+                name: "MILA Docs",
+            },
+        ],
+        assistantId: "d9b031b9-047c-4b63-a794-010d037dce19",
+        agentStudio: true,
+        // suggestedQuestions: true,
+        translations: {
+            header: {
+                title: "Ask the docs",
+            },
+            promptForm: {
+                promptPlaceholderText:
+                    "e.g. How do I connect to the Mila cluster?",
+            },
+        },
+        variant: "floating",
+        side: "right",
+        width: "580px",
+        expandedWidth: "640",
+        theme: theme,
     });
 </script>
 {% endraw %}

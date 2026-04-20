@@ -26,4 +26,11 @@ connections, account management, and job submission.
     Add the Mila skills marketplace and install cluster-focused skills for
     account setup, SSH connections, and job submission.
 
+-   [:material-brain:{ .lg .middle } __Mila-Aware AI Assistance with MCP__](mcp.md)
+    { .card }
+
+    ---
+    Configure the Mila Docs MCP server so that AI assistants can draw on Mila
+    documentation automatically.
+
 </div>

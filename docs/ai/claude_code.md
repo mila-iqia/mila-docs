@@ -350,6 +350,11 @@ Remove a marketplace and make its skills unavailable for future installs:
     Add the Mila skills marketplace and install cluster-focused skills for
     account setup, SSH connections, and job submission.
 
-&nbsp;
+-   [:material-brain:{ .lg .middle } __Mila-Aware AI Assistance with MCP__](mcp.md)
+    { .card }
+
+    ---
+    Configure the Mila Docs MCP server so that AI assistants can draw on Mila
+    documentation automatically.
 
 </div>

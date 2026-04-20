@@ -133,6 +133,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
 - [AI agents](ai/index.md)
     - [Set Up Claude Code](ai/claude_code.md)
     - [Install Mila Skills for Claude Code](ai/mila_skills.md)
+    - [Mila-Aware AI Assistance with MCP](ai/mcp.md)
 - [Technical reference](technical_reference/index.md)
     - [Cheatsheet](technical_reference/cheatsheet.md)
     - [Glossary](technical_reference/glossary.md)
