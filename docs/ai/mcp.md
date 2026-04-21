@@ -1,11 +1,11 @@
 ---
-title: Mila-Aware AI Assistance with MCP
+title: Mila Docs MCP Server
 description: >-
   Configure the Mila Docs MCP server so that AI assistants can draw on Mila
   documentation automatically.
 ---
 
-# Mila-Aware AI Assistance with MCP
+# Mila Docs MCP Server
 
 The Model Context Protocol (MCP) is an open standard that lets AI assistants
 connect to external knowledge sources as callable tools. Configuring the Mila

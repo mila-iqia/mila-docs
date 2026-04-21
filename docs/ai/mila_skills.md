@@ -165,7 +165,7 @@ I can't seem to login to the 2FA thing, I use my username and the supplied passw
 
 <div class="grid cards" markdown>
 
--   [:material-brain:{ .lg .middle } __Mila-Aware AI Assistance with MCP__](mcp.md)
+-   [:material-brain:{ .lg .middle } __Mila Docs MCP Server__](mcp.md)
     { .card }
 
     ---

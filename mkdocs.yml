@@ -38,9 +38,9 @@ theme:
     - navigation.instant
     - navigation.tabs
     - navigation.tabs.sticky
-    - search.suggest
     - search.highlight
     - search.share
+    - search.suggest
   palette:
     # Palette toggle for automatic mode
     - media: "(prefers-color-scheme)"
