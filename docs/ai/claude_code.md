@@ -2,6 +2,7 @@
 title: Set Up Claude Code
 description: >-
   Install Claude Code and extend Claude Code with skills from a marketplace.
+biel_boost: 0.5
 ---
 
 # Set Up Claude Code

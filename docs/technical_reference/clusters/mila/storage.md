@@ -1,3 +1,7 @@
+---
+biel_boost: 0.5
+---
+
 # Storage
 
 | Path                                             | Performance | Usage                                                                | Quota (Space/Files) | Backup | Auto-cleanup |

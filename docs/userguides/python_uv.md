@@ -3,6 +3,7 @@ title: Manage Python Dependencies with uv
 description: >-
   Install uv, manage project dependencies, run reproducible Slurm jobs, install
   CLI tools, and run standalone scripts.
+biel_boost: 0.5
 ---
 
 # Manage Python Dependencies with `uv`

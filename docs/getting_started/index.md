@@ -11,6 +11,7 @@ skills:
   - __skill-mila-account-setup
   - __skill-mila-connect-cluster
   - __skill-mila-local-setup
+biel_boost: 0.5
 ---
 
 # Get Started with the Cluster

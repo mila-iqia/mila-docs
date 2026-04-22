@@ -3,6 +3,7 @@ title: Install Mila Skills for Claude Code
 description: >-
   Add the Mila skills marketplace to Claude Code and install cluster-focused
   skills for account setup, SSH connections, and job submission.
+biel_boost: 0.5
 ---
 
 # Install Mila Skills for Claude Code

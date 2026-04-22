@@ -5,6 +5,7 @@ description: >-
   #__skill-mila-run-jobs
 skills:
   - __skill-mila-run-jobs
+biel_boost: 0.5
 ---
 
 # Train Your First Model

@@ -17,8 +17,10 @@ and we'll take a look at it!
 <!-- Biel.ai script -->
 <script type="module" src="https://cdn.jsdelivr.net/npm/biel-search/dist/biel-search/biel-search.esm.js"></script>
 
+{% if page and page.meta.biel_boost %}
 <!-- Biel.ai search boost -->
-<meta name="biel:boost_score" content="0.5">
+<meta name="biel:boost_score" content="{{ page.meta.biel_boost }}" />
+{% endif %}
 {% endblock %}
 
 {% block content %}
