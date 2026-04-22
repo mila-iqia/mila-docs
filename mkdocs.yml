@@ -33,9 +33,9 @@ theme:
     ## Don't auto- expand until maybe after we reorganize the content a bit.
     ## Atm it's too many pages all at once, and doesn't match the sphinx structure.
     # - navigation.expand
-    - navigation.path
     - navigation.indexes
     - navigation.instant
+    - navigation.path
     - navigation.tabs
     - navigation.tabs.sticky
     - search.highlight

@@ -12,7 +12,7 @@ and we'll take a look at it!
 
 {% block extrahead %}
 <!-- DocSearch verification -->
-<meta name="algolia-site-verification"  content="3EAD36F59F913078" />
+<meta name="algolia-site-verification" content="3EAD36F59F913078" />
 
 <!-- DocSearch styles -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@4" />
@@ -62,13 +62,15 @@ and we'll take a look at it!
         insights: true,
         placeholder: "Search the docs",
         translations: {
-            button: { buttonText: "Search the docs" },
+            button: {buttonText: "Search the docs"},
         },
-        hitComponent({ hit, children }, { html }) {
-            const separator = hit.url.includes("?") ? "&" : "?";
-            const url = currentQuery
-                ? `${hit.url}${separator}h=${encodeURIComponent(currentQuery)}`
-                : hit.url;
+        hitComponent({hit, children}, {html}) {
+            const [base, hash] = hit.url.split("#");
+            const separator = base.includes("?") ? "&" : "?";
+            const urlWithQuery = currentQuery
+                ? `${base}${separator}h=${encodeURIComponent(currentQuery)}`
+                : base;
+            const url = hash ? `${urlWithQuery}#${hash}` : urlWithQuery;
             return html`<a href="${url}">${children}</a>;`;
         },
         // Agent Studio configuration
