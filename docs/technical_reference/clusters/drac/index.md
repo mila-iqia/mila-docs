@@ -39,13 +39,14 @@ Your supervisor is your first point of contact in knowing which allocations you
 should have access to.
 
 The table below provides information on the allocation for ``rrg-bengioy-ad``
-for the period which spans from July 2025 to Summer 2026.
+for the period which spans from April 7, 2026 to Spring 2027.
 
-| Cluster             | CPUs | account        | Model    | RGUs allocated | # GPU equiv | SLURM type specifier | account        |
-| ------------------- | ---- | -------------- | -------- | -------------- | ----------- | -------------------- | -------------- |
-| [Fir](#fir)         | 193  | rrg-bengioy-ad | H100-80G | 2000           | 165         | `h100`               | rrg-bengioy-ad |
-| [Rorqual](#rorqual) | 873  | rrg-bengioy-ad | H100-80G | 1500           | 123         | `h100`               | rrg-bengioy-ad |
-| [Nibi](#nibi)       | 0    | rrg-bengioy-ad | H100-80G | 1000           | 82          | `h100`               | rrg-bengioy-ad |
+| Cluster                | CPUs | account          | Model    | RGUs allocated | # GPU equiv | SLURM type specifier | account          |
+| ---------------------- | ---- | ---------------- | -------- | -------------- | ----------- | -------------------- | ---------------- |
+| [Fir](#fir)            | 0    | `rrg-bengioy-ad` | H100-80G | 2090           | 171         | `h100`               | `rrg-bengioy-ad` |
+| [Nibi](#nibi)          | 0    | `rrg-bengioy-ad` | H100-80G | 363            | 30          | `h100`               | `rrg-bengioy-ad` |
+| [Rorqual](#rorqual)    | 263  | `rrg-bengioy-ad` | H100-80G | 1172           | 96          | `h100`               | `rrg-bengioy-ad` |
+| [Trillium](#trillium)  | 768  | `rrg-bengioy-ad` | H100-80G | 375            | 31          | `h100`               | `rrg-bengioy-ad` |
 
 
 On DRAC clusters where Mila has no allocated resources under ``rrg-bengioy-ad``
@@ -136,9 +137,24 @@ The successor to the legacy Beluga cluster. No internet access on compute nodes.
 [Digital Research Alliance of Canada doc](https://docs.alliancecan.ca/wiki/Trillium)
 
 The successor to the legacy Niagara cluster. It is principally but not exclusively a
-CPU cluster. This cluster is not recommended in general. Compute resources
-in Trillium are not assigned to jobs on a per-CPU, but on a per-node basis.
-Equipped with H100s.
+CPU cluster. GPU subcluster equipped with H100s.
+
+Trillium is [not run exactly like other clusters](https://docs.alliancecan.ca/wiki/Trillium_Quickstart).
+Most notably,
+
+  - Trillium is structured as two sub-clusters, once CPU and one GPU.
+    - Trillium (CPU):
+      - Login node `trillium.alliancecan.ca`
+      - Jobs are allocated on a **per-node basis**, _not_ per-CPU.
+    - Trillium-GPU:
+      - Login node `trillium‑gpu.alliancecan.ca`
+      - Jobs allocated either **per-node**, _or_ **single-GPU** (1/4 node).
+  - Both share their filesystem.
+  - Job submissions must be made from `$SCRATCH`.
+
+Refer to the Trillium [Quickstart Guide](https://docs.alliancecan.ca/wiki/Trillium_Quickstart) for more
+details before using this cluster.
+
 
 ### Narval
 
