@@ -1,7 +1,10 @@
 site_name: Mila Technical Documentation
+# TODO: it might be possible to use something like
+# https://docs.mila.quebec/en/401/ as the site_url to avoid relying on relative
+# paths in the doc (../resource instead of /resource)
 site_url: https://docs.mila.quebec
 repo_name: mila-docs
-repo_url: https://www.github.com/mila-iqia/mila-docs
+repo_url: https://github.com/mila-iqia/mila-docs
 docs_dir: docs
 edit_uri: edit/master/docs/
 
@@ -30,14 +33,14 @@ theme:
     ## Don't auto- expand until maybe after we reorganize the content a bit.
     ## Atm it's too many pages all at once, and doesn't match the sphinx structure.
     # - navigation.expand
-    - navigation.path
     - navigation.indexes
     - navigation.instant
+    - navigation.path
     - navigation.tabs
     - navigation.tabs.sticky
-    - search.suggest
     - search.highlight
     - search.share
+    - search.suggest
   palette:
     # Palette toggle for automatic mode
     - media: "(prefers-color-scheme)"

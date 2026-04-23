@@ -31,3 +31,27 @@ a.full-card:hover {
 .skill-identifiers {
   display: none;
 }
+
+/*
+* DocSearch: override the inherited font-size so internal em values scale from
+* 0.8rem rather than the theme's default.
+ */
+.DocSearch-Modal,
+.DocSearch-Sidepanel,
+#docsearch .DocSearch-Button-Placeholder {
+    font-size: 0.8rem;
+}
+
+/*
+ * DocSearch: shrink floating Ask AI button to ~2/3 of its default size
+ */
+.DocSearch-SidepanelButton.floating {
+    transform: scale(0.6);
+    transform-origin: bottom right;
+    --docsearch-sidepanel-primary: var(--md-primary-fg-color);
+}
+
+.DocSearch-SidepanelButton.floating:focus,
+.DocSearch-SidepanelButton.floating:hover {
+    --docsearch-sidepanel-primary-dark: var(--md-primary-fg-color--dark);
+}
