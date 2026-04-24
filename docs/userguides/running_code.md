@@ -398,14 +398,6 @@ The full list of GPU and their features can be accessed [here](../../technical_r
 
 Here is a `sbatch` script that follows good practices on the Mila cluster:
 
-!!! note
-    This example is a bit outdated and uses Conda. In practice, we now recommend
-    that you use [uv](https://docs.astral.sh/uv) to manage your Python
-    environments.
-    See the [Minimal Examples Section](../../examples/frameworks) for more information.
-
-<!-- TODO: Switch this to UV rather than conda. -->
-
 ```bash
 #!/bin/bash
 
