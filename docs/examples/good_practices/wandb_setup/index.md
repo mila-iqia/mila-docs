@@ -1,7 +1,9 @@
 # Wandb Setup
 
 
-Prerequisites:
+**Prerequisites**
+
+Make sure to read the following sections of the documentation before using this example:
 
 * [PyTorch setup](../../frameworks/pytorch_setup/index.md)
 * [Single GPU](../../distributed/single_gpu/index.md)
@@ -15,7 +17,7 @@ Other resources:
 
 * [Wandb quickstart](https://docs.wandb.ai/quickstart)
 
-Click here to see [the source code for this example](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/good_practices/wandb_setup).
+The full source code for this example is available on [the mila-docs GitHub repository.](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/good_practices/wandb_setup).
 
 **job.sh**
 

@@ -1,16 +1,15 @@
 # PyTorch Setup
 
 
-**Prerequisites**: (Make sure to read the following before using this example!)
+**Prerequisites**
 
-
-The full source code for this example is available on [the mila-docs GitHub
-repository.](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/frameworks/pytorch_setup)
-
+Make sure to read the following sections of the documentation before using this example:
 
 * [Quick Start](../../../getting_started/)
 * [Running your code](../../../userguides/running_code)
 * [uv](../../../technical_reference/general_theory/portability/#uv)
+
+The full source code for this example is available on [the mila-docs GitHub repository.](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/frameworks/pytorch_setup)
 
 
 **job.sh**

@@ -2,8 +2,8 @@
 
 
 **Prerequisites**
-Make sure to read the following sections of the documentation before using this
-example:
+
+Make sure to read the following sections of the documentation before using this example:
 
 * [PyTorch setup](../../frameworks/pytorch_setup/index.md)
 
