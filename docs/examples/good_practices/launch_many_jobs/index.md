@@ -18,18 +18,15 @@ example:
 **job.sh**
 
 Compared to the [single GPU job](../../distributed/single_gpu/index.md) example, here we use the `$@` bash directive
-to pass command-line arguments down to the Python script.
+to pass command-line arguments down to the Python script. This makes it very easy to submit multiple jobs, each with different values!
 
-This makes it very easy to submit multiple jobs, each with different values!
-
-The full source code for this example is available on [the mila-docs GitHub
-repository.](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/good_practices/launch_many_jobs)
+The full source code for this example is available on [the mila-docs GitHub repository.](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/good_practices/launch_many_jobs)
 
 ```diff
 --8<-- "docs/examples/good_practices/launch_many_jobs/job.sh.diff"
 ```
 
-**Running this example**
+## Running this example
 
 You can run this example just like the [single GPU job](../../distributed/single_gpu/index.md) example, but you can now
 also pass command-line arguments directly when submitting the job with `sbatch`!
@@ -42,9 +39,7 @@ For example:
  $ sbatch job.sh --weight-decay 1e-3
 ```
 
-
-### Next steps
-
+## Next steps
 
 These next examples build on top of this one and show how to properly launch lots of jobs for hyper-parameter sweeps:
 
