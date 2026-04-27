@@ -1,14 +1,14 @@
 # Single GPU Job
 
-
-**Prerequisites**
+## Prerequisites
 
 Make sure to read the following sections of the documentation before using this example:
 
 * [PyTorch setup](../../frameworks/pytorch_setup/index.md)
 
-The full source code for this example is available on [the mila-docs GitHub
-repository.](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/distributed/single_gpu)
+## Example
+
+The full source code for this example is available on [the mila-docs GitHub repository.](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/distributed/single_gpu)
 
 **job.sh**
 

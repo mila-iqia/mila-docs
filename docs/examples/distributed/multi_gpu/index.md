@@ -1,7 +1,6 @@
 # Multi-GPU Job
 
-
-**Prerequisites**
+## Prerequisites
 
 Make sure to read the following sections of the documentation before using this example:
 
@@ -12,6 +11,8 @@ Other interesting resources:
 
 * [sebarnold.net dist blog](https://sebarnold.net/dist_blog/)
 * [Multi-node PyTorch distributed training guide (Lambda Labs)](https://lambdalabs.com/blog/multi-node-pytorch-distributed-training-guide)
+
+## Example
 
 The full source code for this example is available on [the mila-docs GitHub repository.](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/distributed/multi_gpu)
 
