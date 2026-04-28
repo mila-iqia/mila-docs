@@ -1,15 +1,16 @@
 # Jax Setup
 
+## Prerequisites
 
-**Prerequisites**: (Make sure to read the following before using this example!)
+Make sure to read the following sections of the documentation before using this example:
 
 * [Quick Start](../../../getting_started/)
 * [Running your code](../../../userguides/running_code)
 * [uv](../../../technical_reference/general_theory/portability/#uv)
 
-The full source code for this example is available on [the mila-docs GitHub
-repository.](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/frameworks/jax_setup)
+## Example
 
+The full source code for this example is available on [the mila-docs GitHub repository.](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/frameworks/jax_setup)
 
 **job.sh**
 
@@ -35,7 +36,7 @@ This assumes that you already installed UV on the cluster you are working on.
 
 To create this environment, we first request resources for an interactive job.
 Note that we are requesting a GPU for this job, even though we're only going to
-install packages. This is because we want PyTorch to be installed with GPU
+install packages. This is because we want Jax to be installed with GPU
 support, and to have all the required libraries.
 
 ```bash
