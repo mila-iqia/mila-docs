@@ -1,7 +1,5 @@
 """Checkpointing example."""
 
-from __future__ import annotations
-
 import argparse
 import logging
 import os
@@ -11,7 +9,6 @@ import signal
 import sys
 import uuid
 import warnings
-from logging import getLogger as get_logger
 from pathlib import Path
 from types import FrameType
 from typing import Any, TypedDict
