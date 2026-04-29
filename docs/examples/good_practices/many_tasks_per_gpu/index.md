@@ -12,15 +12,16 @@ using a combination of `sbatch` arguments. In your `sbatch` script:
 Each task will receive specific environment variables, such as `SLURM_PROCID`,
 which you can then use to parameterize the script execution.
 
-**Prerequisites**
+## Prerequisites
 
 Make sure to read the following sections of the documentation before using this
 example:
 
 * [PyTorch setup](../../frameworks/pytorch_setup/index.md)
 
-The full source code for this example is available on [the mila-docs GitHub
-repository.](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/good_practices/many_tasks_per_gpu)
+## Example
+
+The full source code for this example is available on [the mila-docs GitHub repository.](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/good_practices/many_tasks_per_gpu)
 
 **job.sh**
 
