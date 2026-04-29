@@ -15,7 +15,7 @@ Other interesting resources:
 
 ## Example
 
-The full source code for this example is available on [the mila-docs GitHubrepository.](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/distributed/multi_node)
+The full source code for this example is available on [the mila-docs GitHub repository.](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/distributed/multi_node)
 
 **job.sh**
 
