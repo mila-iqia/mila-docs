@@ -1,0 +1,57 @@
+:root {
+  --md-admonition-color--wip: 255, 145, 0; /* Decimals for #ff9100 */;
+  --md-admonition-color-hex--wip: #ff9100;
+}
+.md-typeset .admonition.wip,
+.md-typeset details.wip {
+  border-color: rgba(var(--md-admonition-color--wip));
+}
+.md-typeset .wip > .admonition-title,
+.md-typeset .wip > summary {
+  background-color: rgba(var(--md-admonition-color--wip), 0.1); /*color.adjust($clr-blue-a200, $alpha: -0.9);//rgba(43, 155, 70, 0.1);*/
+}
+.md-typeset .wip > .admonition-title::before,
+.md-typeset .wip > summary::before {
+  background-color: var(--md-admonition-color-hex--wip);
+  -webkit-mask-image: var(--md-admonition-icon--wip);
+          mask-image: var(--md-admonition-icon--wip);
+}
+
+a.full-card {
+  display: block;
+  color: var(--md-typeset-color);
+  width: 100%;
+  height: 100%;
+}
+
+a.full-card:hover {
+  color: var(--md-typeset-color);
+}
+
+.skill-identifiers {
+  display: none;
+}
+
+/*
+* DocSearch: override the inherited font-size so internal em values scale from
+* 0.8rem rather than the theme's default.
+ */
+.DocSearch-Modal,
+.DocSearch-Sidepanel,
+#docsearch .DocSearch-Button-Placeholder {
+    font-size: 0.8rem;
+}
+
+/*
+ * DocSearch: shrink floating Ask AI button to ~2/3 of its default size
+ */
+.DocSearch-SidepanelButton.floating {
+    transform: scale(0.6);
+    transform-origin: bottom right;
+    --docsearch-sidepanel-primary: var(--md-primary-fg-color);
+}
+
+.DocSearch-SidepanelButton.floating:focus,
+.DocSearch-SidepanelButton.floating:hover {
+    --docsearch-sidepanel-primary-dark: var(--md-primary-fg-color--dark);
+}
