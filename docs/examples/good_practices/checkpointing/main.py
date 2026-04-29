@@ -111,10 +111,8 @@ def main():
 
     logger = logging.getLogger(__name__)
 
-    # Create a model.
+    # Create a model and move it to the GPU.
     model = resnet18(num_classes=10)
-
-    # Move the model to the GPU.
     model.to(device=device)
 
     optimizer = torch.optim.AdamW(
@@ -141,7 +139,7 @@ def main():
     else:
         logger.info(f"No checkpoints found in {checkpoint_dir}. Training from scratch.")
 
-    # Setup the dataset
+    # Setup CIFAR10
     num_workers = get_num_workers()
     dataset_path = (SLURM_TMPDIR or Path("..")) / "data"
 
@@ -189,10 +187,10 @@ def main():
     for epoch in range(start_epoch, epochs):
         logger.debug(f"Starting epoch {epoch}/{epochs}")
 
-        # Set the model in training mode (this is important for e.g. BatchNorm and Dropout layers)
+        # Set the model in training mode (important for e.g. BatchNorm and Dropout layers)
         model.train()
 
-        # NOTE: using a progress bar from tqdm much nicer than using `print`s).
+        # NOTE: using a progress bar from tqdm because it's nicer than using `print`.
         progress_bar = tqdm(
             total=len(train_dataloader),
             desc=f"Train epoch {epoch}",
@@ -200,7 +198,6 @@ def main():
         )
 
         # Training loop
-        batch: tuple[Tensor, Tensor]
         for batch in train_dataloader:
             # Move the batch to the GPU before we pass it to the model
             batch = tuple(item.to(device) for item in batch)
@@ -233,7 +230,7 @@ def main():
             f"Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%}"
         )
 
-        # remember best accuracy and save the current state.
+        # Remember best accuracy and save the current state.
         is_best = val_accuracy > best_acc
         best_acc = max(val_accuracy, best_acc)
 
@@ -364,11 +361,10 @@ def save_checkpoint(checkpoint_dir: Path, is_best: bool, state: RunState):
 
     The best checkpoint is also updated if `is_best` is `True`.
 
-    Parameters
-    ----------
-    checkpoint_dir: The checkpoint directory.
-    is_best: Whether this is the best checkpoint so far.
-    state: The dictionary containing all the things to save.
+    Parameters:
+        checkpoint_dir (Path): The checkpoint directory.
+        is_best (bool): Whether this is the best checkpoint so far.
+        state (RunState): The dictionary containing all the things to save.
     """
     checkpoint_dir.mkdir(parents=True, exist_ok=True)
     checkpoint_file = checkpoint_dir / CHECKPOINT_FILE_NAME
