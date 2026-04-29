@@ -6,7 +6,9 @@
 <!-- Jobs and scheduling -->
 *[Slurm]:           The job scheduler on the cluster; it assigns your jobs to compute nodes.
 *[Slurm job]:       A unit of work you submit to Slurm; it gets resources (e.g. a compute node) and runs until it finishes or hits its time limit.
+*[job]:    Also called "Slurm job": a unit of work you submit to Slurm; it gets resources (e.g. a compute node) and runs until it finishes or hits its time limit.
 *[Slurm job step]:  A single command or program run inside a Slurm job; one job can run one or more steps in sequence.
+*[task]:    Also called "Slurm task": a set of commands running on an allocation part. A job can contain multiple tasks.
 *[program]:         The executable or script that runs inside a job step (e.g. `uv run python main.py` or your training script).
 *[batch Slurm job]: A Slurm job that runs on the cluster without you staying connected; you submit it and check results later.
 <!-- Access and environment -->
