@@ -24,6 +24,8 @@ from torchvision.datasets import CIFAR10
 from torchvision.models import resnet18
 from tqdm import tqdm
 
+logger = logging.getLogger(__name__)
+
 SCRATCH = Path(os.environ["SCRATCH"])
 SLURM_TMPDIR = Path(os.environ["SLURM_TMPDIR"])
 SLURM_JOBID = os.environ["SLURM_JOBID"]
@@ -42,12 +44,7 @@ CHECKPOINT_FILE_NAME = "checkpoint.pth"
 
 
 class RunState(TypedDict):
-    """Typed dictionary containing the state of the training run which is saved at each epoch.
-
-    Using type hints helps prevent bugs and makes your code easier to read for both humans and
-    machines (e.g. Copilot). This leads to less time spent debugging and better code suggestions.
-    """
-
+    """Typed dictionary containing the state of the training run which is saved at each epoch."""
     epoch: int
     best_acc: float
     model_state: dict[str, Tensor]
@@ -57,6 +54,21 @@ class RunState(TypedDict):
     numpy_random_state: dict[str, Any]
     torch_random_state: Tensor
     torch_cuda_random_state: list[Tensor]
+
+
+def signal_handler(signum: int, frame: FrameType | None):
+    """Called before the job gets pre-empted or reaches the time-limit.
+
+    This should run quickly. Performing a full checkpoint here mid-epoch is not recommended.
+    """
+    signal_enum = signal.Signals(signum)
+    logger.error(f"Job received a {signal_enum.name} signal!")
+    exit(0)  # Exit with code 0 to avoid SLURM marking the job as failed.
+
+    # Perform quick actions that will help the job resume later.
+    # If you use Weights & Biases: https://docs.wandb.ai/guides/runs/resuming#preemptible-sweeps
+    # if wandb.run:
+    #     wandb.mark_preempting()
 
 
 def main():
@@ -108,8 +120,6 @@ def main():
             )
         ],
     )
-
-    logger = logging.getLogger(__name__)
 
     # Create a model and move it to the GPU.
     model = resnet18(num_classes=10)
@@ -165,18 +175,6 @@ def main():
         shuffle=False,
     )
 
-    def signal_handler(signum: int, frame: FrameType | None):
-        """Called before the job gets pre-empted or reaches the time-limit.
-
-        This should run quickly. Performing a full checkpoint here mid-epoch is not recommended.
-        """
-        signal_enum = signal.Signals(signum)
-        logger.error(f"Job received a {signal_enum.name} signal!")
-        # Perform quick actions that will help the job resume later.
-        # If you use Weights & Biases: https://docs.wandb.ai/guides/runs/resuming#preemptible-sweeps
-        # if wandb.run:
-        #     wandb.mark_preempting()
-
     signal.signal(
         signal.SIGTERM, signal_handler
     )  # Before getting pre-empted and requeued.
@@ -220,7 +218,7 @@ def main():
             logger.debug(f"Accuracy: {accuracy.item():.2%}")
             logger.debug(f"Average Loss: {loss.item()}")
 
-            # Advance the progress bar one step, and update the text displayed in the progress bar.
+            # Advance the progress bar one step and update the progress bar text.
             progress_bar.update(1)
             progress_bar.set_postfix(loss=loss.item(), accuracy=accuracy.item())
         progress_bar.close()
@@ -316,8 +314,6 @@ def get_num_workers() -> int:
 
 def load_checkpoint(checkpoint_dir: Path, **torch_load_kwargs) -> RunState | None:
     """Loads the latest checkpoint if possible, otherwise returns `None`."""
-    logger = logging.getLogger(__name__)
-
     checkpoint_file = checkpoint_dir / CHECKPOINT_FILE_NAME
     restart_count = int(os.environ.get("SLURM_RESTART_COUNT", 0))
     if restart_count:
