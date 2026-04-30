@@ -11,10 +11,15 @@ A complete checkpoint generally needs more than just the model weights. It also 
 state, the current epoch number and the states of random number generator (for Python, NumPy, and PyTorch, etc.). 
 Saving all of these states ensures that a resumed run produces exactly the same result as an uninterrupted one.
 
-You can also save multiple intermediate checkpoints for analysis or to keep different restart points. But be mindful of storage space, as checkpoints can consume a lot of it, especially if your model and optimizer states are large. Make sure to monitor your storage usage and clean up old checkpoints as needed. 
+You can also save multiple intermediate checkpoints for analysis or to keep different restart points.
+But be mindful of storage space, as checkpoints can consume a lot of it, especially if your model
+and optimizer states are large. Make sure to monitor your storage usage and clean up old checkpoints as needed. 
 
 !!! warning
-    You can use the `$SCRATCH` storage for checkpoints, but be aware that it is not backed up and may be cleared periodically, so it's not suitable for long-term storage. After the end of the training, you should always keep a copy of the most valuable checkpoints (e.g., the best model or the latest checkpoint) in a more permanent storage.
+    You can use the `$SCRATCH` storage for checkpoints, but be aware that it is not backed up and may be
+    cleared periodically, so it's not suitable for long-term storage. After the end of the training,
+    you should always keep a copy of the most valuable checkpoints (e.g., the best model or the latest checkpoint)
+    in a more permanent storage.
 
 Checkpointing enables you to:
 
