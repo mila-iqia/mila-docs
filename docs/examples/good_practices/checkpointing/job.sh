@@ -13,7 +13,6 @@
                             # better cleanup. If you cancel the job manually,
                             # make sure that you specify the signal as TERM like
                             # so `scancel --signal=TERM <jobid>`.
-                            # https://dhruveshp.com/blog/2021/signal-propagation-on-slurm/
 
 # Exit on error
 set -e

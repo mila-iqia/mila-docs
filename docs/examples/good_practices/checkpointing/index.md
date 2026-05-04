@@ -34,13 +34,17 @@ example:
 * [PyTorch Setup](../../frameworks/pytorch_setup/index.md)
 * [Single GPU](../../distributed/single_gpu/index.md)
 
+Other resources:
+
+* [Signal Propagation On Slurm by Dhruvesh Patel](https://dhruveshp.com/blog/2021/signal-propagation-on-slurm/)
+
 ## Example
 
 The full source code for this example is available on [the mila-docs GitHub repository.](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/good_practices/checkpointing)
 
 **job.sh**
 
-Two SBATCH directives are added compared to the baseline:
+Two SBATCH directives are added:
 
 * `#SBATCH --requeue`: automatically requeues the job when it is preempted by the scheduler.
 * `#SBATCH --signal=B:TERM@300`: sends `SIGTERM` to the job 5 minutes before its time limit

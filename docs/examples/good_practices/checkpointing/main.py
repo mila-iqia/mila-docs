@@ -63,7 +63,6 @@ def signal_handler(signum: int, frame: FrameType | None):
     """
     signal_enum = signal.Signals(signum)
     logger.error(f"Job received a {signal_enum.name} signal!")
-    exit(0)  # Exit with code 0 to avoid SLURM marking the job as failed.
 
     # Perform quick actions that will help the job resume later.
     # If you use Weights & Biases: https://docs.wandb.ai/guides/runs/resuming#preemptible-sweeps
@@ -267,11 +266,11 @@ def validation_loop(model: nn.Module, dataloader: DataLoader, device: torch.devi
         loss = F.cross_entropy(logits, y)
 
         batch_n_samples = x.shape[0]
-        batch_correct_predictions = logits.argmax(-1).eq(y).sum().item()
+        batch_correct_predictions = logits.argmax(-1).eq(y).sum()
 
         total_loss += loss.item()
         n_samples += batch_n_samples
-        correct_predictions += int(batch_correct_predictions)
+        correct_predictions += batch_correct_predictions
 
     accuracy = correct_predictions / n_samples
     return total_loss, accuracy
