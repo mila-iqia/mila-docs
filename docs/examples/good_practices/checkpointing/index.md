@@ -1,18 +1,16 @@
 # Checkpointing
 
-## Prerequisites
-
 Checkpointing is the process of periodically saving the full state of a training run so that it
-can be resumed after an interruption. Without checkpointing, any interruption means starting from scratch
+can be resumed later. Without checkpointing, any interruption means starting from scratch
 and wasting compute and time. This is especially useful to manage long-running jobs that can then be split
-into more robust and smaller ones
+into more robust and smaller ones.
 
 A complete checkpoint generally needs more than just the model weights. It also includes the optimizer
-state, the current epoch number and the states of random number generator (for Python, NumPy, and PyTorch, etc.). 
+state, the current epoch number and the states of random number generator (for Python, NumPy, PyTorch, etc.). 
 Saving all of these states ensures that a resumed run produces exactly the same result as an uninterrupted one.
 
 You can also save multiple intermediate checkpoints for analysis or to keep different restart points.
-But be mindful of storage space, as checkpoints can consume a lot of it, especially if your model
+Be mindful of storage space, as checkpoints can consume a lot of it, especially if your model
 and optimizer states are large. Make sure to monitor your storage usage and clean up old checkpoints as needed. 
 
 !!! warning
@@ -27,6 +25,8 @@ Checkpointing enables you to:
   time-limit, avoiding wasted compute.
 * Request shorter wall-clock time allocations, which are easier to schedule on the cluster.
 * Access preemptible partitions where jobs get high-priority resources but may be interrupted.
+
+## Prerequisites
 
 Make sure to read the following sections of the documentation before using this
 example:
@@ -76,10 +76,9 @@ restored, the epoch counter starts from the next epoch. Because SLURM preserves 
 the restarted job automatically finds the checkpoint left by the previous run.
 
 **Signal handling :** The `signal_handler` function is registered for `SIGTERM` (preemption or
-manual cancellation) and `SIGUSR1` (time-limit warning sent by `--signal=B:TERM@300`). It logs
-the received signal and exits with code 0 so that SLURM does not mark the job as failed. Since
-the last complete checkpoint was saved at the end of the previous epoch, at most one epoch of
-progress is lost when training is interrupted.
+manual cancellation) and `SIGUSR1` (time-limit warning sent by `--signal=B:TERM@300`) and will interrupt the training
+when receiving the signals and run the clean up code. Since the last complete checkpoint was saved at the end of
+the previous epoch, at most one epoch of progress is lost when training is interrupted.
 
 ```diff
 --8<-- "docs/examples/good_practices/checkpointing/main.py.diff"
