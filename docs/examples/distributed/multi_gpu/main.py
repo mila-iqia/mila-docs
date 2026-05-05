@@ -318,7 +318,7 @@ def make_datasets(
 
 
 def get_num_workers() -> int:
-    """Gets the optimal number of DatLoader workers to use in the current job."""
+    """Gets the optimal number of DataLoader workers to use in the current job."""
     if "SLURM_CPUS_PER_TASK" in os.environ:
         return int(os.environ["SLURM_CPUS_PER_TASK"])
     if hasattr(os, "sched_getaffinity"):

@@ -1,7 +1,5 @@
 """Checkpointing example."""
 
-from __future__ import annotations
-
 import argparse
 import logging
 import os
@@ -11,7 +9,6 @@ import signal
 import sys
 import uuid
 import warnings
-from logging import getLogger as get_logger
 from pathlib import Path
 from types import FrameType
 from typing import Any, TypedDict
@@ -26,6 +23,8 @@ from torchvision import transforms
 from torchvision.datasets import CIFAR10
 from torchvision.models import resnet18
 from tqdm import tqdm
+
+logger = logging.getLogger(__name__)
 
 SCRATCH = Path(os.environ["SCRATCH"])
 SLURM_TMPDIR = Path(os.environ["SLURM_TMPDIR"])
@@ -45,12 +44,7 @@ CHECKPOINT_FILE_NAME = "checkpoint.pth"
 
 
 class RunState(TypedDict):
-    """Typed dictionary containing the state of the training run which is saved at each epoch.
-
-    Using type hints helps prevent bugs and makes your code easier to read for both humans and
-    machines (e.g. Copilot). This leads to less time spent debugging and better code suggestions.
-    """
-
+    """Typed dictionary containing the state of the training run which is saved at each epoch."""
     epoch: int
     best_acc: float
     model_state: dict[str, Tensor]
@@ -60,6 +54,20 @@ class RunState(TypedDict):
     numpy_random_state: dict[str, Any]
     torch_random_state: Tensor
     torch_cuda_random_state: list[Tensor]
+
+
+def signal_handler(signum: int, frame: FrameType | None):
+    """Called before the job gets pre-empted or reaches the time-limit.
+
+    This should run quickly. Performing a full checkpoint here mid-epoch is not recommended.
+    """
+    signal_enum = signal.Signals(signum)
+    logger.error(f"Job received a {signal_enum.name} signal!")
+
+    # Perform quick actions that will help the job resume later.
+    # If you use Weights & Biases: https://docs.wandb.ai/guides/runs/resuming#preemptible-sweeps
+    # if wandb.run:
+    #     wandb.mark_preempting()
 
 
 def main():
@@ -112,12 +120,8 @@ def main():
         ],
     )
 
-    logger = logging.getLogger(__name__)
-
-    # Create a model.
+    # Create a model and move it to the GPU.
     model = resnet18(num_classes=10)
-
-    # Move the model to the GPU.
     model.to(device=device)
 
     optimizer = torch.optim.AdamW(
@@ -144,7 +148,7 @@ def main():
     else:
         logger.info(f"No checkpoints found in {checkpoint_dir}. Training from scratch.")
 
-    # Setup the dataset
+    # Setup CIFAR10
     num_workers = get_num_workers()
     dataset_path = (SLURM_TMPDIR or Path("..")) / "data"
 
@@ -170,18 +174,6 @@ def main():
         shuffle=False,
     )
 
-    def signal_handler(signum: int, frame: FrameType | None):
-        """Called before the job gets pre-empted or reaches the time-limit.
-
-        This should run quickly. Performing a full checkpoint here mid-epoch is not recommended.
-        """
-        signal_enum = signal.Signals(signum)
-        logger.error(f"Job received a {signal_enum.name} signal!")
-        # Perform quick actions that will help the job resume later.
-        # If you use Weights & Biases: https://docs.wandb.ai/guides/runs/resuming#preemptible-sweeps
-        # if wandb.run:
-        #     wandb.mark_preempting()
-
     signal.signal(
         signal.SIGTERM, signal_handler
     )  # Before getting pre-empted and requeued.
@@ -192,10 +184,10 @@ def main():
     for epoch in range(start_epoch, epochs):
         logger.debug(f"Starting epoch {epoch}/{epochs}")
 
-        # Set the model in training mode (this is important for e.g. BatchNorm and Dropout layers)
+        # Set the model in training mode (important for e.g. BatchNorm and Dropout layers)
         model.train()
 
-        # NOTE: using a progress bar from tqdm much nicer than using `print`s).
+        # NOTE: using a progress bar from tqdm because it's nicer than using `print`.
         progress_bar = tqdm(
             total=len(train_dataloader),
             desc=f"Train epoch {epoch}",
@@ -203,7 +195,6 @@ def main():
         )
 
         # Training loop
-        batch: tuple[Tensor, Tensor]
         for batch in train_dataloader:
             # Move the batch to the GPU before we pass it to the model
             batch = tuple(item.to(device) for item in batch)
@@ -226,7 +217,7 @@ def main():
             logger.debug(f"Accuracy: {accuracy.item():.2%}")
             logger.debug(f"Average Loss: {loss.item()}")
 
-            # Advance the progress bar one step, and update the text displayed in the progress bar.
+            # Advance the progress bar one step and update the progress bar text.
             progress_bar.update(1)
             progress_bar.set_postfix(loss=loss.item(), accuracy=accuracy.item())
         progress_bar.close()
@@ -236,7 +227,7 @@ def main():
             f"Epoch {epoch}: Val loss: {val_loss:.3f} accuracy: {val_accuracy:.2%}"
         )
 
-        # remember best accuracy and save the current state.
+        # Remember best accuracy and save the current state.
         is_best = val_accuracy > best_acc
         best_acc = max(val_accuracy, best_acc)
 
@@ -275,11 +266,11 @@ def validation_loop(model: nn.Module, dataloader: DataLoader, device: torch.devi
         loss = F.cross_entropy(logits, y)
 
         batch_n_samples = x.shape[0]
-        batch_correct_predictions = logits.argmax(-1).eq(y).sum().item()
+        batch_correct_predictions = logits.argmax(-1).eq(y).sum()
 
         total_loss += loss.item()
         n_samples += batch_n_samples
-        correct_predictions += int(batch_correct_predictions)
+        correct_predictions += batch_correct_predictions
 
     accuracy = correct_predictions / n_samples
     return total_loss, accuracy
@@ -322,8 +313,6 @@ def get_num_workers() -> int:
 
 def load_checkpoint(checkpoint_dir: Path, **torch_load_kwargs) -> RunState | None:
     """Loads the latest checkpoint if possible, otherwise returns `None`."""
-    logger = logging.getLogger(__name__)
-
     checkpoint_file = checkpoint_dir / CHECKPOINT_FILE_NAME
     restart_count = int(os.environ.get("SLURM_RESTART_COUNT", 0))
     if restart_count:
@@ -367,11 +356,10 @@ def save_checkpoint(checkpoint_dir: Path, is_best: bool, state: RunState):
 
     The best checkpoint is also updated if `is_best` is `True`.
 
-    Parameters
-    ----------
-    checkpoint_dir: The checkpoint directory.
-    is_best: Whether this is the best checkpoint so far.
-    state: The dictionary containing all the things to save.
+    Parameters:
+        checkpoint_dir (Path): The checkpoint directory.
+        is_best (bool): Whether this is the best checkpoint so far.
+        state (RunState): The dictionary containing all the things to save.
     """
     checkpoint_dir.mkdir(parents=True, exist_ok=True)
     checkpoint_file = checkpoint_dir / CHECKPOINT_FILE_NAME
