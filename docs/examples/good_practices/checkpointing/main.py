@@ -56,18 +56,24 @@ class RunState(TypedDict):
     torch_cuda_random_state: list[Tensor]
 
 
-def signal_handler(signum: int, frame: FrameType | None):
+def signal_handler(signum: int, _: FrameType | None):
     """Called before the job gets pre-empted or reaches the time-limit.
 
     This should run quickly. Performing a full checkpoint here mid-epoch is not recommended.
     """
     signal_enum = signal.Signals(signum)
-    logger.error(f"Job received a {signal_enum.name} signal!")
+    logger.info(f"Job received a {signal_enum.name} signal! Stopping the training.")
 
     # Perform quick actions that will help the job resume later.
     # If you use Weights & Biases: https://docs.wandb.ai/guides/runs/resuming#preemptible-sweeps
     # if wandb.run:
     #     wandb.mark_preempting()
+
+    # If you want to directly requeue the job:
+    # subprocess.run(["scontrol", "requeue", SLURM_JOBID])
+
+    # If you want to return a custom exit code:
+    # sys.exit(<custom_code>)
 
 
 def main():
@@ -174,12 +180,10 @@ def main():
         shuffle=False,
     )
 
+    # Before getting pre-empted and requeued or reaching the end of the time limit.
     signal.signal(
         signal.SIGTERM, signal_handler
-    )  # Before getting pre-empted and requeued.
-    signal.signal(
-        signal.SIGUSR1, signal_handler
-    )  # Before reaching the end of the time limit.
+    )
 
     for epoch in range(start_epoch, epochs):
         logger.debug(f"Starting epoch {epoch}/{epochs}")

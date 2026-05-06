@@ -10,9 +10,7 @@
 #SBATCH --requeue
 #SBATCH --signal=B:TERM@300 # tells the controller to send SIGTERM to the job 5
                             # min before its time ends to give it a chance for
-                            # better cleanup. If you cancel the job manually,
-                            # make sure that you specify the signal as TERM like
-                            # so `scancel --signal=TERM <jobid>`.
+                            # better cleanup.
 
 # Exit on error
 set -e
