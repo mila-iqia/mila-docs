@@ -46,7 +46,7 @@ The full source code for this example is available on [the mila-docs GitHub repo
 
 Two SBATCH directives are added:
 
-* `#SBATCH --requeue`: automatically requeues the job when it is preempted by the scheduler.
+* `#SBATCH --requeue`: allows the job to be requeued with the same job ID.
 * `#SBATCH --signal=B:TERM@300`: sends `SIGTERM` to the job 5 minutes before its time limit
   expires, giving the Python process time to exit cleanly.
 
@@ -63,22 +63,20 @@ Two SBATCH directives are added:
 
 **main.py**
 
-The main additions are mainly into three parts:
+The additions are mainly into three parts:
 
-**Checkpoint saving :** At the end of each epoch, `save_checkpoint` writes a `RunState`
-dictionary to `$SCRATCH/checkpointing_example/<job_id>/checkpoints/checkpoint.pth`. The
-`RunState` includes the model weights, optimizer state, current epoch, best validation accuracy,
-and all random number generator states.
-
-**Checkpoint loading :** Before the training begins, `load_checkpoint` checks whether a checkpoint
+**Checkpoint loading:** Before the training begins, `load_checkpoint` checks whether a checkpoint
 file already exists at the expected path. If it does, the model, optimizer and all random states are
 restored, the epoch counter starts from the next epoch. Because SLURM preserves the job ID across requeues,
-the restarted job automatically finds the checkpoint left by the previous run.
+the restarted job automatically finds the checkpoint left by the previous run. If no checkpoint is found, the training starts from scratch.
 
-**Signal handling :** The `signal_handler` function is registered for `SIGTERM` (preemption or
-manual cancellation) and `SIGUSR1` (time-limit warning sent by `--signal=B:TERM@300`) and will interrupt the training
-when receiving the signals and run the clean up code. Since the last complete checkpoint was saved at the end of
-the previous epoch, at most one epoch of progress is lost when training is interrupted.
+**Checkpoint saving:** At the end of each epoch, `save_checkpoint` writes a `RunState` dictionary to
+`$SCRATCH/checkpointing_example/<job_id>/checkpoints/checkpoint.pth`. The `RunState` includes the model weights, optimizer state, current epoch,
+best validation accuracy, and all random number generator states.
+
+**Signal handling:** The `signal_handler` function is registered for `SIGTERM` (preemption or time-limit expiration) and 
+will interrupt the training when receiving the signals and run the clean up code (e.g., to manage a W&B run or to automatically restart the job). 
+Since the last complete checkpoint was saved at the end of the previous epoch, at most one epoch of progress is lost when training is interrupted.
 
 ```diff
 --8<-- "docs/examples/good_practices/checkpointing/main.py.diff"
@@ -97,10 +95,13 @@ default `SIGKILL`:
 $ scancel --signal=TERM <jobid>
 ```
 
-To requeue a job that is still in the queue:
+To requeue a job with the same job ID and arguments:
 ```bash
 $ scontrol requeue <jobid>
 ```
+
+!!! note
+    Only jobs currently actively running, pending in queue or recently completed can be requeued.
 
 !!! warning
     A job cancelled with plain `scancel` (no `--signal` flag) is marked as `FAILED` by SLURM
