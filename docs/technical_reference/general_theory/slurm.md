@@ -10,7 +10,7 @@ Below are some basic examples of how to use SLURM.
 
 ### Submitting jobs
 
-### Batch job
+#### Batch job
 
 In order to submit a batch job, you have to create a script containing the main
 command(s) you would like to execute on the allocated resources/nodes.
@@ -40,7 +40,7 @@ The *working directory* of the job will be the one where your executed `sbatch`.
     Slurm directives can be specified on the command line alongside ``sbatch`` or
     inside the job script with a line starting with ``#SBATCH``.
 
-### Interactive job
+#### Interactive job
 
 Workload managers usually run batch jobs to avoid having to watch its
 progression and let the scheduler run it as soon as resources are available. If
@@ -64,7 +64,7 @@ resources set in SLURM (1 task/1 CPU).  `srun` accepts the same arguments as
 without more info but it gives more flexibility if for example you want to get
 an allocation on multiple nodes.
 
-### Job submission arguments
+#### Job submission arguments
 
 In order to accurately select the resources for your job, several arguments are
 available. The most important ones are:
@@ -216,7 +216,7 @@ understanding GPU availability:
 | `long`             | Long-running jobs (7 days max) that can tolerate preemption.           | All GPU types **except H100** |
 | `*-cpu`            | CPU-only jobs (no GPU required).                                       | N/A (CPU-only nodes) |
 
-## Information on partitions/nodes
+#### Information on partitions/nodes
 
 [`sinfo`](https://slurm.schedmd.com/sinfo.html) provides most of the
 information about available nodes and partitions/queues to submit jobs to.
