@@ -52,7 +52,7 @@ We will not dive into details here, because these concepts have been explained i
 | Type of node | Use |
 | ------------ | --- |
 | Login node   | They are used to connect to the cluster and manage your jobs |
-| Compute node | This is where the jobs run, the allocation requested when a job is launched is provided from them |
+| Compute node | This is where the jobs run.  |
 
 ??? warning "Do not run jobs on login nodes"
     Login nodes are entry points to the cluster, you can call Slurm commands from there (`sbatch`, `sinfo`, `squeue`, etc) but computing scripts should be submitted through Slurm in order to get the requested resources, and not directly run on the login nodes.
