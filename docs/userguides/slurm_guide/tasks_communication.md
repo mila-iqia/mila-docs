@@ -244,7 +244,7 @@ Thus, each example is based on three files:
     === "Launch Torch example"
         
         ```bash
-        sbatch job.sh main_torch.py
+        sbatch job.sh python main_torch.py
         ```
 
 
