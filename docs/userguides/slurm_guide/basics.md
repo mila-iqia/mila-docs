@@ -29,7 +29,7 @@ description: Ask for a resource allocation and launch tasks on the cluster.
 
 
 ## What this guide covers
-* Discovering the Slurm jobs, steps and tasks
+* Discovering the role of Slurm jobs, steps and tasks
 * Launching multiple tasks through an interactive job
 * Launch multiple tasks from a script
 
