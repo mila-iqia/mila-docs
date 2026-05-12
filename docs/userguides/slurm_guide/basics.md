@@ -65,7 +65,7 @@ The three Slurm commands we focus on are:
 | -------- | -------------- | ----------- | ---------------------------- |
 | `sbatch` | Non-interactive job | Submit a batch script to Slurm | From a login node |
 | `salloc` | Interactive job | Obtain a Slurm job allocation (a set of nodes), execute a command, and then release the allocation when the command is finished | From a login node |
-| `srun`   | Step :material-information-outline:{ title="srun can also be used to directly submit jobs, but we don't recommend it" } | Run tasks | From a job |
+| `srun`   | Job Step :material-information-outline:{ title="srun can also be used to directly submit jobs, but we don't recommend it" } | Run tasks | From a job |
 
 
 Submitting tasks is done through two steps:
