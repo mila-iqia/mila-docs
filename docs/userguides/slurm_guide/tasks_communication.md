@@ -279,11 +279,8 @@ Thus, each example is based on three files:
         ``` linenums="0"
         [Node 0 | Rank 0] x=0.0
         sum=6.0
-
         [Node 0 | Rank 1] x=1.0
-
         [Node 1 | Rank 3] x=3.0
-
         [Node 1 | Rank 2] x=2.0
         ```
         </div>
