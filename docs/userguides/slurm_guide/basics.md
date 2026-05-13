@@ -271,7 +271,6 @@ cn-f002.server.mila.quebec
 ```
 </div>
 
-We explain in [this guide](tasks_communication.md) why it does not display the hostname of the four tasks, as it happened in our interactive job, but only one instead.
 
 ---
 
