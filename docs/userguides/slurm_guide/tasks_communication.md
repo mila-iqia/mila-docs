@@ -238,13 +238,13 @@ Thus, each example is based on three files:
     === "Launch Jax example"
 
         ```bash
-        sbatch job.sh main_jax.py
+        sbatch job.sh python main_jax.py
         ```
 
     === "Launch Torch example"
         
         ```bash
-        sbatch job.sh main_torch.py
+        sbatch job.sh python main_torch.py
         ```
 
 
@@ -263,11 +263,8 @@ Thus, each example is based on three files:
         <div class="result" style="border:None; padding:0" markdown>
         ``` linenums="0"
         [Node 1 | Rank 2] x=2.0
-
         [Node 0 | Rank 1] x=1.0
-
         [Node 1 | Rank 3] x=3.0
-
         [Node 0 | Rank 0] x=0.0
         sum=6.0
         ```
@@ -279,11 +276,8 @@ Thus, each example is based on three files:
         ``` linenums="0"
         [Node 0 | Rank 0] x=0.0
         sum=6.0
-
         [Node 0 | Rank 1] x=1.0
-
         [Node 1 | Rank 3] x=3.0
-
         [Node 1 | Rank 2] x=2.0
         ```
         </div>

@@ -29,7 +29,7 @@ description: Ask for a resource allocation and launch tasks on the cluster.
 
 
 ## What this guide covers
-* Discovering the Slurm jobs, steps and tasks
+* Discovering the role of Slurm jobs, steps and tasks
 * Launching multiple tasks through an interactive job
 * Launch multiple tasks from a script
 
@@ -52,7 +52,7 @@ We will not dive into details here, because these concepts have been explained i
 | Type of node | Use |
 | ------------ | --- |
 | Login node   | They are used to connect to the cluster and manage your jobs |
-| Compute node | This is where the jobs run, the allocation requested when a job is launched is provided from them |
+| Compute node | This is where the jobs run.  |
 
 ??? warning "Do not run jobs on login nodes"
     Login nodes are entry points to the cluster, you can call Slurm commands from there (`sbatch`, `sinfo`, `squeue`, etc) but computing scripts should be submitted through Slurm in order to get the requested resources, and not directly run on the login nodes.
@@ -65,13 +65,14 @@ The three Slurm commands we focus on are:
 | -------- | -------------- | ----------- | ---------------------------- |
 | `sbatch` | Non-interactive job | Submit a batch script to Slurm | From a login node |
 | `salloc` | Interactive job | Obtain a Slurm job allocation (a set of nodes), execute a command, and then release the allocation when the command is finished | From a login node |
-| `srun`   | Step :material-information-outline:{ title="srun can also be used to directly submit jobs, but we don't recommend it" } | Run tasks | From a job |
+| `srun`   | Job Step :material-information-outline:{ title="srun can also be used to directly submit jobs, but we don't recommend it" } | Run tasks | From a job |
 
 
 Submitting tasks is done through two steps:
 
 1. Request a resource allocation by submitting a job (`sbatch` or `salloc`)
-2. Launch commands by launching tasks from this resource allocation (`srun`)
+1. Request compute resources by submitting a job (`sbatch` or `salloc`) with a number of tasks
+2. Launch one command per task using `srun`
 
 
 
@@ -95,7 +96,7 @@ Submitting tasks is done through two steps:
 
 === "Steps"
 
-    Submitting a job is like booking an allocation: you request which resources you want (GPU, CPU, node, memory), setting your experiment conditions. The Slurm scheduler is then in charge to provide you an allocation.
+    Submitting a job is simple: you request resources (CPUs, GPUs, memory, and number of nodes) along with a number of tasks and the amount of time you expect to need them, and the Slurm scheduler allocates those resources for you.
 
     ```bash
     salloc --ntasks=4 --nodes=2 --mem=2G --time=00:30:00
@@ -119,15 +120,15 @@ Submitting tasks is done through two steps:
     * you know on which nodes your allocation is (cn-f001 and cn-f002 in this example).
 
 
-    Congrats! You now have a resource allocation.
+    Congratulations! You now have a Slurm job! 
 
 === "More details"
 
     * `salloc` means this is an interactive job
-    * `--ntasks` means that `srun` will invoke 4 tasks
-    * `--nodes` means 2 nodes are requested for the previously mentioned tasks to run on
-    * `--mem` aspecify the real memory required per node. We could also set `--mem-per-gpu` or `--mem-per-cpu`
-    * `--time` asks for an allocation of 30min. It is a good practice to set it because an interactive job can last until one week, and it is a common mistake to forget to leave an interactive job.
+    * `--ntasks` means that `srun` will run 4 commands (tasks), each with its own share of the job's resources
+    * `--nodes` means the job's tasks will be running on 2 compute nodes
+    * `--mem` is the system memory (RAM) required per node. We could also set `--mem-per-gpu` or `--mem-per-cpu`
+    * `--time` is the total time for the job to run. Here we ask for 30 minutes. It is a good practice to set it, otherwise the default time is one week. Forgetting to cancel an interactive job is a common mistake that leads to wasted resources.
 
     See [salloc documentation](https://slurm.schedmd.com/salloc.html) for more information.
 
@@ -176,10 +177,12 @@ Submitting tasks is done through two steps:
 
     * Notes on the result:
         * The `hostname` command has been called four times because we ask for four tasks while submitting the job through `salloc`.
-        * By running our four tasks with `srun`, we can see that they are not necessarily evenly spread among the nodes.
+        * By running our four tasks with `srun`, we can see that they are not necessarily evenly spread among the nodes. If we had used `--ntasks-per-node=2`, then the tasks would be evenly spread across nodes.
+        * In certain scenarios, such as distributed training jobs, it can be very useful to stay flexible with respect to the distributions of tasks across nodes, since scheduling such jobs is easier than full-node jobs. Flexible jobs can be scheduled faster, for a moderate performance hit.       
+        
 
 
-## Launch a non-interactive job
+## Launch a batch job
 
 In this section, we reproduce the same example as before (same parameters and same command (`hostname`)) and submit the job through the `sbatch` command.
 
@@ -198,6 +201,7 @@ ssh mila
         ```bash
         cd $SCRATCH
         vim job.sh
+        chmod +x job.sh
         ```
     * or write it on your local computer and copy it to the scratch directory through:
         ```bash
@@ -215,7 +219,7 @@ ssh mila
     #SBATCH --nodes=2
     #SBATCH --mem=2G
 
-    hostname
+    srun hostname
     ```
 
 === "More details"
