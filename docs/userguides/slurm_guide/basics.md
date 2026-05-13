@@ -286,7 +286,7 @@ Task
 
 ## Next step
 
-Now that we can launch multiple tasks with their own variables (such as hostname), let's learn how to make them communicate.
+Now that you can launch multiple commands (such as `hostname`) in a slurm job, each with their own resources and environment variables, you are ready to learn the fundamentals of distributed programs such as distributed training in PyTorch.
 
 <div class="grid cards" markdown>
 
