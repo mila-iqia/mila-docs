@@ -243,6 +243,7 @@ your electronic signature.
 
 During the IT Onboarding Training, you will be asked to submit that SSH
 public key.
+Mila allows a maximum of 4 different public keys per user.
 
 - If you do not know what SSH keys are, or are not familiar with them, you can
   read the informative material below, then proceed to

@@ -12,7 +12,7 @@ is an asynchronous framework for black-box function optimization developped at M
 Its purpose is to serve as a meta-optimizer for machine learning models and training,
 as well as a flexible experimentation platform for large scale asynchronous optimization procedures.
 
-**Prerequisites**
+## Prerequisites
 
 Make sure to read the following sections of the documentation before using this
 example:
@@ -22,8 +22,9 @@ example:
 
 The full documentation for Oríon is available [on Oríon's ReadTheDocs page](https://orion.readthedocs.io/en/stable/index.html).
 
-The full source code for this example is available on [the mila-docs GitHub repository.](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/good_practices/hpo_with_orion)
+## Example
 
+The full source code for this example is available on [the mila-docs GitHub repository.](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/good_practices/hpo_with_orion)
 
 Hyperparameter optimization is very easy to parallelize as each trial (unique set of hyperparameters) are
 independant of each other. The easiest way is to launch as many jobs as possible each trying a different
