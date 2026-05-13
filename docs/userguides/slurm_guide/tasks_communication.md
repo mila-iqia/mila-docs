@@ -46,12 +46,15 @@ Thus, each example is based on three files:
     #SBATCH --nodes=2
     #SBATCH --cpus-per-task=1
     #SBATCH --mem=8G
+    #SBATCH --time=00:01:00
 
-    # These environment variables are used by torch.distributed and should ideally be set
-    # before running the python script, or at the very beginning of the python script.
+    # These environment variables are used by torch.distributed and should
+    # ideally be set before running the python script, or at the very 
+    # beginning of the python script.
     
     # Master address is the hostname of the first node in the job.
-    export MASTER_ADDR=$(scontrol show hostnames "$SLURM_JOB_NODELIST" | head -n 1)
+    export MASTER_ADDR=$(scontrol show hostnames "$SLURM_JOB_NODELIST" \
+         | head -n 1)
     # Get a unique port for this job based on the job ID
     export MASTER_PORT=$(expr 10000 + $(echo -n $SLURM_JOB_ID | tail -c 4))
     export WORLD_SIZE=$SLURM_NTASKS
@@ -69,6 +72,7 @@ Thus, each example is based on three files:
     #SBATCH --nodes=2
     #SBATCH --cpus-per-task=1
     #SBATCH --mem=8G
+    #SBATCH --time=00:01:00
     ```
 
     **Environment variables**
@@ -92,36 +96,6 @@ Thus, each example is based on three files:
     * `$@` transfers the parameters we gave while launching the script `job.sh`. In our case, we choose the script we want to run through `srun uv run`. Thus, when we launch `job.sh`, we use the command:
         * `sbatch job.sh main_jax.py` if we want to use the Jax example
         * `sbatch job.sh main_torch.py` if we want to use the Pytorch example.
-
-=== "main_jax.py"
-
-    ```python
-    import jax
-    import jax.distributed
-    import os
-
-    RANK = int(os.environ["SLURM_PROCID"])
-    LOCAL_RANK = int(os.environ["SLURM_LOCALID"])
-    WORLD_SIZE = int(os.environ["SLURM_NTASKS"])
-    NODE_INDEX = int(os.environ["SLURM_NODEID"])
-
-    def main():
-        jax.config.update("jax_platforms", "cpu")
-        jax.distributed.initialize() # Prepare JAX for execution on multi-host GPU, must be called before performing any JAX computations
-
-        x = jax.numpy.array([float(RANK)], dtype=jax.numpy.float32) # For each task, x depends on RANK, which is different between all tasks
-        print(f"\n[Node {NODE_INDEX} | Rank {RANK}] x={x[0]}")
-        #print(f"{jax.local_devices()=}, {jax.devices()=}")
-
-        # Compute all-reduce to compute the average across all processes.
-        sum = jax.pmap(lambda x: jax.lax.psum(x, 'i'), axis_name='i')(x)
-        if NODE_INDEX == 0 and RANK == 0:
-            print(f"sum={sum[0]}")
-
-
-    if __name__ == "__main__":
-        main()
-    ```
 
 === "main_torch.py"
     ```python
@@ -170,14 +144,44 @@ Thus, each example is based on three files:
         main()
     ```
 
+=== "main_jax.py"
+
+    ```python
+    import jax
+    import jax.distributed
+    import os
+
+    RANK = int(os.environ["SLURM_PROCID"])
+    LOCAL_RANK = int(os.environ["SLURM_LOCALID"])
+    WORLD_SIZE = int(os.environ["SLURM_NTASKS"])
+    NODE_INDEX = int(os.environ["SLURM_NODEID"])
+
+    def main():
+        jax.config.update("jax_platforms", "cpu")
+        jax.distributed.initialize() # Prepare JAX for execution on multi-host GPU, must be called before performing any JAX computations
+
+        x = jax.numpy.array([float(RANK)], dtype=jax.numpy.float32) # For each task, x depends on RANK, which is different between all tasks
+        print(f"\n[Node {NODE_INDEX} | Rank {RANK}] x={x[0]}")
+        #print(f"{jax.local_devices()=}, {jax.devices()=}")
+
+        # Compute all-reduce to compute the average across all processes.
+        sum = jax.pmap(lambda x: jax.lax.psum(x, 'i'), axis_name='i')(x)
+        if NODE_INDEX == 0 and RANK == 0:
+            print(f"sum={sum[0]}")
+
+
+    if __name__ == "__main__":
+        main()
+    ```
+
 ??? info "In-depth script explaination on `main_***.py`"
-    **Jax and Pytorch**
+    **Pytorch and Jax**
 
-    This guide is based on two examples
+    This guide is based on two open source examples
 
+    * [Pytorch](https://pytorch.org/) is a deep-learning library.
     * [Jax](https://docs.jax.dev/en/latest/notebooks/thinking_in_jax.html) is a library for array-oriented numerical computation.
 
-    * [Pytorch](https://pytorch.org/) is an open-source deep-learning library.
 
 
     **Environment variables**
@@ -190,6 +194,14 @@ Thus, each example is based on three files:
     WORLD_SIZE = int(os.environ["SLURM_NTASKS"])
     NODE_INDEX = int(os.environ["SLURM_NODEID"])
     ```
+    
+    === "What happens in Torch script"
+        1. Initialize: in Torch, a group is defined
+
+        2. Create a value, different for each task
+            The created value is based on the RANK, which is specific to each task
+
+        3. Compute their sum
 
     === "What happens in Jax script"
         1. Initialize: this function is specific to Jax
@@ -199,14 +211,6 @@ Thus, each example is based on three files:
             The created value is based on the RANK, which is specific to each task
 
         3. Compute their sum [see Jax Lax parallel operators](https://docs.jax.dev/en/latest/jax.lax.html#parallel-operators)
-    
-    === "What happens in Torch script"
-        1. Initialize: in Torch, a group is defined
-
-        2. Create a value, different for each task
-            The created value is based on the RANK, which is specific to each task
-
-        3. Compute their sum
 
     The final sum is printed from the first task of the first node (NODE_INDEX=0 and RANK=0). This is the task where all the `x` values have been collected. On the other tasks, the `sum` is a partial result.
 
@@ -218,7 +222,7 @@ Thus, each example is based on three files:
     version = "0.1.0"
     description = "Using Jax and Torch to illustrate a multitask example"
     requires-python = ">=3.11,<3.14"
-    dependencies = ["torch>=2.7.1", "jax[cuda12]>=0.5.3"]
+    dependencies = ["torch>=2.7.1", "jax>=0.5.3"]
     ```
 
 
@@ -234,17 +238,17 @@ Thus, each example is based on three files:
     ```
 
 2. Launch the job
-    
-    === "Launch Jax example"
-
-        ```bash
-        sbatch job.sh python main_jax.py
-        ```
 
     === "Launch Torch example"
         
         ```bash
         sbatch job.sh python main_torch.py
+        ```
+    
+    === "Launch Jax example"
+
+        ```bash
+        sbatch job.sh python main_jax.py
         ```
 
 
@@ -258,18 +262,6 @@ Thus, each example is based on three files:
 
     When the resources have been allocated and the script has run, an output file has been created: it is by default called `slurm-{JOB_ID}.out`, with `JOB_ID` being the ID of the job which has run.
 
-    === "Jax script results"
-
-        <div class="result" style="border:None; padding:0" markdown>
-        ``` linenums="0"
-        [Node 1 | Rank 2] x=2.0
-        [Node 0 | Rank 1] x=1.0
-        [Node 1 | Rank 3] x=3.0
-        [Node 0 | Rank 0] x=0.0
-        sum=6.0
-        ```
-        </div>
-
     === "Torch script results"
 
         <div class="result" style="border:None; padding:0" markdown>
@@ -279,6 +271,18 @@ Thus, each example is based on three files:
         [Node 0 | Rank 1] x=1.0
         [Node 1 | Rank 3] x=3.0
         [Node 1 | Rank 2] x=2.0
+        ```
+        </div>
+
+    === "Jax script results"
+
+        <div class="result" style="border:None; padding:0" markdown>
+        ``` linenums="0"
+        [Node 1 | Rank 2] x=2.0
+        [Node 0 | Rank 1] x=1.0
+        [Node 1 | Rank 3] x=3.0
+        [Node 0 | Rank 0] x=0.0
+        sum=6.0
         ```
         </div>
 
