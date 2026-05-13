@@ -265,6 +265,9 @@ The content of the output in our example is:
 <div class="result" style="border:None; padding:0" markdown>
 ``` linenums="0"
 cn-f001.server.mila.quebec
+cn-f001.server.mila.quebec
+cn-f002.server.mila.quebec
+cn-f002.server.mila.quebec
 ```
 </div>
 
