@@ -40,6 +40,9 @@ The *working directory* of the job will be the one where your executed `sbatch`.
     Slurm directives can be specified on the command line alongside ``sbatch`` or
     inside the job script with a line starting with ``#SBATCH``.
 
+!!! tip
+    You can also use [`--wrap`](https://slurm.schedmd.com/sbatch.html#OPT_wrap) sbatch parameter to submit a shell script without having to create a .sh file.
+
 #### Interactive job
 
 Workload managers usually run batch jobs to avoid having to watch its
