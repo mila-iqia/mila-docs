@@ -8,18 +8,15 @@ assignees: ''
 
 ---
 
-### 🔗Concerned Page:
+### 🔗 Concerned Page:
 <!-- Please paste the URL of the docs.mila.quebec page here -->
 
 ### 🛠 Nature of the issue:
 <!-- Check the appropriate box with an "x" -->
 
 - [ ] Technical Error (e.g., broken command, dead link)
-
 - [ ] Outdated Content (e.g., old software version, deprecated policy)
-
 - [ ] Lack of Clarity (e.g., confusing explanation, missing examples)
-
 - [ ] Suggestion (e.g., new guide needed, additional tip)
 
 ### 📝 Description:
@@ -31,7 +28,5 @@ assignees: ''
 ### ⚡ Impact on Research:
 
 - [ ] Blocker (I cannot complete my work without this info)
-
 - [ ] Important (High risk of error or significant time loss)
-
 - [ ] Minor (Reading comfort, cosmetic/typo)
