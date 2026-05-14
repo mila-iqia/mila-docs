@@ -71,8 +71,8 @@ def signal_handler(signum: int, _: FrameType | None):
 
     # If you want to directly requeue the job:
     # subprocess.run(["scontrol", "requeue", SLURM_JOBID])
-    # Be careful to avoid this if you already have the `--requeue` sbatch argument, as SLURM will      
-    # automatically requeue the job on preemption without needing this call.   
+    # Be careful to avoid this if you already have the `--requeue` sbatch argument, as SLURM will
+    # automatically requeue the job on preemption without needing this call.
 
     # If you want to return a custom exit code:
     # sys.exit(<custom_code>)
