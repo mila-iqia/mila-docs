@@ -26,6 +26,7 @@ assignees: ''
 <!-- If you already have the corrected text or the new command, please provide it here to speed up the update -->
 
 ### ⚡ Impact on Research:
+<!-- Check the appropriate box with an "x" -->
 
 - [ ] Blocker (I cannot complete my work without this info)
 - [ ] Important (High risk of error or significant time loss)
