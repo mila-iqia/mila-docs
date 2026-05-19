@@ -1,7 +1,8 @@
 # Multi-Node / Multi-GPU ImageNet Training
 
+## Prerequisites
 
-Prerequisites:
+Make sure to read the following sections of the documentation before using this example:
 
 * [PyTorch Setup](../../frameworks/pytorch_setup/index.md)
 * [Single GPU](../../distributed/single_gpu/index.md)
@@ -15,8 +16,9 @@ Other interesting resources:
 * https://sebarnold.net/dist_blog/
 * [Multi-node PyTorch distributed training guide](https://lambdalabs.com/blog/multi-node-pytorch-distributed-training-guide)
 
+## Example
 
-Click here to see [the source code for this example](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/advanced/imagenet)
+The full source code for this example is available on [the mila-docs GitHub repository.](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/advanced/imagenet)
 
 
 This is an advanced and quite lengthy example. We recommend viewing the files directly

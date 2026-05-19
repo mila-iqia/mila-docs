@@ -1,7 +1,6 @@
 # Checkpointing
 
-
-**Prerequisites**
+## Prerequisites
 
 Make sure to read the following sections of the documentation before using this
 example:
@@ -9,9 +8,9 @@ example:
 * [PyTorch Setup](../../frameworks/pytorch_setup/index.md)
 * [Single GPU](../../distributed/single_gpu/index.md)
 
-The full source code for this example is available on [the mila-docs GitHub
-repository.](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/good_practices/checkpointing)
+## Example
 
+The full source code for this example is available on [the mila-docs GitHub repository.](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/good_practices/checkpointing)
 
 **job.sh**
 
