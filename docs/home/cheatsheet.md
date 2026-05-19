@@ -4,10 +4,12 @@
 
 A "cheat sheet" is available to provide you with information about the Mila and DRAC clusters at a glance.
 
-The production run consists of about 250 copies.
+[![Mila compute cheat sheet preview](../_static/2026-05-05_Mila_compute_cheat_sheet_v4_thumbnail.png)](../_static/2026-05-05_Mila_compute_cheat_sheet_v4.pdf)
+
+The production run consists of about 400 copies.
 If you want to have a copy, you can always come to the IDT lab during office hours (usually Tuesday 3pm-5pm and Wednesday 2pm-4pm).
 
-The [IDT Cheat Sheet pdf](../_static/2025-06-27_Mila_compute_cheat_sheet_v3.pdf) is available if you want to access it online.
+The [IDT Cheat Sheet pdf](../_static/2026-05-05_Mila_compute_cheat_sheet_v4.pdf) is available if you want to access it online.
 The layout of the pdf has been set to be compatible with the printers at Mila
 so you can always print your own copy on regular paper
 (hint: set printer scale 100% with no margins).
@@ -27,15 +29,7 @@ Please also signal errors if you spot them before we do.
 
 Here is a list of the known errors in the cheat sheet that will have to be fixed in the next version.
 
-### Typo in account name for DRAC allocation
-
-
-There is a place that reads `rrg-bengio-ad_gpu` instead of `rrg-bengioy-ad_gpu`.
-Same goes for `rrg-bengio-ad_cpu` instead of `rrg-bengioy-ad_cpu`.
-
-
 ### Partition preemption is not explained accurately on page 2
-
 
 This is is not technically an error, but it is an oversimplification that might lead to some confusion.
 
@@ -49,7 +43,10 @@ Jobs for the `unkillable` partition can preempt everything except other jobs on 
 A good explanation of priorities and preemption will be added to the documentation,
 but the cheat sheet (or the cheat sheet errata) is not the place for this.
 
-### `$ARCHIVE` is 5TB and not 500GB
+### Tamia also has H200 GPUs
 
+The cheat sheet mentions that Tamia has H100 GPUs, but it also has nodes with 8 x H200. See [Tamia wiki](https://docs.alliancecan.ca/wiki/TamIA/en) for more information.
 
-This is probably outdated information that we forgot to update. Your quota on `$ARCHIVE` is 5TB.
+### STACC is called Lynx
+
+The compute cluster originally planned to be called "STACC" is going to be called "Lynx" instead.
