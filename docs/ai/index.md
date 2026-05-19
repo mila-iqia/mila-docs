@@ -33,4 +33,11 @@ connections, account management, and job submission.
     Configure the Mila Docs MCP server so that AI assistants can draw on Mila
     documentation automatically.
 
+-   [:material-book:{ .lg .middle } __Add Mila Docs context to AI assistants__](context.md)
+    { .card }
+
+    ---
+    Add context summarizing Mila Docs so that AI assistants can ingest this
+    knowledge.
+
 </div>
