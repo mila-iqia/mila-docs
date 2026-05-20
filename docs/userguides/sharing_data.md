@@ -1,37 +1,32 @@
-# Sharing Data with ACLs
+# Sharing data with ACLs
 
-Regular permissions bits are extremely blunt tools: They control access through
+Regular permissions bits are extremely blunt tools. They control access through
 only three sets of bits owning user, owning group and all others. Therefore,
-access is either too narrow (`0700` allows access only by oneself) or too wide
+access is either too narrow (`700` allows access only by oneself) or too wide
 (`770` gives all permissions to everyone in the same group, and `777` to
 literally everyone).
 
-## Using ACLs
-
 ACLs (Access Control Lists) are an expansion of the permissions bits that allow
-more fine-grained, granular control of accesses to a file. They can be used to
+more fine-grained control of accesses to a file. They can be used to
 permit specific users access to files and folders even if conservative default
 permissions would have denied them such access.
 
-As an illustrative example, to use ACLs to allow `$USER` (**oneself**) to
-share with `$USER2` (**another person**) a "playground" folder hierarchy in
-Mila's scratch filesystem at a location
+## Setting ACLs
 
-`$SCRATCH/X/Y/Z/...`
+Use `setfacl` (set file access control list) to add ACLs to a file or directory.
 
-in a safe and secure fashion that allows both users to read, write, execute,
-search and delete each others' files:
+The following example shows how to use ACLs to allow `$USER` (**you**) to
+share `$SCRATCH/X/Y/Z/...` (**a folder hierarchy in Mila's scratch filesystem**)
+with `$USER2` (**another person**) in a safe and secure fashion that allows both users to read, write, execute,
+search and delete each other's files.
 
-----
+### Granting yourself access to future files
 
-**1.** Grant **oneself** permissions to access any **future** files/folders created by the other *(or oneself)*
-(`-d` renders this permission a "default" / inheritable one)
+Grant **yourself** permissions to access any **future** files/folders created by the other *(or oneself)*.
 
 ```bash
-setfacl -Rdm user:${USER}:rwx  $SCRATCH/X/Y/Z/
+setfacl -Rdm user:${USER}:rwx $SCRATCH/X/Y/Z/
 ```
-
-----
 
 !!! note
     The importance of doing this seemingly-redundant step first is that files
@@ -43,18 +38,25 @@ setfacl -Rdm user:${USER}:rwx  $SCRATCH/X/Y/Z/
 
     **This** is the inherited, default ACL serving that purpose.
 
-**2.** Grant **the other** permission to access any **future** files/folders created
-  by the other *(or oneself)*
-(`-d` renders this permission a "default" / inheritable one)
+    * The `-d` renders this permission a "default" / inheritable one. 
+    * The `-R` applies it recursively to all subfolders, so that all files and
+    folders created in the future within this hierarchy will inherit this ACL. 
+    * The `-m` modifies the ACL of the folder in question, but does not change
+    the permissions of existing files and folders within it, which is why the next step is necessary.
+
+### Granting other users access to future files
+
+Grant **the other** permission to access any **future** files/folders created
+by the other *(or oneself)*.
 
 ```bash
 setfacl -Rdm user:${USER2:?defineme}:rwx $SCRATCH/X/Y/Z/
 ```
 
-----
+### Granting other users access to existing files
 
-**3.** Grant **the other** permission to access any **existing** files/folders created
-  by *oneself*.
+Grant **the other** permission to access any **existing** files/folders created
+by *oneself*.
 Such files and folders were created before the new default ACLs were added
 above and thus did not inherit them from their parent folder at the moment of
 their creation.
@@ -63,14 +65,17 @@ their creation.
 setfacl -Rm  user:${USER2:?defineme}:rwx $SCRATCH/X/Y/Z/
 ```
 
-----
+!!! note
+    The purpose of granting permissions first for *future* files and then for
+    *existing* files is to prevent a **race condition** whereby after the first
+    ``setfacl`` command the other person could create files to which the
+    second ``setfacl`` command does not apply.
 
-**4.** Grant **another** permission to search through one's hierarchy down to the
-shared location in question.
+### Granting search permissions to access the shared location
 
-* **Non**-recursive (!!!!)
-* May also grant `:rx` in unlikely event others listing your folders on the
-  path is not troublesome or desirable.
+Grant **another** permission to search through one's hierarchy down to the
+shared location in question. This step is non-recursive and must be run for each folder
+on the path to the shared location.
 
 ```bash
 setfacl -m   user:${USER2:?defineme}:x   $SCRATCH/X/Y/
@@ -78,13 +83,10 @@ setfacl -m   user:${USER2:?defineme}:x   $SCRATCH/X/
 setfacl -m   user:${USER2:?defineme}:x   $SCRATCH
 ```
 
-!!! note
-    The purpose of granting permissions first for *future* files and then for
-    *existing* files is to prevent a **race condition** whereby after the first
-    ``setfacl`` command the other person could create files to which the
-    second ``setfacl`` command does not apply.
+!!! tip
+    Also grant `:rx` if allowing the other user to list the parent folders is acceptable.
 
-!!! note
+!!! warning
     In order to access a file, all folders from the root (``/``) down to the
     parent folder in question must be searchable (``+x``) by the concerned user.
     This is already the case for all users for folders such as ``/``,
@@ -106,7 +108,8 @@ setfacl -m   user:${USER2:?defineme}:x   $SCRATCH
     * `man setfacl`
     * `man path_resolution`
 
-## Viewing and Verifying ACLs
+## Viewing and verifying ACLs
+Use `getfacl` (get file access control list) to display the ACLs of a file or directory.
 
 ```bash
 getfacl /path/to/folder/or/file
@@ -128,4 +131,6 @@ getfacl /path/to/folder/or/file
 ```
 
 !!! note
+    For more information on `getfacl` consider the following documentation viewing command:
+
     * `man getfacl`
