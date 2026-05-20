@@ -19,7 +19,7 @@ permissions would have denied them such access.
 
 ## Setting ACLs
 
-Use `setfacl` (set file access control list) to add ACLs to a file or directory on the cluster.
+Use `setfacl` (set file access control list) to add ACLs to a file or directory.
 
 The following example shows how to use ACLs to allow `$USER` (**you**) to
 share `$SCRATCH/X/Y/Z/...` (**a folder hierarchy in Mila's scratch filesystem**)
@@ -47,7 +47,8 @@ setfacl -Rdm user:${USER}:rwx $SCRATCH/X/Y/Z/
     * The `-d` renders this permission a "default" / inheritable one. 
     * The `-R` applies it recursively to all subfolders, so that all files and
     folders created in the future within this hierarchy will inherit this ACL. 
-    * The `-m` modifies the ACL of the file or folder.
+    * The `-m` modifies the ACL of the folder in question, but does not change
+    the permissions of existing files and folders within it, which is why the next step is necessary.
 
 ### Granting other users access to future files
 
