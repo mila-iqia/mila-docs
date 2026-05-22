@@ -47,8 +47,7 @@ setfacl -Rdm user:${USER}:rwx $SCRATCH/X/Y/Z/
     * The `-d` renders this permission a "default" / inheritable one. 
     * The `-R` applies it recursively to all subfolders, so that all files and
     folders created in the future within this hierarchy will inherit this ACL. 
-    * The `-m` modifies the ACL of the folder in question, but does not change
-    the permissions of existing files and folders within it, which is why the next step is necessary.
+    * The `-m` modifies the ACL of the file or folder.
 
 ### Granting other users access to future files
 
@@ -114,26 +113,39 @@ setfacl -m   user:${USER2:?defineme}:x   $SCRATCH
     * `man setfacl`
     * `man path_resolution`
 
+## Removing ACLs
+To remove access for a user, use the `-x` option of `setfacl` to remove the ACL entry for that user.
+
+```bash
+setfacl -x user:${USER2:?defineme} $SCRATCH/X/Y/Z/
+```
+
+To remove all ACL entries for a file or folder, use the `-b` option of `setfacl`.
+
+```bash
+setfacl -b $SCRATCH/X/Y/Z/
+```
+
 ## Viewing and verifying ACLs
 Use `getfacl` (get file access control list) to display the ACLs of a file or directory.
 
 ```bash
 getfacl /path/to/folder/or/file
-           1:  # file: somedir/
-           2:  # owner: lisa
-           3:  # group: staff
-           4:  # flags: -s-
-           5:  user::rwx
-           6:  user:joe:rwx               #effective:r-x
-           7:  group::rwx                 #effective:r-x
-           8:  group:cool:r-x
-           9:  mask::r-x
-          10:  other::r-x
-          11:  default:user::rwx
-          12:  default:user:joe:rwx       #effective:r-x
-          13:  default:group::r-x
-          14:  default:mask::r-x
-          15:  default:other::---
+# file: somedir/
+# owner: lisa
+# group: staff
+# flags: -s-
+user::rwx
+user:joe:rwx               #effective:r-x
+group::rwx                 #effective:r-x
+group:cool:r-x
+mask::r-x
+other::r-x
+default:user::rwx
+default:user:joe:rwx       #effective:r-x
+default:group::r-x
+default:mask::r-x
+default:other::---
 ```
 
 !!! note
