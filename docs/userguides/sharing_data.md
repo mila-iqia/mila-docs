@@ -47,8 +47,7 @@ setfacl -Rdm user:${USER}:rwx $SCRATCH/X/Y/Z/
     * The `-d` renders this permission a "default" / inheritable one. 
     * The `-R` applies it recursively to all subfolders, so that all files and
     folders created in the future within this hierarchy will inherit this ACL. 
-    * The `-m` modifies the ACL of the folder in question, but does not change
-    the permissions of existing files and folders within it, which is why the next step is necessary.
+    * The `-m` modifies the ACL of the file or folder.
 
 ### Granting other users access to future files
 
