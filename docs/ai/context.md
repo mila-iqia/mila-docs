@@ -8,7 +8,7 @@ description: >-
 
 # Add Mila Docs context to AI assistants
 
-`all_docs_condensed.md` is a single-file distillation of the full Mila
+[`all_docs_condensed.md`](https://github.com/mila-iqia/mila-docs/blob/master/all_docs_condensed.md) is a single-file distillation of the full Mila
 cluster documentation — covering cluster access, Slurm, storage, GPU
 selection, Python environments, experiment tracking, and more. Providing
 this file to any LLM chat assistant gives that assistant an accurate,
