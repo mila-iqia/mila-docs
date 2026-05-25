@@ -21,8 +21,6 @@ issues on the spot without manually searching the documentation.
     - An account with at least one LLM chat assistant:
     [Claude](https://claude.ai), [ChatGPT](https://chatgpt.com), or
     [Gemini](https://gemini.google.com) for instance.
-    - A downloaded copy of `all_docs_condensed.md` from the
-    [mila-docs repository](https://github.com/mila-iqia/mila-docs/blob/master/all_docs_condensed.md).
 
 ## What this guide covers
 
