@@ -13,6 +13,13 @@ connections, account management, and job submission.
 
 <div class="grid cards" markdown>
 
+-   [:material-book:{ .lg .middle } __Add Mila Docs context to AI assistants__](context.md)
+    { .card }
+
+    ---
+    Add context summarizing Mila Docs so that AI assistants can ingest this
+    knowledge.
+
 -   [:material-robot:{ .lg .middle } __Set Up Claude Code__](claude_code.md)
     { .card }
 
