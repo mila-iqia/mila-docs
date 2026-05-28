@@ -41,13 +41,12 @@ should have access to.
 The table below provides information on the allocation for ``rrg-bengioy-ad``
 for the period which spans from April 7, 2026 to Spring 2027.
 
-| Cluster                | CPUs | account          | Model    | RGUs allocated | # GPU equiv | SLURM type specifier | account          |
-| ---------------------- | ---- | ---------------- | -------- | -------------- | ----------- | -------------------- | ---------------- |
-| [Fir](#fir)            | 0    | `rrg-bengioy-ad` | H100-80G | 2090           | 171         | `h100`               | `rrg-bengioy-ad` |
-| [Nibi](#nibi)          | 0    | `rrg-bengioy-ad` | H100-80G | 363            | 30          | `h100`               | `rrg-bengioy-ad` |
-| [Rorqual](#rorqual)    | 263  | `rrg-bengioy-ad` | H100-80G | 1172           | 96          | `h100`               | `rrg-bengioy-ad` |
-| [Trillium](#trillium)  | 768  | `rrg-bengioy-ad` | H100-80G | 375            | 31          | `h100`               | `rrg-bengioy-ad` |
-
+| Cluster                | CPUs | account          | Model    | RGUs allocated | # GPU equiv | SLURM type specifier |
+| ---------------------- | ---- | ---------------- | -------- | -------------- | ----------- | -------------------- |
+| [Fir](#fir)            | 0    | `rrg-bengioy-ad` | H100-80G | 2090           | 171         | `h100`               |
+| [Nibi](#nibi)          | 0    | `rrg-bengioy-ad` | H100-80G | 363            | 30          | `h100`               |
+| [Rorqual](#rorqual)    | 263  | `rrg-bengioy-ad` | H100-80G | 1172           | 96          | `h100`               |
+| [Trillium](#trillium)  | 768  | `rrg-bengioy-ad` | H100-80G | 375            | 31          | `h100`               |
 
 On DRAC clusters where Mila has no allocated resources under ``rrg-bengioy-ad``
 this year, users can still use the default allocation associated with their
