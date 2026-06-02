@@ -99,13 +99,6 @@ setfacl -m   user:${USER2:?defineme}:x   $SCRATCH
     to some or all users either through base permissions or by adding ACLs, for
     at least ``/network/scratch/${USER:0:1}/$USER`` (= ``$SCRATCH``), ``$HOME`` and subfolders.
 
-    To bluntly allow **all** users to search through a folder (**think twice!**),
-    the following command can be used:
-    
-    ```bash
-    chmod a+X $SCRATCH
-    ```
-
 !!! note
     For more information on `setfacl` and path resolution/access checking,
     consider the following documentation viewing commands:
