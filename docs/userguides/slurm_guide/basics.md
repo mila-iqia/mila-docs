@@ -17,12 +17,6 @@ description: Ask for a resource allocation and launch tasks on the cluster.
     `milatools`, configure SSH access and connect to the cluster for the first
     time.
 
--   [:material-run-fast:{ .lg .middle } __What is a computer cluster?__](../../../technical_reference/general_theory/cluster_parts/)
-    { .card }
-
-    ---
-    Understand some notions of what a cluster is. This is an introduction to login nodes, compute nodes and storage nodes.
-
 &nbsp;
 
 </div>
