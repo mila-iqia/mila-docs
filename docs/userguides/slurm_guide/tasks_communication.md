@@ -25,13 +25,13 @@ description: A quick example of multiple tasks synchronizing their output.
 
 ## Concept of this example
 
-In this guide, we launch a job (using `job.sh`) which will run one or more tasks (whose instructions are stored in `main_jax.py` or `main_torch.py`) using libraries (defined in `pyproject.toml`).
+In this guide, we launch a job (using `job_***.sh`) which will run one or more tasks (whose instructions are stored in `main_jax.py` or `main_torch.py`) using libraries (defined in `pyproject.toml`).
 
 Thus, each example is based on three files:
 
 | File | Description |
 | ---- | ----------- |
-| `job.sh` | Bash script used to request an allocation and launch a job (which itself runs multiple tasks based on the requested `--ntasks`) |
+| `job_***.sh` | Bash script used to request an allocation and launch a job (which itself runs multiple tasks based on the requested `--ntasks`) |
 | `main_***.py` | Python script containing the instructions the tasks execute. In this example, we either use Jax (with the script `main_jax.py`) or Pytorch (with the script `main_torch.py`) |
 | `pyproject.toml` | Configuration file used to handle the libraries `uv` is gonna get. We could have done one `pyproject.toml` for each example (Jax and Torch), but we gathered the two libraries in one to simplify this guide |
 
@@ -39,7 +39,7 @@ Thus, each example is based on three files:
 ### Introducing the different files
 
 
-=== "job.sh"
+=== "job_torch.sh"
     ```bash
     #!/bin/bash
     #SBATCH --ntasks=4
@@ -59,10 +59,33 @@ Thus, each example is based on three files:
     export MASTER_PORT=$(expr 10000 + $(echo -n $SLURM_JOB_ID | tail -c 4))
     export WORLD_SIZE=$SLURM_NTASKS
 
-    srun uv run "$@"
+    srun uv run python main_torch.py
     ```
 
-??? info "In-depth script explaination on `job.sh`"
+=== "job_jax.sh"
+    ```bash
+    #!/bin/bash
+    #SBATCH --ntasks=4
+    #SBATCH --nodes=2
+    #SBATCH --cpus-per-task=1
+    #SBATCH --mem=8G
+    #SBATCH --time=00:01:00
+
+    # These environment variables are used by torch.distributed and should
+    # ideally be set before running the python script, or at the very 
+    # beginning of the python script.
+    
+    # Master address is the hostname of the first node in the job.
+    export MASTER_ADDR=$(scontrol show hostnames "$SLURM_JOB_NODELIST" \
+         | head -n 1)
+    # Get a unique port for this job based on the job ID
+    export MASTER_PORT=$(expr 10000 + $(echo -n $SLURM_JOB_ID | tail -c 4))
+    export WORLD_SIZE=$SLURM_NTASKS
+
+    srun uv run python main_jax.py
+    ```
+
+??? info "In-depth script explanation on `job_***.sh`"
     **Headers for the resources allocation**
 
     These are the header and the parameters we request for the resources allocation.
@@ -91,11 +114,8 @@ Thus, each example is based on three files:
     
     * The command `srun` creates tasks. The number of tasks is determined by the parameters `--ntasks` of our allocation. Here, we requested 4 tasks so the command will run 4 times in parallel tasks. These tasks run the command following `srun`, so each tasks will run `uv run "$@"`.
 
-    * `uv run` is used to ease the environment set up for our tasks. For more information, read [our `uv` guide on portability](../../../userguides/python_uv).
+    * `uv run` is used to ease the environment set up for our tasks. For more information, read [our `uv` guide on portability](../../../userguides/python_uv). It is followed by the name of the script we actually want to run in this environment.
 
-    * `$@` transfers the parameters we gave while launching the script `job.sh`. In our case, we choose the script we want to run through `srun uv run`. Thus, when we launch `job.sh`, we use the command:
-        * `sbatch job.sh main_jax.py` if we want to use the Jax example
-        * `sbatch job.sh main_torch.py` if we want to use the Pytorch example.
 
 === "main_torch.py"
     ```python
@@ -174,7 +194,7 @@ Thus, each example is based on three files:
         main()
     ```
 
-??? info "In-depth script explaination on `main_***.py`"
+??? info "In-depth script explanation on `main_***.py`"
     **Pytorch and Jax**
 
     This guide is based on two open source examples
@@ -215,18 +235,28 @@ Thus, each example is based on three files:
     The final sum is printed from the first task of the first node (NODE_INDEX=0 and RANK=0). This is the task where all the `x` values have been collected. On the other tasks, the `sum` is a partial result.
 
 
-=== "pyproject.toml"
+=== "pyproject.toml (for Pytorch)"
     ```
     [project]
     name = "multitasks-demo"
     version = "0.1.0"
     description = "Using Jax and Torch to illustrate a multitask example"
     requires-python = ">=3.11,<3.14"
-    dependencies = ["torch>=2.7.1", "jax>=0.5.3"]
+    dependencies = ["torch>=2.7.1"]
+    ```
+
+=== "pyproject.toml (for Jax)"
+    ```
+    [project]
+    name = "multitasks-demo"
+    version = "0.1.0"
+    description = "Using Jax and Torch to illustrate a multitask example"
+    requires-python = ">=3.11,<3.14"
+    dependencies = ["jax>=0.5.3"]
     ```
 
 
-??? info "In-depth explaination on `pyproject.toml`"
+??? info "In-depth explanation on `pyproject.toml`"
     `pyproject.toml` is a configuration file used by packaging tools (`uv` in our case) ([More info on `pyproject.toml` files](https://packaging.python.org/en/latest/guides/writing-pyproject-toml/)). The value of dependencies contains information about the libraries we are using in this example. `torch` is used while using the `main_torch.py` script, and `jax` while using the `main_jax.py` script. If you use only one of them, you can delete the unused library from the `pyproject.toml` file.
 
 ### Launching the example
@@ -242,13 +272,13 @@ Thus, each example is based on three files:
     === "Launch Torch example"
         
         ```bash
-        sbatch job.sh python main_torch.py
+        sbatch job_torch.sh
         ```
     
     === "Launch Jax example"
 
         ```bash
-        sbatch job.sh python main_jax.py
+        sbatch job_jax.sh
         ```
 
 
@@ -287,3 +317,17 @@ Thus, each example is based on three files:
         </div>
 
     For each example, we can see that the ranks of the tasks (ie their `x` values) are respectively 0, 1, 2 and 3. Thus, their sum, retrieved on [Node 0 | Task 0], is 6.
+
+## Next steps
+
+<div class="grid cards" markdown>
+
+-   [:material-run-fast:{ .lg .middle } __Launch many jobs from same Shell script__](../../../examples/good_practices/launch_many_jobs/)
+    { .card }
+
+    ---
+    Good practice to run the same experiment with different arguments.
+
+&nbsp;
+
+</div>
