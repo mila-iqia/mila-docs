@@ -259,6 +259,25 @@ Two patterns indicate different root causes:
     `DataLoader`, enable `pin_memory=True`, or copy the dataset to
     `$SLURM_TMPDIR` before the job starts.
 
+    WandB monitors only the main process by default. Jobs that use
+    `DataLoader(num_workers > 0)` spawn additional Python processes whose CPU
+    usage is **not** included in the System tab metrics — so reported CPU
+    utilization may be lower than actual usage.
+
+    To include worker processes, enable process-tree monitoring:
+
+    ```python
+    wandb.init(
+        ...
+        settings=wandb.Settings(x_stats_track_process_tree=True)
+    )
+    ```
+
+    This setting has a performance overhead and is disabled by default. See the
+    [WandB settings
+    reference](https://docs.wandb.ai/models/ref/python/experiments/settings#:~:text=x_stats_track_process_tree%20(bool))
+    for details.
+
 ## Full job scripts
 
 The [`wandb_setup` example](../examples/good_practices/wandb_setup/index.md)
