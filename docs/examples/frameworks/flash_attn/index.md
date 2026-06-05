@@ -1,6 +1,6 @@
 # Flash Attention
 
-TODO : context
+The flash attention mechanism is a technique used in transformer models to reduce the computational complexity of the attention mechanism. It does this by using a more efficient algorithm for computing the attention scores, which allows it to handle longer sequences without running out of memory.
 
 ## Prerequisites
 
