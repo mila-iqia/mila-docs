@@ -6,7 +6,8 @@ readme = "README.md"
 requires-python = ">=3.12, <3.14"
 dependencies = [
     "torch>=2.7.0",
-    "flash-attn>=3.0.0",
+    "flash-attn>=2.8.3",
+    "numpy"
 ]
 
 [tool.uv]
@@ -19,5 +20,5 @@ flash-attn = [{ requirement = "torch", match-runtime = true }]
 flash-attn = {
     MAX_JOBS = "1",
     FLASH_ATTENTION_SKIP_CUDA_BUILD = "0",
-    TORCH_CUDA_ARCH_LIST = "9.0",
+    TORCH_CUDA_ARCH_LIST = "9.0"
 }
