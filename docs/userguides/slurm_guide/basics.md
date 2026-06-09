@@ -160,6 +160,12 @@ Submitting tasks is done through two steps:
     * three tasks have been launched on the node `cn-f002`
     * one task has been launched on the node `cn-f001`
 
+    !!!tip
+        For more symmetrical jobs, you can use the `--ntasks-per-node` parameter instead of `--ntasks`.
+        
+        (For instance, `--ntasks-per-node=2` in this case.)
+        
+
 === "More details"
 
     * Note on the command:
