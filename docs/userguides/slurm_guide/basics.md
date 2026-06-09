@@ -38,7 +38,7 @@ Recurrent entities when we speak of Slurm are jobs, steps and tasks. If we want 
 [Check the technical reference for deeper information](../../../technical_reference/general_theory/slurm/#some-definitions)
 
 ### Login nodes and compute nodes
-We will not dive into details here, because these concepts have been explained in [What is a computer cluster?](../../../technical_reference/general_theory/cluster_parts/), but to sum up some notions, we focus on the two following types of nodes:
+We will not dive into details here, because these concepts are explained in [What is a computer cluster?](../../../technical_reference/general_theory/cluster_parts/), but to sum up some notions, we focus on the two following types of nodes:
 
 | Type of node | Use |
 | ------------ | --- |
