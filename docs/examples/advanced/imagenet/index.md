@@ -98,7 +98,7 @@ $ srun --ntasks-per-node=1 uv run python prepare_data.py
 
 # Run the training script on each gpu on each node
 # NOTE: this only works in an interactive terminal with salloc! For the VsCode integrated terminal, see below.
-$ srun uv run python prepare_data.py
+$ srun uv run python main.py
 ```
 
 To open this example with VsCode:
