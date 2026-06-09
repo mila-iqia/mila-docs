@@ -71,7 +71,7 @@ and we'll take a look at it!
                 ? `${base}${separator}h=${encodeURIComponent(currentQuery)}`
                 : base;
             const url = hash ? `${urlWithQuery}#${hash}` : urlWithQuery;
-            return html`<a href="${url}">${children}</a>;`;
+            return html`<a href="${url}">${children}</a>`;
         },
         // Agent Studio configuration
         askAi: {
