@@ -9,7 +9,7 @@ description: A quick example of multiple tasks synchronizing their output.
 
 <div class="grid cards" markdown>
 
--   [:material-run-fast:{ .lg .middle } __Understanding Slurm__](basics.md)
+-   [:material-lightbulb-alert-outline:{ .lg .middle } __Understanding Slurm__](basics.md)
     { .card }
 
     ---
@@ -323,7 +323,7 @@ Thus, each example is based on three files:
 
 <div class="grid cards" markdown>
 
--   [:material-run-fast:{ .lg .middle } __Launch many jobs from same Shell script__](../../../examples/good_practices/launch_many_jobs/)
+-   [:material-multicast:{ .lg .middle } __Launch many jobs from same Shell script__](../../../examples/good_practices/launch_many_jobs/)
     { .card }
 
     ---

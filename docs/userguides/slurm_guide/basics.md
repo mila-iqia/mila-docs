@@ -287,7 +287,7 @@ Now that you can launch multiple commands (such as `hostname`) in a slurm job, e
 
 <div class="grid cards" markdown>
 
--   [:material-run-fast:{ .lg .middle } __Synchronizing multiple tasks__](tasks_communication.md)
+-   [:material-shuffle-variant:{ .lg .middle } __Synchronizing multiple tasks__](tasks_communication.md)
     { .card }
 
     ---
