@@ -1,5 +1,85 @@
 # SLURM commands guide
 
+## Some definitions
+### Jobs, job steps and tasks
+* A job can be subdivided into steps.
+* A job step sub-allocates from the resources of the job. Job steps are created with the srun wrapper command when it is called from inside a job[^1]. By default a job step will consume all resources allocated to the job, but this can be changed. Steps most naturally map to phases of a job [^2]: For example,
+
+    > **Examples**
+    > 
+    > Job step .1 might correspond to a stage-in of the dataset to $SLURM_TMPDIR
+    > 
+    > Job step .2 might run the distributed parallel Python program, and
+    > 
+    > Job step .3 might stage out the results to `$SCRATCH`.
+
+* A job step can be further subdivided into tasks. A task is a specific instance of the command executed in parallel copies by srun. Every task has an associated ID/rank within its step (a number $SLURM_PROCID between 0 and $SLURM_NPROCS-1 inclusive). A task most naturally maps to one of the main processes in a distributed program (but see [^3]). While a job/job step can be multi-node, each task will run on one and only one node.
+
+### Examples
+
+!!!tip
+    In machine-learning work, it is very important to think carefully about how often some things must be done. Some things must be done once per job, other things must be done once per node, once per GPU, or even once per CPU core. The number of tasks in a job step is a very important factor in this. One way this can play out, when reusing the three-job-step example above:
+
+
+<div class="grid cards" markdown>
+-   <span class="long-card">__Job step .1__
+    
+    ---
+
+    Staging in a dataset should be done once per node, because `$SLURM_TMPDIR` is a filesystem private to each node, but can be accessed by all processes of that node.
+
+    ---
+    ```
+    srun --ntasks-per-node=1 --ntasks=$SLURM_NNODES tar -xf $SCRATCH/my_dataset.tar -C $SLURM_TMPDIR
+    ```
+    </span>
+</div>
+
+<div class="grid cards" markdown>
+-   <span class="long-card">__Job step .2__
+    
+    ---
+
+    The distributed program must run one main process per GPU, because with DDP each process is mean to manage only one GPU.
+
+    ---
+    * `srun` (best)
+    * `srun --ntasks-per-gpu=1` (good, maybe redundant)
+    * `srun --ntasks-per-node=4/8/...` (worse, hardcodes GPU count)
+
+    This is not the only valid choice [^3] [^4] 
+
+    </span>
+</div>
+
+
+<div class="grid cards" markdown>
+-   <span class="long-card">__Job step .3__
+    
+    ---
+
+    `$SCRATCH` is shared by every node and every process can see it. To avoid collisions, some jobs might arrange for only only one task overall to write out the job's results.
+
+    ---
+    
+    ```
+    srun --ntasks-per-node=1 --ntasks=1 cp -a $SLURM_TMPDIR/results $SCRATCH/results/$SLURM_JOBID
+    ```
+
+    </span>
+</div>
+
+
+[^1]: Outside of a job, srun creates a job, not a job step; This is an overloaded use of srun that is confusing and that we discourage.
+
+[^2]: Job steps usually run sequentially (subdivision in time), because a plain srun will use all the resources of a job, but job steps can also run in parallel if srun is given arguments that request sufficiently few resources (subdivision in space and resources) that two steps can proceed in parallel.
+
+[^3]: By far the most common configurations for the tasks of a job's main step will be
+1 task per GPU (--ntasks-per-gpu=1), when launching every process of a distributed program directly with srun, or
+1 task per node (--ntasks-per-node=1), when launching torchrun/accelerate once per node and allowing them to decide the appropriate number of children processes themselves.
+
+[^4]: Even within a task, there are further levels of subdivision and parallelism possible: A process can create subprocesses ("workers"), and these processes can create multiple threads. However, these concepts are out of scope for SLURM and are more closely related to the Linux kernel's concepts.
+
 ## Basic Usage
 
 The SLURM [documentation](https://slurm.schedmd.com/documentation.html)
@@ -40,8 +120,6 @@ The *working directory* of the job will be the one where your executed `sbatch`.
     Slurm directives can be specified on the command line alongside ``sbatch`` or
     inside the job script with a line starting with ``#SBATCH``.
 
-!!! tip
-    You can also use [`--wrap`](https://slurm.schedmd.com/sbatch.html#OPT_wrap) sbatch parameter to submit a shell script without having to create a .sh file.
 
 #### Interactive job
 

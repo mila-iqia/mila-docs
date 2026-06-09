@@ -35,10 +35,7 @@ Recurrent entities when we speak of Slurm are jobs, steps and tasks. If we want 
 * a job can have multiple steps
 * a step can run multiple tasks.
 
-??? info "More information"
-    A **job** can have multiple **steps**. These steps are created when srun is called from inside the job and the slurmstepd created will run the command passed to srun. Each step will have one instance of slurmstepd created per node in the step and each instance of slurmstepd can run multiple tasks in the same step.
-
-    [Source - Slurm documentation](https://slurm.schedmd.com/job_launch.html)
+[Check the technical reference for deeper information](../../../technical_reference/general_theory/slurm/#some-definitions)
 
 ### Login nodes and compute nodes
 We will not dive into details here, because these concepts have been explained in [What is a computer cluster?](../../../technical_reference/general_theory/cluster_parts/), but to sum up some notions, we focus on the two following types of nodes:
