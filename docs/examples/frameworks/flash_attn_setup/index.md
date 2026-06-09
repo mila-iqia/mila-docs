@@ -38,12 +38,13 @@ The full source code for this example is available on [the mila-docs GitHub repo
 !!! warning
     `--no-build-isolation` is required to install flash attention because it needs to access the CUDA libraries that are available on the system.
 
+!!! warning
+    `FLASH_ATTENTION_SKIP_CUDA_BUILD=0` is required to ensure that flash attention is compiled with CUDA support.
+
 !!! tip
     Adapt the value of `TORCH_CUDA_ARCH_LIST` to the compute capability of the GPU you are using. You can find the compute capability of your GPU on the [NVIDIA website](https://developer.nvidia.com/cuda-gpus). Setting this variable ensures that flash attention is compiled with support for your specific GPU architecture, which can improve performance and installation time.
 
     In this example, we set `TORCH_CUDA_ARCH_LIST` to "9.0" which corresponds to the compute capability of the NVIDIA H100 GPU. You can also set it to multiple values if you want to support multiple GPU architectures with : `TORCH_CUDA_ARCH_LIST="9.0;8.0"`.
-
-TODO : FLASH_ATTENTION_SKIP_CUDA_BUILD = "0"
 
 **main.py**
 
