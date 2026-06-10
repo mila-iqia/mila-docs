@@ -26,6 +26,7 @@ theme:
     - content.code.copy
     - content.code.select
     - content.code.annotate
+    - content.footnote.tooltips
     - content.tooltips
     - navigation.footer
     - navigation.tracking # https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#anchor-tracking
@@ -67,6 +68,7 @@ markdown_extensions:
   - admonition
   - attr_list
   - def_list
+  - footnotes
   - md_in_html
   - pymdownx.details
   - pymdownx.inlinehilite
