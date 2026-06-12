@@ -1,14 +1,13 @@
 [project]
-name = "flash-attn"
+name = "flash-attn-setup"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12, <3.14"
 dependencies = [
-    "torch",
-    "flash-attn",
     "numpy",
-    "nvidia-cuda-nvcc",
+    "torch<=2.8.0",
+    "flash-attn>=2.7",
 ]
 
 [tool.uv]
@@ -16,13 +15,12 @@ no-build-isolation-package = ["flash_attn"]
 
 [tool.uv.extra-build-dependencies]
 flash-attn = [
-    { requirement = "torch", match-runtime = true },
-    { requirement = "nvidia-cuda-nvcc", match-runtime = true },
+        { requirement = "torch", match-runtime = true },
 ]
 
 [tool.uv.extra-build-variables]
 flash-attn = {
     MAX_JOBS = "1",
     FLASH_ATTENTION_SKIP_CUDA_BUILD = "0",
-    TORCH_CUDA_ARCH_LIST = "9.0"
+    TORCH_CUDA_ARCH_LIST = "8.9",
 }

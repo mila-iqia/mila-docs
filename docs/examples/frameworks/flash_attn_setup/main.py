@@ -1,5 +1,5 @@
-import flash_attn_interface
 import torch
+from flash_attn import flash_attn_interface
 
 
 def main():
