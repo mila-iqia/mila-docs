@@ -16,6 +16,7 @@ Make sure to read the following sections of the documentation before using this 
 * [Quick Start](../../../getting_started/)
 * [Running your code](../../../userguides/running_code)
 * [uv](../../../technical_reference/general_theory/portability/#uv)
+* [Modules](../../../technical_reference/general_theory/portability/#using-modules)
 
 Other resources:
 
