@@ -1,8 +1,13 @@
 # Flash Attention Setup
 
-The flash attention mechanism is a technique used in transformer models to reduce the computational complexity of the attention mechanism. It does this by using a more efficient algorithm for computing the attention scores, which allows it to handle longer sequences without running out of memory.
+The flash attention mechanism is a technique used in transformer models to 
+reduce the computational complexity of the attention mechanism. It does this by
+using a more efficient algorithm for computing the attention scores, which allows
+it to handle longer sequences without running out of memory.
 
-This package is a bit complex to install, as it requires an installation of PyTorch with CUDA support, as well as some additional dependencies. This example shows how to set up a development environment for flash attention using uv.
+This package is a bit complex to install, as it requires an installation of
+PyTorch with CUDA support, as well as some additional dependencies. This example 
+shows how to set up a development environment for flash attention using uv.
 
 ## Prerequisites
 
@@ -33,18 +38,31 @@ The full source code for this example is available on [the mila-docs GitHub repo
 ```
 
 !!! warning
-    You need to set the number of `MAX_JOBS` to 1 to avoid out of memory errors during the installation of flash attention because of too many parallel compilation jobs.
+    You need to set the number of `MAX_JOBS` to 1 to avoid out of memory 
+    errors during the installation of flash attention because of too many 
+    parallel compilation jobs.
 
 !!! warning
-    `--no-build-isolation` is required to install flash attention because it needs to access the CUDA libraries that are available on the system.
+    `--no-build-isolation` is required to install flash attention because 
+    it needs to access the CUDA libraries that are available on the system.
 
 !!! warning
-    `FLASH_ATTENTION_SKIP_CUDA_BUILD=0` is required to ensure that flash attention is compiled with CUDA support. By default, flash attention will try to find a pre-compiled version of the library that matches your system configuration. If it cannot find one, it will attempt to compile the library from source.
+    `FLASH_ATTENTION_SKIP_CUDA_BUILD=0` is required to ensure that flash 
+    attention is compiled with CUDA support. By default, flash attention will try
+     to find a pre-compiled version of the library that matches your system configuration.
+     If it cannot find one, it will attempt to compile the library from source.
 
 !!! tip
-    Adapt the value of `TORCH_CUDA_ARCH_LIST` to the compute capability of the GPU you are using. You can find the compute capability of your GPU on the [NVIDIA website](https://developer.nvidia.com/cuda-gpus). Setting this variable ensures that flash attention is compiled with support for your specific GPU architecture, which can improve performance and installation time.
+    Adapt the value of `TORCH_CUDA_ARCH_LIST` to the compute capability of the 
+    GPU you are using. You can find the compute capability of your GPU on the 
+    [NVIDIA website](https://developer.nvidia.com/cuda-gpus). Setting this variable 
+    ensures that flash attention is compiled with support for your specific GPU architecture, 
+    which can improve performance and installation time.
 
-    In this example, we set `TORCH_CUDA_ARCH_LIST` to "8.9" which corresponds to the compute capability of the NVIDIA L40S GPU. You can also set it to multiple values if you want to support multiple GPU architectures with : `TORCH_CUDA_ARCH_LIST="9.0;8.0;..."`.
+    In this example, we set `TORCH_CUDA_ARCH_LIST` to "8.9" which corresponds to 
+    the compute capability of the NVIDIA L40S GPU. You can also set it to multiple 
+    values if you want to support multiple GPU architectures with : 
+    `TORCH_CUDA_ARCH_LIST="9.0;8.0;..."`.
 
 **main.py**
 
@@ -55,7 +73,9 @@ The full source code for this example is available on [the mila-docs GitHub repo
 ## Running this example
 
 This assumes that you already installed UV on the cluster you are working on.
-Before installing the dependencies, make sure to load the appropriate CUDA module to get access to the CUDA libraries. For example, on the Mila cluster, you can load the `cuda/12.6` module:
+Before installing the dependencies, make sure to load the appropriate CUDA 
+module to get access to the CUDA libraries. For example, on the Mila cluster, 
+you can load the `cuda/12.6` module:
 
 ```bash
 # Get access to the CUDA libraries
