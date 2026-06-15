@@ -1,0 +1,15 @@
+[project]
+name = "flash-attn-setup"
+version = "0.1.0"
+requires-python = ">=3.12, <3.14"
+dependencies = [
+    "numpy",
+    "torch<=2.8.0",
+    "flash-attn>=2.7",
+]
+
+[tool.uv]
+no-build-isolation-package = ["flash_attn"]
+
+[tool.uv.sources]
+flash-attn = { url = "<URL_to_wheel>" }

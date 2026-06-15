@@ -1,13 +1,17 @@
+---
+title: Flash Attention Setup
+description: Install Flash Attention on the Mila cluster using uv, from a
+  pre-built wheel or compiled from source.
+---
+
 # Flash Attention Setup
 
-The flash attention mechanism is a technique used in transformer models to 
-reduce the computational complexity of the attention mechanism. It does this by
-using a more efficient algorithm for computing the attention scores, which allows
-it to handle longer sequences without running out of memory.
-
-This package is a bit complex to install, as it requires an installation of
-PyTorch with CUDA support, as well as some additional dependencies. This example 
-shows how to set up a development environment for flash attention using uv.
+Flash Attention is a memory-efficient attention algorithm for transformer
+models that reduces memory usage for long sequences. Installing it
+requires PyTorch with CUDA support and careful dependency management.
+This guide covers two installation paths using uv: from a pre-built
+wheel (faster, no compilation), or built from source when no compatible
+wheel is available.
 
 ## Prerequisites
 
@@ -23,20 +27,37 @@ Other resources:
 * [Flash Attention GitHub repository](https://github.com/dao-ailab/flash-attention)
 
 ## Installation
-By default, flash attention will try to find a pre-compiled version of the library that matches your system configuration (PyTorch and CUDA). If it cannot find one, it will attempt to compile the library from source.
 
-This assumes that you already installed UV on the cluster you are working on.
-Before installing the dependencies, make sure to load the appropriate CUDA module.
+Flash Attention provides pre-built wheels for common combinations of
+CUDA, PyTorch, and Python on the
+[Flash Attention releases page](https://github.com/Dao-AILab/flash-attention/releases).
+If a compatible wheel is listed, use the **From a pre-built wheel** tab.
+Otherwise, use **Building from source**.
 
-=== "From a pre-buil wheel"
-    TODO, how to install from a pre-build wheel.
-    (check releases from official github repo, https://github.com/Dao-AILab/flash-attention/releases/tag/v2.8.3.post1). If a wheel is not available, consider the step "Building from source"
+=== "From a pre-built wheel"
 
-    TODO : Can be install on the login nodes.
+    Pre-built wheels are available for common CUDA, PyTorch, and Python
+    combinations. Wheel filenames encode the target configuration, like :
 
-    TODO : Add pyproject config.
+    ```
+    flash_attn-2.8.3.post1+cu126torch2.7cxx11abiFALSE-cp312-cp312-linux_x86_64.whl
+    ```
 
-    For example, on the Mila cluster, you can load the `cuda/12.6` module:
+    This wheel targets CUDA 12.6, PyTorch 2.7, and Python 3.12 on
+    Linux x86_64 for flash attention 2.8.3.post1.
+
+    !!! tip
+        Pre-built wheels require no compilation and can be installed on
+        login nodes.
+
+    Add the wheel URL as a dependency source in `pyproject.toml`,
+    replacing the URL with the one matching the target configuration:
+
+    ```toml title="pyproject.toml"
+    --8<-- "docs/examples/frameworks/flash_attn_setup/from_pre_build_wheel/pyproject.toml"
+    ```
+
+    Load the CUDA module and install the dependencies:
 
     ```bash
     # Get access to the CUDA libraries
@@ -46,95 +67,100 @@ Before installing the dependencies, make sure to load the appropriate CUDA modul
     uv sync
     ```
 
-    TODO : other possible sources.
+    ??? tip "Reusing a locally built wheel"
+        A wheel built from source (see the **Building from source** tab)
+        can also be used as a local source. After locating the cached
+        wheel:
 
-    !!! warning
-        You need to set the number of `MAX_JOBS` to 1 to avoid out of memory 
-        errors during the installation of flash attention because of too many 
-        parallel compilation jobs.
+        ```bash
+        find ~/.cache/uv -name "flash_attn*.whl" 2>/dev/null
+        ```
 
+        Add it to `pyproject.toml`:
+
+        ```toml
+        [tool.uv.sources]
+        flash-attn = { path = "<path_to_wheel>" }
+        ```
 
 === "Building from source"
-    TODO : not all version of CUDA / Python have a prebuild wheel available.
-    TODO : how to build the package from sources.
-    TODO : Should not be installed from the login nodes (very long and need a lot of memory). Need to reserved compute nodes.
 
-    TODO : Add pyproject config.
+    Build Flash Attention from source when no pre-built wheel matches
+    the target CUDA, PyTorch, and Python combination.
 
-    **job_build_from_source.sh**
+    !!! warning
+        Building from source requires significant memory and time. Do
+        not run the build on login nodes, submit a dedicated job to a
+        compute node instead.
 
-    ```bash
-    --8<-- "docs/examples/frameworks/flash_attn_setup/job_build_from_source.sh"
+    Add the following to `pyproject.toml`:
+
+    ```toml title="build_from_source/pyproject.toml"
+    --8<-- "docs/examples/frameworks/flash_attn_setup/build_from_source/pyproject.toml"
     ```
 
-    TODO : tip : value of MAX_JOBS can be adapted
+    !!! warning
+        `MAX_JOBS = "4"` limits parallel compilation to prevent
+        out-of-memory errors during the build. Increase this value only
+        when the compute node has sufficient memory for more parallel
+        jobs.
+
+        `no-build-isolation-package = ["flash_attn"]` is required so that
+        Flash Attention can access the CUDA libraries available on the system.
+
+        `FLASH_ATTENTION_SKIP_CUDA_BUILD = "0"` ensures that Flash Attention
+        is compiled with CUDA support.
 
     !!! tip
-        Adapt the value of `TORCH_CUDA_ARCH_LIST` to the compute capability of the 
-        GPU you are using. You can find the compute capability of your GPU on the 
-        [NVIDIA website](https://developer.nvidia.com/cuda-gpus). Setting this variable 
-        ensures that flash attention is compiled with support for your specific GPU architecture, 
-        which can improve performance and installation time.
+        Adapt `TORCH_CUDA_ARCH_LIST` to the compute capability of the
+        target GPU. Find compute capabilities on the
+        [NVIDIA website](https://developer.nvidia.com/cuda-gpus). `"9.0"`
+        targets the H100. To support multiple architectures, separate
+        values with semicolons: `TORCH_CUDA_ARCH_LIST="9.0;8.0;..."`.
 
-        In this example, we set `TORCH_CUDA_ARCH_LIST` to "8.9" which corresponds to 
-        the compute capability of the NVIDIA L40S GPU. You can also set it to multiple 
-        values if you want to support multiple GPU architectures with : 
-        `TORCH_CUDA_ARCH_LIST="9.0;8.0;..."`.
+    Submit the build using `job_build_from_source.sh`:
 
-    Then, you can submit a job to build the package :
-    ```bash
-    $ sbatch job.sh
+    ```bash title="build_from_source/job.sh"
+    --8<-- "docs/examples/frameworks/flash_attn_setup/build_from_source/job.sh"
     ```
 
-    TODO : When the wheel is builded, you can re-use it :
-    TODO : Add command to find the builded wheel.
+    Once the build completes, uv caches the compiled wheel. To reuse it
+    in another project or cluster without recompiling, locate the cached wheel:
+
     ```bash
-    $ find ~/.cache/uv -name "flash_attn*.whl" 2>/dev/null
+    find ~/.cache/uv -name "flash_attn*.whl" 2>/dev/null
     ```
-    TODO : Add uv command to install from a wheel.
-    ```bash
-    $ uv add <path_to_wheel>
-    ```
-    TODO : or add in your `pyproject.toml` with https://docs.astral.sh/uv/concepts/projects/dependencies/#dependency-sources :
+
+    Then add it as a local source in `pyproject.toml`:
+
     ```toml
     [tool.uv.sources]
     flash-attn = { path = "<path_to_wheel>" }
     ```
 
+    Or install it directly with uv:
+
+    ```bash
+    uv add <path_to_wheel>
+    ```
+
 ## Example
 
-The full source code for this example is available on [the mila-docs GitHub repository.](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/frameworks/flash_attn)
+The full source code for this example is available on
+[the mila-docs GitHub repository](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/frameworks/flash_attn_setup).
 
-**job.sh**
-
-```bash
+```bash title="job.sh"
 --8<-- "docs/examples/frameworks/flash_attn_setup/job.sh"
 ```
 
-**pyproject.toml**
-
-```toml
---8<-- "docs/examples/frameworks/flash_attn_setup/pyproject.toml"
-```
-
-!!! warning
-    `--no-build-isolation` is required to install flash attention because 
-    it needs to access the CUDA libraries that are available on the system.
-
-!!! warning
-    `FLASH_ATTENTION_SKIP_CUDA_BUILD=0` is required to ensure that flash 
-    attention is compiled with CUDA support. 
-
-**main.py**
-
-```python
+```python title="main.py"
 --8<-- "docs/examples/frameworks/flash_attn_setup/main.py"
 ```
 
 ## Running this example
 
-You can submit a job to run the example with sbatch:
+Submit the job with sbatch:
 
 ```bash
- $ sbatch job.sh
+sbatch job.sh
 ```
