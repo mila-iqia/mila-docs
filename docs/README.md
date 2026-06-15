@@ -109,6 +109,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
     - [Multi-Factor Authentication (MFA) for Cluster Access](Userguide_login_mfa.md)
     - [Logging in to the cluster](userguides/login.md)
     - [Running your code](userguides/running_code.md)
+    - [Identifying GPU waste](userguides/gpu_efficiency.md)
     - [Sharing Data with ACLs](userguides/sharing_data.md)
     - Minimal Examples
         - [Software Frameworks](examples/frameworks/index.md)
