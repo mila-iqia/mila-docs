@@ -118,7 +118,7 @@ Otherwise, use **Building from source**.
         targets the H100. To support multiple architectures, separate
         values with semicolons: `TORCH_CUDA_ARCH_LIST="9.0;8.0;..."`.
 
-    Submit the build using `job_build_from_source.sh`:
+    Submit the build using the following job script:
 
     ```bash title="build_from_source/job.sh"
     --8<-- "docs/examples/frameworks/flash_attn_setup/build_from_source/job.sh"
