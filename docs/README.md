@@ -117,7 +117,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
             - [PyTorch Setup](examples/frameworks/pytorch_setup/index.md)
             - [Jax Setup](examples/frameworks/jax_setup/index.md)
             - [Jax](examples/frameworks/jax/index.md)
-            - [Flash Attention](examples/frameworks/flash_attn_setup/index.md)
+            - [Flash Attention Setup](examples/frameworks/flash_attn_setup/index.md)
         - [Distributed Training](examples/distributed/index.md)
             - [Single GPU Job](examples/distributed/single_gpu/index.md)
             - [Multi-GPU Job](examples/distributed/multi_gpu/index.md)
