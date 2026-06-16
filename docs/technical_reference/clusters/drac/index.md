@@ -38,15 +38,15 @@ it is not the only one; Each supervisor also has a ``def-profname`` allocation.
 Your supervisor is your first point of contact in knowing which allocations you
 should have access to.
 
-The table below provides information on the allocation for ``rrg-bengioy-ad``
+The table below provides information on the allocation for the account``rrg-bengioy-ad``
 for the period which spans from April 7, 2026 to Spring 2027.
 
-| Cluster                | CPUs | account          | Model    | RGUs allocated | # GPU equiv | SLURM type specifier |
-| ---------------------- | ---- | ---------------- | -------- | -------------- | ----------- | -------------------- |
-| [Fir](#fir)            | 0    | `rrg-bengioy-ad` | H100-80G | 2090           | 171         | `h100`               |
-| [Nibi](#nibi)          | 0    | `rrg-bengioy-ad` | H100-80G | 363            | 30          | `h100`               |
-| [Rorqual](#rorqual)    | 263  | `rrg-bengioy-ad` | H100-80G | 1172           | 96          | `h100`               |
-| [Trillium](#trillium)  | 768  | `rrg-bengioy-ad` | H100-80G | 375            | 31          | `h100`               |
+| Cluster                | CPUs | Model    | RGUs allocated | # GPU equiv | SLURM type specifier |
+| ---------------------- | ---- | -------- | -------------- | ----------- | -------------------- |
+| [Fir](#fir)            | 0    | H100-80G | 2090           | 171         | `h100`               |
+| [Nibi](#nibi)          | 0    | H100-80G | 363            | 30          | `h100`               |
+| [Rorqual](#rorqual)    | 263  | H100-80G | 1172           | 96          | `h100`               |
+| [Trillium](#trillium)  | 768  | H100-80G | 375            | 31          | `h100`               |
 
 On DRAC clusters where Mila has no allocated resources under ``rrg-bengioy-ad``
 this year, users can still use the default allocation associated with their
