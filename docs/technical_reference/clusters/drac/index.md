@@ -111,7 +111,7 @@ If the FAQ is of no help, you can contact DRAC renewal support team at
 ``renewals@tech.alliancecan.ca`` or the general support team at
 ``support@tech.alliancecan.ca``.
 
-## Clusters
+## DRAC Clusters
 
 ### Fir
 
@@ -163,20 +163,27 @@ For some students, Narval might be a good choice if they have already set up the
 Narval is the oldest cluster still online, and contains the oldest and smallest GPUs (A100-40GB).
 The A100 may however be a viable choice for jobs that cannot utilize a full H100.
 
-### TamIA
+## PAICE Clusters
+The PAICE (Pan-Canadian AI Compute Environment) clusters are also part of DRAC, but are especially develop for CIFAR AI Chairs (like Mila).
 
-[Digital Research Alliance of Canada doc](https://docs.alliancecan.ca/wiki/TamIA/en)
-
-This is a new cluster dedicated to AI jobs for Quebec-area research institutes, within
-the framework of PAICE (Pan-Canadian AI Compute Environment). Compute resources
-in TamIA are not assigned to jobs on a per-CPU, but on a per-node basis.
-Equipped with H100s and H200s.
-
-TamIA does not use regular DRAC allocations (``--account=rrg-bengioy-ad``). Instead, it
+Theses clusters does not use regular DRAC allocations (``--account=rrg-bengioy-ad``). Instead, it
 uses AIP allocations (``--account=aip-${PI_NAME}``), where ``${PI_NAME}`` is the name of
 your supervising professor. Your professor must add you to their AIP allocation before
 you will be able to submit jobs.
 
+| Cluster                 | CPUs | Model           | RGUs allocated | # GPU equiv | SLURM type specifier |
+| ----------------------  | ---- | --------        | -------------- | ----------- | -------------------- |
+| [TamIA](#TamIA)         | 435  | H100-80G        | 1738           | 143         | `h100`               |
+| [Killarney](#killarney) | 0    | L40S, H100-80G  | 794            | 75          | `l40s`, `h100`       |
+| [Vulcan](#vulcan)       | 0    | L40S            | 850            | 82          | `l40s`               |
+
+### TamIA
+
+[Digital Research Alliance of Canada doc](https://docs.alliancecan.ca/wiki/TamIA/en)
+
+This is a new cluster dedicated to AI jobs for Quebec-area research institutes. Compute resources
+in TamIA are not assigned to jobs on a per-CPU, but on a per-node basis.
+Equipped with H100s and H200s.
 
 ### Killarney
 
@@ -185,22 +192,12 @@ you will be able to submit jobs.
 This is a cluster within the framework of PAICE (Pan-Canadian AI Compute Environment) managed
 by [Vector](https://vectorinstitute.ai/) and [SciNet](https://scinethpc.ca/).
 
-Killarney does not use regular DRAC allocations (``--account=rrg-bengioy-ad``). Instead, it
-uses AIP allocations (``--account=aip-${PI_NAME}``), where ``${PI_NAME}`` is the name of
-your supervising professor. Your professor must add you to their AIP allocation before
-you will be able to submit jobs.
-
 ### Vulcan
 
 [Digital Research Alliance of Canada doc](https://docs.alliancecan.ca/wiki/Vulcan/en)
 
 This is a cluster within the framework of PAICE (Pan-Canadian AI Compute Environment) managed
 by [AMII](https://www.amii.ca/). Equipped with L40Ss.
-
-Vulcan does not use regular DRAC allocations (``--account=rrg-bengioy-ad``). Instead, it
-uses AIP allocations (``--account=aip-${PI_NAME}``), where ``${PI_NAME}`` is the name of
-your supervising professor. Your professor must add you to their AIP allocation before
-you will be able to submit jobs.
 
 ## Launching Jobs
 
