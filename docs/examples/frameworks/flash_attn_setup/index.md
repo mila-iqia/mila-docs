@@ -53,7 +53,7 @@ Otherwise, use **Building from source**.
     Add the wheel URL as a dependency source in `pyproject.toml`,
     replacing the URL with the one matching the target configuration:
 
-    ```toml title="pyproject.toml"
+    ```toml title="from_pre_build_wheel/pyproject.toml"
     --8<-- "docs/examples/frameworks/flash_attn_setup/from_pre_build_wheel/pyproject.toml"
     ```
 
