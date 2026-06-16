@@ -1,4 +1,4 @@
-## The workload manager
+# The workload manager
 
 On a cluster, users don't have direct access to the compute nodes but
 instead connect to a login node and add jobs to the workload manager
@@ -6,7 +6,7 @@ queue. Whenever there are resources available to execute these jobs
 they will be allocated to a compute node and run, which can be
 immediately or after a wait of up to several days.
 
-### Anatomy of a job
+## Anatomy of a job
 
 A job is comprised of a number of steps that will run one after the
 other. This is done so that you can schedule a sequence of processes
@@ -36,7 +36,7 @@ If this all seems complicated, you should know that all these things
 do not need to always be used. It is perfectly acceptable to sumbit
 jobs with a single step, a single task and a single process.
 
-### Understanding the queue
+## Understanding the queue
 
 The available resources on the cluster are not infinite and it is the
 workload manager's job to allocate them. Whenever a job request comes
@@ -53,7 +53,7 @@ things. There should be a tool that comes with the manager where you
 can see the status of your queued jobs and why they remain in the
 queue.
 
-### About partitions
+## About partitions
 
 The workload manager will divide the cluster into partitions according
 to the configuration set by the admins. A partition is a set of
@@ -72,7 +72,7 @@ type blocking use of another. They are also useful for heterogenous
 clusters where different hardware is mixed in and not all software is
 compatible with all of it (for example x86 and POWER cpus).
 
-### Exceding limits (preemption and grace periods)
+## Exceding limits (preemption and grace periods)
 
 To ensure a fair share of the computing resources for all, the workload
 manager establishes limits on the amount of resources that a single
@@ -104,7 +104,7 @@ unavailable. For others, like RAM, usage is monitored and your job
 will be terminated if it goes too much over. This makes it important
 to ensure you estimate resource usage accurately.
 
-### Mila information
+## Mila information
 
 **Mila** as well as 
 [Digital Research Alliance of Canada](https://docs.alliancecan.ca/wiki/Technical_documentation) 

@@ -15,7 +15,7 @@ https://sites.google.com/mila.quebec/mila-intranet/it-infrastructure/it-onboardi
 
 
 !!! important
-    Your access to the Cluster is granted based on your status at Mila (for students, your status is the same as your main supervisor' status), and on the duration of your stay, set during the creation of your account. 
+    Your access to the Cluster is granted based on your status at Mila (for students, your status is the same as the highest status between your main supervisor and co-supervisor' status), and on the duration of your stay, set during the creation of your account.
     The following have access to the cluster : **Current Students of Core Professors - Core Professors - Staff**
 
 !!! warning "Scheduled reboot for login nodes"

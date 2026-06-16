@@ -1,8 +1,12 @@
 site_name: Mila Technical Documentation
+# TODO: it might be possible to use something like
+# https://docs.mila.quebec/en/401/ as the site_url to avoid relying on relative
+# paths in the doc (../resource instead of /resource)
 site_url: https://docs.mila.quebec
 repo_name: mila-docs
-repo_url: https://www.github.com/mila-iqia/mila-docs
+repo_url: https://github.com/mila-iqia/mila-docs
 docs_dir: docs
+edit_uri: edit/master/docs/
 
 copyright: >
   Copyright &copy; 2026 Mila –
@@ -17,9 +21,12 @@ theme:
   custom_dir: overrides
   features:
     - announce.dismiss
+    - content.action.edit
+    - content.action.view
     - content.code.copy
     - content.code.select
     - content.code.annotate
+    - content.footnote.tooltips
     - content.tooltips
     - navigation.footer
     - navigation.tracking # https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#anchor-tracking
@@ -27,14 +34,14 @@ theme:
     ## Don't auto- expand until maybe after we reorganize the content a bit.
     ## Atm it's too many pages all at once, and doesn't match the sphinx structure.
     # - navigation.expand
-    - navigation.path
     - navigation.indexes
     - navigation.instant
+    - navigation.path
     - navigation.tabs
     - navigation.tabs.sticky
-    - search.suggest
     - search.highlight
     - search.share
+    - search.suggest
   palette:
     # Palette toggle for automatic mode
     - media: "(prefers-color-scheme)"
@@ -61,6 +68,7 @@ markdown_extensions:
   - admonition
   - attr_list
   - def_list
+  - footnotes
   - md_in_html
   - pymdownx.details
   - pymdownx.inlinehilite
@@ -89,9 +97,18 @@ markdown_extensions:
 extra:
   footer_sections:
     - name: "About us"
-      link: docs/home/teams
+      link: home/teams
     - name: "Support"
-      link: docs/help
+      link: help
+  office_hours:
+    location: Lab A
+    dates:
+      - start: 3pm
+        end: 5pm
+        day: Tuesday
+      - start: 2pm
+        end: 4pm
+        day: Wednesday
 
   analytics:
     provider: google
@@ -125,6 +142,7 @@ extra_css:
   - stylesheets/extra.css
 
 hooks:
+  - hooks/copy_office_hours.py
   - docs/hooks/external_links.py
   - docs/hooks/skill_tags.py
   - docs/hooks/sitemap_exclude.py

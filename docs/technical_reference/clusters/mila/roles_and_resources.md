@@ -1,14 +1,19 @@
 # Roles and authorizations
 
 
-There are mainly two types of researchers statuses at Mila :
+Mila assigns one of two affiliation statuses to its professors and principal
+investigators:
 
-1. Core researchers
-2. Affiliated researchers
+1. **Core researchers**
+2. **Affiliated researchers**
 
-This is determined by Mila policy. Core researchers have access to the Mila
-computing cluster. See your supervisor's Mila status to know what is your own
-status.
+Students, postdocs, and other trainees inherit their access rights from their
+supervisor's status. If your supervisor (or co-supervisor) is a core researcher,
+access to the Mila computing cluster is granted. If both your supervisor and
+co-supervisor are affiliated researchers, access is not granted.
+
+To determine your own status, check the Mila affiliation of your supervisor and,
+if applicable, your co-supervisor.
 
 
 ## Overview of available computing resources at Mila
@@ -16,7 +21,7 @@ status.
 
 The Mila cluster is to be used for regular development and relatively small
 number of jobs (< 5). It is a heterogeneous cluster. It uses
-[SLURM](../../../../userguides/running_code) to schedule jobs.
+[Slurm](../../../../userguides/running_code) to schedule jobs.
 
 
 ### Mila cluster versus Digital Research Alliance of Canada clusters
@@ -47,7 +52,7 @@ to giving *at minimum* one GPU per student, all the time, to be used in
 interactive mode. This is strictly better than "one GPU per student on average"
 because it's a floor meaning that, at any time, you should be able to ask for
 your GPU, right now, and get it (although it might take a minute for the request
-to be processed by SLURM).
+to be processed by Slurm).
 
 Interactive sessions are possible on the Alliance clusters, and there are
 generally special rules that allow you to get resources more easily if you

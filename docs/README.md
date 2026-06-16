@@ -36,9 +36,9 @@ recommend you start by checking out the [short quick start guide](getting_starte
 
     ---
 
-    Coming soon!
+    Powercharge your workflow with AI coding tools tailored for Mila researchers
 
-    Powercharge your AI agent with curated resources
+    [:octicons-arrow-right-24: Explore AI agents](ai)
 
 
 -   :material-book-open-page-variant:{ .lg .middle } __Technical reference__
@@ -67,7 +67,7 @@ recommend you start by checking out the [short quick start guide](getting_starte
 
     [:octicons-arrow-right-24: Ask your question to IT support](https://mila-iqia.atlassian.net/servicedesk/customer/portal/5)
     
-    :octicons-arrow-right-24: Join us at the Tue 3-5pm/Wed 2-4pm Office Hours in Lab A
+    [:octicons-arrow-right-24: {% include-markdown "generated_from_config/office_hours_short.md" %}](help/office_hours/)
 
 
 -   :material-bookmark:{ .lg .middle } __Cheatsheet__
@@ -76,7 +76,7 @@ recommend you start by checking out the [short quick start guide](getting_starte
 
     Access a summary of useful commands and notions
 
-    [:octicons-arrow-right-24: Browse the Cheatsheet](_static/2025-06-27_Mila_compute_cheat_sheet_v3.pdf)
+    [:octicons-arrow-right-24: Browse the Cheatsheet](_static/2026-05-05_Mila_compute_cheat_sheet_v4.pdf)
         
     </a>
 
@@ -106,11 +106,16 @@ If you find any errors in the documentation, missing or unclear sections, or wou
     - [Run Your First Job](getting_started/my_first_job.md)
     - [Train Your First Model](getting_started/train_first_model.md)
 - [How-tos and Guides](userguides/index.md)
-    - [Multi-Factor Authentication (MFA) for Cluster Access](Userguide_login_mfa.md)
-    - [Logging in to the cluster](userguides/login.md)
-    - [Running your code](userguides/running_code.md)
-    - [Identifying GPU waste](userguides/gpu_efficiency.md)
-    - [Sharing Data with ACLs](userguides/sharing_data.md)
+    - Guides
+        - [Manage Python Dependencies with uv](userguides/python_uv.md)
+        - [Track Experiments with Weights & Biases (WandB)](userguides/wandb.md)
+        - [Multi-Factor Authentication (MFA) for Cluster Access](Userguide_login_mfa.md)
+        - [Logging in to the cluster](userguides/login.md)
+        - [Launching jobs](userguides/slurm_guide/index.md)
+            - [Understanding Slurm](userguides/slurm_guide/basics.md)
+            - [Synchronizing multiple tasks](userguides/slurm_guide/tasks_communication.md)
+        - [Identifying GPU waste](userguides/gpu_efficiency.md)
+        - [Sharing Data with ACLs](userguides/sharing_data.md)
     - Minimal Examples
         - [Software Frameworks](examples/frameworks/index.md)
             - [PyTorch Setup](examples/frameworks/pytorch_setup/index.md)
@@ -130,6 +135,10 @@ If you find any errors in the documentation, missing or unclear sections, or wou
         - [Advanced Examples](examples/advanced/index.md)
             - [Multi-Node / Multi-GPU ImageNet Training](examples/advanced/imagenet/index.md)
 - [AI agents](ai/index.md)
+    - [Set Up Claude Code](ai/claude_code.md)
+    - [Install Mila Skills for Claude Code](ai/mila_skills.md)
+    - [Mila Docs MCP Server](ai/mcp.md)
+    - [Add Mila Docs context to AI assistants](ai/context.md)
 - [Technical reference](technical_reference/index.md)
     - [Cheatsheet](technical_reference/cheatsheet.md)
     - [Glossary](technical_reference/glossary.md)
@@ -155,6 +164,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
         - [Using containers](technical_reference/general_theory/containers.md)
         - [Contributing datasets](technical_reference/general_theory/datasets.md)
         - [Data Transmission using Globus Connect Personal](technical_reference/general_theory/data_transfer.md)
+        - [Slurm overview](technical_reference/general_theory/slurm.md)
         - [Advanced SLURM usage and Multiple GPU jobs](technical_reference/general_theory/multigpu.md)
         - [Multiple Nodes](technical_reference/general_theory/multinode.md)
         - [Useful links](technical_reference/useful_links.md)
@@ -167,5 +177,5 @@ If you find any errors in the documentation, missing or unclear sections, or wou
     - [Weights and Biases (WandB)](toolbox/wandb.md)
     - [🔗 Research Project Template](https://mila-iqia.github.io/ResearchTemplate)
 - [Get help](help/index.md)
+    - [IDT Office Hours](help/office_hours.md)
     - [Frequently asked questions (FAQ)](help/faq.md)
-

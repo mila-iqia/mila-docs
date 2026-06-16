@@ -9,8 +9,7 @@ You can then slightly modify your script to choose appropriate parameter based o
 
 You can find more info about job arrays in the [SLURM official documentation page](https://slurm.schedmd.com/job_array.html).
 
-
-**Prerequisites**
+## Prerequisites
 
 Make sure to read the following sections of the documentation before using this
 example:
@@ -20,9 +19,9 @@ example:
 * [Checkpointing](../checkpointing/index.md)
 * [Many tasks per GPU](../many_tasks_per_gpu/index.md)
 
-The full source code for this example is available on [the mila-docs GitHub
-repository.](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/good_practices/slurm_job_arrays)
+## Example
 
+The full source code for this example is available on [the mila-docs GitHub repository.](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/good_practices/slurm_job_arrays)
 
 **main.py**
 

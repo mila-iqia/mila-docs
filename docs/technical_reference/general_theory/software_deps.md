@@ -1,4 +1,4 @@
-## Software on the cluster
+# Software on the cluster
 
 This section aims to raise awareness to problems one can encounter when trying
 to run a software on different computers and how this is dealt with on typical
@@ -12,7 +12,7 @@ with your desired software and run them on compute nodes.
 Regarding Python development, we recommend using virtual environments to install
 Python packages in isolation.
 
-### Cluster software modules
+## Cluster software modules
 
 Modules are small files which modify your environment variables to point to
 specific versions of various software and libraries. For instance, a module
@@ -22,7 +22,7 @@ on.
 
 For more information, see [The module command](../../../technical_reference/clusters/drac/#modules).
 
-### Containers
+## Containers
 
 Containers are a special form of isolation of software and its dependencies. A
 container is essentially a lightweight virtual machine: it encapsulates a
@@ -37,7 +37,7 @@ be run on any compatible system.
 For more information, see [Using containers](../../../technical_reference/general_theory/containers).
 
 
-### Python Virtual environments
+## Python Virtual environments
 
 A virtual environment in Python is a local, isolated environment in which you
 can install or uninstall Python packages without interfering with the global

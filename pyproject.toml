@@ -5,7 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "mkdocs>=1.6.1",
+    "mkdocs>=1.6.1,<2.0.0",
     "mkdocs-material>=9.7.1",
     "mkdocs-include-markdown-plugin>=7.2.1",
     "mkdocs-literate-nav>=0.6.2",
@@ -50,6 +50,9 @@ test = [
     "pytest-xdist>=3.8.0",
     "setuptools>=80.9.0",
 ]
+
+[tool.setuptools]
+packages = []
 
 [tool.hatch.envs.default]
 installer = "uv"

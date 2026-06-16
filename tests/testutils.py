@@ -338,7 +338,8 @@ def filter_job_output_before_regression_check(
         "Date:",
         "Hostname:",
         "INFO:__main__:",
-        "warning:"
+        "warning:",
+        "wandb:",
     ),
     regex_substitutions: dict[str, str] = None,
     # line_matches: Sequence[str] = ("INFO:__main__:Epoch", "accuracy:"),
