@@ -12,14 +12,6 @@ computation and/or multi-GPU jobs as well as long running jobs.
     If you use DRAC resources for your research, please remember to [acknowledge
     their use in your papers](https://www.alliancecan.ca/en/our-services/advanced-research-computing/acknowledging-alliance)
 
-!!! note
-
-    Compute Canada ceased its operational responsibilities for supporting Canada’s
-    national advanced research computing (ARC) platform on March 31, 2022. The services
-    will be supported by the new Digital Research Alliance of Canada.
-
-    https://ace-net.ca/compute-canada-operations-move-to-the-digital-research-alliance-of-canada-(the-alliance).html
-
 Clusters of the Alliance are **shared with researchers across the country**,
 in part through a system of **allocations**. Allocations are given by the
 Alliance to selected research groups to ensure a steady availability of
