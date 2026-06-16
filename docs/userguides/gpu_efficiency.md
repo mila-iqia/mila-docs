@@ -61,11 +61,6 @@ nvidia-smi
 # High power draw (Watts) is usually a good signal of active GPU utilization.
 ```
 
-!!! tip
-    For deeper profiling (SM occupancy, memory bandwidth, kernel-level
-    metrics), WandB system monitoring (Method A) is the recommended approach
-    on Mila nodes.
-
 ## Typical DOs and DON'Ts of compute efficiency
 
 Even if situations are very diverse, the following guidelines pave the way for
