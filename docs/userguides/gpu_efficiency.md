@@ -43,7 +43,7 @@ Use the table below as a reference to evaluate your SM occupancy:
 
 You can self-diagnose using these framework-agnostic methods.
 
-### Method A: Weights & Biases (Recommended)
+### Method A: Weights & Biases
 
 If you use WandB, go to the **System** tab of your run to find data on GPU
 utilization, CPU usage, and memory. See
