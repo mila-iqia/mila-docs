@@ -97,9 +97,9 @@ markdown_extensions:
 extra:
   footer_sections:
     - name: "About us"
-      link: docs/home/teams
+      link: home/teams
     - name: "Support"
-      link: docs/help
+      link: help
   office_hours:
     location: Lab A
     dates:
