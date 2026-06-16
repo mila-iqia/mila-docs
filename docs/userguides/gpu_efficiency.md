@@ -7,29 +7,27 @@ description: >-
 
 # Could my job run faster? How to identify GPU waste
 
-## 1. Why should you care about GPU efficiency?
+## Why should you care about GPU efficiency?
 
 Optimizing your GPU usage directly accelerates research velocity. As compute
 power at Mila is a shared resource, efficient jobs on the cluster bring a
 two-sided advantage:
 
 - **For you:** Eliminating bottlenecks speeds up your training times and helps
-  unearth hidden bugs in your data loaders or model architectures. You get
-  useful results faster.
+  unearth hidden bugs in your data loaders or model architectures. With properly sized compute requests and efficient utilization, your jobs will be started sooner and will get suseful results faster.
 - **For Mila:** Maximizing efficiency frees up cluster nodes, resulting in
   shorter queue times and more parallel experiments across the institute.
 
 In other words, efficient compute utilization makes Mila research thrive.
 
-## 2. The basics of compute efficiency: Utilization vs. Occupancy
+## The basics of compute efficiency: Utilization vs. Occupancy
 
-A common pitfall is relying solely on `nvidia-smi`. The trap is that
-`nvidia-smi` reports "100% Utilization" as soon as even one thread is active
-on the GPU — like saying a bus is "used" because there is one passenger inside.
-
-To better measure actual utilization, look at **Streaming Multiprocessor (SM)
-Occupancy**: how many "seats" in the bus are actually filled. More context is
-available in this
+`nvidia-smi` is a useful first check, but its utilization metric has
+limitations: it reports "100% Utilization" as soon as any kernel is running
+on the GPU, regardless of how much of the hardware is actually in use. For a
+more precise view, look at **Streaming Multiprocessor (SM) Occupancy**, which
+measures what fraction of the GPU's computing units are actively working. More
+context is available in this
 [external post on GPU utilization metrics](https://www.trainy.ai/blog/gpu-utilization-misleading).
 
 Use the table below as a reference to evaluate your SM occupancy:
@@ -41,7 +39,7 @@ Use the table below as a reference to evaluate your SM occupancy:
 | ~30% | Good utilization |
 | ≥ 50% | Great / optimized utilization |
 
-## 3. How to diagnose your jobs today?
+## How to diagnose your jobs today?
 
 You can self-diagnose using these framework-agnostic methods.
 
@@ -54,18 +52,21 @@ for details.
 
 ### Method B: The interactive check
 
-During a job, you can `srun` into your allocated node and run:
+During a job, you can `srun` into your allocated node and run a basic check:
 
 ```bash
-# Basic check
+# Check GPU utilization and power draw
 nvidia-smi
 
-# Better: Check SM occupancy in real time (requires dcgmi or nvitop)
 # High power draw (Watts) is usually a good signal of active GPU utilization.
-nvitop
 ```
 
-## 4. Typical DOs and DON'Ts of compute efficiency
+!!! tip
+    For deeper profiling (SM occupancy, memory bandwidth, kernel-level
+    metrics), WandB system monitoring (Method A) is the recommended approach
+    on Mila nodes.
+
+## Typical DOs and DON'Ts of compute efficiency
 
 Even if situations are very diverse, the following guidelines pave the way for
 efficient GPU utilization.
@@ -81,9 +82,13 @@ efficient GPU utilization.
 3. **Implement checkpointing:** Save training states regularly so jobs can
    automatically resume after preemption or timeouts without losing previous
    compute hours.
-4. **Right-size resource requests:** Use lower-tier nodes or MIG
-   (Multi-Instance GPU) slices for small models or debugging instead of
-   allocating full high-end nodes.
+4. **Right-size resource requests:** Use
+   [lower-tier nodes](https://docs.mila.quebec/technical_reference/clusters/mila/nodes/)
+   (e.g., RTX8000, V100) or MIG (Multi-Instance GPU) slices for small models
+   or debugging instead of allocating full high-end nodes.
+5. **Request minimal compute blocks:** When possible, request the smallest
+   allocation that fits your job. Smaller allocations fill queue gaps faster,
+   reducing your wait time.
 
 ### ❌ DON'Ts — Common pitfalls
 
@@ -99,10 +104,12 @@ efficient GPU utilization.
 4. **Scaling GPUs to fix I/O bottlenecks:** Do not add more GPUs if your
    pipeline is bottlenecked by storage read latency or CPU preprocessing — you
    will just idle more hardware.
-5. **Underutilizing VRAM:** Do not run with low batch sizes if your VRAM usage
-   is under 20%. Increase the batch size to maximize SM occupancy.
+5. **Underutilizing VRAM:** If your VRAM usage is under 20%, consider
+   switching to a smaller GPU or using job packing (multiple smaller jobs on
+   the same node) before increasing batch size, as larger batches may affect
+   model convergence.
 
-## 5. Get help
+## Get help
 
 If you have any questions, feel free to reach out on Slack
 (`#mila-cluster`, `#compute-canada`), or drop by during
