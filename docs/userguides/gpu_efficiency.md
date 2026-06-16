@@ -99,10 +99,9 @@ efficient GPU utilization.
 4. **Scaling GPUs to fix I/O bottlenecks:** Do not add more GPUs if your
    pipeline is bottlenecked by storage read latency or CPU preprocessing — you
    will just idle more hardware.
-5. **Underutilizing VRAM:** If your VRAM usage is under 20%, consider
-   switching to a smaller GPU or using job packing (multiple smaller jobs on
-   the same node) before increasing batch size, as larger batches may affect
-   model convergence.
+5. **Underutilizing VRAM:** If your VRAM usage is under 20%, consider increasing
+   batch size, switching to a smaller GPU or using job packing (multiple smaller
+   jobs on the same node).
 
 ## Get help
 
