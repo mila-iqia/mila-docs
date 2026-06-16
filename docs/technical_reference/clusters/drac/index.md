@@ -178,8 +178,31 @@ your supervising professor. Your professor must add you to their AIP allocation 
 you will be able to submit jobs.
 
 
-## Launching Jobs
+### Killarney
 
+[Digital Research Alliance of Canada doc](https://docs.alliancecan.ca/wiki/Killarney/en)
+
+This is a cluster within the framework of PAICE (Pan-Canadian AI Compute Environment) managed
+by [Vector](https://vectorinstitute.ai/) and [SciNet](https://scinethpc.ca/).
+
+Killarney does not use regular DRAC allocations (``--account=rrg-bengioy-ad``). Instead, it
+uses AIP allocations (``--account=aip-${PI_NAME}``), where ``${PI_NAME}`` is the name of
+your supervising professor. Your professor must add you to their AIP allocation before
+you will be able to submit jobs.
+
+### Vulcan
+
+[Digital Research Alliance of Canada doc](https://docs.alliancecan.ca/wiki/Vulcan/en)
+
+This is a cluster within the framework of PAICE (Pan-Canadian AI Compute Environment) managed
+by [AMII](https://www.amii.ca/). Equipped with L40Ss.
+
+Vulcan does not use regular DRAC allocations (``--account=rrg-bengioy-ad``). Instead, it
+uses AIP allocations (``--account=aip-${PI_NAME}``), where ``${PI_NAME}`` is the name of
+your supervising professor. Your professor must add you to their AIP allocation before
+you will be able to submit jobs.
+
+## Launching Jobs
 
 Users must specify the resource allocation Group Name using the flag
 ``--account=rrg-bengioy-ad``.  To launch a CPU-only job:
