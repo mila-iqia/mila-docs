@@ -76,7 +76,7 @@ recommend you start by checking out the [short quick start guide](getting_starte
 
     Access a summary of useful commands and notions
 
-    [:octicons-arrow-right-24: Browse the Cheatsheet](_static/2025-06-27_Mila_compute_cheat_sheet_v3.pdf)
+    [:octicons-arrow-right-24: Browse the Cheatsheet](_static/2026-05-05_Mila_compute_cheat_sheet_v4.pdf)
         
     </a>
 
