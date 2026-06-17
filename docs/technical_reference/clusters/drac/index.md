@@ -1,7 +1,7 @@
 # Digital Research Alliance of Canada Clusters
 
 In addition of the Mila cluster, researchers can have access to
-clusters provided by the [Digital Research Alliance of Canada organisation](https://alliancecan.ca/) (the Alliance). These
+clusters provided by the [Digital Research Alliance of Canada organisation](https://alliancecan.ca/) (DRAC, or the Alliance). These
 clusters are to be used for larger experiments having many jobs, multi-node
 computation and/or multi-GPU jobs.
 
@@ -15,7 +15,7 @@ use for a period of time, usually a year.`
 Every university professor in Canada gets a default allocation, and they can add
 their collaborators to it. Depending on your supervisor's affiliations, you will have access to different
 allocations. Almost all students at Mila supervised by "core" professors
-should also have access to the ``rrg-bengioy-ad`` allocation described below, but
+should have access to the Mila global allocation described below, but
 it is not the only one. Your supervisor is your first point of contact in knowing which allocations you
 should have access to.
 
@@ -36,7 +36,7 @@ should have access to.
 ## Account Creation
 
 To access the Alliance clusters you have to first create an account on the [CCDB Portal](https://docs.alliancecan.ca/wiki/Frequently_Asked_Questions_about_the_CCDB) at
-https://ccdb.alliancecan.ca. We recommend using your @mila.quebec email.
+https://ccdb.alliancecan.ca. **We recommend using your @mila.quebec email**.
 
 Then, you have to apply for a ``role`` at
 https://ccdb.alliancecan.ca/me/add_role, which basically means telling the
