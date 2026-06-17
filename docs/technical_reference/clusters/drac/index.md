@@ -88,26 +88,26 @@ for the period which spans from April 7, 2026 to Spring 2027.
 
 [Digital Research Alliance of Canada doc](https://docs.alliancecan.ca/wiki/Fir)
 
-The successor to the legacy Cedar cluster. Retains its filesystem. Equipped with H100s.
+The successor to the legacy Cedar cluster. Retains its filesystem.
 
 ### Nibi
 
 [Digital Research Alliance of Canada doc](https://docs.alliancecan.ca/wiki/Nibi)
 
-The successor to the legacy Graham cluster. Retains its filesystem. Equipped with H100s.
+The successor to the legacy Graham cluster. Retains its filesystem.
 
 ### Rorqual
 
 [Digital Research Alliance of Canada doc](https://docs.alliancecan.ca/wiki/Rorqual/en)
 
-The successor to the legacy Beluga cluster. No internet access on compute nodes. Equipped with H100s.
+The successor to the legacy Beluga cluster. No internet access on compute nodes.
 
 ### Trillium
 
 [Digital Research Alliance of Canada doc](https://docs.alliancecan.ca/wiki/Trillium)
 
 The successor to the legacy Niagara cluster. It is principally but not exclusively a
-CPU cluster. GPU subcluster equipped with H100s.
+CPU cluster. No internet access on compute nodes.
 
 Trillium is [not run exactly like other clusters](https://docs.alliancecan.ca/wiki/Trillium_Quickstart).
 Most notably,
@@ -149,8 +149,7 @@ the control of Mila, and we are unable to provide support for such management.
 [Digital Research Alliance of Canada doc](https://docs.alliancecan.ca/wiki/TamIA/en)
 
 This is a new cluster dedicated to AI jobs for Quebec-area research institutes. Compute resources
-in TamIA are not assigned to jobs on a per-CPU, but on a per-node basis.
-Equipped with H100s and H200s.
+in TamIA are not assigned to jobs on a per-CPU, but on a per-node basis. No internet access on compute nodes.
 
 ### Killarney
 
@@ -164,7 +163,7 @@ by [Vector](https://vectorinstitute.ai/) and [SciNet](https://scinethpc.ca/).
 [Digital Research Alliance of Canada doc](https://docs.alliancecan.ca/wiki/Vulcan/en)
 
 This is a cluster within the framework of PAICE (Pan-Canadian AI Compute Environment) managed
-by [AMII](https://www.amii.ca/). Equipped with L40Ss.
+by [AMII](https://www.amii.ca/). No internet access on compute nodes.
 
 ## Other DRAC Clusters
 
