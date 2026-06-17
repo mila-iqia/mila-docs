@@ -77,12 +77,12 @@ If the FAQ is of no help, you can contact DRAC renewal support team at
 The table below provides information on the allocation for the account ``rrg-bengioy-ad``
 for the period which spans from April 7, 2026 to Spring 2027.
 
-| Cluster                | CPUs | Model    | RGUs allocated | # GPU equiv |
-| ---------------------- | ---- | -------- | -------------- | ----------- |
-| [Fir](#fir)            | 0    | H100-80G | 2090           | 171         |
-| [Nibi](#nibi)          | 0    | H100-80G | 363            | 30          |
-| [Rorqual](#rorqual)    | 263  | H100-80G | 1172           | 96          |
-| [Trillium](#trillium)  | 768  | H100-80G | 375            | 31          |
+| Cluster                | CPUs | RGUs allocated | # GPU equiv | Model    | Unrestricted internet |
+| ---------------------- | ---- | -------------- | ----------- | -------- | --------------------- |
+| [Fir](#fir)            | 0    | 2090           | 171         | H100-80G | Yes                   |
+| [Nibi](#nibi)          | 0    | 363            | 30          | H100-80G | Yes                   |
+| [Rorqual](#rorqual)    | 263  | 1172           | 96          | H100-80G | No                    |
+| [Trillium](#trillium)  | 768  | 375            | 31          | H100-80G | No                    |
 
 ### Fir
 
@@ -128,25 +128,21 @@ details before using this cluster.
 ## PAICE Clusters
 The PAICE (Pan-Canadian AI Compute Environment) clusters are also part of DRAC, but are especially develop for CIFAR AI Chairs (like Mila).
 
-Theses clusters don't use regular DRAC allocations (``--account=rrg-bengioy-ad``). Instead, it
+Theses clusters don't use regular DRAC allocations and are not covered by the Mila global allocation. Instead, it
 uses AIP allocations (``--account=aip-${PI_NAME}``), where ``${PI_NAME}`` is the name of
 your supervising professor. Your professor must add you to their AIP allocation before
 you will be able to submit jobs.
 
-The default accounts are of the form
-``def-<yourprofname>-gpu`` and ``def-<yourprofname>-cpu``. Management of a
-professor's default DRAC allocation is their personal responsibility, is beyond
-the control of Mila, and we are unable to provide support for such management.
 
 The table below provides information on the allocation depending of the tier of the professor
-(by default 85% of the ressouces of the cluster for tier1+tier2 and 10% for tier3)
+(by default 85% of the resources of the cluster for tier1+tier2 and 10% for tier3)
 for the period which spans from April 7, 2026 to Spring 2027.
 
-| Cluster                 | Tier          | CPUs | Model           | RGUs allocated | # GPU equiv |
-| ----------------------  | ----          | ---- | --------        | -------------- | ----------- |
-| [TamIA](#TamIA)         | tier1 + tier2 | 435  | H100-80G, H200  | 1738           | 143         |
-| [Killarney](#killarney) | tier3         | 0    | L40S, H100-80G  | 794            | 75          |
-| [Vulcan](#vulcan)       | tier3         | 0    | L40S            | 850            | 82          |
+| Cluster                             | CPUs | RGUs allocated | # GPU equiv | Model               | Unrestricted internet |
+| ----------------------              | ---- | -------------- | ----------- | --------            | -----                 |
+| [TamIA](#TamIA) <br> tier1 + tier2  | 435  | 1738           | 143         | H100-80G <br> H200  | No                    |
+| [Killarney](#killarney) <br> tier3  | 0    | 794            | 75          | H100-80G <br> L40S  | Yes                   |
+| [Vulcan](#vulcan) <br> tier3        | 0    | 850            | 82          | L40S                | No                    |
 
 ### TamIA
 
@@ -241,9 +237,7 @@ to Mila servers.
 
 More details on storage can be found [here](https://docs.alliancecan.ca/wiki/Storage_and_file_management).
 
-
 ## Modules
-
 
 Much software, such as Python or MATLAB, is already compiled and available on
 DRAC clusters through the ``module`` command and its subcommands. Their full
@@ -329,7 +323,7 @@ More documentation about this can be found [here](https://docs.alliancecan.ca/wi
 
     Be careful when using Wandb with `httpproxy`. It does not support sending
     artifacts and wandb's logger will hang in the background when your training
-    is completed, wasting ressources until the job times out. It is recommended
+    is completed, wasting resources until the job times out. It is recommended
     to use the offline mode with wandb instead to avoid such waste.
 
 
