@@ -1,7 +1,7 @@
 # Digital Research Alliance of Canada Clusters
 
-The clusters named `Fir`, `Nibi`, `Narval`, `Rorqual` and `Trillium` are
-clusters provided by the [Digital Research Alliance of Canada organisation](https://alliancecan.ca/) (the Alliance). For Mila researchers, these
+In addition of the Mila cluster, researchers can have access to
+clusters provided by the [Digital Research Alliance of Canada organisation](https://alliancecan.ca/) (the Alliance). These
 clusters are to be used for larger experiments having many jobs, multi-node
 computation and/or multi-GPU jobs as well as long running jobs.
 
@@ -35,31 +35,31 @@ should have access to.
 
 ## Account Creation
 
-To access the Alliance clusters you have to first create an account at
-https://ccdb.alliancecan.ca. Use a password with at least 8 characters, mixed
-case letters, digits and special characters. Later you will be asked to create
-another password with those rules, and it’s really convenient that the two
-password are the same.
+To access the Alliance clusters you have to first create an account on the [CCDB Portal](https://docs.alliancecan.ca/wiki/Frequently_Asked_Questions_about_the_CCDB) at
+https://ccdb.alliancecan.ca. We recommend using your @mila.quebec email.
 
 Then, you have to apply for a ``role`` at
 https://ccdb.alliancecan.ca/me/add_role, which basically means telling the
 Alliance that you are part of the lab so they know which cluster you can have
 access to, and track your usage.
 
-You will be asked for the CCRI (See screenshot below). Please reach out to your
-sponsor to get the CCRI.
+You will be asked for the CCRI (Compute Canada Role Identifier) of your sponsor. Please reach out to your sponsor for more infos.
 
 ![role](../../../_static/images/role.png)
 
-You will need to **wait** for your sponsor to accept before being able to login
-to the Alliance clusters.
+As a Mila researcher, you can request access of all the resources in the *HPC* and *Artificial Intelligence* tabs in *Resources > Access Systems* at CCDB.
 
-You should apply to a ``role`` using this form **for each allocation you can have access to**. If, for instance,
-your supervisor is member of the ``rrg-bengioy-ad`` allocation, you should apply using Yoshua Bengio's CCRI, and
-you should apply separately using your supervisor's CCRI to have access to ``def-<yoursupervisor>``. Ask your supervisor
-to share these CCRI with you.
+You will need to **wait** for your sponsor to accept your request before being able to login
+to the Alliance clusters. The default accounts are of the form
+``def-<yourprofname>-gpu`` and ``def-<yourprofname>-cpu``. Management of a
+professor's default DRAC allocation is their personal responsibility and is beyond
+the control of Mila. We are unable to provide support for such management.
 
-## Account Renewal
+### Access to Mila global allocation
+If your supervisor is a Mila "core" professor, you are elligiable to the Mila global allocation ``rrg-bengioy-ad``.
+To be added to the allocation, write to `ccdb-accounts@mila.quebec` and share **your** CCRI.
+
+### Renewal
 
 All user accounts (Sponsor & Sponsored) have to be renewed annually in order to
 keep up-to-date information on active accounts and to deactivate unused
