@@ -178,6 +178,7 @@ by [AMII](https://www.amii.ca/). No internet access on compute nodes.
 For some students, Narval might be a good choice if they have already set up there.
 Narval is the oldest cluster still online, and contains the oldest and smallest GPUs (A100-40GB).
 The A100 may however be a viable choice for jobs that cannot utilize a full H100.
+No internet access on compute nodes.
 
 ## Launching Jobs
 
@@ -311,13 +312,12 @@ python main.py --path $SLURM_TMPDIR --data_path $SLURM_TMPDIR
 cp $SLURM_TMPDIR/RESULTS_CHANGEME $SCRATCH
 ```
 
-### Using CometML and Wandb
+## Using CometML and Wandb
 
-
-The compute nodes for Narval, Rorqual and Tamia don't have access to the
-internet, but there is a special module that can be loaded in order to allow
-training scripts to access some specific servers, which includes
-the necessary servers for using CometML and Wandb ("Weights and Biases").
+Some compute nodes don't have access to the internet, but there is a special
+module that can be loaded in order to allow training scripts to access some 
+specific servers, which includes the necessary servers for using CometML and
+Wandb ("Weights and Biases").
 
 ```bash
 module load httpproxy
