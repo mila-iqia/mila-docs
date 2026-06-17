@@ -59,6 +59,16 @@ the control of Mila. We are unable to provide support for such management.
 If your supervisor is a Mila "core" professor, you are elligiable to the Mila global allocation ``rrg-bengioy-ad``.
 To be added to the allocation, write to `ccdb-accounts@mila.quebec` and share **your** CCRI.
 
+### Connect to the clusters
+To login to the DRAC clusters, you need to set up your SSH keys on the CCDB portal.
+You can generate an SSH key pair using `ssh-keygen` and then add the public key
+to your account on the CCDB portal at *My Account > SSH Keys*.
+
+You can use `milatools`, with the command `mila init`, to help create your SSH config or validate your installation.
+
+You also need to set a multifactor authentication on the CCDB portal at *My Account > Multifactor Authentication*.
+More infos available on the [DRAC documentation](https://docs.alliancecan.ca/wiki/Multifactor_authentication).
+
 ### Renewal
 
 All user accounts (Sponsor & Sponsored) have to be renewed annually in order to
@@ -73,6 +83,9 @@ If the FAQ is of no help, you can contact DRAC renewal support team at
 ``support@tech.alliancecan.ca``.
 
 ## DRAC Clusters
+These clusters are part of the Mila global allocation. Depending on your 
+supervisor's affiliations, you may also have access to other allocations or clusters,
+such as the PAICE clusters described below.
 
 The table below provides information on the allocation for the account ``rrg-bengioy-ad``
 for the period which spans from April 7, 2026 to Spring 2027.
@@ -109,8 +122,7 @@ The successor to the legacy Beluga cluster. No internet access on compute nodes.
 The successor to the legacy Niagara cluster. It is principally but not exclusively a
 CPU cluster. No internet access on compute nodes.
 
-Trillium is [not run exactly like other clusters](https://docs.alliancecan.ca/wiki/Trillium_Quickstart).
-Most notably:
+Trillium is not run exactly like other clusters. Most notably:
 
   - Trillium is structured as two sub-clusters, once CPU and one GPU.
     - Trillium (CPU):
@@ -126,7 +138,7 @@ Refer to the Trillium [Quickstart Guide](https://docs.alliancecan.ca/wiki/Trilli
 details before using this cluster.
 
 ## PAICE Clusters
-The PAICE (Pan-Canadian AI Compute Environment) clusters are also part of DRAC, but are especially develop for CIFAR AI Chairs (like Mila).
+The PAICE (Pan-Canadian AI Compute Environment) clusters are also part of DRAC, but are especially develop for CIFAR AI Chairs.
 
 Theses clusters don't use regular DRAC allocations and are not covered by the Mila global allocation. Instead, it
 uses AIP allocations (``--account=aip-${PI_NAME}``), where ``${PI_NAME}`` is the name of
@@ -166,6 +178,8 @@ This is a cluster within the framework of PAICE (Pan-Canadian AI Compute Environ
 by [AMII](https://www.amii.ca/). No internet access on compute nodes.
 
 ## Other DRAC Clusters
+Theses clusters are not part of the Mila global allocation, but you might have access to them depending on your supervisor's affiliations.
+Please check with your supervisor.
 
 ### Narval
 
