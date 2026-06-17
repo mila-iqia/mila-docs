@@ -110,15 +110,15 @@ The successor to the legacy Niagara cluster. It is principally but not exclusive
 CPU cluster. No internet access on compute nodes.
 
 Trillium is [not run exactly like other clusters](https://docs.alliancecan.ca/wiki/Trillium_Quickstart).
-Most notably,
+Most notably:
 
   - Trillium is structured as two sub-clusters, once CPU and one GPU.
     - Trillium (CPU):
-      - Login node `trillium.alliancecan.ca`
-      - Jobs are allocated on a **per-node basis**, _not_ per-CPU.
+        - Login node `trillium.alliancecan.ca`
+        - Jobs are allocated on a **per-node basis**, _not_ per-CPU.
     - Trillium-GPU:
-      - Login node `trillium‑gpu.alliancecan.ca`
-      - Jobs allocated either **per-node**, _or_ **single-GPU** (1/4 node).
+        - Login node `trillium‑gpu.alliancecan.ca`
+        - Jobs allocated either **per-node**, _or_ **single-GPU** (1/4 node).
   - Both share their filesystem.
   - Job submissions must be made from `$SCRATCH`.
 
