@@ -3,7 +3,7 @@
 In addition of the Mila cluster, researchers can have access to
 clusters provided by the [Digital Research Alliance of Canada organisation](https://alliancecan.ca/) (the Alliance). These
 clusters are to be used for larger experiments having many jobs, multi-node
-computation and/or multi-GPU jobs as well as long running jobs.
+computation and/or multi-GPU jobs.
 
 Clusters of the Alliance are **shared with researchers across the country**,
 in part through a system of **allocations**. Allocations are given by the
