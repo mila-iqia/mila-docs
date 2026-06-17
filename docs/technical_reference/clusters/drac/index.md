@@ -77,12 +77,12 @@ If the FAQ is of no help, you can contact DRAC renewal support team at
 The table below provides information on the allocation for the account ``rrg-bengioy-ad``
 for the period which spans from April 7, 2026 to Spring 2027.
 
-| Cluster                | CPUs | Model    | RGUs allocated | # GPU equiv | SLURM type specifier |
-| ---------------------- | ---- | -------- | -------------- | ----------- | -------------------- |
-| [Fir](#fir)            | 0    | H100-80G | 2090           | 171         | `h100`               |
-| [Nibi](#nibi)          | 0    | H100-80G | 363            | 30          | `h100`               |
-| [Rorqual](#rorqual)    | 263  | H100-80G | 1172           | 96          | `h100`               |
-| [Trillium](#trillium)  | 768  | H100-80G | 375            | 31          | `h100`               |
+| Cluster                | CPUs | Model    | RGUs allocated | # GPU equiv |
+| ---------------------- | ---- | -------- | -------------- | ----------- |
+| [Fir](#fir)            | 0    | H100-80G | 2090           | 171         |
+| [Nibi](#nibi)          | 0    | H100-80G | 363            | 30          |
+| [Rorqual](#rorqual)    | 263  | H100-80G | 1172           | 96          |
+| [Trillium](#trillium)  | 768  | H100-80G | 375            | 31          |
 
 ### Fir
 
@@ -138,11 +138,15 @@ The default accounts are of the form
 professor's default DRAC allocation is their personal responsibility, is beyond
 the control of Mila, and we are unable to provide support for such management.
 
-| Cluster                 | CPUs | Model           | RGUs allocated | # GPU equiv | SLURM type specifier |
-| ----------------------  | ---- | --------        | -------------- | ----------- | -------------------- |
-| [TamIA](#TamIA)         | 435  | H100-80G        | 1738           | 143         | `h100`               |
-| [Killarney](#killarney) | 0    | L40S, H100-80G  | 794            | 75          | `l40s`, `h100`       |
-| [Vulcan](#vulcan)       | 0    | L40S            | 850            | 82          | `l40s`               |
+The table below provides information on the allocation depending of the tier of the professor
+(by default 85% of the ressouces of the cluster for tier1+tier2 and 10% for tier3)
+for the period which spans from April 7, 2026 to Spring 2027.
+
+| Cluster                 | Tier          | CPUs | Model           | RGUs allocated | # GPU equiv |
+| ----------------------  | ----          | ---- | --------        | -------------- | ----------- |
+| [TamIA](#TamIA)         | tier1 + tier2 | 435  | H100-80G, H200  | 1738           | 143         |
+| [Killarney](#killarney) | tier3         | 0    | L40S, H100-80G  | 794            | 75          |
+| [Vulcan](#vulcan)       | tier3         | 0    | L40S            | 850            | 82          |
 
 ### TamIA
 
