@@ -5,11 +5,6 @@ clusters provided by the [Digital Research Alliance of Canada organisation](http
 clusters are to be used for larger experiments having many jobs, multi-node
 computation and/or multi-GPU jobs as well as long running jobs.
 
-!!! note
-
-    If you use DRAC resources for your research, please remember to [acknowledge
-    their use in your papers](https://www.alliancecan.ca/en/our-services/advanced-research-computing/acknowledging-alliance)
-
 Clusters of the Alliance are **shared with researchers across the country**,
 in part through a system of **allocations**. Allocations are given by the
 Alliance to selected research groups to ensure a steady availability of
@@ -17,39 +12,14 @@ computational resources throughout the year. From the Alliance's documentation:
 `An allocation is an amount of resources that a research group can target for
 use for a period of time, usually a year.`
 
-
-## Current Allocation Description
-
-
-Depending on your supervisor's affiliations, you will have access to different
+Every university professor in Canada gets a default allocation, and they can add
+their collaborators to it. Depending on your supervisor's affiliations, you will have access to different
 allocations. Almost all students at Mila supervised by "core" professors
-should have access to the ``rrg-bengioy-ad`` allocation described below, but
-it is not the only one; Each supervisor also has a ``def-profname`` allocation.
-Your supervisor is your first point of contact in knowing which allocations you
+should also have access to the ``rrg-bengioy-ad`` allocation described below, but
+it is not the only one. Your supervisor is your first point of contact in knowing which allocations you
 should have access to.
 
-The table below provides information on the allocation for the account``rrg-bengioy-ad``
-for the period which spans from April 7, 2026 to Spring 2027.
-
-| Cluster                | CPUs | Model    | RGUs allocated | # GPU equiv | SLURM type specifier |
-| ---------------------- | ---- | -------- | -------------- | ----------- | -------------------- |
-| [Fir](#fir)            | 0    | H100-80G | 2090           | 171         | `h100`               |
-| [Nibi](#nibi)          | 0    | H100-80G | 363            | 30          | `h100`               |
-| [Rorqual](#rorqual)    | 263  | H100-80G | 1172           | 96          | `h100`               |
-| [Trillium](#trillium)  | 768  | H100-80G | 375            | 31          | `h100`               |
-
-On DRAC clusters where Mila has no allocated resources under ``rrg-bengioy-ad``
-this year, users can still use the default allocation associated with their
-supervisor, *so long as the supervisor adds them to it on the DRAC web site*.
-Every university professor in Canada gets a default allocation, and they can add
-their collaborators to it. The default accounts are of the form
-``def-<yourprofname>-gpu`` and ``def-<yourprofname>-cpu``. Management of a
-professor's default DRAC allocation is their personal responsibility, is beyond
-the control of Mila, and we are unable to provide support for such management.
-
-
 !!! note
-
     An allocation is not a *maximal* amount of resources that can be used
     simultaneously, it is a weighting factor of the workload manager to balance
     jobs. For instance, even though we are allocated 408 GPU-years across all
@@ -59,9 +29,11 @@ the control of Mila, and we are unable to provide support for such management.
     more information on how allocations and resource scheduling are configured for
     these installations.
 
+!!! note
+    If you use DRAC resources for your research, please remember to [acknowledge
+    their use in your papers](https://www.alliancecan.ca/en/our-services/advanced-research-computing/acknowledging-alliance).
 
 ## Account Creation
-
 
 To access the Alliance clusters you have to first create an account at
 https://ccdb.alliancecan.ca. Use a password with at least 8 characters, mixed
@@ -89,7 +61,6 @@ to share these CCRI with you.
 
 ## Account Renewal
 
-
 All user accounts (Sponsor & Sponsored) have to be renewed annually in order to
 keep up-to-date information on active accounts and to deactivate unused
 accounts.
@@ -102,6 +73,16 @@ If the FAQ is of no help, you can contact DRAC renewal support team at
 ``support@tech.alliancecan.ca``.
 
 ## DRAC Clusters
+
+The table below provides information on the allocation for the account ``rrg-bengioy-ad``
+for the period which spans from April 7, 2026 to Spring 2027.
+
+| Cluster                | CPUs | Model    | RGUs allocated | # GPU equiv | SLURM type specifier |
+| ---------------------- | ---- | -------- | -------------- | ----------- | -------------------- |
+| [Fir](#fir)            | 0    | H100-80G | 2090           | 171         | `h100`               |
+| [Nibi](#nibi)          | 0    | H100-80G | 363            | 30          | `h100`               |
+| [Rorqual](#rorqual)    | 263  | H100-80G | 1172           | 96          | `h100`               |
+| [Trillium](#trillium)  | 768  | H100-80G | 375            | 31          | `h100`               |
 
 ### Fir
 
@@ -147,10 +128,15 @@ details before using this cluster.
 ## PAICE Clusters
 The PAICE (Pan-Canadian AI Compute Environment) clusters are also part of DRAC, but are especially develop for CIFAR AI Chairs (like Mila).
 
-Theses clusters does not use regular DRAC allocations (``--account=rrg-bengioy-ad``). Instead, it
+Theses clusters don't use regular DRAC allocations (``--account=rrg-bengioy-ad``). Instead, it
 uses AIP allocations (``--account=aip-${PI_NAME}``), where ``${PI_NAME}`` is the name of
 your supervising professor. Your professor must add you to their AIP allocation before
 you will be able to submit jobs.
+
+The default accounts are of the form
+``def-<yourprofname>-gpu`` and ``def-<yourprofname>-cpu``. Management of a
+professor's default DRAC allocation is their personal responsibility, is beyond
+the control of Mila, and we are unable to provide support for such management.
 
 | Cluster                 | CPUs | Model           | RGUs allocated | # GPU equiv | SLURM type specifier |
 | ----------------------  | ---- | --------        | -------------- | ----------- | -------------------- |
