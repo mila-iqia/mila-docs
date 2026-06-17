@@ -1,6 +1,4 @@
-<!-- START -->
 # Digital Research Alliance of Canada Clusters
-
 
 The clusters named `Fir`, `Nibi`, `Narval`, `Rorqual` and `Trillium` are
 clusters provided by the [Digital Research Alliance of Canada organisation](https://alliancecan.ca/) (the Alliance). For Mila researchers, these
@@ -146,15 +144,6 @@ Most notably,
 Refer to the Trillium [Quickstart Guide](https://docs.alliancecan.ca/wiki/Trillium_Quickstart) for more
 details before using this cluster.
 
-
-### Narval
-
-[Digital Research Alliance of Canada doc](https://docs.alliancecan.ca/wiki/Narval/en)
-
-For some students, Narval might be a good choice if they have already set up there.
-Narval is the oldest cluster still online, and contains the oldest and smallest GPUs (A100-40GB).
-The A100 may however be a viable choice for jobs that cannot utilize a full H100.
-
 ## PAICE Clusters
 The PAICE (Pan-Canadian AI Compute Environment) clusters are also part of DRAC, but are especially develop for CIFAR AI Chairs (like Mila).
 
@@ -190,6 +179,16 @@ by [Vector](https://vectorinstitute.ai/) and [SciNet](https://scinethpc.ca/).
 
 This is a cluster within the framework of PAICE (Pan-Canadian AI Compute Environment) managed
 by [AMII](https://www.amii.ca/). Equipped with L40Ss.
+
+## Other DRAC Clusters
+
+### Narval
+
+[Digital Research Alliance of Canada doc](https://docs.alliancecan.ca/wiki/Narval/en)
+
+For some students, Narval might be a good choice if they have already set up there.
+Narval is the oldest cluster still online, and contains the oldest and smallest GPUs (A100-40GB).
+The A100 may however be a viable choice for jobs that cannot utilize a full H100.
 
 ## Launching Jobs
 
