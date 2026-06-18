@@ -419,7 +419,7 @@ Here, we use the batch job option. Thus, we create a `request_allocation.sh` fil
 #### Launch Tensorboard
 
 !!! warning "Do not launch Tensorboard on the login node"
-    Login nodes exists for light interactions, mainly interacting with Slurm.
+    Login nodes exist for light interactions, mainly interacting with Slurm.
     Launching Tensorboard on a login node will consume too much memory, and
     cause problems for other people too.
 
