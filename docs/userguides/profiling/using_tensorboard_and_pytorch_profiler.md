@@ -1,11 +1,11 @@
 ---
-title: Visualizing metrics with Tensorboard and Pytorch profiler
+title: Visualizing usage with Pytorch profiler and Tensorboard
 description: >-
     This guide depicts a way to display usage of jobs run on the cluster
     by using the visualization toolkit Tensorboard alongside Pytorch profiler.
 ---
 
-# Visualizing usage with Tensorboard and Pytorch profiler
+# Visualizing usage with Pytorch profiler and Tensorboard
 
 This guide depicts a way to visualize metrics of jobs run on the cluster
 by using the visualization toolkit [Tensorboard](https://www.tensorflow.org/tensorboard)
