@@ -17,7 +17,7 @@ wheel is available.
 
 Make sure to read the following sections of the documentation before using this example:
 
-* [Quick Start](../../../getting_started/)
+* [Quick Start](../../../getting_started/train_first_model/)
 * [Running your code](../../../userguides/running_code)
 * [uv](../../../technical_reference/general_theory/portability/#uv)
 * [Modules](../../../technical_reference/general_theory/portability/#using-modules)
