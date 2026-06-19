@@ -42,8 +42,13 @@ Otherwise, use **Building from source**.
     flash_attn-2.8.3.post1+cu126torch2.7cxx11abiFALSE-cp312-cp312-linux_x86_64.whl
     ```
 
-    This wheel targets CUDA 12.6, PyTorch 2.7, and Python 3.12 on
-    Linux x86_64 for flash attention 2.8.3.post1.
+    This wheel targets:
+
+    * `flash_attn-2.8.3.post1` — flash attention `2.8.3.post1`
+    * `cu126` — CUDA 12.6
+    * `torch2.7` — PyTorch 2.7
+    * `cp312` — Python 3.12
+    * `linux_x86_64` — Linux x86_64
 
     !!! tip
         Pre-built wheels require no compilation and can be installed on
