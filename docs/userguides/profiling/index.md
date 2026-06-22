@@ -49,7 +49,7 @@ You can self-diagnose using these framework-agnostic methods.
 | `nvidia-smi` command | ✓ |  |
 | `nvidia-smi` log report |  | ✓ |
 | Tensorboard visualization of Pytorch profiler data | ✓ | ✓ |
-| DRAC portals |  |  |
+| Clusters portals | ✓ | ✓ |
 
 ### Method A: Weights & Biases
 
@@ -197,6 +197,27 @@ When a job has run on the cluster, an output file is created. Its default name i
 !!! warning "Tensorboard should not be launched on login nodes"
 
 An example of Tensorboard application on the cluster is describe in the [Visualizing usage with Pytorch profiler and Tensorboard guide](../../userguides/profiling/using_tensorboard_and_pytorch_profiler).
+
+
+### Method E: Clusters portals
+
+Some clusters you have access to have a related portal which allows to display data and metrics, such as your use of the resources or a history of your jobs.
+
+Here is a quick overview of the clusters and their associated portals (if applicable):
+
+| Clusters | Maintainer | Portal |
+| -------- | ---------- | ------ |
+| [Mila](mila) | Mila | - |
+| [TamIA](https://docs.alliancecan.ca/wiki/TamIA/en) | PAICE | [TamIA portal](https://portail.tamia.ecpia.ca/) |
+| [Killarney](https://docs.alliancecan.ca/wiki/Killarney/en) | PAICE | - |
+| [Vulcan](https://docs.alliancecan.ca/wiki/Vulcan/en) | PAICE | [Vulcan portal](https://portal.vulcan.alliancecan.ca/) |
+| [Fir](https://docs.alliancecan.ca/wiki/Fir) | DRAC | - |
+| [Nibi](https://docs.alliancecan.ca/wiki/Nibi) | DRAC | [Nibi portal](https://portal.nibi.sharcnet.ca/) |
+| [Rorqual](https://docs.alliancecan.ca/wiki/Rorqual/en) | DRAC | [Rorqual portal](https://metrix.rorqual.calculquebec.ca/) |
+| [Trillium](https://docs.alliancecan.ca/wiki/Trillium) | DRAC | [Trillium portal](https://my.scinet.utoronto.ca/) |
+
+
+![Nibi portal](../../_static/images/nibi_portal.png)
 
 
 ## Typical DOs and DON'Ts of compute efficiency

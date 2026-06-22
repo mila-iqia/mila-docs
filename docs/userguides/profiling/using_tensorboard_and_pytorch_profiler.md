@@ -416,6 +416,12 @@ Here, we use the batch job option. Thus, we create a `request_allocation.sh` fil
     uv run python experiment.py
     ```
 
+Finally, we launch the job through the command line:
+
+```
+sbatch request_allocation.sh
+```
+
 #### Launch Tensorboard
 
 !!! warning "Do not launch Tensorboard on the login node"
