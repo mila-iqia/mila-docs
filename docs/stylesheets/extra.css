@@ -1,7 +1,26 @@
 :root {
+
+  /* "Work in progress" admonition */
   --md-admonition-color--wip: 255, 145, 0; /* Decimals for #ff9100 */;
   --md-admonition-color-hex--wip: #ff9100;
 }
+
+:root > * {
+  /* Main theme */
+  --md-primary-fg-color: #662e7d;
+  /*--md-primary-bg-color:;*/
+  --md-accent-fg-color: #662e7d;
+  --md-primary-fg-color--dark: #c38acd;
+}
+
+[data-md-color-scheme="slate"]  > * {
+  --md-typeset-a-color: #c38acd;
+}
+
+a.announce {
+  --md-typeset-a-color: #c38acd;
+}
+
 .md-typeset .admonition.wip,
 .md-typeset details.wip {
   border-color: rgba(var(--md-admonition-color--wip));
