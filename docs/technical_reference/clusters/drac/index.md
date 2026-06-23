@@ -138,13 +138,13 @@ Refer to the Trillium [Quickstart Guide](https://docs.alliancecan.ca/wiki/Trilli
 details before using this cluster.
 
 ## PAICE Clusters
-The PAICE (Pan-Canadian AI Compute Environment) clusters are also part of DRAC, but are especially develop for CIFAR AI Chairs.
+The PAICE (Pan-Canadian AI Compute Environment) clusters are also part of DRAC, but are especially develop for CIFAR AI Chairs
+and are dedicated to artificial intelligence.
 
 Theses clusters don't use regular DRAC allocations and are not covered by the Mila global allocation. Instead, it
 uses AIP allocations (``--account=aip-${PI_NAME}``), where ``${PI_NAME}`` is the name of
 your supervising professor. Your professor must add you to their AIP allocation before
 you will be able to submit jobs.
-
 
 The table below provides information on the allocation depending of the tier of the professor
 (by default 85% of the resources of the cluster for tier1+tier2 and 10% for tier3)
@@ -160,22 +160,20 @@ for the period which spans from April 7, 2026 to Spring 2027.
 
 [Digital Research Alliance of Canada doc](https://docs.alliancecan.ca/wiki/TamIA/en)
 
-This is a new cluster dedicated to AI jobs for Quebec-area research institutes. Compute resources
-in TamIA are not assigned to jobs on a per-CPU, but on a per-node basis. No internet access on compute nodes.
+Cluster managed by Mila and [Calcul Québec](https://www.calculquebec.ca/). 
+Compute resources in TamIA are not assigned to jobs on a per-CPU, but on a per-node basis. No internet access on compute nodes.
 
 ### Killarney
 
 [Digital Research Alliance of Canada doc](https://docs.alliancecan.ca/wiki/Killarney/en)
 
-This is a cluster within the framework of PAICE (Pan-Canadian AI Compute Environment) managed
-by [Vector](https://vectorinstitute.ai/) and [SciNet](https://scinethpc.ca/).
+Cluster managed by [Vector](https://vectorinstitute.ai/) and [SciNet](https://scinethpc.ca/).
 
 ### Vulcan
 
 [Digital Research Alliance of Canada doc](https://docs.alliancecan.ca/wiki/Vulcan/en)
 
-This is a cluster within the framework of PAICE (Pan-Canadian AI Compute Environment) managed
-by [AMII](https://www.amii.ca/). No internet access on compute nodes.
+Cluster managed by [AMII](https://www.amii.ca/). No internet access on compute nodes.
 
 ## Other DRAC Clusters
 Theses clusters are not part of the Mila global allocation, but you might have access to them depending on your supervisor's affiliations.
@@ -185,10 +183,9 @@ Please check with your supervisor.
 
 [Digital Research Alliance of Canada doc](https://docs.alliancecan.ca/wiki/Narval/en)
 
-For some students, Narval might be a good choice if they have already set up there.
 Narval is the oldest cluster still online, and contains the oldest and smallest GPUs (A100-40GB).
-The A100 may however be a viable choice for jobs that cannot utilize a full H100.
-No internet access on compute nodes.
+For some students, this cluster might be a good choice if they have already set up there or if the A100 is 
+enough for their experiments (e.g. jobs that cannot utilize a full H100). No internet access on compute nodes.
 
 ## Launching Jobs
 
@@ -343,9 +340,7 @@ More documentation about this can be found [here](https://docs.alliancecan.ca/wi
 
 ## FAQ
 
-
 ### What are RGUs?
-
 
 DRAC uses a concept called `RGUs` (Reference GPU Units) to measure the
 allocated GPU resources based on the type of device. This measurement combines
@@ -359,9 +354,7 @@ which kind of GPUs we're talking about, which is fundamentally important.
 That proposed RGU measurement can still be improved, but criticisms about it
 are outside the scope of this document.
 
-
 ### What to do with  `ImportError: /lib64/libm.so.6: version GLIBC_2.23 not found`?
-
 
 The structure of the file system is different than a classical Linux, so your
 code has trouble finding libraries. See [how to install binary packages](https://docs.alliancecan.ca/wiki/Installing_software_in_your_home_directory#Installing_binary_packages).
