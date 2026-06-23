@@ -97,7 +97,7 @@ Otherwise, use **Building from source**.
         not run the build on login nodes, submit a dedicated job to a
         compute node instead.
 
-    Add the following to `pyproject.toml`:
+    Use the `pyproject.toml` configuration:
 
     ```toml title="build_from_source/pyproject.toml"
     --8<-- "docs/examples/frameworks/flash_attn_setup/build_from_source/pyproject.toml"
@@ -122,14 +122,19 @@ Otherwise, use **Building from source**.
         targets the H100. To support multiple architectures, separate
         values with semicolons: `TORCH_CUDA_ARCH_LIST="9.0;8.0;..."`.
 
-    Submit the build using the following job script:
+    Submit the build using the job script:
 
     ```bash title="build_from_source/job.sh"
     --8<-- "docs/examples/frameworks/flash_attn_setup/build_from_source/job.sh"
     ```
 
-    Once the build completes, uv caches the compiled wheel. To reuse it
-    in another project or cluster without recompiling, locate the cached wheel:
+    ```bash
+    sbatch build_from_source/job.sh
+    ```
+
+    Once the build completes, uv caches the compiled wheel, which can be reused in other projects without recompiling.
+    
+    To reuse the wheel directly, (for example, on an other cluster), locate the cached wheel with:
 
     ```bash
     find ~/.cache/uv -name "flash_attn*.whl" 2>/dev/null
