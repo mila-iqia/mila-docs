@@ -82,7 +82,7 @@ If the FAQ is of no help, you can contact DRAC renewal support team at
 ``renewals@tech.alliancecan.ca`` or the general support team at
 ``support@tech.alliancecan.ca``.
 
-## DRAC Clusters
+## Clusters
 These clusters are part of the Mila global allocation. Depending on your 
 supervisor's affiliations, you may also have access to other allocations or clusters,
 such as the PAICE clusters described below.
@@ -99,13 +99,13 @@ for the period which spans from April 7, 2026 to Spring 2027.
 
 ### Fir
 
-[Digital Research Alliance of Canada doc](https://docs.alliancecan.ca/wiki/Fir)
+[Digital Research Alliance of Canada doc](https://docs.alliancecan.ca/wiki/Fir/en)
 
 The successor to the legacy Cedar cluster. Retains its filesystem.
 
 ### Nibi
 
-[Digital Research Alliance of Canada doc](https://docs.alliancecan.ca/wiki/Nibi)
+[Digital Research Alliance of Canada doc](https://docs.alliancecan.ca/wiki/Nibi/en)
 
 The successor to the legacy Graham cluster. Retains its filesystem.
 
@@ -117,7 +117,7 @@ The successor to the legacy Beluga cluster. No internet access on compute nodes.
 
 ### Trillium
 
-[Digital Research Alliance of Canada doc](https://docs.alliancecan.ca/wiki/Trillium)
+[Digital Research Alliance of Canada doc](https://docs.alliancecan.ca/wiki/Trillium/en)
 
 The successor to the legacy Niagara cluster. It is principally but not exclusively a
 CPU cluster. No internet access on compute nodes.
@@ -136,44 +136,6 @@ Trillium is not run exactly like other clusters. Most notably:
 
 Refer to the Trillium [Quickstart Guide](https://docs.alliancecan.ca/wiki/Trillium_Quickstart) for more
 details before using this cluster.
-
-## PAICE Clusters
-The PAICE (Pan-Canadian AI Compute Environment) clusters are also part of DRAC, but are especially developed for CIFAR AI Chairs
-and are dedicated to artificial intelligence.
-
-Theses clusters don't use regular DRAC allocations and are not covered by the Mila global allocation. Instead, it
-uses AIP allocations (``--account=aip-${PI_NAME}``), where ``${PI_NAME}`` is the name of
-your supervising professor. Your professor must add you to their AIP allocation before
-you will be able to submit jobs.
-
-The table below provides information on the allocation depending of the tier of the professor
-(by default 85% of the resources of the cluster for tier1+tier2 and 10% for tier3)
-for the period which spans from April 7, 2026 to Spring 2027.
-
-| Cluster                             | CPUs | RGUs allocated | # GPU equiv | Model               | Unrestricted internet |
-| ----------------------              | ---- | -------------- | ----------- | --------            | -----                 |
-| [TamIA](#TamIA) <br> tier1 + tier2  | 435  | 1738           | 143         | H100-80G <br> H200  | No                    |
-| [Killarney](#killarney) <br> tier3  | 0    | 794            | 75          | H100-80G <br> L40S  | Yes                   |
-| [Vulcan](#vulcan) <br> tier3        | 0    | 850            | 82          | L40S                | No                    |
-
-### TamIA
-
-[Digital Research Alliance of Canada doc](https://docs.alliancecan.ca/wiki/TamIA/en)
-
-Cluster managed by Mila and [Calcul Québec](https://www.calculquebec.ca/). 
-Compute resources in TamIA are not assigned to jobs on a per-CPU, but on a per-node basis. No internet access on compute nodes.
-
-### Killarney
-
-[Digital Research Alliance of Canada doc](https://docs.alliancecan.ca/wiki/Killarney/en)
-
-Cluster managed by [Vector](https://vectorinstitute.ai/) and [SciNet](https://scinethpc.ca/).
-
-### Vulcan
-
-[Digital Research Alliance of Canada doc](https://docs.alliancecan.ca/wiki/Vulcan/en)
-
-Cluster managed by [AMII](https://www.amii.ca/). No internet access on compute nodes.
 
 ## Other DRAC Clusters
 Theses clusters are not part of the Mila global allocation, but you might have access to them depending on your supervisor's affiliations.
