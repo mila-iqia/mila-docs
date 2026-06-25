@@ -61,26 +61,17 @@ Otherwise, use **Building from source**.
     --8<-- "docs/examples/frameworks/flash_attn_setup/from_pre_build_wheel/pyproject.toml"
     ```
 
-    Load the CUDA module and install the dependencies:
+    Install the dependencies:
 
     ```bash
-    # Get access to the CUDA libraries
-    module load cuda/12.6
-
     # Create the virtual environment and install all dependencies
     uv sync
     ```
 
     ??? tip "Reusing a locally built wheel"
         A wheel built from source (see the **Building from source** tab)
-        can also be used as a local source. After locating the cached
-        wheel:
-
-        ```bash
-        find ~/.cache/uv -name "flash_attn*.whl" 2>/dev/null
-        ```
-
-        Add it to `pyproject.toml`:
+        can also be used. In the sources section of the `pyproject.toml`,
+        replace `url` by `path`, like:
 
         ```toml
         [tool.uv.sources]
