@@ -138,7 +138,7 @@ Refer to the Trillium [Quickstart Guide](https://docs.alliancecan.ca/wiki/Trilli
 details before using this cluster.
 
 ## PAICE Clusters
-The PAICE (Pan-Canadian AI Compute Environment) clusters are also part of DRAC, but are especially develop for CIFAR AI Chairs
+The PAICE (Pan-Canadian AI Compute Environment) clusters are also part of DRAC, but are especially developed for CIFAR AI Chairs
 and are dedicated to artificial intelligence.
 
 Theses clusters don't use regular DRAC allocations and are not covered by the Mila global allocation. Instead, it
