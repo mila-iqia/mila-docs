@@ -1,8 +1,13 @@
+---
+title: DRAC Clusters
+description: Access and use the Digital Research Alliance of Canada (DRAC)
+  clusters.
+---
+
 # Digital Research Alliance of Canada Clusters
 
 In addition of the Mila cluster, researchers can have access to
-clusters provided by the [Digital Research Alliance of Canada organisation](https://alliancecan.ca/) (DRAC, or the Alliance). These
-clusters are to be used for larger experiments having many jobs, multi-node
+clusters provided by the [Digital Research Alliance of Canada organisation](https://alliancecan.ca/) (DRAC, or the Alliance). These clusters are to be used for larger experiments having many jobs, multi-node
 computation and/or multi-GPU jobs.
 
 Clusters of the Alliance are **shared with researchers across the country**,
@@ -33,7 +38,7 @@ should have access to.
     If you use DRAC resources for your research, please remember to [acknowledge
     their use in your papers](https://www.alliancecan.ca/en/our-services/advanced-research-computing/acknowledging-alliance).
 
-## Account Creation
+## Account creation
 
 To access the Alliance clusters you have to first create an account on the [CCDB Portal](https://docs.alliancecan.ca/wiki/Frequently_Asked_Questions_about_the_CCDB) at
 https://ccdb.alliancecan.ca. **We recommend using your @mila.quebec email**.
@@ -97,6 +102,18 @@ for the period which spans from April 7, 2026 to Spring 2027.
 | [Rorqual](#rorqual)    | 263  | 1172           | 96          | H100-80G | No                    |
 | [Trillium](#trillium)  | 768  | 375            | 31          | H100-80G | No                    |
 
+!!! note
+    DRAC uses a concept called `RGUs` (Reference GPU Units) to measure the
+    allocated GPU resources based on the type of device. This measurement combines
+    the FP32 and FP16 performance of the GPU as well as the memory size.
+    For example, an NVIDIA A100-40G counts has 4.0 RGUs,
+    while a while an H100-80G counts as 12.15 RGUs.
+    
+    This is an improvement over the previous system of counting physical GPU devices
+    and disregarding their actual performance.
+    Saying that "we have 4 GPUs per researcher" omits
+    which kind of GPUs we're talking about, which is fundamentally important.
+
 ### Fir
 
 [Digital Research Alliance of Canada doc](https://docs.alliancecan.ca/wiki/Fir/en)
@@ -137,7 +154,7 @@ Trillium is not run exactly like other clusters. Most notably:
 Refer to the Trillium [Quickstart Guide](https://docs.alliancecan.ca/wiki/Trillium_Quickstart) for more
 details before using this cluster.
 
-## Other DRAC Clusters
+## Other clusters
 Theses clusters are not part of the Mila global allocation, but you might have access to them depending on your supervisor's affiliations.
 Please check with your supervisor.
 
@@ -149,7 +166,7 @@ Narval is the oldest cluster still online, and contains the oldest and smallest 
 For some students, this cluster might be a good choice if they have already set up there or if the A100 is 
 enough for their experiments (e.g. jobs that cannot utilize a full H100). No internet access on compute nodes.
 
-## Launching Jobs
+## Launching jobs
 
 Users must specify the resource allocation Group Name using the flag
 ``--account=rrg-bengioy-ad``.  To launch a CPU-only job:
@@ -177,7 +194,7 @@ salloc --time=1:00:00 --account=rrg-bengioy-ad --gres=gpu:1
 The full documentation for jobs launching on Alliance clusters can be found
 [here](https://docs.alliancecan.ca/wiki/Running_jobs#).
 
-## DRAC Storage
+## Storage
 
 | Storage          | Path                      | Usage                                                         |
 | ---------------- | ------------------------- | ------------------------------------------------------------- |
@@ -244,7 +261,7 @@ Such wheels can be installed using pip. Moreover, the most efficient way to use
 modules on the cluster is to [build your environnement inside your job](https://docs.alliancecan.ca/wiki/Python#Creating_virtual_environments_inside_of_your_jobs).
 See the script example below.
 
-## Script Example
+## Script example
 
 Here is a ``sbatch`` script that follows good practices on Narval and can serve
 as inspiration for more complicated scripts:
@@ -301,20 +318,6 @@ More documentation about this can be found [here](https://docs.alliancecan.ca/wi
 
 
 ## FAQ
-
-### What are RGUs?
-
-DRAC uses a concept called `RGUs` (Reference GPU Units) to measure the
-allocated GPU resources based on the type of device. This measurement combines
-the FP32 and FP16 performance of the GPU as well as the memory size.
-For example, an NVIDIA A100-40G counts has 4.0 RGUs,
-while a while an H100-80G counts as 12.15 RGUs.
-This is an improvement over the previous system of counting physical GPU devices
-and disregarding their actual performance.
-For example, saying that "we have 4 GPUs per researcher" omits
-which kind of GPUs we're talking about, which is fundamentally important.
-That proposed RGU measurement can still be improved, but criticisms about it
-are outside the scope of this document.
 
 ### What to do with  `ImportError: /lib64/libm.so.6: version GLIBC_2.23 not found`?
 
