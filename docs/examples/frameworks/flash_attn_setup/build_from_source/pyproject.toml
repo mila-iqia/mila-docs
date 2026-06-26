@@ -9,9 +9,6 @@ dependencies = [
     "flash-attn>=2.7",
 ]
 
-[tool.uv]
-no-build-isolation-package = ["flash_attn"]
-
 [tool.uv.extra-build-dependencies]
 flash-attn = [
     { requirement = "torch", match-runtime = true },
@@ -19,8 +16,4 @@ flash-attn = [
 ]
 
 [tool.uv.extra-build-variables]
-flash-attn = {
-    MAX_JOBS = "4",
-    FLASH_ATTENTION_SKIP_CUDA_BUILD = "0",
-    TORCH_CUDA_ARCH_LIST = "9.0",
-}
+flash-attn = { MAX_JOBS = "4", FLASH_ATTENTION_SKIP_CUDA_BUILD = "0", TORCH_CUDA_ARCH_LIST = "9.0" }

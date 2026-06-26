@@ -8,9 +8,6 @@ dependencies = [
     "flash-attn>=2.7",
 ]
 
-[tool.uv]
-no-build-isolation-package = ["flash_attn"]
-
 [tool.uv.sources]
 # Look at pre-builds wheels urls from https://github.com/Dao-AILab/flash-attention/releases
 flash-attn = { url = "<URL_to_wheel>" }
