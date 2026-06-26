@@ -20,6 +20,7 @@ import jax
 import jax.numpy as jnp
 import numpy as np
 import optax
+import rich.console
 import rich.logging
 import torch
 
