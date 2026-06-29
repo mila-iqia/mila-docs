@@ -100,9 +100,6 @@ Otherwise, use **Building from source**.
         when the compute node has sufficient memory for more parallel
         jobs.
 
-        `no-build-isolation-package = ["flash_attn"]` is required so that
-        Flash Attention can access the CUDA libraries available on the system.
-
         `FLASH_ATTENTION_SKIP_CUDA_BUILD = "0"` ensures that Flash Attention
         is compiled with CUDA support.
 
