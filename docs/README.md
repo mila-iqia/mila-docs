@@ -113,7 +113,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
     - [Running your code](userguides/running_code.md)
     - [Sharing Data with ACLs](userguides/sharing_data.md)
     - Minimal Examples
-        - [Software Frameworks](examples/frameworks/index.md)
+        - [Software Setup](examples/frameworks/index.md)
             - [PyTorch Setup](examples/frameworks/pytorch_setup/index.md)
             - [Jax Setup](examples/frameworks/jax_setup/index.md)
             - [Jax](examples/frameworks/jax/index.md)
