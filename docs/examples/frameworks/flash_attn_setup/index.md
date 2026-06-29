@@ -86,32 +86,34 @@ the target CUDA, PyTorch, and Python combination.
     not run the build on login nodes, submit a dedicated job to a
     compute node instead.
 
-Use the `pyproject.toml` configuration:
+Use the following configuration and job script:
 
-```toml title="build_from_source/pyproject.toml"
---8<-- "docs/examples/frameworks/flash_attn_setup/build_from_source/pyproject.toml"
-```
+=== "Configuration"
+    ```toml title="build_from_source/pyproject.toml"
+    --8<-- "docs/examples/frameworks/flash_attn_setup/build_from_source/pyproject.toml"
+    ```
 
-!!! warning
-    `MAX_JOBS = "4"` limits parallel compilation to prevent
-    out-of-memory errors during the build. Increase this value only
-    when the compute node has sufficient memory for more parallel jobs.
+    !!! warning
+        `MAX_JOBS = "4"` limits parallel compilation to prevent
+        out-of-memory errors during the build. Increase this value only
+        when the compute node has sufficient memory for more parallel jobs.
 
-    `FLASH_ATTENTION_SKIP_CUDA_BUILD = "0"` ensures that Flash Attention
-    is compiled with CUDA support.
+        `FLASH_ATTENTION_SKIP_CUDA_BUILD = "0"` ensures that Flash Attention
+        is compiled with CUDA support.
 
-!!! tip
-    Adapt `TORCH_CUDA_ARCH_LIST` to the compute capability of the
-    target GPU. Find compute capabilities on the
-    [NVIDIA website](https://developer.nvidia.com/cuda-gpus). `"9.0"`
-    targets the H100. To support multiple architectures, separate
-    values with semicolons: `TORCH_CUDA_ARCH_LIST="9.0;8.0;..."`.
+    !!! tip
+        Adapt `TORCH_CUDA_ARCH_LIST` to the compute capability of the
+        target GPU. Find compute capabilities on the
+        [NVIDIA website](https://developer.nvidia.com/cuda-gpus). `"9.0"`
+        targets the H100. To support multiple architectures, separate
+        values with semicolons: `TORCH_CUDA_ARCH_LIST="9.0;8.0;..."`.
+
+=== "Job script"
+    ```bash title="build_from_source/job.sh"
+    --8<-- "docs/examples/frameworks/flash_attn_setup/build_from_source/job.sh"
+    ```
 
 Submit the build using the job script:
-
-```bash title="build_from_source/job.sh"
---8<-- "docs/examples/frameworks/flash_attn_setup/build_from_source/job.sh"
-```
 
 ```bash
 sbatch build_from_source/job.sh
