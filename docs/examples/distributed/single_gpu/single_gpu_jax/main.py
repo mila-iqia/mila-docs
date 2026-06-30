@@ -10,26 +10,25 @@ import argparse
 import logging
 import math
 import os
-from pathlib import Path
 import random
 import sys
+from pathlib import Path
 from typing import Any, Sequence
 
-import PIL.Image
 import jax
 import jax.numpy as jnp
 import numpy as np
 import optax
+import PIL.Image
 import rich.console
 import rich.logging
 import torch
-
-from flax.training import train_state, common_utils
+from flax.training import common_utils, train_state
 from torch.utils.data import DataLoader, random_split
 from torchvision.datasets import CIFAR10
 from tqdm import tqdm
 
-from model import ResNet
+from docs.examples.distributed.single_gpu.single_gpu_jax.model import ResNet
 
 
 class TrainState(train_state.TrainState):
