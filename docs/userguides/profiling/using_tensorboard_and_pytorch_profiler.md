@@ -102,7 +102,7 @@ train_model(10)
 To write the metrics, we use `profile` from the `torch.profiler` 
 library. The template of writing metrics is as follows:
 
-```
+```python
 # Import Pytorch profiler
 from torch.profiler
 
