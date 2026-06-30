@@ -10,7 +10,7 @@ example:
 
 ## Example
 
-The full source code for this example is available on [the mila-docs GitHub repository.](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/frameworks/jax)
+The full source code for this example is available on [the mila-docs GitHub repository.](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/distributed/single_gpu/single_gpu_jax)
 
 **job.sh**
 
