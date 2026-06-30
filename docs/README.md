@@ -142,7 +142,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
 - [Technical reference](technical_reference/index.md)
     - [Cheatsheet](technical_reference/cheatsheet.md)
     - [Glossary](technical_reference/glossary.md)
-    - Clusters
+    - [Clusters](technical_reference/clusters/index.md)
         - [Mila cluster](technical_reference/clusters/mila/index.md)
             - [Roles and computing resources](technical_reference/clusters/mila/roles_and_resources.md)
             - [Node profile description](technical_reference/clusters/mila/nodes.md)
@@ -152,8 +152,8 @@ If you find any errors in the documentation, missing or unclear sections, or wou
             - [Monitoring](technical_reference/clusters/mila/monitoring.md)
             - [Environmental Impact](technical_reference/clusters/mila/environmental_impact.md)
             - [🔗 Mila intranet](https://sites.google.com/mila.quebec/mila-intranet)
-        - [External clusters](technical_reference/clusters/external/index.md)
-            - [DRAC clusters](technical_reference/clusters/drac/index.md)
+        - [DRAC clusters](technical_reference/clusters/drac/index.md)
+        - [PAICE clusters](technical_reference/clusters/paice/index.md)
     - General Theory
         - [What is a computer cluster?](technical_reference/general_theory/cluster_parts.md)
         - [Unix](technical_reference/general_theory/unix.md)
