@@ -19,12 +19,12 @@ computational resources throughout the year. From the Alliance's documentation:
 `An allocation is an amount of resources that a research group can target for
 use for a period of time, usually a year.`
 
-Every university professor in Canada gets a default allocation, and they can add
-their collaborators to it. Depending on your supervisor's affiliations, you will have access to different
-allocations. Almost all students at Mila supervised by "core" professors
-should have access to the Mila global allocation described below, but
-it is not the only one. Your supervisor is your first point of contact in knowing which allocations you
-should have access to.
+Every university professor in Canada gets a default allocation, and they can
+add their collaborators to it. Depending on your supervisor's affiliations, you
+will have access to different allocations. Almost all students at Mila supervised
+by "core" professors should have access to the Mila global allocation described
+below, but it is not the only one. Your supervisor is your first point of 
+contact in knowing which allocations you should have access to.
 
 !!! note
     An allocation is not a *maximal* amount of resources that can be used
@@ -32,9 +32,10 @@ should have access to.
     jobs. For instance, even though we are allocated 408 GPU-years across all
     clusters, we can use more or less than 408 GPUs simultaneously depending on the
     history of usage from our group and other groups using the cluster at a given
-    period of time. Please see the Alliance's [documentation](https://docs.alliancecan.ca/wiki/Allocations_and_resource_scheduling) for
-    more information on how allocations and resource scheduling are configured for
-    these installations.
+    period of time. Please see the Alliance's
+    [documentation](https://docs.alliancecan.ca/wiki/Allocations_and_resource_scheduling)
+    for more information on how allocations and resource scheduling are
+    configured for these installations.
 
 !!! note
     If you use DRAC resources for your research, please remember to [acknowledge
