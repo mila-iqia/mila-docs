@@ -57,7 +57,8 @@ Please reach out to your sponsor for more infos.
 
 ![role](../../../_static/images/role.png)
 
-As a Mila researcher, you can request access of all the resources in the *HPC* and *Artificial Intelligence* tabs in *Resources > Access Systems* at CCDB.
+As a Mila researcher, you can request access of all the resources in the *HPC*
+and *Artificial Intelligence* tabs in *Resources > Access Systems* at CCDB.
 
 You will need to **wait** for your sponsor to accept your request before being able to login
 to the Alliance clusters. The default accounts are of the form
