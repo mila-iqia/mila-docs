@@ -24,11 +24,10 @@ import rich.console
 import rich.logging
 import torch
 from flax.training import common_utils, train_state
+from model import ResNet
 from torch.utils.data import DataLoader, random_split
 from torchvision.datasets import CIFAR10
 from tqdm import tqdm
-
-from docs.examples.distributed.single_gpu.single_gpu_jax.model import ResNet
 
 
 class TrainState(train_state.TrainState):
