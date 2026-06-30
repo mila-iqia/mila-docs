@@ -43,8 +43,9 @@ should have access to.
 
 ## Account creation
 
-To access the Alliance clusters you have to first create an account on the [CCDB Portal](https://docs.alliancecan.ca/wiki/Frequently_Asked_Questions_about_the_CCDB) at
-https://ccdb.alliancecan.ca. **We recommend using your @mila.quebec email**.
+To access the Alliance clusters you have to first create an account on the [CCDB
+Portal](https://docs.alliancecan.ca/wiki/Frequently_Asked_Questions_about_the_CCDB)
+at https://ccdb.alliancecan.ca. **We recommend using your @mila.quebec email**.
 
 Then, you have to apply for a ``role`` at
 https://ccdb.alliancecan.ca/me/add_role, which basically means telling the
