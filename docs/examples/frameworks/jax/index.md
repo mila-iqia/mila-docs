@@ -5,8 +5,8 @@
 Make sure to read the following sections of the documentation before using this
 example:
 
-* [JAX setup](../jax_setup/index.md)
-* [Single GPU](../../distributed/single_gpu/index.md)
+* [Jax setup](../jax_setup/index.md)
+* [Single-GPU Job](../../distributed/single_gpu/index.md)
 
 ## Example
 
@@ -16,6 +16,12 @@ The full source code for this example is available on [the mila-docs GitHub repo
 
 ```bash
 --8<-- "docs/examples/frameworks/jax/job.sh"
+```
+
+**pyproject.toml**
+
+```toml
+--8<-- "docs/examples/frameworks/jax/pyproject.toml"
 ```
 
 **main.py**
