@@ -139,7 +139,7 @@ profiler.stop()
 ```
 
 This results in the following code (ready for use):
-```
+```python
 import torch
 # Import Pytorch profiler
 import torch.profiler
