@@ -140,6 +140,7 @@ extra:
 
 extra_css:
   - stylesheets/extra.css
+  - stylesheets/overview.css
 
 hooks:
   - hooks/copy_office_hours.py
