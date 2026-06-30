@@ -12,12 +12,6 @@ infrastructure, dedicated exclusively to AI research and reserved for
 CIFAR AI Chairs. Unlike general DRAC clusters, PAICE clusters use AIP
 (Artificial Intelligence Project) allocations and follow a tiered access model.
 
-Access priority is distributed across three tiers based on supervisor
-affiliation and researcher location. By default, tier 1 and tier 2
-together receive 85% of each cluster's resources, while tier 3 receives
-10%. Contact your supervisor to determine which tier applies to your
-research group.
-
 !!! note
     When publishing research using the Pan-Canadian AI Compute Environment
     (PAICE), acknowledge the Digital Research Alliance of Canada, your
@@ -58,6 +52,12 @@ See the [DRAC Clusters guide](../drac/index.md#renewal) for instructions.
 These clusters use AIP allocations (``--account=aip-${PI_NAME}``), where
 ``${PI_NAME}`` is the name of your supervising professor. Regular DRAC
 allocations and the Mila global allocation will not work.
+
+Access priority is distributed across three tiers based on supervisor
+affiliation and researcher location. By default, tier 1 and tier 2
+together receive 85% of each cluster's resources, while tier 3 receives
+10%. Contact your supervisor to determine which tier applies to your
+research group.
 
 The table below provides information on the allocation depending of the default
 tier of a Mila researcher for the period which spans from April 7, 2026 to Spring 2027.
