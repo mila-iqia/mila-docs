@@ -5,8 +5,8 @@
 Make sure to read the following sections of the documentation before using this
 example:
 
-* [Jax setup](../jax_setup/index.md)
-* [Single-GPU Job](../../distributed/single_gpu/index.md)
+* [Jax setup](../../../frameworks/jax_setup/index.md)
+* [Single-GPU Job](../index.md)
 
 ## Example
 
