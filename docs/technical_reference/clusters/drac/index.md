@@ -52,7 +52,8 @@ https://ccdb.alliancecan.ca/me/add_role, which basically means telling the
 Alliance that you are part of the lab so they know which cluster you can have
 access to, and track your usage.
 
-You will be asked for the CCRI (Compute Canada Role Identifier) of your sponsor. Please reach out to your sponsor for more infos.
+You will be asked for the CCRI (Compute Canada Role Identifier) of your sponsor.
+Please reach out to your sponsor for more infos.
 
 ![role](../../../_static/images/role.png)
 
