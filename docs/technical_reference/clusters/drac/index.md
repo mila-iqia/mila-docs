@@ -60,25 +60,31 @@ Please reach out to your sponsor for more infos.
 As a Mila researcher, you can request access of all the resources in the *HPC*
 and *Artificial Intelligence* tabs in *Resources > Access Systems* at CCDB.
 
-You will need to **wait** for your sponsor to accept your request before being able to login
-to the Alliance clusters. The default accounts are of the form
+You will need to **wait** for your sponsor to accept your request before being
+able to login to the Alliance clusters. The default accounts are of the form
 ``def-<yourprofname>-gpu`` and ``def-<yourprofname>-cpu``. Management of a
-professor's default DRAC allocation is their personal responsibility and is beyond
-the control of Mila. We are unable to provide support for such management.
+professor's default DRAC allocation is their personal responsibility and is
+beyond the control of Mila. We are unable to provide support for such
+management.
 
 ### Access to Mila global allocation
-If your supervisor is a Mila "core" professor, you are elligiable to the Mila global allocation ``rrg-bengioy-ad``.
-To be added to the allocation, write to `ccdb-accounts@mila.quebec` and share **your** CCRI.
+
+If your supervisor is a Mila "core" professor, you are elligiable to the Mila
+global allocation ``rrg-bengioy-ad``. To be added to the allocation, write to
+`ccdb-accounts@mila.quebec` and share **your** CCRI.
 
 ### Connect to the clusters
-To login to the DRAC clusters, you need to set up your SSH keys on the CCDB portal.
-You can generate an SSH key pair using `ssh-keygen` and then add the public key
-to your account on the CCDB portal at *My Account > SSH Keys*.
 
-You can use `milatools`, with the command `mila init`, to help create your SSH config or validate your installation.
+To login to the DRAC clusters, you need to set up your SSH keys on the CCDB
+portal. You can generate an SSH key pair using `ssh-keygen` and then add the
+public key to your account on the CCDB portal at *My Account > SSH Keys*.
 
-You also need to set a multifactor authentication on the CCDB portal at *My Account > Multifactor Authentication*.
-More infos available on the [DRAC documentation](https://docs.alliancecan.ca/wiki/Multifactor_authentication).
+You can use `milatools`, with the command `mila init`, to help create your SSH
+config or validate your installation.
+
+You also need to set a multifactor authentication on the CCDB portal at *My
+Account > Multifactor Authentication*. More infos available on the [DRAC
+documentation](https://docs.alliancecan.ca/wiki/Multifactor_authentication).
 
 ### Renewal
 
@@ -94,12 +100,13 @@ If the FAQ is of no help, you can contact DRAC renewal support team at
 ``support@tech.alliancecan.ca``.
 
 ## Clusters
-These clusters are part of the Mila global allocation. Depending on your 
-supervisor's affiliations, you may also have access to other allocations or clusters,
-such as the PAICE clusters described below.
 
-The table below provides information on the allocation for the account ``rrg-bengioy-ad``
-for the period which spans from April 7, 2026 to Spring 2027.
+These clusters are part of the Mila global allocation. Depending on your 
+supervisor's affiliations, you may also have access to other allocations or
+clusters, such as the PAICE clusters described below.
+
+The table below provides information on the allocation for the account
+``rrg-bengioy-ad`` for the period which spans from April 7, 2026 to Spring 2027.
 
 | Cluster                | CPUs | RGUs allocated | # GPU equiv | Model    | Unrestricted internet |
 | ---------------------- | ---- | -------------- | ----------- | -------- | --------------------- |
@@ -108,19 +115,20 @@ for the period which spans from April 7, 2026 to Spring 2027.
 | [Rorqual](#rorqual)    | 263  | 1172           | 96          | H100-80G | No                    |
 | [Trillium](#trillium)  | 768  | 375            | 31          | H100-80G | No                    |
 
-Check the current status of the clusters on the [DRAC status page](https://status.alliancecan.ca/).
+Check the current status of the clusters on the [DRAC status
+page](https://status.alliancecan.ca/).
 
 !!! note
     DRAC uses a concept called `RGUs` (Reference GPU Units) to measure the
-    allocated GPU resources based on the type of device. This measurement combines
-    the FP32 and FP16 performance of the GPU as well as the memory size.
-    For example, an NVIDIA A100-40G counts has 4.0 RGUs,
-    while a while an H100-80G counts as 12.15 RGUs.
+    allocated GPU resources based on the type of device. This measurement
+    combines the FP32 and FP16 performance of the GPU as well as the memory
+    size. For example, an NVIDIA A100-40G counts has 4.0 RGUs, while a while an
+    H100-80G counts as 12.15 RGUs.
     
-    This is an improvement over the previous system of counting physical GPU devices
-    and disregarding their actual performance.
-    Saying that "we have 4 GPUs per researcher" omits
-    which kind of GPUs we're talking about, which is fundamentally important.
+    This is an improvement over the previous system of counting physical GPU
+    devices and disregarding their actual performance. Saying that "we have 4
+    GPUs per researcher" omits which kind of GPUs we're talking about, which is
+    fundamentally important.
 
 ### Fir
 
@@ -163,16 +171,19 @@ Refer to the Trillium [Quickstart Guide](https://docs.alliancecan.ca/wiki/Trilli
 details before using this cluster.
 
 ## Other clusters
-Theses clusters are not part of the Mila global allocation, but you might have access to them depending on your supervisor's affiliations.
-Please check with your supervisor.
+
+Theses clusters are not part of the Mila global allocation, but you might have
+access to them depending on your supervisor's affiliations.  Please check with
+your supervisor.
 
 ### Narval
 
 [Digital Research Alliance of Canada doc](https://docs.alliancecan.ca/wiki/Narval/en)
 
 Narval is the oldest cluster still online, and contains the oldest and smallest GPUs (A100-40GB).
-For some students, this cluster might be a good choice if they have already set up there or if the A100 is 
-enough for their experiments (e.g. jobs that cannot utilize a full H100). No internet access on compute nodes.
+For some students, this cluster might be a good choice if they have already set
+up there or if the A100 is enough for their experiments (e.g. jobs that cannot
+utilize a full H100). No internet access on compute nodes.
 
 ## Launching jobs
 
