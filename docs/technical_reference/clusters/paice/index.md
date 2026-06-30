@@ -68,6 +68,7 @@ tier of a Mila researcher for the period which spans from April 7, 2026 to Sprin
 | [Killarney](#killarney) <br> tier3  | 0    | 794            | 75          | H100-80G <br> L40S  | Yes                   |
 | [Vulcan](#vulcan) <br> tier3        | 0    | 850            | 82          | L40S                | No                    |
 
+Check the current status of the clusters on the [DRAC status page](https://status.alliancecan.ca/).
 
 ### TamIA
 

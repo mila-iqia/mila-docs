@@ -102,6 +102,8 @@ for the period which spans from April 7, 2026 to Spring 2027.
 | [Rorqual](#rorqual)    | 263  | 1172           | 96          | H100-80G | No                    |
 | [Trillium](#trillium)  | 768  | 375            | 31          | H100-80G | No                    |
 
+Check the current status of the clusters on the [DRAC status page](https://status.alliancecan.ca/).
+
 !!! note
     DRAC uses a concept called `RGUs` (Reference GPU Units) to measure the
     allocated GPU resources based on the type of device. This measurement combines
