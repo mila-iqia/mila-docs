@@ -38,7 +38,8 @@ should have access to.
 
 !!! note
     If you use DRAC resources for your research, please remember to [acknowledge
-    their use in your papers](https://www.alliancecan.ca/en/our-services/advanced-research-computing/acknowledging-alliance).
+    their use in your
+    papers](https://www.alliancecan.ca/en/our-services/advanced-research-computing/acknowledging-alliance).
 
 ## Account creation
 
