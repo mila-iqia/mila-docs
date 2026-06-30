@@ -66,3 +66,7 @@ Then, you can submit a job to run the example with sbatch:
 ```bash
  $ sbatch job.sh
 ```
+
+## Next steps
+
+After you have successfully run this example, you can move on to the [Single-GPU Job](../../distributed/single_gpu/index.md) example, which shows how to run a PyTorch training script on a single GPU.
