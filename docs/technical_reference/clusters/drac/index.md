@@ -1,24 +1,16 @@
-<!-- START -->
+---
+title: DRAC Clusters
+description: Access and use the Digital Research Alliance of Canada (DRAC)
+  clusters.
+---
+
 # Digital Research Alliance of Canada Clusters
 
-
-The clusters named `Fir`, `Nibi`, `Narval`, `Rorqual` and `Trillium` are
-clusters provided by the [Digital Research Alliance of Canada organisation](https://alliancecan.ca/) (the Alliance). For Mila researchers, these
-clusters are to be used for larger experiments having many jobs, multi-node
-computation and/or multi-GPU jobs as well as long running jobs.
-
-!!! note
-
-    If you use DRAC resources for your research, please remember to [acknowledge
-    their use in your papers](https://www.alliancecan.ca/en/our-services/advanced-research-computing/acknowledging-alliance)
-
-!!! note
-
-    Compute Canada ceased its operational responsibilities for supporting Canada’s
-    national advanced research computing (ARC) platform on March 31, 2022. The services
-    will be supported by the new Digital Research Alliance of Canada.
-
-    https://ace-net.ca/compute-canada-operations-move-to-the-digital-research-alliance-of-canada-(the-alliance).html
+In addition of the Mila cluster, researchers can have access to clusters
+provided by the [Digital Research Alliance of Canada
+organisation](https://alliancecan.ca/) (DRAC, or the Alliance). These clusters
+are to be used for larger experiments having many jobs, multi-node computation
+and/or multi-GPU jobs.
 
 Clusters of the Alliance are **shared with researchers across the country**,
 in part through a system of **allocations**. Allocations are given by the
@@ -27,78 +19,75 @@ computational resources throughout the year. From the Alliance's documentation:
 `An allocation is an amount of resources that a research group can target for
 use for a period of time, usually a year.`
 
-
-## Current Allocation Description
-
-
-Depending on your supervisor's affiliations, you will have access to different
-allocations. Almost all students at Mila supervised by "core" professors
-should have access to the ``rrg-bengioy-ad`` allocation described below, but
-it is not the only one; Each supervisor also has a ``def-profname`` allocation.
-Your supervisor is your first point of contact in knowing which allocations you
-should have access to.
-
-The table below provides information on the allocation for ``rrg-bengioy-ad``
-for the period which spans from April 7, 2026 to Spring 2027.
-
-| Cluster                | CPUs | account          | Model    | RGUs allocated | # GPU equiv | SLURM type specifier |
-| ---------------------- | ---- | ---------------- | -------- | -------------- | ----------- | -------------------- |
-| [Fir](#fir)            | 0    | `rrg-bengioy-ad` | H100-80G | 2090           | 171         | `h100`               |
-| [Nibi](#nibi)          | 0    | `rrg-bengioy-ad` | H100-80G | 363            | 30          | `h100`               |
-| [Rorqual](#rorqual)    | 263  | `rrg-bengioy-ad` | H100-80G | 1172           | 96          | `h100`               |
-| [Trillium](#trillium)  | 768  | `rrg-bengioy-ad` | H100-80G | 375            | 31          | `h100`               |
-
-On DRAC clusters where Mila has no allocated resources under ``rrg-bengioy-ad``
-this year, users can still use the default allocation associated with their
-supervisor, *so long as the supervisor adds them to it on the DRAC web site*.
-Every university professor in Canada gets a default allocation, and they can add
-their collaborators to it. The default accounts are of the form
-``def-<yourprofname>-gpu`` and ``def-<yourprofname>-cpu``. Management of a
-professor's default DRAC allocation is their personal responsibility, is beyond
-the control of Mila, and we are unable to provide support for such management.
-
+Every university professor in Canada gets a default allocation, and they can
+add their collaborators to it. Depending on your supervisor's affiliations, you
+will have access to different allocations. Almost all students at Mila supervised
+by "core" professors should have access to the Mila global allocation described
+below, but it is not the only one. Your supervisor is your first point of 
+contact in knowing which allocations you should have access to.
 
 !!! note
-
     An allocation is not a *maximal* amount of resources that can be used
     simultaneously, it is a weighting factor of the workload manager to balance
     jobs. For instance, even though we are allocated 408 GPU-years across all
     clusters, we can use more or less than 408 GPUs simultaneously depending on the
     history of usage from our group and other groups using the cluster at a given
-    period of time. Please see the Alliance's [documentation](https://docs.alliancecan.ca/wiki/Allocations_and_resource_scheduling) for
-    more information on how allocations and resource scheduling are configured for
-    these installations.
+    period of time. Please see the Alliance's
+    [documentation](https://docs.alliancecan.ca/wiki/Allocations_and_resource_scheduling)
+    for more information on how allocations and resource scheduling are
+    configured for these installations.
 
+!!! note
+    If you use DRAC resources for your research, please remember to [acknowledge
+    their use in your
+    papers](https://www.alliancecan.ca/en/our-services/advanced-research-computing/acknowledging-alliance).
 
-## Account Creation
+## Account creation
 
-
-To access the Alliance clusters you have to first create an account at
-https://ccdb.alliancecan.ca. Use a password with at least 8 characters, mixed
-case letters, digits and special characters. Later you will be asked to create
-another password with those rules, and it’s really convenient that the two
-password are the same.
+To access the Alliance clusters you have to first create an account on the [CCDB
+Portal](https://docs.alliancecan.ca/wiki/Frequently_Asked_Questions_about_the_CCDB)
+at https://ccdb.alliancecan.ca. **We recommend using your @mila.quebec email**.
 
 Then, you have to apply for a ``role`` at
 https://ccdb.alliancecan.ca/me/add_role, which basically means telling the
 Alliance that you are part of the lab so they know which cluster you can have
 access to, and track your usage.
 
-You will be asked for the CCRI (See screenshot below). Please reach out to your
-sponsor to get the CCRI.
+You will be asked for the CCRI (Compute Canada Role Identifier) of your sponsor.
+Please reach out to your sponsor for more infos.
 
 ![role](../../../_static/images/role.png)
 
-You will need to **wait** for your sponsor to accept before being able to login
-to the Alliance clusters.
+As a Mila researcher, you can request access of all the resources in the *HPC*
+and *Artificial Intelligence* tabs in *Resources > Access Systems* at CCDB.
 
-You should apply to a ``role`` using this form **for each allocation you can have access to**. If, for instance,
-your supervisor is member of the ``rrg-bengioy-ad`` allocation, you should apply using Yoshua Bengio's CCRI, and
-you should apply separately using your supervisor's CCRI to have access to ``def-<yoursupervisor>``. Ask your supervisor
-to share these CCRI with you.
+You will need to **wait** for your sponsor to accept your request before being
+able to login to the Alliance clusters. The default accounts are of the form
+``def-<yourprofname>-gpu`` and ``def-<yourprofname>-cpu``. Management of a
+professor's default DRAC allocation is their personal responsibility and is
+beyond the control of Mila. We are unable to provide support for such
+management.
 
-## Account Renewal
+### Access to Mila global allocation
 
+If your supervisor is a Mila "core" professor, you are elligiable to the Mila
+global allocation ``rrg-bengioy-ad``. To be added to the allocation, write to
+`ccdb-accounts@mila.quebec` and share **your** CCRI.
+
+### Connect to the clusters
+
+To login to the DRAC clusters, you need to set up your SSH keys on the CCDB
+portal. You can generate an SSH key pair using `ssh-keygen` and then add the
+public key to your account on the CCDB portal at *My Account > SSH Keys*.
+
+You can use `milatools`, with the command `mila init`, to help create your SSH
+config or validate your installation.
+
+You also need to set a multifactor authentication on the CCDB portal at *My
+Account > Multifactor Authentication*. More infos available on the [DRAC
+documentation](https://docs.alliancecan.ca/wiki/Multifactor_authentication).
+
+### Renewal
 
 All user accounts (Sponsor & Sponsored) have to be renewed annually in order to
 keep up-to-date information on active accounts and to deactivate unused
@@ -113,73 +102,91 @@ If the FAQ is of no help, you can contact DRAC renewal support team at
 
 ## Clusters
 
+These clusters are part of the Mila global allocation. Depending on your 
+supervisor's affiliations, you may also have access to other allocations or
+clusters, such as the PAICE clusters described below.
+
+The table below provides information on the allocation for the account
+``rrg-bengioy-ad`` for the period which spans from April 7, 2026 to Spring 2027.
+
+| Cluster                | CPUs | RGUs allocated | # GPU equiv | Model    | Unrestricted internet |
+| ---------------------- | ---- | -------------- | ----------- | -------- | --------------------- |
+| [Fir](#fir)            | 0    | 2090           | 171         | H100-80G | Yes                   |
+| [Nibi](#nibi)          | 0    | 363            | 30          | H100-80G | Yes                   |
+| [Rorqual](#rorqual)    | 263  | 1172           | 96          | H100-80G | No                    |
+| [Trillium](#trillium)  | 768  | 375            | 31          | H100-80G | No                    |
+
+Check the current status of the clusters on the [DRAC status
+page](https://status.alliancecan.ca/).
+
+!!! note
+    DRAC uses a concept called `RGUs` (Reference GPU Units) to measure the
+    allocated GPU resources based on the type of device. This measurement
+    combines the FP32 and FP16 performance of the GPU as well as the memory
+    size. For example, an NVIDIA A100-40G counts has 4.0 RGUs, while a while an
+    H100-80G counts as 12.15 RGUs.
+    
+    This is an improvement over the previous system of counting physical GPU
+    devices and disregarding their actual performance. Saying that "we have 4
+    GPUs per researcher" omits which kind of GPUs we're talking about, which is
+    fundamentally important.
+
 ### Fir
 
-[Digital Research Alliance of Canada doc](https://docs.alliancecan.ca/wiki/Fir)
+[Digital Research Alliance of Canada doc](https://docs.alliancecan.ca/wiki/Fir/en)
 
-The successor to the legacy Cedar cluster. Retains its filesystem. Equipped with H100s.
+The successor to the legacy Cedar cluster. Retains its filesystem.
 
 ### Nibi
 
-[Digital Research Alliance of Canada doc](https://docs.alliancecan.ca/wiki/Nibi)
+[Digital Research Alliance of Canada doc](https://docs.alliancecan.ca/wiki/Nibi/en)
 
-The successor to the legacy Graham cluster. Retains its filesystem. Equipped with H100s.
+The successor to the legacy Graham cluster. Retains its filesystem.
 
 ### Rorqual
 
 [Digital Research Alliance of Canada doc](https://docs.alliancecan.ca/wiki/Rorqual/en)
 
-The successor to the legacy Beluga cluster. No internet access on compute nodes. Equipped with H100s.
+The successor to the legacy Beluga cluster. No internet access on compute nodes.
 
 ### Trillium
 
-[Digital Research Alliance of Canada doc](https://docs.alliancecan.ca/wiki/Trillium)
+[Digital Research Alliance of Canada doc](https://docs.alliancecan.ca/wiki/Trillium/en)
 
 The successor to the legacy Niagara cluster. It is principally but not exclusively a
-CPU cluster. GPU subcluster equipped with H100s.
+CPU cluster. No internet access on compute nodes.
 
-Trillium is [not run exactly like other clusters](https://docs.alliancecan.ca/wiki/Trillium_Quickstart).
-Most notably,
+Trillium is not run exactly like other clusters. Most notably:
 
   - Trillium is structured as two sub-clusters, once CPU and one GPU.
     - Trillium (CPU):
-      - Login node `trillium.alliancecan.ca`
-      - Jobs are allocated on a **per-node basis**, _not_ per-CPU.
+        - Login node `trillium.alliancecan.ca`
+        - Jobs are allocated on a **per-node basis**, _not_ per-CPU.
     - Trillium-GPU:
-      - Login node `trillium‑gpu.alliancecan.ca`
-      - Jobs allocated either **per-node**, _or_ **single-GPU** (1/4 node).
+        - Login node `trillium‑gpu.alliancecan.ca`
+        - Jobs allocated either **per-node**, _or_ **single-GPU** (1/4 node).
   - Both share their filesystem.
   - Job submissions must be made from `$SCRATCH`.
 
 Refer to the Trillium [Quickstart Guide](https://docs.alliancecan.ca/wiki/Trillium_Quickstart) for more
 details before using this cluster.
 
+## Other clusters
+
+Theses clusters are not part of the Mila global allocation, but you might have
+access to them depending on your supervisor's affiliations.  Please check with
+your supervisor.
 
 ### Narval
 
 [Digital Research Alliance of Canada doc](https://docs.alliancecan.ca/wiki/Narval/en)
 
-For some students, Narval might be a good choice if they have already set up there.
 Narval is the oldest cluster still online, and contains the oldest and smallest GPUs (A100-40GB).
-The A100 may however be a viable choice for jobs that cannot utilize a full H100.
+For some students, this cluster might be a good choice if they have already set
+up there or if the A100 is enough for their experiments (e.g. jobs that cannot
+utilize a full H100). No internet access on compute nodes.
 
-### TamIA
-
-[Digital Research Alliance of Canada doc](https://docs.alliancecan.ca/wiki/TamIA/en)
-
-This is a new cluster dedicated to AI jobs for Quebec-area research institutes, within
-the framework of PAICE (Pan-Canadian AI Compute Environment). Compute resources
-in TamIA are not assigned to jobs on a per-CPU, but on a per-node basis.
-Equipped with H100s and H200s.
-
-TamIA does not use regular DRAC allocations (``--account=rrg-bengioy-ad``). Instead, it
-uses AIP allocations (``--account=aip-${PI_NAME}``), where ``${PI_NAME}`` is the name of
-your supervising professor. Your professor must add you to their AIP allocation before
-you will be able to submit jobs.
-
-
-## Launching Jobs
-
+## Launching jobs
 
 Users must specify the resource allocation Group Name using the flag
 ``--account=rrg-bengioy-ad``.  To launch a CPU-only job:
@@ -207,7 +214,7 @@ salloc --time=1:00:00 --account=rrg-bengioy-ad --gres=gpu:1
 The full documentation for jobs launching on Alliance clusters can be found
 [here](https://docs.alliancecan.ca/wiki/Running_jobs#).
 
-## DRAC Storage
+## Storage
 
 | Storage          | Path                      | Usage                                                         |
 | ---------------- | ------------------------- | ------------------------------------------------------------- |
@@ -240,9 +247,7 @@ to Mila servers.
 
 More details on storage can be found [here](https://docs.alliancecan.ca/wiki/Storage_and_file_management).
 
-
 ## Modules
-
 
 Much software, such as Python or MATLAB, is already compiled and available on
 DRAC clusters through the ``module`` command and its subcommands. Their full
@@ -276,7 +281,7 @@ Such wheels can be installed using pip. Moreover, the most efficient way to use
 modules on the cluster is to [build your environnement inside your job](https://docs.alliancecan.ca/wiki/Python#Creating_virtual_environments_inside_of_your_jobs).
 See the script example below.
 
-## Script Example
+## Script example
 
 Here is a ``sbatch`` script that follows good practices on Narval and can serve
 as inspiration for more complicated scripts:
@@ -311,13 +316,12 @@ python main.py --path $SLURM_TMPDIR --data_path $SLURM_TMPDIR
 cp $SLURM_TMPDIR/RESULTS_CHANGEME $SCRATCH
 ```
 
-### Using CometML and Wandb
+## Using CometML and Wandb
 
-
-The compute nodes for Narval, Rorqual and Tamia don't have access to the
-internet, but there is a special module that can be loaded in order to allow
-training scripts to access some specific servers, which includes
-the necessary servers for using CometML and Wandb ("Weights and Biases").
+Some compute nodes don't have access to the internet, but there is a special
+module that can be loaded in order to allow training scripts to access some 
+specific servers, which includes the necessary servers for using CometML and
+Wandb ("Weights and Biases").
 
 ```bash
 module load httpproxy
@@ -329,31 +333,13 @@ More documentation about this can be found [here](https://docs.alliancecan.ca/wi
 
     Be careful when using Wandb with `httpproxy`. It does not support sending
     artifacts and wandb's logger will hang in the background when your training
-    is completed, wasting ressources until the job times out. It is recommended
+    is completed, wasting resources until the job times out. It is recommended
     to use the offline mode with wandb instead to avoid such waste.
 
 
 ## FAQ
 
-
-### What are RGUs?
-
-
-DRAC uses a concept called `RGUs` (Reference GPU Units) to measure the
-allocated GPU resources based on the type of device. This measurement combines
-the FP32 and FP16 performance of the GPU as well as the memory size.
-For example, an NVIDIA A100-40G counts has 4.0 RGUs,
-while a while an H100-80G counts as 12.15 RGUs.
-This is an improvement over the previous system of counting physical GPU devices
-and disregarding their actual performance.
-For example, saying that "we have 4 GPUs per researcher" omits
-which kind of GPUs we're talking about, which is fundamentally important.
-That proposed RGU measurement can still be improved, but criticisms about it
-are outside the scope of this document.
-
-
 ### What to do with  `ImportError: /lib64/libm.so.6: version GLIBC_2.23 not found`?
-
 
 The structure of the file system is different than a classical Linux, so your
 code has trouble finding libraries. See [how to install binary packages](https://docs.alliancecan.ca/wiki/Installing_software_in_your_home_directory#Installing_binary_packages).
