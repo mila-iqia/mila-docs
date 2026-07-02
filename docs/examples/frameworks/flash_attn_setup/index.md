@@ -30,6 +30,11 @@ Other resources:
 Flash Attention provides pre-built wheels for common combinations of
 CUDA, PyTorch, and Python on the
 [Flash Attention releases page](https://github.com/Dao-AILab/flash-attention/releases).
+
+Some dashboards are available online to help find the right wheel for your configuration,
+like [this one](https://mjunya.com/flash-attention-prebuild-wheels/?platform=Linux%20x86_64), where you can
+copy an URL or download the wheel to your local machine.
+
 If a compatible wheel is listed, use the [From a pre-built wheel](#from-a-pre-built-wheel) section.
 Otherwise, use [Building from source](#building-from-source) to compile Flash Attention on a compute node.
 
