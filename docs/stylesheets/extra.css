@@ -15,6 +15,7 @@
 
 [data-md-color-scheme="slate"]  > * {
   --md-typeset-a-color: #c38acd;
+  --md-accent-fg-color: #dfadf4;
 }
 
 a.announce {
