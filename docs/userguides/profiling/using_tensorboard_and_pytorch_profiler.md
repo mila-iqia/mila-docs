@@ -56,11 +56,11 @@ alongside [Pytorch profiler](https://docs.pytorch.org/tutorials/recipes/recipes/
 
 ## Description of the process
 
-The data visualized in Tensorboard are retrieved from a folder whose name is given as parameter.
-Thus, visualizing a job's usage with Tensorboard is done as follows:
+TensorBoard reads profiling data from a directory that you specify when launching it.
+Visualizing a job's performance with TensorBoard involves two steps:
 
-1. **Writing the usage in the folder:** This is done using Pytorch profiler when the job is running, by commands written in the job's code itself.
-2. **Display the metrics:** Tensorboard is run (whether while the job is still running or when it has run).
+1. **Recording profiling data:** PyTorch Profiler writes trace files to the directory during the job's execution.
+2. **Viewing the metrics:** TensorBoard is launched pointing to that directory, either while the job is still running or after it has finished.
 
 ## Write a code example
 
@@ -102,7 +102,7 @@ train_model(10)
 To write the metrics, we use `profile` from the `torch.profiler` 
 library. The template of writing metrics is as follows:
 
-```
+```python
 # Import Pytorch profiler
 from torch.profiler
 
@@ -139,7 +139,7 @@ profiler.stop()
 ```
 
 This results in the following code (ready for use):
-```
+```python
 import torch
 # Import Pytorch profiler
 import torch.profiler
