@@ -103,12 +103,16 @@ To write the metrics, we use `profile` from the `torch.profiler`
 library. The template of writing metrics is as follows:
 
 ```python
+import os
+
 # Import Pytorch profiler
 from torch.profiler
 
 # Define in which folder we want the results to be stored
 # (if the folder does not exist, it is created)
-folder_name = "./runs/test1"
+scratch_path = os.environ.get("SCRATCH")
+job_id = os.environ.get("SLURM_JOB_ID")
+folder_name = f"{scratch_path}$/runs/{job_id}_profiling"
 
 # Initialize the profiler
 #   - schedule:
@@ -140,6 +144,7 @@ profiler.stop()
 
 This results in the following code (ready for use):
 ```python
+import os
 import torch
 # Import Pytorch profiler
 import torch.profiler
@@ -155,7 +160,9 @@ optimizer = torch.optim.SGD(model.parameters(), lr = 0.1)
 
 # Define in which folder we want the results to be stored
 # (if the folder does not exist, it is created)
-folder_name = "./runs/test1"
+scratch_path = os.environ.get("SCRATCH")
+job_id = os.environ.get("SLURM_JOB_ID")
+folder_name = f"{scratch_path}$/runs/{job_id}_profiling"
 
 profiler = torch.profiler.profile(
             schedule=torch.profiler.schedule(wait=1, warmup=1, active=3, repeat=2),
@@ -199,7 +206,8 @@ Launching the example locally is done through the following steps:
 We use the code explained in [the previous section](#write-a-code-example).
 
 === "experiment.py"
-    ```
+    ```python
+    import os
     import torch
     # Import Pytorch profiler
     import torch.profiler
@@ -215,7 +223,9 @@ We use the code explained in [the previous section](#write-a-code-example).
 
     # Define in which folder we want the results to be stored
     # (if the folder does not exist, it is created)
-    folder_name = "./runs/experiment1"
+    scratch_path = os.environ.get("SCRATCH")
+    job_id = os.environ.get("SLURM_JOB_ID")
+    folder_name = f"{scratch_path}$/runs/{job_id}_profiling"
 
     profiler = torch.profiler.profile(
                 schedule=torch.profiler.schedule(wait=1, warmup=1, active=3, repeat=2),
@@ -326,7 +336,8 @@ This could be done through `uv init` and `uv add <dependencies>` such as present
 Hence, we copy (or write) the following files on the login node:
 
 === "experiment.py"
-    ```
+    ```python
+    import os
     import torch
     # Import Pytorch profiler
     import torch.profiler
@@ -342,7 +353,9 @@ Hence, we copy (or write) the following files on the login node:
 
     # Define in which folder we want the results to be stored
     # (if the folder does not exist, it is created)
-    folder_name = "./runs/experiment1"
+    scratch_path = os.environ.get("SCRATCH")
+    job_id = os.environ.get("SLURM_JOB_ID")
+    folder_name = f"{scratch_path}$/runs/{job_id}_profiling"
 
     profiler = torch.profiler.profile(
                 schedule=torch.profiler.schedule(wait=1, warmup=1, active=3, repeat=2),
@@ -396,7 +409,7 @@ Launching an experiment on the cluster is explained in the [Launching jobs guide
 Here, we use the batch job option. Thus, we create a `job.sh` file:
 
 === "job.sh"
-    ```
+    ```bash
     #!/bin/bash
     #SBATCH --ntasks=1
     #SBATCH --ntasks-per-node=1
