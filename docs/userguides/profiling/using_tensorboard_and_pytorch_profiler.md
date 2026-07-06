@@ -75,7 +75,7 @@ Visualizing a job's performance with TensorBoard involves two steps:
 
 ### Base code
 The following code is an example of training a model with Pytorch:
-```
+```python
 import torch
 
 # Linear regression training example
