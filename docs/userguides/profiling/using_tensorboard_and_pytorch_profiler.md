@@ -413,7 +413,7 @@ Here, we use the batch job option. Thus, we create a `request_allocation.sh` fil
 
     # Execute Python script
     # Use `uv run --offline` on clusters without internet access on compute nodes.
-    uv run python experiment.py
+    srun uv run python experiment.py
     ```
 
 Finally, we launch the job through the command line:
