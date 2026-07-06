@@ -393,9 +393,9 @@ Launching an experiment on the cluster is explained in the [Launching jobs guide
 * an interactive job
 * a batch job.
 
-Here, we use the batch job option. Thus, we create a `request_allocation.sh` file:
+Here, we use the batch job option. Thus, we create a `job.sh` file:
 
-=== "request_allocation.sh"
+=== "job.sh"
     ```
     #!/bin/bash
     #SBATCH --ntasks=1
@@ -419,7 +419,7 @@ Here, we use the batch job option. Thus, we create a `request_allocation.sh` fil
 Finally, we launch the job through the command line:
 
 ```
-sbatch request_allocation.sh
+sbatch job.sh
 ```
 
 #### Launch Tensorboard
