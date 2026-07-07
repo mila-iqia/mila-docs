@@ -9,7 +9,7 @@
   /* Main theme */
   --md-primary-fg-color: #662e7d;
   /*--md-primary-bg-color:;*/
-  --md-accent-fg-color: #662e7d;
+  --md-accent-fg-color: #5a007a;
   --md-primary-fg-color--dark: #c38acd;
 }
 
@@ -20,6 +20,7 @@
 
 a.announce {
   --md-typeset-a-color: #c38acd;
+  --md-accent-fg-color: #dfadf4;
 }
 
 .md-typeset .admonition.wip,
