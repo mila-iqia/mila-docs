@@ -9,7 +9,7 @@ description: Ask for a resource allocation and launch tasks on the cluster.
 
 <div class="grid cards" markdown>
 
--   [:material-run-fast:{ .lg .middle } __Get Started with the Cluster__](../../../getting_started/)
+-   [:material-run-fast:{ .lg .middle } __Get Started with the Cluster__](../../getting_started/index.md)
     { .card }
 
     ---
@@ -21,57 +21,78 @@ description: Ask for a resource allocation and launch tasks on the cluster.
 
 </div>
 
-
 ## What this guide covers
-* Discovering the Slurm jobs, steps and tasks
-* Launching multiple tasks through an interactive job
-* Launch multiple tasks from a script
 
-## Key concepts
+* Discovering Slurm jobs, steps and tasks
+* Launching multiple tasks through an interactive job
+* Launching multiple tasks from a script
+
+---
+
+## Slurm concepts
 
 ### Jobs, steps and tasks
-Recurrent entities when we speak of Slurm are jobs, steps and tasks. If we want to keep a simple scheme, we could say that:
+
+The recurrent entities in Slurm are jobs, steps and tasks. As a simple mental
+model:
 
 * a job can have multiple steps
 * a step can run multiple tasks.
 
-[Check the technical reference for deeper information](../../../technical_reference/general_theory/slurm/#some-definitions)
+```mermaid
+graph TD
+    J[Job] --> S1[Step]
+    J --> S2[Step]
+    S1 --> T1[Task]
+    S1 --> T2[Task]
+    S2 --> T3[Task]
+    S2 --> T4[Task]
+```
+
+See the [technical reference](../../technical_reference/general_theory/slurm.md#some-definitions)
+for deeper information.
 
 ### Login nodes and compute nodes
-We will not dive into details here, because these concepts are explained in [What is a computer cluster?](../../../technical_reference/general_theory/cluster_parts/), but to sum up some notions, we focus on the two following types of nodes:
+
+These concepts are explained in detail in
+[What is a computer cluster?](../../technical_reference/general_theory/cluster_parts.md).
+In short, two types of nodes matter here:
 
 | Type of node | Use |
 | ------------ | --- |
-| Login node   | They are used to connect to the cluster and manage your jobs |
-| Compute node | This is where the jobs run, the allocation requested when a job is launched is provided from them |
+| Login node   | Used to connect to the cluster and manage jobs |
+| Compute node | Where jobs run; the allocation requested when a job is launched is provided from them |
 
 ??? warning "Do not run jobs on login nodes"
-    Login nodes are entry points to the cluster, you can call Slurm commands from there (`sbatch`, `sinfo`, `squeue`, etc) but computing scripts should be submitted through Slurm in order to get the requested resources, and not directly run on the login nodes.
+    Login nodes are entry points to the cluster. Slurm commands (`sbatch`,
+    `sinfo`, `squeue`, etc.) can be called from there, but computing scripts
+    must be submitted through Slurm to obtain the requested resources, rather
+    than run directly on the login nodes.
 
 ### Commands
 
-The three Slurm commands we focus on are:
+This guide focuses on three Slurm commands:
 
-| Command  | Entity created | Description | From where call the command? |
-| -------- | -------------- | ----------- | ---------------------------- |
+| Command  | Entity created | Description | Where to call it |
+| -------- | -------------- | ----------- | ---------------- |
 | `sbatch` | Batch Slurm job | Submit a batch script to Slurm | From a login node |
 | `salloc` | Interactive job | Obtain a Slurm job allocation (a set of nodes), execute a command, and then release the allocation when the command is finished | From a login node |
-| `srun`   | Step :material-information-outline:{ title="srun can also be used to directly submit jobs, but we don't recommend it" } | Run tasks | From a job |
-
+| `srun`   | Step :material-information-outline:{ title="srun can also be used to directly submit jobs, but this is not recommended" } | Run tasks | From a job |
 
 Submitting tasks is done through two steps:
 
-1. Request a resource allocation by submitting a job (`sbatch` or `salloc`)
-2. Launch commands by launching tasks from this resource allocation (`srun`)
-
-
+1. Request a resource allocation by submitting a job (`sbatch` or `salloc`).
+2. Launch commands as tasks within this resource allocation (`srun`).
 
 ## Discover Slurm through an interactive job
 
-**1. Connect to your favorite cluster (see [this section](../../../getting_started/#verify-your-connection) for more information on the connection)**
+### Connect to the cluster
+
+See [Verify your connection](../../getting_started/index.md#verify-your-connection)
+for more information on connecting.
 
 === "Steps"
-    
+
     Open a terminal and launch the command:
     ```bash
     ssh mila
@@ -79,14 +100,17 @@ Submitting tasks is done through two steps:
 
 === "More details"
 
-    Here, we arbitrary choose to connect to the Mila cluster. The command `ssh mila` works thanks to the configuration we previously set inside `~/.ssh/config`. This could be done by `mila init` (see [the Getting Started guide](../../getting_started/)).
+    This example connects to the Mila cluster. The command `ssh mila` works
+    thanks to the configuration set in `~/.ssh/config`, which can be created by
+    `mila init` (see [the Getting Started guide](../../getting_started/index.md)).
 
-
-**2. Submit a job**
+### Submit a job
 
 === "Steps"
 
-    Submitting a job is like booking an allocation: you request which resources you want (GPU, CPU, node, memory), setting your experiment conditions. The Slurm scheduler is then in charge to provide you an allocation.
+    Submitting a job is like booking an allocation: it requests the desired
+    resources (GPU, CPU, nodes, memory) and sets the experiment conditions. The
+    Slurm scheduler is then in charge of providing an allocation.
 
     ```bash
     salloc --ntasks=4 --nodes=2 --mem=2G --time=00:30:00
@@ -104,31 +128,34 @@ Submitting tasks is done through two steps:
     ```
     </div>
 
-    Once the allocation is done, you get some information about your job:
-    
-    * you know what your Job ID is (9311988 in this example)
-    * you know on which nodes your allocation is (cn-f001 and cn-f002 in this example).
+    Once the allocation is granted, Slurm reports some information about the
+    job:
 
+    * the Job ID (9311988 in this example)
+    * the nodes the allocation runs on (cn-f001 and cn-f002 in this example).
 
-    Congrats! You now have a resource allocation.
+    The resource allocation is now ready.
 
 === "More details"
 
     * `salloc` means this is an interactive job
-    * `--ntasks` means that `srun` will invoke 4 tasks
-    * `--nodes` means 2 nodes are requested for the previously mentioned tasks to run on
-    * `--mem` aspecify the real memory required per node. We could also set `--mem-per-gpu` or `--mem-per-cpu`
-    * `--time` asks for an allocation of 30min. It is a good practice to set it because an interactive job can last until one week, and it is a common mistake to forget to leave an interactive job.
+    * `--ntasks` means that `srun` invokes 4 tasks
+    * `--nodes` means 2 nodes are requested for the previously mentioned tasks
+      to run on
+    * `--mem` specifies the real memory required per node. `--mem-per-gpu` or
+      `--mem-per-cpu` can be used instead
+    * `--time` asks for a 30-minute allocation. Setting it is good practice: an
+      interactive job can last up to a week, and forgetting to leave one is a
+      common mistake.
 
-    See [salloc documentation](https://slurm.schedmd.com/salloc.html) for more information.
+    See [salloc documentation](https://slurm.schedmd.com/salloc.html) for more
+    information.
 
-
-
-**3. Understand where we are**
+### Inspect where tasks run
 
 === "Steps"
 
-    By running the command `hostname`, you can see "where" the process calling the command runs:
+    Running `hostname` reports where the process calling the command runs:
 
     ```bash
     hostname
@@ -139,7 +166,7 @@ Submitting tasks is done through two steps:
     ```
     </div>
 
-    Now, let's try to run steps and tasks by using `srun`:
+    Running steps and tasks is done with `srun`:
 
     ```bash
     srun hostname
@@ -155,54 +182,59 @@ Submitting tasks is done through two steps:
 
     Each task returned its own result for the `hostname` command.
 
-    In this example, we can see that:
-    
-    * three tasks have been launched on the node `cn-f002`
-    * one task has been launched on the node `cn-f001`
+    In this example:
 
-    !!!tip
-        For more symmetrical jobs, you can use the `--ntasks-per-node` parameter instead of `--ntasks`.
-        
+    * three tasks ran on the node `cn-f002`
+    * one task ran on the node `cn-f001`
+
+    !!! tip
+        For more symmetrical jobs, use the `--ntasks-per-node` parameter instead
+        of `--ntasks`.
+
         (For instance, `--ntasks-per-node=2` in this case.)
-        
 
 === "More details"
 
     * Note on the command:
-        * We used `srun hostname`, presenting the format `srun <command>`. `srun` can also take parameters in the format `srun <parameters> <command>`. See [srun documentation](https://slurm.schedmd.com/srun.html) for more details.
+        * `srun hostname` follows the format `srun <command>`. `srun` can also
+          take parameters, in the format `srun <parameters> <command>`. See
+          [srun documentation](https://slurm.schedmd.com/srun.html) for more
+          details.
 
     * Notes on the result:
-        * The `hostname` command has been called four times because we ask for four tasks while submitting the job through `salloc`.
-        * By running our four tasks with `srun`, we can see that they are not necessarily evenly spread among the nodes.
-
+        * The `hostname` command ran four times because four tasks were
+          requested when submitting the job through `salloc`.
+        * The four tasks run by `srun` are not necessarily evenly spread among
+          the nodes.
 
 ## Launch a non-interactive job
 
-In this section, we reproduce the same example as before (same parameters and same command (`hostname`)) and submit the job through the `sbatch` command.
+This section reproduces the same example as before (same parameters and same
+command, `hostname`) and submits the job through the `sbatch` command.
 
-**1. Connect to your favorite cluster**
+### Connect to the cluster
 
 ```bash
 ssh mila
 ```
 
-**2. Write the script**
+### Write the script
 
 === "Steps"
-    You could either:
+    The script can be created in one of two ways:
 
-    * write the script directly on the login node (in `$SCRATCH` repository and its children repositories)
+    * Directly on the login node (in the `$SCRATCH` directory or its
+      subdirectories):
         ```bash
         cd $SCRATCH
         vim job.sh
         ```
-    * or write it on your local computer and copy it to the scratch directory through:
+    * On a local computer, then copied to the scratch directory:
         ```bash
         scp job.sh mila:/network/scratch/s/user.name
         ```
 
-        by using, instead of `user.name` your own name.
-
+        replacing `user.name` with the actual username.
 
     The content of `job.sh` is:
 
@@ -217,14 +249,14 @@ ssh mila
     ```
 
 === "More details"
-    We add in the beginning of the script the same parameters we used while running `salloc` for our interactive job.
+    The script begins with the same parameters used with `salloc` for the
+    interactive job.
 
-
-**3. Launch the command**
+### Submit the job
 
 From the login node, run:
 
-```
+```bash
 sbatch job.sh
 ```
 <div class="result" style="border:None; padding:0" markdown>
@@ -236,10 +268,10 @@ Submitted batch job 9321166
 ```
 </div>
 
+Once submitted, the job waits to be scheduled. Its status is shown by the
+[`squeue`](https://slurm.schedmd.com/squeue.html) command:
 
-Now that the job is submitted, all that is left to do is waiting for it to be scheduled. You can see it status by running the [`squeue`](https://slurm.schedmd.com/squeue.html) command:
-
-```
+```bash
 squeue --me
 ```
 <div class="result" style="border:None; padding:0" markdown>
@@ -249,16 +281,18 @@ JOBID     USER    PARTITION           NAME  ST START_TIME             TIME NODES
 ```
 </div>
 
-Here, the allocation is requested by sbatch based on the script parameters. Once it is ready, the script is automatically executed (ie the job is running), the allocation is freed at the end of the job.
+The allocation is requested by `sbatch` based on the script parameters. Once it
+is ready, the script runs automatically (the job is running), and the allocation
+is freed at the end of the job.
 
+### Retrieve the results
 
-**4. Retrieve the results**
+Once the job is finished, its output is available in the file
+`slurm-<JOB_ID>.out` (here, `slurm-9321166.out`). The file name can be changed
+with the [`--output`](https://slurm.schedmd.com/sbatch.html#OPT_output)
+parameter.
 
-Once the job is finished, its output can be retrieved by reading the file `slurm-<JOB_ID>.out`. (In our case, the file name is: `slurm-9321166.out`). This can be changed by using the parameter [`--output`](https://slurm.schedmd.com/sbatch.html#OPT_output).
-
-
-
-The content of the output in our example is:
+The output in this example is:
 <div class="result" style="border:None; padding:0" markdown>
 ``` linenums="0"
 cn-f001.server.mila.quebec
@@ -268,22 +302,22 @@ cn-f002.server.mila.quebec
 ```
 </div>
 
-
 ---
 
 ## Key concepts
 
 Job
-:   Global commands executed in a requested resources allocation.
+:   Global commands executed in a requested resource allocation.
 
 Task
-:   Set of commands running on an allocation part. A job can contain multiple tasks.
-
----
+:   Set of commands running on part of an allocation. A job can contain multiple
+    tasks.
 
 ## Next step
 
-Now that you can launch multiple commands (such as `hostname`) in a slurm job, each with their own resources and environment variables, you are ready to learn the fundamentals of distributed programs such as distributed training in PyTorch.
+With multiple commands (such as `hostname`) running in a Slurm job — each with
+its own resources and environment variables — the next step covers the
+fundamentals of distributed programs such as distributed training in PyTorch.
 
 <div class="grid cards" markdown>
 
@@ -291,7 +325,7 @@ Now that you can launch multiple commands (such as `hostname`) in a slurm job, e
     { .card }
 
     ---
-    Synchronize the output of multiple tasks on different node.
+    Synchronize the output of multiple tasks running on different nodes.
 
 &nbsp;
 

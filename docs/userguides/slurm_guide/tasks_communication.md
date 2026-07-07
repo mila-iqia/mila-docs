@@ -20,25 +20,28 @@ description: A quick example of multiple tasks synchronizing their output.
 </div>
 
 ## What this guide covers
+
 * Launching multiple tasks with `sbatch`
-* Sharing tasks variables of different tasks
+* Sharing variables between tasks
 
 ## Concept of this example
 
-In this guide, we launch a job (using `job_***.sh`) which will run one or more tasks (whose instructions are stored in `main_jax.py` or `main_torch.py`) using libraries (defined in `pyproject.toml`).
+This example launches a job (using `job_***.sh`) that runs one or more tasks
+(whose instructions are stored in `main_jax.py` or `main_torch.py`) using
+libraries (defined in `pyproject.toml`).
 
-Thus, each example is based on three files:
+Each example is based on three files:
 
 | File | Description |
 | ---- | ----------- |
 | `job_***.sh` | Bash script used to request an allocation and launch a job (which itself runs multiple tasks based on the requested `--ntasks`) |
-| `main_***.py` | Python script containing the instructions the tasks execute. In this example, we either use Jax (with the script `main_jax.py`) or Pytorch (with the script `main_torch.py`) |
-| `pyproject.toml` | Configuration file used to handle the libraries `uv` is gonna get. We could have done one `pyproject.toml` for each example (Jax and Torch), but we gathered the two libraries in one to simplify this guide |
+| `main_***.py` | Python script containing the instructions the tasks execute. This example uses either Jax (with the script `main_jax.py`) or Pytorch (with the script `main_torch.py`) |
+| `pyproject.toml` | Configuration file used to handle the libraries `uv` fetches. A separate `pyproject.toml` could be used for each example (Jax and Torch), but both libraries are gathered in one to simplify this guide |
 
 
 ### Introducing the different files
 
-(You can also check the ["Launch many jobs" example](../../../examples/good_practices/launch_many_jobs/).)
+See also the ["Launch many jobs" example](../../examples/good_practices/launch_many_jobs/index.md).
 
 === "job_torch.sh"
     ```bash
@@ -72,10 +75,10 @@ Thus, each example is based on three files:
     #SBATCH --mem=8G
     #SBATCH --time=00:01:00
 
-    # These environment variables are used by torch.distributed and should
-    # ideally be set before running the python script, or at the very 
+    # These environment variables are read by the distributed runtime and
+    # should ideally be set before running the python script, or at the very
     # beginning of the python script.
-    
+
     # Master address is the hostname of the first node in the job.
     export MASTER_ADDR=$(scontrol show hostnames "$SLURM_JOB_NODELIST" \
          | head -n 1)
@@ -89,7 +92,8 @@ Thus, each example is based on three files:
 ??? info "In-depth script explanation on `job_***.sh`"
     **Headers for the resources allocation**
 
-    These are the header and the parameters we request for the resources allocation.
+    These are the header and the parameters requested for the resource
+    allocation.
     ```bash
     #!/bin/bash
     #SBATCH --ntasks=4
@@ -101,9 +105,11 @@ Thus, each example is based on three files:
 
     **Environment variables**
 
-    The environment variables `MASTER_ADDR`, `MASTER_PORT` and `WORLD_SIZE` are defined here and can be retrieved in each tasks. In Python, retrieving the environment variable value is done as follow:
-    ```
-    import os # Retrieve environment variable can be done through os.environ
+    The environment variables `MASTER_ADDR`, `MASTER_PORT` and `WORLD_SIZE` are
+    defined here and can be retrieved in each task. In Python, retrieving an
+    environment variable value is done as follows:
+    ```python
+    import os # Retrieving an environment variable is done through os.environ
 
     MASTER_ADDR = os.environ["MASTER_ADDR"]
     ```
@@ -112,10 +118,15 @@ Thus, each example is based on three files:
     **Running the tasks**
 
     `srun uv run python main_***.py`
-    
-    * The command `srun` creates tasks. The number of tasks is determined by the parameters `--ntasks` of our allocation. Here, we requested 4 tasks so the command will run 4 times in parallel tasks. These tasks run the command following `srun`, so each tasks will run `uv run python main_torch.py` or `uv run python main_jax.py`.
 
-    * `uv run` is used to ease the environment set up for our tasks. For more information, read [our `uv` guide on portability](../../../userguides/python_uv). It is followed by the name of the script we actually want to run in this environment.
+    * The command `srun` creates tasks. The number of tasks is determined by the
+      `--ntasks` parameter of the allocation. Here, 4 tasks were requested, so
+      the command runs 4 tasks in parallel. These tasks run the command
+      following `srun`, so each task runs `uv run python main_torch.py` or `uv
+      run python main_jax.py`.
+    * `uv run` is used to ease the environment set up for the tasks. For more
+      information, read the [`uv` guide on portability](../python_uv.md). It is
+      followed by the name of the script to run in this environment.
 
 
 === "main_torch.py"
@@ -166,7 +177,6 @@ Thus, each example is based on three files:
     ```
 
 === "main_jax.py"
-
     ```python
     import jax
     import jax.distributed
@@ -201,13 +211,17 @@ Thus, each example is based on three files:
     This guide is based on two open source examples
 
     * [Pytorch](https://pytorch.org/) is a deep-learning library.
-    * [Jax](https://docs.jax.dev/en/latest/notebooks/thinking_in_jax.html) is a library for array-oriented numerical computation.
-
-
+    * [Jax](https://docs.jax.dev/en/latest/notebooks/thinking_in_jax.html) is a
+      library for array-oriented numerical computation.
 
     **Environment variables**
 
-    In each file, we retrieve the Slurm environment variables `SLURM_PROCID`, `SLURM_LOCALID`, `SLURM_NTASKS` and `SLURM_NODEID`. Unlike the environment variables we defined previously (`MASTER_ADDR`, `MASTER_PORT` and `WORLD_SIZE`), these environment variables are specific to each tasks. More SLURM common environment variables are listed in [the technical reference](../../../technical_reference/general_theory/slurm).
+    Each file retrieves the Slurm environment variables `SLURM_PROCID`,
+    `SLURM_LOCALID`, `SLURM_NTASKS` and `SLURM_NODEID`. Unlike the environment
+    variables defined previously (`MASTER_ADDR`, `MASTER_PORT` and
+    `WORLD_SIZE`), these environment variables are specific to each task. More
+    common Slurm environment variables are listed in [the technical
+    reference](../../technical_reference/general_theory/slurm.md).
 
     ```python
     RANK = int(os.environ["SLURM_PROCID"])
@@ -218,26 +232,30 @@ Thus, each example is based on three files:
     
     === "What happens in Torch script"
         1. Initialize: in Torch, a group is defined
-
         2. Create a value, different for each task
-            The created value is based on the RANK, which is specific to each task
+
+            The created value is based on the RANK, which is specific to each
+            task
 
         3. Compute their sum
 
     === "What happens in Jax script"
         1. Initialize: this function is specific to Jax
-
         2. Create a value, different for each task
 
-            The created value is based on the RANK, which is specific to each task
+            The created value is based on the RANK, which is specific to each
+            task
 
-        3. Compute their sum [see Jax Lax parallel operators](https://docs.jax.dev/en/latest/jax.lax.html#parallel-operators)
+        3. Compute their sum [see Jax Lax parallel
+           operators](https://docs.jax.dev/en/latest/jax.lax.html#parallel-operators)
 
-    The final sum is printed from the first task of the first node (NODE_INDEX=0 and RANK=0). This is the task where all the `x` values have been collected. On the other tasks, the `sum` is a partial result.
+    The final sum is printed from the first task of the first node (NODE_INDEX=0
+    and RANK=0). This is the task where all the `x` values have been collected.
+    On the other tasks, the `sum` is a partial result.
 
 
 === "pyproject.toml (for Pytorch)"
-    ```
+    ```toml
     [project]
     name = "multitasks-demo"
     version = "0.1.0"
@@ -247,7 +265,7 @@ Thus, each example is based on three files:
     ```
 
 === "pyproject.toml (for Jax)"
-    ```
+    ```toml
     [project]
     name = "multitasks-demo"
     version = "0.1.0"
@@ -258,7 +276,13 @@ Thus, each example is based on three files:
 
 
 ??? info "In-depth explanation on `pyproject.toml`"
-    `pyproject.toml` is a configuration file used by packaging tools (`uv` in our case) ([More info on `pyproject.toml` files](https://packaging.python.org/en/latest/guides/writing-pyproject-toml/)). The value of dependencies contains information about the libraries we are using in this example. `torch` is used while using the `main_torch.py` script, and `jax` while using the `main_jax.py` script. If you use only one of them, you can delete the unused library from the `pyproject.toml` file.
+    `pyproject.toml` is a configuration file used by packaging tools (`uv` in
+    this case) ([More info on `pyproject.toml`
+    files](https://packaging.python.org/en/latest/guides/writing-pyproject-toml/)).
+    The value of dependencies contains information about the libraries used in
+    this example. `torch` is used with the `main_torch.py` script, and `jax`
+    with the `main_jax.py` script. To use only one of them, delete the unused
+    library from the `pyproject.toml` file.
 
 ### Launching the example
 
@@ -291,7 +315,9 @@ Thus, each example is based on three files:
 
 4. Retrieve the results
 
-    When the resources have been allocated and the script has run, an output file has been created: it is by default called `slurm-{JOB_ID}.out`, with `JOB_ID` being the ID of the job which has run.
+    When the resources have been allocated and the script has run, an output
+    file has been created: it is by default called `slurm-{JOB_ID}.out`, with
+    `JOB_ID` being the ID of the job which has run.
 
     === "Torch script results"
 
@@ -317,13 +343,15 @@ Thus, each example is based on three files:
         ```
         </div>
 
-    For each example, we can see that the ranks of the tasks (ie their `x` values) are respectively 0, 1, 2 and 3. Thus, their sum, retrieved on [Node 0 | Task 0], is 6.
+    For each example, the ranks of the tasks (that is, their `x` values) are
+    respectively 0, 1, 2 and 3. Their sum, retrieved on [Node 0 | Task 0], is
+    therefore 6.
 
-## Next steps
+## Next step
 
 <div class="grid cards" markdown>
 
--   [:material-multicast:{ .lg .middle } __Launch many jobs from same Shell script__](../../../examples/good_practices/launch_many_jobs/)
+-   [:material-multicast:{ .lg .middle } __Launch many jobs from the same shell script__](../../examples/good_practices/launch_many_jobs/index.md)
     { .card }
 
     ---
