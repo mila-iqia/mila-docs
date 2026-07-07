@@ -112,7 +112,7 @@ from torch.profiler
 # (if the folder does not exist, it is created)
 scratch_path = os.environ.get("SCRATCH")
 job_id = os.environ.get("SLURM_JOB_ID")
-folder_name = f"{scratch_path}$/runs/{job_id}_profiling"
+folder_name = f"{scratch_path}/runs/{job_id}_profiling"
 
 # Initialize the profiler
 #   - schedule:
@@ -145,53 +145,55 @@ profiler.stop()
 
 ### Ready-for-use code
 Putting all of this together, here is an example you can run directly:
-```python
-import os
-import torch
-# Import Pytorch profiler
-import torch.profiler
+
+=== "experiment.py"
+    ```python
+    import os
+    import torch
+    # Import Pytorch profiler
+    import torch.profiler
 
 
-# Linear regression training example
-x = torch.arange(-5, 5, 0.1).view(-1, 1)
-y = -5 * x + 0.1 * torch.randn(x.size())
+    # Linear regression training example
+    x = torch.arange(-5, 5, 0.1).view(-1, 1)
+    y = -5 * x + 0.1 * torch.randn(x.size())
 
-model = torch.nn.Linear(1, 1)
-criterion = torch.nn.MSELoss()
-optimizer = torch.optim.SGD(model.parameters(), lr = 0.1)
+    model = torch.nn.Linear(1, 1)
+    criterion = torch.nn.MSELoss()
+    optimizer = torch.optim.SGD(model.parameters(), lr = 0.1)
 
-# Define in which folder we want the results to be stored
-# (if the folder does not exist, it is created)
-scratch_path = os.environ.get("SCRATCH")
-job_id = os.environ.get("SLURM_JOB_ID")
-folder_name = f"{scratch_path}$/runs/{job_id}_profiling"
+    # Define in which folder we want the results to be stored
+    # (if the folder does not exist, it is created)
+    scratch_path = os.environ.get("SCRATCH")
+    job_id = os.environ.get("SLURM_JOB_ID")
+    folder_name = f"{scratch_path}/runs/{job_id}_profiling"
 
-profiler = torch.profiler.profile(
-            schedule=torch.profiler.schedule(wait=1, warmup=1, active=3, repeat=2),
-            on_trace_ready=torch.profiler.tensorboard_trace_handler(folder_name),
-            record_shapes=True,
-            with_stack=True)
+    profiler = torch.profiler.profile(
+                schedule=torch.profiler.schedule(wait=1, warmup=1, active=3, repeat=2),
+                on_trace_ready=torch.profiler.tensorboard_trace_handler(folder_name),
+                record_shapes=True,
+                with_stack=True)
 
-# Start the profiler
-profiler.start()
+    # Start the profiler
+    profiler.start()
 
-# While the model is training
-def train_model(iter):
-    for epoch in range(iter):
-        y1 = model(x)
-        loss = criterion(y1, y)
-        optimizer.zero_grad()
-        loss.backward()
-        optimizer.step()
-        # Write the metrics while training the model
-        profiler.step()
+    # While the model is training
+    def train_model(iter):
+        for epoch in range(iter):
+            y1 = model(x)
+            loss = criterion(y1, y)
+            optimizer.zero_grad()
+            loss.backward()
+            optimizer.step()
+            # Write the metrics while training the model
+            profiler.step()
 
-# Train the model
-train_model(10)
+    # Train the model
+    train_model(10)
 
-# Stop the profiler when you do not need it anymore
-profiler.stop()
-```
+    # Stop the profiler when you do not need it anymore
+    profiler.stop()
+    ```
 
 
 ## Try this example locally
@@ -208,31 +210,33 @@ Launching the example locally is done through the following steps:
 We use the code explained in [the previous section](#ready-for-use-code).
 
 ### Set up the environment
-To easily set the environment for this example, we use `uv`. If it has already be done,
-you can skip this section and go to [Launch the experiment](#launch-the-experiment).
+The environment is described in the following file. Copying it as `pyproject.toml` would make available all the prerequisites
+while running the `uv` command.
 
-1. [Optional if already done] The first step is to install `uv` : this is explained in [this section](../../../userguides/python_uv/#install-uv).
-
-2. We then initialize the project. This create a `pyproject.toml` file.
-```
-uv init
-```
-
-3. In this example, we use `torch`, `torch-tb-profiler` and `tensorboard`, so we add them to the environment configuration:
-```
-uv add torch
-uv add torchvision
-uv add torch-tb-profiler
-uv add tensorboard
-```
+=== "pyproject.toml"
+    ```
+    [project]
+    name = "tmp1"
+    version = "0.1.0"
+    description = "Add your description here"
+    readme = "README.md"
+    requires-python = ">=3.14"
+    dependencies = [
+        "tensorboard>=2.21.0",
+        "torch>=2.12.1",
+        "torch-tb-profiler>=0.4.3",
+        "torchvision>=0.27.1",
+    ]
+    ```
 
 ### Launch the experiment
-Launching the experiment is done through the command:
+Once the two files (`experiment.py` and `pyproject.toml`) have been written in your environment, you can
+launch the experiment through the following command:
 ```
 uv run python experiment.py
 ```
 
-The folder `runs/experiment1` has been created.
+The folder `{scratch_path}/runs/{job_id}_profiling` has been created.
 
 
 ### Launch Tensorboard
@@ -308,7 +312,7 @@ Hence, we copy (or write) the following files on the login node:
     # (if the folder does not exist, it is created)
     scratch_path = os.environ.get("SCRATCH")
     job_id = os.environ.get("SLURM_JOB_ID")
-    folder_name = f"{scratch_path}$/runs/{job_id}_profiling"
+    folder_name = f"{scratch_path}/runs/{job_id}_profiling"
 
     profiler = torch.profiler.profile(
                 schedule=torch.profiler.schedule(wait=1, warmup=1, active=3, repeat=2),
