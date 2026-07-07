@@ -1,5 +1,126 @@
 # SLURM commands guide
 
+## Some definitions
+### Jobs, job steps and tasks
+
+  * A **job** is allocated defined resources (GPUs, CPU cores, RAM) for a defined time.
+    It is created with either `sbatch` (non-interactive) or `salloc` (interactive).
+    A job can be subdivided into steps.
+  * A **job step** sub-allocates from the resources of the job. Job steps are created
+    with the `srun` wrapper command when it is called from inside a job[^1].
+    By default a job step will consume all resources allocated to the job,
+    but this can be changed.
+
+    !!! tip
+        Steps most naturally map to phases of a job[^2]: For example,
+
+          * Job step `.1` might correspond to a stage-in of the dataset to `$SLURM_TMPDIR`
+          * Job step `.2` might run your distributed parallel Python program, and
+          * Job step `.3` might stage out the results to `$SCRATCH`.
+
+  * A job step can be further subdivided into **tasks**. A task is a specific instance
+    of the command created in multiple copies by `srun`.
+    Every task has an associated ID within its step, a number `$SLURM_PROCID` also called
+    a "rank" between `0` and `$SLURM_NPROCS`-1 inclusive.
+
+    !!! tip
+        A task most naturally maps to one of the main processes in a distributed program
+        (but see [^3]). While a job/job step can be multi-node, each task will run on one
+        and only one node.
+
+
+In machine-learning work, it is very important to _think carefully_ about _how many
+times should something be done_. Some things must be done once **per job**; others,
+once **per node**, once **per GPU**, or even once **per CPU core**.
+The number of tasks in a job step is a very important tool in deciding this.
+One way this can play out, when reusing the three-job-step example above:
+
+<details>
+
+<summary>Job step .1 – Dataset Stage-In</summary>
+
+<i>
+Staging in a dataset should be done once per node, because </i>
+<code>$SLURM_TMPDIR</code>
+<i> is a filesystem private to each node,
+but can be accessed by all processes of that node.
+</i>
+
+```bash
+srun --ntasks-per-node=1 --ntasks=$SLURM_NNODES tar -xf $SCRATCH/my_dataset.tar -C $SLURM_TMPDIR
+```
+
+</details>
+
+<details open>
+
+<summary>Job step .2 – Distributed Processing</summary>
+
+<i>
+The distributed program must run one main process per GPU, because with DDP,
+each process is mean to manage only one GPU.
+</i>
+
+```bash
+srun                      python   my_script.py # Best; inherits job's defaults
+srun --ntasks-per-gpu=1   python   my_script.py # Good, maybe redundant
+srun --ntasks-per-node=4  python   my_script.py # Worse; Hardcodes GPU count.
+
+# If using torchrun/accelerate and autodetect GPU count:
+srun --ntasks-per-node=1  torchrun my_script.py
+```
+
+These are not the only valid choices
+<sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup>
+<sup id="fnref:4"><a class="footnote-ref" href="#fn:4">4</a></sup>.
+
+</details>
+
+<details>
+
+<summary>Job step .3 – Results Stage-Out</summary>
+
+<code>$SCRATCH</code><i> is shared by every node and every process can see it.
+To avoid collisions, some jobs might arrange for only only one task overall to
+write out the job's results.
+</i>
+
+```bash
+srun --ntasks-per-node=1 --ntasks=1 cp -a $SLURM_TMPDIR/results $SCRATCH/results/$SLURM_JOBID
+```
+
+</details>
+
+[^1]: Outside of a job, srun creates a job, not a job step; This is an overloaded use of
+    `srun` that is confusing and that we discourage.
+
+[^2]: Job steps usually run sequentially (subdivision in time), because a plain
+    `srun` will use all the resources of a job, but job steps can also run in parallel
+    if `srun` is given arguments that request few resources _(subdivision in space and
+    resources)_ that two steps can proceed in parallel.
+
+[^3]: By far the most common configurations for the tasks of a job's main step will be:
+
+      - 1 task per GPU (`--ntasks-per-gpu=1`), when launching every process of a
+        distributed program directly with `srun`, or
+      - 1 task per node (`--ntasks-per-node=1`), when launching `torchrun`/`accelerate`
+        once per node, and allowing these processes to decide the appropriate number of
+        children processes themselves.
+
+    They lead to different strategies for orchestrating the distributed program's
+    processes, and different environment-variable contents.
+
+    A less common configuration is `--ntasks-per-gpu=N` to do _N:1_ packing of
+    processes onto a single GPU that they all share.
+
+[^4]: Even within a task, there are further levels of subdivision and parallelism possible:
+    A process can create subprocesses ("workers"), and these processes can create multiple
+    threads. However, these concepts are out of scope for SLURM and are more closely
+    related to the _Linux kernel's_ concept of threads, processes.
+
+    The _SLURM_ concept of "task" must also not be confused with the _Linux kernel's_
+    usage of the same terminology to refer to the basic unit of scheduling - roughly a thread.
+
 ## Basic Usage
 
 The SLURM [documentation](https://slurm.schedmd.com/documentation.html)
@@ -10,7 +131,7 @@ Below are some basic examples of how to use SLURM.
 
 ### Submitting jobs
 
-### Batch job
+#### Batch job
 
 In order to submit a batch job, you have to create a script containing the main
 command(s) you would like to execute on the allocated resources/nodes.
@@ -40,7 +161,8 @@ The *working directory* of the job will be the one where your executed `sbatch`.
     Slurm directives can be specified on the command line alongside ``sbatch`` or
     inside the job script with a line starting with ``#SBATCH``.
 
-### Interactive job
+
+#### Interactive job
 
 Workload managers usually run batch jobs to avoid having to watch its
 progression and let the scheduler run it as soon as resources are available. If
@@ -64,7 +186,7 @@ resources set in SLURM (1 task/1 CPU).  `srun` accepts the same arguments as
 without more info but it gives more flexibility if for example you want to get
 an allocation on multiple nodes.
 
-### Job submission arguments
+#### Job submission arguments
 
 In order to accurately select the resources for your job, several arguments are
 available. The most important ones are:
@@ -216,7 +338,7 @@ understanding GPU availability:
 | `long`             | Long-running jobs (7 days max) that can tolerate preemption.           | All GPU types **except H100** |
 | `*-cpu`            | CPU-only jobs (no GPU required).                                       | N/A (CPU-only nodes) |
 
-## Information on partitions/nodes
+#### Information on partitions/nodes
 
 [`sinfo`](https://slurm.schedmd.com/sinfo.html) provides most of the
 information about available nodes and partitions/queues to submit jobs to.

@@ -71,14 +71,14 @@ and we'll take a look at it!
                 ? `${base}${separator}h=${encodeURIComponent(currentQuery)}`
                 : base;
             const url = hash ? `${urlWithQuery}#${hash}` : urlWithQuery;
-            return html`<a href="${url}">${children}</a>;`;
+            return html`<a href="${url}">${children}</a>`;
         },
-        // Agent Studio configuration
-        askAi: {
-            assistantId: "d9b031b9-047c-4b63-a794-010d037dce19",
-            agentStudio: true,
-            // suggestedQuestions: true,
-        },
+        // // Agent Studio configuration
+        // askAi: {
+        //     assistantId: "d9b031b9-047c-4b63-a794-010d037dce19",
+        //     agentStudio: true,
+        //     // suggestedQuestions: true,
+        // },
         theme: theme,
     });
 
