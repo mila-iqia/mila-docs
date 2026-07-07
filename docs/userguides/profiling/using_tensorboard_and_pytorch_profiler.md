@@ -143,7 +143,7 @@ profiler.step()
 profiler.stop()
 ```
 
-This results in the following code (ready for use):
+Putting all of this together, here is an example you can run directly:
 ```python
 import os
 import torch
