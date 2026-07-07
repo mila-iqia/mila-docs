@@ -14,6 +14,7 @@ copyright: >
 watch:
   - includes
 theme:
+  logo: _static/images/mila.png
   icon:
     admonition:
       wip: fontawesome/solid/brush
