@@ -143,6 +143,7 @@ profiler.step()
 profiler.stop()
 ```
 
+### Ready-for-use code
 Putting all of this together, here is an example you can run directly:
 ```python
 import os
@@ -204,56 +205,7 @@ Launching the example locally is done through the following steps:
 5. Access Tensorboard visualization
 
 ### Write the experiment code
-We use the code explained in [the previous section](#write-a-code-example).
-
-=== "experiment.py"
-    ```python
-    import os
-    import torch
-    # Import Pytorch profiler
-    import torch.profiler
-
-
-    # Linear regression training example
-    x = torch.arange(-5, 5, 0.1).view(-1, 1)
-    y = -5 * x + 0.1 * torch.randn(x.size())
-
-    model = torch.nn.Linear(1, 1)
-    criterion = torch.nn.MSELoss()
-    optimizer = torch.optim.SGD(model.parameters(), lr = 0.1)
-
-    # Define in which folder we want the results to be stored
-    # (if the folder does not exist, it is created)
-    scratch_path = os.environ.get("SCRATCH")
-    job_id = os.environ.get("SLURM_JOB_ID")
-    folder_name = f"{scratch_path}$/runs/{job_id}_profiling"
-
-    profiler = torch.profiler.profile(
-                schedule=torch.profiler.schedule(wait=1, warmup=1, active=3, repeat=2),
-                on_trace_ready=torch.profiler.tensorboard_trace_handler(folder_name),
-                record_shapes=True,
-                with_stack=True)
-
-    # Start the profiler
-    profiler.start()
-
-    # While the model is training
-    def train_model(iter):
-        for epoch in range(iter):
-            y1 = model(x)
-            loss = criterion(y1, y)
-            optimizer.zero_grad()
-            loss.backward()
-            optimizer.step()
-            # Write the metrics while training the model
-            profiler.step()
-
-    # Train the model
-    train_model(10)
-
-    # Stop the profiler when you do not need it anymore
-    profiler.stop()
-    ```
+We use the code explained in [the previous section](#ready-for-use-code).
 
 ### Set up the environment
 To easily set the environment for this example, we use `uv`. If it has already be done,
