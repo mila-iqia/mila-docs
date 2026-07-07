@@ -88,7 +88,7 @@ Grant a collaborator permission to access any **future** files/folders created
 within the shared hierarchy.
 
 ```bash
-setfacl -Rdm user:<collaborator-username>:rwx $SCRATCH/X/Y/Z/
+setfacl -Rdm user:${USER2:?collaborator-username}:rwx $SCRATCH/X/Y/Z/
 ```
 
 ### Granting collaborators access to existing files
@@ -98,7 +98,7 @@ These were created before the new default ACLs were added and did not inherit
 them at creation time.
 
 ```bash
-setfacl -Rm  user:<collaborator-username>:rwx $SCRATCH/X/Y/Z/
+setfacl -Rm user:${USER2:?collaborator-username}:rwx $SCRATCH/X/Y/Z/
 ```
 
 !!! note
@@ -113,9 +113,9 @@ the shared location. This step is non-recursive and must be run for each folder
 on the path to the shared location.
 
 ```bash
-setfacl -m   user:<collaborator-username>:x   $SCRATCH/X/Y/
-setfacl -m   user:<collaborator-username>:x   $SCRATCH/X/
-setfacl -m   user:<collaborator-username>:x   $SCRATCH
+setfacl -m user:${USER2:?collaborator-username}:x $SCRATCH/X/Y/
+setfacl -m user:${USER2:?collaborator-username}:x $SCRATCH/X/
+setfacl -m user:${USER2:?collaborator-username}:x $SCRATCH
 ```
 
 !!! tip
@@ -140,16 +140,16 @@ setfacl -m   user:<collaborator-username>:x   $SCRATCH
 | Goal | Command | Note |
 |------|---------|------|
 | Grant calling user access to future files | `setfacl -Rdm user:$USER:rwx <shared-dir>` | Inheritable default ACL |
-| Grant collaborator access to future files | `setfacl -Rdm user:<collaborator-username>:rwx <shared-dir>` | |
-| Grant collaborator access to existing files | `setfacl -Rm user:<collaborator-username>:rwx <shared-dir>` | No `-d` flag |
-| Grant search on a parent directory | `setfacl -m user:<collaborator-username>:x <parent-dir>` | One per dir level |
+| Grant collaborator access to future files | `setfacl -Rdm user:${USER2:?collaborator-username}:rwx <shared-dir>` | |
+| Grant collaborator access to existing files | `setfacl -Rm user:${USER2:?collaborator-username}:rwx <shared-dir>` | No `-d` flag |
+| Grant search on a parent directory | `setfacl -m user:${USER2:?collaborator-username}:x <parent-dir>` | One per dir level |
 
 ## Removing ACLs
 
 Use the `-x` option of `setfacl` to remove the ACL entry for a specific user.
 
 ```bash
-setfacl -x user:<collaborator-username> $SCRATCH/X/Y/Z/
+setfacl -x user:${USER2:?collaborator-username} $SCRATCH/X/Y/Z/
 ```
 
 To remove all ACL entries for a file or folder, use the `-b` option.
