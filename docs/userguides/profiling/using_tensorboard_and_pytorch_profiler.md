@@ -278,7 +278,7 @@ However, if the metrics have to be monitored "live", we are following these step
 #### Connect to the cluster
 This step is configured and explained in the [Getting started guide](../../../getting_started/).
 
-Here, we arbitrary choose to use the Mila cluster.
+Here, we choose to use the Mila cluster.
 
 ```
 ssh mila
