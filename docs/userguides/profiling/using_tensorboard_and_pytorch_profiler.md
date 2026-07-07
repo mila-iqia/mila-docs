@@ -120,10 +120,11 @@ folder_name = f"{scratch_path}$/runs/{job_id}_profiling"
 #   - record_shapes: 
 #   - with_stack: 
 profiler = torch.profiler.profile(
-        schedule=torch.profiler.schedule(wait=1, warmup=1, active=3, repeat=2),
-        on_trace_ready=torch.profiler.tensorboard_trace_handler(folder_name),
-        record_shapes=True,
-        with_stack=True)
+    schedule=torch.profiler.schedule(wait=1, warmup=1, active=3, repeat=2),
+    on_trace_ready=torch.profiler.tensorboard_trace_handler(folder_name),
+    record_shapes=True,
+    with_stack=True,
+)
 
 # Start the profiler
 profiler.start()
