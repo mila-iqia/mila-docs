@@ -24,6 +24,10 @@
   --docsearch-hit-highlight-color: #662e7d;
 }
 
+.DocSearch-Hit[aria-selected=true] .DocSearch-Hit-action,.DocSearch-Hit[aria-selected=true] .DocSearch-Hit-icon,.DocSearch-Hit[aria-selected=true] mark {
+    color: white !important;
+}
+
 a.announce {
   --md-typeset-a-color: #c38acd;
   --md-accent-fg-color: #dfadf4;
