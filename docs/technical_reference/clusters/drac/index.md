@@ -102,11 +102,7 @@ If the FAQ is of no help, you can contact DRAC renewal support team at
 
 ## Clusters
 
-These clusters are part of the Mila global allocation. Depending on your 
-supervisor's affiliations, you may also have access to other allocations or
-clusters, such as the PAICE clusters described below.
-
-The table below provides information on the allocation for the account
+The table below provides information on the Mila global allocation with the account
 ``rrg-bengioy-ad`` for the period which spans from April 7, 2026 to Spring 2027.
 
 | Cluster                | CPUs | RGUs allocated | # GPU equiv | Model    | Unrestricted internet |
