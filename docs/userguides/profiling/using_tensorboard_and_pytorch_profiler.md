@@ -104,15 +104,17 @@ library. The template of writing metrics is as follows:
 
 ```python
 import os
+from pathlib import Path
 
 # Import Pytorch profiler
 from torch.profiler
 
 # Define in which folder we want the results to be stored
-# (if the folder does not exist, it is created)
-scratch_path = os.environ.get("SCRATCH")
-job_id = os.environ.get("SLURM_JOB_ID")
-folder_name = f"{scratch_path}/runs/{job_id}_profiling"
+SCRATCH = Path(os.environ.get("SCRATCH", "fake_scratch"))
+SLURM_JOB_ID = os.environ.get("SLURM_JOB_ID", "0")
+
+logs_dir = SCRATCH / logs / SLURM_JOB_ID
+logs_dir.mkdir(parents=True, exists_ok=True)
 
 # Initialize the profiler
 #   - schedule:
@@ -121,7 +123,7 @@ folder_name = f"{scratch_path}/runs/{job_id}_profiling"
 #   - with_stack: 
 profiler = torch.profiler.profile(
     schedule=torch.profiler.schedule(wait=1, warmup=1, active=3, repeat=2),
-    on_trace_ready=torch.profiler.tensorboard_trace_handler(folder_name),
+    on_trace_ready=torch.profiler.tensorboard_trace_handler(logs_dir),
     record_shapes=True,
     with_stack=True,
 )
@@ -149,6 +151,7 @@ Putting all of this together, here is an example you can run directly:
 === "experiment.py"
     ```python
     import os
+    from pathlib import Path
     import torch
     # Import Pytorch profiler
     import torch.profiler
@@ -163,16 +166,19 @@ Putting all of this together, here is an example you can run directly:
     optimizer = torch.optim.SGD(model.parameters(), lr = 0.1)
 
     # Define in which folder we want the results to be stored
-    # (if the folder does not exist, it is created)
-    scratch_path = os.environ.get("SCRATCH")
-    job_id = os.environ.get("SLURM_JOB_ID")
-    folder_name = f"{scratch_path}/runs/{job_id}_profiling"
+    SCRATCH = Path(os.environ.get("SCRATCH", "fake_scratch"))
+    SLURM_JOB_ID = os.environ.get("SLURM_JOB_ID", "0")
 
+    logs_dir = SCRATCH / logs / SLURM_JOB_ID
+    logs_dir.mkdir(parents=True, exists_ok=True)
+
+    
     profiler = torch.profiler.profile(
-                schedule=torch.profiler.schedule(wait=1, warmup=1, active=3, repeat=2),
-                on_trace_ready=torch.profiler.tensorboard_trace_handler(folder_name),
-                record_shapes=True,
-                with_stack=True)
+        schedule=torch.profiler.schedule(wait=1, warmup=1, active=3, repeat=2),
+        on_trace_ready=torch.profiler.tensorboard_trace_handler(logs_dir),
+        record_shapes=True,
+        with_stack=True,
+    )
 
     # Start the profiler
     profiler.start()
@@ -261,12 +267,6 @@ The following dashboard appears:
 
 ## Launch this example on the cluster
 
-### When the job has run
-One of the main challenge on the cluster is to retrieve the data. If we want to visualize
-them after the experiment has run, we simply can copy the directory where the metrics are
-logged (`runs` in the previous section).
-
-### While the job is running
 However, if the metrics have to be monitored "live", we are following these steps:
 
 1. Connect to the cluster
@@ -275,19 +275,19 @@ However, if the metrics have to be monitored "live", we are following these step
 4. Launch Tensorboard
 5. Access Tensorboard through port forwarding.
 
-#### Connect to the cluster
+### Connect to the cluster
 This step is configured and explained in the [Getting started guide](../../../getting_started/).
 
 Here, we choose to use the Mila cluster.
 
-```
+```console
 ssh mila
 ```
 
 We are now connected on one of the login node.
 
 
-#### Set up the project for the cluster
+### Set up the project for the cluster
 This could be done through `uv init` and `uv add <dependencies>` such as presented in [Try this example locally - Set up the environment](#set-up-the-environment). However, this is the opportunity to underline the portability of `uv`: we define the environment by copying the `pyproject.toml` file.
 
 Hence, we copy (or write) the following files on the login node:
@@ -295,6 +295,7 @@ Hence, we copy (or write) the following files on the login node:
 === "experiment.py"
     ```python
     import os
+    from pathlib import Path
     import torch
     # Import Pytorch profiler
     import torch.profiler
@@ -309,16 +310,18 @@ Hence, we copy (or write) the following files on the login node:
     optimizer = torch.optim.SGD(model.parameters(), lr = 0.1)
 
     # Define in which folder we want the results to be stored
-    # (if the folder does not exist, it is created)
-    scratch_path = os.environ.get("SCRATCH")
-    job_id = os.environ.get("SLURM_JOB_ID")
-    folder_name = f"{scratch_path}/runs/{job_id}_profiling"
+    SCRATCH = Path(os.environ.get("SCRATCH", "fake_scratch"))
+    SLURM_JOB_ID = os.environ.get("SLURM_JOB_ID", "0")
+    logs_dir = SCRATCH / logs / SLURM_JOB_ID
+    logs_dir.mkdir(parents=True, exists_ok=True)
 
+    
     profiler = torch.profiler.profile(
-                schedule=torch.profiler.schedule(wait=1, warmup=1, active=3, repeat=2),
-                on_trace_ready=torch.profiler.tensorboard_trace_handler(folder_name),
-                record_shapes=True,
-                with_stack=True)
+        schedule=torch.profiler.schedule(wait=1, warmup=1, active=3, repeat=2),
+        on_trace_ready=torch.profiler.tensorboard_trace_handler(logs_dir),
+        record_shapes=True,
+        with_stack=True,
+    )
 
     # Start the profiler
     profiler.start()
@@ -357,11 +360,11 @@ Hence, we copy (or write) the following files on the login node:
     ]
     ```
 
-#### Launch the experiment
+### Launch the experiment
 Launching an experiment on the cluster is explained in the [Launching jobs guide](../../../slurm_guide/). You have two ways to do this:
 
-* an interactive job
-* a batch job.
+* an interactive job with `salloc`
+* a batch job with `sbatch`.
 
 Here, we use the batch job option. Thus, we create a `job.sh` file:
 
@@ -392,7 +395,7 @@ Finally, we launch the job through the command line:
 sbatch job.sh
 ```
 
-#### Launch Tensorboard
+### Launch Tensorboard
 
 !!! warning "Do not launch Tensorboard on the login node"
     Login nodes exist for light interactions, mainly interacting with Slurm.
@@ -442,19 +445,13 @@ Tensorboard through:
 tensorboard --logdir=runs --port=16123
 ```
 
-#### Access Tensorboard through port forwarding
+### Access Tensorboard through port forwarding
 
-Finally, in order to access the dashboard on our localhost, we have to tunnel information
-from the compute node to our local machine.
+Finally, we want to access the dashboard on our localhost. This could be done with two methods:
+* by using `ssh mila-cpu` (**Recommended**)
+* through port forwarding.
 
-Open a terminal on your local machine and use the following command (replacing `cn-a007` by the node name retrieved in the previous step):
 
-```
-ssh -L 16006:localhost:16123 cn-a007.server.mila.quebec
-```
-
-From now on, you should be able to access the Tensorboard dashboard by opening your
-navigator and enter the address `127.0.0.1:16006`.
 
 ---
 
