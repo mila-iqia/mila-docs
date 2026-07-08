@@ -248,7 +248,7 @@ The folder `{scratch_path}/runs/{job_id}_profiling` has been created.
 ### Launch Tensorboard
 Tensorboard can be launched whether the job is running or has ended, this is done through the command:
 ```console
-uv run tensorboard --logdir=runs --port=6006
+uv run tensorboard --logdir=runs
 ```
 
 <div class="result" style="border:None; padding:0" markdown>
@@ -404,69 +404,63 @@ sbatch job.sh
 
     Thus, Tensorboard must be launched on compute node if launched on the cluster.
 
-As we want to launch Tensorboard on a compute node, we retrieve the name of the node
-on which we are running. This could be done through the following Slurm environment
-variables:
-
-| Slurm environment variable | Description |
-| -------------------------- | ----------- |
-| `$SLURM_NODELIST`          | Contains the full list of compute nodes allocated to the job. |
-| `$SLURMD_NODENAME`         | Identifies the specific, individual node name that is currently executing the script step. |
 
 
-For this example, we do it manually by calling `squeue --me` to check our job status, our job ID and the node name. In the following case:
+Finally, we want to launch Tensorboard and access the dashboard on our localhost. This could be done with two methods:
 
-* the job ID is `9858178`
-* the node is `cn-a007`.
-
-```console
-squeue --me
-```
-
-<div class="result" style="border:None; padding:0" markdown>
-``` linenums="0"
-JOBID     USER    PARTITION           NAME  ST START_TIME             TIME NODES CPUS TRES_PER_N MIN_MEM NODELIST (REASON) COMMENT
- 9858178 <USER>         long         job.sh   R 2026-06-17T14:09       1:50     1    1        N/A      2G cn-a007 (None) (null)
-```
-</div>
-
-
-In order to connect to the compute node, we can use:
-
-```console
-srun -s --pty --jobid=9858178 /bin/bash
-```
-(Note to adapt this command to your job ID.)
-
-Once on the compute node (the node name should appear in your terminal), we can launch
-Tensorboard through:
-
-```console
-tensorboard --logdir=runs --port=16123
-```
-
-### Access Tensorboard through port forwarding
-
-Finally, we want to access the dashboard on our localhost. This could be done with two methods:
 * by using `ssh mila-cpu` (**Recommended**)
 * through port forwarding.
 
 
-=== `ssh mila-cpu`
+=== "`ssh mila-cpu` (**Recommended**)"
+
+    You can use this methode if you have already launched `mila code` (cf [Getting started](../../../getting_started/#install-milatools)):
+
+    1. Launch VSCode
+
+    2. Open the "Remote Explorer" in the left menu of VSCode
+
+        ![VSCode profiling 1](_static/images/vscode_profiling_1.png)
+        
+    3. Find `mila-cpu` in the list and click on "Connect in Current Window" or "Connect in New Window"
+
+        ![VSCode profiling 2](_static/images/vscode_profiling_2.png)
+
+        Note: the setup could take a moment. Meanwhile, the following message appears:
+        
+        ![VSCode profiling 3](_static/images/vscode_profiling_3.png)
+
+    4. Open the Terminal and write the command:
+        
+        ```console
+        uvx tensorboard --logdir $SCRATCH/logs
+        ```
+    
+    5. Access the Tensorboard dashboard by opening your browser and enter the address [http://localhost:6006](http://localhost:6006).
 
 
-=== Port forwarding
-    Finally, in order to access the dashboard on our localhost, we have to tunnel information
+=== "Port forwarding"
+
+    Another option to access the dashboard on our localhost is to tunnel information
     from the compute node to our local machine.
 
-    Open a terminal on your local machine and use the following command (replacing ``cn-a007` by the node name retrieved in the previous step):
+    1. Launch Tensoboard **on a compute node** by using the command:
 
-    ```console
-    ssh -L 16006:localhost:16123 cn-a007.server.mila.quebec
-    ```
+        ```console
+        uvx tensorboard --logdir $SCRATCH/logs
+        ```
 
-    From now on, you should be able to access the Tensorboard dashboard by opening your
-    navigator and enter the address `127.0.0.1:16006`.
+    2. Open a terminal on your local machine and use the following command (replacing `cn-f003` by the node name where Tensorboard has been launched):
+
+        ```console
+        ssh -L 6006:localhost:6006 cn-f003.server.mila.quebec
+        ```
+
+    3. Access the Tensorboard dashboard by opening your browser and enter the address [http://localhost:6006](http://localhost:6006).
+
+    !!! tip "Changing ports"
+        Here, `6006` is the default port for Tensorboard. It can be changed when Tensorboard is launched, by using the parameter `--port`.
+        In this case, the ports in the port forwarding should be changed too.
 
 ---
 
