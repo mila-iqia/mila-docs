@@ -12,7 +12,7 @@ organisation](https://alliancecan.ca/) (DRAC, or the Alliance). These clusters
 are to be used for larger experiments having many jobs, multi-node computation
 and/or multi-GPU jobs.
 
-DRAC also collaborates with the [CIFAR AI Chairs](https://www.cifar.ca/ai-chairs)
+DRAC also collaborates with the [CIFAR AI Chairs](https://cifar.ca/ai/)
 to provide clusters dedicated to AI research, called the Pan-Canadian AI Compute
 Environment (PAICE) clusters. 
 See [PAICE Clusters](../paice/index.md) for more information.
