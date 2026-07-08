@@ -9,7 +9,7 @@ description: Access and use the Pan-Canadian AI Compute Environment (PAICE)
 The PAICE (Pan-Canadian AI Compute Environment) clusters are part of the
 [Digital Research Alliance of Canada](https://alliancecan.ca/) (DRAC)
 infrastructure, dedicated exclusively to AI research and reserved for
-[CIFAR AI Chairs]((https://cifar.ca/ai/)). Unlike general DRAC clusters,
+[CIFAR AI Chairs](https://cifar.ca/ai/). Unlike general DRAC clusters,
 PAICE clusters use AIP (Artificial Intelligence Project) allocations and
 follow a tiered access model.
 
