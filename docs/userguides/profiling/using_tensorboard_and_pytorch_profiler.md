@@ -238,7 +238,7 @@ while running the `uv` command.
 ### Launch the experiment
 Once the two files (`experiment.py` and `pyproject.toml`) have been written in your environment, you can
 launch the experiment through the following command:
-```
+```console
 uv run python experiment.py
 ```
 
@@ -247,7 +247,7 @@ The folder `{scratch_path}/runs/{job_id}_profiling` has been created.
 
 ### Launch Tensorboard
 Tensorboard can be launched whether the job is running or has ended, this is done through the command:
-```
+```console
 uv run tensorboard --logdir=runs --port=6006
 ```
 
@@ -391,7 +391,7 @@ Here, we use the batch job option. Thus, we create a `job.sh` file:
 
 Finally, we launch the job through the command line:
 
-```
+```console
 sbatch job.sh
 ```
 
@@ -419,7 +419,7 @@ For this example, we do it manually by calling `squeue --me` to check our job st
 * the job ID is `9858178`
 * the node is `cn-a007`.
 
-```
+```console
 squeue --me
 ```
 
@@ -433,7 +433,7 @@ JOBID     USER    PARTITION           NAME  ST START_TIME             TIME NODES
 
 In order to connect to the compute node, we can use:
 
-```
+```console
 srun -s --pty --jobid=9858178 /bin/bash
 ```
 (Note to adapt this command to your job ID.)
@@ -441,7 +441,7 @@ srun -s --pty --jobid=9858178 /bin/bash
 Once on the compute node (the node name should appear in your terminal), we can launch
 Tensorboard through:
 
-```
+```console
 tensorboard --logdir=runs --port=16123
 ```
 
@@ -452,6 +452,21 @@ Finally, we want to access the dashboard on our localhost. This could be done wi
 * through port forwarding.
 
 
+=== `ssh mila-cpu`
+
+
+=== Port forwarding
+    Finally, in order to access the dashboard on our localhost, we have to tunnel information
+    from the compute node to our local machine.
+
+    Open a terminal on your local machine and use the following command (replacing ``cn-a007` by the node name retrieved in the previous step):
+
+    ```console
+    ssh -L 16006:localhost:16123 cn-a007.server.mila.quebec
+    ```
+
+    From now on, you should be able to access the Tensorboard dashboard by opening your
+    navigator and enter the address `127.0.0.1:16006`.
 
 ---
 
