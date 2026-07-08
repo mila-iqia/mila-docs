@@ -12,6 +12,11 @@ organisation](https://alliancecan.ca/) (DRAC, or the Alliance). These clusters
 are to be used for larger experiments having many jobs, multi-node computation
 and/or multi-GPU jobs.
 
+DRAC also collaborates with the [CIFAR AI Chairs](https://cifar.ca/ai/)
+to provide clusters dedicated to AI research, called the Pan-Canadian AI Compute
+Environment (PAICE) clusters. 
+See [PAICE Clusters](../paice/index.md) for more information.
+
 Clusters of the Alliance are **shared with researchers across the country**,
 in part through a system of **allocations**. Allocations are given by the
 Alliance to selected research groups to ensure a steady availability of
@@ -59,7 +64,7 @@ Please reach out to your sponsor for more infos.
 ![role](../../../_static/images/role.png)
 
 As a Mila researcher, you can request access of all the resources in the *HPC*
-and *Artificial Intelligence* tabs in *Resources > Access Systems* at CCDB.
+tabs in *Resources > Access Systems* at CCDB.
 
 You will need to **wait** for your sponsor to accept your request before being
 able to login to the Alliance clusters. The default accounts are of the form
@@ -102,11 +107,7 @@ If the FAQ is of no help, you can contact DRAC renewal support team at
 
 ## Clusters
 
-These clusters are part of the Mila global allocation. Depending on your 
-supervisor's affiliations, you may also have access to other allocations or
-clusters, such as the PAICE clusters described below.
-
-The table below provides information on the allocation for the account
+The table below provides information on the Mila global allocation with the account
 ``rrg-bengioy-ad`` for the period which spans from April 7, 2026 to Spring 2027.
 
 | Cluster                | CPUs | RGUs allocated | # GPU equiv | Model    | Unrestricted internet |
