@@ -5,6 +5,10 @@ description: Ask for a resource allocation and launch tasks on the cluster.
 
 # Understanding Slurm
 
+This guide introduces the core Slurm entities — jobs, steps and tasks — and
+puts them into practice: request an interactive allocation, run tasks on it
+with `srun`, then reproduce the same example as a batch job with `sbatch`.
+
 ## Before you begin
 
 <div class="grid cards" markdown>
@@ -61,9 +65,9 @@ In short, two types of nodes matter here:
 | Type of node | Use |
 | ------------ | --- |
 | Login node   | Used to connect to the cluster and manage jobs |
-| Compute node | Where jobs run; the allocation requested when a job is launched is provided from them |
+| Compute node | Where jobs run; provides the resources requested by a job |
 
-??? warning "Do not run jobs on login nodes"
+???+ warning "Do not run jobs on login nodes"
     Login nodes are entry points to the cluster. Slurm commands (`sbatch`,
     `sinfo`, `squeue`, etc.) can be called from there, but computing scripts
     must be submitted through Slurm to obtain the requested resources, rather
@@ -79,7 +83,7 @@ This guide focuses on three Slurm commands:
 | `salloc` | Interactive job | Obtain a Slurm job allocation (a set of nodes), execute a command, and then release the allocation when the command is finished | From a login node |
 | `srun`   | Step :material-information-outline:{ title="srun can also be used to directly submit jobs, but this is not recommended" } | Run tasks | From a job |
 
-Submitting tasks is done through two steps:
+Submitting tasks takes two steps:
 
 1. Request a resource allocation by submitting a job (`sbatch` or `salloc`).
 2. Launch commands as tasks within this resource allocation (`srun`).
@@ -99,13 +103,13 @@ mila`, then requests the allocation with `salloc`.
     `--salloc` (everything after `--salloc` is forwarded to Slurm):
 
     ```bash
-    mila code --salloc --ntasks=4 --nodes=2 --mem=2G --time=00:30:00
+    mila code --salloc --nodes=2 --ntasks-per-node=2 --mem=2G --time=00:30:00
     ```
     <div class="result" style="border:None; padding:0" markdown>
     ``` linenums="0"
     [17:35:21] Checking disk quota on $HOME...                                                                                                disk_quota.py:31
     [17:35:27] Disk usage: 85.34 / 100.00 GiB and 794022 / 1048576 files                                                                      disk_quota.py:211
-    [17:35:29] (mila) $ cd $SCRATCH && salloc --ntasks=4 --nodes=2 --mem=2G --time=00:30:00 --job-name=mila-code                              compute_node.py:293
+    [17:35:29] (mila) $ cd $SCRATCH && salloc --nodes=2 --ntasks-per-node=2 --mem=2G --time=00:30:00 --job-name=mila-code                    compute_node.py:293
     salloc: --------------------------------------------------------------------------------------------------
     salloc: # Using default long-cpu partition (CPU-only)
     salloc: --------------------------------------------------------------------------------------------------
@@ -130,7 +134,7 @@ mila`, then requests the allocation with `salloc`.
     resources are available:
 
     ```bash
-    salloc --ntasks=4 --nodes=2 --mem=2G --time=00:30:00
+    salloc --nodes=2 --ntasks-per-node=2 --mem=2G --time=00:30:00
     ```
     <div class="result" style="border:None; padding:0" markdown>
     ``` linenums="0"
@@ -150,8 +154,9 @@ example) and the nodes the allocation runs on (cn-f001 and cn-f002). The
 resource allocation is now ready.
 
 ??? info "What the allocation flags mean"
-    * `--ntasks` means that `srun` invokes 4 tasks
     * `--nodes` means 2 nodes are requested for the tasks to run on
+    * `--ntasks-per-node` means each node runs 2 tasks, so `srun` invokes
+      4 tasks in total
     * `--mem` specifies the real memory required per node. `--mem-per-gpu` or
       `--mem-per-cpu` can be used instead
     * `--time` asks for a 30-minute allocation. Setting it is good practice: an
@@ -169,48 +174,60 @@ resource allocation is now ready.
 Run the following in the shell on the allocation — the VSCode integrated
 terminal, or the `salloc` session in the terminal workflow.
 
-=== "Steps"
+Running `hostname` reports where the process calling the command runs:
 
-    Running `hostname` reports where the process calling the command runs:
+```bash
+hostname
+```
+<div class="result" style="border:None; padding:0" markdown>
+``` linenums="0"
+cn-f001.server.mila.quebec
+```
+</div>
 
-    ```bash
-    hostname
-    ```
-    <div class="result" style="border:None; padding:0" markdown>
+Run steps and tasks with `srun`:
+
+```bash
+srun hostname
+```
+<div class="result" style="border:None; padding:0" markdown>
+``` linenums="0"
+cn-f002.server.mila.quebec
+cn-f001.server.mila.quebec
+cn-f002.server.mila.quebec
+cn-f001.server.mila.quebec
+```
+</div>
+
+Each task returned its own result for the `hostname` command.
+
+In this example:
+
+* two tasks ran on the node `cn-f001`
+* two tasks ran on the node `cn-f002`
+
+??? info "`--ntasks`: requesting a total instead of a shape"
+    The same four tasks can be requested with `--ntasks=4 --nodes=2`, which
+    fixes only the total and lets Slurm spread the tasks unevenly — for
+    example, three tasks on one node and one on the other:
+
     ``` linenums="0"
+    cn-f002.server.mila.quebec
+    cn-f002.server.mila.quebec
+    cn-f002.server.mila.quebec
     cn-f001.server.mila.quebec
     ```
-    </div>
 
-    Running steps and tasks is done with `srun`:
+    `--ntasks-per-node` is the safe default for deep learning and GPU jobs:
 
-    ```bash
-    srun hostname
-    ```
-    <div class="result" style="border:None; padding:0" markdown>
-    ``` linenums="0"
-    cn-f002.server.mila.quebec
-    cn-f002.server.mila.quebec
-    cn-f002.server.mila.quebec
-    cn-f001.server.mila.quebec
-    ```
-    </div>
+    * each process selects its GPU based on its local rank, and a node that
+      receives more tasks than GPUs breaks that binding
+    * `--mem` is allocated per node, so an extra task on a node shrinks the
+      memory available to each task running there
+    * the placement is identical on every run, which keeps failures
+      reproducible
 
-    Each task returned its own result for the `hostname` command.
-
-    In this example:
-
-    * three tasks ran on the node `cn-f002`
-    * one task ran on the node `cn-f001`
-
-    !!! tip
-        For more symmetrical jobs, use the `--ntasks-per-node` parameter instead
-        of `--ntasks`.
-
-        (For instance, `--ntasks-per-node=2` in this case.)
-
-=== "More details"
-
+??? info "More details on `srun` and task placement"
     * Note on the command:
         * `srun hostname` follows the format `srun <command>`. `srun` can also
           take parameters, in the format `srun <parameters> <command>`. See
@@ -218,15 +235,15 @@ terminal, or the `salloc` session in the terminal workflow.
           details.
 
     * Notes on the result:
-        * The `hostname` command ran four times because four tasks were
-          requested when submitting the job through `salloc`.
-        * The four tasks run by `srun` are not necessarily evenly spread among
-          the nodes.
+        * The `hostname` command ran four times because the allocation
+          requests four tasks in total (2 nodes × 2 tasks per node).
+        * The tasks on a node do not finish in a fixed order, so the node
+          names may appear interleaved in the output.
 
 ## Launch a non-interactive job
 
 This section reproduces the same example as before (same parameters and same
-command, `hostname`) and submits the job through the `sbatch` command.
+command, `srun hostname`) and submits the job through the `sbatch` command.
 
 ### Connect to the cluster
 
@@ -263,13 +280,16 @@ parameters used to request the interactive allocation:
 
 ```bash
 #!/bin/bash
-#SBATCH --ntasks=4
 #SBATCH --nodes=2
+#SBATCH --ntasks-per-node=2
 #SBATCH --mem=2G
-#SBATCH --time=00:00:05
+#SBATCH --time=00:30:00
 
-hostname
+srun hostname
 ```
+
+The batch script itself runs once, on the first allocated node; the `srun`
+call launches the four tasks, exactly as in the interactive example.
 
 ### Submit the job
 
@@ -326,15 +346,16 @@ cn-f002.server.mila.quebec
 ## Key concepts
 
 Job
-:   Global commands executed in a requested resource allocation.
+:   A resource allocation on the cluster, together with the steps that run
+    inside it. Created by `sbatch` or `salloc`.
 
 Step
 :   A stage within a job, created by a call to `srun`. A job can contain
     multiple steps, and each step can launch multiple tasks.
 
 Task
-:   Set of commands running on part of an allocation. A job can contain multiple
-    tasks.
+:   One instance of a command run by a step on part of the job's allocation.
+    A step can run multiple tasks.
 
 `mila code`
 :   `milatools` command that requests an allocation and opens VSCode on the
