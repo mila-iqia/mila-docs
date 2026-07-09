@@ -17,32 +17,32 @@ content left to size itself on and its height would collapse. The `&nbsp;` in a
 later column (Mem or beyond, never the 2nd) gives the row real content again,
 restoring its normal height, without breaking the empty-2nd-column detection.
 -->
-| Name                  | GPU Model | Mem    | #   | CPUs | Sockets | Cores/Socket | Memory (GB) | Optimal Bundle (GPU:CPU:RAM) | TmpDisk (TB) | Arch   | Slurm Features         |
-| --------------------- | --------- | ------ | --- | ---- | ------- | ------------ | ----------- | ---------------------------- | ------------ | ------ | ---------------------- |
-| **GPU Compute Nodes** |           | &nbsp; |     |      |         |              |             |                              |              |        |                        |
-| **cn‑a[001‑011]**     | RTX8000   | 48     | 8   | 40   | 2       | 20           | 384         | 1:5:47G                      | 3.6          | x86_64 | turing,48gb            |
-| **cn‑b[001‑005]**     | V100      | 32     | 8   | 40   | 2       | 20           | 384         | 1:5:47G                      | 3.6          | x86_64 | volta,nvlink,32gb      |
-| **cn‑c[001‑040]**     | RTX8000   | 48     | 8   | 64   | 2       | 32           | 384         | 1:8:47G                      | 3            | x86_64 | turing,48gb            |
-| **cn‑g[001‑029]**     | A100      | 80     | 4   | 64   | 2       | 32           | 1024        | 1:16:248G                    | 7            | x86_64 | ampere,nvlink,80gb     |
-| **cn‑i001**           | A100      | 80     | 4   | 64   | 2       | 32           | 1024        | 1:16:250G                    | 3.6          | x86_64 | ampere,80gb            |
-| **cn‑j001**           | A6000     | 48     | 8   | 64   | 2       | 32           | 1024        | 1:16:125G                    | 3.6          | x86_64 | ampere,48gb            |
-| **cn‑k[001‑004]**     | A100      | 40     | 4   | 48   | 2       | 24           | 512         | 1:12:125G                    | 3.6          | x86_64 | ampere,nvlink,40gb     |
-| **cn‑l[001‑091]**     | L40S      | 48     | 4   | 48   | 2       | 24           | 1024        | 1:12:250G                    | 7            | x86_64 | lovelace,48gb          |
-| **cn‑n[001‑002]**     | H100      | 80     | 8   | 192  | 2       | 96           | 2048        | 1:24:268G                    | 35           | x86_64 | hopper,nvlink,80gb     |
-| **DGX Systems**       |           | &nbsp; |     |      |         |              |             |                              |              |        |                        |
-| **cn‑d[001‑002]**     | A100      | 40     | 8   | 128  | 2       | 64           | 1024        | 1:16:124G                    | 14           | x86_64 | ampere,nvlink,dgx,40gb |
-| **cn‑d[003‑004]**     | A100      | 80     | 8   | 128  | 2       | 64           | 2048        | 1:16:250G                    | 28           | x86_64 | ampere,nvlink,dgx,80gb |
-| **cn‑e[002‑003]**     | V100      | 32     | 8   | 40   | 2       | 20           | 512         | 1:5:62G                      | 7            | x86_64 | volta,nvlink,dgx,32gb  |
-| **CPU Compute Nodes** |           | &nbsp; |     |      |         |              |             |                              |              |        |                        |
-| **cn‑f[001‑004]**     | -         | -      | -   | 32   | 1       | 32           | 256         | 0:1:7G                       | 10           | x86_64 | rome                   |
-| **cn‑h[001‑004]**     | -         | -      | -   | 64   | 2       | 32           | 768         | 0:1:11G                      | 7            | x86_64 | milan                  |
-| **cn‑m[001‑004]**     | -         | -      | -   | 96   | 2       | 48           | 1024        | 0:1:10G                      | 7            | x86_64 | sapphire               |
+All nodes below use the x86_64 architecture.
+
+| Name                  | GPU Model | Mem    | #   | CPUs | Sockets | Cores/Socket | Memory (GB) | Optimal Bundle (GPU:CPU:RAM) | TmpDisk (TB) | Slurm Features         |
+| --------------------- | --------- | ------ | --- | ---- | ------- | ------------ | ----------- | ---------------------------- | ------------ | ---------------------- |
+| **GPU Compute Nodes** |           | &nbsp; |     |      |         |              |             |                              |              |                        |
+| **cn‑a[001‑011]**     | RTX8000   | 48     | 8   | 40   | 2       | 20           | 384         | 1:5:47G                      | 3.6          | turing,48gb            |
+| **cn‑b[001‑005]**     | V100      | 32     | 8   | 40   | 2       | 20           | 384         | 1:5:47G                      | 3.6          | volta,nvlink,32gb      |
+| **cn‑c[001‑040]**     | RTX8000   | 48     | 8   | 64   | 2       | 32           | 384         | 1:8:47G                      | 3            | turing,48gb            |
+| **cn‑g[001‑029]**     | A100      | 80     | 4   | 64   | 2       | 32           | 1024        | 1:16:248G                    | 7            | ampere,nvlink,80gb     |
+| **cn‑i001**           | A100      | 80     | 4   | 64   | 2       | 32           | 1024        | 1:16:250G                    | 3.6          | ampere,80gb            |
+| **cn‑j001**           | A6000     | 48     | 8   | 64   | 2       | 32           | 1024        | 1:16:125G                    | 3.6          | ampere,48gb            |
+| **cn‑k[001‑004]**     | A100      | 40     | 4   | 48   | 2       | 24           | 512         | 1:12:125G                    | 3.6          | ampere,nvlink,40gb     |
+| **cn‑l[001‑091]**     | L40S      | 48     | 4   | 48   | 2       | 24           | 1024        | 1:12:250G                    | 7            | lovelace,48gb          |
+| **cn‑n[001‑002]**     | H100      | 80     | 8   | 192  | 2       | 96           | 2048        | 1:24:268G                    | 35           | hopper,nvlink,80gb     |
+| **DGX Systems**       |           | &nbsp; |     |      |         |              |             |                              |              |                        |
+| **cn‑d[001‑002]**     | A100      | 40     | 8   | 128  | 2       | 64           | 1024        | 1:16:124G                    | 14           | ampere,nvlink,dgx,40gb |
+| **cn‑d[003‑004]**     | A100      | 80     | 8   | 128  | 2       | 64           | 2048        | 1:16:250G                    | 28           | ampere,nvlink,dgx,80gb |
+| **cn‑e[002‑003]**     | V100      | 32     | 8   | 40   | 2       | 20           | 512         | 1:5:62G                      | 7            | volta,nvlink,dgx,32gb  |
+| **CPU Compute Nodes** |           | &nbsp; |     |      |         |              |             |                              |              |                        |
+| **cn‑f[001‑004]**     | -         | -      | -   | 32   | 1       | 32           | 256         | 0:1:7G                       | 10           | rome                   |
+| **cn‑h[001‑004]**     | -         | -      | -   | 64   | 2       | 32           | 768         | 0:1:11G                      | 7            | milan                  |
+| **cn‑m[001‑004]**     | -         | -      | -   | 96   | 2       | 48           | 1024        | 0:1:10G                      | 7            | sapphire               |
 
 ## Special nodes and outliers
 
-
 ### DGX A100
-
 
 DGX A100 nodes are NVIDIA appliances with 8 NVIDIA A100 Tensor Core GPUs. Each
 GPU has either 40 GB or 80 GB of memory, for a total of 320 GB or 640 GB per
@@ -51,14 +51,14 @@ point-to-point bandwidth (unidirectional) and a full bisection bandwidth of 4.8
 TB/s (bidirectional). See the table above for the specifications of each
 appliance.
 
-In order to run jobs on a DGX A100 with 40GB GPUs, add the flags below to your
+In order to run jobs on a DGX A100 with 40GB GPUs, add the flags below to the
 Slurm commands:
 
 ```bash
 --gres=gpu:a100:<number> --constraint="dgx&ampere"
 ```
 
-In order to run jobs on a DGX A100 with 80GB GPUs, add the flags below to your
+In order to run jobs on a DGX A100 with 80GB GPUs, add the flags below to the
 Slurm commands:
 
 ```bash
