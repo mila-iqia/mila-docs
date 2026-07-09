@@ -84,6 +84,20 @@ for jobs that are still running or have already completed:
 ```bash
 sacct -j <JOB_ID> --format=JobID,State,ExitCode,Elapsed,MaxRSS,ReqMem
 ```
+<div class="result" style="border:None; padding:0" markdown>
+``` linenums="0"
+JobID             State ExitCode    Elapsed     MaxRSS     ReqMem
+------------ ---------- -------- ---------- ---------- ----------
+9321166       COMPLETED      0:0   00:00:07                    2G
+9321166.bat+  COMPLETED      0:0   00:00:07      1428K
+9321166.ext+  COMPLETED      0:0   00:00:07       112K
+9321166.0     COMPLETED      0:0   00:00:02      1352K
+```
+</div>
+
+Each job lists one line per step (here the batch step, the housekeeping
+`extern` step and the `srun hostname` step, numbered `0`); per-step fields
+such as `MaxRSS` appear on the step lines.
 
 The `--format` flag selects which columns to display. The fields above answer
 the questions that matter most after a job ends:
@@ -144,8 +158,8 @@ options.
 
 By default, a batch job writes both its standard output and standard error to a
 file named `slurm-<JOB_ID>.out` in the directory the job was submitted from
-(see [Retrieve the results](basics.md#retrieve-the-results)). The destination
-can be changed with the
+(see [Retrieve the results](basics.md#retrieve-the-results)). Change the
+destination with the
 [`--output`](https://slurm.schedmd.com/sbatch.html#OPT_output) and
 [`--error`](https://slurm.schedmd.com/sbatch.html#OPT_error) directives:
 
