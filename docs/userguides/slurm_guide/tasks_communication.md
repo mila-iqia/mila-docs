@@ -15,7 +15,12 @@ description: A quick example of multiple tasks synchronizing their output.
     ---
     Use an interactive job to run multiple tasks.
 
-&nbsp;
+-   [:material-monitor-eye:{ .lg .middle } __Monitor and manage jobs__](monitor_manage.md)
+    { .card }
+
+    ---
+    Track jobs through the queue, inspect and cancel them, and read their
+    output.
 
 </div>
 
@@ -25,6 +30,11 @@ description: A quick example of multiple tasks synchronizing their output.
 * Sharing variables between tasks
 
 ## Concept of this example
+
+In plain terms, this example runs four tasks across two nodes. Each task holds
+one number equal to its rank (0, 1, 2 and 3). The tasks add their numbers
+together, and only the first task prints the total (6). Reaching a single total
+requires the tasks to communicate, which is what this example demonstrates.
 
 This example launches a job (using `job_***.sh`) that runs one or more tasks
 (whose instructions are stored in `main_jax.py` or `main_torch.py`) using
@@ -41,8 +51,6 @@ Each example is based on three files:
 
 ### Introducing the different files
 
-See also the ["Launch many jobs" example](../../examples/good_practices/launch_many_jobs/index.md).
-
 === "job_torch.sh"
     ```bash
     #!/bin/bash
@@ -52,14 +60,14 @@ See also the ["Launch many jobs" example](../../examples/good_practices/launch_m
     #SBATCH --mem=8G
     #SBATCH --time=00:01:00
 
-    # These environment variables are used by torch.distributed and should
-    # ideally be set before running the python script, or at the very 
+    # These environment variables are read by the distributed runtime and
+    # should ideally be set before running the python script, or at the very
     # beginning of the python script.
-    
+
     # Master address is the hostname of the first node in the job.
     export MASTER_ADDR=$(scontrol show hostnames "$SLURM_JOB_NODELIST" \
          | head -n 1)
-    # Get a unique port for this job based on the job ID
+    # Derive a per-job port from the last 4 digits of the job ID
     export MASTER_PORT=$(expr 10000 + $(echo -n $SLURM_JOB_ID | tail -c 4))
     export WORLD_SIZE=$SLURM_NTASKS
 
@@ -82,7 +90,7 @@ See also the ["Launch many jobs" example](../../examples/good_practices/launch_m
     # Master address is the hostname of the first node in the job.
     export MASTER_ADDR=$(scontrol show hostnames "$SLURM_JOB_NODELIST" \
          | head -n 1)
-    # Get a unique port for this job based on the job ID
+    # Derive a per-job port from the last 4 digits of the job ID
     export MASTER_PORT=$(expr 10000 + $(echo -n $SLURM_JOB_ID | tail -c 4))
     export WORLD_SIZE=$SLURM_NTASKS
 
@@ -92,22 +100,17 @@ See also the ["Launch many jobs" example](../../examples/good_practices/launch_m
 ??? info "In-depth script explanation on `job_***.sh`"
     **Headers for the resources allocation**
 
-    These are the header and the parameters requested for the resource
-    allocation.
-    ```bash
-    #!/bin/bash
-    #SBATCH --ntasks=4
-    #SBATCH --nodes=2
-    #SBATCH --cpus-per-task=1
-    #SBATCH --mem=8G
-    #SBATCH --time=00:01:00
-    ```
+    The `#SBATCH` header lines request the resource allocation: 4 tasks across 2
+    nodes, 1 CPU per task, 8G of memory and a 1-minute time limit.
 
     **Environment variables**
 
     The environment variables `MASTER_ADDR`, `MASTER_PORT` and `WORLD_SIZE` are
-    defined here and can be retrieved in each task. In Python, retrieving an
-    environment variable value is done as follows:
+    defined here and can be retrieved in each task. `MASTER_PORT` derives a
+    per-job port from the last 4 digits of the job ID (a value in the 10000 to
+    19999 range), so that jobs running at the same time do not collide on the
+    same port. In Python, retrieving an environment variable value is done as
+    follows:
     ```python
     import os # Retrieving an environment variable is done through os.environ
 
@@ -131,9 +134,7 @@ See also the ["Launch many jobs" example](../../examples/good_practices/launch_m
 
 === "main_torch.py"
     ```python
-    import logging
     import os
-    import subprocess
 
     import torch
     import torch.distributed
@@ -151,7 +152,7 @@ See also the ["Launch many jobs" example](../../examples/good_practices/launch_m
 
 
     def main():
-        
+
         group = torch.distributed.init_process_group(
             init_method=f"tcp://{MASTER_ADDR}:{MASTER_PORT}",
             world_size=WORLD_SIZE,
@@ -162,13 +163,13 @@ See also the ["Launch many jobs" example](../../examples/good_practices/launch_m
         x = torch.tensor([float(RANK)], dtype=torch.float32)
         print(f"\n[Node {NODE_INDEX} | Rank {RANK}] x={x[0]}")
 
-        sum = torch.clone(x)
+        total = torch.clone(x)
         torch.distributed.reduce(
-            sum, dst=0, op=torch.distributed.ReduceOp.SUM
+            total, dst=0, op=torch.distributed.ReduceOp.SUM
         )
 
-        if NODE_INDEX == 0 and RANK == 0: # The complete sum is done on the first tasks of the first node
-            print(f"sum={sum[0]}")
+        if NODE_INDEX == 0 and RANK == 0: # The complete sum lands on the first task of the first node
+            print(f"sum={total[0]}")
         torch.distributed.destroy_process_group(group)
 
 
@@ -193,12 +194,11 @@ See also the ["Launch many jobs" example](../../examples/good_practices/launch_m
 
         x = jax.numpy.array([float(RANK)], dtype=jax.numpy.float32) # For each task, x depends on RANK, which is different between all tasks
         print(f"\n[Node {NODE_INDEX} | Rank {RANK}] x={x[0]}")
-        #print(f"{jax.local_devices()=}, {jax.devices()=}")
 
-        # Compute all-reduce to compute the average across all processes.
-        sum = jax.pmap(lambda x: jax.lax.psum(x, 'i'), axis_name='i')(x)
+        # Sum x across all tasks.
+        total = jax.pmap(lambda x: jax.lax.psum(x, 'i'), axis_name='i')(x)
         if NODE_INDEX == 0 and RANK == 0:
-            print(f"sum={sum[0]}")
+            print(f"sum={total[0]}")
 
 
     if __name__ == "__main__":
@@ -217,10 +217,10 @@ See also the ["Launch many jobs" example](../../examples/good_practices/launch_m
     **Environment variables**
 
     Each file retrieves the Slurm environment variables `SLURM_PROCID`,
-    `SLURM_LOCALID`, `SLURM_NTASKS` and `SLURM_NODEID`. Unlike the environment
-    variables defined previously (`MASTER_ADDR`, `MASTER_PORT` and
-    `WORLD_SIZE`), these environment variables are specific to each task. More
-    common Slurm environment variables are listed in [the technical
+    `SLURM_NTASKS` and `SLURM_NODEID`. Unlike the environment variables defined
+    previously (`MASTER_ADDR`, `MASTER_PORT` and `WORLD_SIZE`), these
+    environment variables are specific to each task. More common Slurm
+    environment variables are listed in [the technical
     reference](../../technical_reference/general_theory/slurm.md).
 
     ```python
@@ -229,7 +229,7 @@ See also the ["Launch many jobs" example](../../examples/good_practices/launch_m
     WORLD_SIZE = int(os.environ["SLURM_NTASKS"])
     NODE_INDEX = int(os.environ["SLURM_NODEID"])
     ```
-    
+
     === "What happens in Torch script"
         1. Initialize: in Torch, a group is defined
         2. Create a value, different for each task
@@ -251,7 +251,7 @@ See also the ["Launch many jobs" example](../../examples/good_practices/launch_m
 
     The final sum is printed from the first task of the first node (NODE_INDEX=0
     and RANK=0). This is the task where all the `x` values have been collected.
-    On the other tasks, the `sum` is a partial result.
+    On the other tasks, `total` holds a partial result.
 
 
 === "pyproject.toml (for Pytorch)"
@@ -286,20 +286,36 @@ See also the ["Launch many jobs" example](../../examples/good_practices/launch_m
 
 ### Launching the example
 
-1. Connect to the cluster
+1. Create the three files on the cluster
 
-    ```bash
-    ssh mila
-    ```
+    === "VSCode"
+
+        Open the project on a compute node with `mila code`, or pick `mila-cpu`
+        in the Remote-SSH dropdown, then create `job_***.sh`, `main_***.py` and
+        `pyproject.toml` in the VSCode explorer. See
+        [VSCode](../../toolbox/VSCode.md) and the [Get Started
+        guide](../../getting_started/index.md).
+
+    === "Terminal"
+
+        Connect to the cluster with `ssh mila`, then create the files in
+        `$SCRATCH` with an editor such as `vim`.
+
+        ```bash
+        ssh mila
+        ```
 
 2. Launch the job
 
+    In the VSCode integrated terminal (or a login-node terminal), submit the
+    job:
+
     === "Launch Torch example"
-        
+
         ```bash
         sbatch job_torch.sh
         ```
-    
+
     === "Launch Jax example"
 
         ```bash
@@ -312,6 +328,9 @@ See also the ["Launch many jobs" example](../../examples/good_practices/launch_m
     ```bash
     squeue --me
     ```
+
+    See [Monitor and manage jobs](monitor_manage.md) for how to read the
+    output, inspect the job once it finishes, and cancel it if needed.
 
 4. Retrieve the results
 

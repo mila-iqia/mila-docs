@@ -86,31 +86,48 @@ Submitting tasks is done through two steps:
 
 ## Discover Slurm through an interactive job
 
-### Connect to the cluster
+An interactive job opens a shell directly on the allocated compute nodes. With
+VSCode, a single `mila code` command both connects to the cluster and requests
+the allocation. The equivalent terminal workflow connects first with `ssh
+mila`, then requests the allocation with `salloc`.
 
-See [Verify your connection](../../getting_started/index.md#verify-your-connection)
-for more information on connecting.
+### Request an interactive allocation
 
-=== "Steps"
+=== "VSCode"
 
-    Open a terminal and launch the command:
+    Open the project on a compute node, passing the allocation options after
+    `--salloc` (everything after `--salloc` is forwarded to Slurm):
+
+    ```bash
+    mila code --salloc --ntasks=4 --nodes=2 --mem=2G --time=00:30:00
+    ```
+    <div class="result" style="border:None; padding:0" markdown>
+    ``` linenums="0"
+    [17:35:21] Checking disk quota on $HOME...                                                                                                disk_quota.py:31
+    [17:35:27] Disk usage: 85.34 / 100.00 GiB and 794022 / 1048576 files                                                                      disk_quota.py:211
+    [17:35:29] (mila) $ cd $SCRATCH && salloc --ntasks=4 --nodes=2 --mem=2G --time=00:30:00 --job-name=mila-code                              compute_node.py:293
+    salloc: --------------------------------------------------------------------------------------------------
+    salloc: # Using default long-cpu partition (CPU-only)
+    salloc: --------------------------------------------------------------------------------------------------
+    salloc: Granted job allocation 8888888
+    [17:35:30] Waiting for job 8888888 to start.                                                                                              compute_node.py:315
+    [17:35:31] (localhost) $ code --new-window --wait --remote ssh-remote+cn-f001.server.mila.quebec /home/mila/u/username/                   local_v2.py:55
+    ```
+    </div>
+
+    VSCode opens connected to the first allocated node. Open the integrated
+    terminal (**Terminal → New Terminal**) to run commands on the allocation.
+
+=== "Terminal"
+
+    Connect to the cluster:
+
     ```bash
     ssh mila
     ```
 
-=== "More details"
-
-    This example connects to the Mila cluster. The command `ssh mila` works
-    thanks to the configuration set in `~/.ssh/config`, which can be created by
-    `mila init` (see [the Getting Started guide](../../getting_started/index.md)).
-
-### Submit a job
-
-=== "Steps"
-
-    Submitting a job is like booking an allocation: it requests the desired
-    resources (GPU, CPU, nodes, memory) and sets the experiment conditions. The
-    Slurm scheduler is then in charge of providing an allocation.
+    Then request the allocation. The Slurm scheduler provides it once the
+    resources are available:
 
     ```bash
     salloc --ntasks=4 --nodes=2 --mem=2G --time=00:30:00
@@ -120,38 +137,37 @@ for more information on connecting.
     salloc: --------------------------------------------------------------------------------------------------
     salloc: # Using default long-cpu partition (CPU-only)
     salloc: --------------------------------------------------------------------------------------------------
-    salloc: Pending job allocation 9311988
-    salloc: job 9311988 queued and waiting for resources
+    salloc: Pending job allocation 8888888
+    salloc: job 8888888 queued and waiting for resources
 
-    salloc: Granted job allocation 9311988
+    salloc: Granted job allocation 8888888
     salloc: Nodes cn-f[001-002] are ready for job
     ```
     </div>
 
-    Once the allocation is granted, Slurm reports some information about the
-    job:
+Once the allocation is granted, Slurm reports the Job ID (8888888 in this
+example) and the nodes the allocation runs on (cn-f001 and cn-f002). The
+resource allocation is now ready.
 
-    * the Job ID (9311988 in this example)
-    * the nodes the allocation runs on (cn-f001 and cn-f002 in this example).
-
-    The resource allocation is now ready.
-
-=== "More details"
-
-    * `salloc` means this is an interactive job
+??? info "What the allocation flags mean"
     * `--ntasks` means that `srun` invokes 4 tasks
-    * `--nodes` means 2 nodes are requested for the previously mentioned tasks
-      to run on
+    * `--nodes` means 2 nodes are requested for the tasks to run on
     * `--mem` specifies the real memory required per node. `--mem-per-gpu` or
       `--mem-per-cpu` can be used instead
     * `--time` asks for a 30-minute allocation. Setting it is good practice: an
       interactive job can last up to a week, and forgetting to leave one is a
       common mistake.
 
-    See [salloc documentation](https://slurm.schedmd.com/salloc.html) for more
-    information.
+    Both workflows request the same interactive allocation. `mila code --salloc`
+    runs the same `salloc` under the hood, as shown in its output.
+
+    See the [salloc documentation](https://slurm.schedmd.com/salloc.html) for
+    more information.
 
 ### Inspect where tasks run
+
+Run the following in the shell on the allocation — the VSCode integrated
+terminal, or the `salloc` session in the terminal workflow.
 
 === "Steps"
 
@@ -214,47 +230,50 @@ command, `hostname`) and submits the job through the `sbatch` command.
 
 ### Connect to the cluster
 
-```bash
-ssh mila
-```
+=== "VSCode"
+
+    Open the project on the cluster with `mila code`, or pick `mila-cpu` in the
+    Remote-SSH dropdown for a light editing session. See
+    [VSCode](../../toolbox/VSCode.md).
+
+=== "Terminal"
+
+    ```bash
+    ssh mila
+    ```
 
 ### Write the script
 
-=== "Steps"
-    The script can be created in one of two ways:
+=== "VSCode"
 
-    * Directly on the login node (in the `$SCRATCH` directory or its
-      subdirectories):
-        ```bash
-        cd $SCRATCH
-        vim job.sh
-        ```
-    * On a local computer, then copied to the scratch directory:
-        ```bash
-        scp job.sh mila:/network/scratch/s/user.name
-        ```
+    In the VSCode explorer, browse to `$SCRATCH` (or a subdirectory) and create
+    `job.sh` directly on the cluster.
 
-        replacing `user.name` with the actual username.
+=== "Terminal"
 
-    The content of `job.sh` is:
+    Create the script in `$SCRATCH` on a login node:
 
     ```bash
-    #!/bin/bash
-    #SBATCH --ntasks=4
-    #SBATCH --nodes=2
-    #SBATCH --mem=2G
-    #SBATCH --time=00:00:05
-
-    hostname
+    cd $SCRATCH
+    vim job.sh
     ```
 
-=== "More details"
-    The script begins with the same parameters used with `salloc` for the
-    interactive job.
+The content of `job.sh` is the same in both cases. It begins with the same
+parameters used to request the interactive allocation:
+
+```bash
+#!/bin/bash
+#SBATCH --ntasks=4
+#SBATCH --nodes=2
+#SBATCH --mem=2G
+#SBATCH --time=00:00:05
+
+hostname
+```
 
 ### Submit the job
 
-From the login node, run:
+In the VSCode integrated terminal (or a login-node terminal), submit the job:
 
 ```bash
 sbatch job.sh
@@ -309,23 +328,35 @@ cn-f002.server.mila.quebec
 Job
 :   Global commands executed in a requested resource allocation.
 
+Step
+:   A stage within a job, created by a call to `srun`. A job can contain
+    multiple steps, and each step can launch multiple tasks.
+
 Task
 :   Set of commands running on part of an allocation. A job can contain multiple
     tasks.
 
+`mila code`
+:   `milatools` command that requests an allocation and opens VSCode on the
+    compute node. Options passed after `--salloc` are forwarded to Slurm.
+
+`mila-cpu`
+:   SSH remote added by `mila init` that auto-allocates a CPU compute node for
+    light editing from the VSCode Remote-SSH dropdown.
+
 ## Next step
 
-With multiple commands (such as `hostname`) running in a Slurm job — each with
-its own resources and environment variables — the next step covers the
-fundamentals of distributed programs such as distributed training in PyTorch.
+With a job submitted through `salloc` or `sbatch`, the next step covers how to
+follow it through the queue, inspect and cancel it, and resolve common failures.
 
 <div class="grid cards" markdown>
 
--   [:material-shuffle-variant:{ .lg .middle } __Synchronizing multiple tasks__](tasks_communication.md)
+-   [:material-monitor-eye:{ .lg .middle } __Monitor and manage jobs__](monitor_manage.md)
     { .card }
 
     ---
-    Synchronize the output of multiple tasks running on different nodes.
+    Track jobs through the queue, inspect and cancel them, read their output,
+    and resolve common failures.
 
 &nbsp;
 
