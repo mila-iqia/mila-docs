@@ -1,31 +1,42 @@
 # Node profile description
 
 <!-- Je trouve cela un peu futile de maintenir cette documentation à jour
-manuellement.  Peut-être pourrions nous créer dans ce dossier des sripts qui
+manuellement. Peut-être pourrions nous créer dans ce dossier des sripts qui
 pourraient créer une entrée RST et qui pourraient être exécutés sur un noeud au
-Mila pour les mises à jour. -->
-<!-- TODO: Maybe add the tablesort feature of mkdocs: https://squidfunk.github.io/mkdocs-material/reference/data-tables/#sortable-tables -->
-
-| Name                  | GPU Model | Mem | #   | CPUs | Sockets | Cores/Socket | Memory (GB) | Optimal Bundle (GPU:CPU:RAM) | TmpDisk (TB) | Arch   | Slurm Features         |
-| --------------------- | --------- | --- | --- | ---- | ------- | ------------ | ----------- | ---------------------------- | ------------ | ------ | ---------------------- |
-| **GPU Compute Nodes** |           |     |     |      |         |              |             |                              |              |        |                        |
-| **cn-a[001-011]**     | RTX8000   | 48  | 8   | 40   | 2       | 20           | 384         | 1:5:47G                      | 3.6          | x86_64 | turing,48gb            |
-| **cn-b[001-005]**     | V100      | 32  | 8   | 40   | 2       | 20           | 384         | 1:5:47G                      | 3.6          | x86_64 | volta,nvlink,32gb      |
-| **cn-c[001-040]**     | RTX8000   | 48  | 8   | 64   | 2       | 32           | 384         | 1:8:47G                      | 3            | x86_64 | turing,48gb            |
-| **cn-g[001-029]**     | A100      | 80  | 4   | 64   | 2       | 32           | 1024        | 1:16:248G                    | 7            | x86_64 | ampere,nvlink,80gb     |
-| **cn-i001**           | A100      | 80  | 4   | 64   | 2       | 32           | 1024        | 1:16:250G                    | 3.6          | x86_64 | ampere,80gb            |
-| **cn-j001**           | A6000     | 48  | 8   | 64   | 2       | 32           | 1024        | 1:16:125G                    | 3.6          | x86_64 | ampere,48gb            |
-| **cn-k[001-004]**     | A100      | 40  | 4   | 48   | 2       | 24           | 512         | 1:12:125G                    | 3.6          | x86_64 | ampere,nvlink,40gb     |
-| **cn-l[001-091]**     | L40S      | 48  | 4   | 48   | 2       | 24           | 1024        | 1:12:250G                    | 7            | x86_64 | lovelace,48gb          |
-| **cn-n[001-002]**     | H100      | 80  | 8   | 192  | 2       | 96           | 2048        | 1:24:268G                    | 35           | x86_64 | hopper,nvlink,80gb     |
-| **DGX Systems**       |           |     |     |      |         |              |             |                              |              |        |                        |
-| **cn-d[001-002]**     | A100      | 40  | 8   | 128  | 2       | 64           | 1024        | 1:16:124G                    | 14           | x86_64 | ampere,nvlink,dgx,40gb |
-| **cn-d[003-004]**     | A100      | 80  | 8   | 128  | 2       | 64           | 2048        | 1:16:250G                    | 28           | x86_64 | ampere,nvlink,dgx,80gb |
-| **cn-e[002-003]**     | V100      | 32  | 8   | 40   | 2       | 20           | 512         | 1:5:62G                      | 7            | x86_64 | volta,nvlink,dgx,32gb  |
-| **CPU Compute Nodes** |           |     |     |      |         |              |             |                              |              |        |                        |
-| **cn-f[001-004]**     | -         | -   | -   | 32   | 1       | 32           | 256         | 0:1:7G                       | 10           | x86_64 | rome                   |
-| **cn-h[001-004]**     | -         | -   | -   | 64   | 2       | 32           | 768         | 0:1:11G                      | 7            | x86_64 | milan                  |
-| **cn-m[001-004]**     | -         | -   | -   | 96   | 2       | 48           | 1024        | 0:1:10G                      | 7            | x86_64 | sapphire               |
+Mila pour les mises à jour.
+-->
+<!-- TODO: Maybe add the tablesort feature of mkdocs:
+https://squidfunk.github.io/mkdocs-material/reference/data-tables/#sortable-tables
+-->
+<!-- Category label rows (e.g. "GPU Compute Nodes") are styled in extra.css: the
+label text is taken out of normal flow with `position: absolute` so it can
+visually overflow across the row, and the row is detected via the
+`td:nth-child(2):empty` selector, so the 2nd column (GPU Model) must stay truly
+empty. With the label text out of flow and column 2 empty, the row has no real
+content left to size itself on and its height would collapse. The `&nbsp;` in a
+later column (Mem or beyond, never the 2nd) gives the row real content again,
+restoring its normal height, without breaking the empty-2nd-column detection.
+-->
+| Name                  | GPU Model | Mem    | #   | CPUs | Sockets | Cores/Socket | Memory (GB) | Optimal Bundle (GPU:CPU:RAM) | TmpDisk (TB) | Arch   | Slurm Features         |
+| --------------------- | --------- | ------ | --- | ---- | ------- | ------------ | ----------- | ---------------------------- | ------------ | ------ | ---------------------- |
+| **GPU Compute Nodes** |           | &nbsp; |     |      |         |              |             |                              |              |        |                        |
+| **cn‑a[001‑011]**     | RTX8000   | 48     | 8   | 40   | 2       | 20           | 384         | 1:5:47G                      | 3.6          | x86_64 | turing,48gb            |
+| **cn‑b[001‑005]**     | V100      | 32     | 8   | 40   | 2       | 20           | 384         | 1:5:47G                      | 3.6          | x86_64 | volta,nvlink,32gb      |
+| **cn‑c[001‑040]**     | RTX8000   | 48     | 8   | 64   | 2       | 32           | 384         | 1:8:47G                      | 3            | x86_64 | turing,48gb            |
+| **cn‑g[001‑029]**     | A100      | 80     | 4   | 64   | 2       | 32           | 1024        | 1:16:248G                    | 7            | x86_64 | ampere,nvlink,80gb     |
+| **cn‑i001**           | A100      | 80     | 4   | 64   | 2       | 32           | 1024        | 1:16:250G                    | 3.6          | x86_64 | ampere,80gb            |
+| **cn‑j001**           | A6000     | 48     | 8   | 64   | 2       | 32           | 1024        | 1:16:125G                    | 3.6          | x86_64 | ampere,48gb            |
+| **cn‑k[001‑004]**     | A100      | 40     | 4   | 48   | 2       | 24           | 512         | 1:12:125G                    | 3.6          | x86_64 | ampere,nvlink,40gb     |
+| **cn‑l[001‑091]**     | L40S      | 48     | 4   | 48   | 2       | 24           | 1024        | 1:12:250G                    | 7            | x86_64 | lovelace,48gb          |
+| **cn‑n[001‑002]**     | H100      | 80     | 8   | 192  | 2       | 96           | 2048        | 1:24:268G                    | 35           | x86_64 | hopper,nvlink,80gb     |
+| **DGX Systems**       |           | &nbsp; |     |      |         |              |             |                              |              |        |                        |
+| **cn‑d[001‑002]**     | A100      | 40     | 8   | 128  | 2       | 64           | 1024        | 1:16:124G                    | 14           | x86_64 | ampere,nvlink,dgx,40gb |
+| **cn‑d[003‑004]**     | A100      | 80     | 8   | 128  | 2       | 64           | 2048        | 1:16:250G                    | 28           | x86_64 | ampere,nvlink,dgx,80gb |
+| **cn‑e[002‑003]**     | V100      | 32     | 8   | 40   | 2       | 20           | 512         | 1:5:62G                      | 7            | x86_64 | volta,nvlink,dgx,32gb  |
+| **CPU Compute Nodes** |           | &nbsp; |     |      |         |              |             |                              |              |        |                        |
+| **cn‑f[001‑004]**     | -         | -      | -   | 32   | 1       | 32           | 256         | 0:1:7G                       | 10           | x86_64 | rome                   |
+| **cn‑h[001‑004]**     | -         | -      | -   | 64   | 2       | 32           | 768         | 0:1:11G                      | 7            | x86_64 | milan                  |
+| **cn‑m[001‑004]**     | -         | -      | -   | 96   | 2       | 48           | 1024        | 0:1:10G                      | 7            | x86_64 | sapphire               |
 
 ## Special nodes and outliers
 

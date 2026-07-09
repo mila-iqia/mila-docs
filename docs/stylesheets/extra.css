@@ -86,3 +86,12 @@ a.full-card:hover {
 .DocSearch-SidepanelButton.floating:hover {
     --docsearch-sidepanel-primary-dark: var(--md-primary-fg-color--dark);
 }
+
+.md-typeset table:not([class]) tr:has(td:nth-child(2):empty) td:first-child {
+    position: relative;
+    white-space: nowrap;
+}
+
+.md-typeset table:not([class]) tr:has(td:nth-child(2):empty) td:first-child strong {
+    position: absolute;
+}
