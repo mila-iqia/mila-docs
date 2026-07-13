@@ -222,7 +222,7 @@ while running the `uv` command.
 === "pyproject.toml"
     ```
     [project]
-    name = "tmp1"
+    name = "my_project"
     version = "0.1.0"
     description = "Add your description here"
     readme = "README.md"
