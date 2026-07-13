@@ -242,7 +242,7 @@ launch the experiment through the following command:
 uv run python experiment.py
 ```
 
-The folder `{scratch_path}/runs/{job_id}_profiling` has been created.
+The folder `$SCRATCH/logs/$SLURM_JOB_ID` has been created.
 
 
 ### Launch Tensorboard
@@ -420,20 +420,20 @@ Finally, we want to launch Tensorboard and access the dashboard on our localhost
 
     2. Open the "Remote Explorer" in the left menu of VSCode
 
-        ![VSCode profiling 1](_static/images/vscode_profiling_1.png)
+        ![VSCode profiling 1](../../../_static/images/vscode_profiling_1.png)
         
     3. Find `mila-cpu` in the list and click on "Connect in Current Window" or "Connect in New Window"
 
-        ![VSCode profiling 2](_static/images/vscode_profiling_2.png)
+        ![VSCode profiling 2](../../../_static/images/vscode_profiling_2.png)
 
         Note: the setup could take a moment. Meanwhile, the following message appears:
         
-        ![VSCode profiling 3](_static/images/vscode_profiling_3.png)
+        ![VSCode profiling 3](../../../_static/images/vscode_profiling_3.png)
 
     4. Open the Terminal and write the command:
         
         ```console
-        uvx tensorboard --logdir $SCRATCH/logs
+        uvx tensorboard --logdir $SCRATCH/logs/$SLURM_JOB_ID
         ```
     
     5. Access the Tensorboard dashboard by opening your browser and enter the address [http://localhost:6006](http://localhost:6006).
@@ -447,7 +447,7 @@ Finally, we want to launch Tensorboard and access the dashboard on our localhost
     1. Launch Tensoboard **on a compute node** by using the command:
 
         ```console
-        uvx tensorboard --logdir $SCRATCH/logs
+        uvx tensorboard --logdir $SCRATCH/logs/$SLURM_JOB_ID
         ```
 
     2. Open a terminal on your local machine and use the following command (replacing `cn-f003` by the node name where Tensorboard has been launched):
