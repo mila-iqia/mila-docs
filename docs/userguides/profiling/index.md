@@ -14,7 +14,7 @@ power at Mila is a shared resource, efficient jobs on the cluster bring a
 two-sided advantage:
 
 - **For you:** Eliminating bottlenecks speeds up your training times and helps
-  unearth hidden bugs in your data loaders or model architectures. With properly sized compute requests and efficient utilization, your jobs will be started sooner and will get suseful results faster.
+  unearth hidden bugs in your data loaders or model architectures. With properly sized compute requests and efficient utilization, your jobs will be started sooner and will get useful results faster.
 - **For Mila:** Maximizing efficiency frees up cluster nodes, resulting in
   shorter queue times and more parallel experiments across the institute.
 
