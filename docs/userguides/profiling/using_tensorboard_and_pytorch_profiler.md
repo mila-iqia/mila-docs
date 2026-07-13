@@ -361,7 +361,7 @@ Hence, we copy (or write) the following files on the login node:
     ```
 
 ### Launch the experiment
-Launching an experiment on the cluster is explained in the [Launching jobs guide](../../../slurm_guide/). You have two ways to do this:
+Launching an experiment on the cluster is explained in the [Launching jobs guide](../../../userguides/slurm_guide/). You have two ways to do this:
 
 * an interactive job with `salloc`
 * a batch job with `sbatch`.
