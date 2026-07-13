@@ -255,7 +255,7 @@ TensorBoard 2.20.0 at http://localhost:6006/ (Press CTRL+C to quit)
 </div>
 
 ### Access Tensorboard visualization
-You can access Tensorboard interface through localhost, by using the port defined in the previous step (here `6006`). To this end, open a navigator and enter `127.0.0.1:6006` in the address bar.
+You can access Tensorboard interface through localhost, by using the port defined in the previous step (here `6006`). To this end, open a browser and enter `127.0.0.1:6006` in the address bar.
 
 The following dashboard appears:
 ![Tensorboard dashboard](../../../_static/images/tensorboard_dashboard_usage_one_experiment.png)
