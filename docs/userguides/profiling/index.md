@@ -196,7 +196,7 @@ When a job has run on the cluster, an output file is created. Its default name i
 
 !!! warning "Tensorboard should not be launched on login nodes"
 
-An example of Tensorboard application on the cluster is describe in the [Visualizing usage with Pytorch profiler and Tensorboard guide](../../userguides/profiling/using_tensorboard_and_pytorch_profiler).
+An example of Tensorboard application on the cluster is described in the [Visualizing usage with Pytorch profiler and Tensorboard guide](../../userguides/profiling/using_tensorboard_and_pytorch_profiler).
 
 
 ### Method E: Clusters portals
