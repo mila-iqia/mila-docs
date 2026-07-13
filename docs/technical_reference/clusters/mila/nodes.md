@@ -1,3 +1,13 @@
+---
+title: Node profile description
+
+description: Overview of the nodes of the Mila cluster.
+
+hide:
+  - toc
+ 
+---  
+  
 # Node profile description
 
 <!-- Je trouve cela un peu futile de maintenir cette documentation à jour
