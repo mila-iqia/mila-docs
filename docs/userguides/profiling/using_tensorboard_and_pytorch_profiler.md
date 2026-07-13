@@ -113,7 +113,7 @@ from torch.profiler
 SCRATCH = Path(os.environ.get("SCRATCH", "fake_scratch"))
 SLURM_JOB_ID = os.environ.get("SLURM_JOB_ID", "0")
 
-logs_dir = SCRATCH / logs / SLURM_JOB_ID
+logs_dir = SCRATCH / "logs" / SLURM_JOB_ID
 logs_dir.mkdir(parents=True, exists_ok=True)
 
 # Initialize the profiler
@@ -169,7 +169,7 @@ Putting all of this together, here is an example you can run directly:
     SCRATCH = Path(os.environ.get("SCRATCH", "fake_scratch"))
     SLURM_JOB_ID = os.environ.get("SLURM_JOB_ID", "0")
 
-    logs_dir = SCRATCH / logs / SLURM_JOB_ID
+    logs_dir = SCRATCH / "logs" / SLURM_JOB_ID
     logs_dir.mkdir(parents=True, exists_ok=True)
 
     
@@ -312,7 +312,7 @@ Hence, we copy (or write) the following files on the login node:
     # Define in which folder we want the results to be stored
     SCRATCH = Path(os.environ.get("SCRATCH", "fake_scratch"))
     SLURM_JOB_ID = os.environ.get("SLURM_JOB_ID", "0")
-    logs_dir = SCRATCH / logs / SLURM_JOB_ID
+    logs_dir = SCRATCH / "logs" / SLURM_JOB_ID
     logs_dir.mkdir(parents=True, exists_ok=True)
 
     
