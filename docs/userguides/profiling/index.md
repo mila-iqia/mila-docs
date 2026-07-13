@@ -207,7 +207,7 @@ Here is a quick overview of the clusters and their associated portals (if applic
 
 | Clusters | Maintainer | Portal |
 | -------- | ---------- | ------ |
-| [Mila](mila) | Mila | - |
+| [Mila](../../technical_reference/clusters/mila) | Mila | - |
 | [TamIA](https://docs.alliancecan.ca/wiki/TamIA/en) | PAICE | [TamIA portal](https://portail.tamia.ecpia.ca/) |
 | [Killarney](https://docs.alliancecan.ca/wiki/Killarney/en) | PAICE | - |
 | [Vulcan](https://docs.alliancecan.ca/wiki/Vulcan/en) | PAICE | [Vulcan portal](https://portal.vulcan.alliancecan.ca/) |
