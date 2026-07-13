@@ -107,7 +107,7 @@ import os
 from pathlib import Path
 
 # Import Pytorch profiler
-from torch.profiler
+import torch.profiler
 
 # Define in which folder we want the results to be stored
 SCRATCH = Path(os.environ.get("SCRATCH", "fake_scratch"))
