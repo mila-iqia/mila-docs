@@ -117,10 +117,6 @@ logs_dir = SCRATCH / "logs" / SLURM_JOB_ID
 logs_dir.mkdir(parents=True, exist_ok=True)
 
 # Initialize the profiler
-#   - schedule:
-#   - on_trace_ready: 
-#   - record_shapes: 
-#   - with_stack: 
 profiler = torch.profiler.profile(
     schedule=torch.profiler.schedule(wait=1, warmup=1, active=3, repeat=2),
     on_trace_ready=torch.profiler.tensorboard_trace_handler(logs_dir),
