@@ -71,7 +71,7 @@ nvidia-smi
 
 ### Method C: The NVSMI log
 
-When a job has run on the cluster, an output file is created. Its default name is `slurm-<JOB_ID>.out`. This file contains the output of your experiment, along with a section NVSMI LOG containing metrics as the GPU and memory utilizations.
+When a job has run on the cluster, an output file is created. Its default name is `slurm-<JOB_ID>.out`. This file contains the output of your experiment, along with a section NVSMI LOG containing metrics such as the GPU and memory utilizations.
 
 ??? info "Example"
     
