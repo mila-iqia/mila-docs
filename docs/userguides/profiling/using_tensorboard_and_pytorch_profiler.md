@@ -107,14 +107,14 @@ import os
 from pathlib import Path
 
 # Import Pytorch profiler
-from torch.profiler
+import torch.profiler
 
 # Define in which folder we want the results to be stored
 SCRATCH = Path(os.environ.get("SCRATCH", "fake_scratch"))
 SLURM_JOB_ID = os.environ.get("SLURM_JOB_ID", "0")
 
 logs_dir = SCRATCH / "logs" / SLURM_JOB_ID
-logs_dir.mkdir(parents=True, exists_ok=True)
+logs_dir.mkdir(parents=True, exist_ok=True)
 
 # Initialize the profiler
 #   - schedule:
