@@ -38,7 +38,7 @@ alongside [Pytorch profiler](https://docs.pytorch.org/tutorials/recipes/recipes/
     standalone scripts.
 
 
--   [:material-magnify:{ .lg .middle } __Identifying GPU waste__](../../../userguides/gpu_efficiency.md)
+-   [:material-magnify:{ .lg .middle } __Identifying GPU waste__](../../../userguides/index.md)
     { .card }
 
     ---
