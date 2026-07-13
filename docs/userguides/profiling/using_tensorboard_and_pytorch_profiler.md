@@ -273,7 +273,7 @@ However, if the metrics have to be monitored "live", we are following these step
 2. Set up the project for the cluster
 3. Launch the experiment
 4. Launch Tensorboard
-5. Access Tensorboard through port forwarding.
+5. Access Tensorboard.
 
 ### Connect to the cluster
 This step is configured and explained in the [Getting started guide](../../../getting_started/).
@@ -440,6 +440,10 @@ Finally, we want to launch Tensorboard and access the dashboard on our localhost
 
 
 === "Port forwarding"
+
+    !!! warning "Performance"
+        Launching Tensorboard directly on the requested nodes would affect the
+        job's resources.
 
     Another option to access the dashboard on our localhost is to tunnel information
     from the compute node to our local machine.
