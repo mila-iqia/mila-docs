@@ -410,7 +410,7 @@ Finally, we want to launch Tensorboard and access the dashboard on our localhost
 
 === "`ssh mila-cpu` (**Recommended**)"
 
-    You can use this methode if you have already launched `mila code` (cf [Getting started](../../../getting_started/#install-milatools)):
+    You can use this method if you have already launched `mila code` (cf [Getting started](../../../getting_started/#install-milatools)):
 
     1. Launch VSCode
 
