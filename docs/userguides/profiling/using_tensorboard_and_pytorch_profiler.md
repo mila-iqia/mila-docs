@@ -444,7 +444,7 @@ Finally, we want to launch Tensorboard and access the dashboard on our localhost
     Another option to access the dashboard on our localhost is to tunnel information
     from the compute node to our local machine.
 
-    1. Launch Tensoboard **on a compute node** by using the command:
+    1. Launch Tensorboard **on a compute node** by using the command:
 
         ```console
         uvx tensorboard --logdir $SCRATCH/logs/$SLURM_JOB_ID
