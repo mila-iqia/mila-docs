@@ -284,7 +284,7 @@ We are now connected on one of the login node.
 
 
 ### Set up the project for the cluster
-This could be done through `uv init` and `uv add <dependencies>` such as presented in [Try this example locally - Set up the environment](#set-up-the-environment). However, this is the opportunity to underline the portability of `uv`: we define the environment by copying the `pyproject.toml` file.
+This could be done through `uv init` and `uv add <dependencies>` such as presented in [Try this example locally - Set up the environment](#set-up-the-environment). You can also copy the `pyproject.toml` file, adapted to this example.
 
 Hence, we copy (or write) the following files on the login node:
 
@@ -343,7 +343,7 @@ Hence, we copy (or write) the following files on the login node:
 === "pyproject.toml"
     ```
     [project]
-    name = "test2"
+    name = "my-project"
     version = "0.1.0"
     description = "Add your description here"
     readme = "README.md"
@@ -371,7 +371,7 @@ Here, we use the batch job option. Thus, we create a `job.sh` file:
     #SBATCH --ntasks-per-node=1
     #SBATCH --cpus-per-task=1
     #SBATCH --gpus-per-task=rtx8000:1
-    #SBATCH --time=00:03:00
+    #SBATCH --time=00:15:00
 
     # Exit on error
     set -e
