@@ -131,8 +131,10 @@ profiler.start()
 # Train the model
 [...]
 
-# Write the metrics while training the model
-profiler.step()
+
+# Training loop:
+    # Write the metrics while training the model
+    profiler.step()
 
 [...]
 
