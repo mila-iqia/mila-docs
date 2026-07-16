@@ -1,5 +1,7 @@
 # Clusters
 
+<!-- Static links are here temporarily -->
+
 | Clusters | Maintainer | Portal | More details (allocations, resources...) |
 | -------- | ---------- | ------ | ---------------------------------------- |
 | [Mila](https://docs.mila.quebec/technical_reference/clusters/mila/) | Mila | - | [Resources](https://docs.mila.quebec/technical_reference/clusters/mila/nodes/) |
