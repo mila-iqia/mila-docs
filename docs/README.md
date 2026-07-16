@@ -99,6 +99,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
 <!--nav-->
 - [Introduction](README.md)
     - [Cheat Sheet](home/cheatsheet.md)
+    - [Clusters overview](home/clusters.md)
     - [Acknowledging Mila](home/acknowledgement.md)
     - [About us](home/teams.md)
     - [🔗 Mila intranet](https://intranet.mila.quebec/)
