@@ -6,7 +6,7 @@ description: Technical documentation for Mila's computing infrastructure.
 # Mila technical documentation
 
 Welcome to Mila's technical documentation. If this is your first time here, we
-recommend you start by checking out the [short quick start guide](getting_started/).
+recommend you start by checking out the [short quick start guide](getting_started/index.md).
 
 
 <div class="grid cards" markdown>
@@ -19,7 +19,7 @@ recommend you start by checking out the [short quick start guide](getting_starte
 
     Learn to log in to the cluster, run your first job, and train your first mode
 
-    [:octicons-arrow-right-24: Getting started](getting_started)
+    [:octicons-arrow-right-24: Getting started](getting_started/index.md)
 
 
 
@@ -29,7 +29,7 @@ recommend you start by checking out the [short quick start guide](getting_starte
 
     Discover more advanced guides to help you in your research
 
-    [:octicons-arrow-right-24: Learn new things](userguides)
+    [:octicons-arrow-right-24: Learn new things](userguides/index.md)
 
 
 -   :material-robot:{ .lg .middle } __AI agents__
@@ -38,7 +38,7 @@ recommend you start by checking out the [short quick start guide](getting_starte
 
     Powercharge your workflow with AI coding tools tailored for Mila researchers
 
-    [:octicons-arrow-right-24: Explore AI agents](ai)
+    [:octicons-arrow-right-24: Explore AI agents](ai/index.md)
 
 
 -   :material-book-open-page-variant:{ .lg .middle } __Technical reference__
@@ -47,7 +47,7 @@ recommend you start by checking out the [short quick start guide](getting_starte
 
     Find advanced notions to better understand how everything works
 
-    [:octicons-arrow-right-24: Dig deeper](technical_reference)
+    [:octicons-arrow-right-24: Dig deeper](technical_reference/index.md)
 
 -   :material-hammer-wrench:{ .lg .middle } __Toolbox__
 
@@ -55,7 +55,7 @@ recommend you start by checking out the [short quick start guide](getting_starte
 
     Obtain tools for your projects
 
-    [:octicons-arrow-right-24: Browse the tools](toolbox)
+    [:octicons-arrow-right-24: Browse the tools](toolbox/index.md)
 
 -   :material-account-question:{ .lg .middle } __Get help__
 
@@ -67,7 +67,7 @@ recommend you start by checking out the [short quick start guide](getting_starte
 
     [:octicons-arrow-right-24: Ask your question to IT support](https://mila-iqia.atlassian.net/servicedesk/customer/portal/5)
     
-    [:octicons-arrow-right-24: {% include-markdown "generated_from_config/office_hours_short.md" %}](help/office_hours/)
+    [:octicons-arrow-right-24: {% include-markdown "generated_from_config/office_hours_short.md" %}](help/office_hours.md)
 
 
 -   :material-bookmark:{ .lg .middle } __Cheatsheet__

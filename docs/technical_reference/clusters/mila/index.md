@@ -6,9 +6,9 @@ This section seeks to provide factual information and policies on the Mila clust
     {% include-markdown "home/acknowledgement.md" start="<!-- START -->" %}
 
 <!--nav-->
-* [Roles and authorizations](../../../technical_reference/clusters/mila/roles_and_resources)
-* [Node profile description](../../../technical_reference/clusters/mila/nodes)
-* [Storage](../../../technical_reference/clusters/mila/storage)
-* [Data sharing policies](../../../technical_reference/clusters/mila/sharing_policies)
-* [Data Transmission](../../../technical_reference/clusters/mila/data_transmission)
-* [Monitoring](../../../technical_reference/clusters/mila/monitoring)
+* [Roles and authorizations](roles_and_resources.md)
+* [Node profile description](nodes.md)
+* [Storage](storage.md)
+* [Data sharing policies](sharing_policies.md)
+* [Data Transmission](data_transmission.md)
+* [Monitoring](monitoring.md)

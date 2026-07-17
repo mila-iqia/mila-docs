@@ -47,7 +47,7 @@ You can find most of them on `dockerhub`_.
 .. _dockerhub: https://hub.docker.com/
 
 > **tip:**
-        (Optional) You can also pull containers from nvidia cloud see [nvidia](#nvidia)
+        (Optional) You can also pull containers from nvidia cloud see [nvidia](nvidia.md)
 
 Go on `dockerhub`_ and select the container you want to pull.
 

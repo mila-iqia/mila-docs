@@ -47,7 +47,7 @@ You can self-diagnose using these framework-agnostic methods.
 
 If you use WandB, go to the **System** tab of your run to find data on GPU
 utilization, CPU usage, and memory. See
-[Diagnose training bottlenecks](../../userguides/wandb.md#diagnose-training-bottlenecks)
+[Diagnose training bottlenecks](wandb.md#diagnose-training-bottlenecks)
 for details.
 
 ### Method B: The interactive check
