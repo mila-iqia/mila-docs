@@ -1,12 +1,20 @@
 site_name: Mila Technical Documentation
-# TODO: it might be possible to use something like
-# https://docs.mila.quebec/en/401/ as the site_url to avoid relying on relative
-# paths in the doc (../resource instead of /resource)
-site_url: https://docs.mila.quebec
+# site_url is resolved from READTHEDOCS_CANONICAL_URL at build time so canonical
+# links and the sitemap are correct on both production and PR previews (which are
+# served under a version-prefixed path). Falls back to the production URL locally.
+site_url: !ENV [READTHEDOCS_CANONICAL_URL, 'https://docs.mila.quebec']
 repo_name: mila-docs
 repo_url: https://github.com/mila-iqia/mila-docs
 docs_dir: docs
 edit_uri: edit/master/docs/
+
+# Surface broken internal links/anchors as warnings so RTD's fail_on_warning
+# turns them into a failing build (blocks the PR).
+validation:
+  links:
+    not_found: warn
+    anchors: warn
+    unrecognized_links: warn
 
 copyright: >
   Copyright &copy; 2026 Mila –
