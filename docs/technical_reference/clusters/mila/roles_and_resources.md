@@ -21,7 +21,7 @@ if applicable, your co-supervisor.
 
 The Mila cluster is to be used for regular development and relatively small
 number of jobs (< 5). It is a heterogeneous cluster. It uses
-[Slurm](../../../../userguides/running_code) to schedule jobs.
+[Slurm](../../general_theory/slurm.md) to schedule jobs.
 
 
 ### Mila cluster versus Digital Research Alliance of Canada clusters

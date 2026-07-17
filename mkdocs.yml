@@ -8,6 +8,11 @@ repo_url: https://github.com/mila-iqia/mila-docs
 docs_dir: docs
 edit_uri: edit/master/docs/
 
+# Obsolete pre-sprint note kept in the repo but excluded from the build so it
+# doesn't shadow singularity/index.md.
+exclude_docs: |
+  singularity/README.md
+
 # Surface broken internal links/anchors as warnings so RTD's fail_on_warning
 # turns them into a failing build (blocks the PR).
 validation:

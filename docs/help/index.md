@@ -48,7 +48,7 @@ Need a hand getting your experiments running on the cluster? You'll find everyth
 
     Your answers may be in the **FAQ page**
 
-    [:octicons-arrow-right-24: Check the FAQ](../help/faq)
+    [:octicons-arrow-right-24: Check the FAQ](faq.md)
     
 -   :material-robot:{ .lg .middle } __Ask an AI agent__
 
@@ -84,7 +84,7 @@ Need a hand getting your experiments running on the cluster? You'll find everyth
 
     They also take place online at the same dates: the virtual invite is on the Mila-core calendar.
 
-    [:octicons-arrow-right-24: Join us at the Office Hours](../help/office_hours/)
+    [:octicons-arrow-right-24: Join us at the Office Hours](office_hours.md)
 
 
 </div>
@@ -105,7 +105,7 @@ If you've checked the docs and still need assistance, we've got your back! To ge
 |------|-----------------|----------------|
 | MyMila | Community Integration. General administrative onboarding and community-related inquiries. | [MyMila Portal](https://portal.mila.quebec/) |
 | IT Support | Technical Onboarding & Access. Account creation, **SSH issues**, VPN, hardware, and access management. | [Portal](https://it-support.mila.quebec) or Slack ([#mila-cluster](https://mila-umontreal.slack.com/archives/CFAS8455H), [#tamia-cluster](https://mila-umontreal.slack.com/archives/C08KMD8FJNA), [#compute-canada](https://mila-umontreal.slack.com/archives/C2TL9FRBP)) |
-| IDT | Computing expertise. Debug your jobs, optimize your experiments, remove cluster hurdles. | Slack ([#mila-cluster](https://mila-umontreal.slack.com/archives/CFAS8455H), [#tamia-cluster](https://mila-umontreal.slack.com/archives/C08KMD8FJNA), [#compute-canada](https://mila-umontreal.slack.com/archives/C2TL9FRBP)) or [IDT Office Hours (Lab A)](office_hours) |
+| IDT | Computing expertise. Debug your jobs, optimize your experiments, remove cluster hurdles. | Slack ([#mila-cluster](https://mila-umontreal.slack.com/archives/CFAS8455H), [#tamia-cluster](https://mila-umontreal.slack.com/archives/C08KMD8FJNA), [#compute-canada](https://mila-umontreal.slack.com/archives/C2TL9FRBP)) or [IDT Office Hours (Lab A)](office_hours.md) |
 
 ## 3. Reach out
 

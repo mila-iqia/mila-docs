@@ -460,7 +460,7 @@ To request 1 GPU with *at least* 48GB of memory use
 sbatch -c 4 --gres=gpu:48gb:1
 ```
 
-The full list of GPU and their features can be accessed [here](../../technical_reference/clusters/mila/nodes).
+The full list of GPU and their features can be accessed [here](../clusters/mila/nodes.md).
 
 ### Example script
 

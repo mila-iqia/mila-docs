@@ -9,7 +9,7 @@ description: Ask for a resource allocation and launch tasks on the cluster.
 
 <div class="grid cards" markdown>
 
--   [:material-run-fast:{ .lg .middle } __Get Started with the Cluster__](../../../getting_started/)
+-   [:material-run-fast:{ .lg .middle } __Get Started with the Cluster__](../../getting_started/index.md)
     { .card }
 
     ---
@@ -35,10 +35,10 @@ Recurrent entities when we speak of Slurm are jobs, steps and tasks. If we want 
 * a job can have multiple steps
 * a step can run multiple tasks.
 
-[Check the technical reference for deeper information](../../../technical_reference/general_theory/slurm/#some-definitions)
+[Check the technical reference for deeper information](../../technical_reference/general_theory/slurm.md#some-definitions)
 
 ### Login nodes and compute nodes
-We will not dive into details here, because these concepts are explained in [What is a computer cluster?](../../../technical_reference/general_theory/cluster_parts/), but to sum up some notions, we focus on the two following types of nodes:
+We will not dive into details here, because these concepts are explained in [What is a computer cluster?](../../technical_reference/general_theory/cluster_parts.md), but to sum up some notions, we focus on the two following types of nodes:
 
 | Type of node | Use |
 | ------------ | --- |
@@ -68,7 +68,7 @@ Submitting tasks is done through two steps:
 
 ## Discover Slurm through an interactive job
 
-**1. Connect to your favorite cluster (see [this section](../../../getting_started/#verify-your-connection) for more information on the connection)**
+**1. Connect to your favorite cluster (see [this section](../../getting_started/index.md#verify-your-connection) for more information on the connection)**
 
 === "Steps"
     
@@ -79,7 +79,7 @@ Submitting tasks is done through two steps:
 
 === "More details"
 
-    Here, we arbitrary choose to connect to the Mila cluster. The command `ssh mila` works thanks to the configuration we previously set inside `~/.ssh/config`. This could be done by `mila init` (see [the Getting Started guide](../../getting_started/)).
+    Here, we arbitrary choose to connect to the Mila cluster. The command `ssh mila` works thanks to the configuration we previously set inside `~/.ssh/config`. This could be done by `mila init` (see [the Getting Started guide](../../getting_started/index.md)).
 
 
 **2. Submit a job**
