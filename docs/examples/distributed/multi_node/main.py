@@ -9,6 +9,7 @@ from datetime import timedelta
 from pathlib import Path
 
 import numpy as np
+import rich.console
 import rich.logging
 import torch
 import torch.distributed

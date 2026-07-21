@@ -1,6 +1,6 @@
 [(DATE) (TIME)] INFO     No checkpoints found in                                                         main.py:LINE
-                             $SCRATCH/checkpointing_example/$SLURM_JOB_ID/checkpoints. Training            
-                             from scratch.                                                                              
+                             $SCRATCH/checkpointing_example/$SLURM_JOB_ID/checkpoints.                    
+                             Training from scratch.                                                                     
 [(DATE) (TIME)] INFO     Epoch 0: Val loss: 50.812 accuracy: 54.10%                                      main.py:LINE
 [(DATE)T(TIME)] error: *** JOB $SLURM_JOB_ID ON $SLURM_JOB_NODELIST CANCELLED AT [(DATE)T(TIME)] DUE TO JOB REQUEUE ***
 [(DATE) (TIME)] ERROR    Job received a SIGTERM signal!                                                   main.py:LINE

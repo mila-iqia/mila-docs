@@ -99,6 +99,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
 <!--nav-->
 - [Introduction](README.md)
     - [Cheat Sheet](home/cheatsheet.md)
+    - [Clusters overview](home/clusters.md)
     - [Acknowledging Mila](home/acknowledgement.md)
     - [About us](home/teams.md)
     - [🔗 Mila intranet](https://intranet.mila.quebec/)
@@ -117,10 +118,11 @@ If you find any errors in the documentation, missing or unclear sections, or wou
         - [Identifying GPU waste](userguides/gpu_efficiency.md)
         - [Sharing Data with ACLs](userguides/sharing_data.md)
     - Minimal Examples
-        - [Software Frameworks](examples/frameworks/index.md)
+        - [Software Setup](examples/frameworks/index.md)
             - [PyTorch Setup](examples/frameworks/pytorch_setup/index.md)
             - [Jax Setup](examples/frameworks/jax_setup/index.md)
             - [Jax](examples/frameworks/jax/index.md)
+            - [Flash Attention Setup](examples/frameworks/flash_attn_setup/index.md)
         - [Distributed Training](examples/distributed/index.md)
             - [Single GPU Job](examples/distributed/single_gpu/index.md)
             - [Multi-GPU Job](examples/distributed/multi_gpu/index.md)
@@ -142,7 +144,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
 - [Technical reference](technical_reference/index.md)
     - [Cheatsheet](technical_reference/cheatsheet.md)
     - [Glossary](technical_reference/glossary.md)
-    - Clusters
+    - [Clusters](technical_reference/clusters/index.md)
         - [Mila cluster](technical_reference/clusters/mila/index.md)
             - [Roles and computing resources](technical_reference/clusters/mila/roles_and_resources.md)
             - [Node profile description](technical_reference/clusters/mila/nodes.md)
@@ -152,8 +154,8 @@ If you find any errors in the documentation, missing or unclear sections, or wou
             - [Monitoring](technical_reference/clusters/mila/monitoring.md)
             - [Environmental Impact](technical_reference/clusters/mila/environmental_impact.md)
             - [🔗 Mila intranet](https://sites.google.com/mila.quebec/mila-intranet)
-        - [External clusters](technical_reference/clusters/external/index.md)
-            - [DRAC clusters](technical_reference/clusters/drac/index.md)
+        - [DRAC clusters](technical_reference/clusters/drac/index.md)
+        - [PAICE clusters](technical_reference/clusters/paice/index.md)
     - General Theory
         - [What is a computer cluster?](technical_reference/general_theory/cluster_parts.md)
         - [Unix](technical_reference/general_theory/unix.md)

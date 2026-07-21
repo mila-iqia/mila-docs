@@ -1,6 +1,0 @@
----
-search:
-  exclude: true
----
-
-<!-- START -->

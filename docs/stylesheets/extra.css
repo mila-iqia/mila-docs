@@ -1,7 +1,38 @@
 :root {
+
+  /* "Work in progress" admonition */
   --md-admonition-color--wip: 255, 145, 0; /* Decimals for #ff9100 */;
   --md-admonition-color-hex--wip: #ff9100;
 }
+
+:root > * {
+  /* Main theme */
+  --md-primary-fg-color: #662e7d;
+  /*--md-primary-bg-color:;*/
+  --md-accent-fg-color: #5a007a;
+  --md-primary-fg-color--light: #5a007a;
+  --md-primary-fg-color--dark: #c38acd;
+
+  --docsearch-primary-color: #662e7d;
+  --docsearch-highlight-color: #662e7d;
+  --docsearch-hit-highlight-color: #c38acd;
+}
+
+[data-md-color-scheme="slate"]  > * {
+  --md-typeset-a-color: #c38acd;
+  --md-accent-fg-color: #dfadf4;
+  --docsearch-hit-highlight-color: #662e7d;
+}
+
+.DocSearch-Hit[aria-selected=true] .DocSearch-Hit-action,.DocSearch-Hit[aria-selected=true] .DocSearch-Hit-icon,.DocSearch-Hit[aria-selected=true] mark {
+    color: white !important;
+}
+
+a.announce {
+  --md-typeset-a-color: #c38acd;
+  --md-accent-fg-color: #dfadf4;
+}
+
 .md-typeset .admonition.wip,
 .md-typeset details.wip {
   border-color: rgba(var(--md-admonition-color--wip));
@@ -54,4 +85,13 @@ a.full-card:hover {
 .DocSearch-SidepanelButton.floating:focus,
 .DocSearch-SidepanelButton.floating:hover {
     --docsearch-sidepanel-primary-dark: var(--md-primary-fg-color--dark);
+}
+
+.md-typeset table:not([class]) tr:has(td:nth-child(2):empty) td:first-child {
+    position: relative;
+    white-space: nowrap;
+}
+
+.md-typeset table:not([class]) tr:has(td:nth-child(2):empty) td:first-child strong {
+    position: absolute;
 }

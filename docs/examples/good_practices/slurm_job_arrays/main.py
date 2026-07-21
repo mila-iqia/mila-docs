@@ -10,6 +10,7 @@ from pathlib import Path
 import numpy as np
 import rich.logging
 import rich.pretty
+import rich.console
 import torch
 from torch import Tensor, nn
 from torch.nn import functional as F
