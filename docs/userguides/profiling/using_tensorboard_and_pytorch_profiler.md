@@ -148,55 +148,7 @@ Putting all of this together, here is an example you can run directly:
 
 === "experiment.py"
     ```python
-    import os
-    from pathlib import Path
-    import torch
-    # Import Pytorch profiler
-    import torch.profiler
-
-
-    # Linear regression training example
-    x = torch.arange(-5, 5, 0.1).view(-1, 1)
-    y = -5 * x + 0.1 * torch.randn(x.size())
-
-    model = torch.nn.Linear(1, 1)
-    criterion = torch.nn.MSELoss()
-    optimizer = torch.optim.SGD(model.parameters(), lr = 0.1)
-
-    # Define in which folder we want the results to be stored
-    SCRATCH = Path(os.environ.get("SCRATCH", "fake_scratch"))
-    SLURM_JOB_ID = os.environ.get("SLURM_JOB_ID", "0")
-
-    logs_dir = SCRATCH / "logs" / SLURM_JOB_ID
-    logs_dir.mkdir(parents=True, exists_ok=True)
-
-    
-    profiler = torch.profiler.profile(
-        schedule=torch.profiler.schedule(wait=1, warmup=1, active=3, repeat=2),
-        on_trace_ready=torch.profiler.tensorboard_trace_handler(logs_dir),
-        record_shapes=True,
-        with_stack=True,
-    )
-
-    # Start the profiler
-    profiler.start()
-
-    # While the model is training
-    def train_model(iter):
-        for epoch in range(iter):
-            y1 = model(x)
-            loss = criterion(y1, y)
-            optimizer.zero_grad()
-            loss.backward()
-            optimizer.step()
-            # Write the metrics while training the model
-            profiler.step()
-
-    # Train the model
-    train_model(10)
-
-    # Stop the profiler when you do not need it anymore
-    profiler.stop()
+    --8<-- "docs/userguides/profiling/code/experiment.py"
     ```
 
 
@@ -218,19 +170,8 @@ The environment is described in the following file. Copying it as `pyproject.tom
 while running the `uv` command.
 
 === "pyproject.toml"
-    ```
-    [project]
-    name = "my_project"
-    version = "0.1.0"
-    description = "Add your description here"
-    readme = "README.md"
-    requires-python = ">=3.14"
-    dependencies = [
-        "tensorboard>=2.21.0",
-        "torch>=2.12.1",
-        "torch-tb-profiler>=0.4.3",
-        "torchvision>=0.27.1",
-    ]
+    ```toml
+    --8<-- "docs/userguides/profiling/code/pyproject.toml"
     ```
 
 ### Launch the experiment
@@ -288,74 +229,18 @@ We are now connected on one of the login node.
 ### Set up the project for the cluster
 This could be done through `uv init` and `uv add <dependencies>` such as presented in [Try this example locally - Set up the environment](#set-up-the-environment). You can also copy the `pyproject.toml` file, adapted to this example.
 
-Hence, we copy (or write) the following files on the login node:
+Hence, we copy (or write) the following files on the login node.
+
+(The full source code for this example is available on [the mila-docs GitHub repository.](https://github.com/mila-iqia/mila-docs/tree/master/docs/userguides/profiling/code))
 
 === "experiment.py"
     ```python
-    import os
-    from pathlib import Path
-    import torch
-    # Import Pytorch profiler
-    import torch.profiler
-
-
-    # Linear regression training example
-    x = torch.arange(-5, 5, 0.1).view(-1, 1)
-    y = -5 * x + 0.1 * torch.randn(x.size())
-
-    model = torch.nn.Linear(1, 1)
-    criterion = torch.nn.MSELoss()
-    optimizer = torch.optim.SGD(model.parameters(), lr = 0.1)
-
-    # Define in which folder we want the results to be stored
-    SCRATCH = Path(os.environ.get("SCRATCH", "fake_scratch"))
-    SLURM_JOB_ID = os.environ.get("SLURM_JOB_ID", "0")
-    logs_dir = SCRATCH / "logs" / SLURM_JOB_ID
-    logs_dir.mkdir(parents=True, exists_ok=True)
-
-    
-    profiler = torch.profiler.profile(
-        schedule=torch.profiler.schedule(wait=1, warmup=1, active=3, repeat=2),
-        on_trace_ready=torch.profiler.tensorboard_trace_handler(logs_dir),
-        record_shapes=True,
-        with_stack=True,
-    )
-
-    # Start the profiler
-    profiler.start()
-
-    # While the model is training
-    def train_model(iter):
-        for epoch in range(iter):
-            y1 = model(x)
-            loss = criterion(y1, y)
-            optimizer.zero_grad()
-            loss.backward()
-            optimizer.step()
-            # Write the metrics while training the model
-            profiler.step()
-
-    # Train the model
-    train_model(10)
-
-    # Stop the profiler when you do not need it anymore
-    profiler.stop()
+    --8<-- "docs/userguides/profiling/code/experiment.py"
     ```
 
 === "pyproject.toml"
-    ```
-    [project]
-    name = "my-project"
-    version = "0.1.0"
-    description = "Add your description here"
-    readme = "README.md"
-    requires-python = ">=3.14"
-    dependencies = [
-        "tensorboard>=2.20.0",
-        "torch>=2.12.0",
-        "torch-tb-profiler>=0.4.3",
-        "torchvision>=0.27.0",
-    ]
+    ```toml
+    --8<-- "docs/userguides/profiling/code/pyproject.toml"
     ```
 
 ### Launch the experiment
@@ -368,23 +253,7 @@ Here, we use the batch job option. Thus, we create a `job.sh` file:
 
 === "job.sh"
     ```bash
-    #!/bin/bash
-    #SBATCH --ntasks=1
-    #SBATCH --ntasks-per-node=1
-    #SBATCH --cpus-per-task=1
-    #SBATCH --gpus-per-task=rtx8000:1
-    #SBATCH --time=00:15:00
-
-    # Exit on error
-    set -e
-
-    # Echo time and hostname into log
-    echo "Date:     $(date)"
-    echo "Hostname: $(hostname)"
-
-    # Execute Python script
-    # Use `uv run --offline` on clusters without internet access on compute nodes.
-    srun uv run python experiment.py
+    --8<-- "docs/userguides/profiling/code/job.sh"
     ```
 
 Finally, we launch the job through the command line:
