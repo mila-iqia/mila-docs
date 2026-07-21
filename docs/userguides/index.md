@@ -8,7 +8,6 @@ hide:
 
 Eight steps cover the full lifecycle of a research experiment on the cluster. <!-- Guides are proposed for each one of these steps. -->
 
-<<<<<<< HEAD
 !!! tip "Getting started"
     If you want to learns the basics and have a step-by-step understanding on how to run a job on the cluster, the [Getting started](../getting_started/) section is for you!
 
@@ -149,18 +148,3 @@ Eight steps cover the full lifecycle of a research experiment on the cluster. <!
 
   </div>
 </div>
-=======
-| Guide | Quick description |
-| ----- | ----------------- |
-| [Manage Python Dependencies with uv](../userguides/python_uv.md) | Set up uv to manage project dependencies |
-| [Track Experiments with Weights & Biases (WandB)](../userguides/wandb) | Log metrics, organize runs, and run sweeps on the Mila cluster |
-| [Multi-Factor authentication](../Userguide_login_mfa) | Use MFA to access the Mila cluster |
-| [Logging in to the cluster](../userguides/login) | Log in to the Mila cluster |
-| [Launching jobs](../userguides/slurm_guide/) | Launch your jobs on the cluster |
-| [Identifying GPU waste](../userguides/gpu_efficiency/) | Understand GPU efficiency metrics, diagnose underutilization in your jobs and apply concrete best practices to improve throughput on the Mila cluster. |
-| [Sharing data with ACLs](../userguides/sharing_data) | Use ACLs to allow a user to share with another one a "playground" folder hierarchy in Mila's scratch filesystem at a location in a safe and secure fashion that allows both users to read, write, execute, search and delete each others' files |
-| [**[Minimal examples]** Software setup](../examples/frameworks/) | Set up Pytorch and Jax, and use Jax to run a single-GPU job |
-| [**[Minimal examples]** Distributed training](../examples/distributed/) | Learn to run single-GPU, multi-GPU and multi-node jobs |
-| [**[Minimal examples]** Good practices](../examples/good_practices/) | Discover some good practices aiming to ease the daily life |
-| [**[Minimal examples]** Advanced examples](../examples/advanced/) | Try this example of a multi-Node/multi-GPU ImageNet Training |
->>>>>>> c79a67209f8e3f99f353e98dc51a22da877f585f
