@@ -102,7 +102,7 @@ ssh -p 2222 <user>@login-X.login.server.mila.quebec
 ```
 
 This is a significant amount of typing. You are **strongly** encouraged to add
-a `mila` "alias" to your SSH configuration file (see [before](./#manual-ssh-configuration)
+a `mila` "alias" to your SSH configuration file (see [before](#manual-ssh-configuration)
 for how). With a correctly-configured SSH you can now simply run
 
 ```bash
@@ -120,7 +120,7 @@ to connect to a login node. The `mila` alias will be available to `ssh`,
 `scp`, `rsync` and all other programs that consult the SSH configuration file.
 
 Upon first login, you may be asked to enter your SSH key passphrase. Use the
-passphrase you used to create your SSH key [below](./#generating-an-ssh-private-key).
+passphrase you used to create your SSH key [below](#generating-an-ssh-private-key).
 
 Upon first login, you may also be asked whether you trust the ***Mila*** login
 servers' *own* SSH keys.
@@ -169,7 +169,7 @@ trust them!
     - Using ``tmux`` is acceptable. *(Mostly sleeps, managing the processes under its control)*
 
     !!! note
-        In a similar vein, you should not run VSCode remote SSH instances directly on login nodes, because even though they are typically not very computationally expensive, when many people do it, they add up! See [Visual Studio Code](../../toolbox/VSCode) for specific instructions.
+        In a similar vein, you should not run VSCode remote SSH instances directly on login nodes, because even though they are typically not very computationally expensive, when many people do it, they add up! See [Visual Studio Code](../toolbox/VSCode.md) for specific instructions.
 
 ## Connecting to compute nodes
 
@@ -249,8 +249,8 @@ Mila allows a maximum of 4 different public keys per user.
   read the informative material below, then proceed to
   generate them.
 - If you do not already have SSH keys, or are not sure if you have them, skip
-  to the instructions on how to generate them [here](./#checking-if-you-already-have-ssh-private-keys).
-- If you do have SSH keys, you can skip to [configuring SSH for access to Mila](./#manual-ssh-configuration).
+  to the instructions on how to generate them [here](#checking-if-you-already-have-ssh-private-keys).
+- If you do have SSH keys, you can skip to [configuring SSH for access to Mila](#manual-ssh-configuration).
 
 ### SSH Private Keys
 

@@ -65,7 +65,7 @@ tier of a Mila researcher for the period which spans from April 7, 2026 to Sprin
 
 | Cluster                             | CPUs | RGUs allocated | # GPU equiv | Model               | Unrestricted internet |
 | ----------------------              | ---- | -------------- | ----------- | --------            | -----                 |
-| [TamIA](#TamIA) <br> tier1 + tier2  | 435  | 1738           | 143         | H100-80G <br> H200  | No                    |
+| [TamIA](#tamia) <br> tier1 + tier2  | 435  | 1738           | 143         | H100-80G <br> H200  | No                    |
 | [Killarney](#killarney) <br> tier3  | 0    | 794            | 75          | H100-80G <br> L40S  | Yes                   |
 | [Vulcan](#vulcan) <br> tier3        | 0    | 850            | 82          | L40S                | No                    |
 
@@ -140,7 +140,7 @@ found [here](https://docs.alliancecan.ca/wiki/Running_jobs#).
 When a series of experiments is finished, results should be transferred
 back to Mila servers.
 
-More details on storage can be found on the [DRAC Clusters guide](../drac/index.md#Storage) or
+More details on storage can be found on the [DRAC Clusters guide](../drac/index.md#storage) or
 on [DRAC wiki](https://docs.alliancecan.ca/wiki/Storage_and_file_management).
 
 ## Using CometML and Wandb

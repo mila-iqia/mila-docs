@@ -23,8 +23,8 @@ To achieve this, try to always keep in mind the following aspects:
   install and upgrade software and libraries for the former without worrying about
   breaking the latter (which you might not notice until weeks later, the next time
   you work on project B!) Isolation can be made easy using [uv](#uv), as well as
-  [Python Virtual environments](../../../technical_reference/general_theory/software_deps/#python-virtual-environments)
-  and, as a last resort, [containers](../../../technical_reference/general_theory/software_deps/#containers).
+  [Python Virtual environments](software_deps.md#python-virtual-environments)
+  and, as a last resort, [containers](software_deps.md#containers).
 
 
 {%
@@ -48,7 +48,7 @@ module load python/3.10
 
 ## On using containers
 
-Another option for creating portable code is [Using containers](#Using containers).
+Another option for creating portable code is [Using containers](#on-using-containers).
 
 Containers are a popular approach at deploying applications by packaging a lot
 of the required dependencies together. The most popular tool for this is
@@ -57,5 +57,5 @@ cluster (nor the other clusters from Digital Research Alliance of Canada).
 
 One popular mechanism for containerisation on a computational cluster is called
 [Podman](https://podman.io/).  This is the recommended approach for running
-containers on the Mila cluster. See the [Using containers section](../../../technical_reference/general_theory/containers) for more
+containers on the Mila cluster. See the [Using containers section](containers.md) for more
 details.

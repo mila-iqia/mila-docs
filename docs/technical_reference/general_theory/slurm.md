@@ -235,7 +235,7 @@ priority you need for a job.  Each job assigned with a priority can preempt jobs
 with a lower priority: `unkillable > main > long`. Once preempted, your job is
 killed without notice and is automatically re-queued on the same partition until
 resources are available. (To leverage a different preemption mechanism, see the
-[Handling preemption ](../../technical_reference/general_theory/multigpu/#handling-preemption))
+[Handling preemption ](multigpu.md#handling-preemption))
 
 | Flag                           | Max Resource Usage        | Max Time    | Note                                                 |
 | ------------------------------ | ------------------------- | ----------- | ---------------------------------------------------- |
@@ -262,7 +262,7 @@ resources are available. (To leverage a different preemption mechanism, see the
     - **cn-n nodes**: H100 GPUs (8 GPUs per node, but only 4 can be used per job)
     
     For a complete list of node specifications and GPU details, see [Node
-    profile description](../../technical_reference/clusters/mila/nodes).
+    profile description](../clusters/mila/nodes.md).
 
 ??? warning "About outdated partitions (`cpu_jobs`, `cpu_jobs_low`, etc.)"
 
@@ -302,7 +302,7 @@ submission command.
 
 To access those special nodes you need to request them explicitly by adding the
 flag `--constraint=<name>`.  The full list of nodes in the Mila Cluster can be
-accessed at [Node profile description](../../technical_reference/clusters/mila/nodes).
+accessed at [Node profile description](../clusters/mila/nodes.md).
 
 *Examples:*
 
@@ -514,7 +514,7 @@ To request 1 GPU with *at least* 48GB of memory use
 sbatch -c 4 --gres=gpu:48gb:1
 ```
 
-The full list of GPU and their features can be accessed [here](../../technical_reference/clusters/mila/nodes).
+The full list of GPU and their features can be accessed [here](../clusters/mila/nodes.md).
 
 ### Example script
 

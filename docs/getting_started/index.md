@@ -18,7 +18,9 @@ skills:
 This guide covers obtaining a Mila account, connecting to the cluster, and
 setting up the tools needed to run jobs. Follow the steps in order.
 
-## Before you begin { #obtain-your-mila-account #enable-your-cluster-access #install-wsl }
+## Before you begin
+
+[](){ #obtain-your-mila-account }
 
 ???+ success "Obtain your Mila account (`@mila.quebec`)"
 
@@ -32,6 +34,8 @@ setting up the tools needed to run jobs. Follow the steps in order.
         If this takes longer than expected, contact [MyMila
         support](https://mila-iqia.atlassian.net/servicedesk/customer/portal/8).
 
+[](){ #enable-your-cluster-access }
+
 ???+ success "Enable your cluster access"
 
     1. Read the [IT Onboarding
@@ -41,6 +45,8 @@ setting up the tools needed to run jobs. Follow the steps in order.
        on Slack, including the cluster username. Cluster access can take up to
        48 hours to become effective.
     3. IT will send an email to activate Multi-Factor Authentication.
+
+[](){ #install-wsl }
 
 ???+ warning ":material-microsoft-windows-classic: Windows users: install WSL first"
 
