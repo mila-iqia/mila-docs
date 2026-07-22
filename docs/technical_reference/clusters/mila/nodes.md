@@ -27,11 +27,18 @@ Mila pour les mises à jour. -->
 | **cn-h[001-004]**     | -         | -   | -   | 64   | 2       | 32           | 768         | 0:1:11G                      | 7            | x86_64 | milan                  |
 | **cn-m[001-004]**     | -         | -   | -   | 96   | 2       | 48           | 1024        | 0:1:10G                      | 7            | x86_64 | sapphire               |
 
+## Request specific nodes
+
+| Feature                  | Particularities                                            |
+| ------------------------ | ---------------------------------------------------------- |
+| 12gb/32gb/40gb/48gb/80gb | Request a specific amount of *GPU* memory                  |
+| volta/turing/ampere      | Request a specific *GPU* architecture                      |
+| nvlink                   | Machine with GPUs using the NVLink interconnect technology |
+| dgx                      | NVIDIA *DGX* system with DGX OS                            |
+
 ## Special nodes and outliers
 
-
 ### DGX A100
-
 
 DGX A100 nodes are NVIDIA appliances with 8 NVIDIA A100 Tensor Core GPUs. Each
 GPU has either 40 GB or 80 GB of memory, for a total of 320 GB or 640 GB per
