@@ -190,6 +190,31 @@ available. The most important ones are:
     Always consider requesting the adequate amount of resources to improve the
     scheduling of your job (small jobs always run first).
 
+
+#### Request specific resources
+
+The Mila cluster has many different types of nodes/GPUs. To request a specific
+type of node/GPU, you can add specific feature requirements to your job
+submission command.
+
+To access those special nodes you need to request them explicitly by adding the
+flag `--constraint=<name>`.  The full list of nodes in the Mila Cluster can be
+accessed at [Node profile description](../../technical_reference/clusters/mila/nodes).
+
+*Examples:*
+
+To request a machine with 2 GPUs using NVLink, you can use
+
+```console
+sbatch -c 4 --gres=gpu:2 --constraint=nvlink
+```
+
+To request a DGX system with 8 A100 GPUs, you can use
+
+```console
+sbatch -c 16 --gres=gpu:8 --constraint="dgx&ampere"
+```
+
 ### Checking job status
 
 To display *jobs* currently in queue, use `squeue` and to get only your jobs type
@@ -221,7 +246,6 @@ scancel 4323674
 
 ### Partitioning
 
-
 See the [list of Mila cluster partitions](../../technical_reference/clusters/mila/nodes). To request an unkillable job with 1 GPU, 4 CPUs, 10G of RAM and
 12h of computation do:
 
@@ -235,27 +259,6 @@ You can also make it an interactive job using `salloc`:
 salloc --gres=gpu:1 -c 4 --mem=10G -t 12:00:00 --partition=unkillable
 ```
 
-The Mila cluster has many different types of nodes/GPUs. To request a specific
-type of node/GPU, you can add specific feature requirements to your job
-submission command.
-
-To access those special nodes you need to request them explicitly by adding the
-flag `--constraint=<name>`.  The full list of nodes in the Mila Cluster can be
-accessed at [Node profile description](../../technical_reference/clusters/mila/nodes).
-
-*Examples:*
-
-To request a machine with 2 GPUs using NVLink, you can use
-
-```console
-sbatch -c 4 --gres=gpu:2 --constraint=nvlink
-```
-
-To request a DGX system with 8 A100 GPUs, you can use
-
-```console
-sbatch -c 16 --gres=gpu:8 --constraint="dgx&ampere"
-```
 
 #### Information on partitions/nodes
 
