@@ -114,6 +114,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
         - [Logging in to the cluster](userguides/login.md)
         - [Launching jobs](userguides/slurm_guide/index.md)
             - [Understanding Slurm](userguides/slurm_guide/basics.md)
+            - [Monitor and manage jobs](userguides/slurm_guide/monitor_manage.md)
             - [Synchronizing multiple tasks](userguides/slurm_guide/tasks_communication.md)
         - [Identifying GPU waste](userguides/gpu_efficiency.md)
         - [Sharing Data with ACLs](userguides/sharing_data.md)
