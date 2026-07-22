@@ -264,20 +264,6 @@ resources are available. (To leverage a different preemption mechanism, see the
     For a complete list of node specifications and GPU details, see [Node
     profile description](../../technical_reference/clusters/mila/nodes).
 
-??? warning "About outdated partitions (`cpu_jobs`, `cpu_jobs_low`, etc.)"
-
-    Historically, before the 2022 introduction of CPU-only nodes (e.g. the `cn-f` 
-    series), CPU jobs ran side-by-side with the GPU jobs on GPU nodes. To prevent
-    them obstructing any GPU job, they were always lowest-priority and preemptible.
-    This was implemented by automatically assigning them to one of the now-obsolete
-    partitions `cpu_jobs`, `cpu_jobs_low` or `cpu_jobs_low-grace`.
-    **Do not use these partition names anymore**. Prefer the `*-cpu` partition
-    names defined above.
-
-    For backwards-compatibility purposes, the legacy partition names are translated
-    to their effective equivalent `long-cpu`, but they will eventually be removed
-    entirely.
-
 !!! note
     *As a convenience*, should you request the `unkillable`, `main` or `long`
     partition for a CPU-only job, the partition will be translated to its `-cpu`
