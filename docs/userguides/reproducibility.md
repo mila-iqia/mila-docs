@@ -1,4 +1,4 @@
 * Environment (cf [portability guide](python_uv))
-* Version control (TODO)
+* Version control (Github) (TODO)
 * Sharing datasets
 * Paper
