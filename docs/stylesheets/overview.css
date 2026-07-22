@@ -1,11 +1,6 @@
 
 
 :root {
-  /* Columns colors */
-  --wf-c1: #4f46e5;
-  --wf-c2: #ba4420;
-  --wf-c3: #15803d;
-
   /* Layout constants */
   --wf-step-w:  130px;
   --wf-step-h:  108px;
@@ -15,6 +10,11 @@
 
 /* Colors specific to light mode */
 [data-md-color-scheme="default"] {
+    /* Columns colors */
+    --wf-c1: #610085;
+    --wf-c2: #a173a9;
+    --wf-c3: #c38acd;
+    
     --wf-ground:   #662e7d;
     --wf-surface:  #dedede;
     --wf-text:     var(--md-typeset-color);
@@ -28,13 +28,18 @@
 
 /* Colors specific to dark mode */
 [data-md-color-scheme="slate"] {
+    /* Columns colors */
+    --wf-c1: #662e7d;/* #4f46e5; */
+    --wf-c2: #c38acd; /*#ba4420;*/
+    --wf-c3: #f4f5f1;
+
     --wf-ground:   #0d1117;;
     --wf-surface:  #161b2c;
     --wf-text:     #dde2f0;
     --wf-sub:      #7a8aa8;
     --wf-tag:      #f4f5f1;
-    --wf-accent:   #00cfb4;
-    --wf-accent-2: #7b61ff;
+    --wf-accent:   #dde2f0;
+    --wf-accent-2: #c38acd;
     --wf-border:   #252d40;
     --wf-muted:    #4a5570;
 }
@@ -174,6 +179,7 @@
   font-size: 1.2rem;
   line-height: 1;
   flex-shrink: 0;
+  fill: var(--wf-accent);
 }
 
 .wf2-text {
