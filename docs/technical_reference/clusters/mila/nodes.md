@@ -29,12 +29,12 @@ Mila pour les mises à jour. -->
 
 ## Request specific nodes
 
-| Feature                  | Particularities                                            |
-| ------------------------ | ---------------------------------------------------------- |
-| 12gb/32gb/40gb/48gb/80gb | Request a specific amount of *GPU* memory                  |
-| volta/turing/ampere      | Request a specific *GPU* architecture                      |
-| nvlink                   | Machine with GPUs using the NVLink interconnect technology |
-| dgx                      | NVIDIA *DGX* system with DGX OS                            |
+| Feature                   | Particularities                                            |
+| ------------------------- | ---------------------------------------------------------- |
+| 32gb / 40gb / 48gb / 80gb | Request a specific amount of *GPU* memory                  |
+| volta / turing / ampere   | Request a specific *GPU* architecture                      |
+| nvlink                    | Machine with GPUs using the NVLink interconnect technology |
+| dgx                       | NVIDIA *DGX* system with DGX OS                            |
 
 ## Special nodes and outliers
 
