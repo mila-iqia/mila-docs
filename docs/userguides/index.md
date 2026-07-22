@@ -122,7 +122,7 @@ Eight steps cover the full lifecycle of a research experiment on the cluster. <!
         <span class="wf2-lane-name">Iterate</span>
       </div>
       <div class="wf2-lane-steps">
-        <a class="wf2-step wf2-s3" href="../userguides/profiling/">
+        <a class="wf2-step wf2-s3" href="../userguides/gpu_efficiency/">
           <!--<span class="wf2-num">06</span>-->
           <span class="wf2-icon">
             <svg xmlns="http://www.w3.org/2000/svg" height="26" width="26" viewBox="0 0 640 640"><!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M128 128C128 110.3 113.7 96 96 96C78.3 96 64 110.3 64 128L64 464C64 508.2 99.8 544 144 544L544 544C561.7 544 576 529.7 576 512C576 494.3 561.7 480 544 480L144 480C135.2 480 128 472.8 128 464L128 128zM534.6 214.6C547.1 202.1 547.1 181.8 534.6 169.3C522.1 156.8 501.8 156.8 489.3 169.3L384 274.7L326.6 217.4C314.1 204.9 293.8 204.9 281.3 217.4L185.3 313.4C172.8 325.9 172.8 346.2 185.3 358.7C197.8 371.2 218.1 371.2 230.6 358.7L304 285.3L361.4 342.7C373.9 355.2 394.2 355.2 406.7 342.7L534.7 214.7z"/></svg>
@@ -135,7 +135,7 @@ Eight steps cover the full lifecycle of a research experiment on the cluster. <!
         </a>
 
 
-        <a class="wf2-step wf2-s3" href="">
+        <a class="wf2-step wf2-s3" href="../userguides/gpu_efficiency/">
           <!--<span class="wf2-num">07</span>-->
           <span class="wf2-icon">
             <svg xmlns="http://www.w3.org/2000/svg" height="26" width="26" viewBox="0 0 640 640"><!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M434.8 54.1C446.7 62.7 451.1 78.3 445.7 91.9L367.3 288L512 288C525.5 288 537.5 296.4 542.1 309.1C546.7 321.8 542.8 336 532.5 344.6L244.5 584.6C233.2 594 217.1 594.5 205.2 585.9C193.3 577.3 188.9 561.7 194.3 548.1L272.7 352L128 352C114.5 352 102.5 343.6 97.9 330.9C93.3 318.2 97.2 304 107.5 295.4L395.5 55.4C406.8 46 422.9 45.5 434.8 54.1z"/></svg>
@@ -148,7 +148,7 @@ Eight steps cover the full lifecycle of a research experiment on the cluster. <!
         </a>
 
 
-        <a class="wf2-step wf2-s3" href="">
+        <a class="wf2-step wf2-s3" href="../userguides/reproducibility">
           <!--<span class="wf2-num">08</span>-->
           <span class="wf2-icon">
             <svg xmlns="http://www.w3.org/2000/svg" height="26" width="26" viewBox="0 0 640 640"><!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M342.6 73.4C330.1 60.9 309.8 60.9 297.3 73.4L169.3 201.4C156.8 213.9 156.8 234.2 169.3 246.7C181.8 259.2 202.1 259.2 214.6 246.7L288 173.3L288 384C288 401.7 302.3 416 320 416C337.7 416 352 401.7 352 384L352 173.3L425.4 246.7C437.9 259.2 458.2 259.2 470.7 246.7C483.2 234.2 483.2 213.9 470.7 201.4L342.7 73.4zM160 416C160 398.3 145.7 384 128 384C110.3 384 96 398.3 96 416L96 480C96 533 139 576 192 576L448 576C501 576 544 533 544 480L544 416C544 398.3 529.7 384 512 384C494.3 384 480 398.3 480 416L480 480C480 497.7 465.7 512 448 512L192 512C174.3 512 160 497.7 160 480L160 416z"/></svg>
