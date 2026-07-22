@@ -20,7 +20,7 @@ failures new users hit most often.
 
 <div class="grid cards" markdown>
 
--   [:material-lightbulb-alert-outline:{ .lg .middle } __Understanding Slurm__](basics.md)
+-   [:material-lightbulb-alert-outline:{ .lg .middle } __Understand Slurm__](basics.md)
     { .card }
 
     ---
@@ -180,7 +180,7 @@ explanation.
 
 | Symptom | Cause and fix |
 | ------- | ------------- |
-| Pending with `(Priority)` or `(Resources)` | Normal queueing — the job waits for higher-priority jobs to run or for resources to free up. Request less time or fewer resources to start sooner. See [Understanding the queue](../../technical_reference/general_theory/batch_scheduling.md). |
+| Pending with `(Priority)` or `(Resources)` | Normal queueing — the job waits for higher-priority jobs to run or for resources to free up. Request less time or fewer resources to start sooner. See [Understanding the queue](../../technical_reference/general_theory/batch_scheduling.md#understanding-the-queue). |
 | Pending with `(QOSMaxJobsPerUserLimit)` | Too many jobs are queued or running under the current limits. Wait for earlier jobs to finish before submitting more. |
 | Pending with `(ReqNodeNotAvail)` | The requested nodes or features are unavailable (for example an impossible `--constraint`). Relax the constraint or choose another partition. |
 | Killed with an `oom-kill` message | The job exceeded its memory allocation. Request more memory with `--mem`. See [the oom-kill FAQ entry](../../help/faq.md#slurmstepd-error-detected-1-oom-kill-events-in-step-batch-cgroup). |

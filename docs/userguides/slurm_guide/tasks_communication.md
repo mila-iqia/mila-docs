@@ -5,17 +5,17 @@ description: A quick example of multiple tasks synchronizing their output.
 
 # Synchronizing multiple tasks
 
-This guide runs an applied example in which four tasks, spread across two
-nodes, communicate to compute a single result. It shows how a batch script
-passes connection information to the tasks through environment variables, and
-how each task uses its rank to contribute to a collective sum with PyTorch or
-JAX.
+This guide shows how multiple tasks running across several nodes communicate:
+how a batch script passes connection information to the tasks through
+environment variables, and how each task uses its rank to contribute to a
+shared result. As a pretext, it uses a small applied example: four tasks,
+spread across two nodes, computing a single sum with PyTorch or JAX.
 
 ## Before you begin
 
 <div class="grid cards" markdown>
 
--   [:material-lightbulb-alert-outline:{ .lg .middle } __Understanding Slurm__](basics.md)
+-   [:material-lightbulb-alert-outline:{ .lg .middle } __Understand Slurm__](basics.md)
     { .card }
 
     ---
@@ -71,7 +71,7 @@ Each example is based on three files:
 | ---- | ----------- |
 | `job_***.sh` | Bash script used to request an allocation and launch a job (which itself runs multiple tasks based on the requested `--nodes` and `--ntasks-per-node`) |
 | `main_***.py` | Python script containing the instructions the tasks execute. This example uses either JAX (with the script `main_jax.py`) or PyTorch (with the script `main_torch.py`) |
-| `pyproject.toml` | Configuration file used to handle the libraries `uv` fetches. A separate `pyproject.toml` could be used for each example (JAX and PyTorch), but both libraries are gathered in one to simplify this guide |
+| `pyproject.toml` | Configuration file used to handle the libraries `uv` fetches. A separate `pyproject.toml` is used for each example: one for PyTorch, one for JAX |
 
 
 ### Introducing the different files
@@ -106,7 +106,7 @@ Each example is based on three files:
     #SBATCH --ntasks-per-node=2
     #SBATCH --cpus-per-task=1
     #SBATCH --mem=8G
-    #SBATCH --time=00:01:00
+    #SBATCH --time=00:30:00
 
     # These environment variables are read by the distributed runtime and
     # should ideally be set before running the python script, or at the very
@@ -129,7 +129,7 @@ Each example is based on three files:
     tasks each (4 tasks in total), 1 CPU per task, 8G of memory and a 1-minute
     time limit. `--ntasks-per-node` fixes the number of tasks on each node, the
     safe form for distributed jobs (see
-    [Understanding Slurm](basics.md#inspect-where-tasks-run)).
+    [Understand Slurm](basics.md#inspect-where-tasks-run)).
 
     **Environment variables**
 
@@ -212,7 +212,7 @@ Each example is based on three files:
 
     import jax
     import jax.distributed
-    from jax.sharding import NamedSharding, PartitionSpec as P
+    from jax.sharding import Mesh, NamedSharding, PartitionSpec as P
 
     RANK = int(os.environ["SLURM_PROCID"])
     LOCAL_RANK = int(os.environ["SLURM_LOCALID"])
@@ -223,8 +223,10 @@ Each example is based on three files:
         jax.config.update("jax_platforms", "cpu")
         jax.distributed.initialize() # Connect the tasks together, must be called before performing any JAX computations
 
-        # One mesh axis named "i" spanning all the tasks
-        mesh = jax.make_mesh((WORLD_SIZE,), ("i",))
+        # One mesh axis named "i" spanning all the tasks. Built directly from
+        # jax.devices() (rather than jax.make_mesh) so it works across any
+        # number of nodes.
+        mesh = Mesh(jax.devices(), ("i",))
 
         x = jax.numpy.array([float(RANK)], dtype=jax.numpy.float32) # For each task, x depends on RANK, which is different between all tasks
         print(f"\n[Node {NODE_INDEX} | Rank {RANK}] x={x[0]}")
@@ -321,10 +323,8 @@ Each example is based on three files:
     `pyproject.toml` is a configuration file used by packaging tools (`uv` in
     this case) ([More info on `pyproject.toml`
     files](https://packaging.python.org/en/latest/guides/writing-pyproject-toml/)).
-    The value of dependencies contains information about the libraries used in
-    this example. `torch` is used with the `main_torch.py` script, and `jax`
-    with the `main_jax.py` script. To use only one of them, delete the unused
-    library from the `pyproject.toml` file.
+    Each example has its own `pyproject.toml`: the PyTorch version declares
+    `torch` as a dependency, and the JAX version declares `jax`.
 
 ### Launching the example
 
@@ -426,7 +426,9 @@ Rank
 
 World size
 :   The total number of tasks taking part in the communication, read from
-    `$SLURM_NTASKS`.
+    `$SLURM_NTASKS`. "World size" is the standard term for this value in
+    distributed-computing frameworks such as PyTorch and JAX; `$SLURM_NTASKS`
+    is simply the Slurm variable that holds it.
 
 `MASTER_ADDR` / `MASTER_PORT`
 :   The hostname of the job's first node and a per-job port, exported by the
