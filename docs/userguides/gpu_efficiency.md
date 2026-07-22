@@ -84,8 +84,8 @@ flowchart TD
     B -->|No| D{VRAM usage < 20%?}
     D -->|Yes| E[Increase batch size, use a smaller GPU, or pack jobs]
     D -->|No| F{Data loader saturating the GPU?}
-    F -->|No| G[Tune the DataLoader: num_workers, pin_memory]
-    F -->|Yes| H[Profile for I/O or CPU preprocessing bottleneck]
+    F -->|Yes| G[Profile for I/O or CPU preprocessing bottleneck]
+    F -->|No| H[Tune the DataLoader: num_workers, pin_memory]
 ```
 
 ### Method A: Weights & Biases
