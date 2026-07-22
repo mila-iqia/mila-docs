@@ -1,9 +1,9 @@
 ---
-title: Understanding Slurm
+title: Understand Slurm
 description: Ask for a resource allocation and launch tasks on the cluster.
 ---
 
-# Understanding Slurm
+# Understand Slurm
 
 This guide introduces the core Slurm entities — jobs, steps and tasks — and
 puts them into practice: request an interactive allocation, run tasks on it

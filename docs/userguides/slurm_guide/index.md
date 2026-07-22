@@ -1,9 +1,9 @@
 ---
-title: Launching jobs
+title: Launch jobs
 description: Learn the basics of running jobs on the cluster with Slurm.
 ---
 
-# Launching jobs
+# Launch jobs
 
 This section introduces the core Slurm concepts for new users and walks through
 running one or more tasks on the cluster, from a first interactive job to
@@ -19,7 +19,7 @@ monitoring, managing and synchronizing tasks across multiple nodes.
 
 <div class="grid cards" markdown>
 
--   [:material-lightbulb-alert-outline:{ .lg .middle } __Understanding Slurm__](basics.md)
+-   [:material-lightbulb-alert-outline:{ .lg .middle } __Understand Slurm__](basics.md)
     { .card }
 
     ---
