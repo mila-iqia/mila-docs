@@ -117,7 +117,8 @@ If you find any errors in the documentation, missing or unclear sections, or wou
         - [Launching jobs](userguides/slurm_guide/index.md)
             - [Understanding Slurm](userguides/slurm_guide/basics.md)
             - [Synchronizing multiple tasks](userguides/slurm_guide/tasks_communication.md)
-        - [Identifying GPU waste](userguides/gpu_efficiency.md)
+        - [Identifying GPU waste](userguides/profiling/index.md)
+            - [Visualizing usage with Pytorch profiler and Tensorboard](userguides/profiling/using_tensorboard_and_pytorch_profiler.md)
         - [Sharing Data with ACLs](userguides/sharing_data.md)
     - Minimal Examples
         - [Software Setup](examples/frameworks/index.md)
