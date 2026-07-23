@@ -49,7 +49,7 @@ alongside [Pytorch profiler](https://docs.pytorch.org/tutorials/recipes/recipes/
 </div>
 
 ## What this guide covers
-* Introduce Tensorboard and Pytorch profiler
+* Introduce Pytorch profiler and Tensorboard to log and display metrics
 * Launch Tensorboard alongside jobs on the cluster
 
 ---
@@ -62,9 +62,9 @@ Visualizing a job's performance with TensorBoard involves two steps:
 1. **Recording profiling data:** PyTorch Profiler writes trace files to the directory during the job's execution.
 2. **Viewing the metrics:** TensorBoard is launched pointing to that directory, either while the job is still running or after it has finished.
 
-## Write a code example
+## Recording profiling data
 
-!!! info
+??? info
     This guide is based on the following guides from the Pytorch documentation:
 
     * [How to use TensorBoard with PyTorch](https://docs.pytorch.org/tutorials/recipes/recipes/tensorboard_with_pytorch.html)
@@ -97,10 +97,11 @@ def train_model(iter):
 train_model(10)
 ```
 
-### Writing the job usage
+### How to use Pytorch profiler
 
-To write the metrics, we use `profile` from the `torch.profiler` 
-library. The template of writing metrics is as follows:
+Metrics are written with `profile` from the `torch.profiler` 
+library. Below is a template to understand how to add it to
+a model training code:
 
 ```python
 import os
@@ -144,7 +145,7 @@ profiler.stop()
 ```
 
 ### Ready-for-use code
-Putting all of this together, here is an example you can run directly:
+Below is an example of putting it all together. It is ready to be run:
 
 === "experiment.py"
     ```python
@@ -152,7 +153,7 @@ Putting all of this together, here is an example you can run directly:
     ```
 
 
-## Try this example locally
+## Try the example locally
 
 Launching the example locally is done through the following steps:
 
@@ -181,13 +182,13 @@ launch the experiment through the following command:
 uv run python experiment.py
 ```
 
-The folder `$SCRATCH/logs/$SLURM_JOB_ID` has been created.
+The folder `fake_scratch/logs/0` has been created.
 
 
 ### Launch Tensorboard
 Tensorboard can be launched whether the job is running or has ended, this is done through the command:
 ```console
-uv run tensorboard --logdir=runs
+uv run tensorboard --logdir=fake_scratch/logs/0
 ```
 
 <div class="result" style="border:None; padding:0" markdown>
@@ -198,7 +199,7 @@ TensorBoard 2.20.0 at http://localhost:6006/ (Press CTRL+C to quit)
 </div>
 
 ### Access Tensorboard visualization
-You can access Tensorboard interface through localhost, by using the port defined in the previous step (here `6006`). To this end, open a browser and enter `127.0.0.1:6006` in the address bar.
+You can access Tensorboard interface through localhost, the default port is `6006`. To this end, open a browser and enter `127.0.0.1:6006` in the address bar.
 
 The following dashboard appears:
 ![Tensorboard dashboard](../../../_static/images/tensorboard_dashboard_usage_one_experiment.png)
@@ -206,13 +207,14 @@ The following dashboard appears:
 
 ## Launch this example on the cluster
 
-However, if the metrics have to be monitored "live", we are following these steps:
+Visualizing metrics of a job on the cluster is done through the following steps:
 
 1. Connect to the cluster
 2. Set up the project for the cluster
 3. Launch the experiment
 4. Launch Tensorboard
 5. Access Tensorboard.
+
 
 ### Connect to the cluster
 This step is configured and explained in the [Getting started guide](../../../getting_started/).

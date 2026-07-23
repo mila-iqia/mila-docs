@@ -17,7 +17,7 @@ optimizer = torch.optim.SGD(model.parameters(), lr = 0.1)
 SCRATCH = Path(os.environ.get("SCRATCH", "fake_scratch"))
 SLURM_JOB_ID = os.environ.get("SLURM_JOB_ID", "0")
 logs_dir = SCRATCH / "logs" / SLURM_JOB_ID
-logs_dir.mkdir(parents=True, exists_ok=True)
+logs_dir.mkdir(parents=True, exist_ok=True)
 
 
 profiler = torch.profiler.profile(
