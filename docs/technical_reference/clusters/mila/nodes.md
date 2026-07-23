@@ -50,6 +50,15 @@ All nodes below use the x86_64 architecture.
 | **cn‑h[001‑004]**     | -         | -      | -   | 64   | 2       | 32           | 768         | 0:1:11G                      | 7            | milan                  |
 | **cn‑m[001‑004]**     | -         | -      | -   | 96   | 2       | 48           | 1024        | 0:1:10G                      | 7            | sapphire               |
 
+## Request specific nodes
+
+| Feature                   | Particularities                                            |
+| ------------------------- | ---------------------------------------------------------- |
+| 32gb / 40gb / 48gb / 80gb | Request a specific amount of *GPU* memory                  |
+| volta / turing / ampere   | Request a specific *GPU* architecture                      |
+| nvlink                    | Machine with GPUs using the NVLink interconnect technology |
+| dgx                       | NVIDIA *DGX* system with DGX OS                            |
+
 ## Special nodes and outliers
 
 ### DGX A100

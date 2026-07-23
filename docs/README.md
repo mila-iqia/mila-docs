@@ -49,6 +49,8 @@ recommend you start by checking out the [short quick start guide](getting_starte
 
     [:octicons-arrow-right-24: Dig deeper](technical_reference)
 
+    [:octicons-arrow-right-24: About the Mila Cluster](technical_reference/clusters/mila/)
+
 -   :material-hammer-wrench:{ .lg .middle } __Toolbox__
 
     ---
@@ -149,6 +151,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
             - [Roles and computing resources](technical_reference/clusters/mila/roles_and_resources.md)
             - [Node profile description](technical_reference/clusters/mila/nodes.md)
             - [Storage](technical_reference/clusters/mila/storage.md)
+            - [Partitions](technical_reference/clusters/mila/partitions.md)
             - [Data sharing policies](technical_reference/clusters/mila/sharing_policies.md)
             - [Data Transmission](technical_reference/clusters/mila/data_transmission.md)
             - [Monitoring](technical_reference/clusters/mila/monitoring.md)

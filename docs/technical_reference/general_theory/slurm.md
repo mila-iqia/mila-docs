@@ -1,4 +1,9 @@
-# SLURM commands guide
+---
+title: Slurm commands guide
+description: Reference for essential SLURM commands to submit, monitor, and manage jobs on the Mila cluster.
+---
+
+# Slurm commands guide
 
 ## Some definitions
 ### Jobs, job steps and tasks
@@ -11,7 +16,7 @@
     By default a job step will consume all resources allocated to the job,
     but this can be changed.
 
-    !!! tip
+    !!! tip "Steps often map to job phases"
         Steps most naturally map to phases of a job[^2]: For example,
 
           * Job step `.1` might correspond to a stage-in of the dataset to `$SLURM_TMPDIR`
@@ -23,7 +28,7 @@
     Every task has an associated ID within its step, a number `$SLURM_PROCID` also called
     a "rank" between `0` and `$SLURM_NPROCS`-1 inclusive.
 
-    !!! tip
+    !!! tip "Tasks map to processes"
         A task most naturally maps to one of the main processes in a distributed program
         (but see [^3]). While a job/job step can be multi-node, each task will run on one
         and only one node.
@@ -35,61 +40,38 @@ once **per node**, once **per GPU**, or even once **per CPU core**.
 The number of tasks in a job step is a very important tool in deciding this.
 One way this can play out, when reusing the three-job-step example above:
 
-<details>
+??? note "Job step .1 – Dataset stage-in"
+    Staging in a dataset should be done once per node, because `$SLURM_TMPDIR`
+    is a filesystem private to each node, but can be accessed by all processes
+    of that node.
 
-<summary>Job step .1 – Dataset Stage-In</summary>
+    ```bash
+    srun --ntasks-per-node=1 --ntasks=$SLURM_NNODES tar -xf $SCRATCH/my_dataset.tar -C $SLURM_TMPDIR
+    ```
 
-<i>
-Staging in a dataset should be done once per node, because </i>
-<code>$SLURM_TMPDIR</code>
-<i> is a filesystem private to each node,
-but can be accessed by all processes of that node.
-</i>
+???+ note "Job step .2 – Distributed processing"
+    The distributed program must run one main process per GPU, because with DDP,
+    each process is mean to manage only one GPU.
 
-```bash
-srun --ntasks-per-node=1 --ntasks=$SLURM_NNODES tar -xf $SCRATCH/my_dataset.tar -C $SLURM_TMPDIR
-```
+    ```bash
+    srun                      python   my_script.py # Best; inherits job's defaults
+    srun --ntasks-per-gpu=1   python   my_script.py # Good, maybe redundant
+    srun --ntasks-per-node=4  python   my_script.py # Worse; Hardcodes GPU count.
 
-</details>
+    # If using torchrun/accelerate and autodetect GPU count:
+    srun --ntasks-per-node=1  torchrun my_script.py
+    ```
 
-<details open>
+    These are not the only valid choices[^3][^4].
 
-<summary>Job step .2 – Distributed Processing</summary>
+??? note "Job step .3 – Results stage-out"
+    `$SCRATCH` is shared by every node and every process can see it.
+    To avoid collisions, some jobs might arrange for only only one task overall to
+    write out the job's results.
 
-<i>
-The distributed program must run one main process per GPU, because with DDP,
-each process is mean to manage only one GPU.
-</i>
-
-```bash
-srun                      python   my_script.py # Best; inherits job's defaults
-srun --ntasks-per-gpu=1   python   my_script.py # Good, maybe redundant
-srun --ntasks-per-node=4  python   my_script.py # Worse; Hardcodes GPU count.
-
-# If using torchrun/accelerate and autodetect GPU count:
-srun --ntasks-per-node=1  torchrun my_script.py
-```
-
-These are not the only valid choices
-<sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup>
-<sup id="fnref:4"><a class="footnote-ref" href="#fn:4">4</a></sup>.
-
-</details>
-
-<details>
-
-<summary>Job step .3 – Results Stage-Out</summary>
-
-<code>$SCRATCH</code><i> is shared by every node and every process can see it.
-To avoid collisions, some jobs might arrange for only only one task overall to
-write out the job's results.
-</i>
-
-```bash
-srun --ntasks-per-node=1 --ntasks=1 cp -a $SLURM_TMPDIR/results $SCRATCH/results/$SLURM_JOBID
-```
-
-</details>
+    ```bash
+    srun --ntasks-per-node=1 --ntasks=1 cp -a $SLURM_TMPDIR/results $SCRATCH/results/$SLURM_JOBID
+    ```
 
 [^1]: Outside of a job, srun creates a job, not a job step; This is an overloaded use of
     `srun` that is confusing and that we discourage.
@@ -121,7 +103,7 @@ srun --ntasks-per-node=1 --ntasks=1 cp -a $SLURM_TMPDIR/results $SCRATCH/results
     The _SLURM_ concept of "task" must also not be confused with the _Linux kernel's_
     usage of the same terminology to refer to the basic unit of scheduling - roughly a thread.
 
-## Basic Usage
+## Basic usage
 
 The SLURM [documentation](https://slurm.schedmd.com/documentation.html)
 provides extensive information on the available commands to query the cluster
@@ -152,12 +134,17 @@ Your job script is then submitted to SLURM with [`sbatch`](https://slurm.schedmd
 
 ```console
 $ sbatch job_script
+```
+
+<div class="result" style="border:None; padding:0" markdown>
+``` linenums="0"
 sbatch: Submitted batch job 4323674
 ```
+</div>
 
 The *working directory* of the job will be the one where your executed `sbatch`.
 
-!!! tip
+!!! tip "Specifying directives"
     Slurm directives can be specified on the command line alongside ``sbatch`` or
     inside the job script with a line starting with ``#SBATCH``.
 
@@ -178,7 +165,7 @@ Will start an interactive job on the first node available with the default
 resources set in SLURM (1 task/1 CPU).  `srun` accepts the same arguments as
 `sbatch` with the exception that the environment is not passed.
 
-!!! tip
+!!! tip "Preserving your environment"
     To pass your current environment to an interactive job, add
     ``--preserve-env`` to ``srun``.
 
@@ -199,102 +186,12 @@ available. The most important ones are:
 | `--mem=<size[units]>`           | Memory requested for all your tasks                                        |
 | `--gres=<list>`                 | Select generic resources such as GPUs for your job: `--gres=gpu:GPU_MODEL` |
 
-!!! tip
+!!! tip "Request only what you need"
     Always consider requesting the adequate amount of resources to improve the
     scheduling of your job (small jobs always run first).
 
-### Checking job status
 
-To display *jobs* currently in queue, use `squeue` and to get only your jobs type
-
-<!-- todo: `squeue --me` also does the same thing and is quicker to write.  -->
-```bash
-$ squeue -u $USER
- JOBID   USER          NAME    ST  START_TIME         TIME NODES CPUS TRES_PER_NMIN_MEM NODELIST (REASON) COMMENT
- 133     my_username   myjob   R   2019-03-28T18:33   0:50     1    2        N/A  7000M node1 (None) (null)
-```
-
-!!! note
-    The maximum number of jobs able to be submitted to the system per user is 1000 (MaxSubmitJobs=1000)
-    at any given time from the given association. If this limit is reached, new submission requests
-    will be denied until existing jobs in this association complete.
-
-### Removing a job
-
-To cancel your job simply use `scancel`
-
-```bash
-scancel 4323674
-```
-
-### Partitioning
-
-Since we don't have many GPUs on the cluster, resources must be shared as fairly
-as possible.  The `--partition=/-p` flag of SLURM allows you to set the
-priority you need for a job.  Each job assigned with a priority can preempt jobs
-with a lower priority: `unkillable > main > long`. Once preempted, your job is
-killed without notice and is automatically re-queued on the same partition until
-resources are available. (To leverage a different preemption mechanism, see the
-[Handling preemption ](../../technical_reference/general_theory/multigpu/#handling-preemption))
-
-| Flag                           | Max Resource Usage        | Max Time    | Note                                                 |
-| ------------------------------ | ------------------------- | ----------- | ---------------------------------------------------- |
-| `--partition=unkillable`       | 6  CPUs, mem=32G,  1 GPU  | 2 days      |                                                      |
-| `--partition=unkillable-cpu`   | 2  CPUs, mem=16G          | 2 days      | CPU-only jobs                                        |
-| `--partition=short-unkillable` | mem=1000G, 4 GPUs         | 3 hours (!) | Large but short jobs. Restricted to 4-GPU nodes only |
-| `--partition=main`             | 8  CPUs, mem=48G,  2 GPUs | 5 days      |                                                      |
-| `--partition=main-cpu`         | 8  CPUs, mem=64G          | 5 days      | CPU-only jobs                                        |
-| `--partition=long`             | no limit of resources     | 7 days      |                                                      |
-| `--partition=long-cpu`         | no limit of resources     | 7 days      | CPU-only jobs                                        |
-
-???+ warning "Important: H100 GPUs Partition Restrictions"
-
-    H100 GPUs are **ONLY** available in the `short-unkillable` partition.
-    
-    The `short-unkillable` partition is restricted to 4-GPU nodes only,
-    specifically:
-    
-    - **cn-g nodes**: A100 80GB GPUs (4 GPUs per node)
-    - **cn-l nodes**: L40S GPUs (4 GPUs per node)
-
-    As an exception, it also contains the H100 nodes:
-
-    - **cn-n nodes**: H100 GPUs (8 GPUs per node, but only 4 can be used per job)
-    
-    For a complete list of node specifications and GPU details, see [Node
-    profile description](../../technical_reference/clusters/mila/nodes).
-
-??? warning "About outdated partitions (`cpu_jobs`, `cpu_jobs_low`, etc.)"
-
-    Historically, before the 2022 introduction of CPU-only nodes (e.g. the `cn-f` 
-    series), CPU jobs ran side-by-side with the GPU jobs on GPU nodes. To prevent
-    them obstructing any GPU job, they were always lowest-priority and preemptible.
-    This was implemented by automatically assigning them to one of the now-obsolete
-    partitions `cpu_jobs`, `cpu_jobs_low` or `cpu_jobs_low-grace`.
-    **Do not use these partition names anymore**. Prefer the `*-cpu` partition
-    names defined above.
-
-    For backwards-compatibility purposes, the legacy partition names are translated
-    to their effective equivalent `long-cpu`, but they will eventually be removed
-    entirely.
-
-!!! note
-    *As a convenience*, should you request the `unkillable`, `main` or `long`
-    partition for a CPU-only job, the partition will be translated to its `-cpu`
-    equivalent automatically.
-
-For instance, to request an unkillable job with 1 GPU, 4 CPUs, 10G of RAM and
-12h of computation do:
-
-```console
-sbatch --gres=gpu:1 -c 4 --mem=10G -t 12:00:00 --partition=unkillable <job.sh>
-```
-
-You can also make it an interactive job using `salloc`:
-
-```console
-salloc --gres=gpu:1 -c 4 --mem=10G -t 12:00:00 --partition=unkillable
-```
+#### Request specific resources
 
 The Mila cluster has many different types of nodes/GPUs. To request a specific
 type of node/GPU, you can add specific feature requirements to your job
@@ -318,25 +215,50 @@ To request a DGX system with 8 A100 GPUs, you can use
 sbatch -c 16 --gres=gpu:8 --constraint="dgx&ampere"
 ```
 
-| Feature                  | Particularities                                            |
-| ------------------------ | ---------------------------------------------------------- |
-| 12gb/32gb/40gb/48gb/80gb | Request a specific amount of *GPU* memory                  |
-| volta/turing/ampere      | Request a specific *GPU* architecture                      |
-| nvlink                   | Machine with GPUs using the NVLink interconnect technology |
-| dgx                      | NVIDIA *DGX* system with DGX OS                            |
+### Checking job status
 
-#### Partition details and GPU availability
+To display *jobs* currently in queue, use `squeue` and to get only your jobs type
 
-The following table provides a quick reference guide for choosing partitions and
-understanding GPU availability:
+<!-- todo: `squeue --me` also does the same thing and is quicker to write.  -->
+```console
+$ squeue -u $USER
+```
 
-| Partition          | When to use                                                            | Available GPUs |
-|--------------------|------------------------------------------------------------------------|----------------|
-| `unkillable`       | High-priority jobs that cannot be interrupted. Maximum 2 days runtime. | All GPU types |
-| `short-unkillable` | Large, short jobs (3 hours max) that need high priority and cannot be interrupted. | **Restricted to 4-GPU nodes only** |
-| `main`             | Standard priority jobs with moderate runtime needs (5 days max).       | All GPU types |
-| `long`             | Long-running jobs (7 days max) that can tolerate preemption.           | All GPU types **except H100** |
-| `*-cpu`            | CPU-only jobs (no GPU required).                                       | N/A (CPU-only nodes) |
+<div class="result" style="border:None; padding:0" markdown>
+``` linenums="0"
+ JOBID   USER          NAME    ST  START_TIME         TIME NODES CPUS TRES_PER_NMIN_MEM NODELIST (REASON) COMMENT
+ 133     my_username   myjob   R   2019-03-28T18:33   0:50     1    2        N/A  7000M node1 (None) (null)
+```
+</div>
+
+!!! note
+    The maximum number of jobs able to be submitted to the system per user is 1000 (MaxSubmitJobs=1000)
+    at any given time from the given association. If this limit is reached, new submission requests
+    will be denied until existing jobs in this association complete.
+
+### Removing a job
+
+To cancel your job simply use `scancel`
+
+```bash
+scancel 4323674
+```
+
+### Partitioning
+
+See the [list of Mila cluster partitions](../../technical_reference/clusters/mila/nodes). To request an unkillable job with 1 GPU, 4 CPUs, 10G of RAM and
+12h of computation do:
+
+```console
+sbatch --gres=gpu:1 -c 4 --mem=10G -t 12:00:00 --partition=unkillable <job.sh>
+```
+
+You can also make it an interactive job using `salloc`:
+
+```console
+salloc --gres=gpu:1 -c 4 --mem=10G -t 12:00:00 --partition=unkillable
+```
+
 
 #### Information on partitions/nodes
 
@@ -349,27 +271,36 @@ job (i.e. max time, max CPUs, etc...)
 
 To display available *partitions*, simply use
 
-
 ```console
 $ sinfo
+```
+
+<div class="result" style="border:None; padding:0" markdown>
+``` linenums="0"
 PARTITION AVAIL TIMELIMIT NODES STATE  NODELIST
 batch     up     infinite     2 alloc  node[1,3,5-9]
 batch     up     infinite     6 idle   node[10-15]
 cpu       up     infinite     6 idle   cpu_node[1-15]
 gpu       up     infinite     6 idle   gpu_node[1-15]
 ```
+</div>
 
 To display available *nodes* and their status, you can use
 
 
 ```console
 $ sinfo -N -l
+```
+
+<div class="result" style="border:None; padding:0" markdown>
+``` linenums="0"
 NODELIST    NODES PARTITION STATE  CPUS MEMORY TMP_DISK WEIGHT FEATURES REASON
 node[1,3,5-9]   2 batch     allocated 2    246    16000     0  (null)   (null)
 node[2,4]       2 batch     drain     2    246    16000     0  (null)   (null)
 node[10-15]     6 batch     idle      2    246    16000     0  (null)   (null)
 ...
 ```
+</div>
 
 And to get statistics on a job running or terminated, use `sacct` with some of
 the fields you want to display
@@ -377,11 +308,16 @@ the fields you want to display
 
 ```console
 $ sacct --format=User,JobID,Jobname,partition,state,time,start,end,elapsed,nnodes,ncpus,nodelist,workdir -u $USER
+```
+
+<div class="result" style="border:None; padding:0" markdown>
+``` linenums="0"
      User        JobID    JobName  Partition      State  Timelimit               Start                 End    Elapsed   NNodes      NCPUS        NodeList              WorkDir
 --------- ------------ ---------- ---------- ---------- ---------- ------------------- ------------------- ---------- -------- ---------- --------------- --------------------
 my_usern+ 2398         run_extra+      batch    RUNNING 130-05:00+ 2019-03-27T18:33:43             Unknown 1-01:07:54        1         16 node9           /home/mila/my_usern+
 my_usern+ 2399         run_extra+      batch    RUNNING 130-05:00+ 2019-03-26T08:51:38             Unknown 2-10:49:59        1         16 node9           /home/mila/my_usern+
 ```
+</div>
 
 Or to get the list of all your previous jobs, use the `--start=YYYY-MM-DD` flag. You can check `sacct(1)` for further information about additional time formats.
 
@@ -394,6 +330,10 @@ provide specific information on a job (currently running or recently terminated)
 
 ```console
 $ scontrol show job 43123
+```
+
+<div class="result" style="border:None; padding:0" markdown>
+``` linenums="0"
 JobId=43123 JobName=python_script.py
 UserId=my_username(1500000111) GroupId=student(1500000000) MCS_label=N/A
 Priority=645895 Nice=0 Account=my_username QOS=normal
@@ -421,11 +361,16 @@ StdIn=/dev/null
 StdOut=/home/mila/my_username/slurm-43123.out
 Power=
 ```
+</div>
 
 Or more info on a node and its resources
 
 ```console
 $ scontrol show node node9
+```
+
+<div class="result" style="border:None; padding:0" markdown>
+``` linenums="0"
 NodeName=node9 Arch=x86_64 CoresPerSocket=4
 CPUAlloc=16 CPUTot=16 CPULoad=1.38
 AvailableFeatures=(null)
@@ -443,8 +388,9 @@ CapWatts=n/a
 CurrentWatts=0 LowestJoules=0 ConsumedJoules=0
 ExtSensorsJoules=n/s ExtSensorsWatts=0 ExtSensorsTemp=n/s
 ```
+</div>
 
-## Useful Commands
+## Useful commands
 
 ```console title="Get an interactive job and give you a shell. (ssh like) CPU only"
 salloc
