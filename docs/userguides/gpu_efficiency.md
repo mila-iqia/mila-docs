@@ -55,10 +55,13 @@ In other words, efficient compute utilization makes Mila research thrive.
 ## The basics of compute efficiency: utilization vs. occupancy
 
 `nvidia-smi` is a useful first check, but its utilization metric has
-limitations: it reports "100% Utilization" as soon as any kernel is running
-on the GPU, regardless of how much of the hardware is actually in use. For a
-more precise view, look at **Streaming Multiprocessor (SM) Occupancy**, which
-measures what fraction of the GPU's computing units are actively working.
+limitations: it reports "100% Utilization" as soon as any kernel is running on
+the GPU, regardless of how much of the hardware is actually in use. So if the
+reported GPU utilization is low or equals zero, it usually means there is room
+for optimization. For a more precise view, look at **Streaming Multiprocessor
+(SM) Occupancy**, which measures what fraction of the GPU's computing units are
+actively working. More context is available in this [external post on GPU
+utilization metrics](https://www.trainy.ai/blog/gpu-utilization-misleading).
 
 Use the table below as a reference to evaluate SM occupancy:
 
@@ -77,7 +80,7 @@ the underlying numbers.
 
 ```mermaid
 flowchart TD
-    A[Suspect a job is underutilized] --> B{SM occupancy ≥ 30%?}
+    A[Suspect a job's resources are underutilized] --> B{SM occupancy ≥ 30%?}
     B -->|Yes| C[GPU well utilized — no action needed]
     B -->|No| D{VRAM usage < 20%?}
     D -->|Yes| E[Increase batch size, use a smaller GPU, or pack jobs]
@@ -132,13 +135,13 @@ for efficient GPU utilization.
       interactive partitions while away from the keyboard. Release them if not
       actively computing.
     - **Avoiding preemption queues:** Do not camp on non-preemptible partitions
-      just to avoid writing checkpointing code — this tanks overall queue
-      priority.
+      to avoid writing checkpointing code — this significantly reduces
+      overall queue priority.
     - **Over-allocating CPU cores:** Do not request excessive CPU cores (e.g.,
       40 CPUs for 1 GPU) unless preprocessing explicitly requires it. Mila
       provides CPU-only nodes if needed.
-    - **Scaling GPUs to fix I/O bottlenecks:** Do not add more GPUs if the
-      pipeline is bottlenecked by storage read latency or CPU preprocessing —
+    - **Scaling GPUs to fix I/O bottlenecks:** Do not add more GPUs if
+      storage read latency or CPU preprocessing bottlenecks the pipeline —
       this only idles more hardware.
     - **Underutilizing VRAM:** If VRAM usage is under 20%, consider increasing
       batch size, switching to a smaller GPU, or using job packing (multiple
