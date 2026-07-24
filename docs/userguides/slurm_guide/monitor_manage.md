@@ -5,11 +5,10 @@ description: Track, inspect, cancel and troubleshoot jobs on the cluster.
 
 # Monitor and manage jobs
 
-Once a job is submitted, Slurm places it in a queue and starts it when the
-requested resources become available. This guide covers how to follow a job
-through the queue, inspect it while it runs and after it finishes, check how
-efficiently it used its allocation, cancel it, read its output, and resolve the
-failures new users hit most often.
+Once a job is submitted, it moves through a lifecycle: queued, running, then
+finished. Each stage raises its own question — whether the job is waiting or
+already running, whether it is progressing as expected, and if something goes
+wrong, why. This guide shows which tool answers each question, stage by stage.
 
 !!! note "Where to run these commands"
     The commands below run in the VSCode integrated terminal on a compute node
@@ -37,6 +36,7 @@ failures new users hit most often.
 * Inspecting finished jobs and their resource usage
 * Cancelling jobs
 * Reading job output
+* Understanding job preemption
 * Troubleshooting common failures
 
 ---
@@ -108,15 +108,16 @@ the questions that matter most after a job ends:
 * `MaxRSS` — the peak memory a task used
 * `ReqMem` — the memory that was requested
 
-See the [info commands](../../technical_reference/general_theory/slurm.md#checking-job-status)
-reference for the complete field list.
+See the [sacct command](https://slurm.schedmd.com/sacct.html) reference for the
+complete field list.
 
 ## Check resource efficiency
 
 Comparing the resources a job *used* against what it *requested* is the fastest
-way to spot waste. Over-requesting memory or time makes a job harder to schedule
-and holds resources other users could run on. Comparing `MaxRSS` against
-`ReqMem` (from `sacct` above) is a good starting point for CPU and memory jobs.
+way to spot waste. Over-requesting GPUs, CPUs, memory, or time makes a job
+harder to schedule and holds resources other users could run on. Comparing
+`MaxRSS` against `ReqMem` (from `sacct` above) is a good starting point for CPU
+and memory jobs.
 
 <div class="grid cards" markdown>
 
@@ -172,6 +173,29 @@ The `%x` and `%j` patterns are replaced with the job name and job ID, which
 keeps output files from different jobs separate. Interactive jobs launched with
 `salloc` print their output directly to the terminal instead.
 
+## Understand job preemption
+
+Jobs run at a priority tier — `unkillable > main > long` — and a higher-priority
+job can preempt a lower-priority one to take its resources. By default this
+happens with no warning: the job is killed and automatically re-queued on the
+same partition, restarting from scratch once resources free up again. Partitions
+with the `-grace` suffix (`main-grace`, `long-grace`, ...) trade that automatic
+requeue for a 120-second warning (`SIGCONT` then `SIGTERM` before `SIGKILL`) a
+job can catch to save its state instead. See
+[Partitioning](../../technical_reference/general_theory/slurm.md#partitioning)
+and [Handling
+preemption](../../technical_reference/general_theory/multigpu.md#handling-preemption)
+for the full priority rules and how to trap that signal.
+
+Because preemption is silent by default, the clearest sign it happened is a job
+that appears to have restarted: check `scontrol show job <JOB_ID>` for a
+`Restarts` count above `0`. This is exactly what checkpointing protects against
+— without it, a preempted job loses all progress and starts over from nothing;
+with it, the job resumes close to where it left off. It matters most for jobs on
+partitions expected to tolerate preemption, such as `long`. See
+[Checkpointing](../../examples/good_practices/checkpointing/index.md) to add it
+to your job.
+
 ## Troubleshoot common failures
 
 Most job problems fall into a handful of categories. The table below maps each
@@ -185,8 +209,7 @@ explanation.
 | Pending with `(ReqNodeNotAvail)` | The requested nodes or features are unavailable (for example an impossible `--constraint`). Relax the constraint or choose another partition. |
 | Killed with an `oom-kill` message | The job exceeded its memory allocation. Request more memory with `--mem`. See [the oom-kill FAQ entry](../../help/faq.md#slurmstepd-error-detected-1-oom-kill-events-in-step-batch-cgroup). |
 | Ends in `TIMEOUT` | The job hit its `--time` limit. Request more time, or add checkpointing to resume long runs. See [Checkpointing](../../examples/good_practices/checkpointing/index.md). |
-| `Invalid account or account/partition combination` | The requested partition or account is not valid for this user. See [the FAQ entry](../../help/faq.md#unable-to-allocate-resources-invalid-account-or-accountpartition-combination-specified). |
-| `--mem and --mem-per-cpu are mutually exclusive` | Only one memory flag can be set. Keep either `--mem` or `--mem-per-cpu`. See [the FAQ entry](../../help/faq.md#srun-error-mem-and-mem-per-cpu-are-mutually-exclusive). |
+| Job restarts from scratch, or `scontrol show job` shows `Restarts` > 0 | The job was preempted by a higher-priority job and automatically re-queued with no warning. See [Understand job preemption](#understand-job-preemption) above, and add checkpointing so the job resumes instead of restarting. |
 
 ---
 
