@@ -90,13 +90,23 @@ Submitting tasks takes two steps:
 
 ## Discover Slurm through an interactive job
 
-An interactive job opens a shell directly on the allocated compute nodes. With
-VSCode, a single `mila code` command both connects to the cluster and requests
-the allocation. The equivalent terminal workflow connects first with `ssh
-mila`, then requests the allocation with `salloc`.
+An interactive job opens a shell directly on the allocated compute nodes.
+Connect to the cluster with `ssh mila`, then request the allocation with
+`salloc`.
+
+<!--
+`mila code --salloc` isn't recommended for interactive allocations here yet:
+it doesn't correctly reproduce the state of a manual `salloc` allocation.
+Restore the VSCode option below once
+https://github.com/mila-iqia/milatools/pull/202 merges.
+
+With VSCode, a single `mila code` command both connects to the cluster and
+requests the allocation.
+-->
 
 ### Request an interactive allocation
 
+<!--
 === "VSCode"
 
     Open the project on a compute node, passing the allocation options after
@@ -121,33 +131,32 @@ mila`, then requests the allocation with `salloc`.
 
     VSCode opens connected to the first allocated node. Open the integrated
     terminal (**Terminal → New Terminal**) to run commands on the allocation.
+-->
 
-=== "Terminal"
+Connect to the cluster:
 
-    Connect to the cluster:
+```bash
+ssh mila
+```
 
-    ```bash
-    ssh mila
-    ```
+Then request the allocation. The Slurm scheduler provides it once the
+resources are available:
 
-    Then request the allocation. The Slurm scheduler provides it once the
-    resources are available:
+```bash
+salloc --nodes=2 --ntasks-per-node=2 --mem=2G --time=00:30:00
+```
+<div class="result" style="border:None; padding:0" markdown>
+``` linenums="0"
+salloc: --------------------------------------------------------------------------------------------------
+salloc: # Using default long-cpu partition (CPU-only)
+salloc: --------------------------------------------------------------------------------------------------
+salloc: Pending job allocation 8888888
+salloc: job 8888888 queued and waiting for resources
 
-    ```bash
-    salloc --nodes=2 --ntasks-per-node=2 --mem=2G --time=00:30:00
-    ```
-    <div class="result" style="border:None; padding:0" markdown>
-    ``` linenums="0"
-    salloc: --------------------------------------------------------------------------------------------------
-    salloc: # Using default long-cpu partition (CPU-only)
-    salloc: --------------------------------------------------------------------------------------------------
-    salloc: Pending job allocation 8888888
-    salloc: job 8888888 queued and waiting for resources
-
-    salloc: Granted job allocation 8888888
-    salloc: Nodes cn-f[001-002] are ready for job
-    ```
-    </div>
+salloc: Granted job allocation 8888888
+salloc: Nodes cn-f[001-002] are ready for job
+```
+</div>
 
 Once the allocation is granted, Slurm reports the Job ID (8888888 in this
 example) and the nodes the allocation runs on (cn-f001 and cn-f002). The
@@ -163,16 +172,17 @@ resource allocation is now ready.
       interactive job can last up to a week, and forgetting to leave one is a
       common mistake.
 
+    <!--
     Both workflows request the same interactive allocation. `mila code --salloc`
     runs the same `salloc` under the hood, as shown in its output.
+    -->
 
     See the [salloc documentation](https://slurm.schedmd.com/salloc.html) for
     more information.
 
 ### Inspect where tasks run
 
-Run the following in the shell on the allocation — the VSCode integrated
-terminal, or the `salloc` session in the terminal workflow.
+Run the following in the `salloc` session opened above.
 
 Running `hostname` reports where the process calling the command runs:
 
@@ -357,9 +367,11 @@ Task
 :   One instance of a command run by a step on part of the job's allocation.
     A step can run multiple tasks.
 
+<!--
 `mila code`
 :   `milatools` command that requests an allocation and opens VSCode on the
     compute node. Options passed after `--salloc` are forwarded to Slurm.
+-->
 
 `mila-cpu`
 :   SSH remote added by `mila init` that auto-allocates a CPU compute node for
