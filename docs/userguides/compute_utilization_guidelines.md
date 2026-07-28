@@ -34,7 +34,7 @@ reports and notifications, and help you eliminate compute waste.
 
 ## How IDT may help you
 We understand that right-sizing the compute you require and using it optimally
-can be complex. The [IDT (“Innovation, Development and Technologies) team](../home/teams.md) is here
+can be complex. The [IDT (“Innovation, Development and Technologies") team](../home/teams.md) is here
 to support you with:
 
 - One-on-one expert guidance during [Office Hours](../help/office_hours.md) or via [Slack](../help/index.md).

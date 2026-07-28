@@ -118,7 +118,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
             - [Understanding Slurm](userguides/slurm_guide/basics.md)
             - [Synchronizing multiple tasks](userguides/slurm_guide/tasks_communication.md)
         - [Identifying GPU waste](userguides/gpu_efficiency.md)
-        - [Compute utilization at Mila](userguides/compute_utilization.md)
+        - [Compute utilization at Mila](userguides/compute_utilization_guidelines.md)
         - [Sharing Data with ACLs](userguides/sharing_data.md)
     - Minimal Examples
         - [Software Setup](examples/frameworks/index.md)
