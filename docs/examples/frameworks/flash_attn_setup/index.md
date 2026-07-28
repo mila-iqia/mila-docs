@@ -17,9 +17,9 @@ wheel is available.
 
 Make sure to read the following sections of the documentation before using this example:
 
-* [Quick Start](../../../getting_started/train_first_model/)
-* [Running your code](../../../userguides/running_code)
-* [uv](../../../technical_reference/general_theory/portability/#uv)
+* [Quick Start](../../../getting_started/train_first_model.md)
+* [Running your code](../../../technical_reference/general_theory/slurm.md)
+* [uv](../../../technical_reference/general_theory/portability.md#uv)
 
 Other resources:
 
