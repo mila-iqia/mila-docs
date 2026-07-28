@@ -26,15 +26,15 @@ We monitor cluster performance metrics, focusing strictly on hardware telemetry,
 never private data or source code. This enables us to provide actionable usage
 reports and notifications, and help you eliminate compute waste.
 
-| Tool                  | Purpose                   | What’s in it for you  |
-| ---------             | -------------             | --------------------  |
-| Reports & Dashboard   | ⏱️ Continuous tracking    | Access your data via the public dashboard. Monthly reports sent via Slack to help you track your usage. |
-| Waste notification    | 🔔 Early warning          | Stay informed in case of significantly low usage, receive tips, and get in touch whenever needed. |
-| IDT Interventions     | 👨‍💻 Expert coaching        | Benefit from 1-on-1 coaching with an expert to analyze your scripts and optimize job efficiency.  |
+| Tool { style="width: 25%" }   | Purpose { style="width: 25%" }    | What’s in it for you { style="width: 50%" }  |
+| ---------                     | -------------                     | --------------------  |
+| Reports & Dashboard           | ⏱️ Continuous tracking            | Access your data via the public dashboard. Monthly reports sent via Slack to help you track your usage. |
+| Waste notification            | 🔔 Early warning                  | Stay informed in case of significantly low usage, receive tips, and get in touch whenever needed. |
+| IDT Interventions             | 👨‍💻 Expert coaching                | Benefit from 1-on-1 coaching with an expert to analyze your scripts and optimize job efficiency.  |
 
 ## How IDT may help you
 We understand that right-sizing the compute you require and using it optimally
-can be complex. The [IDT (“Innovation et Développement Technique”) team](../home/teams.md) is here
+can be complex. The [IDT (“Innovation, Development and Technologies) team](../home/teams.md) is here
 to support you with:
 
 - One-on-one expert guidance during [Office Hours](../help/office_hours.md) or via [Slack](../help/index.md).
