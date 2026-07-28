@@ -4,11 +4,12 @@
 Mila’s global scientific leadership directly hinges on the ability to convert
 raw computing power into research breakthroughs. Making the absolute most of
 the available capacity, i.e. optimal compute utilization, is vital to the success
-of Mila and all its researchers. Yet, a portion of the internal compute power
-allocated to Mila remains inefficiently used (inefficient jobs leave GPU unused)
-– which slows down research progress. Therefore, raising awareness around efficient
-compute usage has become key, so everyone may run more experiments and get results
-faster.
+of Mila and all its researchers.
+
+Yet, a portion of the internal compute power allocated to Mila remains 
+inefficiently used (inefficient jobs leave GPU unused) – which slows down
+research progress. Therefore, raising awareness around efficient compute usage
+has become key, so everyone may run more experiments and get results faster.
 
 ## What we expect from you
 As a researcher, you are expected to request the right amount of compute for
@@ -45,6 +46,5 @@ will be improved over time. Thank you in advance for sharing your feedback and
 suggestions at research-computing-committee@mila.quebec.
 
 We are looking forward to seeing you run your projects on Mila’s infrastructure.
+
 Let’s put those clusters to work!
-
-
