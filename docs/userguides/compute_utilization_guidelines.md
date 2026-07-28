@@ -19,8 +19,9 @@ compute resources.
 
 ## The “Safety net” system
 To ensure everyone benefits from the compute power made available to the
-scientific community, IDT has introduced an awareness system designed to
-prevent unused GPU by empowering users with adequate tools.
+scientific community, the [IDT (Innovation, Development and Technologies) team](../home/teams.md)
+has introduced an awareness system designed to prevent unused GPU by empowering
+users with adequate tools.
 
 We monitor cluster performance metrics, focusing strictly on hardware telemetry,
 never private data or source code. This enables us to provide actionable usage
@@ -34,8 +35,7 @@ reports and notifications, and help you eliminate compute waste.
 
 ## How IDT may help you
 We understand that right-sizing the compute you require and using it optimally
-can be complex. The [IDT (“Innovation, Development and Technologies") team](../home/teams.md) is here
-to support you with:
+can be complex. IDT is here to support you with:
 
 - One-on-one expert guidance during [Office Hours](../help/office_hours.md) or via [Slack](../help/index.md).
 - Support with tracking and reporting tools to help you understand your compute usage.
