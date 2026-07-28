@@ -51,7 +51,7 @@ Or download manually on GitHub:
 2. Click [`all_docs_condensed.md`](https://github.com/mila-iqia/mila-docs/blob/master/all_docs_condensed.md) in the file list.
 3. Click the **Download raw file** button, on the upper right corner of the file.
 
-    ![Download Github file](../../_static/images/download_github_file.png)
+    ![Download Github file](../_static/images/download_github_file.png)
 
 ## Load the file into a chat session
 
@@ -61,7 +61,7 @@ Most LLM chat assistants accept either file uploads or large text pastes.
 
     1. Open a new conversation at [claude.ai](https://claude.ai).
     2. Click the **paperclip** icon.
-        ![Provide file to Claude LLM](../../_static/images/llm_provide_file_claude.png)
+        ![Provide file to Claude LLM](../_static/images/llm_provide_file_claude.png)
 
     3. Select `all_docs_condensed.md` from the local filesystem.
     4. Add a context message alongside the file upload:
@@ -79,7 +79,7 @@ Most LLM chat assistants accept either file uploads or large text pastes.
     1. Open a new conversation at [chatgpt.com](https://chatgpt.com)
         using GPT-4o or a later model.
     2. Click the **paperclip** icon.
-        ![Provide file to ChatGPT](../../_static/images/llm_provide_file_chatgpt.png)
+        ![Provide file to ChatGPT](../_static/images/llm_provide_file_chatgpt.png)
     3. Select `all_docs_condensed.md` from the local filesystem.
     4. Add a context message alongside the upload:
 
@@ -95,7 +95,7 @@ Most LLM chat assistants accept either file uploads or large text pastes.
 
     1. Open a new conversation at [gemini.google.com](https://gemini.google.com).
     2. Click the **attachment** icon.
-        ![Provide file to Gemini](../../_static/images/llm_provide_file_gemini.png)
+        ![Provide file to Gemini](../_static/images/llm_provide_file_gemini.png)
     3. Select `all_docs_condensed.md` from the local filesystem.
     4. Add a context message alongside the upload:
 

@@ -18,6 +18,6 @@
 
     Get definitions of commands and notions you may have encountered in this documentation
     
-    [:octicons-arrow-right-24: Check the glossary](../technical_reference/glossary)
+    [:octicons-arrow-right-24: Check the glossary](glossary.md)
     
 </div>

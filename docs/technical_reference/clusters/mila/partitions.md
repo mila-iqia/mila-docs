@@ -13,10 +13,11 @@ resource limits, maximum run time, and priority. Use the Slurm flag
 ## Partition details
 
 Each job assigned with a priority can preempt jobs with a lower priority:
-`unkillable > main > long`.  Once preempted, the job is killed without notice
-and is automatically re-queued on the same partition until resources are available.
+`unkillable > main > long`. Once preempted, the job is killed without notice and
+is automatically re-queued on the same partition until resources are available.
 To leverage a different preemption mechanism, see the 
-[Handling preemption](../../../general_theory/multigpu/#handling-preemption) page.
+[Handling preemption](../../general_theory/multigpu.md#handling-preemption)
+page.
 
 | Partition          | Max Resource Usage        | Max Time    | Note                                                       |
 | -------------------| ------------------------- | ----------- | ---------------------------------------------------------- |
@@ -44,7 +45,7 @@ To leverage a different preemption mechanism, see the
     - **cn-n nodes**: H100 GPUs (8 GPUs per node, but only 4 can be used per job)
     
     For a complete list of node specifications and GPU details, see [Node
-    profile description](../nodes).
+    profile description](nodes.md).
 
 !!! note
     *As a convenience*, requesting the `unkillable`, `main`, or `long`
