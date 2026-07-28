@@ -198,8 +198,8 @@ type of node/GPU, you can add specific feature requirements to your job
 submission command.
 
 To access those special nodes you need to request them explicitly by adding the
-flag `--constraint=<name>`.  The full list of nodes in the Mila Cluster can be
-accessed at [Node profile description](../../technical_reference/clusters/mila/nodes).
+flag `--constraint=<name>`. The full list of nodes in the Mila Cluster can be
+accessed at [Node profile description](../clusters/mila/nodes.md).
 
 *Examples:*
 
@@ -246,8 +246,8 @@ scancel 4323674
 
 ### Partitioning
 
-See the [list of Mila cluster partitions](../../technical_reference/clusters/mila/nodes). To request an unkillable job with 1 GPU, 4 CPUs, 10G of RAM and
-12h of computation do:
+See the [list of Mila cluster partitions](../clusters/mila/nodes.md). To request
+an unkillable job with 1 GPU, 4 CPUs, 10G of RAM and 12h of computation do:
 
 ```console
 sbatch --gres=gpu:1 -c 4 --mem=10G -t 12:00:00 --partition=unkillable <job.sh>

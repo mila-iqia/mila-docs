@@ -49,7 +49,7 @@ recommend you start by checking out the [short quick start guide](getting_starte
 
     [:octicons-arrow-right-24: Dig deeper](technical_reference/index.md)
 
-    [:octicons-arrow-right-24: About the Mila Cluster](technical_reference/clusters/mila/)
+    [:octicons-arrow-right-24: About the Mila Cluster](technical_reference/clusters/mila/index.md)
 
 -   :material-hammer-wrench:{ .lg .middle } __Toolbox__
 
