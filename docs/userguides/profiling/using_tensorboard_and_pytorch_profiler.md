@@ -99,7 +99,7 @@ train_model(10)
 
 ### How to use Pytorch profiler
 
-Metrics are written with `profile` from the `torch.profiler` 
+Metrics are written with `profile` from the `torch.profiler`
 library. Below is a template to understand how to add it to
 a model training code:
 
@@ -207,133 +207,149 @@ The following dashboard appears:
 
 ## Launch this example on the cluster
 
-Visualizing metrics of a job on the cluster is done through the following steps:
+Now is time to launch a job on the cluster and benefit the shared compute resources to run experiments.
+Below are described two methods to visualize metrics of a job on the cluster:
 
-1. Connect to the cluster
-2. Set up the project for the cluster
-3. Launch the experiment
-4. Launch Tensorboard
-5. Access Tensorboard.
+* Using milatools and VSCode
+* Using command lines.
+
+### Steps overview
+
+=== "milatools and VSCode"
+    1. From a local terminal : `ssh mila 'mkdir -p CODE/tensorboard_test'`
+    2. From a local terminal : `mila code CODE/tensorboard_test --alloc --gres=gpu:1 --cpus-per-task=2 --mem=16G --time=01:00:00`
+    3. In VSCode : create the files `experiment.py` and `pyproject.toml`
+    4. From the VSCode terminal : `uv run python experiment.py`
+    5. From the browser, access Tensorboard [on browser](http://127.0.0.1:6006).
+
+=== "Command lines"
+    1. Connect to the cluster : `ssh mila`
+    2. Set up the project for the cluster : `mkdir $SCRATH/tensorboard_test`, `cd $SCRATCH/tensorboard_test`, `vim experiment.py`, `vim pyproject.toml`
+    3. Launch the experiment : `vim job.sh` and `sbatch job.sh`
+    4. Launch Tensorboard : `salloc ` then `uvx tensorboard --logdir $SCRATCH/logs/$SLURM_JOB_ID`
+    5. From the browser, access Tensorboard [on browser](http://127.0.0.1:6006).
 
 
-### Connect to the cluster
-This step is configured and explained in the [Getting started guide](../../../getting_started/).
+### Detailed steps
 
-Here, we choose to use the Mila cluster.
+=== "milatools and VSCode"
 
-```console
-ssh mila
-```
+    <span class="tab-title">Create directory and allocate resources</span>
 
-We are now connected on one of the login node.
+    From your **local terminal**, create the project directory on the cluster and launch VSCode connected directly to an allocated compute node:
 
-
-### Set up the project for the cluster
-This could be done through `uv init` and `uv add <dependencies>` such as presented in [Try this example locally - Set up the environment](#set-up-the-environment). You can also copy the `pyproject.toml` file, adapted to this example.
-
-Hence, we copy (or write) the following files on the login node.
-
-(The full source code for this example is available on [the mila-docs GitHub repository.](https://github.com/mila-iqia/mila-docs/tree/master/docs/userguides/profiling/code))
-
-=== "experiment.py"
-    ```python
-    --8<-- "docs/userguides/profiling/code/experiment.py"
+    ```console
+    ssh mila 'mkdir -p CODE/tensorboard_test'
+    mila code CODE/tensorboard_test --alloc --gres=gpu:1 --cpus-per-task=2 --mem=16G --time=01:00:00
     ```
 
-=== "pyproject.toml"
-    ```toml
-    --8<-- "docs/userguides/profiling/code/pyproject.toml"
+    !!! info "What `mila code` does"
+        `mila code` requests an interactive Slurm allocation on a compute node and automatically opens a VSCode remote session attached to that node.
+
+    <span class="tab-title">Create the experiment files</span>
+
+    Once VSCode launches and connects to the cluster node:
+
+    1. Open the File Explorer (`Ctrl+Shift+E` / `Cmd+Shift+E` / View -> Explorer).
+    2. Create `experiment.py` and `pyproject.toml` using the templates from the [Ready-for-use code](#ready-for-use-code) section.
+
+    <span class="tab-title">Run the experiment</span>
+
+    Open the integrated VSCode terminal ( View -> Terminal ) and start the experiment:
+
+    ```console
+    uv run python experiment.py
     ```
 
-### Launch the experiment
-Launching an experiment on the cluster is explained in the [Launching jobs guide](../../../userguides/slurm_guide/). You have two ways to do this:
+    This will generate performance trace logs inside `$SCRATCH/logs/$SLURM_JOB_ID`.
 
-* an interactive job with `salloc`
-* a batch job with `sbatch`.
+    <span class="tab-title">Launch TensorBoard</span>
 
-Here, we use the batch job option. Thus, we create a `job.sh` file:
+    !!! warning "Do not launch Tensorboard on the login node"
+        Login nodes exist for light interactive tasks. TensorBoard must be run on a compute node to avoid overloading login nodes for other users.
 
-=== "job.sh"
-    ```bash
-    --8<-- "docs/userguides/profiling/code/job.sh"
+    In the **VSCode terminal**, run TensorBoard using `uvx`:
+
+    ```console
+    uvx tensorboard --logdir $SCRATCH/logs/$SLURM_JOB_ID
     ```
 
-Finally, we launch the job through the command line:
+    <span class="tab-title">Access TensorBoard visualization</span>
 
-```console
-sbatch job.sh
-```
+    VSCode automatically detects listening network ports on the compute node and forwards them to your local machine.
 
-### Launch Tensorboard
+    Open your local web browser and navigate to:
+    [http://127.0.0.1:6006](http://127.0.0.1:6006)
 
-!!! warning "Do not launch Tensorboard on the login node"
-    Login nodes exist for light interactions, mainly interacting with Slurm.
-    Launching Tensorboard on a login node will consume too much memory, and
-    cause problems for other people too.
+=== "Command lines"
 
-    Thus, Tensorboard must be launched on compute node if launched on the cluster.
+    <span class="tab-title">Connect to the cluster</span>
 
+    Connect to a login node from your local terminal:
 
+    ```console
+    ssh mila
+    ```
 
-Finally, we want to launch Tensorboard and access the dashboard on our localhost. This could be done with two methods:
+    <span class="tab-title">Set up the project directory and files</span>
 
-* by using `ssh mila-cpu` (**Recommended**)
-* through port forwarding.
+    Create your project directory under `$SCRATCH` and navigate into it:
 
+    ```console
+    mkdir -p $SCRATCH/tensorboard_test
+    cd $SCRATCH/tensorboard_test
+    ```
 
-=== "`ssh mila-cpu` (**Recommended**)"
+    Create `experiment.py` and `pyproject.toml` (using a text editor like `vim` or `nano`) based on the code provided in [Ready-for-use code](#ready-for-use-code).
 
-    You can use this method if you have already launched `mila code` (cf [Getting started](../../../getting_started/#install-milatools)):
+    <span class="tab-title">Launch the experiment</span>
 
-    1. Launch VSCode
+    Create a Slurm job script named `job.sh`:
 
-    2. Open the "Remote Explorer" in the left menu of VSCode
-
-        ![VSCode profiling 1](../../../_static/images/vscode_profiling_1.png)
-        
-    3. Find `mila-cpu` in the list and click on "Connect in Current Window" or "Connect in New Window"
-
-        ![VSCode profiling 2](../../../_static/images/vscode_profiling_2.png)
-
-        Note: the setup could take a moment. Meanwhile, the following message appears:
-        
-        ![VSCode profiling 3](../../../_static/images/vscode_profiling_3.png)
-
-    4. Open the Terminal and write the command:
-        
-        ```console
-        uvx tensorboard --logdir $SCRATCH/logs/$SLURM_JOB_ID
-        ```
-    
-    5. Access the Tensorboard dashboard by opening your browser and enter the address [http://localhost:6006](http://localhost:6006).
-
-
-=== "Port forwarding"
-
-    !!! warning "Performance"
-        Launching Tensorboard directly on the requested nodes would affect the
-        job's resources.
-
-    Another option to access the dashboard on our localhost is to tunnel information
-    from the compute node to our local machine.
-
-    1. Launch Tensorboard **on a compute node** by using the command:
-
-        ```console
-        uvx tensorboard --logdir $SCRATCH/logs/$SLURM_JOB_ID
+    === "job.sh"
+        ```bash
+        --8<-- "docs/userguides/profiling/code/job.sh"
         ```
 
-    2. Open a terminal on your local machine and use the following command (replacing `cn-f003` by the node name where Tensorboard has been launched):
+    Submit the job to Slurm:
 
-        ```console
-        ssh -L 6006:localhost:6006 cn-f003.server.mila.quebec
-        ```
+    ```console
+    sbatch job.sh
+    ```
 
-    3. Access the Tensorboard dashboard by opening your browser and enter the address [http://localhost:6006](http://localhost:6006).
+    Take note of the Job ID printed in your terminal output (e.g., `Submitted batch job 1234567`).
+
+    <span class="tab-title">Launch TensorBoard</span>
+
+    !!! warning "Do not launch Tensorboard on the login node"
+        Always launch TensorBoard inside a compute node allocation.
+
+    Request an interactive allocation on a compute node, then start TensorBoard:
+
+    ```console
+    salloc --cpus-per-task=2 --mem=4G --time=01:00:00
+    uvx tensorboard --logdir $SCRATCH/logs/<JOB_ID>
+    ```
+    *(Replace `<JOB_ID>` with the actual ID of your experiment job).*
+
+    Next, establish an SSH tunnel in a **new tab on your local terminal**:
+
+    ```console
+    ssh -L 6006:localhost:6006 <NODE_NAME>.server.mila.quebec
+    ```
+    *(Replace `<NODE_NAME>` with the compute node name assigned to your `salloc` job.)*
+
+    ???tip "Node name"
+      An example of a node name is `cn-f003`. A list of the Mila cluster's nodes
+      can be found in [the Mila cluster nodes pages](technical_reference/clusters/mila/nodes/).
+
+    <span class="tab-title">Access TensorBoard visualization</span>
+
+    Open your local browser and navigate to:
+    [http://127.0.0.1:6006](http://127.0.0.1:6006)
 
     !!! tip "Changing ports"
-        Here, `6006` is the default port for Tensorboard. It can be changed when Tensorboard is launched, by using the parameter `--port`.
-        In this case, the ports in the port forwarding should be changed too.
+        If port `6006` is already occupied on your machine, specify `--port <PORT>` when running TensorBoard and update your SSH forwarding rule accordingly.
 
 ---
 

@@ -86,3 +86,10 @@ a.full-card:hover {
 .DocSearch-SidepanelButton.floating:hover {
     --docsearch-sidepanel-primary-dark: var(--md-primary-fg-color--dark);
 }
+
+.tab-title {
+  font-weight: 400;
+  font-size: 1.25em;
+  letter-spacing: -.01em;
+  margin: 1em 0;
+}
