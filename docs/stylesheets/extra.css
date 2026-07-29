@@ -87,9 +87,19 @@ a.full-card:hover {
     --docsearch-sidepanel-primary-dark: var(--md-primary-fg-color--dark);
 }
 
+<<<<<<< HEAD
 .tab-title {
   font-weight: 400;
   font-size: 1.25em;
   letter-spacing: -.01em;
   margin: 1em 0;
+=======
+.md-typeset table:not([class]) tr:has(td:nth-child(2):empty) td:first-child {
+    position: relative;
+    white-space: nowrap;
+}
+
+.md-typeset table:not([class]) tr:has(td:nth-child(2):empty) td:first-child strong {
+    position: absolute;
+>>>>>>> 553385ff5176b6857018ece676cfa6bae70393cf
 }

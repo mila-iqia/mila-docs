@@ -38,7 +38,7 @@ Thus, each example is based on three files:
 
 ### Introducing the different files
 
-(You can also check the ["Launch many jobs" example](../../../examples/good_practices/launch_many_jobs/).)
+(You can also check the ["Launch many jobs" example](../../examples/good_practices/launch_many_jobs/index.md).)
 
 === "job_torch.sh"
     ```bash
@@ -115,7 +115,7 @@ Thus, each example is based on three files:
     
     * The command `srun` creates tasks. The number of tasks is determined by the parameters `--ntasks` of our allocation. Here, we requested 4 tasks so the command will run 4 times in parallel tasks. These tasks run the command following `srun`, so each tasks will run `uv run python main_torch.py` or `uv run python main_jax.py`.
 
-    * `uv run` is used to ease the environment set up for our tasks. For more information, read [our `uv` guide on portability](../../../userguides/python_uv). It is followed by the name of the script we actually want to run in this environment.
+    * `uv run` is used to ease the environment set up for our tasks. For more information, read [our `uv` guide on portability](../python_uv.md). It is followed by the name of the script we actually want to run in this environment.
 
 
 === "main_torch.py"
@@ -207,7 +207,7 @@ Thus, each example is based on three files:
 
     **Environment variables**
 
-    In each file, we retrieve the Slurm environment variables `SLURM_PROCID`, `SLURM_LOCALID`, `SLURM_NTASKS` and `SLURM_NODEID`. Unlike the environment variables we defined previously (`MASTER_ADDR`, `MASTER_PORT` and `WORLD_SIZE`), these environment variables are specific to each tasks. More SLURM common environment variables are listed in [the technical reference](../../../technical_reference/general_theory/slurm).
+    In each file, we retrieve the Slurm environment variables `SLURM_PROCID`, `SLURM_LOCALID`, `SLURM_NTASKS` and `SLURM_NODEID`. Unlike the environment variables we defined previously (`MASTER_ADDR`, `MASTER_PORT` and `WORLD_SIZE`), these environment variables are specific to each tasks. More SLURM common environment variables are listed in [the technical reference](../../technical_reference/general_theory/slurm.md).
 
     ```python
     RANK = int(os.environ["SLURM_PROCID"])
@@ -323,7 +323,7 @@ Thus, each example is based on three files:
 
 <div class="grid cards" markdown>
 
--   [:material-multicast:{ .lg .middle } __Launch many jobs from same Shell script__](../../../examples/good_practices/launch_many_jobs/)
+-   [:material-multicast:{ .lg .middle } __Launch many jobs from same Shell script__](../../examples/good_practices/launch_many_jobs/index.md)
     { .card }
 
     ---
