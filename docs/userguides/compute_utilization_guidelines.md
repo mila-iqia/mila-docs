@@ -1,13 +1,14 @@
 # Compute utilization at Mila
 
 ## Compute powers Mila’s success 
-Mila’s global scientific leadership directly hinges on the ability to convert
-raw computing power into research breakthroughs. Making the absolute most of
-the available capacity, i.e. optimal compute utilization, is vital to the success
-of Mila and all its researchers.
+Compute power is central to a large portion of research projects at Mila, and
+raising compute requirements for research makes it a determining factor for
+research breakthroughts. Making the absolute most of the available capacity,
+i.e. optimal compute utilization, is vital to the success of Mila and all its
+researchers.
 
 Yet, a portion of the internal compute power allocated to Mila remains 
-inefficiently used (inefficient jobs leave GPU unused) – which slows down
+inefficiently used (inefficient jobs leave GPU unused) which slows down
 research progress. Therefore, raising awareness around efficient compute usage
 has become key, so everyone may run more experiments and get results faster.
 
