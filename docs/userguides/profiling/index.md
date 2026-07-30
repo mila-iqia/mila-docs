@@ -196,7 +196,7 @@ When a job has run on the cluster, an output file is created. Its default name i
 
 !!! warning "Tensorboard should not be launched on login nodes"
 
-An example of Tensorboard application on the cluster is described in the [Visualizing usage with Pytorch profiler and Tensorboard guide](../../userguides/profiling/using_tensorboard_and_pytorch_profiler).
+An example of Tensorboard application on the cluster is described in the [Visualizing usage with Pytorch profiler and Tensorboard guide](using_tensorboard_and_pytorch_profiler).
 
 
 ### Method E: Clusters portals
@@ -207,7 +207,7 @@ Here is a quick overview of the clusters and their associated portals (if applic
 
 | Clusters | Maintainer | Portal |
 | -------- | ---------- | ------ |
-| [Mila](../../technical_reference/clusters/mila) | Mila | - |
+| [Mila](../../technical_reference/clusters/mila/index.md) | Mila | - |
 | [TamIA](https://docs.alliancecan.ca/wiki/TamIA/en) | PAICE | [TamIA portal](https://portail.tamia.ecpia.ca/) |
 | [Killarney](https://docs.alliancecan.ca/wiki/Killarney/en) | PAICE | - |
 | [Vulcan](https://docs.alliancecan.ca/wiki/Vulcan/en) | PAICE | [Vulcan portal](https://portal.vulcan.alliancecan.ca/) |

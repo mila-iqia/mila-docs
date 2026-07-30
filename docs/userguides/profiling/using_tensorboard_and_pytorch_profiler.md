@@ -341,7 +341,7 @@ Below are described two methods to visualize metrics of a job on the cluster:
 
     ???tip "Node name"
       An example of a node name is `cn-f003`. A list of the Mila cluster's nodes
-      can be found in [the Mila cluster nodes pages](../technical_reference/clusters/mila/nodes/).
+      can be found in [the Mila cluster nodes pages](../technical_reference/clusters/mila/nodes.md).
 
     <span class="tab-title">Access TensorBoard visualization</span>
 
