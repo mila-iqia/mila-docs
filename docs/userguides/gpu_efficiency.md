@@ -26,9 +26,7 @@ In other words, efficient compute utilization makes Mila research thrive.
 limitations: it reports "100% Utilization" as soon as any kernel is running
 on the GPU, regardless of how much of the hardware is actually in use. For a
 more precise view, look at **Streaming Multiprocessor (SM) Occupancy**, which
-measures what fraction of the GPU's computing units are actively working. More
-context is available in this
-[external post on GPU utilization metrics](https://www.trainy.ai/blog/gpu-utilization-misleading).
+measures what fraction of the GPU's computing units are actively working.
 
 Use the table below as a reference to evaluate your SM occupancy:
 
