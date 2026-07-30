@@ -23,7 +23,7 @@ scientific community, the [IDT (Innovation, Development and Technology) team](..
 has introduced an awareness system designed to prevent unused GPUs by giving
 users adequate tools to identify and prevent compute waste.
 
-We monitor cluster performance metrics, focusing strictly on hardware telemetry,
+IDT monitor cluster performance metrics, focusing strictly on hardware telemetry,
 never private data or source code. This enables us to provide usage
 reports and notifications, and help you eliminate compute waste.
 
@@ -41,9 +41,9 @@ IDT is here to support you with:
 - Support with tracking and reporting tools to help you understand your compute usage.
 - Standard resources and guides to help you diagnose and improve.
 
-This system has been co-created with the Mila Research Compute Committee and
+This system has been co-created with the [Mila Research Compute Committee](https://sites.google.com/mila.quebec/mila-intranet/general/copy-of-thematic-committees/research-computing-committee) and
 will be improved over time. Thank you in advance for sharing your feedback and
-suggestions at research-computing-committee@mila.quebec.
+suggestions.
 
 We are looking forward to seeing you run your projects on Mila’s infrastructure.
 
