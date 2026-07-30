@@ -15,7 +15,7 @@ alongside [Pytorch profiler](https://docs.pytorch.org/tutorials/recipes/recipes/
 
 <div class="grid cards" markdown>
 
--   [:material-run-fast:{ .lg .middle } __Getting started with the Cluster__](getting_started/)
+-   [:material-run-fast:{ .lg .middle } __Getting started with the Cluster__](../../getting_started/index.md)
     { .card }
 
     ---
@@ -23,14 +23,14 @@ alongside [Pytorch profiler](https://docs.pytorch.org/tutorials/recipes/recipes/
     `milatools` to connect via SSH.
 
 
--   [:material-lightbulb-alert-outline:{ .lg .middle } __Understanding Slurm__](userguides/slurm_guide/basics)
+-   [:material-lightbulb-alert-outline:{ .lg .middle } __Understanding Slurm__](../slurm_guide/basics.md)
     { .card }
 
     ---
     Ask for a resource allocation and launch tasks on the cluster through an interactive job.
 
 
--   [:material-language-python:{ .lg .middle } __Managing Python Dependencies with `uv`__](userguides/python_uv)
+-   [:material-language-python:{ .lg .middle } __Managing Python Dependencies with `uv`__](../python_uv.md)
     { .card }
 
     ---
@@ -38,7 +38,7 @@ alongside [Pytorch profiler](https://docs.pytorch.org/tutorials/recipes/recipes/
     standalone scripts.
 
 
--   [:material-magnify:{ .lg .middle } __Identifying GPU waste__](userguides/index.md)
+-   [:material-magnify:{ .lg .middle } __Identifying GPU waste__](index.md)
     { .card }
 
     ---
@@ -202,7 +202,7 @@ TensorBoard 2.20.0 at http://localhost:6006/ (Press CTRL+C to quit)
 You can access Tensorboard interface through localhost, the default port is `6006`. To this end, open a browser and enter `127.0.0.1:6006` in the address bar.
 
 The following dashboard appears:
-![Tensorboard dashboard](_static/images/tensorboard_dashboard_usage_one_experiment.png)
+![Tensorboard dashboard](../../_static/images/tensorboard_dashboard_usage_one_experiment.png)
 
 
 ## Launch this example on the cluster
@@ -341,7 +341,7 @@ Below are described two methods to visualize metrics of a job on the cluster:
 
     ???tip "Node name"
       An example of a node name is `cn-f003`. A list of the Mila cluster's nodes
-      can be found in [the Mila cluster nodes pages](technical_reference/clusters/mila/nodes/).
+      can be found in [the Mila cluster nodes pages](../technical_reference/clusters/mila/nodes/).
 
     <span class="tab-title">Access TensorBoard visualization</span>
 
