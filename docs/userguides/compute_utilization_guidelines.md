@@ -1,17 +1,21 @@
+---
+title: Compute utilization at Mila
+description: How the Safety net system tracks compute usage and helps you avoid wasting GPUs.
+---
+
 # Compute utilization at Mila
 
 ## Compute powers Mila’s success
-Compute is central to most research projects at Mila, and as such, is considered
-a key driver of research breakthroughs. Making the absolute most of the available
-capacity, i.e. optimal compute utilization, is vital to the success of Mila and
-all its researchers.
+Compute is central to most research projects at Mila and a key driver of
+breakthroughs. Making the most of available capacity is vital to the success
+of Mila and its researchers.
 
-Yet, a portion of the internal compute power allocated to Mila remains 
-inefficiently used (inefficient jobs leave GPU unused) which slows down
-research progress. Therefore, raising awareness around efficient compute usage
-has become key, so everyone may run more experiments and get results faster.
+Yet, some of Mila's internal compute remains inefficiently used (e.g. idle GPUs
+from inefficient jobs) which slows research progress. Raising awareness of
+efficient compute usage helps everyone run more experiments and get results
+faster.
 
-## What we expect from you
+## What is expected of researchers
 As a researcher, you are expected to request the right amount of compute for
 your experiments and use allocated resources efficiently. This ensures that
 your experiments do not negatively impact fellow researchers who also need
@@ -34,7 +38,7 @@ reports and notifications, and help you eliminate compute waste.
 | IDT Interventions             | 👨‍💻 Expert coaching                | Benefit from 1-on-1 coaching with an expert to analyze your scripts and optimize job efficiency.  |
 
 ## How IDT may help you
-We understand that it can be difficult to estimate how much compute your experiments will actually need.
+It can be difficult to estimate how much compute your experiments actually need.
 IDT is here to support you with:
 
 - One-on-one expert guidance during [Office Hours](../help/office_hours.md) or via [Slack](../help/index.md).
