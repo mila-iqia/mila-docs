@@ -28,8 +28,8 @@ has introduced an awareness system designed to prevent unused GPUs by giving
 users adequate tools to identify and prevent compute waste.
 
 IDT monitor cluster performance metrics, focusing strictly on hardware telemetry,
-never private data or source code. This enables us to provide usage
-reports and notifications, and help you eliminate compute waste.
+never private data or source code. This provides usage
+reports and notifications, and helps you eliminate compute waste.
 
 | Tool { style="width: 25%" }   | Purpose { style="width: 25%" }    | What’s in it for you { style="width: 50%" }  |
 | ---------                     | -------------                     | --------------------  |
@@ -49,6 +49,6 @@ This system has been co-created with the [Mila Research Compute Committee](https
 will be improved over time. Thank you in advance for sharing your feedback and
 suggestions.
 
-We are looking forward to seeing you run your projects on Mila’s infrastructure.
+Mila looks forward to seeing you run your projects on its infrastructure.
 
 Let’s put those clusters to work!
