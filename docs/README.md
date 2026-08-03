@@ -172,7 +172,6 @@ If you find any errors in the documentation, missing or unclear sections, or wou
         - [Slurm overview](technical_reference/general_theory/slurm.md)
         - [Advanced SLURM usage and Multiple GPU jobs](technical_reference/general_theory/multigpu.md)
         - [Multiple Nodes](technical_reference/general_theory/multinode.md)
-        - [Useful links](technical_reference/useful_links.md)
 - [Toolbox](toolbox/index.md)
     - [Comet](toolbox/comet.md)
     - [JupyterHub](toolbox/jupyterhub.md)
