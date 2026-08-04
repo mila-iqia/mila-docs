@@ -119,8 +119,8 @@ If you find any errors in the documentation, missing or unclear sections, or wou
             - [Monitor and manage jobs](userguides/slurm_guide/monitor_manage.md)
             - [Synchronizing multiple tasks](userguides/slurm_guide/tasks_communication.md)
         - [Compute utilization at Mila](userguides/compute_utilization_guidelines/index.md)
-            - [Identifying GPU waste](userguides/profiling/index.md)
-            - [Visualizing usage with Pytorch profiler and Tensorboard](userguides/profiling/using_tensorboard_and_pytorch_profiler.md)
+            - [Identifying GPU waste](userguides/compute_utilization_guidelines/profiling.md)
+            - [Visualizing usage with Pytorch profiler and Tensorboard](userguides/compute_utilization_guidelines/using_tensorboard_and_pytorch_profiler.md)
         - [Share data with ACLs](userguides/sharing_data.md)
     - Minimal Examples
         - [Software Setup](examples/frameworks/index.md)
