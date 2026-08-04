@@ -9,7 +9,7 @@ Check out our guides picturing different ways to use the cluster:
 | [Multi-Factor authentication](login_mfa.md) | Use MFA to access the Mila cluster |
 | [Logging in to the cluster](login.md) | Log in to the Mila cluster |
 | [Launch jobs](slurm_guide/index.md) | Launch your jobs on the cluster |
-| [Identifying GPU waste](profiling/index.md) | Understand GPU efficiency metrics, diagnose underutilization in your jobs and apply concrete best practices to improve throughput on the Mila cluster. |
+| [Compute utilization at Mila](compute_utilization_guidelines/index.md) | Compute guidelines for the Mila cluster. Understand GPU efficiency metrics, diagnose underutilization in your jobs and apply concrete best practices to improve throughput. |
 | [Share data with ACLs](sharing_data.md) | Use ACLs to allow a user to share with another one a "playground" folder hierarchy in Mila's scratch filesystem at a location in a safe and secure fashion that allows both users to read, write, execute, search and delete each others' files |
 | [**[Minimal examples]** Software setup](../examples/frameworks/index.md) | Set up Pytorch and Jax, and use Jax to run a single-GPU job |
 | [**[Minimal examples]** Distributed training](../examples/distributed/index.md) | Learn to run single-GPU, multi-GPU and multi-node jobs |
