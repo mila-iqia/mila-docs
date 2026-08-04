@@ -13,7 +13,7 @@ description: A quick example of multiple tasks synchronizing their output.
     { .card }
 
     ---
-    Use an interactive job to run multiple tasks.
+    Ask for a resource allocation and launch tasks on the cluster through an interactive job.
 
 &nbsp;
 
