@@ -1,10 +1,10 @@
 ---
-title: Share data with ACLs
+title: Sharing data with ACLs
 description: >-
   Set ACLs (Access Control Lists) to share data with other users on the cluster.
 ---
 
-# Share data with ACLs
+# Sharing data with ACLs
 
 Regular permissions bits are extremely blunt tools. They control access through
 only three sets of bits owning user, owning group and all others. Therefore,
