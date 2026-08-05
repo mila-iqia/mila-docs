@@ -149,7 +149,7 @@ Below is an example of putting it all together. It is ready to be run:
 
 === "experiment.py"
     ```python
-    --8<-- "docs/userguides/profiling/code/experiment.py"
+    --8<-- "docs/userguides/compute_utilization_guidelines/code/experiment.py"
     ```
 
 
@@ -172,7 +172,7 @@ while running the `uv` command.
 
 === "pyproject.toml"
     ```toml
-    --8<-- "docs/userguides/profiling/code/pyproject.toml"
+    --8<-- "docs/userguides/compute_utilization_guidelines/code/pyproject.toml"
     ```
 
 ### Launch the experiment
@@ -308,7 +308,7 @@ Below are described two methods to visualize metrics of a job on the cluster:
 
     === "job.sh"
         ```bash
-        --8<-- "docs/userguides/profiling/code/job.sh"
+        --8<-- "docs/userguides/compute_utilization_guidelines/code/job.sh"
         ```
 
     Submit the job to Slurm:
