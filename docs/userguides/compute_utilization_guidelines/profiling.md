@@ -13,6 +13,7 @@ the Mila cluster.
 
 ## Before you begin
 
+<<<<<<< HEAD:docs/userguides/profiling/index.md
 <div class="grid cards" markdown>
 
 -   [:material-monitor:{ .lg .middle } __Monitor runs with WandB__](../wandb.md)
@@ -47,6 +48,12 @@ advantage:
   helps unearth hidden bugs in data loaders or model architectures. With
   properly sized compute requests and efficient utilization, jobs start sooner
   and produce useful results faster.
+=======
+- **For you:** Eliminating bottlenecks speeds up your training times and helps
+  unearth hidden bugs in your data loaders or model architectures. With properly
+  sized compute requests and efficient utilization, your jobs will be started sooner
+  and will get useful results faster.
+>>>>>>> bacdd12a251e265a7686bb7b7a948d9483b35d2d:docs/userguides/compute_utilization_guidelines/profiling.md
 - **For Mila:** Maximizing efficiency frees up cluster nodes, resulting in
   shorter queue times and more parallel experiments across the institute.
 
