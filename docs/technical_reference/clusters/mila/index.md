@@ -9,6 +9,7 @@ This section seeks to provide factual information and policies on the Mila clust
 * [Roles and authorizations](roles_and_resources.md)
 * [Node profile description](nodes.md)
 * [Storage](storage.md)
+* [Partitions](partitions.md)
 * [Data sharing policies](sharing_policies.md)
 * [Data Transmission](data_transmission.md)
 * [Monitoring](monitoring.md)
