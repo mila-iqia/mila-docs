@@ -6,7 +6,7 @@ description: Technical documentation for Mila's computing infrastructure.
 # Mila technical documentation
 
 Welcome to Mila's technical documentation. If this is your first time here, we
-recommend you start by checking out the [short quick start guide](getting_started/).
+recommend you start by checking out the [short quick start guide](getting_started/index.md).
 
 
 <div class="grid cards" markdown>
@@ -19,7 +19,7 @@ recommend you start by checking out the [short quick start guide](getting_starte
 
     Learn to log in to the cluster, run your first job, and train your first mode
 
-    [:octicons-arrow-right-24: Getting started](getting_started)
+    [:octicons-arrow-right-24: Getting started](getting_started/index.md)
 
 
 
@@ -29,7 +29,7 @@ recommend you start by checking out the [short quick start guide](getting_starte
 
     Discover more advanced guides to help you in your research
 
-    [:octicons-arrow-right-24: Learn new things](userguides)
+    [:octicons-arrow-right-24: Learn new things](userguides/index.md)
 
 
 -   :material-robot:{ .lg .middle } __AI agents__
@@ -38,7 +38,7 @@ recommend you start by checking out the [short quick start guide](getting_starte
 
     Powercharge your workflow with AI coding tools tailored for Mila researchers
 
-    [:octicons-arrow-right-24: Explore AI agents](ai)
+    [:octicons-arrow-right-24: Explore AI agents](ai/index.md)
 
 
 -   :material-book-open-page-variant:{ .lg .middle } __Technical reference__
@@ -47,7 +47,9 @@ recommend you start by checking out the [short quick start guide](getting_starte
 
     Find advanced notions to better understand how everything works
 
-    [:octicons-arrow-right-24: Dig deeper](technical_reference)
+    [:octicons-arrow-right-24: Dig deeper](technical_reference/index.md)
+
+    [:octicons-arrow-right-24: About the Mila Cluster](technical_reference/clusters/mila/index.md)
 
 -   :material-hammer-wrench:{ .lg .middle } __Toolbox__
 
@@ -55,7 +57,7 @@ recommend you start by checking out the [short quick start guide](getting_starte
 
     Obtain tools for your projects
 
-    [:octicons-arrow-right-24: Browse the tools](toolbox)
+    [:octicons-arrow-right-24: Browse the tools](toolbox/index.md)
 
 -   :material-account-question:{ .lg .middle } __Get help__
 
@@ -67,7 +69,7 @@ recommend you start by checking out the [short quick start guide](getting_starte
 
     [:octicons-arrow-right-24: Ask your question to IT support](https://mila-iqia.atlassian.net/servicedesk/customer/portal/5)
     
-    [:octicons-arrow-right-24: {% include-markdown "generated_from_config/office_hours_short.md" %}](help/office_hours/)
+    [:octicons-arrow-right-24: {% include-markdown "generated_from_config/office_hours_short.md" %}](help/office_hours.md)
 
 
 -   :material-bookmark:{ .lg .middle } __Cheatsheet__
@@ -112,13 +114,15 @@ If you find any errors in the documentation, missing or unclear sections, or wou
         - [Track Experiments with Weights & Biases (WandB)](userguides/wandb.md)
         - [Multi-Factor Authentication (MFA) for Cluster Access](Userguide_login_mfa.md)
         - [Logging in to the cluster](userguides/login.md)
-        - [Launching jobs](userguides/slurm_guide/index.md)
-            - [Understanding Slurm](userguides/slurm_guide/basics.md)
+        - [Launch jobs](userguides/slurm_guide/index.md)
+            - [Understand Slurm](userguides/slurm_guide/basics.md)
+            - [Monitor and manage jobs](userguides/slurm_guide/monitor_manage.md)
             - [Synchronizing multiple tasks](userguides/slurm_guide/tasks_communication.md)
-        - [Identifying GPU waste](userguides/gpu_efficiency.md)
-        - [Sharing Data with ACLs](userguides/sharing_data.md)
-        - [Sharing your experiment](userguides/reproducibility.md)
-    - [Minimal Examples](examples/index.md)
+        - [Compute utilization at Mila](userguides/compute_utilization_guidelines/index.md)
+            - [Identifying GPU waste](userguides/compute_utilization_guidelines/profiling.md)
+            - [Visualizing usage with Pytorch profiler and Tensorboard](userguides/compute_utilization_guidelines/using_tensorboard_and_pytorch_profiler.md)
+        - [Share data with ACLs](userguides/sharing_data.md)
+    - Minimal Examples
         - [Software Setup](examples/frameworks/index.md)
             - [PyTorch Setup](examples/frameworks/pytorch_setup/index.md)
             - [Jax Setup](examples/frameworks/jax_setup/index.md)
@@ -150,6 +154,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
             - [Roles and computing resources](technical_reference/clusters/mila/roles_and_resources.md)
             - [Node profile description](technical_reference/clusters/mila/nodes.md)
             - [Storage](technical_reference/clusters/mila/storage.md)
+            - [Partitions](technical_reference/clusters/mila/partitions.md)
             - [Data sharing policies](technical_reference/clusters/mila/sharing_policies.md)
             - [Data Transmission](technical_reference/clusters/mila/data_transmission.md)
             - [Monitoring](technical_reference/clusters/mila/monitoring.md)
@@ -170,7 +175,6 @@ If you find any errors in the documentation, missing or unclear sections, or wou
         - [Slurm overview](technical_reference/general_theory/slurm.md)
         - [Advanced SLURM usage and Multiple GPU jobs](technical_reference/general_theory/multigpu.md)
         - [Multiple Nodes](technical_reference/general_theory/multinode.md)
-        - [Useful links](technical_reference/useful_links.md)
 - [Toolbox](toolbox/index.md)
     - [Comet](toolbox/comet.md)
     - [JupyterHub](toolbox/jupyterhub.md)
