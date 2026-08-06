@@ -9,7 +9,7 @@ hide:
 Eight steps cover the full lifecycle of a research experiment on the cluster. <!-- Guides are proposed for each one of these steps. -->
 
 !!! tip "Getting started"
-    If you want to learns the basics and have a step-by-step understanding on how to run a job on the cluster, the [Getting started](../getting_started/) section is for you!
+    If you want to learns the basics and have a step-by-step understanding on how to run a job on the cluster, the [Getting started](../getting_started/index.md) section is for you!
 
 
 <div class="wf2-portal">
