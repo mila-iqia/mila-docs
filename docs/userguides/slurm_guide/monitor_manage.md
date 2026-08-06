@@ -121,7 +121,7 @@ and memory jobs.
 
 <div class="grid cards" markdown>
 
--   [:material-speedometer:{ .lg .middle } __Identifying GPU waste__](../profiling/index.md)
+-   [:material-speedometer:{ .lg .middle } __Identifying GPU waste__](../compute_utilization_guidelines/index.md)
     { .card }
 
     ---
