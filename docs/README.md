@@ -171,7 +171,6 @@ If you find any errors in the documentation, missing or unclear sections, or wou
         - [Portability concerns and solutions](technical_reference/general_theory/portability.md)
         - [Using containers](technical_reference/general_theory/containers.md)
         - [Contributing datasets](technical_reference/general_theory/datasets.md)
-        - [Data Transmission using Globus Connect Personal](technical_reference/general_theory/data_transfer.md)
         - [Slurm overview](technical_reference/general_theory/slurm.md)
         - [Advanced SLURM usage and Multiple GPU jobs](technical_reference/general_theory/multigpu.md)
         - [Multiple Nodes](technical_reference/general_theory/multinode.md)
