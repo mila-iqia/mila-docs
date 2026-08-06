@@ -122,6 +122,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
             - [Identifying GPU waste](userguides/compute_utilization_guidelines/profiling.md)
             - [Visualizing usage with Pytorch profiler and Tensorboard](userguides/compute_utilization_guidelines/using_tensorboard_and_pytorch_profiler.md)
         - [Share data with ACLs](userguides/sharing_data.md)
+        - [Reproducibility and Sharing results](userguides/reproducibility.md)
     - Minimal Examples
         - [Software Setup](examples/frameworks/index.md)
             - [PyTorch Setup](examples/frameworks/pytorch_setup/index.md)

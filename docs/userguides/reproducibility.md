@@ -26,7 +26,16 @@ results, so the code behind any experiment or publication stays retrievable.
 
 ## Sharing datasets
 
-TBD
+To share a dataset with the Mila community, request its addition to
+[`/network/datasets`](../technical_reference/clusters/mila/storage.md#datasets).
+See the [Datasets](../technical_reference/general_theory/datasets.md) page for
+ways to publicly share a Mila-hosted dataset — Academic Torrent, Google
+Drive, and registering a DOI for citation.
+
+For datasets that do not need to live on Mila's storage, the [Hugging Face
+Hub](https://huggingface.co/datasets) hosts and versions datasets alongside
+model cards and loading scripts, and GitHub (or GitLab) works well for small
+datasets kept alongside the code that produces or consumes them.
 
 ## Research paper distribution
 
