@@ -1,7 +1,7 @@
 # Compute Utilization Dashboard
 
-[Link to dashboard](https://sarc-api-949207715981.northamerica-northeast1.run.app/dash/metrics).
-Access granted with Mila credentials.
+**[Link to dashboard](https://sarc-api-949207715981.northamerica-northeast1.run.app/dash/metrics).
+Access granted with Mila credentials.**                                                                                                 
 
 The Compute Utilization Dashboard provides visibility into cluster usage. The
 goal is to help understand job's efficiency and spot underutilized resources.
