@@ -3,7 +3,7 @@
 **[Link to dashboard](https://sarc-api-949207715981.northamerica-northeast1.run.app/dash/metrics).
 Access granted with Mila credentials.**                                                                                                 
 
-The Compute Utilization Dashboard provides visibility into cluster usage. The
+The **Compute Utilization Dashboard** provides visibility into cluster usage. The
 goal is to help understand job's efficiency and spot underutilized resources.
 After reading this document, if you have any doubts about how to best leverage
 the dashboard, please reach out to the [IDT team](../../help/office_hours.md).
@@ -89,8 +89,9 @@ Below 15% smo, there are definitely improvements to be implemented to tackle
 typical issues (e.g., CPU bottlenecks, slow data transfers, batch size too small),
 leading to wasted compute power ([learn more](./profiling.md)). Therefore,
 
-* the chart “Allocated vs Used” in the dashboard is framed around Efficiency
-levels: the GPU power is split into Used, Acceptable Idle, and Critical Waste. 
+* the chart [“RGU Allocated vs. Used”](#1-rgu-allocated-vs-used) in the dashboard
+is framed around Efficiency levels: the GPU power is split into *Used*, *Acceptable
+Idle*, and *Critical Waste*. 
 
 * if your smo is below 15% for 2 weeks straight, you will receive a “waste
 notification” inviting you to act and optimize your jobs.
@@ -105,9 +106,11 @@ Allows you to adjust the analysis window (`Start / End`), time aggregation
 !!! tip
     Click "Update" to apply your filters, or "Reset" to restore default settings.
 
+    ![Dashboard filter bar](../../_static/screenshots/dashboard-filter-bar.png)
+
 ### 📊 Main Visualizations
 
-#### 1. RGU Allocated vs. Efficiency levels
+#### 1. RGU Allocated vs. Used
 This chart tracks your efficiency over time based on SM Occupancy, categorizing
 your RGU·w into three states:
 
@@ -151,5 +154,8 @@ your cluster runs can be optimized.
 ## Dashboard Features
 
 **Click to Focus**: Click any bar in a chart to focus on that specific time
-period. The Job Table will automatically filter to match your selection. To
-clear the focus, click the bar again or select "Clear focus" in the filter bar.
+period. The [Job Table](#3-job-table-execution-details) will automatically filter
+to match your selection. To clear the focus, click the bar again or select "Clear focus"
+in the filter bar.
+
+![Dashboard filter bar focus](../../_static/screenshots/dashboard-filter-bar-focus.png)
