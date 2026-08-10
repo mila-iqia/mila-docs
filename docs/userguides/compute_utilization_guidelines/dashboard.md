@@ -4,7 +4,7 @@
 Access granted with Mila credentials.
 
 The Compute Utilization Dashboard provides visibility into cluster usage. The
-goal is to help understand jobs' efficiency and spot underutilized resources.
+goal is to help understand job's efficiency and spot underutilized resources.
 After reading this document, if you have any doubts about how to best leverage
 the dashboard, please reach out to the [IDT team](../../help/office_hours.md).
 
@@ -17,32 +17,33 @@ and prejudices the entire Mila community.
 ### How is compute power calculated and represented?
 
 #### Definition of RGU
-:   The RGU (Reference GPU Unit) was implemented by the Digital Research
-    Alliance of Canada to serve as the benchmark GPU unit across different GPU
-    models. Relying on the standard RGU unit enables monitoring to be more accurate
-    and more robust in a context of diverse and evolving compute supply.
+The RGU (Reference GPU Unit) was implemented by the [Digital Research Alliance
+of Canada](../../technical_reference/clusters/drac/index.md) to serve as the
+benchmark GPU unit across different GPU models. Relying on the standard RGU
+unit enables monitoring to be more accurate and more robust in a context of
+diverse and evolving compute supply.
 
-    For reference, 1 A100-40Gb = 4 RGUs.
+For reference, 1 A100-40Gb = 4 RGUs.
 
 #### Calculation of RGU
-:   The compute power allocated to a job is the product of 3 elements: the type
-    of GPU (each amounting to a specific RGU value), the number of GPUs, and 
-    the elapsed time during which the job runs. Compute power is typically
-    expressed over a period to measure total resource consumption over time. 
+The compute power allocated to a job is the product of 3 elements: the type
+of GPU (each amounting to a specific RGU value), the number of GPUs, and 
+the elapsed time during which the job runs. Compute power is typically
+expressed over a period to measure total resource consumption over time. 
     
-    Example: Getting 1 RGU for 1 week equals 1 RGU·w. Getting 2 RGUs for half a
-    week also equals 1 RGU·w. 
+Example: Getting 1 RGU for 1 week equals 1 RGU·w. Getting 2 RGUs for half a
+week also equals 1 RGU·w. 
 
 #### Timestamp
-:   In the dashboard, compute allocation is by default segmented by week based
-    on execution time. If a job runs across two calendar weeks (e.g., starts in
-    Week 1 and finishes in Week 2), its fixed metrics (RGU value, GPU number)
-    remain the same, but its elapsed time is split accordingly (e.g., ~6 days
-    accounted for in Week 1, and ~4 days in Week 2). 
+In the dashboard, compute allocation is by default segmented by week based
+on execution time. If a job runs across two calendar weeks (e.g., starts in
+Week 1 and finishes in Week 2), its fixed metrics (RGU value, GPU number)
+remain the same, but its elapsed time is split accordingly (e.g., ~6 days
+accounted for in Week 1, and ~4 days in Week 2). 
 
 #### Cost
-:   For reference, 1 RGU.year costs approximately 1100$, so 1 RGU.w = 21$, and
-    1 RGU.h = 0.125$.
+For reference, 1 RGU.year costs approximately 1100$, so 1 RGU.w = 21$, and
+1 RGU.h = 0.125$.
 
 ### How is waste defined?
 
@@ -50,23 +51,24 @@ Various cluster statistics are available. We choose to look at the two following
 measurements:
 
 #### gpu_utilization
-:   This metric reports the proportion of the job duration during which one or
-    more kernel was running on the GPU. This represents an intuitive measurement
-    about how “busy” the GPU was, but the downside is that it does not depend on
-    how much of the hardware is actually in use. When `gpu_utilization` is low or
-    equals zero, there is obvious waste and inefficiencies to tackle quickly.
-    However, this measurement can reach 100% without any guarantee that a GPU is
-    being used optimally.
+This metric reports the proportion of the job duration during which one or
+more kernel was running on the GPU. This represents an intuitive measurement
+about how “busy” the GPU was, but the downside is that it does not depend on
+how much of the hardware is actually in use. When `gpu_utilization` is low or
+equals zero, there is obvious waste and inefficiencies to tackle quickly.
+
+However, this measurement can reach 100% without any guarantee that a GPU is
+being used optimally.
 
 #### SM occupancy (smo)
-:   The Compute Utilization Dashboard is based on **Streaming Multiprocessor (SM)
-    Occupancy**, which is more precise.
+The Compute Utilization Dashboard is based on **Streaming Multiprocessor (SM)
+Occupancy**, which is more precise.
 
-    It measures the ratio of active threads/warps on the GPU relative to the
-    theoretical maximum the processor (SM) can handle in parallel. It indicates
-    how effectively your code leverages the raw compute power allocated to you.
-    High SM Occupancy means the code is executing densely and efficiently on the
-    GPU; whereas low SM Occupancy means most of the GPU is unused. 
+It measures the ratio of active threads/warps on the GPU relative to the
+theoretical maximum the processor (SM) can handle in parallel. It indicates
+how effectively your code leverages the raw compute power allocated to you.
+High SM Occupancy means the code is executing densely and efficiently on the
+GPU; whereas low SM Occupancy means most of the GPU is unused. 
 
 ### What is an acceptable waste level?
 
@@ -101,7 +103,7 @@ Allows you to adjust the analysis window (`Start / End`), time aggregation
 (`Period`), target cluster, or job status (`Job states`).
 
 !!! tip
-    Click Update to apply your filters, or Reset to restore default settings.
+    Click "Update" to apply your filters, or "Reset" to restore default settings.
 
 ### 📊 Main Visualizations
 
@@ -109,7 +111,7 @@ Allows you to adjust the analysis window (`Start / End`), time aggregation
 This chart tracks your efficiency over time based on SM Occupancy, categorizing
 your RGU·w into three states:
 
-* 🔵 *Used* (Dark Blue): The allocated compute actively performed computations.
+* 🔵 *Used*: The allocated compute actively performed computations.
 
 * :red_circle: *Critical Waste* (Below 15% threshold): Unused compute from jobs running
 under the 15% minimum efficiency thresholds. This is the unacceptable portion
@@ -120,7 +122,7 @@ of unused compute from jobs that failed to reach our minimum efficiency threshol
 above the 15% minimum threshold. The remaining unused compute allocated to jobs
 that met or exceeded the 15% efficiency baseline.
 
-* :white_circle: *No data* (Grey): Telemetry could not be gathered (e.g., the cluster running
+* :white_circle: *No data*: Telemetry could not be gathered (e.g., the cluster running
 the job is not yet connected to the service).
 
 **Goal**: Remove *Critical Waste* first, then shift from *Acceptable Idle* to
@@ -148,6 +150,6 @@ your cluster runs can be optimized.
 
 ## Dashboard Features
 
-Click to Focus: Click any bar in a chart to focus on that specific time period.
-The Job Table will automatically filter to match your selection. To clear the
-focus, click the bar again or select "Clear focus" in the filter bar.
+**Click to Focus**: Click any bar in a chart to focus on that specific time
+period. The Job Table will automatically filter to match your selection. To
+clear the focus, click the bar again or select "Clear focus" in the filter bar.
