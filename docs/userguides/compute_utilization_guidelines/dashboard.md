@@ -1,3 +1,8 @@
+---
+title: Compute Utilization Dashboard
+description: Understand RGU and SM occupancy metrics and how to read the Compute Utilization Dashboard to identify and reduce wasted GPU resources.
+---
+
 # Compute Utilization Dashboard
 
 **[Link to dashboard](https://sarc-api-949207715981.northamerica-northeast1.run.app/dash/metrics).
@@ -62,13 +67,13 @@ being used optimally.
 
 #### SM occupancy (smo)
 The Compute Utilization Dashboard is based on **Streaming Multiprocessor (SM)
-Occupancy**, which is more precise.
+occupancy**, which is more precise.
 
 It measures the ratio of active threads/warps on the GPU relative to the
 theoretical maximum the processor (SM) can handle in parallel. It indicates
 how effectively your code leverages the raw compute power allocated to you.
-High SM Occupancy means the code is executing densely and efficiently on the
-GPU; whereas low SM Occupancy means most of the GPU is unused. 
+High SM occupancy means the code is executing densely and efficiently on the
+GPU; whereas low SM occupancy means most of the GPU is unused. 
 
 ### What is an acceptable waste level?
 
@@ -89,16 +94,16 @@ Below 15% smo, there are definitely improvements to be implemented to tackle
 typical issues (e.g., CPU bottlenecks, slow data transfers, batch size too small),
 leading to wasted compute power ([learn more](./profiling.md)). Therefore,
 
-* the chart [“RGU Allocated vs. Used”](#1-rgu-allocated-vs-used) in the dashboard
+* the chart [“RGU allocated vs used”](#rgu-allocated-vs-used) in the dashboard
 is framed around Efficiency levels: the GPU power is split into *Used*, *Acceptable
 Idle*, and *Critical Waste*. 
 
 * if your smo is below 15% for 2 weeks straight, you will receive a “waste
 notification” inviting you to act and optimize your jobs.
 
-## Dashboard Layout
+## Dashboard layout
 
-### 🎛️ Filter Bar (Top)
+### 🎛️ Filter bar (Top)
 
 Allows you to adjust the analysis window (`Start / End`), time aggregation
 (`Period`), target cluster, or job status (`Job states`).
@@ -108,24 +113,24 @@ Allows you to adjust the analysis window (`Start / End`), time aggregation
 
     ![Dashboard filter bar](../../_static/screenshots/dashboard-filter-bar.png)
 
-### 📊 Main Visualizations
+### 📊 Main visualizations
 
-#### 1. RGU Allocated vs. Used
+#### RGU allocated vs used
 This chart tracks your efficiency over time based on SM Occupancy, categorizing
 your RGU·w into three states:
 
 * 🔵 *Used*: The allocated compute actively performed computations.
 
-* :red_circle: *Critical Waste* (Below 15% threshold): Unused compute from jobs running
+* 🔴 *Critical Waste* (Below 15% threshold): Unused compute from jobs running
 under the 15% minimum efficiency thresholds. This is the unacceptable portion
 of unused compute from jobs that failed to reach our minimum efficiency threshold
 (15% SM occupancy). This represents direct, preventable resource loss.
 
-* :blue_circle: *Acceptable Idle* (Above 15% threshold): Unused compute capacity remaining
+* 🌐 *Acceptable Idle* (Above 15% threshold): Unused compute capacity remaining
 above the 15% minimum threshold. The remaining unused compute allocated to jobs
 that met or exceeded the 15% efficiency baseline.
 
-* :white_circle: *No data*: Telemetry could not be gathered (e.g., the cluster running
+* ⚪ *No data*: Telemetry could not be gathered (e.g., the cluster running
 the job is not yet connected to the service).
 
 **Goal**: Remove *Critical Waste* first, then shift from *Acceptable Idle* to
@@ -134,7 +139,7 @@ the job is not yet connected to the service).
 !!! note
     IDT is working with DRAC to retrieve telemetry data and reduce *No data* portion.
 
-#### 2. RGU by Cluster
+#### RGU by cluster
 This stacked bar chart shows total RGU consumption breakdown by cluster
 (mila, narval, tamia, etc.) over time.
 
@@ -143,7 +148,7 @@ which often have higher available capacity than the local Mila cluster.
 IDT recommends using tools like [milatools](https://github.com/mila-iqia/milatools)
 and [cluv](https://mila-iqia.github.io/cluv/) to easily submit jobs across all clusters.
 
-#### 3. Job Table (Execution Details)
+#### Job table
 An interactive table listing all executed jobs along with key properties: Job ID,
 submission/start/end dates, final status (`COMPLETED`, `FAILED`, etc.), and detailed
 metrics on requested, allocated, and actually used compute.
@@ -151,11 +156,12 @@ metrics on requested, allocated, and actually used compute.
 **Goal**: Provide granular insights to help you identify specific areas where
 your cluster runs can be optimized.
 
-## Dashboard Features
+## Dashboard features
 
-**Click to Focus**: Click any bar in a chart to focus on that specific time
-period. The [Job Table](#3-job-table-execution-details) will automatically filter
-to match your selection. To clear the focus, click the bar again or select "Clear focus"
+### Click to focus
+Click any bar in a chart to focus on that specific time period. The
+[Job table](#job-table) will automatically filter to match
+your selection. To clear the focus, click the bar again or select "Clear focus"
 in the filter bar.
 
 ![Dashboard filter bar focus](../../_static/screenshots/dashboard-filter-bar-focus.png)
