@@ -5,8 +5,7 @@ This section seeks to provide factual information and policies on the Mila clust
 !!! note "Acknowledging Mila"
     {% include-markdown "home/acknowledgement.md" start="<!-- START -->" %}
 
-<!--nav-->
-* [Roles and authorizations](roles_and_resources.md)
+* [Roles and computing resources](roles_and_resources.md)
 * [Node profile description](nodes.md)
 * [Storage](storage.md)
 * [Partitions](partitions.md)
