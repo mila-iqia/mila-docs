@@ -32,19 +32,25 @@ For reference, 1 A100-40Gb = 4 RGUs.
 
 #### Calculation of RGU
 The compute power allocated to a job is the product of 3 elements: the type
-of GPU (each amounting to a specific RGU value), the number of GPUs, and 
+of GPU (each amounting to a specific RGU value), the number of GPUs, and
 the elapsed time during which the job runs. Compute power is typically
 expressed over a period to measure total resource consumption over time. 
-    
+
 Example: Getting 1 RGU for 1 week equals 1 RGU·w. Getting 2 RGUs for half a
-week also equals 1 RGU·w. 
+week also equals 1 RGU·w.
 
 #### Timestamp
 In the dashboard, compute allocation is by default segmented by week based
-on execution time. If a job runs across two calendar weeks (e.g., starts in
-Week 1 and finishes in Week 2), its fixed metrics (RGU value, GPU number)
-remain the same, but its elapsed time is split accordingly (e.g., ~6 days
-accounted for in Week 1, and ~4 days in Week 2). 
+on submit time. The entire compute allocation for a job is displayed in the
+week the job is submitted.
+
+!!! note "Future change"
+    This will change in future versions of dashboard. The compute allocation
+    will be segmented by week based on execution time. If a job runs across
+    two calendar weeks (e.g., starts in Week 1 and finishes in Week 2), its
+    fixed metrics (RGU value, GPU number) will remain the same, but its
+    elapsed time will be split accordingly (e.g., ~6 days accounted for
+    in Week 1, and ~4 days in Week 2).
 
 #### Cost
 For reference, 1 RGU.year costs approximately 1100$, so 1 RGU.w = 21$, and
@@ -116,7 +122,7 @@ Allows you to adjust the analysis window (`Start / End`), time aggregation
 ### 📊 Main visualizations
 
 #### RGU allocated vs used
-This chart tracks your efficiency over time based on SM Occupancy, categorizing
+This chart tracks your efficiency over time based on SM occupancy, categorizing
 your RGU·w into three states:
 
 * 🔵 *Used*: The allocated compute actively performed computations.
@@ -132,6 +138,10 @@ that met or exceeded the 15% efficiency baseline.
 
 * ⚪ *No data*: Telemetry could not be gathered (e.g., the cluster running
 the job is not yet connected to the service).
+
+The chart also shows the mean SM occupancy (in black) and `gpu_utilization`
+(in purple) for each week, for jobs that have been submitted during that week.
+Hover over the chart to see the exact values.
 
 **Goal**: Remove *Critical Waste* first, then shift from *Acceptable Idle* to
 *Used*.
