@@ -71,19 +71,21 @@ equals zero, there is obvious waste and inefficiencies to tackle quickly.
 However, this measurement can reach 100% without any guarantee that a GPU is
 being used optimally.
 
-#### SM occupancy (smo)
+#### SM occupancy (SMO)
 The Compute Utilization Dashboard is based on **Streaming Multiprocessor (SM)
-occupancy**, which is more precise.
+Occupancy** that better represents the notion of a GPU being used to its full
+compute potential.
 
 It measures the ratio of active threads/warps on the GPU relative to the
 theoretical maximum the processor (SM) can handle in parallel. It indicates
 how effectively your code leverages the raw compute power allocated to you.
 High SM occupancy means the code is executing densely and efficiently on the
-GPU; whereas low SM occupancy means most of the GPU is unused. 
+GPU; whereas low SM occupancy means most of the GPU is unused.
 
 ### What is an acceptable waste level?
-
-Refer to the below benchmark to understand and interpret your SM occupancy:
+It is almost impossible to achieve an SMO close to 100%. Anything above 80% is
+spectacularly good. Refer to the below benchmark to understand and interpret
+your SM occupancy:
 
 * **≥ 50%**: Excellent utilization
 
