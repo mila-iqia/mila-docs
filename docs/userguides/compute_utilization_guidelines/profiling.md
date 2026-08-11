@@ -67,7 +67,7 @@ Use the table below as a reference to evaluate SM occupancy:
 | SM Occupancy | Assessment |
 |---|---|
 | < 5% | Critical waste |
-| ~10% | Poor utilization — the GPU is mostly waiting |
+| ~15% | Poor utilization — the GPU is mostly waiting |
 | ~30% | Good utilization |
 | ≥ 50% | Great / optimized utilization |
 
