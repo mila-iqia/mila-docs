@@ -102,9 +102,9 @@ Below 15% smo, there are definitely improvements to be implemented to tackle
 typical issues (e.g., CPU bottlenecks, slow data transfers, batch size too small),
 leading to wasted compute power ([learn more](./profiling.md)). Therefore,
 
-* the chart [“RGU allocated vs used”](#rgu-allocated-vs-used) in the dashboard
-is framed around Efficiency levels: the GPU power is split into *Used*, *Acceptable
-Idle*, and *Critical Waste*. 
+* the chart [“RGU allocated vs efficiency levels](#rgu-allocated-vs-efficiency-levels)
+in the dashboard is framed around Efficiency levels: the GPU power is split
+into *Used*, *Acceptable Idle*, and *Critical Waste*. 
 
 * if your smo is below 15% for 2 weeks straight, you will receive a “waste
 notification” inviting you to act and optimize your jobs.
@@ -123,7 +123,7 @@ Allows you to adjust the analysis window (`Start / End`), time aggregation
 
 ### 📊 Main visualizations
 
-#### RGU allocated vs used
+#### RGU allocated vs efficiency levels
 This chart tracks your efficiency over time based on SM occupancy, categorizing
 your RGU·w into three states:
 
