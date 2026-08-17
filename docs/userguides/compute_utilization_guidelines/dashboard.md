@@ -102,7 +102,7 @@ Below 15% smo, there are definitely improvements to be implemented to tackle
 typical issues (e.g., CPU bottlenecks, slow data transfers, batch size too small),
 leading to wasted compute power ([learn more](./profiling.md)). Therefore,
 
-* the chart [“RGU allocated vs efficiency levels](#rgu-allocated-vs-efficiency-levels)
+* the chart [“RGU allocated vs efficiency levels"](#rgu-allocated-vs-efficiency-levels)
 in the dashboard is framed around Efficiency levels: the GPU power is split
 into *Used*, *Acceptable Idle*, and *Critical Waste*. 
 
