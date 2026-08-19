@@ -102,8 +102,8 @@ utilization, VRAM usage, SM occupancy):
 
 [Milalib](https://github.com/mila-iqia/milalib) is a utility you can run on
 the Mila cluster and some DRAC clusters to stream the relevant GPU and CPU
-metrics. For example, assuming [uv](../python_uv) is installed, the following
-command will output the `sm_occupancy` metric every 5 seconds:
+metrics. For example, assuming [uv](../python_uv.md) is installed, the
+following command will output the `sm_occupancy` metric every 5 seconds:
 
 ```bash
 uvx milalib monitor -i 5 -m sm_occupancy
