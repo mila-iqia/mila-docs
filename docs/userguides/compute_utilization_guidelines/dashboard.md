@@ -41,16 +41,10 @@ week also equals 1 RGU·w.
 
 #### Timestamp
 In the dashboard, compute allocation is by default segmented by week based
-on submit time. The entire compute allocation for a job is displayed in the
-week the job is submitted.
-
-!!! note "Future change"
-    This will change in future versions of dashboard. The compute allocation
-    will be segmented by week based on execution time. If a job runs across
-    two calendar weeks (e.g., starts in Week 1 and finishes in Week 2), its
-    fixed metrics (RGU value, GPU number) will remain the same, but its
-    elapsed time will be split accordingly (e.g., ~6 days accounted for
-    in Week 1, and ~4 days in Week 2).
+on on execution time. If a job runs across two calendar weeks (e.g., starts
+in Week 1 and finishes in Week 2), its fixed metrics (RGU value, GPU number)
+will remain the same, but its elapsed time will be split accordingly (e.g.,
+~6 days accounted for in Week 1, and ~4 days in Week 2).
 
 #### Cost
 For reference, 1 RGU.year costs approximately 1100$, so 1 RGU.w = 21$, and
