@@ -8,7 +8,7 @@ description: >-
 
 ## Summary
 
-Running the *same* model, data, seed, and code on CPU vs. GPU (e.g. via `tensor.to(device)`) will **not** produce bit-identical results. Losses typically match closely at the start of training and then drift apart, eventually diverging completely. This is expected behavior, not a bug — it stems from floating-point arithmetic itself, not from a precision difference between devices.
+Running the *same* model, data, seed, and code on CPU vs. GPU (e.g. via the Pytorch function `tensor.to(device)`) will **not** produce bit-identical results. Losses typically match closely at the start of training and then drift apart, eventually diverging completely. This is expected behavior, not a bug — it stems from floating-point arithmetic itself, not from a precision difference between devices.
 
 ## Root Cause
 
@@ -17,15 +17,16 @@ Running the *same* model, data, seed, and code on CPU vs. GPU (e.g. via `tensor.
 - CPUs and GPUs parallelize reductions (sums, matmuls, etc.) differently to fit their respective hardware, so they add the same set of numbers **in a different order**.
 - Different summation order → different rounding error at each step → tiny discrepancies that compound over many operations and training steps, eventually causing full trajectory divergence (a chaotic, butterfly-effect-style process).
 
-**Takeaway:** never rely on tensor math being bit-exact across devices, or even across different thread counts on the same device.
+!!! tip "Takeaway"
+    Never rely on tensor math being bit-exact across devices, or even across different thread counts on the same device.
 
 ## Why GPUs Are Often (Slightly) More Numerically Stable
 
 - Sequential (naive, one-at-a-time) summation accumulates rounding error linearly with the number of terms.
 - **Pairwise summation** (summing in a tree/divide-and-conquer pattern) accumulates error more slowly — GPUs tend to use pairwise-style reductions to exploit parallelism, which incidentally makes them somewhat better-conditioned at a given precision than a naive sequential CPU sum.
 - This advantage matters most for **ill-conditioned sums**, i.e. when:
-  - the sum of absolute values is much larger than the absolute value of the sum (heavy cancellation), and/or
-  - the ratio between the largest and smallest terms being summed is very large.
+    - the sum of absolute values is much larger than the absolute value of the sum (heavy cancellation), and/or
+    - the ratio between the largest and smallest terms being summed is very large.
 - For well-conditioned sums, the summation order barely matters and CPU vs. GPU differences stay negligible for longer.
 - This is a heuristic tendency, not a guarantee — don't design correctness-critical code around it.
 
