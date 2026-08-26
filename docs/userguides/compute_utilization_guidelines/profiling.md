@@ -27,6 +27,12 @@ the Mila cluster.
     ---
     Submit and allocate jobs on the cluster.
 
+-   [:material-server:{ .lg .middle } __Compute Utilization Dashboard__](dashboard.md)
+    { .card }
+
+    ---
+    Use the dashboard to identify and reduce wasted GPU resources.
+
 </div>
 
 ## What this guide covers
@@ -79,14 +85,17 @@ how to read the underlying numbers.
 
 ```mermaid
 flowchart TD
-    A[Suspect a job's resources are underutilized] --> B{SM occupancy ≥ 30%?}
+    A[Check the dashboard for jobs with underutilized resources] --> B{SM occupancy ≥ 30%?}
     B -->|Yes| C[GPU well utilized — no action needed]
     B -->|No| D{VRAM usage < 20%?}
     D -->|Yes| E[Increase batch size, use a smaller GPU, or pack jobs]
     D -->|No| F{Data loader saturating the GPU?}
     F -->|Yes| G[Profile for I/O or CPU preprocessing bottleneck]
     F -->|No| H[Tune the DataLoader: num_workers, pin_memory]
+
+    click A "../dashboard"
 ```
+
 
 ### Method A: Weights & Biases
 
@@ -249,16 +258,7 @@ resource usage or job history.
 
 Here is a quick overview of the clusters and their associated portals (if applicable):
 
-| Clusters | Maintainer | Portal |
-| -------- | ---------- | ------ |
-| [Mila](../../technical_reference/clusters/mila/index.md) | Mila | - |
-| [TamIA](https://docs.alliancecan.ca/wiki/TamIA/en) | PAICE | [TamIA portal](https://portail.tamia.ecpia.ca/) |
-| [Killarney](https://docs.alliancecan.ca/wiki/Killarney/en) | PAICE | - |
-| [Vulcan](https://docs.alliancecan.ca/wiki/Vulcan/en) | PAICE | [Vulcan portal](https://portal.vulcan.alliancecan.ca/) |
-| [Fir](https://docs.alliancecan.ca/wiki/Fir) | DRAC | - |
-| [Nibi](https://docs.alliancecan.ca/wiki/Nibi) | DRAC | [Nibi portal](https://portal.nibi.sharcnet.ca/) |
-| [Rorqual](https://docs.alliancecan.ca/wiki/Rorqual/en) | DRAC | [Rorqual portal](https://metrix.rorqual.calculquebec.ca/) |
-| [Trillium](https://docs.alliancecan.ca/wiki/Trillium) | DRAC | [Trillium portal](https://my.scinet.utoronto.ca/) |
+{% include-markdown "../../technical_reference/clusters/clusters_table.md" %}
 
 ![Nibi portal](../../_static/images/nibi_portal.png)
 
@@ -274,13 +274,14 @@ for efficient GPU utilization.
     - **Optimize data pipelines:** Set `num_workers > 0` (2–4 per allocated
       GPU) and enable `pin_memory=True` in the PyTorch `DataLoader` to prevent
       GPU stalling.
-    - **Implement checkpointing:** Save training states regularly so jobs
-      resume automatically after preemption or timeouts without losing previous
-      compute hours.
+    - **Implement checkpointing:** [Save training states regularly](../../examples/good_practices/checkpointing/index.md)
+      so jobs resume automatically after preemption or timeouts without losing
+      previous compute hours.
     - **Right-size resource requests:** Use
       [lower-tier nodes](../../technical_reference/clusters/mila/nodes.md) (e.g.,
-      RTX8000, V100) or MIG (Multi-Instance GPU) slices for small models or
-      debugging instead of allocating full high-end nodes.
+      RTX8000, V100) or [MIG (Multi-Instance GPU)
+      slices](https://docs.alliancecan.ca/wiki/Multi-Instance_GPU) for small
+      models or debugging instead of allocating full high-end nodes.
     - **Request minimal compute blocks:** When possible, request the smallest
       allocation that fits the job. Smaller allocations fill queue gaps faster,
       reducing wait time.
@@ -299,8 +300,8 @@ for efficient GPU utilization.
       storage read latency or CPU preprocessing bottlenecks the pipeline —
       this only idles more hardware.
     - **Underutilizing VRAM:** If VRAM usage is under 20%, consider increasing
-      batch size, switching to a smaller GPU, or using job packing (multiple
-      smaller jobs on the same node).
+      batch size, switching to a smaller GPU, or using [job packing](../../technical_reference/general_theory/multigpu.md/#packing-jobs)
+      (multiple smaller jobs on the same node).
 
 ---
 
