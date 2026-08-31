@@ -165,6 +165,9 @@ plugins:
   - meta
   # privacy plugin currently breaks giscus comments
   # - privacy
+  - redirects:
+      redirect_maps:
+        "waste.md": "userguides/compute_utilization_guidelines/profiling.md"
   - search
   - include-markdown:
       dedent: true
