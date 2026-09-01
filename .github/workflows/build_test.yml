@@ -6,6 +6,13 @@ on:
     branches:
       - master
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -18,7 +25,7 @@ jobs:
           version: "latest"
           # https://github.com/astral-sh/setup-uv?tab=readme-ov-file#github-authentication-token
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          python-version: ${{ matrix.python-version }}
+          python-version: 3.13
 
       - name: Install MkDocs and dependencies
         run: uv sync --no-dev
@@ -38,3 +45,67 @@ jobs:
         with:
           name: docs-build-test
           path: ./_build/html
+
+  test-mila-docs:
+    name: Evaluate the usefulness of the docs using DocMetrics
+    runs-on: self-hosted
+    needs: [build]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          version: "latest"
+          enable-cache: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install dependencies
+        run: uv sync --frozen --python=3.13
+
+      - name: Serve PR docs in background
+        run: |
+          uv run mkdocs serve &
+          echo $! > /tmp/docs_server.pid
+
+      - name: Wait for docs server to be ready
+        run: |
+          for i in {1..10}; do
+            if curl -s http://localhost:8000/ > /dev/null; then
+              echo "Docs server is ready"
+              exit 0
+            fi
+            echo "Waiting for docs server... attempt $i"
+            sleep 1
+          done
+          echo "Docs server failed to start"
+          exit 1
+
+      - name: Run DocMetrics action on docmetrics docs
+        uses: mila-iqia/docmetrics@v0.0.7
+        with:
+          questions-file: quiz.yaml
+          docs-url: http://localhost:8000
+          base-docs-url: https://docs.mila.quebec
+          model: ollama:gpt-oss:120b
+          ollama-url: dgx:11434
+          num-candidates: 3
+          post-comment: 'false'
+
+      - name: Upload DocMetrics artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: docmetrics-results
+          path: |
+            docmetrics-current.json
+            docmetrics-base.json
+            docmetrics-metadata.json
+            docmetrics-format_comment.py
+          if-no-files-found: warn
+
+      - name: Stop docs server
+        if: always()
+        run: |
+          if [ -f /tmp/docs_server.pid ]; then
+            kill $(cat /tmp/docs_server.pid) || true
+          fi
