@@ -162,7 +162,7 @@ sequenceDiagram
 
 <div class="grid cards" markdown>
 
--   [:material-run-fast:{ .lg .middle } __Log in to the cluster__](userguides/login.md)
+-   [:material-run-fast:{ .lg .middle } __Log in to the cluster__](userguides/login/login.md)
     { .card }
 
     ---
