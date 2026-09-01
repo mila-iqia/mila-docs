@@ -42,3 +42,6 @@ datasets kept alongside the code that produces or consumes them.
 When publishing results, bundle the code, environment, and dataset references
 readers need to reproduce them — for example through a public repository
 release alongside the paper.
+
+??? note "Acknowledging Mila"
+    {% include-markdown "home/acknowledgement.md" start="<!-- START -->" %}
