@@ -12,19 +12,6 @@ public key (first factor) and a dynamic verification code (second
 factor). This guide covers how to register for MFA, choose an
 authentication method, and complete a cluster login.
 
-## Before you begin
-
-<div class="grid cards" markdown>
-
--   [:material-server:{ .lg .middle } __Cluster Access__](userguides/cluster_access.md)
-    { .card }
-
-    ---
-    Obtain a Mila account and complete onboarding before setting up MFA.
-
-&nbsp;
-
-</div>
 
 ## What this guide covers
 
