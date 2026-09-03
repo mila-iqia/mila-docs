@@ -5,6 +5,7 @@ Check out our guides picturing different ways to use the cluster:
 | Guide | Quick description |
 | ----- | ----------------- |
 | [Manage Python Dependencies with uv](python_uv.md) | Set up uv to manage project dependencies |
+| [Get Started with cluv](cluv.md) | Sync and submit UV-based Python projects across Slurm clusters |
 | [Track Experiments with Weights & Biases (WandB)](wandb.md) | Log metrics, organize runs, and run sweeps on the Mila cluster |
 | [Multi-Factor authentication](login_mfa.md) | Use MFA to access the Mila cluster |
 | [Logging in to the cluster](login.md) | Log in to the Mila cluster |
