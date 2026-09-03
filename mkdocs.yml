@@ -28,6 +28,7 @@ watch:
   - includes
 theme:
   logo: _static/images/mila.png
+  favicon: _static/images/mila_purple.png
   icon:
     admonition:
       wip: fontawesome/solid/brush
