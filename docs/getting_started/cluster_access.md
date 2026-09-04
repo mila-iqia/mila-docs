@@ -21,8 +21,6 @@
     </div>
 </nav>
 
-* [ ] TODO : accepter les termes et conditions
-
 
 [](){ #obtain-your-mila-account }
 
