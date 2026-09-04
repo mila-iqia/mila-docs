@@ -26,37 +26,36 @@ This section helps you in your first steps on the cluster.
 
 <nav class="progress-track" aria-label="Getting started progression">
     <div class="progress-step">
-        <div class="progress-marker" aria-current="step">1</div>
-        <div class="progress-label">Enable your cluster access</div>
+        <div class="progress-marker" aria-current="step"><a href="cluster_access">1</a></div>
+        <div class="progress-label"><a href="cluster_access">Enable your cluster access</a></div>
+        <!--<div class="progress-marker" aria-current="step"><button class="tabbed-button" tabIndex="1" aria-hidden="true">1</button></div>
+        <div class="progress-label"><button class="tabbed-button" tabIndex="1" aria-hidden="true">Enable your cluster access</button></div>-->
     </div>
     <div class="progress-step">
-        <div class="progress-marker" aria-current="step">2</div>
-        <div class="progress-label">Set up MFA</div>
+        <div class="progress-marker" aria-current="step"><a href="mfa">2</a></div>
+        <div class="progress-label"><a href="mfa">Set up MFA</a></div>
     </div>
     <div class="progress-step">
-        <div class="progress-marker">3</div>
-        <div class="progress-label">Connect to the cluster</div>
+        <div class="progress-marker"><a href="connect_to_the_cluster">3</a></div>
+        <div class="progress-label"><a href="connect_to_the_cluster">Connect to the cluster</a></div>
     </div>
     <div class="progress-step">
-        <div class="progress-marker">4</div>
-        <div class="progress-label">Run your first job</div>
+        <div class="progress-marker"><a href="my_first_job">4</a></div>
+        <div class="progress-label"><a href="my_first_job">Run your first job</a></div>
     </div>
     <div class="progress-step">
-        <div class="progress-marker">5</div>
-        <div class="progress-label">Train your first model</div>
+        <div class="progress-marker"><a href="train_first_model">5</a></div>
+        <div class="progress-label"><a href="train_first_model">Train your first model</a></div>
     </div>
 </nav>
 
 ### Enable your cluster access
-
 * [ ] Obtain your Mila account
 * [ ] [Read the IT onboarding guide](https://sites.google.com/mila.quebec/mila-intranet/it-infrastructure/it-onboarding-training)
 * [ ] [Submit the quiz](https://docs.google.com/forms/d/e/1FAIpQLSfVd2CGlynKQHQGxhmv6XWCt-eIm9e-Jo54xrdhE06rynsL5A/viewform)
 * [ ] [Accept compute cluster terms and conditions](https://docs.google.com/forms/d/e/1FAIpQLSd_AJoVV99wLEeSP-YTmI4StZ3hI8BygaebBE8m4A8fZKB1AA/viewform)
 
-
 ### Set up MFA
-
 * [ ] Get your temporary registration code
 * [ ] Use it to log in [https://mfa.mila.quebec/](https://mfa.mila.quebec/)
 * [ ] Install a TOTP authenticator app
@@ -64,7 +63,6 @@ This section helps you in your first steps on the cluster.
 * [ ] Add other token (TOTP, Push, email validation) if you wish
 
 ### Connect to the cluster
-
 * [ ] Install `uv`
 * [ ] Install `milatools`
 * [ ] Run `mila init` to configure `milatools`

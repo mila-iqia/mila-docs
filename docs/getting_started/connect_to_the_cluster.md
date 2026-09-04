@@ -1,23 +1,23 @@
 <nav class="progress-track" aria-label="Getting started progression">
     <div class="progress-step is-done">
-        <div class="progress-marker">✓</div>
-        <div class="progress-label">Enable your cluster access</div>
+        <div class="progress-marker"><a href="../cluster_access">✓</a></div>
+        <div class="progress-label"><a href="../cluster_access">Enable your cluster access</a></div>
     </div>
     <div class="progress-step is-done">
-        <div class="progress-marker">✓</div>
-        <div class="progress-label">Set up MFA</div>
+        <div class="progress-marker"><a href="../mfa">✓</a></div>
+        <div class="progress-label"><a href="../mfa">Set up MFA</a></div>
     </div>
     <div class="progress-step is-current">
-        <div class="progress-marker" aria-current="step">3</div>
-        <div class="progress-label">Connect to the cluster</div>
+        <div class="progress-marker" aria-current="step"><a href="../connect_to_the_cluster">3</a></div>
+        <div class="progress-label"><a href="../connect_to_the_cluster">Connect to the cluster</a></div>
     </div>
     <div class="progress-step">
-        <div class="progress-marker">4</div>
-        <div class="progress-label">Run your first job</div>
+        <div class="progress-marker"><a href="../my_first_job">4</a></div>
+        <div class="progress-label"><a href="../my_first_job">Run your first job</a></div>
     </div>
     <div class="progress-step">
-        <div class="progress-marker">5</div>
-        <div class="progress-label">Train your first model</div>
+        <div class="progress-marker"><a href="../train_first_model">5</a></div>
+        <div class="progress-label"><a href="../train_first_model">Train your first model</a></div>
     </div>
 </nav>
 
