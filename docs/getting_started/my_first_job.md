@@ -16,6 +16,29 @@ cluster using [VSCode](https://code.visualstudio.com/) on a compute node via the
 code`](https://github.com/mila-iqia/milatools) command from
 [milatools](https://github.com/mila-iqia/milatools).
 
+<nav class="progress-track" aria-label="Getting started progression">
+    <div class="progress-step is-done">
+        <div class="progress-marker"><a href="../cluster_access">✓</a></div>
+        <div class="progress-label"><a href="../cluster_access">Enable your cluster access</a></div>
+    </div>
+    <div class="progress-step is-done">
+        <div class="progress-marker"><a href="../mfa">✓</a></div>
+        <div class="progress-label"><a href="../mfa">Set up MFA</a></div>
+    </div>
+    <div class="progress-step is-done">
+        <div class="progress-marker"><a href="../connect_to_the_cluster">✓</a></div>
+        <div class="progress-label"><a href="../connect_to_the_cluster">Connect to the cluster</a></div>
+    </div>
+    <div class="progress-step is-current">
+        <div class="progress-marker" aria-current="step"><a href="../my_first_job">4</a></div>
+        <div class="progress-label"><a href="../my_first_job">Run your first job</a></div>
+    </div>
+    <div class="progress-step">
+        <div class="progress-marker"><a href="../train_first_model">5</a></div>
+        <div class="progress-label"><a href="../train_first_model">Train your first model</a></div>
+    </div>
+</nav>
+
 ## Before you begin
 
 <div class="grid cards" markdown>

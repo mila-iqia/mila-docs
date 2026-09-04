@@ -13,6 +13,31 @@ This guide covers training a small model (ResNet18) on CIFAR-10 using a single
 GPU on the Mila cluster. The guide uses Mila's CIFAR-10 dataset, stages it into
 fast local storage, and runs a Slurm batch job.
 
+
+
+<nav class="progress-track" aria-label="Getting started progression">
+    <div class="progress-step is-done">
+        <div class="progress-marker"><a href="../cluster_access">✓</a></div>
+        <div class="progress-label"><a href="../cluster_access">Enable your cluster access</a></div>
+    </div>
+    <div class="progress-step is-done">
+        <div class="progress-marker"><a href="../mfa">✓</a></div>
+        <div class="progress-label"><a href="../mfa">Set up MFA</a></div>
+    </div>
+    <div class="progress-step is-done">
+        <div class="progress-marker"><a href="../connect_to_the_cluster">✓</a></div>
+        <div class="progress-label"><a href="../connect_to_the_cluster">Connect to the cluster</a></div>
+    </div>
+    <div class="progress-step is-done">
+        <div class="progress-marker"><a href="../my_first_job">✓</a></div>
+        <div class="progress-label"><a href="../my_first_job">Run your first job</a></div>
+    </div>
+    <div class="progress-step is-current">
+        <div class="progress-marker" aria-current="step"><a href="../train_first_model">5</a></div>
+        <div class="progress-label"><a href="../train_first_model">Train your first model</a></div>
+    </div>
+</nav>
+
 ## Before you begin
 
 <div class="grid cards" markdown>
