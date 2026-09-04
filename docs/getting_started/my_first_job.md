@@ -16,6 +16,29 @@ cluster using [VSCode](https://code.visualstudio.com/) on a compute node via the
 code`](https://github.com/mila-iqia/milatools) command from
 [milatools](https://github.com/mila-iqia/milatools).
 
+<nav class="progress-track" aria-label="Getting started progression">
+    <div class="progress-step is-done">
+        <div class="progress-marker">✓</div>
+        <div class="progress-label">Enable your cluster access</div>
+    </div>
+    <div class="progress-step is-done">
+        <div class="progress-marker">✓</div>
+        <div class="progress-label">Set up MFA</div>
+    </div>
+    <div class="progress-step is-done">
+        <div class="progress-marker">✓</div>
+        <div class="progress-label">Connect to the cluster</div>
+    </div>
+    <div class="progress-step is-current">
+        <div class="progress-marker" aria-current="step">4</div>
+        <div class="progress-label">Run your first job</div>
+    </div>
+    <div class="progress-step">
+        <div class="progress-marker">5</div>
+        <div class="progress-label">Train your first model</div>
+    </div>
+</nav>
+
 ## Before you begin
 
 <div class="grid cards" markdown>

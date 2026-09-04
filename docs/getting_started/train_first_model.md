@@ -13,6 +13,31 @@ This guide covers training a small model (ResNet18) on CIFAR-10 using a single
 GPU on the Mila cluster. The guide uses Mila's CIFAR-10 dataset, stages it into
 fast local storage, and runs a Slurm batch job.
 
+
+
+<nav class="progress-track" aria-label="Getting started progression">
+    <div class="progress-step is-done">
+        <div class="progress-marker">✓</div>
+        <div class="progress-label">Enable your cluster access</div>
+    </div>
+    <div class="progress-step is-done">
+        <div class="progress-marker">✓</div>
+        <div class="progress-label">Set up MFA</div>
+    </div>
+    <div class="progress-step is-done">
+        <div class="progress-marker">✓</div>
+        <div class="progress-label">Connect to the cluster</div>
+    </div>
+    <div class="progress-step is-done">
+        <div class="progress-marker">✓</div>
+        <div class="progress-label">Run your first job</div>
+    </div>
+    <div class="progress-step is-current">
+        <div class="progress-marker" aria-current="step">5</div>
+        <div class="progress-label">Train your first model</div>
+    </div>
+</nav>
+
 ## Before you begin
 
 <div class="grid cards" markdown>
