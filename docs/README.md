@@ -175,6 +175,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
         - [Slurm overview](technical_reference/general_theory/slurm.md)
         - [Advanced SLURM usage and Multiple GPU jobs](technical_reference/general_theory/multigpu.md)
         - [Multiple Nodes](technical_reference/general_theory/multinode.md)
+        - [Why CPU and GPU training runs diverge numerically](technical_reference/general_theory/cpu_gpu_numerical_divergence.md)
 - [Toolbox](toolbox/index.md)
     - [Comet](toolbox/comet.md)
     - [JupyterHub](toolbox/jupyterhub.md)
