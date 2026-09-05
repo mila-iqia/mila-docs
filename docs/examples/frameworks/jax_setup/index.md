@@ -65,3 +65,7 @@ Then, you can submit a job to run the example with sbatch:
 ```bash
  $ sbatch job.sh
 ```
+
+## Next steps
+
+After you have successfully run this example, you can move on to the [Single-GPU Job](../../distributed/single_gpu/single_gpu_jax/index.md) example, which shows how to run a Jax training script on a single GPU.
