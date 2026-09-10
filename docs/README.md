@@ -177,6 +177,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
         - [Multiple Nodes](technical_reference/general_theory/multinode.md)
 - [Toolbox](toolbox/index.md)
     - [Comet](toolbox/comet.md)
+    - [Git LFS](toolbox/git_lfs.md)
     - [JupyterHub](toolbox/jupyterhub.md)
     - [Orion](toolbox/orion.md)
     - [Singularity](toolbox/singularity.md)
