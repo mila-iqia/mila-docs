@@ -171,6 +171,7 @@ plugins:
   - redirects:
       redirect_maps:
         "waste.md": "userguides/compute_utilization_guidelines/profiling.md"
+        "Userguide_login_mfa.md": "getting_started/mfa.md"
   - search
   - include-markdown:
       dedent: true
