@@ -119,9 +119,9 @@ everything's installed!
 !!! success "Cluster access"
     Before proceeding, complete:
     
-    - [Obtain your Mila account](#obtain-your-mila-account)
-    - [Enable your cluster access](#enable-your-cluster-access)
-    - [Set up Multi-Factor Authentication (MFA)](#set-up-mfa)
+    - [Obtain your Mila account](cluster_access.md#obtain-your-mila-account)
+    - [Enable your cluster access](cluster_access.md#enable-your-cluster-access)
+    - [Set up Multi-Factor Authentication (MFA)](mfa.md)
 
 ### Install `milatools`
 
