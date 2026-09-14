@@ -9,6 +9,7 @@ dependencies = [
     "mkdocs-material>=9.7.1",
     "mkdocs-include-markdown-plugin>=7.2.1",
     "mkdocs-literate-nav>=0.6.2",
+    "mkdocs-redirects>=1.2.3",
 ]
 
 [tool.uv.workspace]

@@ -28,6 +28,7 @@ watch:
   - includes
 theme:
   logo: _static/images/mila.png
+  favicon: _static/images/mila_purple.png
   icon:
     admonition:
       wip: fontawesome/solid/brush
@@ -167,6 +168,9 @@ plugins:
   - meta
   # privacy plugin currently breaks giscus comments
   # - privacy
+  - redirects:
+      redirect_maps:
+        "waste.md": "userguides/compute_utilization_guidelines/profiling.md"
   - search
   - include-markdown:
       dedent: true

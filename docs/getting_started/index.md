@@ -74,19 +74,3 @@ This section helps you in your first steps on the cluster.
 * [ ] Create the project files
 * [ ] Submit the job through Slurm
 * [ ] Monitor the job
-
----
-
-## Next steps
-
-First of all, you need to have a Mila account and enable your cluster access:
-
-<div class="grid cards" markdown>
-
--   [:material-run-fast:{ .lg .middle } __Enable your cluster access__](cluster_access.md)
-    { .card }
-
-    ---
-    Get a Mila account and enable your cluster access.
-
-</div>

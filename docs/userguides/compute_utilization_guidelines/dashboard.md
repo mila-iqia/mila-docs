@@ -5,7 +5,7 @@ description: Understand RGU and SM occupancy metrics and how to read the Compute
 
 # Compute Utilization Dashboard
 
-**[Link to dashboard](https://sarc-api-949207715981.northamerica-northeast1.run.app/dash/metrics).
+**[Link to dashboard](https://sarc.mila.quebec/dash/metrics).
 Access granted with Mila credentials.**                                                                                                 
 
 The **Compute Utilization Dashboard** provides visibility into cluster usage. The

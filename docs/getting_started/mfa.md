@@ -97,6 +97,9 @@ token** that expires after use.
 
         ![Token-selector](../_static/screenshots/mfa-enroll-token-totp-2.png)
 
+5. You can then add other registration tokens (PUSH (recommended for recurrent cluster access), TOTP or email).
+    See next section for more details.
+
 
 ## Subsequent logins to the portal
 
