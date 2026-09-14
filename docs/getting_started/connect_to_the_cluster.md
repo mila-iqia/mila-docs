@@ -255,7 +255,7 @@ not for running computations directly.
 
 ??? question "The Login node banner does not appear after entering the OTP?"
 
-    Review the steps to [set up Multi-Factor Authentication](#set-up-mfa).
+    Review the steps to [set up Multi-Factor Authentication](mfa.md).
 
 ## Install `uv` on the cluster
 
