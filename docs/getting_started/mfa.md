@@ -1,16 +1,10 @@
 ---
 title: Multi-Factor Authentication (MFA)
-description: Configure MFA and use it to access the Mila cluster securely.
+description: Configure MFA to access the Mila cluster securely.
 ---
 
 <!-- START -->
 # Set Up Multi-Factor Authentication
-
-Multi-Factor Authentication (MFA) adds a security layer beyond SSH keys.
-After setup, every cluster login requires two distinct factors: an SSH
-public key (first factor) and a dynamic verification code (second
-factor). This guide covers how to register for MFA, choose an
-authentication method, and complete a cluster login.
 
 <nav class="progress-track" aria-label="Getting started progression">
     <div class="progress-step is-done">
@@ -35,6 +29,9 @@ authentication method, and complete a cluster login.
     </div>
 </nav>
 
+This guide covers how to register for MFA and choose an
+authentication method to be able to complete a cluster login.
+
 
 ## What this guide covers
 
@@ -44,6 +41,8 @@ authentication method, and complete a cluster login.
 ---
 
 ## Set up Multi-Factor Authentication (MFA) { #set-up-mfa }
+
+Multi-Factor Authentication (MFA) adds a security layer beyond SSH keys.
 
 Cluster access requires **two factors**: an SSH key (first factor) and a second
 factor (TOTP, push notification, or email token). The MFA setup **must** be
@@ -98,6 +97,39 @@ token** that expires after use.
 
         ![Token-selector](../_static/screenshots/mfa-enroll-token-totp-2.png)
 
+
+## Subsequent logins to the portal
+
+After the first session, the portal accepts **TOTP tokens only**.
+Email tokens can no longer be used to access the portal — they remain
+valid only for SSH cluster logins.
+
+**Which token to use**
+
+| Access type    | First login                | Every subsequent login |
+| -------------- | -------------------------- | ---------------------- |
+| MFA web portal | Email registration token   | TOTP token only        |
+| Cluster SSH    | N/A                        | TOTP, Push, or email   |
+
+??? info "Authentication methods overview"
+
+    **PrivacyIDEA Push notification**
+    :   Approve a login request via a push notification on a smartphone.
+        Requires the **privacyIDEA Authenticator** app (iOS or Android).
+
+    **TOTP (Time-based One-Time Password)**
+    :   Enter a 6-digit rolling code from an authenticator app. Compatible
+        with **privacyIDEA**, Google Authenticator, Microsoft Authenticator,
+        or any app supporting the RFC 6238 standard.
+
+    **Email token**
+    :   Receive a one-time verification code at the registered
+        **@mila.quebec** email address.
+
+    **Hardware token (coming soon)**
+    :   YubiKey support (FIDO2/WebAuthn) is planned for a future update.
+
+
 ## Troubleshooting
 
 **TOTP codes rejected**
@@ -108,13 +140,24 @@ token** that expires after use.
 :   Contact [IT Support](https://it-support.mila.quebec) immediately
     to reset MFA tokens.
 
+
+---
+
+## Key concepts
+
+**MFA**
+:   Multi-Factor Authentication (MFA) adds a security layer beyond SSH keys.
+    After setup, every cluster login requires two distinct factors: an SSH
+    public key (first factor) and a dynamic verification code (second
+    factor).
+
 ---
 
 ## Next step
 
 <div class="grid cards" markdown>
 
--   [:material-run-fast:{ .lg .middle } __Log in to the cluster__](userguides/login.md)
+-   [:material-run-fast:{ .lg .middle } __Connect to the cluster__](connect_to_the_cluster.md)
     { .card }
 
     ---

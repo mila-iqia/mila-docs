@@ -9,12 +9,6 @@ skills:
 
 # Train Your First Model
 
-This guide covers training a small model (ResNet18) on CIFAR-10 using a single
-GPU on the Mila cluster. The guide uses Mila's CIFAR-10 dataset, stages it into
-fast local storage, and runs a Slurm batch job.
-
-
-
 <nav class="progress-track" aria-label="Getting started progression">
     <div class="progress-step is-done">
         <div class="progress-marker"><a href="../cluster_access">✓</a></div>
@@ -38,26 +32,10 @@ fast local storage, and runs a Slurm batch job.
     </div>
 </nav>
 
-## Before you begin
+This guide covers training a small model (ResNet18) on CIFAR-10 using a single
+GPU on the Mila cluster. The guide uses Mila's CIFAR-10 dataset, stages it into
+fast local storage, and runs a Slurm batch job.
 
-<div class="grid cards" markdown>
-
--   [:material-run-fast:{ .lg .middle } __Get Started with the Cluster__](index.md)
-    { .card }
-
-    ---
-    Obtain a Mila account, enable cluster access and MFA, install `uv` and
-    `milatools`, configure SSH access and connect to the cluster for the first
-    time.
-
--   [:material-run-fast:{ .lg .middle } __Run Your First Job__](my_first_job.md)
-    { .card }
-
-    ---
-    Run your first job on the cluster with PyTorch using `mila code` and VSCode
-    on a GPU compute node.
-
-</div>
 
 ## What this guide covers
 

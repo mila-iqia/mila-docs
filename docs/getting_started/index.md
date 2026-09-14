@@ -13,23 +13,13 @@ skills:
   - __skill-mila-local-setup
 ---
 
-
+<!-- START -->
 # Get Started with the Cluster
-
-This section helps you in your first steps on the cluster.
-
-
-
----
-
-## Overview { #overview }
 
 <nav class="progress-track" aria-label="Getting started progression">
     <div class="progress-step">
         <div class="progress-marker" aria-current="step"><a href="cluster_access">1</a></div>
         <div class="progress-label"><a href="cluster_access">Enable your cluster access</a></div>
-        <!--<div class="progress-marker" aria-current="step"><button class="tabbed-button" tabIndex="1" aria-hidden="true">1</button></div>
-        <div class="progress-label"><button class="tabbed-button" tabIndex="1" aria-hidden="true">Enable your cluster access</button></div>-->
     </div>
     <div class="progress-step">
         <div class="progress-marker" aria-current="step"><a href="mfa">2</a></div>
@@ -48,6 +38,9 @@ This section helps you in your first steps on the cluster.
         <div class="progress-label"><a href="train_first_model">Train your first model</a></div>
     </div>
 </nav>
+
+
+This section helps you in your first steps on the cluster.
 
 ### Enable your cluster access
 * [ ] Obtain your Mila account

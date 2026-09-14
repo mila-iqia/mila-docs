@@ -10,12 +10,6 @@ skills:
 
 # Run Your First Job
 
-This guide covers running a first job on the Mila cluster. Create a minimal
-PyTorch project that checks CUDA and GPU availability, and develop on the
-cluster using [VSCode](https://code.visualstudio.com/) on a compute node via the [`mila
-code`](https://github.com/mila-iqia/milatools) command from
-[milatools](https://github.com/mila-iqia/milatools).
-
 <nav class="progress-track" aria-label="Getting started progression">
     <div class="progress-step is-done">
         <div class="progress-marker"><a href="../cluster_access">✓</a></div>
@@ -39,21 +33,11 @@ code`](https://github.com/mila-iqia/milatools) command from
     </div>
 </nav>
 
-## Before you begin
-
-<div class="grid cards" markdown>
-
--   [:material-run-fast:{ .lg .middle } __Get Started with the Cluster__](index.md)
-    { .card }
-
-    ---
-    Obtain a Mila account, enable cluster access and MFA, install `uv` and
-    `milatools`, configure SSH access and connect to the cluster for the first
-    time.
-
-&nbsp;
-
-</div>
+This guide covers running a first job on the Mila cluster. Create a minimal
+PyTorch project that checks CUDA and GPU availability, and develop on the
+cluster using [VSCode](https://code.visualstudio.com/) on a compute node via the [`mila
+code`](https://github.com/mila-iqia/milatools) command from
+[milatools](https://github.com/mila-iqia/milatools).
 
 !!! success "VSCode or compatible editor"
 

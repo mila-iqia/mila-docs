@@ -1,3 +1,9 @@
+---
+title: Connect to the Cluster
+description: Install tools to connect to the cluster for the first time.
+---
+
+<!-- START -->
 <nav class="progress-track" aria-label="Getting started progression">
     <div class="progress-step is-done">
         <div class="progress-marker"><a href="../cluster_access">✓</a></div>
@@ -21,10 +27,67 @@
     </div>
 </nav>
 
+This guide helps with the installation of `uv` and `milatools`, in order to connect to the cluster.
+
+
 ## What this guide covers
 
 * Understand which token to use for the portal vs. SSH cluster logins
-* Complete a cluster login after MFA is active
+* Complete a cluster login once MFA is active
+
+
+[](){ #install-wsl }
+
+???+ warning ":material-microsoft-windows-classic: Windows users: install WSL first"
+
+    Windows users need [WSL (Windows Subsystem for Linux)](https://learn.microsoft.com/en-us/windows/wsl/) to run the commands in this guide (`curl`, `ssh`, `uv`, etc.).
+
+    **Steps:**
+
+    1. Open PowerShell.
+    2. Run:
+       ```bash
+       wsl --install Ubuntu
+       ```
+    3. Restart the computer when prompted.
+    4. After restart, WSL will finish setup. A prompt may appear to create a
+       Linux username and password.
+    5. Open **Ubuntu** from the Start menu to get a Linux terminal.
+
+    **Verify:** In the WSL terminal, run `ls` and `curl --version` to confirm
+    the shell is functional.
+
+    === "`ls`"
+        ```bash
+        ls
+        ```
+        <div class="result" style="border:None; padding:0" markdown>
+        ``` linenums="0"
+        bin      CODE     scratch
+        ```
+        </div>
+
+    === "`curl --version`"
+        ```bash
+        curl --version
+        ```
+        <div class="result" style="border:None; padding:0" markdown>
+        ``` linenums="0"
+        curl 8.4.0 (x86_64-pc-linux-gnu) libcurl/8.4.0 OpenSSL/3.0.9 zlib/1.2.13 brotli/1.0.9 zstd/1.5.5 c-ares/1.19.1 nghttp2/1.51.0
+        Release-Date: 2023-10-11
+        Protocols: dict file ftp ftps http https imap imaps mqtt pop3 pop3s rtsp smtp smtps tftp
+        Features: alt-svc AsynchDNS brotli HSTS HTTP2 HTTPS-proxy IPv6 Largefile libz NTLM SSL threadsafe TLS-SRP UnixSockets zstd
+        ```
+        </div>
+
+    ???+ info "References"
+        1. [Ubuntu WSL install guide](https://documentation.ubuntu.com/wsl/latest/howto/install-ubuntu-wsl2/)
+        2. [Microsoft WSL install guide](https://learn.microsoft.com/en-us/windows/wsl/install)
+
+    !!! note
+        Run all commands in this guide (`uv`, `milatools`, `ssh`) inside the
+        WSL terminal, not in Windows PowerShell or Command Prompt.
+
 
 ## Install `uv` on a local machine
 
@@ -225,3 +288,27 @@ everything's installed!
 `milatools`
 :   CLI tool (`mila`) for setting up SSH config and opening VSCode on
     compute nodes.
+
+`SSH`
+:   The Secure Shell Protocol (SSH Protocol) is a cryptographic network
+    protocol for operating network services securely over an unsecured
+    network. Its most notable applications are remote login and command-line
+    execution.
+
+
+
+---
+
+## Next step
+
+<div class="grid cards" markdown>
+
+-   [:material-run-fast:{ .lg .middle } __Run your first job__](my_first_job.md)
+    { .card }
+
+    ---
+    Run your first job on the Mila cluster.
+
+&nbsp;
+
+</div>

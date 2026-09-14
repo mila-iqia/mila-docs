@@ -115,7 +115,6 @@ If you find any errors in the documentation, missing or unclear sections, or wou
     - Guides
         - [Manage Python Dependencies with uv](userguides/python_uv.md)
         - [Track Experiments with Weights & Biases (WandB)](userguides/wandb.md)
-        - [Multi-Factor Authentication (MFA) for Cluster Access](Userguide_login_mfa.md)
         - [Logging in to the cluster](userguides/login.md)
         - [Launch jobs](userguides/slurm_guide/index.md)
             - [Understand Slurm](userguides/slurm_guide/basics.md)
@@ -169,6 +168,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
     - General Theory
         - [What is a computer cluster?](technical_reference/general_theory/cluster_parts.md)
         - [Unix](technical_reference/general_theory/unix.md)
+        - [How SSH authentication work](technical_reference/general_theory/ssh_on_clusters.md)
         - [The workload manager](technical_reference/general_theory/batch_scheduling.md)
         - [Processing data](technical_reference/general_theory/data.md)
         - [Software on the cluster](technical_reference/general_theory/software_deps.md)

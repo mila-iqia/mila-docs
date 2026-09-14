@@ -12,6 +12,25 @@
 As of **March 31, 2025**, this will become the **only** means of authentication,
 and **password-based authentication will no longer work**.
 
+
+!!! tip "Reduce MFA prompts with SSH connection multiplexing"
+    Adding `ControlMaster=auto` and `ControlPersist=yes` to the Mila
+    SSH config entry allows MFA verification once per machine boot
+    rather than once per SSH command. This is supported on Linux and
+    macOS. Windows users should install WSL to use these SSH options.
+
+
+
+!!! warning "When Push and OTP are both enrolled"
+    The terminal always displays an OTP prompt, regardless of which factor is
+    used.
+
+    - **To use TOTP or email:** enter the code and press `Enter`.
+    - **To use Push:** approve the notification on the smartphone first, then
+      press `Enter` without entering a code.
+
+
+
 SSH uses a configuration file `~/.ssh/config` (right next to the SSH keys) 
 to indicate which connection settings to use for each SSH server one can
 connect to.
