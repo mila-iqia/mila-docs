@@ -44,7 +44,7 @@ This section helps you in your first steps on the cluster.
 Below is an overview of the steps, from arriving at Mila to
 train your first model on the Mila cluster.
 
-### [Enable your cluster access](cluster_acces.md)
+### [Enable your cluster access](cluster_access.md)
 * [ ] Obtain your Mila account
 * [ ] [Read the IT onboarding guide](https://sites.google.com/mila.quebec/mila-intranet/it-infrastructure/it-onboarding-training)
 * [ ] [Submit the quiz](https://docs.google.com/forms/d/e/1FAIpQLSfVd2CGlynKQHQGxhmv6XWCt-eIm9e-Jo54xrdhE06rynsL5A/viewform)
