@@ -119,7 +119,7 @@ everything's installed!
 !!! success "Cluster access"
     Before proceeding, complete:
     
-    - [Obtain your Mila account](cluster_access.md#obtain-your-mila-account)
+    - [Obtain your Mila account](cluster_access.md)
     - [Enable your cluster access](cluster_access.md#enable-your-cluster-access)
     - [Set up Multi-Factor Authentication (MFA)](mfa.md)
 
@@ -192,7 +192,7 @@ permissions are correct. You should now be able to connect to compute nodes with
 ## Verify your connection
 
 Open a terminal and run `ssh mila`. When prompted for an OTP, enter the 6-digit
-TOTP code from the [authenticator app](#set-up-mfa) — *the code will not appear
+TOTP code from the [authenticator app](mfa.md) — *the code will not appear
 on screen as it is typed*:
 
 ```bash

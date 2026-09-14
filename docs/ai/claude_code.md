@@ -75,7 +75,7 @@ Claude Code is available as a command-line tool and as an extension for VS Code.
     ???+ warning "WSL2 required"
         The CLI installer requires a Linux environment. Install and configure
         WSL2 before continuing. See [Getting Started — Install
-        WSL](../getting_started/index.md#install-wsl).
+        WSL](../getting_started/connect_to_the_cluster.md#install-wsl).
 
     Open a WSL2 terminal and run the installer:
 
