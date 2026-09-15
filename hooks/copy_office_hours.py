@@ -5,7 +5,7 @@ import os
 def on_pre_build(config, **kwargs):
     """
     # Create markdown file for the Office hours from the configuration data
-    # This is done before `mkdocs build` or `mkdocs serve` in order
+    # This is done before `properdocs build` or `properdocs serve` in order
     # to avoid duplicating the Office Hours times
     """
 

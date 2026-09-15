@@ -5,11 +5,8 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "mkdocs>=1.6.1,<2.0.0",
-    "mkdocs-material>=9.7.1",
-    "mkdocs-include-markdown-plugin>=7.2.1",
-    "mkdocs-literate-nav>=0.6.2",
-    "mkdocs-redirects>=1.2.3",
+    "properdocs>=1.6.7",
+    "properdocs-theme-mkdocs>=1.6.7",
 ]
 
 [tool.uv.workspace]
@@ -65,8 +62,8 @@ post-install-commands = [
 
 [tool.hatch.envs.default.scripts]
 uv = 'UV_PROJECT_ENVIRONMENT="{env:VIRTUAL_ENV}" "$(which uv)" {args}'
-build = ["mkdocs build"]
-serve = ["mkdocs serve --livereload --open {args}"]
+build = ["properdocs build"]
+serve = ["properdocs serve --livereload --open {args}"]
 
 [tool.hatch.envs.hatch-test]
 installer = "uv"

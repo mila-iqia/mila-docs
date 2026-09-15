@@ -25,7 +25,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           python-version: ${{ matrix.python-version }}
 
-      - name: Install MkDocs and dependencies
+      - name: Install Properdocs and dependencies
         run: uv sync --no-dev
 
       - name: Generate diff files
@@ -35,8 +35,8 @@ jobs:
         run: ./docs/examples/toggle_skip_generate_diffs_err_check.sh
         shell: bash
 
-      - name: Build MkDocs site
-        run: uv run mkdocs build --site-dir ./_build/html
+      - name: Build Properdocs site
+        run: uv run properdocs build --site-dir ./_build/html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
@@ -44,4 +44,4 @@ jobs:
           path: ./_build/html
 
       - name: Deploy docs
-        run: uv run mkdocs gh-deploy --force --no-history --site-dir ./_build/html
+        run: uv run properdocs gh-deploy --force --no-history --site-dir ./_build/html
