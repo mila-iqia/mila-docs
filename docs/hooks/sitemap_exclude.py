@@ -44,7 +44,7 @@ _excluded_urls: set[str] = set()
 def on_pre_build(config, **kwargs):
     """Reset the excluded URL set at the start of every build.
 
-    ``mkdocs serve`` keeps the module loaded between incremental rebuilds, so
+    ``properdocs serve`` keeps the module loaded between incremental rebuilds, so
     module-level state persists across builds. Resetting here ensures that URLs
     collected during a previous build do not carry over into the next one.
     """
