@@ -6,7 +6,6 @@ Check out our guides picturing different ways to use the cluster:
 | ----- | ----------------- |
 | [Manage Python Dependencies with uv](python_uv.md) | Set up uv to manage project dependencies |
 | [Track Experiments with Weights & Biases (WandB)](wandb.md) | Log metrics, organize runs, and run sweeps on the Mila cluster |
-| [Multi-Factor authentication](login_mfa.md) | Use MFA to access the Mila cluster |
 | [Logging in to the cluster](login.md) | Log in to the Mila cluster |
 | [Launch jobs](slurm_guide/index.md) | Launch your jobs on the cluster |
 | [Compute utilization at Mila](compute_utilization_guidelines/index.md) | Compute guidelines for the Mila cluster. Understand GPU efficiency metrics, diagnose underutilization in your jobs and apply concrete best practices to improve throughput. |
