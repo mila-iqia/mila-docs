@@ -25,7 +25,6 @@ build:
     pre_build:
       - UV_PROJECT_ENVIRONMENT="${READTHEDOCS_VIRTUALENV_PATH}" uv run
         --script docs/examples/preprocess.py
-
-mkdocs:
-  configuration: mkdocs.yml
-  fail_on_warning: true
+    build:
+      html:
+        - python -m properdocs build --clean --strict --site-dir $READTHEDOCS_OUTPUT/html --config-file properdocs.yml
