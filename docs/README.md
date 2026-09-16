@@ -110,7 +110,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
     - [Train Your First Model](getting_started/train_first_model.md)
 - [How-tos and Guides](userguides/index.md)
     - Prepare
-        - [Logging in to the cluster](userguides/login/login.md)
+        - [Logging in to the cluster](userguides/login.md)
         - [Manage Python Dependencies with uv](userguides/python_uv.md)
         - [Share data with ACLs](userguides/sharing_data.md)
     - Execute
