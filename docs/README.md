@@ -118,6 +118,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
             - [Understand Slurm](userguides/slurm_guide/basics.md)
             - [Monitor and manage jobs](userguides/slurm_guide/monitor_manage.md)
             - [Synchronizing multiple tasks](userguides/slurm_guide/tasks_communication.md)
+            - [Submit Jobs Across Clusters with cluv](userguides/slurm_guide/cluv.md)
         - [Compute utilization at Mila](userguides/compute_utilization_guidelines/index.md)
             - [Compute Utilization Dashboard](userguides/compute_utilization_guidelines/dashboard.md)
             - [Identifying GPU waste](userguides/compute_utilization_guidelines/profiling.md)
