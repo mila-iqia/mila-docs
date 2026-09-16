@@ -377,7 +377,7 @@ job and train a first model:
 
 <div class="grid cards" markdown>
 
--   [:material-run-fast:{ .lg .middle } __Run Your First Job__](../blbl/my_first_job.md)
+-   [:material-run-fast:{ .lg .middle } __Run Your First Job__](my_first_job.md)
     { .card }
 
     ---
