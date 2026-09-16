@@ -11,6 +11,7 @@ dependencies = [
     "mkdocs-redirects>=1.2.3",
     "properdocs>=1.6.7",
     "properdocs-theme-mkdocs>=1.6.7",
+    "properdocs-theme-readthedocs>=1.6.5",
 ]
 
 [tool.uv.workspace]
