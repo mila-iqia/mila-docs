@@ -26,14 +26,14 @@ developing a project locally and running it as a Slurm job.
 
 <div class="grid cards" markdown>
 
--   [:material-run-fast:{ .lg .middle } __Get Started with the Cluster__](../getting_started/index.md)
+-   [:material-run-fast:{ .lg .middle } __Get Started with the Cluster__](../../getting_started/index.md)
     { .card }
 
     ---
     Obtain a Mila account, enable cluster access and MFA, configure SSH
     access, and connect to the cluster for the first time.
 
--   [:material-language-python:{ .lg .middle } __Manage Python Dependencies with `uv`__](../userguides/python_uv.md)
+-   [:material-language-python:{ .lg .middle } __Manage Python Dependencies with `uv`__](../python_uv.md)
     { .card }
 
     ---
