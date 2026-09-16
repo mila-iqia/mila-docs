@@ -28,7 +28,7 @@ description: Install tools to connect to the cluster for the first time.
 </nav>
 
 This guide helps with the installation of `uv` and `milatools`, in order to connect to the cluster.
-Connections to the clusters are then done by SSH (see [this page](../../technical_reference/general_theory/ssh_on_clusters/) to learn how the connection work underneath).
+Connections to the clusters are then done by SSH (see [this page](../technical_reference/general_theory/ssh_on_clusters.md) to learn how the connection work underneath).
 
 
 ## What this guide covers
