@@ -27,12 +27,4 @@ build:
         --script docs/examples/preprocess.py
     build:
       html:
-        - python -m properdocs build --clean --site-dir $READTHEDOCS_OUTPUT/html --config-file properdocs.yml
-
-
-#  commands:
-#    - python -m properdocs build --clean --site-dir $READTHEDOCS_OUTPUT/html --config-file properdocs.yml
-
-#mkdocs:
-#  configuration: properdocs.yml
-#  fail_on_warning: true
+        - python -m properdocs build --clean --strict --site-dir $READTHEDOCS_OUTPUT/html --config-file properdocs.yml
