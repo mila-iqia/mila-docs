@@ -11,8 +11,8 @@ description: >-
 for syncing UV-based Python projects and submitting jobs across multiple Slurm
 clusters, including the Mila cluster.
 
-Many Mila researchers also hold compute allocations on other Slurm clusters,
-such as the [DRAC clusters](../../technical_reference/clusters/index.md).
+Many Mila researchers hold compute allocations on other Slurm clusters,
+such as the [DRAC or PAICE clusters](../../technical_reference/clusters/index.md).
 Moving a project between clusters by hand can be tedious and error-prone,
 especially when synchronizing code, dependencies, datasets, and results.
 `cluv` automates this process, allowing development to happen locally while
@@ -78,7 +78,7 @@ command-line tool:
     - Python 3.11 or higher, plus the `uv` package manager, installed
       locally.
     - A project hosted in a GitHub repository.
-    - SSH access configured in `~/.ssh/config` for each target cluster,
+    - [SSH access configured](../login.md#mila-init) in `~/.ssh/config` for each target cluster,
       with ControlMaster sessions enabled for passwordless authentication.
       Windows users need WSL2, since cluv does not run natively on Windows.
 
