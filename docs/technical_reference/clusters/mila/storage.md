@@ -10,14 +10,17 @@
 | `/network/projects/<groupname>/`                 | Fair        | Shared space for collaboration; long-term project storage            | 1TB/1000K           | Daily  | no           |
 | `$ARCHIVE` or `/network/archive/<u>/<username>/` | Low         | Long-term personal storage                                           | 5TB                 | no     | no           |
 
-!!! note
-    The `$HOME` file system is backed up once a day. For any file restoration request, file a request to [Mila's IT support](https://it-support.mila.quebec) with the path to the file or directory to restore, with the required date.
 
 ## $HOME
 
 `$HOME` is appropriate for codes and libraries which are small and read once,
 as well as the experimental results that would be needed at a later time (e.g.
 the weights of a network referenced in a paper).
+
+!!! note
+    The `$HOME` file system is backed up once a day. For any file restoration
+    request, file a request to [Mila's IT support](https://it-support.mila.quebec)
+    with the path to the file or directory to restore, with the required date.
 
 Quotas are enabled on `$HOME` for both disk capacity (blocks) and number of
 files (inodes). The limits for blocks and inodes are respectively 100GiB and 1
@@ -29,13 +32,17 @@ disk-quota
 
 ## $SCRATCH
 
-
 `$SCRATCH` can be used to store processed datasets, work in progress datasets
 or temporary job results. Its block size is optimized for small files which
 minimizes the performance hit of working on extracted datasets.
 
 !!! note "Auto-cleanup"
     This file system is cleared on a daily basis; files not used for more than 90 days will be deleted. This period can be shortened when the file system usage is above 90%.
+
+!!! note "Access control"
+    `$SCRATCH` aims to support [Access Control Lists(ACLs)](../../../userguides/sharing_data.md)
+    to allow collaborative work on rapidly changing data, e.g. work in process
+    datasets, model checkpoints, etc.
 
 Quotas are enabled on `$SCRATCH` for disk capacity (blocks). The limit is
 5TiB. There is no limit in the number of files (inodes). The command to check
@@ -47,26 +54,27 @@ disk-quota
 
 ## $SLURM_TMPDIR
 
-
 `$SLURM_TMPDIR` points to the local disk of the node on which a job is
 running. It should be used to copy the data on the node at the beginning of the
 job and write intermediate checkpoints. This folder is cleared after each job.
 
 ## projects
 
-
 `projects` can be used for collaborative projects. It aims to ease the
-sharing of data between users working on a long-term project.
+sharing of data between users working on a long-term project. Data that
+should be kept for a longer period than 90 days can be stored in that
+location but first a request to [Mila's helpdesk](https://it-support.mila.quebec)
+has to be made to create the project directory.
 
 Quotas are enabled on `projects` for both disk capacity (blocks) and number
 of files (inodes). The limits for blocks and inodes are respectively 1TiB and
 1 million per group.
 
 !!! note
-    It is possible to request higher quota limits if the project requires it. File a request to [Mila's IT support](https://it-support.mila.quebec).
+    It is possible to request higher quota limits if the project requires it.
+    File a request to [Mila's IT support](https://it-support.mila.quebec).
 
 ## $ARCHIVE
-
 
 `$ARCHIVE` purpose is to store data other than datasets that has to be kept
 long-term (e.g.  generated samples, logs, data relevant for paper submission).
@@ -96,7 +104,6 @@ df -h $ARCHIVE
 
 ## datasets
 
-
 `datasets` contains curated datasets to the benefit of the Mila community. To
 request the addition of a dataset or a preprocessed dataset you think could
 benefit the research of others, you can fill [the datasets form](https://forms.gle/1VMFrJTwd291HJdt8). Datasets can also be browsed from the
@@ -119,7 +126,6 @@ ssh [CLUSTER_LOGIN] -C "projects/rrg-bengioy-ad/data/curated/list_datasets_cc.sh
 ```
 
 ## weights
-
 
 `weights` contains curated models weights to the benefit of the Mila
 community.  To request the addition of a weight you think could benefit the

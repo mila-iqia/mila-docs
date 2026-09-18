@@ -156,7 +156,6 @@ If you find any errors in the documentation, missing or unclear sections, or wou
             - [Node profile description](technical_reference/clusters/mila/nodes.md)
             - [Storage](technical_reference/clusters/mila/storage.md)
             - [Partitions](technical_reference/clusters/mila/partitions.md)
-            - [Data sharing policies](technical_reference/clusters/mila/sharing_policies.md)
             - [Data Transmission](technical_reference/clusters/mila/data_transmission.md)
             - [Monitoring](technical_reference/clusters/mila/monitoring.md)
             - [Environmental Impact](technical_reference/clusters/mila/environmental_impact.md)
