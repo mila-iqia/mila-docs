@@ -9,7 +9,7 @@
     .mut  { fill: #7d8590; }
     .dot  { opacity: 0; }
     .gl   { opacity: 0; font-weight: 700; }
-    .cap  { opacity: 0; }
+    .cap  { opacity: 0; fill: #7d8590; }
     .sync { fill: #3b82f6; }
     .sub  { fill: #e8912d; }
     .can  { fill: #e05252; }
@@ -210,11 +210,11 @@
 
     <!-- step captions -->
     <g font-size="13.5" fill="#1e293b" text-anchor="middle">
-      <text class="cap cap1 c1" x="380" y="340">1 &#8212; Sync the project to Mila, Rorqual &amp; Tamia</text>
-      <text class="cap cap2 c2" x="380" y="340">2 &#8212; Submit concurrent jobs on every cluster</text>
-      <text class="cap cap3 c3" x="380" y="340">3 &#8212; Wait for the first job to start</text>
-      <text class="cap cap4 c4" x="380" y="340">4 &#8212; First job started &#8594; scancel all the others</text>
-      <text class="cap cap5 c5" x="380" y="340">5 &#8212; Sync results back to the local machine</text>
+      <text class="cap cap1 c1" x="380" y="340">1 - Sync the project to Mila, Rorqual &amp; Tamia</text>
+      <text class="cap cap2 c2" x="380" y="340">2 - Submit concurrent jobs on every cluster</text>
+      <text class="cap cap3 c3" x="380" y="340">3 - Wait for the first job to start</text>
+      <text class="cap cap4 c4" x="380" y="340">4 - First job started &#8594; scancel all the others</text>
+      <text class="cap cap5 c5" x="380" y="340">5 - Sync results back to the local machine</text>
     </g>
 
     <!-- legend: message types row, job states row -->
