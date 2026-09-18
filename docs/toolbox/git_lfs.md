@@ -1,31 +1,16 @@
 ---
 title: Install Git LFS on the Cluster
-description: Install Git LFS on the cluster by downloading the Linux AMD64
-  binary and adding it to the PATH.
+description: Install Git LFS on the cluster by downloading the binary 
+    and adding it to the PATH.
 ---
 
-# Install Git LFS on the Cluster
+# Git LFS
 
 Git LFS (Large File Storage) extends Git to track large files without storing
 them in the repository history. Git LFS is not preinstalled on the cluster,
 but it runs on it: the Linux AMD64 binary can be downloaded, extracted, and
 added to the `PATH`, after which the `git lfs` commands become available in
 any repository.
-
-## Before you begin
-
-<div class="grid cards" markdown>
-
--   [:material-key:{ .lg .middle } __Logging in to the cluster__](../userguides/login.md)
-    { .card }
-
-    ---
-    Connect to the cluster over SSH before installing a tool in a home
-    directory.
-
-&nbsp;
-
-</div>
 
 ## What this guide covers
 
