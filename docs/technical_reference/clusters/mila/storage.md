@@ -17,11 +17,6 @@
 as well as the experimental results that would be needed at a later time (e.g.
 the weights of a network referenced in a paper).
 
-!!! note
-    The `$HOME` file system is backed up once a day. For any file restoration
-    request, file a request to [Mila's IT support](https://it-support.mila.quebec)
-    with the path to the file or directory to restore, with the required date.
-
 Quotas are enabled on `$HOME` for both disk capacity (blocks) and number of
 files (inodes). The limits for blocks and inodes are respectively 100GiB and 1
 million per user. The command to check the quota usage from a login node is:
@@ -30,19 +25,16 @@ million per user. The command to check the quota usage from a login node is:
 disk-quota
 ```
 
+!!! note
+    The `$HOME` file system is backed up once a day. For any file restoration
+    request, file a request to [Mila's IT support](https://it-support.mila.quebec)
+    with the path to the file or directory to restore, with the required date.
+
 ## $SCRATCH
 
 `$SCRATCH` can be used to store processed datasets, work in progress datasets
 or temporary job results. Its block size is optimized for small files which
 minimizes the performance hit of working on extracted datasets.
-
-!!! note "Auto-cleanup"
-    This file system is cleared on a daily basis; files not used for more than 90 days will be deleted. This period can be shortened when the file system usage is above 90%.
-
-!!! note "Access control"
-    `$SCRATCH` aims to support [Access Control Lists(ACLs)](../../../userguides/sharing_data.md)
-    to allow collaborative work on rapidly changing data, e.g. work in process
-    datasets, model checkpoints, etc.
 
 Quotas are enabled on `$SCRATCH` for disk capacity (blocks). The limit is
 5TiB. There is no limit in the number of files (inodes). The command to check
@@ -51,6 +43,14 @@ the quota usage from a login node is:
 ```bash
 disk-quota
 ```
+
+!!! note "Auto-cleanup"
+    This file system is cleared on a daily basis; files not used for more than 90 days will be deleted. This period can be shortened when the file system usage is above 90%.
+
+!!! note "Access control"
+    `$SCRATCH` aims to support [Access Control Lists(ACLs)](../../../userguides/sharing_data.md)
+    to allow collaborative work on rapidly changing data, e.g. work in process
+    datasets, model checkpoints, etc.
 
 ## $SLURM_TMPDIR
 
