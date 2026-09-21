@@ -62,17 +62,14 @@ train your first model on the Mila cluster.
 * [ ] Install `milatools`
 * [ ] Run `mila init` to configure `milatools`
 * [ ] `ssh` on the cluster to check your access
+* [ ] Install `uv` on the cluster
 
 ### [Run your first job](my_first_job.md)
-* [ ] Install `uv` on the cluster
 * [ ] Create a project directory on the cluster
 * [ ] Start VSCode on a **<u>compute</u>** node
 * [ ] Create the project files
 * [ ] Run the script in the VSCode terminal
 
 ### [Train your first model](train_first_model.md)
-* [ ] Create a project directory on the cluster
-* [ ] Start VSCode on a **<u>compute</u>** node
-* [ ] Create the project files
 * [ ] Submit the job through Slurm
 * [ ] Monitor the job
