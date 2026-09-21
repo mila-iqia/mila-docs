@@ -61,7 +61,7 @@ connect to the cluster.
 
 1. Read the [IT Onboarding
     Guide](https://sites.google.com/mila.quebec/mila-intranet/it-infrastructure/it-onboarding-training)
-    and complete and submit the quiz.
+    and complete the quiz.
 2. After passing the quiz, IT will send the connection details by email or
     on Slack, including the cluster username. Cluster access can take up to
     48 hours to become effective.
