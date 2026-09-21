@@ -25,7 +25,7 @@ description: Configure MFA to access the Mila cluster securely.
     </div>
     <div class="progress-step">
         <div class="progress-marker"><a href="../train_first_model">5</a></div>
-        <div class="progress-label"><a href="../train_first_model">rain your first model</a></div>
+        <div class="progress-label"><a href="../train_first_model">Train your first model</a></div>
     </div>
 </nav>
 
