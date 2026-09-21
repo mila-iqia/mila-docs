@@ -2,7 +2,7 @@
 
 This is the repository of the offical Mila Cluster documentation.
 
-The docs are generated with Sphinx, and are published on the Internet thanks to BuildTheDocs, GitHub Actions/Pages.
+The docs are generated with Properdocs, and are published on the Internet thanks to BuildTheDocs, GitHub Actions/Pages.
 
 The official URL for the docs is https://docs.mila.quebec/
 
