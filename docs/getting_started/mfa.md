@@ -74,10 +74,15 @@ token** that expires after use.
 
 4. After logging in, **immediately** add at least one **TOTP** token to your
    account:
+    1. Click on **Enroll token**
 
-    ![Token-selector](../_static/screenshots/mfa-enroll-token-totp.png)
+        ![Add a new token](../_static/screenshots/mfa-enroll-token.png)
 
-    1. Install a TOTP authenticator app:
+    2. Choose **TOTP** token type and enroll it
+
+        ![Token-selector](../_static/screenshots/mfa-enroll-token-totp.png)
+
+    3. Install a TOTP authenticator app:
 
         - privacyIDEA Authenticator
           ([:material-android:](https://play.google.com/store/search?q=privacyidea%20authenticator&c=apps)
@@ -92,7 +97,7 @@ token** that expires after use.
           /
           [:material-apple:](https://apps.apple.com/iphone/search?term=google%20authenticator)).
 
-    2. In the authenticator app, scan the QR code shown on the MFA page to add
+    4. In the authenticator app, scan the QR code shown on the MFA page to add
        the token:
 
         ![Token-selector](../_static/screenshots/mfa-enroll-token-totp-2.png)
