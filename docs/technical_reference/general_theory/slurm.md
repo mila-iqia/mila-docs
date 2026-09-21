@@ -246,7 +246,7 @@ scancel 4323674
 
 ### Partitioning
 
-See the [list of Mila cluster partitions](../clusters/mila/nodes.md). To request
+See the [list of Mila cluster partitions](../clusters/mila/partitions.md). To request
 an unkillable job with 1 GPU, 4 CPUs, 10G of RAM and 12h of computation do:
 
 ```console

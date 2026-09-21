@@ -50,3 +50,7 @@ The cheat sheet mentions that Tamia has H100 GPUs, but it also has nodes with 8 
 ### STACC is called Lynx
 
 The compute cluster originally planned to be called "STACC" is going to be called "Lynx" instead.
+
+### The URL to the Mila "mega allocation" for DRAC clusters is outdated
+
+The cheat sheet mentions a page on how to be added to Mila global allocation, but the URL is outdated. See the [DRAC clusters page](../technical_reference/clusters/drac/index.md#access-to-mila-global-allocation) for the correct page.

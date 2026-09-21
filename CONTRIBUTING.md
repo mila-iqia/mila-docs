@@ -45,7 +45,7 @@ yourself to see if the formating is right.
 
 ```
 uv run pre-commit install
-uv run mkdocs serve --livereload
+uv run properdocs serve --livereload
 ```
 
 Install `uv` if you don't have it yet, using the commands described in the
@@ -61,7 +61,7 @@ This command will build the documentation, which can be viewed by opening the
 local file `site/index.html`:
 
 ```console
-uv run mkdocs build
+uv run properdocs build
 ```
 
 #### Serving the docs locally
@@ -71,7 +71,7 @@ file changes. This is particularly useful if you want to improve the docs and
 see your changes in real time.
 
 ```console
-uv run mkdocs serve --livereload
+uv run properdocs serve --livereload
 ```
 
 You can then access the local site through your browser at the URL
@@ -83,7 +83,7 @@ request help.
 ### `hatch` installation
 
 If using [hatch](https://hatch.pypa.io/latest/), simply execute the following to
-setup the project and run the mkdocs builtin development server.
+setup the project and run the properdocs builtin development server.
 
 ```
 hatch run serve

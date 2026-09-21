@@ -27,6 +27,12 @@ the Mila cluster.
     ---
     Submit and allocate jobs on the cluster.
 
+-   [:material-server:{ .lg .middle } __Compute Utilization Dashboard__](dashboard.md)
+    { .card }
+
+    ---
+    Use the dashboard to identify and reduce wasted GPU resources.
+
 </div>
 
 ## What this guide covers
@@ -67,37 +73,75 @@ Use the table below as a reference to evaluate SM occupancy:
 | SM Occupancy | Assessment |
 |---|---|
 | < 5% | Critical waste |
-| ~10% | Poor utilization — the GPU is mostly waiting |
+| ~15% | Poor utilization — the GPU is mostly waiting |
 | ~30% | Good utilization |
 | ≥ 50% | Great / optimized utilization |
 
 ## How to diagnose a job
 
 Self-diagnosis is possible using these framework-agnostic methods. The
-flowchart below outlines the decision path; the methods that follow explain
-how to read the underlying numbers.
+flowchart below outlines the decision path:
 
 ```mermaid
 flowchart TD
-    A[Suspect a job's resources are underutilized] --> B{SM occupancy ≥ 30%?}
+    A[Check the dashboard for jobs with underutilized resources] --> B{SM occupancy ≥ 30%?}
     B -->|Yes| C[GPU well utilized — no action needed]
     B -->|No| D{VRAM usage < 20%?}
     D -->|Yes| E[Increase batch size, use a smaller GPU, or pack jobs]
     D -->|No| F{Data loader saturating the GPU?}
     F -->|Yes| G[Profile for I/O or CPU preprocessing bottleneck]
     F -->|No| H[Tune the DataLoader: num_workers, pin_memory]
+
+    click A "../dashboard"
 ```
 
-### Method A: Weights & Biases
+Here are various ways you can obtain the required metrics (notably CPU/GPU
+utilization, VRAM usage, SM occupancy):
+
+### Method A: Milalib
+
+[Milalib](https://github.com/mila-iqia/milalib) is a utility you can run on
+the Mila cluster and some DRAC clusters to stream the relevant GPU and CPU
+metrics. For example, assuming [uv](../python_uv.md) is installed, the
+following command will output the `sm_occupancy` metric every 5 seconds:
+
+```bash
+uvx milalib monitor -i 5 -m sm_occupancy
+```
+
+You can run this command interactively, or as a background process in your
+jobs, with its output redirected to a file.
+
+### Method B: Weights & Biases
 
 In WandB, the **System** tab of a run shows data on GPU utilization, CPU
 usage, and memory. See
 [Diagnose training bottlenecks](../wandb.md#diagnose-training-bottlenecks)
 for details.
 
-### Method B: The interactive check
+!!! warning "Some measurements may be inaccurate"
+    WandB measures CPU and RAM utilization on the entire node (all cores
+    and all memory), even if you were only allocated part of it.
 
-During a job, `srun` into the allocated node and run a basic check:
+**Using milalib**
+
+We recommend using [milalib](https://github.com/mila-iqia/milalib) to add
+performance metrics to your wandb dashboard. Notably, milalib's CPU/RAM
+measurements should be accurate:
+
+```python
+import wandb
+from milalib.wandb import monitor
+
+wandb.init(...)  # initialize wandb first
+
+with monitor(interval=5):
+    # train your model
+```
+
+### Method C: The interactive check
+
+During a job, `srun` into the allocated node and run basic checks:
 
 ```bash
 # Check GPU utilization and power draw
@@ -106,7 +150,13 @@ nvidia-smi
 # High power draw (Watts) is usually a good signal of active GPU utilization.
 ```
 
-### Method C: The NVSMI log
+Or, using milalib:
+
+```bash
+uvx milalib monitor -i 1 -m gpu_util -m mem_util -m power -m sm_occupancy
+```
+
+### Method D: The NVSMI log
 
 When a job runs on the cluster, an output file is created with the default
 name `slurm-<JOB_ID>.out`. This file contains the job's output, along with an
@@ -228,7 +278,7 @@ NVSMI LOG section reporting metrics such as GPU and memory utilization.
       +-----------------------------------------------------------------------------------------+
     ```
 
-### Method D: TensorBoard visualization of PyTorch profiler data
+### Method E: TensorBoard visualization of PyTorch profiler data
 
 * [PyTorch profiler](https://docs.pytorch.org/tutorials/recipes/recipes/profiler_recipe.html)
   is a tool that measures the resource consumption of an experiment.
@@ -242,23 +292,14 @@ An example of TensorBoard usage on the cluster is described in the
 [Visualizing usage with PyTorch profiler and TensorBoard](using_tensorboard_and_pytorch_profiler.md)
 guide.
 
-### Method E: Cluster portals
+### Method F: Cluster portals
 
 Some clusters have a related portal for displaying data and metrics, such as
 resource usage or job history.
 
 Here is a quick overview of the clusters and their associated portals (if applicable):
 
-| Clusters | Maintainer | Portal |
-| -------- | ---------- | ------ |
-| [Mila](../../technical_reference/clusters/mila/index.md) | Mila | - |
-| [TamIA](https://docs.alliancecan.ca/wiki/TamIA/en) | PAICE | [TamIA portal](https://portail.tamia.ecpia.ca/) |
-| [Killarney](https://docs.alliancecan.ca/wiki/Killarney/en) | PAICE | - |
-| [Vulcan](https://docs.alliancecan.ca/wiki/Vulcan/en) | PAICE | [Vulcan portal](https://portal.vulcan.alliancecan.ca/) |
-| [Fir](https://docs.alliancecan.ca/wiki/Fir) | DRAC | - |
-| [Nibi](https://docs.alliancecan.ca/wiki/Nibi) | DRAC | [Nibi portal](https://portal.nibi.sharcnet.ca/) |
-| [Rorqual](https://docs.alliancecan.ca/wiki/Rorqual/en) | DRAC | [Rorqual portal](https://metrix.rorqual.calculquebec.ca/) |
-| [Trillium](https://docs.alliancecan.ca/wiki/Trillium) | DRAC | [Trillium portal](https://my.scinet.utoronto.ca/) |
+{% include-markdown "../../technical_reference/clusters/clusters_table.md" %}
 
 ![Nibi portal](../../_static/images/nibi_portal.png)
 
@@ -274,13 +315,14 @@ for efficient GPU utilization.
     - **Optimize data pipelines:** Set `num_workers > 0` (2–4 per allocated
       GPU) and enable `pin_memory=True` in the PyTorch `DataLoader` to prevent
       GPU stalling.
-    - **Implement checkpointing:** Save training states regularly so jobs
-      resume automatically after preemption or timeouts without losing previous
-      compute hours.
+    - **Implement checkpointing:** [Save training states regularly](../../examples/good_practices/checkpointing/index.md)
+      so jobs resume automatically after preemption or timeouts without losing
+      previous compute hours.
     - **Right-size resource requests:** Use
       [lower-tier nodes](../../technical_reference/clusters/mila/nodes.md) (e.g.,
-      RTX8000, V100) or MIG (Multi-Instance GPU) slices for small models or
-      debugging instead of allocating full high-end nodes.
+      RTX8000, V100) or [MIG (Multi-Instance GPU)
+      slices](https://docs.alliancecan.ca/wiki/Multi-Instance_GPU) for small
+      models or debugging instead of allocating full high-end nodes.
     - **Request minimal compute blocks:** When possible, request the smallest
       allocation that fits the job. Smaller allocations fill queue gaps faster,
       reducing wait time.
@@ -299,8 +341,8 @@ for efficient GPU utilization.
       storage read latency or CPU preprocessing bottlenecks the pipeline —
       this only idles more hardware.
     - **Underutilizing VRAM:** If VRAM usage is under 20%, consider increasing
-      batch size, switching to a smaller GPU, or using job packing (multiple
-      smaller jobs on the same node).
+      batch size, switching to a smaller GPU, or using [job packing](../../technical_reference/general_theory/multigpu.md/#packing-jobs)
+      (multiple smaller jobs on the same node).
 
 ---
 
