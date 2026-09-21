@@ -100,6 +100,11 @@ token** that expires after use.
 5. You can then add other registration tokens (PUSH (recommended for recurrent cluster access), TOTP or email).
     See next section for more details.
 
+    !!! tip "Add PUSH to lighten cluster connection"
+        The PUSH option is used to confirm access with a phone without having
+        to enter a code on your computer. It simplifies the procedure and could
+        save time along the day.
+
 
 ## Subsequent logins to the portal
 
