@@ -19,7 +19,7 @@ add domain-specific behavior to Claude Code.
     - An [Anthropic account](https://claude.ai) with an active Claude Pro,
       Team, or Enterprise subscription.
     - macOS, Linux, or [Windows with WSL2
-      configured](../getting_started/index.md#install-wsl) (for CLI
+      configured](../getting_started/connect_to_the_cluster.md#install-wsl) (for CLI
       installation).
 
 ## What this guide covers
@@ -75,7 +75,7 @@ Claude Code is available as a command-line tool and as an extension for VS Code.
     ???+ warning "WSL2 required"
         The CLI installer requires a Linux environment. Install and configure
         WSL2 before continuing. See [Getting Started — Install
-        WSL](../getting_started/index.md#install-wsl).
+        WSL](../getting_started/connect_to_the_cluster.md#install-wsl).
 
     Open a WSL2 terminal and run the installer:
 
