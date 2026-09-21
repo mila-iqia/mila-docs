@@ -66,7 +66,7 @@ connect to the cluster.
     on Slack, including the cluster username. Cluster access can take up to
     48 hours to become effective.
 3. IT will send an email to activate Multi-Factor Authentication.
-
+4. Accept the [compute cluster terms and conditions](https://docs.google.com/forms/d/e/1FAIpQLSd_AJoVV99wLEeSP-YTmI4StZ3hI8BygaebBE8m4A8fZKB1AA/viewform) for the Mila cluster.
 
 
 ---
