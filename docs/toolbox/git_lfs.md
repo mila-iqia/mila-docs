@@ -8,14 +8,12 @@ description: Install Git LFS on the cluster by downloading the binary
 
 Git LFS (Large File Storage) extends Git to track large files without storing
 them in the repository history. Git LFS is not preinstalled on the cluster,
-but it runs on it: the Linux AMD64 binary can be downloaded, extracted, and
-added to the `PATH`, after which the `git lfs` commands become available in
-any repository.
+but its binary can be downloaded and added to the `PATH`, after which the
+`git lfs` commands become available in any repository.
 
 ## What this guide covers
 
-* Get the Git LFS Linux AMD64 archive, either directly on the cluster or on a
-  local machine
+* Get the Git LFS archive
 * Extract the archive
 * Add the `git-lfs` executable to the `PATH`
 * Verify the installation
@@ -26,38 +24,23 @@ any repository.
 
 Git LFS is distributed as a tarball from the
 [Git LFS releases page](https://github.com/git-lfs/git-lfs/releases/). Pick
-the `git-lfs-linux-amd64-<VERSION>.tar.gz` asset for the desired version.
+the `git-lfs-linux-amd64-<VERSION>.tar.gz` asset for the desired version, and
+download it on the cluster with `wget`:
 
-=== "Directly on the cluster"
-
-    Download the archive on the cluster with `wget`:
-
-    ```bash
-    wget https://github.com/git-lfs/git-lfs/releases/download/v<VERSION>/git-lfs-linux-amd64-v<VERSION>.tar.gz
-    ```
-
-=== "On a local machine"
-
-    Download the archive on a local machine, extract it, then upload the
-    extracted `git-lfs-linux-amd64-<VERSION>/` directory to the cluster with
-    `scp`:
-
-    ```bash
-    scp -r git-lfs-linux-amd64-<VERSION> mila:git-lfs-linux-amd64-<VERSION>
-    ```
-
-    When using this option, skip the extraction step below.
+```bash
+wget https://github.com/git-lfs/git-lfs/releases/download/v<VERSION>/git-lfs-linux-amd64-v<VERSION>.tar.gz
+```
 
 ## Extract the archive
 
 Extract the tarball with `tar`:
 
 ```bash
-tar -xzf git-lfs-linux-amd64-v<VERSION>.tar.gz  # (1)!
+tar -xzf git-lfs-linux-amd64-v<VERSION>.tar.gz
 ```
-{ .annotate }
 
-1.  `-x` extracts files, `-z` decompresses the gzip archive, and `-f`
+!!! note
+    `-x` extracts files, `-z` decompresses the gzip archive, and `-f`
     specifies the archive file.
 
 The command creates a `git-lfs-linux-amd64-<VERSION>/` directory containing
