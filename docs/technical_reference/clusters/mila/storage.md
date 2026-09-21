@@ -48,7 +48,7 @@ disk-quota
     This file system is cleared on a daily basis; files not used for more than 90 days will be deleted. This period can be shortened when the file system usage is above 90%.
 
 !!! note "Access control"
-    `$SCRATCH` aims to support [Access Control Lists(ACLs)](../../../userguides/sharing_data.md)
+    `$SCRATCH` aims to support [Access Control Lists (ACLs)](../../../userguides/sharing_data.md)
     to allow collaborative work on rapidly changing data, e.g. work in process
     datasets, model checkpoints, etc.
 
