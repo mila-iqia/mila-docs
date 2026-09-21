@@ -152,7 +152,6 @@ If you find any errors in the documentation, missing or unclear sections, or wou
     - [Add Mila Docs context to AI assistants](ai/context.md)
 - [Technical reference](technical_reference/index.md)
     - [Cheatsheet](technical_reference/cheatsheet.md)
-    - [Glossary](technical_reference/glossary.md)
     - [Clusters](technical_reference/clusters/index.md)
         - [Mila cluster](technical_reference/clusters/mila/index.md)
             - [Roles and computing resources](technical_reference/clusters/mila/roles_and_resources.md)
