@@ -19,17 +19,14 @@ The following sections describe the types of nodes found on a typical cluster.
 
 ### The login nodes
 
-To run computations on a cluster, first connect to it through a *login node*.
-These so-called login nodes are the entry point to most clusters.
+A login node is the entry point to most clusters. Connect to a login node
+first, then use it to prepare work and submit it to the compute nodes.
 
-Connections to login nodes typically use a remote shell. The most common tool
-for this is [SSH](ssh_on_clusters.md). SSH acts as a long extension cord that
-connects a local computer, such as a laptop, to the terminal shell of a
-remote computer. A terminal shell is the interface used when working on the
-command line.
-
-Another entry point to some clusters such as the Mila cluster is the
-[JupyterHub](../../toolbox/jupyterhub.md) web interface.
+Connections to login nodes typically use a remote shell, most commonly
+[SSH](ssh_on_clusters.md). Some clusters, such as the Mila cluster, also
+provide a [JupyterHub](../../toolbox/jupyterhub.md) web interface. To connect
+to the Mila cluster, see
+[Logging in to the cluster](../../userguides/login.md).
 
 ### The compute nodes
 
