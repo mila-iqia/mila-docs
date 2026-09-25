@@ -2,27 +2,26 @@ name: Linting
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   lint_docs:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
-    - name: Set up Python
-      uses: actions/setup-python@v1
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          version: "latest"
+          # https://github.com/astral-sh/setup-uv?tab=readme-ov-file#github-authentication-token
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Install dependencies
-      run:  pip install -r docs/requirements.txt
-
-    - name: Install linters
-      run:  pip install -U rstcheck[sphinx] sphinx-lint
-
-    - name: Run sphinx-lint
-      run:  sphinx-lint docs/
-
-    - name: Run rstcheck
-      run:  rstcheck --recursive docs/
+      - name: Run rumdl
+        run: uv run rumdl check .

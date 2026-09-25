@@ -1,0 +1,39 @@
+# Markdown linter config: https://github.com/rvben/rumdl
+# Run locally with `uv run rumdl check docs`, auto-fix with `uv run rumdl fmt docs`.
+
+[global]
+flavor = "mkdocs"
+include = ["docs/**/*.md"]
+exclude = [
+    # Generated at build time by hooks/copy_office_hours.py
+    "docs/generated_from_config/**"
+]
+disable = [
+    "MD014", # `$` before commands without output: prompts are shown on purpose
+    "MD025", # Multiple top-level headings (level 1) in the same document
+    "MD033", # Inline HTML: Material cards, grids and icons rely on it
+    "MD034", # URL without angle brackets or link formatting
+    "MD041", # First line must be a H1: pages start with front matter or snippets
+    # "MD025", # Single H1: headings nested in Material tabs and cards are flagged
+    # "MD036", # Emphasis as heading: examples use bold file names as code labels
+
+    # TODO, not worth enforcing yet
+    "MD003", # Heading style should be # Heading, found Heading (underlined with =)
+    "MD004", # List marker '-' does not match expected style '*',
+    "MD005", # Expected indentation of 0 spaces
+    "MD007", # Expected 4 spaces for indent depth 1
+    "MD013", # Line length: prose is not wrapped consistently
+    "MD023", # Heading should not be indented by 2 spaces
+    "MD036", # Emphasis used instead of a heading
+    "MD040", # Code block (```) missing language
+    "MD046", # Code block opened with '```' but never closed
+    "MD049", # Emphasis should be consistant
+    "MD050", # Strong emphasis should use ** instead of __
+    "MD051", # Link fragment not found
+    "MD057", # Relative link does not exist
+    "MD059", # Link text should be descriptive
+    "MD064", # Multiple consecutive spaces
+    "MD065", # Missing blank line after horizontal rule
+    "MD076", # Unexpected blank line between list items
+    "MD077", # Continuation line over-indented
+]

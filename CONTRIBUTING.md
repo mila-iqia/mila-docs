@@ -89,6 +89,12 @@ setup the project and run the properdocs builtin development server.
 hatch run serve
 ```
 
+### Linkt
+
+```
+uv run rumdl check .
+```
+
 ## Markdown examples
 
 The markup language used for the Mila Docs is Markdown.  The documentation

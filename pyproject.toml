@@ -37,6 +37,7 @@ dev = [
     "myst-parser>=0.14.0",
     "pre-commit>=4.2.0",
     "recommonmark>=0.7.1",
+    "rumdl>=0.2.77",
     "urllib3<2",
 ]
 test = [
