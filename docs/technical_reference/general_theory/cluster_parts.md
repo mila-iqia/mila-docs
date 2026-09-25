@@ -15,55 +15,48 @@ even the cluster scheduling functionality as pictured in the image below.
 
 ![Cluster overview](../../_static/images/cluster_overview2.png)
 
-We will overview the different types of nodes which you can encounter on a
-typical cluster.
+The following sections describe the types of nodes found on a typical cluster.
 
 ### The login nodes
 
-To execute computing processes on a cluster, you must first connect to a
-cluster and this is accomplished through a *login node*. These so-called
-login nodes are the entry point to most clusters.
+To run computations on a cluster, first connect to it through a *login node*.
+These so-called login nodes are the entry point to most clusters.
 
-To connect to these, you would typically use a remote shell connection.
-The most usual tool to do so is [SSH](ssh_on_clusters.md). You'll hear and read a lot
-about this tool. Imagine it as a very long (and somewhat magical) extension cord
-which connects the computer you are using now, such as your laptop, to a
-remote computer's terminal shell. You might already know what a terminal shell
-is if you ever used the command line.
+Connections to login nodes typically use a remote shell. The most common tool
+for this is [SSH](ssh_on_clusters.md). SSH acts as a long extension cord that
+connects a local computer, such as a laptop, to the terminal shell of a
+remote computer. A terminal shell is the interface used when working on the
+command line.
 
 Another entry point to some clusters such as the Mila cluster is the
 [JupyterHub](../../toolbox/jupyterhub.md) web interface.
 
 ### The compute nodes
 
-In the field of artificial intelligence, you will usually be on the hunt for
-GPUs. In most clusters, the compute nodes are the ones with GPU capacity.
+Artificial intelligence workloads typically require GPUs. In most clusters, the
+compute nodes are the ones with GPU capacity.
 
 While there is a general paradigm to tend towards a homogeneous configuration
 for nodes, this is not always possible in the field of artificial intelligence
-as the hardware evolve rapidly as is being complemented by new hardware and so
-on. Hence, you will often read about computational node classes. Some of which
-might have different GPU models or even no GPU at all. For the Mila cluster you
-will find this information in the [Node profile description](../clusters/mila/nodes.md) section. For
-now, you should note that is important to keep in mind that you should be aware
-of *which* nodes your code is running on.
+as hardware evolves rapidly and new hardware is continually added. As a result,
+compute nodes are often grouped into classes, some of which have different GPU
+models or no GPU at all. For the Mila cluster, this information is available in
+the [Node profile description](../clusters/mila/nodes.md) section. Keep track
+of *which* compute nodes the code runs on.
 
 ### The storage nodes
 
-Some computers on a cluster function to only store and serve files.  While the
-name of these computers might matter to some, as a user, you'll only be
-concerned about the path to the data. More on that in the [Processing data](data.md)
-section.
+Some nodes on a cluster only store and serve files. Users interact only with
+the path to the data, not with the storage nodes themselves. See the
+[Processing data](data.md) section for details.
 
 ### Different nodes for different uses
 
-It is important to note here the difference in intended uses between the
-compute nodes and the login nodes. While the compute nodes are meant for heavy
-computation, the login nodes are not.
+Compute nodes and login nodes have different intended uses. Compute nodes are
+meant for heavy computation; login nodes are not.
 
-The login nodes however are used by everyone who uses the cluster and care must
-be taken not to overburden these nodes. Consequently, only very short and light
-processes should be run on these otherwise the cluster may become inaccessible.
-In other words, please refrain from executing long or compute intensive
-processes on login nodes because it affects all other users. In some cases, you
-will also find that doing so might get you into trouble.
+Login nodes are shared by all cluster users, so take care not to overburden
+them. Run only short, light processes on login nodes; otherwise, the cluster
+may become inaccessible. Do not run long or compute-intensive processes on
+login nodes, as this affects all other users. Doing so may also result in
+administrative action.
