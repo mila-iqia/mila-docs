@@ -757,11 +757,13 @@ name = "mila-docs"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
-    { name = "mkdocs" },
     { name = "mkdocs-include-markdown-plugin" },
     { name = "mkdocs-literate-nav" },
     { name = "mkdocs-material" },
     { name = "mkdocs-redirects" },
+    { name = "properdocs" },
+    { name = "properdocs-theme-mkdocs" },
+    { name = "properdocs-theme-readthedocs" },
 ]
 
 [package.dev-dependencies]
@@ -788,11 +790,13 @@ test = [
 
 [package.metadata]
 requires-dist = [
-    { name = "mkdocs", specifier = ">=1.6.1,<2.0.0" },
     { name = "mkdocs-include-markdown-plugin", specifier = ">=7.2.1" },
     { name = "mkdocs-literate-nav", specifier = ">=0.6.2" },
     { name = "mkdocs-material", specifier = ">=9.7.1" },
     { name = "mkdocs-redirects", specifier = ">=1.2.3" },
+    { name = "properdocs", specifier = ">=1.6.7" },
+    { name = "properdocs-theme-mkdocs", specifier = ">=1.6.7" },
+    { name = "properdocs-theme-readthedocs", specifier = ">=1.6.5" },
 ]
 
 [package.metadata.requires-dev]
@@ -1481,6 +1485,32 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/ec/29/f27a4e1eddf72ed3db6e47818fbafe6debbf09fd7051f9c1a007239b46ef/properdocs-1.6.7.tar.gz", hash = "sha256:adc7b16e562890af0e098a7e5b02e3a81c20894a87d6a28d345c9300de73c26e", size = 276141, upload-time = "2026-03-20T20:07:48.167Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/bd/4d/fc923f5c85318ee8cc903566dc4e0ebe41b2dfc1d2ecf5546db232397ed6/properdocs-1.6.7-py3-none-any.whl", hash = "sha256:6fa0cfa2e01bf338f684892c8a506cf70ea88ae7f3479c933b6fa20168101cbd", size = 225406, upload-time = "2026-03-20T20:07:46.875Z" },
+]
+
+[[package]]
+name = "properdocs-theme-mkdocs"
+version = "1.6.7"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "babel" },
+    { name = "properdocs" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/3e/26/b56fc756d812716e0b002b8c8df0e4555ecc40c0ff5082be6c6813373aa8/properdocs_theme_mkdocs-1.6.7.tar.gz", hash = "sha256:2ed30991f096e4824ac3af24c13775e2120dd436038b264bb1396f2f3957c017", size = 835699, upload-time = "2026-03-20T20:10:07.033Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/14/6a/778b99c5be9a1def61cf593d6317525ef2bfe9380326b6a8d0a0cd8d5836/properdocs_theme_mkdocs-1.6.7-py3-none-any.whl", hash = "sha256:675fed440bb212cc32533dae81c44ef028911ae9a73f01c8db90d96c3ef8eb16", size = 849658, upload-time = "2026-03-20T20:10:01.219Z" },
+]
+
+[[package]]
+name = "properdocs-theme-readthedocs"
+version = "1.6.5"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "babel" },
+    { name = "properdocs" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/a0/6e/c8af61df19e661c6d02f88e5035630bcff3a7681e80262a9d61e52d16385/properdocs_theme_readthedocs-1.6.5.tar.gz", hash = "sha256:35fb78708b4c6598cd5a958e3b0800446cf5e1fa5ed1adabb6b37c6e78c25b93", size = 2790550, upload-time = "2026-03-15T23:43:41.199Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/d7/d1/af474a879e165789579e74a768b23dc5c2f491d3249ffebf8674bb362a3d/properdocs_theme_readthedocs-1.6.5-py3-none-any.whl", hash = "sha256:b40ac0bcb60a7fd171cba201f685bac0d1da8091042ce765ccb205850726d5e6", size = 2803213, upload-time = "2026-03-15T23:43:36.687Z" },
 ]
 
 [[package]]
