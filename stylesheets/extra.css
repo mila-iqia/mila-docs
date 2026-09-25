@@ -1,0 +1,200 @@
+:root {
+
+  /* "Work in progress" admonition */
+  --md-admonition-color--wip: 255, 145, 0; /* Decimals for #ff9100 */;
+  --md-admonition-color-hex--wip: #ff9100;
+}
+
+:root > * {
+  /* Main theme */
+  --md-primary-fg-color: #662e7d;
+  /*--md-primary-bg-color:;*/
+  --md-accent-fg-color: #5a007a;
+  --md-primary-fg-color--light: #5a007a;
+  --md-primary-fg-color--dark: #c38acd;
+
+  --docsearch-primary-color: #662e7d;
+  --docsearch-highlight-color: #662e7d;
+  --docsearch-hit-highlight-color: #c38acd;
+}
+
+[data-md-color-scheme="slate"]  > * {
+  --md-typeset-a-color: #c38acd;
+  --md-accent-fg-color: #dfadf4;
+  --docsearch-hit-highlight-color: #662e7d;
+}
+
+.DocSearch-Hit[aria-selected=true] .DocSearch-Hit-action,.DocSearch-Hit[aria-selected=true] .DocSearch-Hit-icon,.DocSearch-Hit[aria-selected=true] mark {
+    color: #c38acd !important;
+}
+
+.DocSearch-Form {
+    height: 100% !important;
+}
+
+a.announce {
+  --md-typeset-a-color: #c38acd;
+  --md-accent-fg-color: #dfadf4;
+}
+
+.md-typeset .admonition.wip,
+.md-typeset details.wip {
+  border-color: rgba(var(--md-admonition-color--wip));
+}
+.md-typeset .wip > .admonition-title,
+.md-typeset .wip > summary {
+  background-color: rgba(var(--md-admonition-color--wip), 0.1); /*color.adjust($clr-blue-a200, $alpha: -0.9);//rgba(43, 155, 70, 0.1);*/
+}
+.md-typeset .wip > .admonition-title::before,
+.md-typeset .wip > summary::before {
+  background-color: var(--md-admonition-color-hex--wip);
+  -webkit-mask-image: var(--md-admonition-icon--wip);
+          mask-image: var(--md-admonition-icon--wip);
+}
+
+a.full-card {
+  display: block;
+  color: var(--md-typeset-color);
+  width: 100%;
+  height: 100%;
+}
+
+a.full-card:hover {
+  color: var(--md-typeset-color);
+}
+
+.skill-identifiers {
+  display: none;
+}
+
+/*
+* DocSearch: override the inherited font-size so internal em values scale from
+* 0.8rem rather than the theme's default.
+ */
+.DocSearch-Modal,
+.DocSearch-Sidepanel,
+#docsearch .DocSearch-Button-Placeholder {
+    font-size: 0.8rem;
+}
+
+/*
+ * DocSearch: shrink floating Ask AI button to ~2/3 of its default size
+ */
+.DocSearch-SidepanelButton.floating {
+    transform: scale(0.6);
+    transform-origin: bottom right;
+    --docsearch-sidepanel-primary: var(--md-primary-fg-color);
+}
+
+.DocSearch-SidepanelButton.floating:focus,
+.DocSearch-SidepanelButton.floating:hover {
+    --docsearch-sidepanel-primary-dark: var(--md-primary-fg-color--dark);
+}
+
+.tab-title {
+  font-weight: 400;
+  font-size: 1.25em;
+  letter-spacing: -.01em;
+  margin: 1em 0;
+}
+
+.md-typeset table:not([class]) tr:has(td:nth-child(2):empty) td:first-child {
+    position: relative;
+    white-space: nowrap;
+}
+
+.md-typeset table:not([class]) tr:has(td:nth-child(2):empty) td:first-child strong {
+    position: absolute;
+}
+
+/*
+ * Getting started progression bar: a horizontal stepper used on the
+ * getting_started/*.md pages to show where the current page sits in the
+ * onboarding flow. Mark the reached page with class "is-done" and the
+ * current page with class "is-current" on its .progress-step.
+ */
+.progress-track {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 1.5em 0;
+  padding: 0;
+}
+
+.progress-step {
+  position: relative;
+  display: flex;
+  flex: 1 1 0;
+  min-width: 5.5em;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-top: 0.25em;
+}
+
+.progress-step:not(:first-child)::before {
+  content: "";
+  position: absolute;
+  top: calc(0.25em + 13px);
+  right: 50%;
+  z-index: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--md-default-fg-color--lightest);
+}
+
+.progress-step.is-done + .progress-step::before {
+  background: var(--md-primary-fg-color);
+}
+
+.progress-marker {
+  z-index: 1;
+  display: flex;
+  width: 28px;
+  height: 28px;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--md-default-fg-color--lightest);
+  border-radius: 50%;
+  background: var(--md-default-bg-color);
+  color: var(--md-default-fg-color--light);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.progress-step.is-done .progress-marker {
+  border-color: var(--md-primary-fg-color);
+  background: var(--md-primary-fg-color);
+  color: #fff;
+}
+
+.progress-step.is-current .progress-marker {
+  border-color: var(--md-primary-fg-color);
+  color: var(--md-primary-fg-color);
+  box-shadow: 0 0 0 3px rgba(102, 46, 125, 0.15);
+}
+
+.progress-label {
+  margin-top: 0.5em;
+  color: var(--md-default-fg-color--light);
+  font-size: 0.75rem;
+  line-height: 1.2;
+}
+.progress-step.is-current .progress-label {
+  color: var(--md-default-fg-color);
+  font-weight: 700;
+}
+
+.progress-marker a,
+.progress-label a,
+.progress-marker a:visited,
+.progress-label a:visited,
+.progress-marker a:hover,
+.progress-label a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+
+.md-typeset .task-list-indicator::before {
+  background-color: var(--md-default-fg-color--lighter); /*#806989*/
+}
