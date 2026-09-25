@@ -167,7 +167,6 @@ If you find any errors in the documentation, missing or unclear sections, or wou
         - [PAICE clusters](technical_reference/clusters/paice/index.md)
     - General Theory
         - [What is a computer cluster?](technical_reference/general_theory/cluster_parts.md)
-        - [Unix](technical_reference/general_theory/unix.md)
         - [How SSH authentication work](technical_reference/general_theory/ssh_on_clusters.md)
         - [The workload manager](technical_reference/general_theory/batch_scheduling.md)
         - [Processing data](technical_reference/general_theory/data.md)
