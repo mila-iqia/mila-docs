@@ -11,7 +11,7 @@ Creating virtual environment at: /tmp/venv/TEST_JOB_NAME_good_practices_checkpoi
          If this is intentional, set `export UV_LINK_MODE=copy` or use `--link-mode=copy` to suppress this warning.
 Installed X packages in X.XXs
 [(DATE) (TIME)] INFO     NOTE: This job has been restarted 1 times by SLURM.                             main.py:LINE
-                    INFO     Resuming training at epoch 1 (best_acc=54.10%).                                 main.py:LINE
+[(DATE) (TIME)] INFO     Resuming training at epoch 1 (best_acc=54.10%).                                 main.py:LINE
 [(DATE) (TIME)] INFO     Epoch 1: Val loss: 42.047 accuracy: 62.10%                                      main.py:LINE
 [(DATE) (TIME)] INFO     Epoch 2: Val loss: 51.428 accuracy: 56.52%                                      main.py:LINE
 [(DATE) (TIME)] INFO     Epoch 3: Val loss: 41.966 accuracy: 63.94%                                      main.py:LINE
