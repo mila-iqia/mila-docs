@@ -82,7 +82,7 @@ Eight steps cover the full lifecycle of a research experiment on the cluster. <!
       </div>
 
       <div class="wf2-lane-steps">
-        <a class="wf2-step wf2-s2" href="../examples/">
+        <a class="wf2-step wf2-s2" href="code_examples">
           <!--<span class="wf2-num">04</span>-->
           <span class="wf2-icon">
             <svg xmlns="http://www.w3.org/2000/svg" height="26" width="26" viewBox="0 0 640 640"><!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M73.4 182.6C60.9 170.1 60.9 149.8 73.4 137.3C85.9 124.8 106.2 124.8 118.7 137.3L278.7 297.3C291.2 309.8 291.2 330.1 278.7 342.6L118.7 502.6C106.2 515.1 85.9 515.1 73.4 502.6C60.9 490.1 60.9 469.8 73.4 457.3L210.7 320L73.4 182.6zM288 448L544 448C561.7 448 576 462.3 576 480C576 497.7 561.7 512 544 512L288 512C270.3 512 256 497.7 256 480C256 462.3 270.3 448 288 448z"/></svg>
@@ -122,27 +122,27 @@ Eight steps cover the full lifecycle of a research experiment on the cluster. <!
         <span class="wf2-lane-name">Iterate</span>
       </div>
       <div class="wf2-lane-steps">
-        <a class="wf2-step wf2-s3" href="compute_utilization_guidelines/">
+        <a class="wf2-step wf2-s3" href="wandb/">
           <!--<span class="wf2-num">06</span>-->
           <span class="wf2-icon">
             <svg xmlns="http://www.w3.org/2000/svg" height="26" width="26" viewBox="0 0 640 640"><!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M128 128C128 110.3 113.7 96 96 96C78.3 96 64 110.3 64 128L64 464C64 508.2 99.8 544 144 544L544 544C561.7 544 576 529.7 576 512C576 494.3 561.7 480 544 480L144 480C135.2 480 128 472.8 128 464L128 128zM534.6 214.6C547.1 202.1 547.1 181.8 534.6 169.3C522.1 156.8 501.8 156.8 489.3 169.3L384 274.7L326.6 217.4C314.1 204.9 293.8 204.9 281.3 217.4L185.3 313.4C172.8 325.9 172.8 346.2 185.3 358.7C197.8 371.2 218.1 371.2 230.6 358.7L304 285.3L361.4 342.7C373.9 355.2 394.2 355.2 406.7 342.7L534.7 214.7z"/></svg>
           </span>
           <div class="wf2-text">
             <span class="wf2-title">Monitor</span>
-            <span class="wf2-desc">Job status &amp; performance</span>
+            <span class="wf2-desc">Metrics &amp; enhancement</span>
           </div>
           <span class="wf2-chevron"></span>
         </a>
 
 
-        <a class="wf2-step wf2-s3" href="wandb/">
+        <a class="wf2-step wf2-s3" href="compute_utilization_guidelines/">
           <!--<span class="wf2-num">07</span>-->
           <span class="wf2-icon">
             <svg xmlns="http://www.w3.org/2000/svg" height="26" width="26" viewBox="0 0 640 640"><!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M434.8 54.1C446.7 62.7 451.1 78.3 445.7 91.9L367.3 288L512 288C525.5 288 537.5 296.4 542.1 309.1C546.7 321.8 542.8 336 532.5 344.6L244.5 584.6C233.2 594 217.1 594.5 205.2 585.9C193.3 577.3 188.9 561.7 194.3 548.1L272.7 352L128 352C114.5 352 102.5 343.6 97.9 330.9C93.3 318.2 97.2 304 107.5 295.4L395.5 55.4C406.8 46 422.9 45.5 434.8 54.1z"/></svg>
           </span>
           <div class="wf2-text">
             <span class="wf2-title">Optimize</span>
-            <span class="wf2-desc">Metrics &amp; enhancement</span>
+            <span class="wf2-desc">Job status &amp; performance</span>
           </div>
           <span class="wf2-chevron"></span>
         </a>
