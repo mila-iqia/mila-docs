@@ -14,8 +14,6 @@ disable = [
     "MD033", # Inline HTML: Material cards, grids and icons rely on it
     "MD034", # URL without angle brackets or link formatting
     "MD041", # First line must be a H1: pages start with front matter or snippets
-    # "MD025", # Single H1: headings nested in Material tabs and cards are flagged
-    # "MD036", # Emphasis as heading: examples use bold file names as code labels
 
     # TODO, not worth enforcing yet
     "MD003", # Heading style should be # Heading, found Heading (underlined with =)
