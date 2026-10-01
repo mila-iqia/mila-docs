@@ -172,7 +172,6 @@ If you find any errors in the documentation, missing or unclear sections, or wou
         - [Processing data](technical_reference/general_theory/data.md)
         - [Software on the cluster](technical_reference/general_theory/software_deps.md)
         - [Portability concerns and solutions](technical_reference/general_theory/portability.md)
-        - [Using containers](technical_reference/general_theory/containers.md)
         - [Contributing datasets](technical_reference/general_theory/datasets.md)
         - [Slurm overview](technical_reference/general_theory/slurm.md)
         - [Advanced SLURM usage and Multiple GPU jobs](technical_reference/general_theory/multigpu.md)
@@ -185,6 +184,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
         - [VSCode](toolbox/VSCode.md)
         - [🔗 milatools](https://github.com/mila-iqia/milatools)
     - Containers
+        - [Podman](toolbox/podman.md)
         - [Singularity](toolbox/singularity.md)
     - Experiments Tracking & Tuning
         - [Comet](toolbox/comet.md)
