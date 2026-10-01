@@ -1,0 +1,13 @@
+[project]
+name = "flash-attn-setup"
+version = "0.1.0"
+requires-python = ">=3.12, <3.14"
+dependencies = [
+    "numpy",
+    "torch<=2.8.0",
+    "flash-attn>=2.7",
+]
+
+[tool.uv.sources]
+# Look at pre-builds wheels urls from https://github.com/Dao-AILab/flash-attention/releases
+flash-attn = { url = "<URL_to_wheel>" }
