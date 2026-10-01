@@ -180,6 +180,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
         - [Why CPU and GPU training runs diverge numerically](technical_reference/general_theory/cpu_gpu_numerical_divergence.md)
 - [Toolbox](toolbox/index.md)
     - [Comet](toolbox/comet.md)
+    - [Git LFS](toolbox/git_lfs.md)
     - [JupyterHub](toolbox/jupyterhub.md)
     - [Orion](toolbox/orion.md)
     - [Singularity](toolbox/singularity.md)
