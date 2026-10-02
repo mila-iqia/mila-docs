@@ -57,5 +57,5 @@ cluster (nor the other clusters from Digital Research Alliance of Canada).
 
 One popular mechanism for containerisation on a computational cluster is called
 [Podman](https://podman.io/).  This is the recommended approach for running
-containers on the Mila cluster. See the [Using containers section](containers.md) for more
+containers on the Mila cluster. See the [Using containers section](../../toolbox/containers/index.md) for more
 details.

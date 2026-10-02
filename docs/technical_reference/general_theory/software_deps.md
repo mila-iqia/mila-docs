@@ -39,7 +39,7 @@ packages using `apt`, modify settings as you would as a root user, and so on,
 but without interfering with your main installation. Once built, a container can
 be run on any compatible system.
 
-For more information, see [Using containers](containers.md).
+For more information, see [Using containers](../../toolbox/containers/index.md).
 
 
 ## Python Virtual environments

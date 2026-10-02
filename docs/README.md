@@ -183,9 +183,9 @@ If you find any errors in the documentation, missing or unclear sections, or wou
         - [JupyterHub](toolbox/jupyterhub.md)
         - [VSCode](toolbox/VSCode.md)
         - [🔗 milatools](https://github.com/mila-iqia/milatools)
-    - Containers
-        - [Podman](toolbox/podman.md)
-        - [Singularity](toolbox/singularity.md)
+    - [Containers](toolbox/containers/index.md)
+        - [Podman](toolbox/containers/podman.md)
+        - [Singularity](toolbox/containers/singularity.md)
     - Experiments Tracking & Tuning
         - [Comet](toolbox/comet.md)
         - [Orion](toolbox/orion.md)
