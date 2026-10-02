@@ -22,7 +22,7 @@ tools:
 
 <div class="grid cards" markdown>
 
--   [:material-docker:{ .lg .middle } __Podman__](podman.md)
+-   [:simple-podman:{ .lg .middle } __Podman__](podman.md)
     { .card }
 
     ---

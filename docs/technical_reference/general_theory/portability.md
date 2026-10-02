@@ -48,14 +48,10 @@ module load python/3.10
 
 ## On using containers
 
-Another option for creating portable code is [Using containers](#on-using-containers).
+Another option for creating portable code is using containers. Containers are a
+popular approach at deploying applications by packaging a lot of the required
+dependencies together.
 
-Containers are a popular approach at deploying applications by packaging a lot
-of the required dependencies together. The most popular tool for this is
-[Docker](https://www.docker.com/), but Docker cannot be used on the Mila
-cluster (nor the other clusters from Digital Research Alliance of Canada).
+See the available [container tools](../../toolbox/containers/index.md) for more details on how
+to use containers on the clusters.
 
-One popular mechanism for containerisation on a computational cluster is called
-[Podman](https://podman.io/).  This is the recommended approach for running
-containers on the Mila cluster. See the [Using containers section](../../toolbox/containers/index.md) for more
-details.
