@@ -26,12 +26,14 @@ tools:
     { .card }
 
     ---
-    Recommended on the Mila cluster.
+    A drop-in replacement for Docker that runs containers without root
+    privileges, using the same commands.
 
 -   [:material-package-variant-closed:{ .lg .middle } __Singularity__](singularity.md)
     { .card }
 
     ---
-    Available on the Mila and DRAC clusters.
+    A container tool designed for shared HPC clusters, which runs each
+    container as a single image file.
 
 </div>
