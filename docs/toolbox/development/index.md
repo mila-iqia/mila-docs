@@ -38,17 +38,17 @@ helpers.
     Edit, run, and debug code on a compute node from a local VSCode window
     through remote SSH.
 
+-   [:material-tools:{ .lg .middle } __cluv__](https://mila-iqia.github.io/cluv/)
+    { .card }
+
+    ---
+    Sync and submit UV-based Python projects across HPC clusters.
+
 -   [:material-tools:{ .lg .middle } __milatools__](https://github.com/mila-iqia/milatools)
     { .card }
 
     ---
     A command-line tool that sets up SSH access to clusters and opens
     VSCode on a compute node.
-
--   [:material-tools:{ .lg .middle } __cluv__](https://mila-iqia.github.io/cluv/)
-    { .card }
-
-    ---
-    Sync and submit UV-based Python projects across HPC clusters.
 
 </div>
