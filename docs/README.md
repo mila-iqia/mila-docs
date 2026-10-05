@@ -179,9 +179,9 @@ If you find any errors in the documentation, missing or unclear sections, or wou
         - [Why CPU and GPU training runs diverge numerically](technical_reference/general_theory/cpu_gpu_numerical_divergence.md)
 - [Toolbox](toolbox/index.md)
     - [🔗 Research Project Template](https://mila-iqia.github.io/ResearchTemplate)
-    - Development
-        - [JupyterHub](toolbox/jupyterhub.md)
-        - [VSCode](toolbox/VSCode.md)
+    - [Development](toolbox/development/index.md)
+        - [JupyterHub](toolbox/development/jupyterhub.md)
+        - [VSCode](toolbox/development/VSCode.md)
         - [🔗 milatools](https://github.com/mila-iqia/milatools)
     - [Containers](toolbox/containers/index.md)
         - [Podman](toolbox/containers/podman.md)

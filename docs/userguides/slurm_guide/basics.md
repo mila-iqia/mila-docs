@@ -261,7 +261,7 @@ command, `srun hostname`) and submits the job through the `sbatch` command.
 
     Open the project on the cluster with `mila code`, or pick `mila-cpu` in the
     Remote-SSH dropdown for a light editing session. See
-    [VSCode](../../toolbox/VSCode.md).
+    [VSCode](../../toolbox/development/VSCode.md).
 
 === "Terminal"
 
