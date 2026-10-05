@@ -182,6 +182,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
     - [Development](toolbox/development/index.md)
         - [JupyterHub](toolbox/development/jupyterhub.md)
         - [VSCode](toolbox/development/VSCode.md)
+        - [🔗 cluv](https://mila-iqia.github.io/cluv/)
         - [🔗 milatools](https://github.com/mila-iqia/milatools)
     - [Containers](toolbox/containers/index.md)
         - [Podman](toolbox/containers/podman.md)

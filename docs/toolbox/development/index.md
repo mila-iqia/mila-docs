@@ -13,8 +13,7 @@ helpers.
 
 !!! warning
     Do not run editors, notebooks, or other heavy processes on the login
-    nodes. Each of these tools first allocates a compute node through Slurm,
-    then connects to it.
+    nodes. Use a compute node allocated through Slurm instead.
 
 <div class="grid cards" markdown>
 
@@ -32,11 +31,17 @@ helpers.
     Edit, run, and debug code on a compute node from a local VSCode window
     through remote SSH.
 
--   [:material-console-line:{ .lg .middle } __milatools__](https://github.com/mila-iqia/milatools)
+-   [:material-tools:{ .lg .middle } __milatools__](https://github.com/mila-iqia/milatools)
     { .card }
 
     ---
-    A command-line tool that sets up SSH access to the cluster and opens
-    VSCode on a compute node with a single command.
+    A command-line tool that sets up SSH access to clusters and opens
+    VSCode on a compute node.
+
+-   [:material-tools:{ .lg .middle } __cluv__](https://mila-iqia.github.io/cluv/)
+    { .card }
+
+    ---
+    Sync and submit UV-based Python projects across HPC clusters.
 
 </div>

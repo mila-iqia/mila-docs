@@ -33,7 +33,7 @@ searches on the clusters.
     ---
     Run hyperparameter searches in parallel across many cluster jobs.
 
--   [:material-gauge:{ .lg .middle } __milalib__](https://github.com/mila-iqia/milalib)
+-   [:material-chart-line:{ .lg .middle } __milalib__](https://github.com/mila-iqia/milalib)
     { .card }
 
     ---
