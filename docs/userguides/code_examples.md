@@ -19,6 +19,9 @@ designed to run on the Mila cluster as-is.
 * Find the minimal example matching a specific need
 * Start a new project from the Research Project Template
 
+!!! monitoring "Monitor & Optimize"
+    To set up monitoring, see [Monitoring and Optimize](../../monitor/)
+
 ---
 
 ## Choose a starting point
@@ -71,6 +74,12 @@ what changes are required to add a feature.
     Each distributed training example builds on the previous one. Start with
     the [single GPU job](../examples/distributed/single_gpu/index.md) before
     moving on to the multi-GPU and multi-node examples.
+
+!!! monitoring "Add metric logging from the start"
+    The [WandB setup example](../examples/good_practices/wandb_setup/index.md)
+    shows a training script that already logs metrics. Adding logging while
+    writing the code makes the results available in Phase 3. See
+    [Monitor and Optimize Experiments](../monitor/#prepare-metric-collection-before-running).
 
 ## Research Project Template
 

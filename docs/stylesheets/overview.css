@@ -217,6 +217,36 @@
   transform: translateX(3px);
 }
 
+/* Marks steps that include a monitoring preparation step */
+.wf2-step .wf2-badge {
+  font-size: .7rem;
+  line-height: 1;
+  flex-shrink: 0;
+  cursor: help;
+  float: right;
+  margin-right: 10px;
+}
+
+/* ─── Loop back from Iterate to Execute ──────────── */
+
+.wf2-loop {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  margin-top: .9rem;
+  padding: .55rem .9rem;
+  border: 1px dashed var(--wf-c3);
+  border-radius: 10px;
+  font-size: .68rem;
+  color: var(--wf-sub);
+}
+
+.wf2-loop-arrow::before {
+  content: '↺';
+  font-size: 1.1rem;
+  color: var(--wf-c3);
+}
+
 /* ─── Phase separator (between lanes) ────────────── */
 
 .wf2-phase-sep {

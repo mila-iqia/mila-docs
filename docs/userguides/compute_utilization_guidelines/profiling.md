@@ -115,9 +115,7 @@ jobs, with its output redirected to a file.
 ### Method B: Weights & Biases
 
 In WandB, the **System** tab of a run shows data on GPU utilization, CPU
-usage, and memory. See
-[Diagnose training bottlenecks](../wandb.md#diagnose-training-bottlenecks)
-for details.
+usage, and memory.
 
 !!! warning "Some measurements may be inaccurate"
     WandB measures CPU and RAM utilization on the entire node (all cores
@@ -138,6 +136,48 @@ wandb.init(...)  # initialize wandb first
 with monitor(interval=5):
     # train your model
 ```
+
+**Diagnose training bottlenecks**
+
+WandB records GPU utilization, CPU usage, and memory of every run automatically,
+no extra code is required. These metrics are the first
+place to check when a training job is slower than expected.
+
+Open a run in the WandB UI and select the **System** tab: the **GPU
+Utilization** chart shows the fraction of time the GPU spent on active compute
+during each sampling interval.
+
+Two patterns indicate different root causes:
+
+- **Sustained utilization near 100%** — the job is compute-bound. The GPU is the
+  bottleneck; this is the expected state for well-configured training.
+- **Low or oscillating utilization** — the GPU idles while waiting for the next
+  batch. The data pipeline cannot deliver batches fast enough; the job is
+  I/O-bound.
+
+!!! tip
+    Common fixes for an I/O bottleneck: increase `num_workers` in the
+    `DataLoader`, enable `pin_memory=True`, or copy the dataset to
+    `$SLURM_TMPDIR` before the job starts.
+
+    WandB monitors only the main process by default. Jobs that use
+    `DataLoader(num_workers > 0)` spawn additional Python processes whose CPU
+    usage is **not** included in the System tab metrics — so reported CPU
+    utilization may be lower than actual usage.
+
+    To include worker processes, enable process-tree monitoring:
+
+    ```python
+    wandb.init(
+        ...
+        settings=wandb.Settings(x_stats_track_process_tree=True)
+    )
+    ```
+
+    This setting has a performance overhead and is disabled by default. See the
+    [WandB settings
+    reference](https://docs.wandb.ai/models/ref/python/experiments/settings#:~:text=x_stats_track_process_tree%20(bool))
+    for details.
 
 ### Method C: The interactive check
 

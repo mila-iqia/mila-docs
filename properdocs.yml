@@ -32,6 +32,7 @@ theme:
   icon:
     admonition:
       wip: fontawesome/solid/brush
+      monitoring: fontawesome/solid/chart-line
   name: material
   custom_dir: overrides
   features:
