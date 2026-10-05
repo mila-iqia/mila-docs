@@ -17,6 +17,13 @@ helpers.
 
 <div class="grid cards" markdown>
 
+-   [:simple-gitlfs:{ .lg .middle } __Git LFS__](git_lfs.md)
+    { .card }
+
+    ---
+    Install Git LFS on the cluster to track large files in git
+    repositories.
+
 -   [:simple-jupyter:{ .lg .middle } __JupyterHub__](jupyterhub.md)
     { .card }
 

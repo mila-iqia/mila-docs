@@ -180,6 +180,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
 - [Toolbox](toolbox/index.md)
     - [🔗 Research Project Template](https://mila-iqia.github.io/ResearchTemplate)
     - [Development](toolbox/development/index.md)
+        - [Git LFS](toolbox/development/git_lfs.md)
         - [JupyterHub](toolbox/development/jupyterhub.md)
         - [VSCode](toolbox/development/VSCode.md)
         - [🔗 cluv](https://mila-iqia.github.io/cluv/)
