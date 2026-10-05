@@ -13,19 +13,11 @@ searches on the clusters.
 
 <div class="grid cards" markdown>
 
--   [:simple-weightsandbiases:{ .lg .middle } __Weights and Biases (WandB)__](wandb.md)
-    { .card }
-
-    ---
-    Log metrics, system usage, and artifacts from training runs, and compare
-    them in a web dashboard through the Mila organization.
-
 -   [:material-chart-line:{ .lg .middle } __Comet__](comet.md)
     { .card }
 
     ---
-    Track and compare experiments in a web dashboard through the Mila
-    organization on Comet.
+    Track and compare experiments in a web dashboard on Comet.
 
 -   [:material-tune:{ .lg .middle } __Orion__](orion.md)
     { .card }
@@ -33,10 +25,17 @@ searches on the clusters.
     ---
     Run hyperparameter searches in parallel across many cluster jobs.
 
+-   [:simple-weightsandbiases:{ .lg .middle } __Weights and Biases (WandB)__](wandb.md)
+    { .card }
+
+    ---
+    Log metrics, system usage, and artifacts from training runs, and compare
+    them in a web dashboard.
+
 -   [:material-chart-line:{ .lg .middle } __milalib__](https://github.com/mila-iqia/milalib)
     { .card }
 
     ---
-    Library to monitor compute usage of Slurm jobs, and log these metrics.
+    Monitor compute usage of Slurm jobs, and log these metrics.
 
 </div>
