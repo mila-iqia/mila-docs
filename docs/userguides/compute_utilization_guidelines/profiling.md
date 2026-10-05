@@ -410,12 +410,6 @@ for efficient GPU utilization.
 
 <div class="grid cards" markdown>
 
--   [:material-monitor:{ .lg .middle } __Diagnose training bottlenecks__](../wandb.md#diagnose-training-bottlenecks)
-    { .card }
-
-    ---
-    Use the WandB System tab to locate GPU, CPU, and I/O bottlenecks.
-
 -   [:material-server:{ .lg .middle } __Right-size node requests__](../../technical_reference/clusters/mila/nodes.md)
     { .card }
 

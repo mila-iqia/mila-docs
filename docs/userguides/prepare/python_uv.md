@@ -16,7 +16,7 @@ reproducibly, and submitting Slurm batch jobs.
 
 <div class="grid cards" markdown>
 
--   [:material-run-fast:{ .lg .middle } __Get Started with the Cluster__](../getting_started/index.md)
+-   [:material-run-fast:{ .lg .middle } __Get Started with the Cluster__](../../getting_started/index.md)
     { .card }
 
     ---
@@ -40,7 +40,7 @@ reproducibly, and submitting Slurm batch jobs.
 * Install CLI tools system-wide with `uv tool`
 
 !!! monitoring "Monitor & Optimize"
-    To set up monitoring, see [Monitoring and Optimize](../../monitor/)
+    To set up monitoring, see [Monitoring and Optimize](../monitor/index.md)
 
 
 ---
@@ -310,11 +310,11 @@ Submitted batch job 8888888
 the job always uses the pinned dependencies regardless of which compute node
 runs it.
 
-!!! tip "Add monitoring dependencies now"
+!!! monitoring "Add monitoring dependencies now"
     Metrics can only be collected if the logging library is part of the
     environment. Add it together with the other dependencies, for example
     `uv add wandb`. See
-    [Monitor and Optimize Experiments](monitoring.md#prepare-metric-collection-before-running).
+    [Monitor and Optimize Experiments](../monitor/index.md#prepare-metric-collection-before-running).
 
 ## Install CLI tools with `uv tool`
 
@@ -444,11 +444,6 @@ those exact dependencies, runs the script, and discards the environment. The
 project's `pyproject.toml` is not modified.
 
 
-## Monitoring
-
-!!! monitoring "Test"
-    Je suis un test
-
 ---
 
 ## Key concepts
@@ -500,7 +495,7 @@ project's `pyproject.toml` is not modified.
 
 <div class="grid cards" markdown>
 
--   [:material-trending-up:{ .lg .middle } __Track Experiments with WandB__](../userguides/wandb.md)
+-   [:material-trending-up:{ .lg .middle } __Track Experiments with WandB__](../wandb.md)
     { .card }
 
     ---

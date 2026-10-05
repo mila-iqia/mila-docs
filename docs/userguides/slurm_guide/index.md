@@ -54,4 +54,4 @@ monitoring, managing and synchronizing tasks across multiple nodes.
     ```
     
     See [Monitor and manage jobs](monitor_manage.md) and
-    [Monitor and Optimize Experiments](../monitor/#prepare-metric-collection-before-running).
+    [Monitor and Optimize Experiments](../monitor/index.md#prepare-metric-collection-before-running).

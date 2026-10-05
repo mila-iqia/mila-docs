@@ -20,7 +20,7 @@ designed to run on the Mila cluster as-is.
 * Start a new project from the Research Project Template
 
 !!! monitoring "Monitor & Optimize"
-    To set up monitoring, see [Monitoring and Optimize](../../monitor/)
+    To set up monitoring, see [Monitoring and Optimize](monitor/index.md)
 
 ---
 
@@ -79,7 +79,7 @@ what changes are required to add a feature.
     The [WandB setup example](../examples/good_practices/wandb_setup/index.md)
     shows a training script that already logs metrics. Adding logging while
     writing the code makes the results available in Phase 3. See
-    [Monitor and Optimize Experiments](../monitor/#prepare-metric-collection-before-running).
+    [Monitor and Optimize Experiments](monitor/index.md#prepare-metric-collection-before-running).
 
 ## Research Project Template
 
