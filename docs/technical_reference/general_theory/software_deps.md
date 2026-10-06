@@ -4,6 +4,11 @@ This section aims to raise awareness to problems one can encounter when trying
 to run a software on different computers and how this is dealt with on typical
 computation clusters.
 
+All clusters typically run on GNU/Linux distributions. Hence a minimum
+knowledge of GNU/Linux and BASH is usually required to use them. See the
+following [tutorial ](https://docs.alliancecan.ca/wiki/Linux_introduction)
+for a rough guide on getting started with Linux.
+
 The Mila cluster and the Digital Research Alliance of Canada clusters both
 provide various useful software and computing environments, which can be
 activated through the module system. Alternatively, you may build containers
