@@ -126,10 +126,10 @@ If you find any errors in the documentation, missing or unclear sections, or wou
     - Iterate
         - [Monitoring and optimization](userguides/monitor/index.md)
             - [Track Experiments with Weights & Biases (WandB)](userguides/wandb.md)
+            - [Visualizing usage with Pytorch profiler and Tensorboard](userguides/compute_utilization_guidelines/using_tensorboard_and_pytorch_profiler.md)
         - [Compute utilization at Mila](userguides/compute_utilization_guidelines/index.md)
             - [Compute Utilization Dashboard](userguides/compute_utilization_guidelines/dashboard.md)
             - [Identifying GPU waste](userguides/compute_utilization_guidelines/profiling.md)
-            - [Visualizing usage with Pytorch profiler and Tensorboard](userguides/compute_utilization_guidelines/using_tensorboard_and_pytorch_profiler.md)
         - [Reproducibility and Sharing results](userguides/reproducibility.md)
     - [Minimal Examples](examples/index.md)
         - [Software Setup](examples/frameworks/index.md)
