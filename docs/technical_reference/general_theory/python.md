@@ -25,8 +25,8 @@ in the script given to `sbatch`.
 ### UV
 
 
-In many cases, where your dependencies are Python packages, we highly recommend using `UV
-<https://docs.astral.sh/uv>`__, a modern package manager for Python.
+In many cases, where your dependencies are Python packages, we highly recommend using
+[uv](https://docs.astral.sh/uv), a modern package manager for Python.
 
 In addition to all the same features as pip, it also manages Python installations,
 virtual environments, and makes your environments easier to reproduce and reuse across compute clusters.
@@ -79,15 +79,10 @@ While you can use UV as a drop-in replacement for pip, we recommend adopting a [
 Pip is the most widely used package manager for Python and each cluster provides
 several Python versions through the associated module which comes with pip. In
 order to install new packages, you will first have to create a personal space
-for them to be stored.  The usual solution (as it is the recommended solution
-on Digital Research Alliance of Canada clusters) is to use `virtual
-environments <https://virtualenv.pypa.io/en/stable/>`_, although [uv](#uv) is now
+for them to be stored. The usual solution (as it is the recommended solution
+on Digital Research Alliance of Canada clusters) is to use [virtual
+environments](https://virtualenv.pypa.io/en/stable/), although [uv](#uv) is now
 the recommended way to manage Python installations, virtual environments and dependencies.
-
-!!! note
-    We recommend you use `UV <https://docs.astral.sh/uv>`_ to manage your Python
-    virtual environments instead of doing it manually.
-    [The previous section](#uv) gives an overview of how to install it and use it.
 
 First, load the Python module you want to use:
 ```bash
@@ -106,88 +101,13 @@ source $HOME/<env>/bin/activate
 ```
 
 You can now install any Python package you wish using the `pip` command, e.g.
-[pytorch ](https://pytorch.org/get-started/locally):
+[pytorch](https://pytorch.org/get-started/locally):
 
 ```bash
 pip install torch torchvision
 ```
 
-Or [Tensorflow ](https://www.tensorflow.org/install/gpu):
+Or [Tensorflow](https://www.tensorflow.org/install/gpu):
 ```bash
 pip install tensorflow-gpu
-```
-
-### Conda
-
-Another solution for Python is to use [miniconda](https://docs.conda.io/en/latest/miniconda.html)
-or [anaconda](https://docs.anaconda.com) which are also available through
-the `module` command: (the use of Conda is not recommended for Digital Research
-Alliance of Canada clusters due to the availability of custom-built packages for pip)
-
-```bash
-$ module load miniconda/3
-[=== Module miniconda/3 loaded ===]
-```
-
-<!-- To enable conda environment functions, first use: -->
-
-To create an environment (see [here](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html)
-for details) using a specific Python version, you may write:
-```bash
-conda create -n <env> python=3.9
-```
-Where `<env>` is the name of your environment. You can now activate it by doing:
-```bash
-conda activate <env>
-```
-You are now ready to install any Python package you want in this environment.
-For instance, to install PyTorch, you can find the Conda command of any version
-you want on [pytorch's website](https://pytorch.org/get-started/locally), e.g:
-
-```bash
-conda install pytorch torchvision cudatoolkit=10.0 -c pytorch
-```
-
-If you make a lot of environments and install/uninstall a lot of packages, it
-can be good to periodically clean up Conda's cache:
-```bash
-conda clean -it
-```
-
-#### Mamba
-
-When installing new packages with `conda install`, conda uses a built-in
-dependency solver for solving the dependency graph of all packages (and their
-versions) requested such that package dependency conflicts are avoided.
-
-In some cases, especially when there are many packages already installed in a
-conda environment, conda's built-in dependency solver can struggle to solve the
-dependency graph, taking several to tens of minutes, and sometimes never
-solving. In these cases, it is recommended to try [libmamba](https://conda.github.io/conda-libmamba-solver/getting-started/).
-
-To install and set the `libmamba` solver, run the following commands:
-
-```bash
-# Install miniconda
-# (you can not use the preinstalled anaconda/miniconda as installing libmamba
-#  requires ownership over the anaconda/miniconda install directory)
-$ wget https://repo.anaconda.com/miniconda/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh
-$ bash Miniconda3-py310_22.11.1-1-Linux-x86_64.sh
-
-# Install libmamba
-$ conda install -n base conda-libmamba-solver
-```
-
-By default, conda uses the built-in solver when installing packages, even after
-installing other solvers. To try `libmamba` once, add `--solver=libmamba` in
-your ``conda install`` command. For example:
-```bash
-conda install tensorflow --solver=libmamba
-```
-
-You can set `libmamba` as the default solver by adding `solver: libmamba`
-to your `.condarc` configuration file located under your `$HOME` directory.
-You can create it if it doesn't exist. You can also run:
-```bash
-conda config --set solver libmamba
 ```
