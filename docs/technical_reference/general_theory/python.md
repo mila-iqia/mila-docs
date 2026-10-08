@@ -9,7 +9,7 @@ search:
 A virtual environment in Python is a local, isolated environment in which you
 can install or uninstall Python packages without interfering with the global
 environment (or other virtual environments). It usually lives in a directory
-(location varies depending on whether you use venv, conda or poetry). In order
+(location varies depending on whether you use venv or uv). In order
 to use a virtual environment, you have to **activate** it. Activating an
 environment essentially sets environment variables in your shell so that:
 
