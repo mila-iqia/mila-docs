@@ -13,6 +13,22 @@ concept in isolation, and the **Research Project Template**, a complete
 project structure ready to be used for a new research project. Both are
 designed to run on the Mila cluster as-is.
 
+## Before you begin
+
+<div class="grid cards" markdown>
+
+-   [:material-run-fast:{ .lg .middle } __Get Started with the Cluster__](../getting_started/index.md)
+    { .card }
+
+    ---
+    Obtain a Mila account, enable cluster access and MFA, install `uv` and
+    `milatools`, configure SSH access and connect to the cluster for the first
+    time.
+
+&nbsp;
+
+</div>
+
 ## What this page covers
 
 * Choose between the minimal examples and the Research Project Template
@@ -20,7 +36,7 @@ designed to run on the Mila cluster as-is.
 * Start a new project from the Research Project Template
 
 !!! monitoring "Monitor & Optimize"
-    To set up monitoring, see [Monitoring and Optimize](monitor/index.md)
+    To set up monitoring, see [Monitoring and Optimize](monitoring.md)
 
 ---
 
@@ -79,7 +95,7 @@ what changes are required to add a feature.
     The [WandB setup example](../examples/good_practices/wandb_setup/index.md)
     shows a training script that already logs metrics. Adding logging while
     writing the code makes the results available in Phase 3. See
-    [Monitor and Optimize Experiments](monitor/index.md#prepare-metric-collection-before-running).
+    [Monitor and Optimize Experiments](monitoring.md#prepare-metric-collection-before-running).
 
 ## Research Project Template
 

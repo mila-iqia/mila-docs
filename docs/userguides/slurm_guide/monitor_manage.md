@@ -19,16 +19,16 @@ wrong, why. This guide shows which tool answers each question, stage by stage.
 
 <div class="grid cards" markdown>
 
--   [:material-lightbulb-alert-outline:{ .lg .middle } __Understand Slurm__](basics.md)
+-   [:material-monitor-eye:{ .lg .middle } __Submit Jobs across Clusters__](cluv.md)
     { .card }
 
     ---
-    Submit interactive and batch jobs, and learn the jobs, steps and tasks
-    model.
-
-&nbsp;
+    Easily use multiple clusters to submit jobs.
 
 </div>
+
+---
+
 
 ## What this guide covers
 
@@ -121,18 +121,11 @@ and memory jobs.
 
 <div class="grid cards" markdown>
 
--   [:material-speedometer:{ .lg .middle } __Identifying GPU waste__](../compute_utilization_guidelines/index.md)
+-   [:material-monitor-eye:{ .lg .middle } __Submit Jobs across Clusters__](cluv.md)
     { .card }
 
     ---
-    Diagnose under-used GPUs and right-size a GPU allocation.
-
--   [:material-chart-line:{ .lg .middle } __Monitoring__](../../technical_reference/clusters/mila/monitoring.md)
-    { .card }
-
-    ---
-    Watch live CPU, memory and GPU usage on a compute node with Netdata and
-    Grafana.
+    Easily use multiple clusters to submit jobs.
 
 </div>
 
@@ -224,15 +217,32 @@ Reason code
 :   The value in the `(REASON)` column of `squeue` that explains why a pending
     job has not started, such as `Priority`, `Resources` or `ReqNodeNotAvail`.
 
+---
+
+
 ## Next step
 
 <div class="grid cards" markdown>
 
--   [:material-shuffle-variant:{ .lg .middle } __Synchronizing multiple tasks__](tasks_communication.md)
+-   [:material-trending-up:{ .lg .middle } __Monitor and Optimize Experiments__](../monitoring.md)
     { .card }
 
     ---
-    Synchronize the output of multiple tasks running on different nodes.
+    Understand why metrics matter, plan their collection before a job starts,
+    and choose the right tool to optimize both models and resource usage.
+
+-   [:material-server:{ .lg .middle } __Compute Utilization Dashboard__](../compute_utilization_guidelines/index.md)
+    { .card }
+
+    ---
+    Use the dashboard to identify and reduce wasted GPU resources.
+    
+
+-   [:material-newspaper-variant-multiple-outline:{ .lg .middle } __Share results and make research reproducible__](../reproducibility.md)
+    { .card }
+
+    ---
+    Make cluster experiments reproducible and shareable — environment management, version control, dataset sharing, and research paper distribution.
 
 &nbsp;
 

@@ -1,9 +1,8 @@
 ---
-title: Reproducibility and Sharing Results
+title: Share results and make research reproducible
 description: >-
-  Overview of practices for making cluster experiments reproducible and
-  shareable — environment management, version control, dataset sharing, and
-  research paper distribution.
+  Make cluster experiments reproducible and shareable — environment
+  management, version control, dataset sharing, and research paper distribution.
 ---
 
 # Reproducibility and Sharing Results
@@ -11,6 +10,22 @@ description: >-
 Reproducible research depends on being able to recreate an experiment's
 environment, code, and data at any later point. This page gives a short
 overview of the practices involved.
+
+## Before you begin
+
+<div class="grid cards" markdown>
+
+-   [:material-server:{ .lg .middle } __Launch jobs__](slurm_guide/index.md)
+    { .card }
+
+    ---
+    Submit and manage jobs on the cluster with Slurm.
+
+&nbsp;
+
+</div>
+
+---
 
 ## Environment
 
@@ -45,3 +60,28 @@ release alongside the paper.
 
 ??? note "Acknowledging Mila"
     {% include-markdown "home/acknowledgement.md" start="<!-- START -->" %}
+
+---
+
+
+## Next step
+
+<div class="grid cards" markdown>
+
+-   [:material-trending-up:{ .lg .middle } __Monitor and Optimize Experiments__](monitoring.md)
+    { .card }
+
+    ---
+    Understand why metrics matter, plan their collection before a job starts,
+    and choose the right tool to optimize both models and resource usage.
+
+-   [:material-server:{ .lg .middle } __Compute Utilization Dashboard__](compute_utilization_guidelines/index.md)
+    { .card }
+
+    ---
+    Use the dashboard to identify and reduce wasted GPU resources.
+    
+
+&nbsp;
+
+</div>

@@ -195,7 +195,7 @@ trust them!
     can run on a login node right after the first login, for example
     `wandb login`. See
     [WandB - Authenticate the CLI on the cluster](../wandb.md#authenticate-the-cli-on-the-cluster)
-    and [Monitor and Optimize Experiments](../monitor/index.md#prepare-metric-collection-before-running).
+    and [Monitor and Optimize Experiments](../monitoring.md#prepare-metric-collection-before-running).
 
 ## Connecting to compute nodes
 

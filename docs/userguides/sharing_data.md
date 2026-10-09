@@ -17,6 +17,25 @@ more fine-grained control of accesses to a file. They can be used to
 permit specific users access to files and folders even if conservative default
 permissions would have denied them such access.
 
+## Before you begin
+
+<div class="grid cards" markdown>
+
+-   [:material-run-fast:{ .lg .middle } __Train Your First Model__](../getting_started/train_first_model.md)
+    { .card }
+
+    ---
+    Train your first ResNet18 model on CIFAR-10 on a single GPU using `sbatch`.
+
+-   [:material-language-python:{ .lg .middle } __Manage Python Dependencies with `uv`__](../userguides/python_uv.md)
+    { .card }
+
+    ---
+    Install uv, manage project dependencies, run reproducible Slurm jobs, and run
+    standalone scripts.
+
+</div>
+
 ## Setting ACLs
 
 Use `setfacl` (set file access control list) to add ACLs to a file or directory on the cluster.

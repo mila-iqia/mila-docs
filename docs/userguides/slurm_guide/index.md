@@ -5,6 +5,26 @@ description: Learn the basics of running jobs on the cluster with Slurm.
 
 # Launch jobs
 
+## Before you begin
+
+<div class="grid cards" markdown>
+    
+
+-   [:material-console-line:{ .lg .middle } __Write code__](../code_examples.md)
+    { .card }
+
+    ---
+    Start from ready-to-run minimal examples or from the Research Project
+    Template to write code that runs on the Mila cluster.
+
+&nbsp;
+
+</div>
+
+
+## Launch jobs
+
+
 This section introduces the core Slurm concepts for new users and walks through
 running one or more tasks on the cluster, from a first interactive job to
 monitoring, managing and synchronizing tasks across multiple nodes.
@@ -25,6 +45,12 @@ monitoring, managing and synchronizing tasks across multiple nodes.
     ---
     Discover Slurm jobs, steps and tasks. Run multiple tasks through an
     interactive job, then reproduce the example from a batch script.
+
+-   [:material-monitor-eye:{ .lg .middle } __Submit Jobs across Clusters__](cluv.md)
+    { .card }
+
+    ---
+    Easily use multiple clusters to submit jobs.
 
 -   [:material-monitor-eye:{ .lg .middle } __Monitor and manage jobs__](monitor_manage.md)
     { .card }
@@ -54,4 +80,36 @@ monitoring, managing and synchronizing tasks across multiple nodes.
     ```
     
     See [Monitor and manage jobs](monitor_manage.md) and
-    [Monitor and Optimize Experiments](../monitor/index.md#prepare-metric-collection-before-running).
+    [Monitor and Optimize Experiments](../monitoring.md#prepare-metric-collection-before-running).
+
+
+---
+
+
+## Next step
+
+<div class="grid cards" markdown>
+
+-   [:material-trending-up:{ .lg .middle } __Monitor and Optimize Experiments__](../monitoring.md)
+    { .card }
+
+    ---
+    Understand why metrics matter, plan their collection before a job starts,
+    and choose the right tool to optimize both models and resource usage.
+
+-   [:material-server:{ .lg .middle } __Compute Utilization Dashboard__](../compute_utilization_guidelines/index.md)
+    { .card }
+
+    ---
+    Use the dashboard to identify and reduce wasted GPU resources.
+    
+
+-   [:material-newspaper-variant-multiple-outline:{ .lg .middle } __Share results and make research reproducible__](../reproducibility.md)
+    { .card }
+
+    ---
+    Make cluster experiments reproducible and shareable — environment management, version control, dataset sharing, and research paper distribution.
+
+&nbsp;
+
+</div>

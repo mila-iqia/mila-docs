@@ -116,6 +116,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
         - [Logging in to the cluster](userguides/prepare/login.md)
         - [Manage Python Dependencies with uv](userguides/prepare/python_uv.md)
         - [Share data with ACLs](userguides/prepare/sharing_data.md)
+        - [Track Experiments with Weights & Biases (WandB)](userguides/wandb.md)
     - Execute
         - [Write code](userguides/code_examples.md)
         - [Launch jobs](userguides/slurm_guide/index.md)
@@ -124,12 +125,11 @@ If you find any errors in the documentation, missing or unclear sections, or wou
             - [Monitor and manage jobs](userguides/slurm_guide/monitor_manage.md)
             - [Synchronizing multiple tasks](userguides/slurm_guide/tasks_communication.md)
     - Iterate
-        - [Monitoring and optimization](userguides/monitor/index.md)
-            - [Track Experiments with Weights & Biases (WandB)](userguides/wandb.md)
-            - [Visualizing usage with Pytorch profiler and Tensorboard](userguides/compute_utilization_guidelines/using_tensorboard_and_pytorch_profiler.md)
+        - [Monitoring and optimization](userguides/monitoring.md)
         - [Compute utilization at Mila](userguides/compute_utilization_guidelines/index.md)
             - [Compute Utilization Dashboard](userguides/compute_utilization_guidelines/dashboard.md)
             - [Identifying GPU waste](userguides/compute_utilization_guidelines/profiling.md)
+            - [Visualizing usage with Pytorch profiler and Tensorboard](userguides/compute_utilization_guidelines/using_tensorboard_and_pytorch_profiler.md)
         - [Reproducibility and Sharing results](userguides/reproducibility.md)
     - [Minimal Examples](examples/index.md)
         - [Software Setup](examples/frameworks/index.md)

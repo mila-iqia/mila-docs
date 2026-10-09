@@ -16,13 +16,7 @@ wandb.ai for team-level project visibility and collaboration.
 
 <div class="grid cards" markdown>
 
--   [:material-run-fast:{ .lg .middle } __Train Your First Model__](../getting_started/train_first_model.md)
-    { .card }
-
-    ---
-    Train your first ResNet18 model on CIFAR-10 on a single GPU using `sbatch`.
-
--   [:material-language-python:{ .lg .middle } __Manage Python Dependencies with `uv`__](../userguides/python_uv.md)
+-   [:material-language-python:{ .lg .middle } __Manage Python Dependencies with `uv`__](prepare/python_uv.md)
     { .card }
 
     ---
@@ -297,3 +291,26 @@ System metrics
 :   Convention for logging performance timing metrics (e.g., `perf/data_load_s`,
     `perf/compute_s`) separately from training metrics to support bottleneck
     diagnosis.
+
+
+## Next step
+
+<div class="grid cards" markdown>
+
+-   [:material-folder-account:{ .lg .middle } __Share data with ACLs__](sharing_data.md)
+    { .card }
+
+    ---
+    Set ACLs (Access Control Lists) to share data with other users on the cluster.
+    
+
+-   [:material-console-line:{ .lg .middle } __Write code__](code_examples.md)
+    { .card }
+
+    ---
+    Start from ready-to-run minimal examples or from the Research Project
+    Template to write code that runs on the Mila cluster.
+
+&nbsp;
+
+</div>

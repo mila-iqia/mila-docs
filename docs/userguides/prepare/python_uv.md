@@ -40,7 +40,7 @@ reproducibly, and submitting Slurm batch jobs.
 * Install CLI tools system-wide with `uv tool`
 
 !!! monitoring "Monitor & Optimize"
-    To set up monitoring, see [Monitoring and Optimize](../monitor/index.md)
+    To set up monitoring, see [Monitoring and Optimize](../monitoring.md)
 
 
 ---
@@ -314,7 +314,7 @@ runs it.
     Metrics can only be collected if the logging library is part of the
     environment. Add it together with the other dependencies, for example
     `uv add wandb`. See
-    [Monitor and Optimize Experiments](../monitor/index.md#prepare-metric-collection-before-running).
+    [Monitor and Optimize Experiments](../monitoring.md#prepare-metric-collection-before-running).
 
 ## Install CLI tools with `uv tool`
 
@@ -491,9 +491,19 @@ project's `pyproject.toml` is not modified.
     --script` reads it and creates a temporary isolated environment, leaving
     `pyproject.toml` unchanged.
 
+
+---
+
+
 ## Next step
 
 <div class="grid cards" markdown>
+
+-   [:material-folder-account:{ .lg .middle } __Share data with ACLs__](sharing_data.md)
+    { .card }
+
+    ---
+    Set ACLs (Access Control Lists) to share data with other users on the cluster.
 
 -   [:material-trending-up:{ .lg .middle } __Track Experiments with WandB__](../wandb.md)
     { .card }
@@ -501,6 +511,13 @@ project's `pyproject.toml` is not modified.
     ---
     Set up WandB and follow best practices for logging experiments, organizing
     runs, and diagnosing bottlenecks on the cluster.
+
+-   [:material-console-line:{ .lg .middle } __Write code__](../code_examples.md)
+    { .card }
+
+    ---
+    Start from ready-to-run minimal examples or from the Research Project
+    Template to write code that runs on the Mila cluster.
 
 &nbsp;
 

@@ -5,6 +5,22 @@ description: How the Safety net system tracks compute usage and helps you avoid 
 
 # Compute utilization at Mila
 
+## Before you begin
+
+<div class="grid cards" markdown>
+
+-   [:material-server:{ .lg .middle } __Launch jobs__](../slurm_guide/index.md)
+    { .card }
+
+    ---
+    Submit and manage jobs on the cluster with Slurm.
+
+&nbsp;
+
+</div>
+
+---
+
 ## Compute powers Mila’s success
 Compute is central to most research projects at Mila and a key driver of
 breakthroughs. Making the most of available capacity is vital to the success
@@ -52,3 +68,27 @@ suggestions.
 Mila looks forward to seeing you run your projects on its infrastructure.
 
 Let’s put those clusters to work!
+
+---
+
+
+## Next step
+
+<div class="grid cards" markdown>
+
+-   [:material-trending-up:{ .lg .middle } __Monitor and Optimize Experiments__](../monitoring.md)
+    { .card }
+
+    ---
+    Understand why metrics matter, plan their collection before a job starts,
+    and choose the right tool to optimize both models and resource usage.
+    
+-   [:material-newspaper-variant-multiple-outline:{ .lg .middle } __Share results and make research reproducible__](../reproducibility.md)
+    { .card }
+
+    ---
+    Make cluster experiments reproducible and shareable — environment management, version control, dataset sharing, and research paper distribution.
+
+&nbsp;
+
+</div>
