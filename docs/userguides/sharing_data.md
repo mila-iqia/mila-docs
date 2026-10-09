@@ -65,7 +65,7 @@ Grant **yourself** permissions to access any **future** files/folders created by
 the collaborator.
 
 ```bash
-setfacl -Rdm user:${USER}:rwx $SCRATCH
+setfacl -Rdm user:${USER}:rwx $SCRATCH/X/Y/Z
 ```
 
 !!! note
