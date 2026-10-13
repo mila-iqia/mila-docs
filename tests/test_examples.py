@@ -20,8 +20,8 @@ from pytest_regressions.file_regression import FileRegressionFixture
 
 from .testutils import (
     EXAMPLES_DIR,
-    WORK_DIR,
     TEST_JOB_NAME,
+    WORK_DIR,
     SlurmJob,
     filter_job_output_before_regression_check,
     run_example,
@@ -84,6 +84,7 @@ def _test_id(arg: Path | bool | dict) -> str:
         (EXAMPLES_DIR / "distributed" / "single_gpu", True, False, []),
         (EXAMPLES_DIR / "distributed" / "multi_gpu", True, False, []),
         (EXAMPLES_DIR / "distributed" / "multi_node", True, False, []),
+        (EXAMPLES_DIR / "distributed" / "single_gpu" / "single_gpu_jax", False, False, []),
         (EXAMPLES_DIR / "good_practices" / "launch_many_jobs", True, False, []),
         (EXAMPLES_DIR / "good_practices" / "many_tasks_per_gpu", True, False, []),
         (EXAMPLES_DIR / "good_practices" / "slurm_job_arrays", True, False, ["--array", "1-5"]),
@@ -91,7 +92,6 @@ def _test_id(arg: Path | bool | dict) -> str:
         (EXAMPLES_DIR / "advanced" / "imagenet", True, True, []),
         # Jax examples
         (EXAMPLES_DIR / "frameworks" / "jax_setup", False, False, []),
-        (EXAMPLES_DIR / "frameworks" / "jax", False, False, []),
     ],
     ids=_test_id,
 )
