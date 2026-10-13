@@ -190,12 +190,6 @@ trust them!
     !!! note
         In a similar vein, you should not run VSCode remote SSH instances directly on login nodes, because even though they are typically not very computationally expensive, when many people do it, they add up! See [Visual Studio Code](../../toolbox/VSCode.md) for specific instructions.
 
-!!! monitoring "One-time setup for experiment tracking"
-    Authenticating an experiment tracking tool is a light, one-time step that
-    can run on a login node right after the first login, for example
-    `wandb login`. See
-    [WandB - Authenticate the CLI on the cluster](../wandb.md#authenticate-the-cli-on-the-cluster)
-    and [Monitor and Optimize Experiments](../monitoring.md#prepare-metric-collection-before-running).
 
 ## Connecting to compute nodes
 
