@@ -10,7 +10,7 @@ running one or more tasks on the cluster, from a first interactive job to
 monitoring, managing and synchronizing tasks across multiple nodes.
 
 !!! tip "Work from VSCode on a compute node"
-    These guides connect to the cluster with [VSCode](../../toolbox/VSCode.md)
+    These guides connect to the cluster with [VSCode](../../toolbox/development/VSCode.md)
     through `mila code` or the `mila-cpu` remote, which opens a compute node
     with a file browser for `$SCRATCH` and an integrated terminal for the Slurm
     commands. Set it up in the [Get Started

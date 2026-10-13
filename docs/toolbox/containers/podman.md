@@ -1,4 +1,4 @@
-# Using containers
+# Podman
 
 Podman containers are now available as tech preview on the Mila cluster
 without root privileges using [podman](https://podman.io).

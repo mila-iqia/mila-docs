@@ -335,7 +335,7 @@ Each example is based on three files:
         Open the project on a compute node with `mila code`, or pick `mila-cpu`
         in the Remote-SSH dropdown, then create `job_***.sh`, `main_***.py` and
         `pyproject.toml` in the VSCode explorer. See
-        [VSCode](../../toolbox/VSCode.md) and the [Get Started
+        [VSCode](../../toolbox/development/VSCode.md) and the [Get Started
         guide](../../getting_started/index.md).
 
     === "Terminal"
