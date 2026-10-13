@@ -68,19 +68,6 @@ monitoring, managing and synchronizing tasks across multiple nodes.
 
 </div>
 
-!!! monitoring "Add monitoring to job scripts"
-    A job script can collect resource metrics alongside the training script.
-    For example, start `milalib` in the background before the training step
-    to record GPU usage in a file:
-
-    ```bash title="job.sh"
-    uvx milalib monitor -i 5 -m gpu_util -m sm_occupancy \
-        > "milalib-$SLURM_JOB_ID.log" &
-    srun uv run python main.py
-    ```
-    
-    See [Monitor and manage jobs](monitor_manage.md) and
-    [Monitor and Optimize Experiments](../monitoring.md#prepare-metric-collection-before-running).
 
 
 ---
