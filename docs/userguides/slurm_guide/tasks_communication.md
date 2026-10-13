@@ -153,7 +153,7 @@ Each example is based on three files:
       following `srun`, so each task runs `uv run python main_torch.py` or `uv
       run python main_jax.py`.
     * `uv run` sets up the environment for the tasks. For more
-      information, read the [`uv` guide on portability](../python_uv.md). It is
+      information, read the [`uv` guide on portability](../prepare/python_uv.md). It is
       followed by the name of the script to run in this environment.
 
 

@@ -299,7 +299,7 @@ System metrics
 
 <div class="grid cards" markdown>
 
--   [:material-folder-account:{ .lg .middle } __Share data with ACLs__](sharing_data.md)
+-   [:material-folder-account:{ .lg .middle } __Share data with ACLs__](prepare/sharing_data.md)
     { .card }
 
     ---

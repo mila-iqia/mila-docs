@@ -30,7 +30,7 @@ alongside [Pytorch profiler](https://docs.pytorch.org/tutorials/recipes/recipes/
     Ask for a resource allocation and launch tasks on the cluster through an interactive job.
 
 
--   [:material-language-python:{ .lg .middle } __Managing Python Dependencies with `uv`__](../python_uv.md)
+-   [:material-language-python:{ .lg .middle } __Managing Python Dependencies with `uv`__](../prepare/python_uv.md)
     { .card }
 
     ---
