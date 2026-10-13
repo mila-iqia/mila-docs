@@ -35,9 +35,6 @@ designed to run on the Mila cluster as-is.
 * Find the minimal example matching a specific need
 * Start a new project from the Research Project Template
 
-!!! monitoring "Monitor & Optimize"
-    To set up monitoring, see [Monitoring and Optimize](monitoring.md)
-
 ---
 
 ## Choose a starting point
