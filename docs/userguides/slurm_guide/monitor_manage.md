@@ -13,7 +13,7 @@ wrong, why. This guide shows which tool answers each question, stage by stage.
 !!! note "Where to run these commands"
     The commands below run in the VSCode integrated terminal on a compute node
     (through `mila code` or the `mila-cpu` remote), or in a login-node terminal
-    after `ssh mila`. See [VSCode](../../toolbox/VSCode.md).
+    after `ssh mila`. See [VSCode](../../toolbox/development/VSCode.md).
 
 ## Before you begin
 
