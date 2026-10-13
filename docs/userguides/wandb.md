@@ -17,8 +17,6 @@ wandb.ai for team-level project visibility and collaboration.
 <div class="grid cards" markdown>
 
 -   [:material-language-python:{ .lg .middle } __Manage Python Dependencies with `uv`__](prepare/python_uv.md)
- 
-&nbsp;
     { .card }
 
     ---
