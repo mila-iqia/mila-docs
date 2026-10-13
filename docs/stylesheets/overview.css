@@ -217,6 +217,24 @@
   transform: translateX(3px);
 }
 
+/* Light mode: steps as white cards on the tinted lane */
+[data-md-color-scheme="default"] .wf2-step {
+  background: #ffffff;
+  /* Leave border-left alone: it carries the per-step accent color */
+  border-top-color: #e4d6ea;
+  border-right-color: #e4d6ea;
+  border-bottom-color: #e4d6ea;
+}
+
+[data-md-color-scheme="default"] .wf2-step:hover {
+  background: #ffffff;
+  box-shadow: 0 3px 12px rgba(102, 46, 125, .18);
+}
+
+[data-md-color-scheme="default"] .wf2-lane-header {
+  border-bottom-color: #e4d6ea;
+}
+
 /* ─── Phase separator (between lanes) ────────────── */
 
 .wf2-phase-sep {
