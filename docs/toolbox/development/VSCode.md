@@ -31,7 +31,7 @@ gives you greater flexibility by letting you allocate more cores, RAM and/or GPU
 
 [Reference](https://code.visualstudio.com/docs/python/environments)
 
-To activate a conda or pip environment, you can open the command palette with
+To activate a Python environment, you can open the command palette with
 Ctrl+Shift+P and type "Python: Select interpreter". This will prompt you for the
 path to the Python executable for your environment.
 

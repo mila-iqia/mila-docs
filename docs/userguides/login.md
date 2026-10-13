@@ -238,7 +238,7 @@ And that's it! Multiple connections to `mila-cpu` will all reuse the same job, s
 you can use it liberally. It also works transparently with VSCode's Remote SSH feature.
 
 We recommend using this for light work that is too heavy for a login node but does not
-require a lot of resources: editing via VSCode, building conda environments, tests, etc.
+require a lot of resources: editing via VSCode, building software, tests, etc.
 
 The `mila-cpu` entry should be in your `.ssh/config`. Changes are at your own risk.
 

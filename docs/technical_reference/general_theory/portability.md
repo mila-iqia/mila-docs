@@ -34,7 +34,7 @@ To achieve this, try to always keep in mind the following aspects:
 
 ## Using Modules
 
-A lot of software, such as Python and Conda, is already compiled and available on
+A lot of software, such as Python, is already compiled and available on
 the cluster through the `module` command and its sub-commands. In particular,
 if you wish to use `Python 3.10` you can simply do:
 ```bash
