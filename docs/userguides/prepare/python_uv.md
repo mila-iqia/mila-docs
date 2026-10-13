@@ -39,9 +39,6 @@ reproducibly, and submitting Slurm batch jobs.
 * Submit a Slurm job that runs your script with `uv run python`
 * Install CLI tools system-wide with `uv tool`
 
-!!! monitoring "Monitor & Optimize"
-    To set up monitoring, see [Monitoring and Optimize](../monitoring.md)
-
 
 ---
 
