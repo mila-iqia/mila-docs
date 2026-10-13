@@ -30,7 +30,7 @@ overview of the practices involved.
 ## Environment
 
 Pin the exact versions of Python and its dependencies so an experiment can be
-recreated on any node. See the [portability guide](python_uv.md) for managing
+recreated on any node. See the [portability guide](prepare/python_uv.md) for managing
 dependencies and lockfiles with `uv`.
 
 ## Version control
