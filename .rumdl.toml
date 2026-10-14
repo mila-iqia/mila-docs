@@ -10,9 +10,7 @@ exclude = [
 ]
 disable = [
     "MD014", # `$` before commands without output: prompts are shown on purpose
-    "MD025", # Multiple top-level headings (level 1) in the same document
     "MD033", # Inline HTML: Material cards, grids and icons rely on it
-    "MD034", # URL without angle brackets or link formatting
     "MD041", # First line must be a H1: pages start with front matter or snippets
 
     # TODO, not worth enforcing yet
@@ -22,11 +20,12 @@ disable = [
     "MD007", # Expected 4 spaces for indent depth 1
     "MD013", # Line length: prose is not wrapped consistently
     "MD023", # Heading should not be indented by 2 spaces
+    "MD025", # Multiple top-level headings (level 1) in the same document
+    "MD034", # URL without angle brackets or link formatting
     "MD036", # Emphasis used instead of a heading
     "MD040", # Code block (```) missing language
     "MD046", # Code block opened with '```' but never closed
     "MD049", # Emphasis should be consistant
-    "MD050", # Strong emphasis should use ** instead of __
     "MD051", # Link fragment not found
     "MD057", # Relative link does not exist
     "MD059", # Link text should be descriptive

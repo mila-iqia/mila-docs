@@ -37,7 +37,7 @@ Need a hand getting your experiments running on the cluster? You'll find everyth
 
 <div class="grid cards" markdown>
 
--   :octicons-discussion-closed-24:{ .lg .middle } __Check the FAQ__
+-   :octicons-discussion-closed-24:{ .lg .middle } **Check the FAQ**
 
     ---
 
@@ -45,7 +45,7 @@ Need a hand getting your experiments running on the cluster? You'll find everyth
 
     [:octicons-arrow-right-24: Check the FAQ](faq.md)
 
--   :material-robot:{ .lg .middle } __Ask an AI agent__
+-   :material-robot:{ .lg .middle } **Ask an AI agent**
 
     ---
 
@@ -53,7 +53,7 @@ Need a hand getting your experiments running on the cluster? You'll find everyth
 
     You can click on the "Ask AI" button in the bottom-right corner
 
--   :fontawesome-brands-slack:{ .lg .middle } __Ask help on Slack__
+-   :fontawesome-brands-slack:{ .lg .middle } **Ask help on Slack**
 
     ---
 
@@ -61,7 +61,7 @@ Need a hand getting your experiments running on the cluster? You'll find everyth
 
     [:octicons-arrow-right-24: Ask your questions on Slack](https://mila-umontreal.slack.com/archives/CFAS8455H)
 
--   :octicons-code-of-conduct-24:{ .lg .middle } __Contact Mila support__
+-   :octicons-code-of-conduct-24:{ .lg .middle } **Contact Mila support**
 
     ---
 
@@ -69,7 +69,7 @@ Need a hand getting your experiments running on the cluster? You'll find everyth
 
     [:octicons-arrow-right-24: Contact the Helpdesk](https://mila-iqia.atlassian.net/servicedesk/customer/portal/5)
 
--   :material-door-open:{ .lg .middle } __Come to the Office Hours__
+-   :material-door-open:{ .lg .middle } **Come to the Office Hours**
 
     ---
 
