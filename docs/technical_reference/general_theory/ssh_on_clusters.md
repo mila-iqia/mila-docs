@@ -37,7 +37,6 @@ sequenceDiagram
 3. **Validation** — for Push, tap "Approve" on the smartphone; for TOTP or
    email, type the code into the terminal prompt.
 
-
 ## Key exchange
 
 SSH key authentication is a technique using pairs of closely-linked keys: A
@@ -125,12 +124,10 @@ a `.pub` suffix.
 
 If no private SSH key already exists, you can create one with the `ssh-keygen` utility:
 
-
-
 | RSA                                                                                                                                                     | Ed25519                                                                                  |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
 | *Integer factorization*                                                                                                                                 | *Elliptic curve*                                                                         |
-| <ul><li>Classic</li><li>Ultra-compatible, standardized, the reference</li><li>Large key size, but configurable</li><li>Slow or even very slow</li></ul> | <ul><li>New</li><li>Less compatible</li><li>Fixed, small key size</li><li>Fast</li></ul> |  | * New |
+| <ul><li>Classic</li><li>Ultra-compatible, standardized, the reference</li><li>Large key size, but configurable</li><li>Slow or even very slow</li></ul> | <ul><li>New</li><li>Less compatible</li><li>Fixed, small key size</li><li>Fast</li></ul> |
 | `$ ssh-keygen -t rsa -b 3072`                                                                                                                           | `$ ssh-keygen -t ed25519`                                                                |
 
 !!! tip
@@ -157,7 +154,6 @@ be recalculated with the `ssh-keygen` utility as well:
 | `$ ssh-keygen -y -f ~/.ssh/id_rsa`                     | `$ ssh-keygen -y -f ~/.ssh/id_ed25519` |
 
 It is this SSH public key that you should submit in the IT Onboarding Training form.
-
 
 ## MFA challenge and validation
 

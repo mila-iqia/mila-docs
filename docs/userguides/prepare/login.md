@@ -14,7 +14,6 @@ completing the Multi-Factor Authentication (MFA) prompt and connecting to
 compute nodes. For a quick and simple way to connect, follow the
 [Getting started](../../getting_started/index.md) section instead.
 
-
 [](){ #ssh-secure-shell }
 
 !!! important "Public-key authentication only"
@@ -22,9 +21,7 @@ compute nodes. For a quick and simple way to connect, follow the
     authentication.** Since **March 31, 2025**, it is the **only** means of
     authentication, and **password-based authentication no longer works**.
 
-
 ## Before you begin
-
 
 <div class="grid cards" markdown>
 
@@ -35,7 +32,6 @@ compute nodes. For a quick and simple way to connect, follow the
     First connection: enable cluster access, set up MFA and connect.
 
 </div>
-
 
 ## What this guide covers
 
@@ -125,7 +121,6 @@ Match host *.server.mila.quebec
     Make the required edits to the template above, especially replacing
     `CHANGEME_YOUR_MILA_USERNAME` with your Mila username.
 
-
 ## Log in to a login node
 
 ### Connect with SSH
@@ -199,7 +194,6 @@ Push on phone or email.
     - **To use Push:** approve the notification on the smartphone first, then
       press `Enter` without entering a code.
 
-
 !!! tip "Reduce MFA prompts with SSH connection multiplexing"
     Adding `ControlMaster=auto` and `ControlPersist=yes` to the Mila
     SSH config entry allows MFA verification once per machine boot
@@ -210,7 +204,6 @@ Push on phone or email.
 
 !!! warning "Do not run VSCode remote SSH instances directly on login nodes"
     Even though they are typically not very computationally expensive, when many people do it, they add up. See [Visual Studio Code](../../toolbox/development/VSCode.md) for specific instructions.
-
 
 Login nodes are merely *entry points* to the cluster. They give access to the
 compute nodes and to the filesystem, but they are not meant to run anything
@@ -249,7 +242,6 @@ on the login nodes:
     *(Too computationally- and memory-intensive)*
     - `pip install` of `vllm` or `flash-attn` from source code is unacceptable,
     and is likely to fail anyway.
-
 
 ## Connect to compute nodes
 
@@ -303,11 +295,9 @@ ssh mila-cpu
 Multiple connections to `mila-cpu` all reuse the same job, so use it
 liberally. It also works transparently with the VSCode Remote SSH feature.
 
-
 Use `mila-cpu` for light work that is too heavy for a login node but does not
 require many resources: editing in VSCode, building conda environments,
 running tests, etc.
-
 
 !!! warning
     The `mila-cpu` entry must be present in `~/.ssh/config`. Modify it at
@@ -330,7 +320,6 @@ setups, but if something should work with Zsh and does not, contact
     ---
     Install uv, manage project dependencies, run reproducible Slurm jobs, and run
     standalone scripts.
-
 
 -   [:material-key:{ .lg .middle } __Secure Shell (SSH)__](../../technical_reference/general_theory/ssh_on_clusters.md)
     { .card }
