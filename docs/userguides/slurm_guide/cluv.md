@@ -26,20 +26,6 @@ developing a project locally and running it as a Slurm job.
 
 <div class="grid cards" markdown>
 
--   [:material-run-fast:{ .lg .middle } __Get Started with the Cluster__](../../getting_started/index.md)
-    { .card }
-
-    ---
-    Obtain a Mila account, enable cluster access and MFA, configure SSH
-    access, and connect to the cluster for the first time.
-
--   [:material-language-python:{ .lg .middle } __Manage Python Dependencies with `uv`__](../python_uv.md)
-    { .card }
-
-    ---
-    Install uv, manage project dependencies, run reproducible Slurm jobs, and run
-    standalone scripts.
-
 -   [:material-lightbulb-alert-outline:{ .lg .middle } __Understand Slurm__](basics.md)
     { .card }
 
@@ -78,7 +64,7 @@ command-line tool:
     - Python 3.11 or higher, plus the `uv` package manager, installed
       locally.
     - A project hosted in a GitHub repository.
-    - [SSH access configured](../login.md#mila-init) in `~/.ssh/config` for each target cluster,
+    - [SSH access configured](../prepare/login.md#mila-init) in `~/.ssh/config` for each target cluster,
       with ControlMaster sessions enabled for passwordless authentication.
       Windows users need WSL2, since cluv does not run natively on Windows.
 
@@ -264,5 +250,19 @@ ControlMaster session
     ---
     Example projects demonstrating how to configure and use cluv to sync
     and submit jobs across clusters.
+
+-   [:material-shuffle-variant:{ .lg .middle } __Synchronizing multiple tasks__](tasks_communication.md)
+    { .card }
+
+    ---
+    An applied example showing how tasks running on different nodes can
+    communicate and synchronize their output.
+
+-   [:material-monitor-eye:{ .lg .middle } __Monitor and manage jobs__](monitor_manage.md)
+    { .card }
+
+    ---
+    Track jobs through the queue, inspect and cancel them, read their output,
+    and resolve common failures.
 
 </div>

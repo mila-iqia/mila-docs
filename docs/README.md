@@ -112,21 +112,26 @@ If you find any errors in the documentation, missing or unclear sections, or wou
     - [Run Your First Job](getting_started/my_first_job.md)
     - [Train Your First Model](getting_started/train_first_model.md)
 - [How-tos and Guides](userguides/index.md)
-    - Guides
-        - [Manage Python Dependencies with uv](userguides/python_uv.md)
+    - Prepare
+        - [Logging in to the cluster](userguides/prepare/login.md)
+        - [Manage Python Dependencies with uv](userguides/prepare/python_uv.md)
+        - [Share data with ACLs](userguides/prepare/sharing_data.md)
         - [Track Experiments with Weights & Biases (WandB)](userguides/wandb.md)
-        - [Logging in to the cluster](userguides/login.md)
+    - Execute
+        - [Write code](userguides/code_examples.md)
         - [Launch jobs](userguides/slurm_guide/index.md)
             - [Understand Slurm](userguides/slurm_guide/basics.md)
+            - [Submit Jobs Across Clusters with cluv](userguides/slurm_guide/cluv.md)
             - [Monitor and manage jobs](userguides/slurm_guide/monitor_manage.md)
             - [Synchronizing multiple tasks](userguides/slurm_guide/tasks_communication.md)
-            - [Submit Jobs Across Clusters with cluv](userguides/slurm_guide/cluv.md)
+    - Iterate
+        - [Monitoring and optimization](userguides/monitoring.md)
         - [Compute utilization at Mila](userguides/compute_utilization_guidelines/index.md)
             - [Compute Utilization Dashboard](userguides/compute_utilization_guidelines/dashboard.md)
             - [Identifying GPU waste](userguides/compute_utilization_guidelines/profiling.md)
             - [Visualizing usage with Pytorch profiler and Tensorboard](userguides/compute_utilization_guidelines/using_tensorboard_and_pytorch_profiler.md)
-        - [Share data with ACLs](userguides/sharing_data.md)
-    - Minimal Examples
+        - [Reproducibility and Sharing results](userguides/reproducibility.md)
+    - [Minimal Examples](examples/index.md)
         - [Software Setup](examples/frameworks/index.md)
             - [PyTorch Setup](examples/frameworks/pytorch_setup/index.md)
             - [Jax Setup](examples/frameworks/jax_setup/index.md)
