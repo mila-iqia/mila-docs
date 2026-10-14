@@ -22,13 +22,11 @@ alongside [Pytorch profiler](https://docs.pytorch.org/tutorials/recipes/recipes/
     Get your Mila account, enable cluster access and MFA, then install `uv` and
     `milatools` to connect via SSH.
 
-
 -   [:material-lightbulb-alert-outline:{ .lg .middle } __Understanding Slurm__](../slurm_guide/basics.md)
     { .card }
 
     ---
     Ask for a resource allocation and launch tasks on the cluster through an interactive job.
-
 
 -   [:material-language-python:{ .lg .middle } __Managing Python Dependencies with `uv`__](../prepare/python_uv.md)
     { .card }
@@ -36,7 +34,6 @@ alongside [Pytorch profiler](https://docs.pytorch.org/tutorials/recipes/recipes/
     ---
     Install uv, manage project dependencies, run reproducible Slurm jobs, and run
     standalone scripts.
-
 
 -   [:material-magnify:{ .lg .middle } __Identifying GPU waste__](index.md)
     { .card }
@@ -49,6 +46,7 @@ alongside [Pytorch profiler](https://docs.pytorch.org/tutorials/recipes/recipes/
 </div>
 
 ## What this guide covers
+
 * Introduce Pytorch profiler and Tensorboard to log and display metrics
 * Launch Tensorboard alongside jobs on the cluster
 
@@ -72,9 +70,10 @@ Visualizing a job's performance with TensorBoard involves two steps:
 
     You can refer to them for more details.
 
-
 ### Base code
+
 The following code is an example of training a model with Pytorch:
+
 ```python
 import torch
 
@@ -145,13 +144,13 @@ profiler.stop()
 ```
 
 ### Ready-for-use code
+
 Below is an example of putting it all together. It is ready to be run:
 
 === "experiment.py"
     ```python
     --8<-- "docs/userguides/compute_utilization_guidelines/code/experiment.py"
     ```
-
 
 ## Try the example locally
 
@@ -164,9 +163,11 @@ Launching the example locally is done through the following steps:
 5. Access Tensorboard visualization
 
 ### Write the experiment code
+
 We use the code explained in [the previous section](#ready-for-use-code).
 
 ### Set up the environment
+
 The environment is described in the following file. Copying it as `pyproject.toml` would make available all the prerequisites
 while running the `uv` command.
 
@@ -176,17 +177,20 @@ while running the `uv` command.
     ```
 
 ### Launch the experiment
+
 Once the two files (`experiment.py` and `pyproject.toml`) have been written in your environment, you can
 launch the experiment through the following command:
+
 ```console
 uv run python experiment.py
 ```
 
 The folder `fake_scratch/logs/0` has been created.
 
-
 ### Launch Tensorboard
+
 Tensorboard can be launched whether the job is running or has ended, this is done through the command:
+
 ```console
 uv run tensorboard --logdir=fake_scratch/logs/0
 ```
@@ -199,11 +203,11 @@ TensorBoard 2.20.0 at http://localhost:6006/ (Press CTRL+C to quit)
 </div>
 
 ### Access Tensorboard visualization
+
 You can access Tensorboard interface through localhost, the default port is `6006`. To this end, open a browser and enter `127.0.0.1:6006` in the address bar.
 
 The following dashboard appears:
 ![Tensorboard dashboard](../../_static/images/tensorboard_dashboard_usage_one_experiment.png)
-
 
 ## Launch this example on the cluster
 
@@ -226,9 +230,8 @@ Below are described two methods to visualize metrics of a job on the cluster:
     1. Connect to the cluster : `ssh mila`
     2. Set up the project for the cluster : `mkdir $SCRATH/tensorboard_test`, `cd $SCRATCH/tensorboard_test`, `vim experiment.py`, `vim pyproject.toml`
     3. Launch the experiment : `vim job.sh` and `sbatch job.sh`
-    4. Launch Tensorboard : `salloc ` then `uvx tensorboard --logdir $SCRATCH/logs/$SLURM_JOB_ID`
+    4. Launch Tensorboard : `salloc` then `uvx tensorboard --logdir $SCRATCH/logs/$SLURM_JOB_ID`
     5. From the browser, access Tensorboard [on browser](http://127.0.0.1:6006).
-
 
 ### Detailed steps
 

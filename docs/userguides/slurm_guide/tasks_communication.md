@@ -25,7 +25,6 @@ spread across two nodes, computing a single sum with PyTorch or JAX.
 
 ---
 
-
 ## What this guide covers
 
 * Launching multiple tasks across two nodes with `sbatch`
@@ -68,7 +67,6 @@ Each example is based on three files:
 | `job_***.sh` | Bash script used to request an allocation and launch a job (which itself runs multiple tasks based on the requested `--nodes` and `--ntasks-per-node`) |
 | `main_***.py` | Python script containing the instructions the tasks execute. This example uses either JAX (with the script `main_jax.py`) or PyTorch (with the script `main_torch.py`) |
 | `pyproject.toml` | Configuration file used to handle the libraries `uv` fetches. A separate `pyproject.toml` is used for each example: one for PyTorch, one for JAX |
-
 
 ### Introducing the different files
 
@@ -142,7 +140,6 @@ Each example is based on three files:
     MASTER_ADDR = os.environ["MASTER_ADDR"]
     ```
 
-
     **Running the tasks**
 
     `srun uv run python main_***.py`
@@ -155,7 +152,6 @@ Each example is based on three files:
     * `uv run` sets up the environment for the tasks. For more
       information, read the [`uv` guide on portability](../prepare/python_uv.md). It is
       followed by the name of the script to run in this environment.
-
 
 === "main_torch.py"
     ```python
@@ -293,7 +289,6 @@ Each example is based on three files:
     and RANK=0). This is the task where all the `x` values have been collected.
     On the other tasks, `total` holds a partial result.
 
-
 === "pyproject.toml (for PyTorch)"
     ```toml
     [project]
@@ -313,7 +308,6 @@ Each example is based on three files:
     requires-python = ">=3.11,<3.14"
     dependencies = ["jax>=0.7"]
     ```
-
 
 ??? info "In-depth explanation on `pyproject.toml`"
     `pyproject.toml` is a configuration file used by packaging tools (`uv` in
@@ -359,7 +353,6 @@ Each example is based on three files:
         ```bash
         sbatch job_jax.sh
         ```
-
 
 3. (Optional) Check the job status
 
@@ -433,7 +426,6 @@ World size
 
 ---
 
-
 ## Next step
 
 <div class="grid cards" markdown>
@@ -450,7 +442,6 @@ World size
 
     ---
     Use the dashboard to identify and reduce wasted GPU resources.
-    
 
 -   [:material-newspaper-variant-multiple-outline:{ .lg .middle } __Share results and make research reproducible__](../reproducibility.md)
     { .card }

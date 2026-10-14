@@ -26,17 +26,16 @@ To achieve this, try to always keep in mind the following aspects:
   [Python Virtual environments](software_deps.md#python-virtual-environments)
   and, as a last resort, [containers](software_deps.md#containers).
 
-
 {%
   include-markdown "technical_reference/general_theory/python.md" start="<!-- START -->"
 %}
-
 
 ## Using Modules
 
 A lot of software, such as Python, is already compiled and available on
 the cluster through the `module` command and its sub-commands. In particular,
 if you wish to use `Python 3.10` you can simply do:
+
 ```bash
 module load python/3.10
 ```
@@ -44,7 +43,6 @@ module load python/3.10
 {%
   include-markdown "technical_reference/general_theory/portability_modules.md" start="<!-- START -->"
 %}
-
 
 ## On using containers
 
@@ -54,4 +52,3 @@ dependencies together.
 
 See the available [container tools](../../toolbox/containers/index.md) for more details on how
 to use containers on the clusters.
-

@@ -10,7 +10,6 @@
 | `/network/projects/<groupname>/`                 | Fair        | Shared space for collaboration; long-term project storage            | 1TB/1000K           | Daily  | no           |
 | `$ARCHIVE` or `/network/archive/<u>/<username>/` | Low         | Long-term personal storage                                           | 5TB                 | no     | no           |
 
-
 ## $HOME
 
 `$HOME` is appropriate for codes and libraries which are small and read once,

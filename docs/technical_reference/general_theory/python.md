@@ -24,7 +24,6 @@ in the script given to `sbatch`.
 
 ### UV
 
-
 In many cases, where your dependencies are Python packages, we highly recommend using
 [uv](https://docs.astral.sh/uv), a modern package manager for Python.
 
@@ -34,11 +33,10 @@ virtual environments, and makes your environments easier to reproduce and reuse 
 !!! note
     UV is not currently available as a module on the Mila or DRAC clusters at the time of writing.
     To use it, you first need to install it using this command on a cluster login node:
-    
+
     ```bash
     curl -LsSf https://astral.sh/uv/install.sh | sh
     ```
-
 
 |                                          | Pip/virtualenv command                                                        | UV pip equivalent                                                | UV `project` command (recommended)                                 |
 | ---------------------------------------- | ----------------------------------------------------------------------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------ |
@@ -52,13 +50,13 @@ virtual environments, and makes your environments easier to reproduce and reuse 
 While you can use UV as a drop-in replacement for pip, we recommend adopting a [project-based workflow](https://docs.astral.sh/uv/guides/projects/):
 
 * Use [`uv init`](https://docs.astral.sh/uv/reference/cli/#uv-init) to create a new project. A [`pyproject.toml`](https://docs.astral.sh/uv/guides/projects/#pyprojecttoml) file will be created. This is where your dependencies are listed.
-   
+
     ```console
     uv init --python=3.12
     ```
 
 * Use [`uv add`](https://docs.astral.sh/uv/reference/cli/#uv-add) to add (and [`uv remove`](https://docs.astral.sh/uv/reference/cli/#uv-remove) to remove) dependencies to your project. This will update the `pyproject.toml` file and update the virtual environment.
-   
+
     ```console
     uv add torch
     ```
@@ -66,10 +64,10 @@ While you can use UV as a drop-in replacement for pip, we recommend adopting a [
 * Use [`uv run`](https://docs.astral.sh/uv/reference/cli/#uv-run) to run commands, for example `uv run python train.py`.
   This will automatically do the following:
 
-    1.  Create or update the virtualenv (with the correct Python version) if necessary, based the dependencies in `pyproject.toml`.
+    1. Create or update the virtualenv (with the correct Python version) if necessary, based the dependencies in `pyproject.toml`.
     2. Activates the virtualenv.
     3. Runs the command you provided, e.g. `python train.py`.
-   
+
     ```console
     uv run python main.py
     ```
@@ -85,11 +83,13 @@ environments](https://virtualenv.pypa.io/en/stable/), although [uv](#uv) is now
 the recommended way to manage Python installations, virtual environments and dependencies.
 
 First, load the Python module you want to use:
+
 ```bash
 module load python/3.10
 ```
 
 Then, create a virtual environment in your `home` directory:
+
 ```bash
 python -m venv $HOME/<env>
 ```
@@ -108,6 +108,7 @@ pip install torch torchvision
 ```
 
 Or [Tensorflow](https://www.tensorflow.org/install/gpu):
+
 ```bash
 pip install tensorflow-gpu
 ```

@@ -130,6 +130,7 @@ For the CLI, open a terminal and run:
 ```bash
 claude
 ```
+
 <div class="result" style="border:None; padding:0" markdown>
 ``` linenums="0"
  ▐▛███▜▌   Claude Code v2.1.109
@@ -138,7 +139,6 @@ claude
 
 --------------------------------------------------------------------------------
   Login
-
 
    Claude Code can be used with your Claude subscription or billed based on API
    usage through your Console account.
@@ -151,8 +151,8 @@ claude
 
     3. 3rd-party platform · Amazon Bedrock, Microsoft Foundry, or Vertex AI
 
-
   Esc to cancel
+
 ```
 </div>
 
@@ -174,7 +174,9 @@ Skills marketplaces are GitHub repositories containing skill definitions.
 Register a marketplace as a source before installing its skills:
 
 ```
+
 /plugin marketplace add <github_owner/repo>
+
 ```
 
 !!! note
@@ -187,7 +189,9 @@ Once a marketplace is registered, install skills by name using the format
 `skill-name@marketplace-name`:
 
 ```
+
 /plugin install code-review@claude-plugins-official
+
 ```
 <div class="result" style="border:None; padding:0" markdown>
 ``` linenums="0"
@@ -198,6 +202,7 @@ Once a marketplace is registered, install skills by name using the format
 ❯ /plugin install code-review@claude-plugins-official
   ⎿  ✓ Installed code-review. Run /reload-plugins to apply.
 ```
+
 </div>
 
 After installing, activate the skill in the current session without
@@ -206,6 +211,7 @@ restarting:
 ```
 /reload-plugins
 ```
+
 <div class="result" style="border:None; padding:0" markdown>
 ``` linenums="0"
  ▐▛███▜▌   Claude Code v2.1.109
@@ -217,6 +223,7 @@ restarting:
 
 ❯ /reload-plugins
   ⎿  Reloaded: 1 plugins · 0 skill · 5 agents · 0 hooks · 0 plugin MCP servers · 0 plugin LSP servers
+
 ```
 </div>
 
@@ -224,7 +231,9 @@ Run `/plugin` and navigate to the **Installed** tab to list all currently
 installed skills.
 
 ```
+
 /plugin
+
 ```
 <div class="result" style="border:None; padding:0" markdown>
 ``` linenums="0"
@@ -246,6 +255,7 @@ installed skills.
 
    type to search · Space to toggle · Enter to details · Esc to back
 ```
+
 </div>
 
 ### Explore the official skills library
@@ -275,6 +285,7 @@ Pull the latest skill definitions from a registered marketplace:
 ```
 /plugin marketplace update claude-plugins-official
 ```
+
 <div class="result" style="border:None; padding:0" markdown>
 ``` linenums="0"
  ▐▛███▜▌   Claude Code v2.1.109
@@ -283,6 +294,7 @@ Pull the latest skill definitions from a registered marketplace:
 
 ❯ /plugin marketplace update claude-plugins-official
   ⎿  ✔ Updated 1 marketplace
+
 ```
 </div>
 
@@ -291,7 +303,9 @@ Pull the latest skill definitions from a registered marketplace:
 Uninstall a skill from the current user scope:
 
 ```
+
 /plugin uninstall code-review
+
 ```
 <div class="result" style="border:None; padding:0" markdown>
 ``` linenums="0"
@@ -302,6 +316,7 @@ Uninstall a skill from the current user scope:
 ❯ /plugin uninstall code-review
   ⎿  ✓ Enabled code-review. Run /reload-plugins to apply.
 ```
+
 </div>
 
 #### Remove a marketplace source
@@ -311,6 +326,7 @@ Remove a marketplace and make its skills unavailable for future installs:
 ```
 /plugin marketplace remove github_username/project
 ```
+
 <div class="result" style="border:None; padding:0" markdown>
 ``` linenums="0"
  ▐▛███▜▌   Claude Code v2.1.109
@@ -319,6 +335,7 @@ Remove a marketplace and make its skills unavailable for future installs:
 
 ❯ /plugin marketplace remove mila-skills
   ⎿  ✔ Removed 1 marketplace
+
 ```
 </div>
 

@@ -15,7 +15,7 @@ resource limits, maximum run time, and priority. Use the Slurm flag
 Each job assigned with a priority can preempt jobs with a lower priority:
 `unkillable > main > long`. Once preempted, the job is killed without notice and
 is automatically re-queued on the same partition until resources are available.
-To leverage a different preemption mechanism, see the 
+To leverage a different preemption mechanism, see the
 [Handling preemption](../../general_theory/multigpu.md#handling-preemption)
 page.
 
@@ -29,21 +29,20 @@ page.
 | `long`             | No limit of resources     | 7 days      |                                                            |
 | `long-cpu`         | No limit of resources     | 7 days      | CPU-only jobs                                              |
 
-
 ???+ warning "Important: H100 GPUs Partition Restrictions"
 
     H100 GPUs are **ONLY** available in the `short-unkillable` partition.
-    
+
     The `short-unkillable` partition is restricted to 4-GPU nodes only,
     specifically:
-    
+
     - **cn-g nodes**: A100 80GB GPUs (4 GPUs per node)
     - **cn-l nodes**: L40S GPUs (4 GPUs per node)
 
     As an exception, it also contains the H100 nodes:
 
     - **cn-n nodes**: H100 GPUs (8 GPUs per node, but only 4 can be used per job)
-    
+
     For a complete list of node specifications and GPU details, see [Node
     profile description](nodes.md).
 

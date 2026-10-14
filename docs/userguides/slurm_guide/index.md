@@ -8,7 +8,6 @@ description: Learn the basics of running jobs on the cluster with Slurm.
 ## Before you begin
 
 <div class="grid cards" markdown>
-    
 
 -   [:material-console-line:{ .lg .middle } __Write code__](../code_examples.md)
     { .card }
@@ -21,9 +20,7 @@ description: Learn the basics of running jobs on the cluster with Slurm.
 
 </div>
 
-
 ## Launch jobs
-
 
 This section introduces the core Slurm concepts for new users and walks through
 running one or more tasks on the cluster, from a first interactive job to
@@ -68,10 +65,7 @@ monitoring, managing and synchronizing tasks across multiple nodes.
 
 </div>
 
-
-
 ---
-
 
 ## Next step
 
@@ -89,7 +83,6 @@ monitoring, managing and synchronizing tasks across multiple nodes.
 
     ---
     Use the dashboard to identify and reduce wasted GPU resources.
-    
 
 -   [:material-newspaper-variant-multiple-outline:{ .lg .middle } __Share results and make research reproducible__](../reproducibility.md)
     { .card }

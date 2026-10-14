@@ -1,6 +1,5 @@
 # Launch many tasks on the same GPU
 
-
 If you want to use a powerful GPU efficiently, you can run many tasks on same GPU
 using a combination of `sbatch` arguments. In your `sbatch` script:
 

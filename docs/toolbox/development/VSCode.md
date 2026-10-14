@@ -1,14 +1,11 @@
 # Visual Studio Code
 
-
 One editor of choice for many researchers is VSCode. One feature of VSCode is
 remote editing through SSH. This allows you to edit files on the cluster as if
 they were local. You can also debug your programs using VSCode's debugger, open
 terminal sessions, etc.
 
-
 ## Connecting to the cluster
-
 
 VSCode cannot be used to edit code on the login nodes, because it is a heavy
 enough process (a `node` process, plus the language server, linter, and
@@ -42,12 +39,9 @@ path to the Python executable for your environment.
      path can be pasted into the interpreter selection prompt in VSCode to use
      that same environment.
 
-
 ## Troubleshooting
 
-
 ### "Cannot reconnect"
-
 
 When connecting to multiple compute nodes (and/or from multiple computers), some
 instances may crash with that message because of conflicts in the lock files
@@ -61,9 +55,7 @@ To fix this issue, you can change this setting in your `settings.json` file:
 This will store the necessary lockfiles in `/tmp` on the compute nodes (which
 are local to the node).
 
-
 ### Debugger timeouts
-
 
 Sometimes, slowness on the compute node or the networked filesystem might cause
 the VSCode debugger to timeout when starting a remote debug process. As a quick

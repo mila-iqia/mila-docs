@@ -20,10 +20,8 @@ Other interesting resources:
 
 The full source code for this example is available on [the mila-docs GitHub repository.](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/advanced/imagenet)
 
-
 This is an advanced and quite lengthy example. We recommend viewing the files directly
 on GitHub to get the best experience.
-
 
 **pyproject.toml**
 
@@ -51,7 +49,6 @@ the python files are not saved.
 This file uses a `code_checkpointing.sh` utility script.
 For now, to keep this already very heavy example a bit lighter,
 we do not include it here, but you can find it in the GitHub repository [here](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/advanced/imagenet)
-
 
 ```bash
 --8<-- "docs/examples/advanced/imagenet/job.sh"
@@ -118,4 +115,3 @@ $ srun --ntasks-per-node=1 --nodes=2 uv run python prepare_data.py
 # Launch the training script on each gpu on each node
 $ srun --ntasks=4 --nodes=2 uv run python main.py
 ```
-

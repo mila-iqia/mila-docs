@@ -30,12 +30,10 @@ description: Install tools to connect to the cluster for the first time.
 This guide helps with the installation of `uv` and `milatools`, in order to connect to the cluster.
 Connections to the clusters are then done by SSH (see [this page](../technical_reference/general_theory/ssh_on_clusters.md) to learn how the connection work underneath).
 
-
 ## What this guide covers
 
 * Understand which token to use for the portal vs. SSH cluster logins
 * Complete a cluster login once MFA is active
-
 
 [](){ #install-wsl }
 
@@ -89,7 +87,6 @@ Connections to the clusters are then done by SSH (see [this page](../technical_r
         Run all commands in this guide (`uv`, `milatools`, `ssh`) inside the
         WSL terminal, not in Windows PowerShell or Command Prompt.
 
-
 ## Install `uv` on a local machine
 
 `uv` is a fast Python package manager and workflow tool, that serves as a
@@ -101,6 +98,7 @@ On a **personal computer**, run:
 ```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
+
 <div class="result" style="border:None; padding:0" markdown>
 ``` linenums="0"
 downloading uv 0.10.10 x86_64-unknown-linux-gnu
@@ -119,7 +117,7 @@ everything's installed!
 
 !!! success "Cluster access"
     Before proceeding, complete:
-    
+
     - [Obtain your Mila account](cluster_access.md)
     - [Enable your cluster access](cluster_access.md#enable-your-cluster-access)
     - [Set up Multi-Factor Authentication (MFA)](mfa.md)
@@ -135,6 +133,7 @@ Install a **personal computer** (after [installing `uv`](#install-uv-on-a-local-
 ```bash
 uv tool install --upgrade milatools
 ```
+
 <div class="result" style="border:None; padding:0" markdown>
 ``` linenums="0"
 Resolved 23 packages in 510ms
@@ -159,6 +158,7 @@ public keys, and passwordless auth.
 ```bash
 mila init           
 ```
+
 <div class="result" style="border:None; padding:0" markdown>
 ``` linenums="0"
 Checking ssh config
@@ -169,23 +169,23 @@ What's your username on the Mila cluster?
 : MILA_USERNAME
 The following modifications will be made to /Users/username/.ssh/config:
 [...]
- ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────── 
-                                                     MILA SETUP                                                      
- ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────── 
-Checking connection to the mila login nodes... 
+ ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+                                                     MILA SETUP
+ ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Checking connection to the mila login nodes...
 ✅ Able to `ssh mila`
-❌ Local /Users/username/.ssh/id_ed25519_mila.pub is not in ~/.ssh/authorized_keys on the mila cluster, or file 
+❌ Local /Users/username/.ssh/id_ed25519_mila.pub is not in ~/.ssh/authorized_keys on the mila cluster, or file
 permissions are incorrect. Attempting to fix this now.
 Checking connection to compute nodes on the mila cluster. This is required for `mila code` to work properly.
 [18:16:21] (mila) $ mkdir -p ~/.ssh                                                                  remote_v2.py:115
 [18:16:22] (mila) $ echo 'ssh-ed25519                                                                remote_v2.py:115
-           XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX From home to Mila'                   
-           >> ~/.ssh/authorized_keys                                                                                 
+           XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX From home to Mila'
+           >> ~/.ssh/authorized_keys
            (mila) $ chmod 600 ~/.ssh/authorized_keys                                                 remote_v2.py:115
 [18:16:23] (mila) $ chmod 700 ~/.ssh                                                                 remote_v2.py:115
            (mila) $ chmod go-w ~                                                                     remote_v2.py:115
 ✅ Your public key is now present in ~/.ssh/authorized_keys on the mila cluster, and file permissions are correct.
-✅ Local /Users/username/.ssh/id_ed25519_mila.pub is in ~/.ssh/authorized_keys on the mila cluster and file 
+✅ Local /Users/username/.ssh/id_ed25519_mila.pub is in ~/.ssh/authorized_keys on the mila cluster and file
 permissions are correct. You should now be able to connect to compute nodes with SSH.
 ```
 </div>
@@ -199,11 +199,11 @@ on screen as it is typed*:
 ```bash
 ssh mila
 ```
+
 <div class="result" style="border:None; padding:0" markdown>
 ``` linenums="0"
 (username@login.server.mila.quebec) please enter otp:
 ================================================================================
-
 
                 .:.
         .*#*: :#%%%+...-*
@@ -238,11 +238,11 @@ ssh mila
   Memory usage: 70%                IPv4 address for ens18: 172.16.2.152
   Swap usage:   0%
 
-
 ==================== NEWS ======================================================
 ================================================================================
 
 Last login: Fri Feb 27 09:29:48 2026 from 74.58.126.98
+
 ```
 </div>
 
@@ -266,6 +266,7 @@ same `uv` install command as before but on a **login node**:
 ```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
+
 <div class="result" style="border:None; padding:0" markdown>
 ``` linenums="0"
 downloading uv 0.10.10 x86_64-unknown-linux-gnu
@@ -276,7 +277,6 @@ installing to /home/username/.local/bin
 everything's installed!
 ```
 </div>
-
 
 ---
 
@@ -295,8 +295,6 @@ everything's installed!
     protocol for operating network services securely over an unsecured
     network. Its most notable applications are remote login and command-line
     execution.
-
-
 
 ---
 

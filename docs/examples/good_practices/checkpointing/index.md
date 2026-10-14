@@ -6,12 +6,12 @@ and wasting compute and time. This is especially useful to manage long-running j
 into more robust and smaller ones.
 
 A complete checkpoint generally needs more than just the model weights. It also includes the optimizer
-state, the current epoch number and the states of random number generator (for Python, NumPy, PyTorch, etc.). 
+state, the current epoch number and the states of random number generator (for Python, NumPy, PyTorch, etc.).
 Saving all of these states ensures that a resumed run produces exactly the same result as an uninterrupted one.
 
 You can also save multiple intermediate checkpoints for analysis or to keep different restart points.
 Be mindful of storage space, as checkpoints can consume a lot of it, especially if your model
-and optimizer states are large. Make sure to monitor your storage usage and clean up old checkpoints as needed. 
+and optimizer states are large. Make sure to monitor your storage usage and clean up old checkpoints as needed.
 
 !!! warning
     You can use the `$SCRATCH` storage for checkpoints, but be aware that it is not backed up and may be
@@ -50,7 +50,6 @@ Two SBATCH directives are added:
 * `#SBATCH --signal=B:TERM@300`: sends `SIGTERM` to the job 5 minutes before its time limit
   expires, giving the Python process time to exit cleanly.
 
-
 ```diff
 --8<-- "docs/examples/good_practices/checkpointing/job.sh.diff"
 ```
@@ -74,8 +73,8 @@ the restarted job automatically finds the checkpoint left by the previous run. I
 `$SCRATCH/checkpointing_example/<job_id>/checkpoints/checkpoint.pth`. The `RunState` includes the model weights, optimizer state, current epoch,
 best validation accuracy, and all random number generator states.
 
-**Signal handling:** The `signal_handler` function is registered for `SIGTERM` (preemption or time-limit expiration) and 
-will interrupt the training when receiving the signals and run the clean up code (e.g., to manage a W&B run or to automatically restart the job). 
+**Signal handling:** The `signal_handler` function is registered for `SIGTERM` (preemption or time-limit expiration) and
+will interrupt the training when receiving the signals and run the clean up code (e.g., to manage a W&B run or to automatically restart the job).
 Since the last complete checkpoint was saved at the end of the previous epoch, at most one epoch of progress is lost when training is interrupted.
 
 ```diff
@@ -85,17 +84,20 @@ Since the last complete checkpoint was saved at the end of the previous epoch, a
 ## Running this example
 
 Submit the job script with:
+
 ```bash
 $ sbatch job.sh
 ```
 
 To cancel the job manually while allowing it to be requeued, send `SIGTERM` rather than the
 default `SIGKILL`:
+
 ```bash
 $ scancel --signal=TERM <jobid>
 ```
 
 To requeue a job with the same job ID and arguments:
+
 ```bash
 $ scontrol requeue <jobid>
 ```

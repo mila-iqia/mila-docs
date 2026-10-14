@@ -90,7 +90,6 @@ anything afterwards.
     [checkpointing](../examples/good_practices/checkpointing/index.md) lets a
     preempted job resume both its training state and its metric history.
 
-
 ## Monitor resource usage
 
 Resource metrics come from several sources, from the job itself to
@@ -110,9 +109,7 @@ question.
     sweep. Problems found on one job are cheaper to fix than problems repeated
     across a hundred.
 
-
 ---
-
 
 ## Next step
 
@@ -123,7 +120,6 @@ question.
 
     ---
     Use the dashboard to identify and reduce wasted GPU resources.
-    
 
 -   [:material-newspaper-variant-multiple-outline:{ .lg .middle } __Share results and make research reproducible__](reproducibility.md)
     { .card }

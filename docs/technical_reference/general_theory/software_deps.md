@@ -6,7 +6,7 @@ computation clusters.
 
 All clusters typically run on GNU/Linux distributions. Hence a minimum
 knowledge of GNU/Linux and BASH is usually required to use them. See the
-following [tutorial ](https://docs.alliancecan.ca/wiki/Linux_introduction)
+following [tutorial](https://docs.alliancecan.ca/wiki/Linux_introduction)
 for a rough guide on getting started with Linux.
 
 The Mila cluster and the Digital Research Alliance of Canada clusters both
@@ -40,7 +40,6 @@ but without interfering with your main installation. Once built, a container can
 be run on any compatible system.
 
 For more information, see [available container tools](../../toolbox/containers/index.md).
-
 
 ## Python Virtual environments
 

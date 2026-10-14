@@ -1,6 +1,5 @@
 # Launch many jobs from same shell script
 
-
 Sometimes you may want to run the same job with different arguments.
 For example, you may want to launch an experiment using a few different learning rates.
 This example shows an easy way to do this.

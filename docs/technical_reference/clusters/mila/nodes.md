@@ -7,7 +7,7 @@ hide:
   - toc
  
 ---  
-  
+
 # Node profile description
 
 <!-- Je trouve cela un peu futile de maintenir cette documentation à jour

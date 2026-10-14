@@ -29,7 +29,6 @@ wrong, why. This guide shows which tool answers each question, stage by stage.
 
 ---
 
-
 ## What this guide covers
 
 * Tracking queued and running jobs
@@ -50,6 +49,7 @@ jobs:
 ```bash
 squeue --me
 ```
+
 <div class="result" style="border:None; padding:0" markdown>
 ``` linenums="0"
 JOBID     USER    PARTITION           NAME  ST START_TIME             TIME NODES CPUS TRES_PER_N MIN_MEM NODELIST (REASON) COMMENT
@@ -84,6 +84,7 @@ for jobs that are still running or have already completed:
 ```bash
 sacct -j <JOB_ID> --format=JobID,State,ExitCode,Elapsed,MaxRSS,ReqMem
 ```
+
 <div class="result" style="border:None; padding:0" markdown>
 ``` linenums="0"
 JobID             State ExitCode    Elapsed     MaxRSS     ReqMem
@@ -219,7 +220,6 @@ Reason code
 
 ---
 
-
 ## Next step
 
 <div class="grid cards" markdown>
@@ -236,7 +236,6 @@ Reason code
 
     ---
     Use the dashboard to identify and reduce wasted GPU resources.
-    
 
 -   [:material-newspaper-variant-multiple-outline:{ .lg .middle } __Share results and make research reproducible__](../reproducibility.md)
     { .card }

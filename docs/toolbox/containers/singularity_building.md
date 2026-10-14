@@ -36,17 +36,18 @@ operation requires **memory and high cpu usage**.
   the container on your laptop** with sudo privileges. You'll only need to
   install singularity on your laptop. Windows/Mac users can look `there`_ and
   Ubuntu/Debian users can use directly:
+
   ```bash
   sudo apt-get install singularity-container
   ```
 
-*   If you **can't install singularity** on your laptop and you **don't need
+* If you **can't install singularity** on your laptop and you **don't need
     apt-get**, you can reserve a **cpu node on the Mila cluster** to build your
     container.
 
     In this case, in order to avoid too much I/O over the network, you should define
     the singularity cache locally:
-  
+
     ```bash
     export SINGULARITY_CACHEDIR=$SLURM_TMPDIR
     ```
@@ -93,17 +94,21 @@ allow you to add packages.
     .sif files, replace every occurences of .simg by .sif.
 
 !!! tip
-    If you want to use **apt-get** you have to put **sudo** ahead of the 
+    If you want to use **apt-get** you have to put **sudo** ahead of the
     following commands
 
 This command will create a writable image in the folder `pytorch`.
+
 ```bash
 singularity build --sandbox pytorch pytorch-1.0.1-cuda10.0-cudnn7-runtime.simg
 ```
+
 Then you'll need the following command to log inside the container.
+
 ```bash
 singularity shell --writable -H $HOME:/home pytorch
 ```
+
 Once you get into the container, you can use pip and install anything you need
 (Or with `apt-get` if you built the container with sudo).
 
@@ -136,10 +141,13 @@ independently of the cluster you are using.
 If you have some code that you want to test before finalizing your container,
 you have two choices.  You can either log into your container and run Python
 code inside it with:
+
 ```bash
 singularity shell --nv pytorch
 ```
+
 Or you can execute your command directly with
+
 ```bash
 singularity exec --nv pytorch Python YOUR_CODE.py
 ```
@@ -208,11 +216,13 @@ description, please look at the [singularity documentation](https://www.sylabs.i
 
 In order to build a singularity container from a singularity recipe file, you
 should use:
+
 ```bash
 sudo singularity build <NAME_CONTAINER> <YOUR_RECIPE_FILES>
 ```
 
 !!! warning
+
    You always need to use sudo when you build a container from a
    recipe. As there is no access to sudo on the cluster, a personal computer or
    the use singularity hub is needed to build a container
@@ -228,6 +238,7 @@ singularity-hub account to your GitHub account, then:
 1. Create a new github repository.
 2. Add a collection on [singularity-hub](https://www.singularity-hub.org/) and select the github repository your created.
 3. Clone the github repository on your computer.
+
     ```bash
     $ git clone <url>
     ```
@@ -243,6 +254,7 @@ singularity-hub account to your GitHub account, then:
 
 At this point, robots from singularity-hub will build the container for you, you
 will be able to download your container from the website or directly with:
+
 ```bash
 singularity pull shub://<github_username>/<repository_name>
 ```

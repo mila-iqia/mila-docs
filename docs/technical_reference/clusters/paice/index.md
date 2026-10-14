@@ -146,7 +146,7 @@ on [DRAC wiki](https://docs.alliancecan.ca/wiki/Storage_and_file_management).
 ## Using CometML and Wandb
 
 Some compute nodes don't have access to the internet, but there is a special
-module that can be loaded in order to allow training scripts to access some 
+module that can be loaded in order to allow training scripts to access some
 specific servers, which includes the necessary servers for using CometML and
 Wandb ("Weights and Biases").
 

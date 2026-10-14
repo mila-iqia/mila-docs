@@ -45,6 +45,7 @@ mila-iqai/skills repository as a marketplace source:
 ```
 /plugin marketplace add mila-iqia/skills
 ```
+
 <div class="result" style="border:None; padding:0" markdown>
 ``` linenums="0"
  ▐▛███▜▌   Claude Code v2.1.109
@@ -53,6 +54,7 @@ mila-iqai/skills repository as a marketplace source:
 
 ❯ /plugin marketplace add mila-iqia/skills
   ⎿  Successfully added marketplace: mila-skills
+
 ```
 </div>
 
@@ -80,7 +82,9 @@ The marketplace provides the following skills for Mila cluster workflows:
 Install all Mila Skills with:
 
 ```
+
 /plugin install mila-tools@mila-skills
+
 ```
 <div class="result" style="border:None; padding:0" markdown>
 ``` linenums="0"
@@ -91,6 +95,7 @@ Install all Mila Skills with:
 ❯ /plugin install mila-tools@mila-skills
   ⎿  ✓ Installed mila-tools. Run /reload-plugins to apply.
 ```
+
 </div>
 
 After installing, activate the skills in the current session without
@@ -99,6 +104,7 @@ restarting:
 ```
 /reload-plugins
 ```
+
 <div class="result" style="border:None; padding:0" markdown>
 ``` linenums="0"
  ▐▛███▜▌   Claude Code v2.1.109
@@ -107,6 +113,7 @@ restarting:
 
 ❯ /reload-plugins
   ⎿  Reloaded: 1 plugin · 0 skills · 5 agents · 0 hooks · 0 plugin MCP servers · 0 plugin LSP servers
+
 ```
 </div>
 
@@ -115,7 +122,9 @@ be guided through the selected workflow step by step or ask any related
 questions:
 
 ```
+
 I can't seem to login to the 2FA thing, I use my username and the supplied password in the email but it won't let me logon. What could be the reason for this?
+
 ```
 <div class="result" style="border:None; padding:0" markdown>
 ``` linenums="0"
@@ -159,6 +168,7 @@ I can't seem to login to the 2FA thing, I use my username and the supplied passw
   Sources:
   - https://docs.mila.quebec/getting_started/
 ```
+
 </div>
 
 ## Next step

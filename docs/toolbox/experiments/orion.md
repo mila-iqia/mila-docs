@@ -16,9 +16,9 @@ for each instances.
 
     sbatch --array=1-100 --gres=gpu:1 --cpus-per-gpu=2 --mem-per-gpu=16G scripts/hpo_launcher.sh train.py
 
-##### Configure Orion
+#### Configure Orion
 
-[Orion ](https://orion.readthedocs.io/en/stable/?badge=stable)
+[Orion](https://orion.readthedocs.io/en/stable/?badge=stable)
 is an asynchronous framework for black-box function optimization developped at Mila.
 
 Its purpose is to serve as a meta-optimizer for machine learning models and training,
@@ -61,6 +61,7 @@ You find below an example of a common set of hyperparameters.
 .. code-block:: bash
 
    # Define your hyperparameter search space
+
    cat > $SPACE_CONFIG <<- EOM
       {
          "epochs": "orion~fidelity(1, 100, base=2)",
@@ -70,7 +71,7 @@ You find below an example of a common set of hyperparameters.
       }
    EOM
 
-##### Run Orion hunt
+## Run Orion hunt
 
 Now that Orion is configured and has a search space we can execute orion-hunt
 which will start training with a different set of hyperparameters for each worker.
@@ -82,7 +83,7 @@ which will start training with a different set of hyperparameters for each worke
 > **NOTE**
 > Do not forget to move orion database out of ``scratch`` once the experiment is done.
 
-##### Full Example
+### Full Example
 
 .. code-block:: bash
 

@@ -117,7 +117,7 @@ srun --gres=gpu:1 --ntasks=1 --mem=30G --label --output=%j-step-%s.out --exclusi
 srun --gres=gpu:1 --ntasks=1 --mem=30G --label --output=%j-step-%s.out --exclusive --multi-prog python script args4 &
 wait
 ```
- 
+
 This will create 4 output files:
 
 - JOBID-step-0.out
@@ -147,6 +147,7 @@ srun --gres=gpu:1 --ntasks=2 --mem=30G --label --output=%j-step-%s-task-%t.out -
 srun --gres=gpu:1 --ntasks=2 --mem=30G --label --output=%j-step-%s-task-%t.out --exclusive --multi-prog silly.conf &
 wait
 ```
+
 `--exclusive` is important to specify subsequent step/srun to bind to different cpus.
 
 This will produce 8 output files, 2 for each step:
@@ -162,6 +163,7 @@ This will produce 8 output files, 2 for each step:
 
 Running `nvidia-smi` in silly.conf, while parsing the output, we can see 4
 GPUs allocated and 2 tasks per GPU
+
 ```bash
 $ cat JOBID-step-* | grep Tesla
 0: |   0  Tesla P100-PCIE...  On   | 00000000:04:00.0 Off |                    0 |

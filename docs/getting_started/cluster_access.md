@@ -36,12 +36,10 @@ skills:
 This guide covers obtaining your Mila account (`@mila.quebec`) and enabling your cluster
 access.
 
-
 ## What this guide covers
 
 * Obtain your Mila account
 * Enable your cluster access
-
 
 ## Obtain your Mila account (`@mila.quebec`)
 
@@ -56,7 +54,6 @@ connect to the cluster.
     If this takes longer than expected, contact [MyMila
     support](https://mila-iqia.atlassian.net/servicedesk/customer/portal/8).
 
-
 ## Enable your cluster access
 
 1. Read the [IT Onboarding
@@ -67,7 +64,6 @@ connect to the cluster.
     48 hours to become effective.
 3. IT will send an email to activate Multi-Factor Authentication.
 4. Accept the [compute cluster terms and conditions](https://docs.google.com/forms/d/e/1FAIpQLSd_AJoVV99wLEeSP-YTmI4StZ3hI8BygaebBE8m4A8fZKB1AA/viewform) for the Mila cluster.
-
 
 ---
 

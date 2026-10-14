@@ -86,6 +86,7 @@ $ singularity exec --nv \
 ```
 
 You can create also the following alias to make your life easier.
+
 ```bash
 alias my_env='singularity exec --nv \
           -H $HOME:/home \
@@ -96,6 +97,7 @@ alias my_env='singularity exec --nv \
 ```
 
 This will allow you to run any code with:
+
 ```bash
 my_env python <YOUR_CODE>
 ```

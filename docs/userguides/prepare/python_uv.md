@@ -39,7 +39,6 @@ reproducibly, and submitting Slurm batch jobs.
 * Submit a Slurm job that runs your script with `uv run python`
 * Install CLI tools system-wide with `uv tool`
 
-
 ---
 
 ## Install `uv`
@@ -205,6 +204,7 @@ installs a bit-for-bit identical environment on any machine.
 ```bash
 uv sync
 ```
+
 <div class="result" style="border:None; padding:0" markdown>
 ``` linenums="0"
 Resolved 7 packages in 0.08s
@@ -294,6 +294,7 @@ Submit the job from the project root directory:
 ```bash
 sbatch job.sh
 ```
+
 <div class="result" style="border:None; padding:0" markdown>
 ``` linenums="0"
 sbatch: --------------------------------------------------------------------------------------------------

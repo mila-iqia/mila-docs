@@ -8,10 +8,7 @@ description: Technical documentation for Mila's computing infrastructure.
 Welcome to Mila's technical documentation. If this is your first time here, we
 recommend you start by checking out the [short quick start guide](getting_started/index.md).
 
-
 <div class="grid cards" markdown>
-
-
 
 -   :material-clock-fast:{ .lg .middle } __Getting started__
 
@@ -21,8 +18,6 @@ recommend you start by checking out the [short quick start guide](getting_starte
 
     [:octicons-arrow-right-24: Getting started](getting_started/index.md)
 
-
-
 -   :material-map:{ .lg .middle } __How-tos and Guides__
 
     ---
@@ -31,7 +26,6 @@ recommend you start by checking out the [short quick start guide](getting_starte
 
     [:octicons-arrow-right-24: Learn new things](userguides/index.md)
 
-
 -   :material-robot:{ .lg .middle } __AI agents__
 
     ---
@@ -39,7 +33,6 @@ recommend you start by checking out the [short quick start guide](getting_starte
     Powercharge your workflow with AI coding tools tailored for Mila researchers
 
     [:octicons-arrow-right-24: Explore AI agents](ai/index.md)
-
 
 -   :material-book-open-page-variant:{ .lg .middle } __Technical reference__
 
@@ -68,9 +61,8 @@ recommend you start by checking out the [short quick start guide](getting_starte
     [:octicons-arrow-right-24: Join us on Slack (#mila-cluster)](https://mila-umontreal.slack.com/archives/CFAS8455H)
 
     [:octicons-arrow-right-24: Ask your question to IT support](https://mila-iqia.atlassian.net/servicedesk/customer/portal/5)
-    
-    [:octicons-arrow-right-24: {% include-markdown "generated_from_config/office_hours_short.md" %}](help/office_hours.md)
 
+    [:octicons-arrow-right-24: {% include-markdown "generated_from_config/office_hours_short.md" %}](help/office_hours.md)
 
 -   :material-bookmark:{ .lg .middle } __Cheatsheet__
 
@@ -79,22 +71,20 @@ recommend you start by checking out the [short quick start guide](getting_starte
     Access a summary of useful commands and notions
 
     [:octicons-arrow-right-24: Browse the Cheatsheet](_static/2026-05-05_Mila_compute_cheat_sheet_v4.pdf)
-        
+
     </a>
 
 </div>
 
-
 {% include-markdown "home/purpose.md" start="<!-- START -->" %}
 
-
 ## Contribution
+
 If you find any errors in the documentation, missing or unclear sections, or would simply like to contribute, please open an issue or make a pull request on the [github page](https://github.com/mila-iqia/mila-docs).
 
 ## Acknowledging Mila
 
 {% include-markdown "home/acknowledgement.md" start="<!-- START -->" %}
-
 
 ## Documentation
 

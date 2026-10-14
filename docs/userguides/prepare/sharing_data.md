@@ -42,7 +42,6 @@ folders even when conservative default permissions would otherwise deny it.
 
 ---
 
-
 ## Setting ACLs
 
 Use `setfacl` (set file access control list) to add ACLs to a file or
@@ -167,6 +166,7 @@ or directory.
 ```bash
 getfacl /path/to/folder/or/file
 ```
+
 <div class="result" style="border:None; padding:0" markdown>
 ``` linenums="0"
 # file: somedir/
