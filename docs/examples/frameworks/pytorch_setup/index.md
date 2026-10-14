@@ -14,7 +14,6 @@ The full source code for this example is available on [the mila-docs GitHub repo
 
 **job.sh**
 
-
 ```bash
 --8<-- "docs/examples/frameworks/pytorch_setup/job.sh"
 ```

@@ -6,7 +6,7 @@ description: Understand RGU and SM occupancy metrics and how to read the Compute
 # Compute Utilization Dashboard
 
 **[Link to dashboard](https://sarc.mila.quebec/dash/metrics).
-Access granted with Mila credentials.**                                                                                                 
+Access granted with Mila credentials.**
 
 The **Compute Utilization Dashboard** provides visibility into cluster usage. The
 goal is to help understand job's efficiency and spot underutilized resources.
@@ -22,6 +22,7 @@ and prejudices the entire Mila community.
 ### How is compute power calculated and represented?
 
 #### Definition of RGU
+
 The RGU (Reference GPU Unit) was implemented by the [Digital Research Alliance
 of Canada](../../technical_reference/clusters/drac/index.md) to serve as the
 benchmark GPU unit across different GPU models. Relying on the standard RGU
@@ -31,15 +32,17 @@ diverse and evolving compute supply.
 For reference, 1 A100-40Gb = 4 RGUs.
 
 #### Calculation of RGU
+
 The compute power allocated to a job is the product of 3 elements: the type
 of GPU (each amounting to a specific RGU value), the number of GPUs, and
 the elapsed time during which the job runs. Compute power is typically
-expressed over a period to measure total resource consumption over time. 
+expressed over a period to measure total resource consumption over time.
 
 Example: Getting 1 RGU for 1 week equals 1 RGU·w. Getting 2 RGUs for half a
 week also equals 1 RGU·w.
 
 #### Timestamp
+
 In the dashboard, compute allocation is by default segmented by week based
 on on execution time. If a job runs across two calendar weeks (e.g., starts
 in Week 1 and finishes in Week 2), its fixed metrics (RGU value, GPU number)
@@ -47,6 +50,7 @@ will remain the same, but its elapsed time will be split accordingly (e.g.,
 ~6 days accounted for in Week 1, and ~4 days in Week 2).
 
 #### Cost
+
 For reference, 1 RGU.year costs approximately 1100$, so 1 RGU.w = 21$, and
 1 RGU.h = 0.125$.
 
@@ -56,6 +60,7 @@ Various cluster statistics are available. We choose to look at the two following
 measurements:
 
 #### gpu_utilization
+
 This metric reports the proportion of the job duration during which one or
 more kernel was running on the GPU. This represents an intuitive measurement
 about how “busy” the GPU was, but the downside is that it does not depend on
@@ -66,6 +71,7 @@ However, this measurement can reach 100% without any guarantee that a GPU is
 being used optimally.
 
 #### SM occupancy (SMO)
+
 The Compute Utilization Dashboard is based on **Streaming Multiprocessor (SM)
 Occupancy** that better represents the notion of a GPU being used to its full
 compute potential.
@@ -77,6 +83,7 @@ High SM occupancy means the code is executing densely and efficiently on the
 GPU; whereas low SM occupancy means most of the GPU is unused.
 
 ### What is an acceptable waste level?
+
 It is almost impossible to achieve an SMO close to 100%. Anything above 80% is
 spectacularly good. Refer to the below benchmark to understand and interpret
 your SM occupancy:
@@ -98,7 +105,7 @@ leading to wasted compute power ([learn more](./profiling.md)). Therefore,
 
 * the chart [“RGU allocated vs efficiency levels"](#rgu-allocated-vs-efficiency-levels)
 in the dashboard is framed around Efficiency levels: the GPU power is split
-into *Used*, *Acceptable Idle*, and *Critical Waste*. 
+into *Used*, *Acceptable Idle*, and *Critical Waste*.
 
 * if your smo is below 15% for 2 weeks straight, you will receive a “waste
 notification” inviting you to act and optimize your jobs.
@@ -118,6 +125,7 @@ Allows you to adjust the analysis window (`Start / End`), time aggregation
 ### 📊 Main visualizations
 
 #### RGU allocated vs efficiency levels
+
 This chart tracks your efficiency over time based on SM occupancy, categorizing
 your RGU·w into three states:
 
@@ -146,6 +154,7 @@ Hover over the chart to see the exact values.
     IDT is working with DRAC to retrieve telemetry data and reduce *No data* portion.
 
 #### RGU by cluster
+
 This stacked bar chart shows total RGU consumption breakdown by cluster
 (mila, narval, tamia, etc.) over time.
 
@@ -155,6 +164,7 @@ IDT recommends using tools like [milatools](https://github.com/mila-iqia/milatoo
 and [cluv](https://mila-iqia.github.io/cluv/) to easily submit jobs across all clusters.
 
 #### Job table
+
 An interactive table listing all executed jobs along with key properties: Job ID,
 submission/start/end dates, final status (`COMPLETED`, `FAILED`, etc.), and detailed
 metrics on requested, allocated, and actually used compute.
@@ -165,6 +175,7 @@ your cluster runs can be optimized.
 ## Dashboard features
 
 ### Click to focus
+
 Click any bar in a chart to focus on that specific time period. The
 [Job table](#job-table) will automatically filter to match
 your selection. To clear the focus, click the bar again or select "Clear focus"

@@ -74,6 +74,7 @@ passed to Slurm:
 ```bash
 mila code CODE/my_first_job --alloc --gres=gpu:1 --cpus-per-task=2 --mem=16G --time=01:00:00
 ```
+
 <div class="result" style="border:None; padding:0" markdown>
 ``` linenums="0"
 [17:35:21] Checking disk quota on $HOME...                                                                                                disk_quota.py:31
@@ -130,6 +131,7 @@ the compute node. From the project directory, run:
 ```bash
 uv run python main.py
 ```
+
 <div class="result" style="border:None; padding:0" markdown>
 ``` linenums="0"
 Using CPython 3.12.11

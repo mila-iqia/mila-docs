@@ -145,6 +145,7 @@ resources are available:
 ```bash
 salloc --nodes=2 --ntasks-per-node=2 --mem=2G --time=00:30:00
 ```
+
 <div class="result" style="border:None; padding:0" markdown>
 ``` linenums="0"
 salloc: --------------------------------------------------------------------------------------------------
@@ -155,6 +156,7 @@ salloc: job 8888888 queued and waiting for resources
 
 salloc: Granted job allocation 8888888
 salloc: Nodes cn-f[001-002] are ready for job
+
 ```
 </div>
 
@@ -189,6 +191,7 @@ Running `hostname` reports where the process calling the command runs:
 ```bash
 hostname
 ```
+
 <div class="result" style="border:None; padding:0" markdown>
 ``` linenums="0"
 cn-f001.server.mila.quebec
@@ -200,6 +203,7 @@ Run steps and tasks with `srun`:
 ```bash
 srun hostname
 ```
+
 <div class="result" style="border:None; padding:0" markdown>
 ``` linenums="0"
 cn-f002.server.mila.quebec
@@ -308,6 +312,7 @@ In the VSCode integrated terminal (or a login-node terminal), submit the job:
 ```bash
 sbatch job.sh
 ```
+
 <div class="result" style="border:None; padding:0" markdown>
 ``` linenums="0"
 sbatch: --------------------------------------------------------------------------------------------------
@@ -323,6 +328,7 @@ Once submitted, the job waits to be scheduled. Its status is shown by the
 ```bash
 squeue --me
 ```
+
 <div class="result" style="border:None; padding:0" markdown>
 ``` linenums="0"
 JOBID     USER    PARTITION           NAME  ST START_TIME             TIME NODES CPUS TRES_PER_N MIN_MEM NODELIST (REASON) COMMENT

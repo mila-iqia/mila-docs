@@ -22,6 +22,7 @@ description: How the Safety net system tracks compute usage and helps you avoid 
 ---
 
 ## Compute powers Mila’s success
+
 Compute is central to most research projects at Mila and a key driver of
 breakthroughs. Making the most of available capacity is vital to the success
 of Mila and its researchers.
@@ -32,12 +33,14 @@ efficient compute usage helps everyone run more experiments and get results
 faster.
 
 ## What is expected of researchers
+
 As a researcher, you are expected to request the right amount of compute for
 your experiments and use allocated resources efficiently. This ensures that
 your experiments do not negatively impact fellow researchers who also need
 compute resources.
 
 ## The “Safety net” system
+
 To ensure everyone benefits from the compute power made available to the
 scientific community, the [IDT (Innovation, Development and Technology) team](../../home/teams.md)
 has introduced an awareness system designed to prevent unused GPUs by giving
@@ -54,6 +57,7 @@ reports and notifications, and helps you eliminate compute waste.
 | IDT Interventions             | 👨‍💻 Expert coaching                | Benefit from 1-on-1 coaching with an expert to analyze your scripts and optimize job efficiency.  |
 
 ## How IDT may help you
+
 It can be difficult to estimate how much compute your experiments actually need.
 IDT is here to support you with:
 
@@ -71,7 +75,6 @@ Let’s put those clusters to work!
 
 ---
 
-
 ## Next step
 
 <div class="grid cards" markdown>
@@ -82,7 +85,7 @@ Let’s put those clusters to work!
     ---
     Understand why metrics matter, plan their collection before a job starts,
     and choose the right tool to optimize both models and resource usage.
-    
+
 -   [:material-newspaper-variant-multiple-outline:{ .lg .middle } __Share results and make research reproducible__](../reproducibility.md)
     { .card }
 

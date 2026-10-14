@@ -5,21 +5,17 @@
     start="<!-- START -->"
 %}
 
-
 ## SSH (Secure Shell)
 
 **All access to the Mila cluster is via SSH using public-key authentication.**
 As of **March 31, 2025**, this will become the **only** means of authentication,
 and **password-based authentication will no longer work**.
 
-
 !!! tip "Reduce MFA prompts with SSH connection multiplexing"
     Adding `ControlMaster=auto` and `ControlPersist=yes` to the Mila
     SSH config entry allows MFA verification once per machine boot
     rather than once per SSH command. This is supported on Linux and
     macOS. Windows users should install WSL to use these SSH options.
-
-
 
 !!! warning "When Push and OTP are both enrolled"
     The terminal always displays an OTP prompt, regardless of which factor is
@@ -29,9 +25,7 @@ and **password-based authentication will no longer work**.
     - **To use Push:** approve the notification on the smartphone first, then
       press `Enter` without entering a code.
 
-
-
-SSH uses a configuration file `~/.ssh/config` (right next to the SSH keys) 
+SSH uses a configuration file `~/.ssh/config` (right next to the SSH keys)
 to indicate which connection settings to use for each SSH server one can
 connect to.
 
@@ -105,7 +99,6 @@ Match host *.server.mila.quebec
     Please make the required edits to the template above, especially regarding
     ``CHANGEME_YOUR_MILA_USERNAME``!
 
-
 ### Logging in with SSH
 
 Login to the Mila cluster is with `ssh` through four Internet-facing
@@ -170,7 +163,7 @@ trust them!
     This means no training scripts or experiments and no compilation of software
     unless it is small or ends quickly. Do not run anything that demands a
     sustained large amount of computation or a large amount of memory.
-    
+
     **Rule of thumb:** Never run a program that takes more than a few seconds on
     a login node, unless it mostly sleeps or mostly moves data.
 
@@ -330,12 +323,10 @@ a `.pub` suffix.
 
 If no private SSH key already exists, you can create one with the `ssh-keygen` utility:
 
-
-
 | RSA                                                                                                                                                     | Ed25519                                                                                  |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
 | *Integer factorization*                                                                                                                                 | *Elliptic curve*                                                                         |
-| <ul><li>Classic</li><li>Ultra-compatible, standardized, the reference</li><li>Large key size, but configurable</li><li>Slow or even very slow</li></ul> | <ul><li>New</li><li>Less compatible</li><li>Fixed, small key size</li><li>Fast</li></ul> |  | * New |
+| <ul><li>Classic</li><li>Ultra-compatible, standardized, the reference</li><li>Large key size, but configurable</li><li>Slow or even very slow</li></ul> | <ul><li>New</li><li>Less compatible</li><li>Fixed, small key size</li><li>Fast</li></ul> |
 | `$ ssh-keygen -t rsa -b 3072`                                                                                                                           | `$ ssh-keygen -t ed25519`                                                                |
 
 !!! tip
@@ -368,4 +359,4 @@ It is this SSH public key that you should submit in the IT Onboarding Training f
 While Mila does not provide support in debugging your shell setup, Bash is the
 standard shell to be used on the cluster and the cluster is designed to support
 both Bash and Zsh shells. If you think things should work with Zsh and they
-don't, please contact [Mila's IT support ](https://it-support.mila.quebec).
+don't, please contact [Mila's IT support](https://it-support.mila.quebec).

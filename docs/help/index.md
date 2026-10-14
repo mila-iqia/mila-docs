@@ -2,7 +2,6 @@
 
 Need a hand getting your experiments running on the cluster? You'll find everything you need on this website. We also provide different levels of support to ensure you never stay stuck in your research. Our staff is dedicated to helping you overcome any technical hurdle, whether it's via email, on Slack, or in person.
 
-
 ``` mermaid
     graph LR
         User(😔):::emoji
@@ -34,23 +33,19 @@ Need a hand getting your experiments running on the cluster? You'll find everyth
         classDef emoji font-size:40px, fill:transparent
 ```
 
-
-
 </br >
-
 
 <div class="grid cards" markdown>
 
-
--   :octicons-discussion-closed-24:{ .lg .middle } __Check the FAQ__
+-   :octicons-discussion-closed-24:{ .lg .middle } **Check the FAQ**
 
     ---
 
     Your answers may be in the **FAQ page**
 
     [:octicons-arrow-right-24: Check the FAQ](faq.md)
-    
--   :material-robot:{ .lg .middle } __Ask an AI agent__
+
+-   :material-robot:{ .lg .middle } **Ask an AI agent**
 
     ---
 
@@ -58,8 +53,7 @@ Need a hand getting your experiments running on the cluster? You'll find everyth
 
     You can click on the "Ask AI" button in the bottom-right corner
 
-
--   :fontawesome-brands-slack:{ .lg .middle } __Ask help on Slack__
+-   :fontawesome-brands-slack:{ .lg .middle } **Ask help on Slack**
 
     ---
 
@@ -67,8 +61,7 @@ Need a hand getting your experiments running on the cluster? You'll find everyth
 
     [:octicons-arrow-right-24: Ask your questions on Slack](https://mila-umontreal.slack.com/archives/CFAS8455H)
 
-
--   :octicons-code-of-conduct-24:{ .lg .middle } __Contact Mila support__
+-   :octicons-code-of-conduct-24:{ .lg .middle } **Contact Mila support**
 
     ---
 
@@ -76,7 +69,7 @@ Need a hand getting your experiments running on the cluster? You'll find everyth
 
     [:octicons-arrow-right-24: Contact the Helpdesk](https://mila-iqia.atlassian.net/servicedesk/customer/portal/5)
 
--   :material-door-open:{ .lg .middle } __Come to the Office Hours__
+-   :material-door-open:{ .lg .middle } **Come to the Office Hours**
 
     ---
 
@@ -85,7 +78,6 @@ Need a hand getting your experiments running on the cluster? You'll find everyth
     They also take place online at the same dates: the virtual invite is on the Mila-core calendar.
 
     [:octicons-arrow-right-24: Join us at the Office Hours](office_hours.md)
-
 
 </div>
 

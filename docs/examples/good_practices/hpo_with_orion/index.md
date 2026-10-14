@@ -1,6 +1,5 @@
 # Hyperparameter Optimization with Oríon
 
-
 There are different frameworks that allow you to do hyperparameter optimization, for example
 [wandb](https://wandb.ai/), [hydra](https://hydra.cc/), [Ray Tune](https://docs.ray.io/en/latest/tune/index.html)
 and [Oríon](https://orion.readthedocs.io/en/stable/index.html).
@@ -29,7 +28,6 @@ The full source code for this example is available on [the mila-docs GitHub repo
 Hyperparameter optimization is very easy to parallelize as each trial (unique set of hyperparameters) are
 independant of each other. The easiest way is to launch as many jobs as possible each trying a different
 set of hyperparameters and reporting their results back to a synchronized location (database).
-
 
 **job.sh**
 

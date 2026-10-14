@@ -1,7 +1,6 @@
 <!-- START -->
 # Cheat Sheet
 
-
 A "cheat sheet" is available to provide you with information about the Mila and DRAC clusters at a glance.
 
 [![Mila compute cheat sheet preview](../_static/2026-05-05_Mila_compute_cheat_sheet_v4_thumbnail.png)](../_static/2026-05-05_Mila_compute_cheat_sheet_v4.pdf)
@@ -23,9 +22,7 @@ but in 2025, the update happened in July because of the new DRAC allocations tha
 Comments and suggestions are welcome ([idt.cheatsheet@mila.quebec](mailto:idt.cheatsheet@mila.quebec)).
 Please also signal errors if you spot them before we do.
 
-
 ## Errata
-
 
 Here is a list of the known errors in the cheat sheet that will have to be fixed in the next version.
 

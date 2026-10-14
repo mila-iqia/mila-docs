@@ -116,7 +116,8 @@ For Hydra users who are using the submitit launcher plug-in, the `env_set` key c
 be used to set `LD_PRELOAD` in the environment as it does so too late at runtime. The
 dynamic loader reads `LD_PRELOAD` only once and very early during the startup of any
 process, before the variable can be set from inside the process. The hack must therefore
-be injected using the `setup` key in Hydra YAML config file::
+be injected using the `setup` key in Hydra YAML config file:
+
 ```yaml
 hydra:
   launcher:
@@ -184,7 +185,6 @@ in **extreme** amounts of IOPS to the filesystem.
 
     - **You will be contacted** if you violate these guidelines due to the
       severity of its impact on shared filesystems.
-
 
 ### Conda refuses to create an environment with ``Your installed CUDA driver is: not available``
 

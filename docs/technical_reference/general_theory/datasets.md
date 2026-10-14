@@ -19,7 +19,7 @@ Torrent](https://academictorrents.com). The first step is to create [an
 account and a torrent file](https://academictorrents.com/upload.php).
 
 Then drop the dataset in `/network/scratch/.transit_datasets` and send the
-Academic Torrent URL to [Mila's helpdesk ](https://it-support.mila.quebec). If
+Academic Torrent URL to [Mila's helpdesk](https://it-support.mila.quebec). If
 the dataset does not reside on the Mila cluster, only the Academic Torrent URL
 would be needed to proceed with the initial download. Then you can delete /
 stop sharing your copy.
@@ -95,7 +95,7 @@ and provide the following informations:
 
 #### Download a dataset from Mila's Google Drive with  ``gdown``
 
-The utility [gdown ](https://github.com/wkentaro/gdown) is a simple utility to
+The utility [gdown](https://github.com/wkentaro/gdown) is a simple utility to
 download data from Google Drive from the command line shell or in a Python
 script and requires no setup.
 

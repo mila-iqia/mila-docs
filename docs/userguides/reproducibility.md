@@ -63,7 +63,6 @@ release alongside the paper.
 
 ---
 
-
 ## Next step
 
 <div class="grid cards" markdown>
@@ -80,7 +79,6 @@ release alongside the paper.
 
     ---
     Use the dashboard to identify and reduce wasted GPU resources.
-    
 
 &nbsp;
 

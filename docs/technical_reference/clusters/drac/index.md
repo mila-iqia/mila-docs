@@ -14,7 +14,7 @@ and/or multi-GPU jobs.
 
 DRAC also collaborates with the [CIFAR AI Chairs](https://cifar.ca/ai/)
 to provide clusters dedicated to AI research, called the Pan-Canadian AI Compute
-Environment (PAICE) clusters. 
+Environment (PAICE) clusters.
 See [PAICE Clusters](../paice/index.md) for more information.
 
 Clusters of the Alliance are **shared with researchers across the country**,
@@ -28,7 +28,7 @@ Every university professor in Canada gets a default allocation, and they can
 add their collaborators to it. Depending on your supervisor's affiliations, you
 will have access to different allocations. Almost all students at Mila supervised
 by "core" professors should have access to the Mila global allocation described
-below, but it is not the only one. Your supervisor is your first point of 
+below, but it is not the only one. Your supervisor is your first point of
 contact in knowing which allocations you should have access to.
 
 !!! note
@@ -126,7 +126,7 @@ page](https://status.alliancecan.ca/).
     combines the FP32 and FP16 performance of the GPU as well as the memory
     size. For example, an NVIDIA A100-40G counts has 4.0 RGUs, while a while an
     H100-80G counts as 12.15 RGUs.
-    
+
     This is an improvement over the previous system of counting physical GPU
     devices and disregarding their actual performance. Saying that "we have 4
     GPUs per researcher" omits which kind of GPUs we're talking about, which is
@@ -162,10 +162,10 @@ Trillium is not run exactly like other clusters. Most notably:
   - Trillium is structured as two sub-clusters, once CPU and one GPU.
     - Trillium (CPU):
         - Login node `trillium.alliancecan.ca`
-        - Jobs are allocated on a **per-node basis**, _not_ per-CPU.
+        - Jobs are allocated on a **per-node basis**, *not* per-CPU.
     - Trillium-GPU:
         - Login node `trillium‑gpu.alliancecan.ca`
-        - Jobs allocated either **per-node**, _or_ **single-GPU** (1/4 node).
+        - Jobs allocated either **per-node**, *or* **single-GPU** (1/4 node).
   - Both share their filesystem.
   - Job submissions must be made from `$SCRATCH`.
 
@@ -320,7 +320,7 @@ cp $SLURM_TMPDIR/RESULTS_CHANGEME $SCRATCH
 ## Using CometML and Wandb
 
 Some compute nodes don't have access to the internet, but there is a special
-module that can be loaded in order to allow training scripts to access some 
+module that can be loaded in order to allow training scripts to access some
 specific servers, which includes the necessary servers for using CometML and
 Wandb ("Weights and Biases").
 
@@ -336,7 +336,6 @@ More documentation about this can be found [here](https://docs.alliancecan.ca/wi
     artifacts and wandb's logger will hang in the background when your training
     is completed, wasting resources until the job times out. It is recommended
     to use the offline mode with wandb instead to avoid such waste.
-
 
 ## FAQ
 

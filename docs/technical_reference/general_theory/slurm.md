@@ -6,6 +6,7 @@ description: Reference for essential SLURM commands to submit, monitor, and mana
 # Slurm commands guide
 
 ## Some definitions
+
 ### Jobs, job steps and tasks
 
   * A **job** is allocated defined resources (GPUs, CPU cores, RAM) for a defined time.
@@ -33,8 +34,7 @@ description: Reference for essential SLURM commands to submit, monitor, and mana
         (but see [^3]). While a job/job step can be multi-node, each task will run on one
         and only one node.
 
-
-In machine-learning work, it is very important to _think carefully_ about _how many
+In machine-learning work, it is very important to *think carefully* about _how many
 times should something be done_. Some things must be done once **per job**; others,
 once **per node**, once **per GPU**, or even once **per CPU core**.
 The number of tasks in a job step is a very important tool in deciding this.
@@ -92,15 +92,15 @@ One way this can play out, when reusing the three-job-step example above:
     They lead to different strategies for orchestrating the distributed program's
     processes, and different environment-variable contents.
 
-    A less common configuration is `--ntasks-per-gpu=N` to do _N:1_ packing of
+    A less common configuration is `--ntasks-per-gpu=N` to do *N:1* packing of
     processes onto a single GPU that they all share.
 
 [^4]: Even within a task, there are further levels of subdivision and parallelism possible:
     A process can create subprocesses ("workers"), and these processes can create multiple
     threads. However, these concepts are out of scope for SLURM and are more closely
-    related to the _Linux kernel's_ concept of threads, processes.
+    related to the *Linux kernel's* concept of threads, processes.
 
-    The _SLURM_ concept of "task" must also not be confused with the _Linux kernel's_
+    The *SLURM* concept of "task" must also not be confused with the *Linux kernel's*
     usage of the same terminology to refer to the basic unit of scheduling - roughly a thread.
 
 ## Basic usage
@@ -148,7 +148,6 @@ The *working directory* of the job will be the one where your executed `sbatch`.
     Slurm directives can be specified on the command line alongside ``sbatch`` or
     inside the job script with a line starting with ``#SBATCH``.
 
-
 #### Interactive job
 
 Workload managers usually run batch jobs to avoid having to watch its
@@ -189,7 +188,6 @@ available. The most important ones are:
 !!! tip "Request only what you need"
     Always consider requesting the adequate amount of resources to improve the
     scheduling of your job (small jobs always run first).
-
 
 #### Request specific resources
 
@@ -259,7 +257,6 @@ You can also make it an interactive job using `salloc`:
 salloc --gres=gpu:1 -c 4 --mem=10G -t 12:00:00 --partition=unkillable
 ```
 
-
 #### Information on partitions/nodes
 
 [`sinfo`](https://slurm.schedmd.com/sinfo.html) provides most of the
@@ -287,7 +284,6 @@ gpu       up     infinite     6 idle   gpu_node[1-15]
 
 To display available *nodes* and their status, you can use
 
-
 ```console
 $ sinfo -N -l
 ```
@@ -304,7 +300,6 @@ node[10-15]     6 batch     idle      2    246    16000     0  (null)   (null)
 
 And to get statistics on a job running or terminated, use `sacct` with some of
 the fields you want to display
-
 
 ```console
 $ sacct --format=User,JobID,Jobname,partition,state,time,start,end,elapsed,nnodes,ncpus,nodelist,workdir -u $USER
@@ -403,42 +398,55 @@ salloc --gres=gpu:1 -c 2 --mem=12000
 ```console title="start a batch job (same options as salloc)"
 sbatch
 ```
+
 ```console title="Re-attach a dropped interactive job"
 sattach \--pty <jobid>.0
 ```
+
 ```console title="status of all nodes"
 sinfo
 ```
+
 ```console title="List GPU type and FEATURES that you can request"
 sinfo -Ogres:27,nodelist,features -tidle,mix,alloc
 ```
+
 ```console title="(Custom) List available gpus"
 savail
 ```
+
 ```console title="Cancel a job"
 scancel <jobid>
 ```
+
 ```console title="summary status of all active jobs"
 squeue
 ```
+
 ```console title="summary status of all YOUR active jobs"
 squeue -u $USER
 ```
+
 ```console title="summary status of a specific job"
 squeue -j <jobid>
 ```
+
 ```console title="status of all jobs including requested resources (see the SLURM squeue doc for all output options)"
 squeue -Ojobid,name,username,partition,state,timeused,nodelist,gres,tres
 ```
+
 ```console title="Detailed status of a running job"
 scontrol show job <jobid>
 ```
+
 ```console title="Get the node where a finished job ran"
 sacct -j <job_id> -o NodeList
 ```
+
 ```console title="Find info about old jobs"
 sacct -u $USER -S <start_time> -E <stop_time>
 ```
+
 ```console title="List of current and recent jobs"
 sacct -oJobID,JobName,User,Partition,Node,State
 ```

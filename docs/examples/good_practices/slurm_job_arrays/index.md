@@ -1,6 +1,5 @@
 # Launch many jobs using SLURM job arrays
 
-
 Sometimes you may want to run many tasks by changing just a single parameter.
 
 One way to do that is to use SLURM job arrays, which consists of launching an array of jobs using the same script.
@@ -47,7 +46,6 @@ run 5 different initializations on the same GPU.
 ```bash
  $ sbatch --array=1-10 --ntasks-per-gpu=5 --gpus=1 --cpus-per-task=1 job.sh
 ```
-
 
 Note that each task requires at least one CPU, so you may need to adjust the cpu count in your job in order to scale up `--ntasks-per-gpu`.
 Here with `--cpu-per-task=1`, this will scale nicely.

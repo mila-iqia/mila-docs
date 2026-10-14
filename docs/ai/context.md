@@ -176,4 +176,3 @@ Context message
 :   An instruction given at the start of a session that tells the
     assistant how to interpret the provided material. Including a clear
     context message improves response accuracy.
-

@@ -65,9 +65,9 @@ the facilities of the workload manager to group the tasks so that they
 are on the same machine or machines that are closely linked to ensure
 optimal communication.  What is the best allocation depends on the
 specific cluster architecture available and the technologies it
-support (such as [InfiniBand ](https://en.wikipedia.org/wiki/InfiniBand),
-[RDMA ](https://en.wikipedia.org/wiki/Remote_direct_memory_access),
-[NVLink ](https://en.wikipedia.org/wiki/NVLink) or others)
+support (such as [InfiniBand](https://en.wikipedia.org/wiki/InfiniBand),
+[RDMA](https://en.wikipedia.org/wiki/Remote_direct_memory_access),
+[NVLink](https://en.wikipedia.org/wiki/NVLink) or others)
 
 ## Filesystem concerns
 

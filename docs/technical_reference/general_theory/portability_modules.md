@@ -13,15 +13,20 @@ $ module avail
 ```
 
 Modules can be loaded using the `load` command:
+
 ```bash
 module load <module>
 ```
+
 To search for a module or a software, use the command `spider`:
+
 ```bash
 module spider search_term
 ```
+
 E.g.: by default, `python2` will refer to the os-shipped installation of `python2.7` and `python3` to `python3.10`.
 If you want to use `python3.7` you can type:
+
 ```bash
 module load python/3.7
 ```
@@ -60,11 +65,13 @@ To check which package is loaded at import, you can print `package.__file__`
 to get the full path of the package.
 
 *Example:*
+
 ```bash
 $ module load pytorch/1.5.0
 $ python -c 'import torch;print(torch.__file__)'
 /home/mila/my_home/.local/lib/python3.7/site-packages/torch/__init__.py   <== package from your own site-package
 ```
+
 Now with the `-s` flag:
 
 ```bash

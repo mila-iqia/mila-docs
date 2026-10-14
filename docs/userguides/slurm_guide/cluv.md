@@ -68,7 +68,6 @@ command-line tool:
       with ControlMaster sessions enabled for passwordless authentication.
       Windows users need WSL2, since cluv does not run natively on Windows.
 
-
 ### Initialize the project
 
 Run `cluv init` from an existing project, or from an empty directory to
@@ -158,6 +157,7 @@ cluv sync --no-sync-datasets
 ## Submit job to clusters with `cluv submit`
 
 ### Submit a job to a cluster
+
 Submit a job to one cluster with `cluv submit <cluster> <job-script>`:
 
 ```bash
@@ -169,6 +169,7 @@ limits the job to 10 minutes). Everything after `--` is forwarded to the job
 script, which passes it to `uv run`.
 
 ### Submit a job to multiple clusters
+
 Replace the cluster name with the special value `first` to submit a job
 to all connected clusters at once:
 
@@ -231,7 +232,6 @@ ControlMaster session
 `results_path`
 :   Directory on each cluster where job results are written, and that
     `cluv sync` fetches back to the current machine.
-
 
 ## Next step
 

@@ -85,6 +85,7 @@ Install WandB as a tool on a login node, then authenticate:
 uv tool install --upgrade wandb
 wandb login
 ```
+
 <div class="result" style="border:None; padding:0" markdown>
 ``` linenums="0"
 Resolved 20 packages in 371ms
@@ -228,7 +229,6 @@ wandb.init(
    a single expandable row.
 2. Labels runs for filtering in the Runs table.
 
-
 ## Full job scripts
 
 The [`wandb_setup` example](../examples/good_practices/wandb_setup/index.md)
@@ -292,7 +292,6 @@ System metrics
     `perf/compute_s`) separately from training metrics to support bottleneck
     diagnosis.
 
-
 ## Next step
 
 <div class="grid cards" markdown>
@@ -302,7 +301,6 @@ System metrics
 
     ---
     Set ACLs (Access Control Lists) to share data with other users on the cluster.
-    
 
 -   [:material-console-line:{ .lg .middle } __Write code__](code_examples.md)
     { .card }

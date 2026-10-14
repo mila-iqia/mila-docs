@@ -149,6 +149,7 @@ the normal conversation flow.
 ```
 How do I cancel a running Slurm job on the Mila cluster?
 ```
+
 <div class="result" style="border:None; padding:0" markdown>
 ``` linenums="0"
  ▐▛███▜▌   Claude Code v2.1.109
@@ -158,15 +159,19 @@ How do I cancel a running Slurm job on the Mila cluster?
 ⏺ Use scancel with your job ID:
 
   # Cancel a specific job
+
   scancel <JOBID>
 
   # Cancel all your jobs (running and pending)
+
   scancel -u YOUR_USERNAME
 
   # Cancel only your pending jobs
+
   scancel -t PD
 
   To find your job ID first, run squeue --me. More details in the https://docs.mila.quebec/help/faq/#how-do-i-cancel-a-job.
+
 ```
 </div>
 

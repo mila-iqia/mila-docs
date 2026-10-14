@@ -32,7 +32,6 @@ description: Configure MFA to access the Mila cluster securely.
 This guide covers how to register for MFA and choose an
 authentication method to be able to complete a cluster login.
 
-
 ## What this guide covers
 
 * Choose a second-factor authentication method
@@ -110,7 +109,6 @@ token** that expires after use.
         to enter a code on your computer. It simplifies the procedure and could
         save time along the day.
 
-
 ## Subsequent logins to the portal
 
 After the first session, the portal accepts **TOTP tokens only**.
@@ -142,7 +140,6 @@ valid only for SSH cluster logins.
     **Hardware token (coming soon)**
     :   YubiKey support (FIDO2/WebAuthn) is planned for a future update.
 
-
 ## Troubleshooting
 
 **TOTP codes rejected**
@@ -152,7 +149,6 @@ valid only for SSH cluster logins.
 **Lost phone or device**
 :   Contact [IT Support](https://it-support.mila.quebec) immediately
     to reset MFA tokens.
-
 
 ---
 

@@ -73,7 +73,7 @@ uv sync
 ```
 
 ??? tip "Reusing a locally built wheel"
-    A wheel built from source (see the[Building from source](#building-from-source))
+    A wheel built from source (see the [Building from source](#building-from-source))
     can also be used. In the sources section of the `pyproject.toml`,
     replace `url` by `path`, like:
 
@@ -83,6 +83,7 @@ uv sync
     ```
 
 ### Building from source
+
 Build Flash Attention from source when no pre-built wheel matches
 the target CUDA, PyTorch, and Python combination.
 

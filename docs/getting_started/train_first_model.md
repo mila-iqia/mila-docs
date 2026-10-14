@@ -36,7 +36,6 @@ This guide covers training a small model (ResNet18) on CIFAR-10 using a single
 GPU on the Mila cluster. The guide uses Mila's CIFAR-10 dataset, stages it into
 fast local storage, and runs a Slurm batch job.
 
-
 ## What this guide covers
 
 * Train a ResNet18 on CIFAR-10 using a single GPU.
@@ -66,6 +65,7 @@ resource-intensive editor session.
 ```bash
 mila code CODE/train_first_model --alloc --cpus-per-task=2 --mem=16G --time=01:00:00
 ```
+
 <div class="result" style="border:None; padding:0" markdown>
 ``` linenums="0"
 [17:35:21] Checking disk quota on $HOME...                                                                                                     disk_quota.py:31
@@ -85,7 +85,7 @@ salloc: Granted job allocation 8888888
 === "job.sh"
 
     The job script does three things:
-    
+
     1. **`#SBATCH` directives** — Request 1 GPU, 4 CPUs, 16G memory, 15 minutes.
     2. **Data staging** — Copy CIFAR-10 from `/network/datasets/` into `$SLURM_TMPDIR/data`. Compute nodes read from `$SLURM_TMPDIR` much faster than from network storage.
     3. **Run the training script** — `srun uv run python main.py` runs the script inside the allocation.
@@ -117,6 +117,7 @@ Using the VSCode terminal, submit the job:
 ```bash
 sbatch job.sh
 ```
+
 <div class="result" style="border:None; padding:0" markdown>
 ``` linenums="0"
 sbatch: --------------------------------------------------------------------------------------------------
@@ -132,25 +133,27 @@ The output will confirm the submission of the job (e.g. `Submitted batch job
 ## Monitor the job
 
 * **Queue status:** `squeue --me`
+
   ```bash
   squeue --me
   ```
+
   <div class="result" style="border:None; padding:0" markdown>
   ``` linenums="0"
      JOBID     USER    PARTITION           NAME  ST START_TIME             TIME NODES CPUS TRES_PER_N MIN_MEM NODELIST (REASON) COMMENT
    8888888 username         long         job.sh   R 2026-03-16T19:48       1:08     1    4        N/A     16G cn-l016 (None) (null)
   ```
   </div>
-  
+
     ??? question "Job stuck with `ReqNodeNotAvail`"
-    
+
         No node matching the job's requirements is currently available — for
         example, all nodes with the requested GPU type may be busy, or some
         nodes may be DOWN or reserved for maintenance. This is **not** an error
         — the job will start automatically once a matching node is free.
-    
+
         **Options:**
-    
+
         - **Wait.** The job will start on its own. Check back with `squeue
           --me`.
         - **Request a different GPU type.** Cancel the queued job with `scancel
@@ -160,6 +163,7 @@ The output will confirm the submission of the job (e.g. `Submitted batch job
 * **Watch the output file:** Once the job starts, a file `slurm-<JOBID>.out`
   will be created containing the job log. Open it to watch the model being
   trained:
+
   ``` title="slurm-JOBID.out"
   Date:     Tue Mar 17 02:55:56 PM EDT 2026
   Hostname: cn-l023.server.mila.quebec
