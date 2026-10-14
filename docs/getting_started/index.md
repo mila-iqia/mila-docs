@@ -43,14 +43,14 @@ This section helps you in your first steps on the cluster.
 Below is an overview of the steps, from arriving at Mila to
 train your first model on the Mila cluster.
 
-### [Enable your cluster access](cluster_access.md)
+## [Enable your cluster access](cluster_access.md)
 
 * [ ] Obtain your Mila account
 * [ ] [Read the IT onboarding guide](https://sites.google.com/mila.quebec/mila-intranet/it-infrastructure/it-onboarding-training)
 * [ ] [Submit the quiz](https://docs.google.com/forms/d/e/1FAIpQLSfVd2CGlynKQHQGxhmv6XWCt-eIm9e-Jo54xrdhE06rynsL5A/viewform)
 * [ ] [Accept compute cluster terms and conditions](https://docs.google.com/forms/d/e/1FAIpQLSd_AJoVV99wLEeSP-YTmI4StZ3hI8BygaebBE8m4A8fZKB1AA/viewform)
 
-### [Set up MFA](mfa.md)
+## [Set up MFA](mfa.md)
 
 * [ ] Get your temporary registration code
 * [ ] Use it to log in [https://mfa.mila.quebec/](https://mfa.mila.quebec/)
@@ -58,7 +58,7 @@ train your first model on the Mila cluster.
 * [ ] Add at least one TOTP token
 * [ ] Add other token (TOTP, Push, email validation) if you wish
 
-### [Connect to the cluster](connect_to_the_cluster.md)
+## [Connect to the cluster](connect_to_the_cluster.md)
 
 * [ ] Install `uv`
 * [ ] Install `milatools`
@@ -66,14 +66,14 @@ train your first model on the Mila cluster.
 * [ ] `ssh` on the cluster to check your access
 * [ ] Install `uv` on the cluster
 
-### [Run your first job](my_first_job.md)
+## [Run your first job](my_first_job.md)
 
 * [ ] Create a project directory on the cluster
 * [ ] Start VSCode on a **<u>compute</u>** node
 * [ ] Create the project files
 * [ ] Run the script in the VSCode terminal
 
-### [Train your first model](train_first_model.md)
+## [Train your first model](train_first_model.md)
 
 * [ ] Submit the job through Slurm
 * [ ] Monitor the job
