@@ -34,7 +34,7 @@ description: Reference for essential SLURM commands to submit, monitor, and mana
         (but see [^3]). While a job/job step can be multi-node, each task will run on one
         and only one node.
 
-In machine-learning work, it is very important to _think carefully_ about _how many
+In machine-learning work, it is very important to *think carefully* about _how many
 times should something be done_. Some things must be done once **per job**; others,
 once **per node**, once **per GPU**, or even once **per CPU core**.
 The number of tasks in a job step is a very important tool in deciding this.
@@ -92,15 +92,15 @@ One way this can play out, when reusing the three-job-step example above:
     They lead to different strategies for orchestrating the distributed program's
     processes, and different environment-variable contents.
 
-    A less common configuration is `--ntasks-per-gpu=N` to do _N:1_ packing of
+    A less common configuration is `--ntasks-per-gpu=N` to do *N:1* packing of
     processes onto a single GPU that they all share.
 
 [^4]: Even within a task, there are further levels of subdivision and parallelism possible:
     A process can create subprocesses ("workers"), and these processes can create multiple
     threads. However, these concepts are out of scope for SLURM and are more closely
-    related to the _Linux kernel's_ concept of threads, processes.
+    related to the *Linux kernel's* concept of threads, processes.
 
-    The _SLURM_ concept of "task" must also not be confused with the _Linux kernel's_
+    The *SLURM* concept of "task" must also not be confused with the *Linux kernel's*
     usage of the same terminology to refer to the basic unit of scheduling - roughly a thread.
 
 ## Basic usage

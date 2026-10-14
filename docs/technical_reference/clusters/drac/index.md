@@ -162,10 +162,10 @@ Trillium is not run exactly like other clusters. Most notably:
   - Trillium is structured as two sub-clusters, once CPU and one GPU.
     - Trillium (CPU):
         - Login node `trillium.alliancecan.ca`
-        - Jobs are allocated on a **per-node basis**, _not_ per-CPU.
+        - Jobs are allocated on a **per-node basis**, *not* per-CPU.
     - Trillium-GPU:
         - Login node `trillium‑gpu.alliancecan.ca`
-        - Jobs allocated either **per-node**, _or_ **single-GPU** (1/4 node).
+        - Jobs allocated either **per-node**, *or* **single-GPU** (1/4 node).
   - Both share their filesystem.
   - Job submissions must be made from `$SCRATCH`.
 

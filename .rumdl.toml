@@ -25,7 +25,7 @@ disable = [
     "MD036", # Emphasis used instead of a heading
     "MD040", # Code block (```) missing language
     "MD046", # Code block opened with '```' but never closed
-    "MD049", # Emphasis should be consistant
+    # "MD049", # Emphasis should be consistant
     "MD051", # Link fragment not found
     "MD057", # Relative link does not exist
     "MD059", # Link text should be descriptive
