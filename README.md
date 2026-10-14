@@ -6,6 +6,11 @@ The docs are generated with Properdocs, and are published on the Internet thanks
 
 The official URL for the docs is https://docs.mila.quebec/
 
+## Contribution and issues
 Please feel free to reach out at [Mila support](https://mila-iqia.atlassian.net/servicedesk/customer/portal/5/group/13/create/39) in case your are facing any issue with the cluster, or to create a [Git issue](https://github.com/mila-iqia/mila-docs/issues/new) if you are facing a problem with this documentation.
 
-This repository AND the website is managed by the Mila IDT team.  
+Contributions are welcome through Pull Requests our team will validate. See [CONTRIBUTING.md](CONTRIBUTING.md) for more details.
+
+---
+
+*This repository and the website is managed by the Mila IDT team.*
