@@ -1,66 +1,92 @@
+---
+title: Logging in to the cluster
+description: >-
+  Configure SSH, log in to the Mila login nodes and connect to compute nodes.
+---
+
+<!-- START -->
+
 # Logging in to the cluster
 
-{%
-    include-markdown "userguides/cluster_access.md"
-    start="<!-- START -->"
-%}
+This guide describes the advanced ways to connect to the Mila cluster:
+configuring SSH automatically or manually, logging in to a login node,
+completing the Multi-Factor Authentication (MFA) prompt and connecting to
+compute nodes. For a quick and simple way to connect, follow the
+[Getting started](../../getting_started/index.md) section instead.
 
-## SSH (Secure Shell)
 
-**All access to the Mila cluster is via SSH using public-key authentication.**
-As of **March 31, 2025**, this will become the **only** means of authentication,
-and **password-based authentication will no longer work**.
+[](){ #ssh-secure-shell }
 
-!!! tip "Reduce MFA prompts with SSH connection multiplexing"
-    Adding `ControlMaster=auto` and `ControlPersist=yes` to the Mila
-    SSH config entry allows MFA verification once per machine boot
-    rather than once per SSH command. This is supported on Linux and
-    macOS. Windows users should install WSL to use these SSH options.
+!!! important "Public-key authentication only"
+    **All access to the Mila cluster is via SSH using public-key
+    authentication.** Since **March 31, 2025**, it is the **only** means of
+    authentication, and **password-based authentication no longer works**.
 
-!!! warning "When Push and OTP are both enrolled"
-    The terminal always displays an OTP prompt, regardless of which factor is
-    used.
 
-    - **To use TOTP or email:** enter the code and press `Enter`.
-    - **To use Push:** approve the notification on the smartphone first, then
-      press `Enter` without entering a code.
+## Before you begin
 
-SSH uses a configuration file `~/.ssh/config` (right next to the SSH keys)
-to indicate which connection settings to use for each SSH server one can
-connect to.
+
+<div class="grid cards" markdown>
+
+-   [:material-run-fast:{ .lg .middle } __Get started with the cluster__](../../getting_started/index.md)
+    { .card }
+
+    ---
+    First connection: enable cluster access, set up MFA and connect.
+
+</div>
+
+
+## What this guide covers
+
+* Configure SSH for the Mila login nodes, with `mila init` or manually
+* Log in to a login node and complete the MFA prompt
+* Use the login nodes responsibly
+* Connect to compute nodes, directly or with `mila-cpu`
+* Use a non-Bash Unix shell
+
+---
+
+## Configure SSH
+
+SSH uses the configuration file `~/.ssh/config` (next to the SSH keys) to
+determine which connection settings to use for each SSH server.
 
 The Mila **login** nodes require:
 
 - `Hostname`: `login.server.mila.quebec`
 - `Port`: `2222`
-- `User`: *Your Mila account username*
+- `User`: *your Mila account username*
 - `PreferredAuthentications`: `publickey,keyboard-interactive`
 
-A simple SSH configuration is automatically created and added for you to
-`~/.ssh/config` by [mila init](#mila-init).
-
-Alternatively, more advanced users can edit the SSH `.config` file
+[`mila init`](#mila-init) automatically adds a simple SSH configuration to
+`~/.ssh/config`. Advanced users can alternatively edit `~/.ssh/config`
 [manually](#manual-ssh-configuration).
 
-### mila init
+[](){ #mila-init }
 
-To make it easier to set up a productive environment, Mila publishes the
-[milatools](https://www.github.com/mila-iqia/milatools) package, which defines a `mila init` command which will
-automatically perform some of the below steps for you. You can install it with
-`pip` and use it, provided your Python version is at least 3.9:
+### Configure SSH with `mila init`
 
- pip install milatools
- mila init
+Mila publishes the [milatools](https://www.github.com/mila-iqia/milatools)
+package to help set up a productive environment. Its `mila init` command
+performs some of the steps below automatically. It requires Python 3.9 or
+later:
+
+```bash
+pip install milatools
+mila init
+```
 
 !!! note
-    This guide is current for ``milatools >= 0.0.17``. If you have installed an older
-    version previously, run ``uv tool upgrade milatools`` or ``pip install -U milatools`` to upgrade and re-run
-    ``mila init`` in order to apply new features or bug fixes.
+    This guide is current for `milatools >= 0.0.17`. To upgrade an older
+    installation, run `uv tool upgrade milatools` or
+    `pip install -U milatools`, then re-run `mila init` to apply new features
+    and bug fixes.
 
 ### Manual SSH configuration
 
-If you would like to set entries in your `~/.ssh/config` file manually for
-advanced use-cases, you may use the following as inspiration:
+For advanced use cases, use the following template as a starting point for
+the entries in `~/.ssh/config`:
 
 ```sshconfig
 #   Mila
@@ -95,15 +121,18 @@ Match host *.server.mila.quebec
     User                     CHANGEME_YOUR_MILA_USERNAME
 ```
 
-!!! tip "Important"
-    Please make the required edits to the template above, especially regarding
-    ``CHANGEME_YOUR_MILA_USERNAME``!
+!!! warning "Edit the template"
+    Make the required edits to the template above, especially replacing
+    `CHANGEME_YOUR_MILA_USERNAME` with your Mila username.
 
-### Logging in with SSH
 
-Login to the Mila cluster is with `ssh` through four Internet-facing
-*login nodes* and a load-balancer. At each connection through the load-balancer,
-you will be redirected to the least loaded login node.
+## Log in to a login node
+
+### Connect with SSH
+
+Login to the Mila cluster goes through `ssh`, four Internet-facing
+*login nodes* and a load-balancer. At each connection, the load-balancer
+redirects the session to the least loaded login node.
 
 ```bash
 # Generic login, will send you to one of the 4 login nodes to spread the load
@@ -113,9 +142,9 @@ ssh -p 2222 <user>@login.server.mila.quebec
 ssh -p 2222 <user>@login-X.login.server.mila.quebec
 ```
 
-This is a significant amount of typing. You are **strongly** encouraged to add
-a `mila` "alias" to your SSH configuration file (see [before](#manual-ssh-configuration)
-for how). With a correctly-configured SSH you can now simply run
+To avoid typing the full command each time, add a `mila` alias to the SSH
+configuration file (see [Configure SSH](#configure-ssh)). With SSH correctly
+configured, connect to a login node with:
 
 ```bash
 # Login with SSH configuration in place
@@ -128,70 +157,111 @@ scp  file-to-upload.zip  mila:scratch/uploaded.zip
 rsync -avz mila:my/remote/sourcecode/  downloaded-source/
 ```
 
-to connect to a login node. The `mila` alias will be available to `ssh`,
-`scp`, `rsync` and all other programs that consult the SSH configuration file.
+The `mila` alias is available to `ssh`, `scp`, `rsync` and all other programs
+that read the SSH configuration file.
 
-Upon first login, you may be asked to enter your SSH key passphrase. Use the
-passphrase you used to create your SSH key [below](#generating-an-ssh-private-key).
+!!! tip "Run commands remotely"
+    You can run commands on the login node with `ssh` directly, for example
+    `ssh mila squeue -u '$USER'`. Put single quotes around any `$VARIABLE`
+    to evaluate on the remote side; otherwise the local shell evaluates it
+    before `ssh` even runs.
 
-Upon first login, you may also be asked whether you trust the ***Mila*** login
-servers' *own* SSH keys.
-The ECDSA, RSA and ED25519 fingerprints for Mila's login nodes are:
+### First login
 
-```
+On the first login, SSH may ask for the SSH key passphrase. Enter the
+passphrase chosen when
+[generating the SSH key](../../technical_reference/general_theory/ssh_on_clusters.md#generating-an-ssh-private-key).
+
+SSH may also ask whether to trust the ***Mila*** login servers' *own* SSH
+keys. The ECDSA, RSA and ED25519 fingerprints for Mila's login nodes are:
+
+```text
 SHA256:baEGIa311fhnxBWsIZJ/zYhq2WfCttwyHRKzAb8zlp8 (ECDSA)
 SHA256:Xr0/JqV/+5DNguPfiN5hb8rSG+nBAcfVCJoSyrR0W0o (RSA)
 SHA256:gfXZzaPiaYHcrPqzHvBi6v+BWRS/lXOS/zAjOKeoBJg (ED25519)
 ```
 
-If the fingerprints presented to you do not match one of the above, **do not**
-trust them!
+!!! warning "Verify the fingerprints"
+    If the presented fingerprints do not match one of the above, **do not**
+    trust them!
 
-!!! tip "**TIP**"
-    You can run commands on the login node with ``ssh`` directly, for example
-    ``ssh mila squeue -u '$USER'`` (remember to put single quotes around any
-    ``$VARIABLE`` you want to evaluate on the remote side, otherwise it will be
-    evaluated locally before ssh is even executed).
+### Complete the MFA prompt
 
-!!! info "Important"
-    Login nodes are merely *entry points* to the cluster. They give you access
-    to the compute nodes and to the filesystem, but they are not meant to run
-    anything heavy. Do **not** run compute-heavy programs on these nodes,
-    because in doing so you could bring them down, impeding cluster access for
-    everyone.
+When connecting, the Mila cluster requests a MFA confirmation. This is done through
+the option chosen while [setting up the MFA](../../getting_started/mfa.md): TOTP code,
+Push on phone or email.
 
-    This means no training scripts or experiments and no compilation of software
-    unless it is small or ends quickly. Do not run anything that demands a
-    sustained large amount of computation or a large amount of memory.
+!!! info "When Push and OTP are both enrolled"
+    The terminal always displays an OTP prompt, regardless of which factor is
+    used.
 
-    **Rule of thumb:** Never run a program that takes more than a few seconds on
-    a login node, unless it mostly sleeps or mostly moves data.
+    - **To use TOTP or email:** enter the code and press `Enter`.
+    - **To use Push:** approve the notification on the smartphone first, then
+      press `Enter` without entering a code.
 
-    **Examples:** A non-exhaustive list of use-cases, to give a sense of what is
-    and is not allowed on the login nodes:
 
-    - A Python training script is unacceptable on the login nodes.
-      *(Too computationally- and memory-intensive)*
-    - A Python or shell script that downloads a dataset and exits immediately after may be acceptable on the login nodes. *(Mostly moves data)*
-    - A Python hyperparameter search script that uses ``submitit``  to launch jobs and only sleeps waiting for them to end and run other jobs is acceptable on the login nodes. *(Mostly sleeps; The actual jobs run on the compute nodes)*
-    - ``pip install`` of ``vllm`` or ``flash-attn`` from source code on the login nodes is unacceptable (and is likely to fail anyways). *(Takes far too much RAM to compile the CUDA kernels)*
-    - Editing code with ``nano``, ``vim`` or ``emacs`` is acceptable. *(Editors mostly sleep awaiting user keystrokes)*
-    - Copying/moving files with ``cp``, ``mv``, ... is acceptable. *(Mostly moves data)*
-    - Connecting to compute nodes with ``ssh`` is acceptable. *(Mostly sleeps, forwarding keystrokes and ports to/from the node)*
-    - Using ``tmux`` is acceptable. *(Mostly sleeps, managing the processes under its control)*
+!!! tip "Reduce MFA prompts with SSH connection multiplexing"
+    Adding `ControlMaster=auto` and `ControlPersist=yes` to the Mila
+    SSH config entry allows MFA verification once per machine boot
+    rather than once per SSH command. This is supported on Linux and
+    macOS. Windows users should install WSL to use these SSH options.
 
-    !!! note
-        In a similar vein, you should not run VSCode remote SSH instances directly on login nodes, because even though they are typically not very computationally expensive, when many people do it, they add up! See [Visual Studio Code](../../toolbox/development/VSCode.md) for specific instructions.
+## Use login nodes responsibly
 
-## Connecting to compute nodes
+!!! warning "Do not run VSCode remote SSH instances directly on login nodes"
+    Even though they are typically not very computationally expensive, when many people do it, they add up. See [Visual Studio Code](../../toolbox/development/VSCode.md) for specific instructions.
 
-If (and only if) you have a job running on compute node `cnode`, you are
-allowed to SSH to it, if for some reason you need a second terminal.
-That session will be automatically ended when your job ends.
 
-First, however, you need to add your public key (the one you provided to IT-support)
-to the ~/.ssh/authorized_keys file on the cluster, or configure an
-`ssh-agent` that will forward that key when connecting to the compute node.
+Login nodes are merely *entry points* to the cluster. They give access to the
+compute nodes and to the filesystem, but they are not meant to run anything
+heavy. Do **not** run compute-heavy programs on these nodes: doing so could
+bring them down and impede cluster access for everyone.
+
+This means no training scripts or experiments, and no compilation of software
+unless it is small or ends quickly. Do not run anything that demands a
+sustained large amount of computation or a large amount of memory.
+
+!!! important "Rule of thumb"
+    Never run a program that takes more than a few seconds on a login node,
+    unless it mostly sleeps or mostly moves data.
+
+The following non-exhaustive list gives a sense of what is and is not allowed
+on the login nodes:
+
+!!! do "Acceptable"
+    - A Python or shell script that downloads a dataset and exits immediately
+    after may be acceptable. *(Mostly moves data)*
+    - A Python hyperparameter search script that uses `submitit` to launch jobs,
+    and only sleeps waiting for them to end and run other jobs, is acceptable.
+    *(Mostly sleeps; the actual jobs run on the compute nodes)*
+    *(Takes far too much RAM to compile the CUDA kernels)*
+    - Editing code with `nano`, `vim` or `emacs` is acceptable.
+    *(Editors mostly sleep awaiting user keystrokes)*
+    - Copying or moving files with `cp`, `mv`, etc. is acceptable.
+    *(Mostly moves data)*
+    - Connecting to compute nodes with `ssh` is acceptable.
+    *(Mostly sleeps, forwarding keystrokes and ports to and from the node)*
+    - Using `tmux` is acceptable.
+    *(Mostly sleeps, managing the processes under its control)*
+
+!!! dont "Don't"
+    - A Python training script is unacceptable.
+    *(Too computationally- and memory-intensive)*
+    - `pip install` of `vllm` or `flash-attn` from source code is unacceptable,
+    and is likely to fail anyway.
+
+
+## Connect to compute nodes
+
+### Connect to a node running a job
+
+SSH access to a compute node `cnode` is allowed if, and only if, a job of
+yours is running on it, for example to open a second terminal. The session
+ends automatically when the job ends.
+
+First, add the public key (the one provided to IT support) to the
+`~/.ssh/authorized_keys` file on the cluster, or configure an `ssh-agent`
+that forwards that key when connecting to the compute node.
 
 ```bash
 # ON A LOGIN NODE
@@ -202,161 +272,70 @@ chmod 700 ~/.ssh
 chmod go-w ~   # in case you accidentally gave too many permissions for $HOME in the past.
 ```
 
-Then from the login node you can write `ssh cnode`. From your local
-machine, you can use `ssh -J mila USERNAME@cnode` (`-J` represents a "jump"
-through the login node, necessary because the compute nodes are behind a
-firewall).
+Then connect to the node:
 
-If you wish, you may also add the following wildcard rule in your `.ssh/config`:
+- From a login node, run `ssh cnode`.
+- From a local machine, run `ssh -J mila USERNAME@cnode`. The `-J` option
+  "jumps" through the login node, which is necessary because the compute
+  nodes are behind a firewall.
 
-```
+Optionally, add the following wildcard rule to `~/.ssh/config`:
+
+```sshconfig
 Host *.server.mila.quebec !*login.server.mila.quebec
     HostName %h
     User YOUR-USERNAME
     ProxyJump mila
 ```
 
-This will let you connect to a compute node with `ssh <node>.server.mila.quebec`.
+This rule allows connecting to a compute node with
+`ssh <node>.server.mila.quebec`.
 
-## Auto-allocation with mila-cpu
+### Auto-allocate a CPU with `mila-cpu`
 
-If you install milatools_ and run `mila init`, then you can automatically allocate
-a CPU on a compute node and connect to it by running:
+After installing [milatools](#mila-init) and running `mila init`, allocate a
+CPU on a compute node and connect to it automatically with:
 
 ```bash
 ssh mila-cpu
 ```
 
-And that's it! Multiple connections to `mila-cpu` will all reuse the same job, so
-you can use it liberally. It also works transparently with VSCode's Remote SSH feature.
+Multiple connections to `mila-cpu` all reuse the same job, so use it
+liberally. It also works transparently with the VSCode Remote SSH feature.
 
-We recommend using this for light work that is too heavy for a login node but does not
-require a lot of resources: editing via VSCode, building software, tests, etc.
 
-The `mila-cpu` entry should be in your `.ssh/config`. Changes are at your own risk.
+Use `mila-cpu` for light work that is too heavy for a login node but does not
+require many resources: editing in VSCode, building conda environments,
+running tests, etc.
 
-## More About SSH
 
-SSH key authentication is a technique using pairs of closely-linked keys: A
-private key, and a corresponding public key. The public key should be
-distributed to everyone, while the private key is known to only one person. The
-public key can be used by anyone to challenge a person to prove their identity.
-If they have the corresponding private key, that person can perform an
-electronic signature that everyone can validate but that no one else could have
-done themselves. The challenge is thus answered by demonstrating possession of
-the private key (and therefore their identity), without ever revealing the
-private key itself.
+!!! warning
+    The `mila-cpu` entry must be present in `~/.ssh/config`. Modify it at
+    your own risk.
 
-*Mila asks you to generate a pair of SSH keys, to provide Mila only with your
-public key,* which has no confidentiality implications, and to keep the private
-key for yourself. *The private key must remain secret and solely known to you,*
-because anyone who possesses it is capable of impersonating you by performing
-your electronic signature.
+## Use a non-Bash Unix shell
 
-During the IT Onboarding Training, you will be asked to submit that SSH
-public key.
-Mila allows a maximum of 4 different public keys per user.
+Bash is the standard shell on the cluster, and the cluster is designed to
+support both Bash and Zsh. Mila does not provide support for debugging shell
+setups, but if something should work with Zsh and does not, contact
+[Mila's IT support](https://it-support.mila.quebec).
 
-- If you do not know what SSH keys are, or are not familiar with them, you can
-  read the informative material below, then proceed to
-  generate them.
-- If you do not already have SSH keys, or are not sure if you have them, skip
-  to the instructions on how to generate them [here](#checking-if-you-already-have-ssh-private-keys).
-- If you do have SSH keys, you can skip to [configuring SSH for access to Mila](#manual-ssh-configuration).
+## Next steps
 
-### SSH Private Keys
+<div class="grid cards" markdown>
 
-A private SSH key commonly takes the form of an obscure text file. It encodes
-the digital secret of how to make an electronic signature — specifically, yours.
-The content of a private SSH key might resemble
+-   [:material-language-python:{ .lg .middle } __Manage Python Dependencies with `uv`__](python_uv.md)
+    { .card }
 
-```
------BEGIN OPENSSH PRIVATE KEY-----
-b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAABlwAAAAdzc2gtcn
-NhAAAAAwEAAQAAAYEAl5dD/UU2CvauaVS2/4/iWoUyO1Hey+m8KojCFMvIywL6PPdYRqVa
-FOidmOw/E9V2HVzHz/z/2Dj6TO5xNX1qJFk7A/ACGGc1+KguIDQWdjR6AZb5Tat+aAMYro
-…
-aSeJOS59knbQJeBwPm0g5G+iFz6R17446dXk5jn3/29AutF5MPnKwqE0mjywxCLYxVX3He
-YSOCZfE80P/z4sImW82BYxAzKtI8kKagLmHS4gXJEmE13Dfyq0xcB3q5OMuQ2fZwvukTx3
-xdWgyqFrMyC4wHAAAAAAEC
------END OPENSSH PRIVATE KEY-----
-```
+    ---
+    Install uv, manage project dependencies, run reproducible Slurm jobs, and run
+    standalone scripts.
 
-In the real world, a handwritten signature is useless for authenticating you if
-it can be easily reproduced by others. In the virtual world, the same is true.
-Anyone who has your private key is capable of reproducing your electronic signature.
-It is therefore essential that only one person — you — holds this private key.
-The secrecy of the private key is the guarantor of your online identity.
 
-Mila will ***never*** ask you for your private SSH key, and any pretense of
-request for a private key constitutes an attempt at phishing and identity theft.
-Keep your private keys safe and do not share them with anyone. Do not put them
-in the cloud, your emails, Slack messages, or Git repos. Protect them with a
-passphrase.
+-   [:material-key:{ .lg .middle } __Secure Shell (SSH)__](../../technical_reference/general_theory/ssh_on_clusters.md)
+    { .card }
 
-### SSH Public Keys
+    ---
+    How SSH keys and MFA work, and how to generate an SSH key pair.
 
-A public SSH key is a simple line of text, albeit sometimes very long, commonly
-found in a file with the `.pub` extension. It encodes the digital knowledge
-required to recognize and validate your electronic signature, without however
-making it possible to reproduce it elsewhere. Here are three examples of public
-SSH keys:
-
-```
-ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDMYpSndal/…mPL+NXs=
-ssh-ed25519 AAAA…d/ca2h  user@server
-ecdsa-sha2-nistp256 AAAA…hWQcQg8=  mylaptop
-```
-
-You are requested to submit just such a public SSH key to Mila, which will
-allow Mila to recognize you when you connect to the Mila cluster, but without
-revealing the secret of how to perform your signature.
-
-### Checking If You Already Have SSH (Private) Keys
-
-Usually, a private SSH key is found in the hidden directory `~/.ssh/` and is
-named `id_rsa`, `id_ed25519`, or `id_ecdsa`. Its corresponding public SSH
-key is usually in the same directory and shares the same filename, except with
-a `.pub` suffix.
-
-### Generating an SSH Private Key
-
-If no private SSH key already exists, you can create one with the `ssh-keygen` utility:
-
-| RSA                                                                                                                                                     | Ed25519                                                                                  |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| *Integer factorization*                                                                                                                                 | *Elliptic curve*                                                                         |
-| <ul><li>Classic</li><li>Ultra-compatible, standardized, the reference</li><li>Large key size, but configurable</li><li>Slow or even very slow</li></ul> | <ul><li>New</li><li>Less compatible</li><li>Fixed, small key size</li><li>Fast</li></ul> |
-| `$ ssh-keygen -t rsa -b 3072`                                                                                                                           | `$ ssh-keygen -t ed25519`                                                                |
-
-!!! tip
-    The pass-**phrase** protects the SSH private key **on-disk**. The
-    passphrase is **not** the same thing as the pass-**word** used to *log into
-    your personal computer account*. However, choosing them to be equal may
-    allow for automatic unlocking of encrypted SSH private keys at login, in
-    combination with software such as ``pam_ssh(8)`` (Linux) or Keychain
-    (Mac OS X/macOS). This makes the good practice of using encrypted keys
-    convenient as well.
-
-### Generating an SSH Public Key from a Private Key
-
-If a private SSH key exists, but not its corresponding SSH public key, it can
-be recalculated with the `ssh-keygen` utility as well:
-
-| RSA                                                    | Ed25519                                |
-| ------------------------------------------------------ | -------------------------------------- |
-| **SSH public key:**                                    | **SSH public key:**                    |
-| <ul><li>380 bytes @ 2048 bits (not rec.)    </li></ul> | ~82 bytes                              |
-| <ul><li>550 bytes @ 3072 bits (recommended) </li></ul> |                                        |
-| <ul><li>725 bytes @ 4096 bits (slower)      </li></ul> |                                        |
-| <ul><li>1400 bytes @ 8192 bits (much slower)</li></ul> |                                        |
-| `$ ssh-keygen -y -f ~/.ssh/id_rsa`                     | `$ ssh-keygen -y -f ~/.ssh/id_ed25519` |
-
-It is this SSH public key that you should submit in the IT Onboarding Training form.
-
-## Using a non-Bash Unix shell
-
-While Mila does not provide support in debugging your shell setup, Bash is the
-standard shell to be used on the cluster and the cluster is designed to support
-both Bash and Zsh shells. If you think things should work with Zsh and they
-don't, please contact [Mila's IT support](https://it-support.mila.quebec).
+</div>
