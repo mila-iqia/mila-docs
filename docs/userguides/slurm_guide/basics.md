@@ -261,7 +261,7 @@ command, `srun hostname`) and submits the job through the `sbatch` command.
 
     Open the project on the cluster with `mila code`, or pick `mila-cpu` in the
     Remote-SSH dropdown for a light editing session. See
-    [VSCode](../../toolbox/VSCode.md).
+    [VSCode](../../toolbox/development/VSCode.md).
 
 === "Terminal"
 
@@ -384,12 +384,11 @@ follow it through the queue, inspect and cancel it, and resolve common failures.
 
 <div class="grid cards" markdown>
 
--   [:material-monitor-eye:{ .lg .middle } __Monitor and manage jobs__](monitor_manage.md)
+-   [:material-monitor-eye:{ .lg .middle } __Submit Jobs across Clusters__](cluv.md)
     { .card }
 
     ---
-    Track jobs through the queue, inspect and cancel them, read their output,
-    and resolve common failures.
+    Easily use multiple clusters to submit jobs.
 
 &nbsp;
 

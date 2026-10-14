@@ -32,6 +32,7 @@ theme:
   icon:
     admonition:
       wip: fontawesome/solid/brush
+      monitoring: fontawesome/solid/chart-line
   name: material
   custom_dir: overrides
   features:
@@ -157,6 +158,7 @@ extra:
 
 extra_css:
   - stylesheets/extra.css
+  - stylesheets/overview.css
 
 hooks:
   - hooks/copy_office_hours.py
@@ -172,7 +174,7 @@ plugins:
       redirect_maps:
         "waste.md": "userguides/compute_utilization_guidelines/profiling.md"
         "Userguide_login_mfa.md": "getting_started/mfa.md"
-        "Userguide.md": "userguides/login.md"
+        "Userguide.md": "userguides/prepare/login.md"
   - search
   - include-markdown:
       dedent: true

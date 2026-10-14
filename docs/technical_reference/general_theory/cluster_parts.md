@@ -24,9 +24,9 @@ first, then use it to prepare work and submit it to the compute nodes.
 
 Connections to login nodes typically use a remote shell, most commonly
 [SSH](ssh_on_clusters.md). Some clusters, such as the Mila cluster, also
-provide a [JupyterHub](../../toolbox/jupyterhub.md) web interface. To connect
+provide a [JupyterHub](../../toolbox/development/jupyterhub.md) web interface. To connect
 to the Mila cluster, see
-[Logging in to the cluster](../../userguides/login.md).
+[Logging in to the cluster](../../userguides/prepare/login.md).
 
 ### The compute nodes
 

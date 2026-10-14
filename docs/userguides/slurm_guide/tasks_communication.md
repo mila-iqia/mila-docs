@@ -15,20 +15,16 @@ spread across two nodes, computing a single sum with PyTorch or JAX.
 
 <div class="grid cards" markdown>
 
--   [:material-lightbulb-alert-outline:{ .lg .middle } __Understand Slurm__](basics.md)
+-   [:material-monitor-eye:{ .lg .middle } __Submit Jobs across Clusters__](cluv.md)
     { .card }
 
     ---
-    Ask for a resource allocation and launch tasks on the cluster through an interactive job.
-
--   [:material-monitor-eye:{ .lg .middle } __Monitor and manage jobs__](monitor_manage.md)
-    { .card }
-
-    ---
-    Track jobs through the queue, inspect and cancel them, and read their
-    output.
+    Easily use multiple clusters to submit jobs.
 
 </div>
+
+---
+
 
 ## What this guide covers
 
@@ -157,7 +153,7 @@ Each example is based on three files:
       following `srun`, so each task runs `uv run python main_torch.py` or `uv
       run python main_jax.py`.
     * `uv run` sets up the environment for the tasks. For more
-      information, read the [`uv` guide on portability](../python_uv.md). It is
+      information, read the [`uv` guide on portability](../prepare/python_uv.md). It is
       followed by the name of the script to run in this environment.
 
 
@@ -335,7 +331,7 @@ Each example is based on three files:
         Open the project on a compute node with `mila code`, or pick `mila-cpu`
         in the Remote-SSH dropdown, then create `job_***.sh`, `main_***.py` and
         `pyproject.toml` in the VSCode explorer. See
-        [VSCode](../../toolbox/VSCode.md) and the [Get Started
+        [VSCode](../../toolbox/development/VSCode.md) and the [Get Started
         guide](../../getting_started/index.md).
 
     === "Terminal"
@@ -435,15 +431,32 @@ World size
     batch script so that every task connects to the same coordination
     endpoint.
 
+---
+
+
 ## Next step
 
 <div class="grid cards" markdown>
 
--   [:material-multicast:{ .lg .middle } __Launch many jobs from the same shell script__](../../examples/good_practices/launch_many_jobs/index.md)
+-   [:material-trending-up:{ .lg .middle } __Monitor and Optimize Experiments__](../monitoring.md)
     { .card }
 
     ---
-    Good practice to run the same experiment with different arguments.
+    Understand why metrics matter, plan their collection before a job starts,
+    and choose the right tool to optimize both models and resource usage.
+
+-   [:material-server:{ .lg .middle } __Compute Utilization Dashboard__](../compute_utilization_guidelines/index.md)
+    { .card }
+
+    ---
+    Use the dashboard to identify and reduce wasted GPU resources.
+    
+
+-   [:material-newspaper-variant-multiple-outline:{ .lg .middle } __Share results and make research reproducible__](../reproducibility.md)
+    { .card }
+
+    ---
+    Make cluster experiments reproducible and shareable — environment management, version control, dataset sharing, and research paper distribution.
 
 &nbsp;
 

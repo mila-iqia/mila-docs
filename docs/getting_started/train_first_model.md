@@ -196,7 +196,7 @@ The output will confirm the submission of the job (e.g. `Submitted batch job
 
 <div class="grid cards" markdown>
 
--   [:material-language-python:{ .lg .middle } __Manage Python Dependencies with `uv`__](../userguides/python_uv.md)
+-   [:material-language-python:{ .lg .middle } __Manage Python Dependencies with `uv`__](../userguides/prepare/python_uv.md)
     { .card }
 
     ---

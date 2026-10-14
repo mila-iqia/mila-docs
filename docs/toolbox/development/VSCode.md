@@ -24,14 +24,14 @@ The simplest way to do so is to install [milatools](https://github.com/mila-iqia
 that automatically allocates a CPU on a compute node for you. Then you can simply
 choose `mila-cpu` in the dropdown menu for remote SSH connection.
 
-The milatools package also provides the [mila code command](../getting_started/index.md#connect-to-the-cluster) which
+The milatools package also provides the [mila code command](../../getting_started/index.md#connect-to-the-cluster) which
 gives you greater flexibility by letting you allocate more cores, RAM and/or GPUs.
 
 ## Activating an environment
 
 [Reference](https://code.visualstudio.com/docs/python/environments)
 
-To activate a conda or pip environment, you can open the command palette with
+To activate a Python environment, you can open the command palette with
 Ctrl+Shift+P and type "Python: Select interpreter". This will prompt you for the
 path to the Python executable for your environment.
 
