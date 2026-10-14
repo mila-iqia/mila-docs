@@ -145,6 +145,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
     - [Install Mila Skills for Claude Code](ai/mila_skills.md)
     - [Mila Docs MCP Server](ai/mcp.md)
     - [Add Mila Docs context to AI assistants](ai/context.md)
+    - [🔗 Skills from the community](ai/skills_list.md)
 - [Technical reference](technical_reference/index.md)
     - [Cheatsheet](technical_reference/cheatsheet.md)
     - [Glossary](technical_reference/glossary.md)
