@@ -7,7 +7,7 @@ hide:
 
 # How-tos and guides
 
-Seven steps cover the full lifecycle of a research experiment on the cluster. <!-- Guides are proposed for each one of these steps. -->
+Nine steps cover the full lifecycle of a research experiment on the cluster. <!-- Guides are proposed for each one of these steps. -->
 
 !!! tip "Getting started"
     If you want to learn the basics and have a step-by-step understanding on how to run a job on the cluster, the [Getting started](../getting_started/index.md) section is for you!
