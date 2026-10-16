@@ -7,7 +7,7 @@ description: >-
 
 # Install Mila Skills for Claude Code
 
-The [mila-iqai/skills](https://github.com/mila-iqia/skills) marketplace is a
+The [mila-iqia/skills](https://github.com/mila-iqia/skills) marketplace is a
 curated collection of Claude Code skills for Mila cluster workflows. Once
 installed, each skill becomes available as a slash command that guides
 researchers through common tasks — from setting up a Mila account to submitting
@@ -30,7 +30,7 @@ and installing the mila-* skills.
 
 ## What this guide covers
 
-* Add the [mila-iqai/skills](https://github.com/mila-iqia/skills) marketplace as
+* Add the [mila-iqia/skills](https://github.com/mila-iqia/skills) marketplace as
   a source in Claude Code
 * Review the available Mila Skills
 * Install and invoke a Mila Skill
@@ -40,7 +40,7 @@ and installing the mila-* skills.
 ## Add the Mila Skills marketplace
 
 In a Claude Code session, run the following command to register the
-mila-iqai/skills repository as a marketplace source:
+mila-iqia/skills repository as a marketplace source:
 
 ```
 /plugin marketplace add mila-iqia/skills
@@ -62,7 +62,7 @@ Claude Code fetches the marketplace metadata and makes the available skills
 visible for installation.
 
 !!! note
-    Verify the command above against the [mila-iqai/skills
+    Verify the command above against the [mila-iqia/skills
     README](https://github.com/mila-iqia/skills) — the marketplace API may
     evolve over time.
 
