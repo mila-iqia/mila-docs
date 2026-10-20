@@ -233,11 +233,10 @@ on the login nodes:
     - Using `tmux` is acceptable.
     *(Mostly sleeps, managing the processes under its control)*
 
-!!! dont "Don't"
-    - A Python training script is unacceptable.
+!!! dont "Unacceptable"
+    - A Python training script.
     *(Too computationally- and memory-intensive)*
-    - `pip install` of `vllm` or `flash-attn` from source code is unacceptable,
-    and is likely to fail anyway.
+    - `pip install` of packages like `vllm` or `flash-attn` from source code. *(Takes too much RAM to compile the CUDA kernels)*.
 
 ## Connect to compute nodes
 
