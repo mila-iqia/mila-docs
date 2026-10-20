@@ -219,18 +219,17 @@ on the login nodes:
 
 !!! do "Acceptable"
     - A Python or shell script that downloads a dataset and exits immediately
-    after may be acceptable. *(Mostly moves data)*
+    after. *(Mostly moves data)*
     - A Python hyperparameter search script that uses `submitit` to launch jobs,
-    and only sleeps waiting for them to end and run other jobs, is acceptable.
+    and only sleeps waiting for them to end and run other jobs.
     *(Mostly sleeps; the actual jobs run on the compute nodes)*
-    *(Takes far too much RAM to compile the CUDA kernels)*
-    - Editing code with `nano`, `vim` or `emacs` is acceptable.
+    - Editing code with `nano`, `vim` or `emacs`.
     *(Editors mostly sleep awaiting user keystrokes)*
-    - Copying or moving files with `cp`, `mv`, etc. is acceptable.
+    - Copying or moving files with `cp`, `mv`, etc.
     *(Mostly moves data)*
-    - Connecting to compute nodes with `ssh` is acceptable.
+    - Connecting to compute nodes with `ssh`.
     *(Mostly sleeps, forwarding keystrokes and ports to and from the node)*
-    - Using `tmux` is acceptable.
+    - Using `tmux`.
     *(Mostly sleeps, managing the processes under its control)*
 
 !!! dont "Unacceptable"
