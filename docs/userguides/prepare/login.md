@@ -16,10 +16,6 @@ compute nodes. For a quick and simple way to connect, follow the
 
 [](){ #ssh-secure-shell }
 
-!!! important "Public-key authentication only"
-    **All access to the Mila cluster is via SSH using public-key
-    authentication.** Since **March 31, 2025**, it is the **only** means of
-    authentication, and **password-based authentication no longer works**.
 
 ## Before you begin
 
