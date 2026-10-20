@@ -3,7 +3,6 @@ title: Secure Shell (SSH)
 description: In-depth knowledge about SSH
 ---
 
-<!-- START -->
 # Secure Shell (SSH)
 
 ## SSH authentication on the cluster
