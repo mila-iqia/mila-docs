@@ -206,9 +206,6 @@ compute nodes and to the filesystem, but they are not meant to run anything
 heavy. Do **not** run compute-heavy programs on these nodes: doing so could
 bring them down and impede cluster access for everyone.
 
-This means no training scripts or experiments, and no compilation of software
-unless it is small or ends quickly. Do not run anything that demands a
-sustained large amount of computation or a large amount of memory.
 
 !!! important "Rule of thumb"
     Never run a program that takes more than a few seconds on a login node,
