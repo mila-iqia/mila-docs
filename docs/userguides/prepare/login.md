@@ -75,108 +75,231 @@ the entries in `~/.ssh/config`.
 !!! warning "Edit the template"
     Note that you:
 
-    - have to change the username (`CHANGE_YOUR_MILA_USERNAME`) to your cluster username
+    - have to change the usernames (`CHANGE_TO_YOUR_MILA_USERNAME` and/or `CHANGE_TO_YOUR_DRAC_USERNAME`) to your cluster username
     - may have to change the SSH key path (`~/.ssh/id_rsa_mila`) or generate such a key (see [Generating an SSH Private Key](../../technical_reference/general_theory/ssh_on_clusters.md#generating-an-ssh-private-key))
 
-```sshconfig
-Host mila
-  HostName login.server.mila.quebec
-  PreferredAuthentications publickey,keyboard-interactive
-  Port 2222
-  ServerAliveInterval 120
-  ServerAliveCountMax 5
-  ControlMaster auto
-  ControlPath ~/.cache/ssh/%r@%h:%p
-  ControlPersist yes
-  User CHANGE_YOUR_MILA_USERNAME
-  IdentityFile ~/.ssh/id_rsa_mila
+=== "Mila cluster configuration"
+    ```sshconfig
+    Host mila
+        HostName login.server.mila.quebec
+        PreferredAuthentications publickey,keyboard-interactive
+        Port 2222
+        ServerAliveInterval 120
+        ServerAliveCountMax 5
+        ControlMaster auto
+        ControlPath ~/.cache/ssh/%r@%h:%p
+        ControlPersist yes
+        User CHANGE_TO_YOUR_MILA_USERNAME
+        IdentityFile ~/.ssh/id_rsa_mila
 
-Host mila-cpu
-  Port 2222
-  ForwardAgent yes
-  StrictHostKeyChecking no
-  LogLevel ERROR
-  UserKnownHostsFile /dev/null
-  RequestTTY force
-  ConnectTimeout 600
-  ServerAliveInterval 120
-  ProxyCommand ssh mila "/cvmfs/config.mila.quebec/scripts/milatools/slurm-proxy.sh mila-cpu --mem=8G"
-  RemoteCommand /cvmfs/config.mila.quebec/scripts/milatools/entrypoint.sh mila-cpu
-  ControlMaster auto
-  ControlPath ~/.cache/ssh/%r@%h:%p
-  ControlPersist yes
-  User CHANGE_YOUR_MILA_USERNAME
-  IdentityFile ~/.ssh/id_rsa_mila
+    Host mila-cpu
+        Port 2222
+        ForwardAgent yes
+        StrictHostKeyChecking no
+        LogLevel ERROR
+        UserKnownHostsFile /dev/null
+        RequestTTY force
+        ConnectTimeout 600
+        ServerAliveInterval 120
+        ProxyCommand ssh mila "/cvmfs/config.mila.quebec/scripts/milatools/slurm-proxy.sh mila-cpu --mem=8G"
+        RemoteCommand /cvmfs/config.mila.quebec/scripts/milatools/entrypoint.sh mila-cpu
+        ControlMaster auto
+        ControlPath ~/.cache/ssh/%r@%h:%p
+        ControlPersist yes
+        User CHANGE_TO_YOUR_MILA_USERNAME
+        IdentityFile ~/.ssh/id_rsa_mila
 
-Host *.server.mila.quebec !*login.server.mila.quebec
-  ProxyJump mila
-  ControlMaster auto
-  ControlPath ~/.cache/ssh/%r@%h:%p
-  ControlPersist yes
-  User CHANGE_YOUR_MILA_USERNAME
-  IdentityFile ~/.ssh/id_rsa_mila
+    Host *.server.mila.quebec !*login.server.mila.quebec
+        ProxyJump mila
+        ControlMaster auto
+        ControlPath ~/.cache/ssh/%r@%h:%p
+        ControlPersist yes
+        User CHANGE_TO_YOUR_MILA_USERNAME
+        IdentityFile ~/.ssh/id_rsa_mila
 
-Host cn-????
-  ProxyJump mila
-  ControlMaster auto
-  ControlPath ~/.cache/ssh/%r@%h:%p
-  ControlPersist yes
-  User CHANGE_YOUR_MILA_USERNAME
-  IdentityFile ~/.ssh/id_rsa_mila
+    Host cn-????
+        ProxyJump mila
+        ControlMaster auto
+        ControlPath ~/.cache/ssh/%r@%h:%p
+        ControlPersist yes
+        User CHANGE_TO_YOUR_MILA_USERNAME
+        IdentityFile ~/.ssh/id_rsa_mila
+    ```
 
-Host narval rorqual fir nibi trillium trillium-gpu tamia killarney vulcan
-  HostName %h.alliancecan.ca
-  ControlMaster auto
-  ControlPath ~/.cache/ssh/%r@%h:%p
-  ControlPersist yes
-  User CHANGE_YOUR_MILA_USERNAME
-  IdentityFile ~/.ssh/id_rsa_drac
+=== "DRAC/PAICE clusters configuration"
+    ```sshconfig
+    Host narval rorqual fir nibi trillium trillium-gpu tamia killarney vulcan
+        HostName %h.alliancecan.ca
+        ControlMaster auto
+        ControlPath ~/.cache/ssh/%r@%h:%p
+        ControlPersist yes
+        User CHANGE_TO_YOUR_DRAC_USERNAME
+        IdentityFile ~/.ssh/id_rsa_drac
 
-Host nc????? ng?????
-  ProxyJump narval
-  User CHANGE_YOUR_MILA_USERNAME
-  IdentityFile ~/.ssh/id_rsa_drac
+    Host nc????? ng?????
+        ProxyJump narval
+        User CHANGE_TO_YOUR_DRAC_USERNAME
+        IdentityFile ~/.ssh/id_rsa_drac
 
-Host rc????? rg????? rl?????
-  ProxyJump rorqual
-  User CHANGE_YOUR_MILA_USERNAME
-  IdentityFile ~/.ssh/id_rsa_drac
+    Host rc????? rg????? rl?????
+        ProxyJump rorqual
+        User CHANGE_TO_YOUR_DRAC_USERNAME
+        IdentityFile ~/.ssh/id_rsa_drac
 
-Host fc????? fb?????
-  ProxyJump fir
-  User CHANGE_YOUR_MILA_USERNAME
-  IdentityFile ~/.ssh/id_rsa_drac
+    Host fc????? fb?????
+        ProxyJump fir
+        User CHANGE_TO_YOUR_DRAC_USERNAME
+        IdentityFile ~/.ssh/id_rsa_drac
 
-Host c? c?? c??? g? g?? l? l?? m? m?? u?
-  ProxyJump nibi
-  User CHANGE_YOUR_MILA_USERNAME
-  IdentityFile ~/.ssh/id_rsa_drac
+    Host c? c?? c??? g? g?? l? l?? m? m?? u?
+        ProxyJump nibi
+        User CHANGE_TO_YOUR_DRAC_USERNAME
+        IdentityFile ~/.ssh/id_rsa_drac
 
-Host tg????? tc?????
-  ProxyJump tamia
-  User CHANGE_YOUR_MILA_USERNAME
-  IdentityFile ~/.ssh/id_rsa_drac
+    Host tg????? tc?????
+        ProxyJump tamia
+        User CHANGE_TO_YOUR_DRAC_USERNAME
+        IdentityFile ~/.ssh/id_rsa_drac
 
-Host kn???
-  ProxyJump killarney
-  User CHANGE_YOUR_MILA_USERNAME
-  IdentityFile ~/.ssh/id_rsa_drac
+    Host kn???
+        ProxyJump killarney
+        User CHANGE_TO_YOUR_DRAC_USERNAME
+        IdentityFile ~/.ssh/id_rsa_drac
 
-Host rack??-??
-  ProxyJump vulcan
-  User CHANGE_YOUR_MILA_USERNAME
-  IdentityFile ~/.ssh/id_rsa_drac
+    Host rack??-??
+        ProxyJump vulcan
+        User CHANGE_TO_YOUR_DRAC_USERNAME
+        IdentityFile ~/.ssh/id_rsa_drac
 
-Host !trillium tri????
-  ProxyJump trillium
-  User CHANGE_YOUR_MILA_USERNAME
-  IdentityFile ~/.ssh/id_rsa_drac
+    Host !trillium tri????
+        ProxyJump trillium
+        User CHANGE_TO_YOUR_DRAC_USERNAME
+        IdentityFile ~/.ssh/id_rsa_drac
 
-Host !trillium trig????
-  ProxyJump trillium-gpu
-  User CHANGE_YOUR_MILA_USERNAME
-  IdentityFile ~/.ssh/id_rsa_drac
-```
+    Host !trillium trig????
+        ProxyJump trillium-gpu
+        User CHANGE_TO_YOUR_DRAC_USERNAME
+        IdentityFile ~/.ssh/id_rsa_drac
+    ```
+
+=== "All clusters configuration"
+    ```sshconfig
+    Host mila
+        HostName login.server.mila.quebec
+        PreferredAuthentications publickey,keyboard-interactive
+        Port 2222
+        ServerAliveInterval 120
+        ServerAliveCountMax 5
+        ControlMaster auto
+        ControlPath ~/.cache/ssh/%r@%h:%p
+        ControlPersist yes
+        User CHANGE_TO_YOUR_MILA_USERNAME
+        IdentityFile ~/.ssh/id_rsa_mila
+
+    Host mila-cpu
+        Port 2222
+        ForwardAgent yes
+        StrictHostKeyChecking no
+        LogLevel ERROR
+        UserKnownHostsFile /dev/null
+        RequestTTY force
+        ConnectTimeout 600
+        ServerAliveInterval 120
+        ProxyCommand ssh mila "/cvmfs/config.mila.quebec/scripts/milatools/slurm-proxy.sh mila-cpu --mem=8G"
+        RemoteCommand /cvmfs/config.mila.quebec/scripts/milatools/entrypoint.sh mila-cpu
+        ControlMaster auto
+        ControlPath ~/.cache/ssh/%r@%h:%p
+        ControlPersist yes
+        User CHANGE_TO_YOUR_MILA_USERNAME
+        IdentityFile ~/.ssh/id_rsa_mila
+
+    Host *.server.mila.quebec !*login.server.mila.quebec
+        ProxyJump mila
+        ControlMaster auto
+        ControlPath ~/.cache/ssh/%r@%h:%p
+        ControlPersist yes
+        User CHANGE_TO_YOUR_MILA_USERNAME
+        IdentityFile ~/.ssh/id_rsa_mila
+
+    Host cn-????
+        ProxyJump mila
+        ControlMaster auto
+        ControlPath ~/.cache/ssh/%r@%h:%p
+        ControlPersist yes
+        User CHANGE_TO_YOUR_MILA_USERNAME
+        IdentityFile ~/.ssh/id_rsa_mila
+
+    Host narval rorqual fir nibi trillium trillium-gpu tamia killarney vulcan
+        HostName %h.alliancecan.ca
+        ControlMaster auto
+        ControlPath ~/.cache/ssh/%r@%h:%p
+        ControlPersist yes
+        User CHANGE_TO_YOUR_DRAC_USERNAME
+        IdentityFile ~/.ssh/id_rsa_drac
+
+    Host nc????? ng?????
+        ProxyJump narval
+        User CHANGE_TO_YOUR_DRAC_USERNAME
+        IdentityFile ~/.ssh/id_rsa_drac
+
+    Host rc????? rg????? rl?????
+        ProxyJump rorqual
+        User CHANGE_TO_YOUR_DRAC_USERNAME
+        IdentityFile ~/.ssh/id_rsa_drac
+
+    Host fc????? fb?????
+        ProxyJump fir
+        User CHANGE_TO_YOUR_DRAC_USERNAME
+        IdentityFile ~/.ssh/id_rsa_drac
+
+    Host c? c?? c??? g? g?? l? l?? m? m?? u?
+        ProxyJump nibi
+        User CHANGE_TO_YOUR_DRAC_USERNAME
+        IdentityFile ~/.ssh/id_rsa_drac
+
+    Host tg????? tc?????
+        ProxyJump tamia
+        User CHANGE_TO_YOUR_DRAC_USERNAME
+        IdentityFile ~/.ssh/id_rsa_drac
+
+    Host kn???
+        ProxyJump killarney
+        User CHANGE_TO_YOUR_DRAC_USERNAME
+        IdentityFile ~/.ssh/id_rsa_drac
+
+    Host rack??-??
+        ProxyJump vulcan
+        User CHANGE_TO_YOUR_DRAC_USERNAME
+        IdentityFile ~/.ssh/id_rsa_drac
+
+    Host !trillium tri????
+        ProxyJump trillium
+        User CHANGE_TO_YOUR_DRAC_USERNAME
+        IdentityFile ~/.ssh/id_rsa_drac
+
+    Host !trillium trig????
+        ProxyJump trillium-gpu
+        User CHANGE_TO_YOUR_DRAC_USERNAME
+        IdentityFile ~/.ssh/id_rsa_drac
+    ```
+
+Here are some bearings if you are not familiar with configuration files:
+
+| Option | What it does |
+|---|---|
+| `Host mila` | Creates the `mila` alias, so you can type `ssh mila`, `scp … mila:…`, `rsync … mila:…`. This is later use in the file with `ProxyJump mila` |
+| `HostName login.server.mila.quebec` | The real server behind the alias. It is a load balancer that picks the least busy of the 4 login nodes. |
+| `Port 2222` | Mila's SSH server listens on 2222, not the default port 22. |
+| `PreferredAuthentications publickey,keyboard-interactive` | Tries the SSH key first, then uses an interactive prompt. That prompt is where the MFA code or Push confirmation is asked for. |
+| `IdentityFile ~/.ssh/id_rsa_mila` | The private key to use. |
+
+More advanced parameters are:
+
+| Option | What it does |
+|---|---|
+| `ControlMaster auto` | This is connection multiplexing: the first connection becomes a "master" and later `ssh`/`scp`/`rsync` commands reuse it. |
+| `ControlPersist yes` | Keeps the master connection open in the background after you close the first session. It is used along `ControlMaster auto` to only have to enter MFA once. See tip in [Complete the MFA prompt](#complete-the-mfa-prompt) |
+| `ControlPath ~/.cache/ssh/%r@%h:%p` | Where the master connection's socket file goes, one per user, host and port. |
 
 ## Log in to a login node
 
@@ -324,15 +447,8 @@ Then connect to the node:
     The `-J` option "jumps" through the login node, which is necessary because the compute
     nodes are behind a firewall.
 
-    However, if your SSH configuration file (`~/.ssh/config`) contains the following part,
-    `-J mila` is done through the `ProxyJump mila` line:
-
-    ```sshconfig
-    Host *.server.mila.quebec !*login.server.mila.quebec
-        HostName %h
-        User YOUR-USERNAME
-        ProxyJump mila
-    ```
+    However, if your SSH configuration file (`~/.ssh/config`) contains `ProxyJump mila`,
+    `-J mila` is done through it and does not have to be added (see example [here](#manual-ssh-configuration)).
 
 This rule allows connecting to a compute node with
 `ssh <node>.server.mila.quebec`.
