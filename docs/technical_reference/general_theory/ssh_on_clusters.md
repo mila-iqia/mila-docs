@@ -151,4 +151,3 @@ be recalculated with the `ssh-keygen` utility as well:
 | <ul><li>725 bytes @ 4096 bits (slower)      </li></ul> |                                        |
 | <ul><li>1400 bytes @ 8192 bits (much slower)</li></ul> |                                        |
 | `$ ssh-keygen -y -f ~/.ssh/id_rsa`                     | `$ ssh-keygen -y -f ~/.ssh/id_ed25519` |
-
