@@ -10,21 +10,21 @@
 
 :root > * {
   /* Main theme */
-  --md-primary-fg-color: #662e7d;
+  --md-primary-fg-color: #432355;
   /*--md-primary-bg-color:;*/
-  --md-accent-fg-color: #5a007a;
-  --md-primary-fg-color--light: #5a007a;
-  --md-primary-fg-color--dark: #c38acd;
+  --md-accent-fg-color: #7E569B;
+  --md-primary-fg-color--light: #432355;
+  --md-primary-fg-color--dark: #7E569B;
 
-  --docsearch-primary-color: #662e7d;
-  --docsearch-highlight-color: #662e7d;
-  --docsearch-hit-highlight-color: #c38acd;
+  --docsearch-primary-color: #432355;
+  --docsearch-highlight-color: #7E569B;
+  --docsearch-hit-highlight-color: #7E569B;
 }
 
 [data-md-color-scheme="slate"]  > * {
-  --md-typeset-a-color: #c38acd;
+  --md-typeset-a-color: #7E569B;
   --md-accent-fg-color: #dfadf4;
-  --docsearch-hit-highlight-color: #662e7d;
+  --docsearch-hit-highlight-color: #432355;
 }
 
 .DocSearch-Hit[aria-selected=true] .DocSearch-Hit-action,.DocSearch-Hit[aria-selected=true] .DocSearch-Hit-icon,.DocSearch-Hit[aria-selected=true] mark {
