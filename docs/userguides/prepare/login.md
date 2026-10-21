@@ -38,7 +38,7 @@ compute nodes. For a quick and simple way to connect, follow the [Getting starte
 SSH uses the configuration file `~/.ssh/config` (next to the SSH keys) to
 determine which connection settings to use for each SSH server.
 
-- [`mila init`](#mila-init) automatically adds a simple SSH configuration to
+- [`mila init`](#configure-ssh-with-mila-init) automatically adds a simple SSH configuration to
 - `~/.ssh/config`. Advanced users can alternatively edit `~/.ssh/config`
 [manually](#manual-ssh-configuration).
 
@@ -337,7 +337,7 @@ This rule allows connecting to a compute node with
 
 ### Auto-allocate a CPU with `mila-cpu`
 
-After installing [milatools](#mila-init) and running `mila init`, allocate a
+After installing [milatools](#configure-ssh-with-mila-init) and running `mila init`, allocate a
 CPU on a compute node and connect to it automatically with:
 
 ```bash
