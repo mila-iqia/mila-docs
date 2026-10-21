@@ -5,37 +5,6 @@ description: In-depth knowledge about SSH
 
 # Secure Shell (SSH)
 
-## SSH authentication on the cluster
-
-When connecting to the cluster via SSH, authentication proceeds in
-three steps:
-
-```mermaid
-sequenceDiagram
-    participant C as Local machine
-    participant S as Cluster (login node)
-    participant M as MFA service
-
-    C->>S:      Connection request (public key identity)
-    S-->>C:     Key challenge
-    C->>S:      Signed challenge response
-        S->>M:  Request MFA verification
-    M-->>C:     Prompt (TOTP/email code or Push notification)
-    alt TOTP or email
-        C->>S: 6-digit code
-    else Push notification
-        C->>S: Approve on phone
-    end
-    S-->>C:     Access granted
-```
-
-1. **Key exchange** — the local machine proves possession of the private key
-   matching the public key stored on the cluster.
-2. **MFA challenge** — once the key is accepted, the cluster prompts for the
-   second factor.
-3. **Validation** — for Push, tap "Approve" on the smartphone; for TOTP or
-   email, type the code into the terminal prompt.
-
 ## Key exchange
 
 SSH key authentication is a technique using pairs of closely-linked keys: A
@@ -151,3 +120,35 @@ be recalculated with the `ssh-keygen` utility as well:
 | <ul><li>725 bytes @ 4096 bits (slower)      </li></ul> |                                        |
 | <ul><li>1400 bytes @ 8192 bits (much slower)</li></ul> |                                        |
 | `$ ssh-keygen -y -f ~/.ssh/id_rsa`                     | `$ ssh-keygen -y -f ~/.ssh/id_ed25519` |
+
+
+## SSH authentication on the cluster
+
+When connecting to the cluster via SSH, authentication proceeds in
+three steps:
+
+```mermaid
+sequenceDiagram
+    participant C as Local machine
+    participant S as Cluster (login node)
+    participant M as MFA service
+
+    C->>S:      Connection request (public key identity)
+    S-->>C:     Key challenge
+    C->>S:      Signed challenge response
+        S->>M:  Request MFA verification
+    M-->>C:     Prompt (TOTP/email code or Push notification)
+    alt TOTP or email
+        C->>S: 6-digit code
+    else Push notification
+        C->>S: Approve on phone
+    end
+    S-->>C:     Access granted
+```
+
+1. **Key exchange** — the local machine proves possession of the private key
+   matching the public key stored on the cluster.
+2. **MFA challenge** — once the key is accepted, the cluster prompts for the
+   second factor.
+3. **Validation** — for Push, tap "Approve" on the smartphone; for TOTP or
+   email, type the code into the terminal prompt.
