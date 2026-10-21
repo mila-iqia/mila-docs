@@ -318,18 +318,21 @@ chmod go-w ~   # in case you accidentally gave too many permissions for $HOME in
 Then connect to the node:
 
 - From a login node, run `ssh cnode`.
-- From a local machine, run `ssh -J mila USERNAME@cnode`. The `-J` option
-  "jumps" through the login node, which is necessary because the compute
-  nodes are behind a firewall.
+- From a local machine, run `ssh -J mila USERNAME@cnode`.
 
-Optionally, add the following wildcard rule to `~/.ssh/config`:
+!!! info
+    The `-J` option "jumps" through the login node, which is necessary because the compute
+    nodes are behind a firewall.
 
-```sshconfig
-Host *.server.mila.quebec !*login.server.mila.quebec
-    HostName %h
-    User YOUR-USERNAME
-    ProxyJump mila
-```
+    However, if your SSH configuration file (`~/.ssh/config`) contains the following part,
+    `-J mila` is done through the `ProxyJump mila` line:
+
+    ```sshconfig
+    Host *.server.mila.quebec !*login.server.mila.quebec
+        HostName %h
+        User YOUR-USERNAME
+        ProxyJump mila
+    ```
 
 This rule allows connecting to a compute node with
 `ssh <node>.server.mila.quebec`.
