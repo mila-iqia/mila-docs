@@ -29,7 +29,7 @@ Need a hand getting your experiments running on the cluster? You'll find everyth
         click Helpdesk "https://mila-iqia.atlassian.net/servicedesk/customer/portal/5"
         click OfficeHours "../help/office_hours/"
 
-        classDef bigger font-size:26px, fill:#432355, stroke:#432355, color:white
+        classDef bigger font-size:26px, fill:#283E33, stroke:#283E33, color:white
         classDef emoji font-size:40px, fill:transparent
 ```
 
