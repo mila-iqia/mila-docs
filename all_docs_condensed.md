@@ -300,6 +300,7 @@ Job states: `PD` pending, `R` running, `CG` completing; sacct: `COMPLETED`, `FAI
 constraint or nodes down/reserved.
 
 ### 5.4 Good-practice batch script (Mila)
+
 ```bash
 #!/bin/bash
 #SBATCH --ntasks=1
@@ -457,7 +458,7 @@ python3 my_script
   DGX A100: 6 NVSwitches, 600 GB/s point-to-point, 4.8 TB/s bisection.
 - Features usable with `--constraint`: `32gb/40gb/48gb/80gb`, `volta/turing/ampere/lovelace/hopper`,
   `nvlink`, `dgx`.
-- All Mila compute nodes have **unrestricted Internet access** (unlike most DRAC/PAICE clusters).
+- All Mila nodes have **unrestricted Internet access** (unlike most DRAC/PAICE clusters).
 - "Optimal bundle" = proportional CPU/RAM per GPU; staying within it avoids wasting a node.
 
 ---

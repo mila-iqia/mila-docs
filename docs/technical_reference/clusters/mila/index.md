@@ -6,7 +6,7 @@ This section seeks to provide factual information and policies on the Mila clust
     {% include-markdown "home/acknowledgement.md" start="<!-- START -->" %}
 
 * [Roles and computing resources](roles_and_resources.md)
-* [Node profile description](nodes.md)
+* [Compute nodes](nodes.md)
 * [Storage](storage.md)
 * [Partitions](partitions.md)
 * [Data Transmission](data_transmission.md)
