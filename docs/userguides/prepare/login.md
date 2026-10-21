@@ -12,10 +12,10 @@ This guide describes the advanced ways to connect to the Mila cluster:
 configuring SSH automatically or manually, logging in to a login node,
 completing the Multi-Factor Authentication (MFA) prompt and connecting to
 compute nodes. For a quick and simple way to connect, follow the
+
 [Getting started](../../getting_started/index.md) section instead.
 
 [](){ #ssh-secure-shell }
-
 
 ## Before you begin
 
@@ -152,7 +152,7 @@ The `mila` alias is available to `ssh`, `scp`, `rsync` and all other programs
 that read the SSH configuration file.
 
 !!! tip "Run commands remotely"
-    You can run commands on the login node with `ssh` directly, for example
+    Run commands on the login node with `ssh` directly, for example
     `ssh mila squeue -u '$USER'`. Put single quotes around any `$VARIABLE`
     to evaluate on the remote side; otherwise the local shell evaluates it
     before `ssh` even runs.
@@ -205,7 +205,6 @@ Login nodes are merely *entry points* to the cluster. They give access to the
 compute nodes and to the filesystem, but they are not meant to run anything
 heavy. Do **not** run compute-heavy programs on these nodes: doing so could
 bring them down and impede cluster access for everyone.
-
 
 !!! important "Rule of thumb"
     Never run a program that takes more than a few seconds on a login node,
