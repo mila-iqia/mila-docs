@@ -4,17 +4,12 @@ description: >-
   Configure SSH, log in to the Mila login nodes and connect to compute nodes.
 ---
 
-<!-- START -->
-
 # Logging in to the cluster
 
 This guide describes the advanced ways to connect to the Mila cluster:
 configuring SSH automatically or manually, logging in to a login node,
 completing the Multi-Factor Authentication (MFA) prompt and connecting to
-compute nodes. For a quick and simple way to connect, follow the
-
-[Getting started](../../getting_started/index.md) section instead.
-
+compute nodes. For a quick and simple way to connect, follow the [Getting started](../../getting_started/index.md) section instead.
 
 ## Before you begin
 
