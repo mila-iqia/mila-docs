@@ -152,9 +152,3 @@ be recalculated with the `ssh-keygen` utility as well:
 | <ul><li>1400 bytes @ 8192 bits (much slower)</li></ul> |                                        |
 | `$ ssh-keygen -y -f ~/.ssh/id_rsa`                     | `$ ssh-keygen -y -f ~/.ssh/id_ed25519` |
 
-It is this SSH public key that you should submit in the IT Onboarding Training form.
-
-## MFA challenge and validation
-
-Multi-Factor Authentication (MFA) adds a security layer beyond SSH keys.
-A MFA token has to be set to access the cluster (see [Getting started instructions](../../getting_started/mfa.md)).
