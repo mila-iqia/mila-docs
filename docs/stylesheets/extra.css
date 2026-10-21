@@ -5,30 +5,30 @@
   --md-admonition-color-hex--wip: #ff9100;
 
   --md-admonition-color--monitoring: 102, 46, 125; /* Decimals for #662e7d */
-  --md-admonition-color-hex--monitoring: #662e7d;
+  --md-admonition-color-hex--monitoring: #432355;
 }
 
 :root > * {
   /* Main theme */
-  --md-primary-fg-color: #662e7d;
+  --md-primary-fg-color: #283E33;
   /*--md-primary-bg-color:;*/
-  --md-accent-fg-color: #5a007a;
-  --md-primary-fg-color--light: #5a007a;
-  --md-primary-fg-color--dark: #c38acd;
+  --md-accent-fg-color: #5c8d74;
+  --md-primary-fg-color--light: #283E33;
+  --md-primary-fg-color--dark: #C5D1CA;
 
-  --docsearch-primary-color: #662e7d;
-  --docsearch-highlight-color: #662e7d;
-  --docsearch-hit-highlight-color: #c38acd;
+  --docsearch-primary-color: #283E33;
+  --docsearch-highlight-color: #4f7a64;
+  --docsearch-hit-highlight-color: #C5D1CA;
 }
 
 [data-md-color-scheme="slate"]  > * {
-  --md-typeset-a-color: #c38acd;
-  --md-accent-fg-color: #dfadf4;
-  --docsearch-hit-highlight-color: #662e7d;
+  --md-typeset-a-color: #C5D1CA;
+  --md-accent-fg-color: #adf4e0;
+  --docsearch-hit-highlight-color: #283E33;
 }
 
 .DocSearch-Hit[aria-selected=true] .DocSearch-Hit-action,.DocSearch-Hit[aria-selected=true] .DocSearch-Hit-icon,.DocSearch-Hit[aria-selected=true] mark {
-    color: #c38acd !important;
+    color: #8acdba !important;
 }
 
 .DocSearch-Form {
@@ -36,8 +36,8 @@
 }
 
 a.announce {
-  --md-typeset-a-color: #c38acd;
-  --md-accent-fg-color: #dfadf4;
+  --md-typeset-a-color: #8acdbc;
+  --md-accent-fg-color: #adf4e0;
 }
 
 .md-typeset .admonition.wip,
