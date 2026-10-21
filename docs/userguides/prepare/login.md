@@ -15,7 +15,6 @@ compute nodes. For a quick and simple way to connect, follow the
 
 [Getting started](../../getting_started/index.md) section instead.
 
-[](){ #ssh-secure-shell }
 
 ## Before you begin
 
