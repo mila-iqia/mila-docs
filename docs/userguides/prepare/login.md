@@ -42,7 +42,6 @@ determine which connection settings to use for each SSH server.
 - `~/.ssh/config`. Advanced users can alternatively edit `~/.ssh/config`
 [manually](#manual-ssh-configuration).
 
-
 ### Configure SSH with `mila init`
 
 Mila publishes the [milatools](https://www.github.com/mila-iqia/milatools)
@@ -55,11 +54,11 @@ pip install milatools
 mila init
 ```
 
-!!! note
-    This guide is current for `milatools >= 0.0.17`. To upgrade an older
-    installation, run `uv tool upgrade milatools` or
-    `pip install -U milatools`, then re-run `mila init` to apply new features
-    and bug fixes.
+!!! tip
+    If you encounter problems with milatools, try updating it:
+
+    - run `uv tool upgrade milatools` or `pip install -U milatools`
+    - then re-run `mila init` to apply new features and bug fixes.
 
 ### Manual SSH configuration
 
