@@ -164,7 +164,7 @@ A CPU-only request on `unkillable`/`main`/`long` is auto-translated to the `*-cp
 
 Available feature tags: `turing`, `volta`, `ampere`, `hopper`, `lovelace`, `nvlink`, `dgx`, GPU-memory tags like `12gb`/`32gb`/`40gb`/`48gb`/`80gb`.
 
-### Mila node profiles
+### Mila compute nodes
 
 | Nodes | GPU | Mem (GB) | #GPUs | Features |
 |---|---|---|---|---|
