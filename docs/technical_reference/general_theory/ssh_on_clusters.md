@@ -135,7 +135,7 @@ If no private SSH key already exists, you can create one with the `ssh-keygen` u
     your personal computer account*. However, choosing them to be equal may
     allow for automatic unlocking of encrypted SSH private keys at login, in
     combination with software such as ``pam_ssh(8)`` (Linux) or Keychain
-    (Mac OS X/macOS). This makes the good practice of using encrypted keys
+    (macOS). This makes the good practice of using encrypted keys
     convenient as well.
 
 ### Generating an SSH Public Key from a Private Key
