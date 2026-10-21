@@ -42,7 +42,6 @@ determine which connection settings to use for each SSH server.
 - `~/.ssh/config`. Advanced users can alternatively edit `~/.ssh/config`
 [manually](#manual-ssh-configuration).
 
-[](){ #mila-init }
 
 ### Configure SSH with `mila init`
 
