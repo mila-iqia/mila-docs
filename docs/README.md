@@ -150,7 +150,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
     - [Clusters](technical_reference/clusters/index.md)
         - [Mila cluster](technical_reference/clusters/mila/index.md)
             - [Roles and computing resources](technical_reference/clusters/mila/roles_and_resources.md)
-            - [Node profile description](technical_reference/clusters/mila/nodes.md)
+            - [Compute nodes](technical_reference/clusters/mila/nodes.md)
             - [Storage](technical_reference/clusters/mila/storage.md)
             - [Partitions](technical_reference/clusters/mila/partitions.md)
             - [Data Transmission](technical_reference/clusters/mila/data_transmission.md)

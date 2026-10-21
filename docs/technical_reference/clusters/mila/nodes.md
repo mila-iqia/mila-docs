@@ -1,14 +1,14 @@
 ---
-title: Node profile description
+title: Compute nodes
 
-description: Overview of the nodes of the Mila cluster.
+description: Overview of the compute nodes of the Mila cluster.
 
 hide:
   - toc
  
 ---  
 
-# Node profile description
+# Compute nodes
 
 <!-- Je trouve cela un peu futile de maintenir cette documentation à jour
 manuellement. Peut-être pourrions nous créer dans ce dossier des sripts qui
