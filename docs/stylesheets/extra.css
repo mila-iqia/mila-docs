@@ -6,6 +6,12 @@
 
   --md-admonition-color--monitoring: 102, 46, 125; /* Decimals for #662e7d */
   --md-admonition-color-hex--monitoring: #662e7d;
+
+  --md-admonition-color--do: 1, 155, 1;
+  --md-admonition-color-hex--do: rgb(1, 155, 1);
+
+  --md-admonition-color--dont: 228, 0, 0;
+  --md-admonition-color-hex--dont: rgb(228, 0, 0);
 }
 
 :root > * {
@@ -68,6 +74,36 @@ a.announce {
   background-color: var(--md-admonition-color-hex--monitoring);
   -webkit-mask-image: var(--md-admonition-icon--monitoring);
           mask-image: var(--md-admonition-icon--monitoring);
+}
+
+.md-typeset .admonition.do,
+.md-typeset details.do {
+  border-color: rgba(var(--md-admonition-color--do));
+}
+.md-typeset .do > .admonition-title,
+.md-typeset .do > summary {
+  background-color: rgba(var(--md-admonition-color--do), 0.1); /*color.adjust($clr-blue-a200, $alpha: -0.9);//rgba(43, 155, 70, 0.1);*/
+}
+.md-typeset .do > .admonition-title::before,
+.md-typeset .do > summary::before {
+  background-color: var(--md-admonition-color-hex--do);
+  -webkit-mask-image: var(--md-admonition-icon--do);
+          mask-image: var(--md-admonition-icon--do);
+}
+
+.md-typeset .admonition.dont,
+.md-typeset details.dont {
+  border-color: rgba(var(--md-admonition-color--dont));
+}
+.md-typeset .dont > .admonition-title,
+.md-typeset .dont > summary {
+  background-color: rgba(var(--md-admonition-color--dont), 0.1); /*color.adjust($clr-blue-a200, $alpha: -0.9);//rgba(43, 155, 70, 0.1);*/
+}
+.md-typeset .dont > .admonition-title::before,
+.md-typeset .dont > summary::before {
+  background-color: var(--md-admonition-color-hex--dont);
+  -webkit-mask-image: var(--md-admonition-icon--dont);
+          mask-image: var(--md-admonition-icon--dont);
 }
 
 a.full-card {

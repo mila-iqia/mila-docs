@@ -64,7 +64,7 @@ command-line tool:
     - Python 3.11 or higher, plus the `uv` package manager, installed
       locally.
     - A project hosted in a GitHub repository.
-    - [SSH access configured](../prepare/login.md#mila-init) in `~/.ssh/config` for each target cluster,
+    - [SSH access configured](../prepare/login.md#configure-ssh) in `~/.ssh/config` for each target cluster,
       with ControlMaster sessions enabled for passwordless authentication.
       Windows users need WSL2, since cluv does not run natively on Windows.
 
