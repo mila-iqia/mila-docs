@@ -382,9 +382,6 @@ Push on phone or email.
 
 ## Use login nodes responsibly
 
-!!! warning "Do not run VSCode remote SSH instances directly on login nodes"
-    Even though they are typically not very computationally expensive, when many people do it, they add up. See [Visual Studio Code](../../toolbox/development/VSCode.md) for specific instructions.
-
 Login nodes are merely *entry points* to the cluster. They give access to the
 compute nodes and to the filesystem, but they are not meant to run anything
 heavy. Do **not** run compute-heavy programs on these nodes: doing so could
@@ -416,6 +413,7 @@ on the login nodes:
     - A Python training script.
     *(Too computationally- and memory-intensive)*
     - `pip install` of packages like `vllm` or `flash-attn` from source code. *(Takes too much RAM to compile the CUDA kernels)*.
+    - VSCode remote SSH instances *(Even though they are typically not very computationally expensive, when many people do it, they add up. See [Visual Studio Code](../../toolbox/development/VSCode.md) for specific instructions.)*
 
 ## Connect to compute nodes
 
