@@ -191,6 +191,7 @@ Here are some bearings if you are not familiar with configuration files:
 | `Port 2222` | Mila's SSH server listens on 2222, not the default port 22. |
 | `PreferredAuthentications publickey,keyboard-interactive` | Tries the SSH key first, then uses an interactive prompt. That prompt is where the MFA code or Push confirmation is asked for. |
 | `IdentityFile ~/.ssh/id_rsa_mila` | The private key to use. |
+| `ProxyJump mila` | Connect to the `Host` by passing through the `mila` configuration. The latter refers to the configuration associated to `Host mila`. |
 
 More advanced parameters are:
 
