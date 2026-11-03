@@ -3,13 +3,11 @@
 There are different frameworks that allow you to do hyperparameter optimization, for example
 [wandb](https://wandb.ai/), [hydra](https://hydra.cc/), [Ray Tune](https://docs.ray.io/en/latest/tune/index.html)
 and [Oríon](https://orion.readthedocs.io/en/stable/index.html).
-Here we provide an example for Oríon, the HPO framework developped at Mila.
 
-[Orion](https://orion.readthedocs.io/en/stable/?badge=stable)
-is an asynchronous framework for black-box function optimization developped at Mila.
-
-Its purpose is to serve as a meta-optimizer for machine learning models and training,
-as well as a flexible experimentation platform for large scale asynchronous optimization procedures.
+Here we provide an example for Oríon, the HPO framework developped at Mila. Its
+purpose is to serve as a meta-optimizer for machine learning models and training,
+as well as a flexible experimentation platform for large scale asynchronous
+optimization procedures.
 
 ## Prerequisites
 
@@ -18,16 +16,11 @@ example:
 
 * [PyTorch Setup](../../frameworks/pytorch_setup/index.md)
 * [Single GPU Job](../../distributed/single_gpu/index.md)
-
-The full documentation for Oríon is available [on Oríon's ReadTheDocs page](https://orion.readthedocs.io/en/stable/index.html).
+* [Oríon](../../../toolbox/experiments/orion.md)
 
 ## Example
 
 The full source code for this example is available on [the mila-docs GitHub repository.](https://github.com/mila-iqia/mila-docs/tree/master/docs/examples/good_practices/hpo_with_orion)
-
-Hyperparameter optimization is very easy to parallelize as each trial (unique set of hyperparameters) are
-independant of each other. The easiest way is to launch as many jobs as possible each trying a different
-set of hyperparameters and reporting their results back to a synchronized location (database).
 
 **job.sh**
 
@@ -35,9 +28,8 @@ The easiest way to run an hyperparameter search on the cluster is simply to use 
 which will launch the same job n times. Your HPO library will generate different parameters to try
 for each job.
 
-Orion saves all the results of its optimization process in a database,
-by default it is using a local database on a shared filesystem named ``pickleddb``.
-You will need to specify its location and the name of your experiment.
+Orion saves all the results of its optimization process in a database (by default
+a local database named `pickleddb`) You will need to specify its location and the name of your experiment.
 Optionally you can configure workers which will run in parallel to maximize resource usage.
 
 ```diff
