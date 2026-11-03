@@ -12,32 +12,24 @@ for black-box function optimization developed at Mila. It serves as a
 meta-optimizer for machine learning models and training, as well as a flexible
 experimentation platform for large-scale asynchronous optimization procedures.
 
-!!! tip "Complete example"
-    For a step-by-step example that adapts a PyTorch training script to Oríon,
-    see [Hyperparameter Optimization with Oríon](../../examples/good_practices/hpo_with_orion/index.md).
+## Set up
 
-## Parallelize hyperparameter optimization
+Add Oríon to the project environment. Oríon relies on `pkg_resources`, so
+`setuptools` is also required:
+
+```bash
+uv add "orion>=0.2.7" setuptools
+```
+
+## Use in a Slurm job
 
 Hyperparameter optimization is well suited to parallelization: each trial
 (unique set of hyperparameters) is independent of the others. Launch as many
 jobs as possible, each trying a different set of hyperparameters and reporting
-its results back to a shared location (a database).
+its results back to a shared location (the Oríon database). The steps below
+go in the job script.
 
-Estimate the resources the training requires and adapt the example below
-accordingly. The example uses a
-[job array](https://slurm.schedmd.com/job_array.html) of 100 jobs, each with
-one GPU and 2 CPU cores. Each job runs one Oríon worker per CPU core, and all
-workers of a job share the same GPU to maximize its utilization. Up to 200 sets
-of hyperparameters are therefore evaluated in parallel across 100 GPUs.
-
-A job array launches the same job script `n` times. Oríon generates different
-hyperparameters for each worker.
-
-```bash
-sbatch --array=1-100 --gres=gpu:1 --cpus-per-gpu=2 --mem-per-gpu=16G hpo_launcher.sh train.py
-```
-
-## Configure Oríon
+### Configure Oríon
 
 Oríon saves all the results of its optimization process in a database. By
 default, it uses `pickleddb`, a local database stored on a shared file system.
@@ -67,7 +59,11 @@ cat > $ORION_CONFIG <<- EOM
 EOM
 ```
 
-## Define the search space
+!!! warning
+    Move the Oríon database out of `$SCRATCH` once the experiment is done.
+    `$SCRATCH` is not backed up and files on it are purged after 90 days.
+
+### Define the search space
 
 Define the search space that Oríon explores. The search space depends on the
 model, the optimizer, and other parts of the training. The example below
@@ -85,34 +81,70 @@ cat > $SPACE_CONFIG <<- EOM
 EOM
 ```
 
-## Run `orion hunt`
+### Run `orion hunt`
 
 Once Oríon is configured and has a search space, run `orion hunt`. It starts
 the training with a different set of hyperparameters for each worker.
 
 ```bash
-orion hunt --config $ORION_CONFIG python train.py --config $SPACE_CONFIG --arg1 value1
+orion hunt --config $ORION_CONFIG \
+    python train.py --config $SPACE_CONFIG --arg1 value1
 ```
 
-!!! warning
-    Move the Oríon database out of `$SCRATCH` once the experiment is done.
-    `$SCRATCH` is not backed up and files on it are purged after 90 days.
+### Launch a job array
 
-## Full example
+Estimate the resources the training requires and adapt the example below
+accordingly. The example uses a
+[job array](https://slurm.schedmd.com/job_array.html) of 100 jobs, each with
+one GPU and 2 CPU cores. Each job runs one Oríon worker per CPU core, and all
+workers of a job share the same GPU to maximize its utilization. Up to 200 sets
+of hyperparameters are therefore evaluated in parallel across 100 GPUs.
 
-Submit the job array:
+A job array launches the same job script `n` times. Oríon generates different
+hyperparameters for each worker.
 
 ```bash
-sbatch --array=1-100 --gres=gpu:1 --cpus-per-gpu=2 --mem-per-gpu=16G hpo_launcher.sh train.py
+sbatch --array=1-100 --gres=gpu:1 --cpus-per-gpu=2 --mem-per-gpu=16G \
+    hpo_launcher.sh train.py
 ```
 
-The `hpo_launcher.sh` script combines the steps above:
+<!-- TODO: placement — the NAS note fits no template section -->
+!!! note
+    Network Architecture Search (NAS) is a subset of hyperparameter
+    optimization where hyperparameters are used to generate a network. The
+    same technique applies to both NAS and HPO.
+
+<!-- TODO: confirm DRAC behaviour (internet access, modules, storage) -->
+
+## Example
+
+The `hpo_launcher.sh` script submitted above combines the configuration,
+search space, and `orion hunt` steps:
 
 ```bash title="hpo_launcher.sh"
 --8<-- "docs/examples/hpo_launcher.sh"
 ```
 
-!!! note
-    Network Architecture Search (NAS) is a subset of hyperparameter
-    optimization where hyperparameters are used to generate a network. The
-    same technique applies to both NAS and HPO.
+For a step-by-step example that adapts a PyTorch training script to Oríon,
+see
+[Hyperparameter Optimization with Oríon](../../examples/good_practices/hpo_with_orion/index.md).
+
+---
+
+## Resources
+
+<div class="grid cards" markdown>
+
+-   [:material-book-open-variant:{ .lg .middle } __Oríon documentation__](https://orion.readthedocs.io/en/stable/)
+    { .card }
+
+    ---
+    Official user guide, algorithms, and configuration reference.
+
+-   [:simple-github:{ .lg .middle } __Oríon on GitHub__](https://github.com/Epistimio/orion)
+    { .card }
+
+    ---
+    Source code, issues, and release notes.
+
+</div>
