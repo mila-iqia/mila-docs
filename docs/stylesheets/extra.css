@@ -10,25 +10,25 @@
 
 :root > * {
   /* Main theme */
-  --md-primary-fg-color: #283E33;
+  --md-primary-fg-color: #432355;
   /*--md-primary-bg-color:;*/
-  --md-accent-fg-color: #5c8d74;
-  --md-primary-fg-color--light: #283E33;
-  --md-primary-fg-color--dark: #C5D1CA;
+  --md-accent-fg-color: #7E569B;
+  --md-primary-fg-color--light: #432355;
+  --md-primary-fg-color--dark: #7E569B;
 
-  --docsearch-primary-color: #283E33;
-  --docsearch-highlight-color: #4f7a64;
-  --docsearch-hit-highlight-color: #C5D1CA;
+  --docsearch-primary-color: #432355;
+  --docsearch-highlight-color: #7E569B;
+  --docsearch-hit-highlight-color: #7E569B;
 }
 
 [data-md-color-scheme="slate"]  > * {
-  --md-typeset-a-color: #C5D1CA;
-  --md-accent-fg-color: #adf4e0;
-  --docsearch-hit-highlight-color: #283E33;
+  --md-typeset-a-color: #7E569B;
+  --md-accent-fg-color: #dfadf4;
+  --docsearch-hit-highlight-color: #432355;
 }
 
 .DocSearch-Hit[aria-selected=true] .DocSearch-Hit-action,.DocSearch-Hit[aria-selected=true] .DocSearch-Hit-icon,.DocSearch-Hit[aria-selected=true] mark {
-    color: #8acdba !important;
+    color: #c38acd !important;
 }
 
 .DocSearch-Form {
@@ -36,8 +36,8 @@
 }
 
 a.announce {
-  --md-typeset-a-color: #8acdbc;
-  --md-accent-fg-color: #adf4e0;
+  --md-typeset-a-color: #c38acd;
+  --md-accent-fg-color: #dfadf4;
 }
 
 .md-typeset .admonition.wip,
