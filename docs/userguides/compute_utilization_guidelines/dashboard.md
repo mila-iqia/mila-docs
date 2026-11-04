@@ -8,10 +8,11 @@ description: Understand RGU and SM occupancy metrics and how to read the Compute
 **[Link to dashboard](https://sarc.mila.quebec/dash/metrics).
 Access granted with Mila credentials.**
 
-The **Compute Utilization Dashboard** provides visibility into cluster usage. The
-goal is to help understand job's efficiency and spot underutilized resources.
-After reading this document, if you have any doubts about how to best leverage
-the dashboard, please reach out to the [IDT team](../../help/office_hours.md).
+The **Compute Utilization Dashboard** provides visibility into cluster usage.
+Underlying data are refreshed **every hour**. The goal is to help understand job's
+efficiency and spot underutilized resources. After reading this document,
+if you have any doubts about how to best leverage the dashboard,
+please reach out to the [IDT team](../../help/office_hours.md).
 
 As a reminder, optimizing GPU usage accelerates research velocity (your work and
 the work of others). On the flip side, suboptimal utilization holds you back,
