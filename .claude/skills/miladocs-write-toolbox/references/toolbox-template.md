@@ -107,13 +107,15 @@ Do not use "you" — use imperative mood or third-person.>
 
 <!-- Always the last section. Grid cards, never a bullet list. Keep it
      short: 1 to 3 cards. Include only:
-       - the tool's official documentation (always)
+       - the tool's official documentation (always, even when the intro
+         already links the same site)
        - its source repository, only when Mila maintains the tool
        - a Mila page that goes deeper on this tool and is not linked in
          the body
      Leave out: sub-pages of the official docs (SDK/API reference, a
      specific guide), general references (Slurm, Python), alternative
-     tools, and anything already linked in the page body.
+     tools, and anything else already linked in the page body. The
+     official-documentation card is the one exception to that rule.
      Icons:
        official documentation   :material-book-open-variant:
        source repository        :simple-github:
@@ -154,10 +156,6 @@ Place these between the first `---` and `## Troubleshooting`, in this order.
   "Complete example" tip) go in `## Example` when the category has one, or
   in `## Resources` otherwise — never as an admonition right after the
   intro.
-- When the page only covers the Mila cluster, do not invent DRAC content:
-  add a `<!-- TODO: confirm DRAC behaviour (internet access, modules,
-  storage) -->` comment and report it, so the author can decide whether
-  Mila / DRAC tabs are needed.
 
 ### Containers (`containers/`)
 
@@ -293,8 +291,9 @@ Same rules as `../../miladocs-write-guide/references/guide-template.md`
 - [ ] Troubleshooting items as `??? question` admonitions (or section omitted)
 - [ ] Key concepts as definition list (only if new terms introduced)
 - [ ] `## Resources` is the last section: 1 to 3 grid cards (not a bullet
-      list), no link already in the body, no doc sub-pages or general
-      references
+      list), official documentation card always present (even if the
+      intro links the same site), no other link already in the body, no
+      doc sub-pages or general references
 - [ ] Category `index.md` card matches the page (title spelled like the
       `# H1`, description matches the page's purpose); page cards first,
       then direct-link cards, each group alphabetical
