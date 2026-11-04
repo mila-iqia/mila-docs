@@ -155,7 +155,6 @@ If you find any errors in the documentation, missing or unclear sections, or wou
             - [Partitions](technical_reference/clusters/mila/partitions.md)
             - [Data Transmission](technical_reference/clusters/mila/data_transmission.md)
             - [Monitoring](technical_reference/clusters/mila/monitoring.md)
-            - [Environmental Impact](technical_reference/clusters/mila/environmental_impact.md)
             - [🔗 Mila intranet](https://sites.google.com/mila.quebec/mila-intranet)
         - [DRAC clusters](technical_reference/clusters/drac/index.md)
         - [PAICE clusters](technical_reference/clusters/paice/index.md)
