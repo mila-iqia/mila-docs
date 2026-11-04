@@ -238,11 +238,10 @@ straight to the tool's own documentation or repository (for example `cluv`,
 
 - the tool already has its own maintained documentation (often a Mila-built
   tool), and
-- there is no Mila-cluster-specific setup worth documenting here.
+- there is no cluster-specific setup worth documenting here.
 
 Write a toolbox page instead when using the tool on the clusters needs
-Mila-specific steps (access, modules, compute-node constraints, offline
-mode...).
+specific steps (access, modules, compute-node constraints, offline mode...).
 
 Rules for direct-link cards:
 
@@ -263,10 +262,7 @@ Rules for direct-link cards:
   "Weights & Biases").
 - Sentence case for section headings: "Get or build an image".
 - No numbers in section headings.
-- **One page per tool.** If a page gets too long, split it into sub-pages and
-  keep a short tool page that includes them with `include-markdown` (as
-  `containers/singularity.md` does). Each sub-page starts its content after a
-  `<!-- START -->` marker.
+- One page per tool.
 
 ---
 

@@ -2,9 +2,7 @@
 name: miladocs-write-toolbox
 description: >-
   Use when writing, creating, drafting, editing, restructuring, or reviewing
-  any page under docs/toolbox/ (containers, development, experiments tools
-  such as Singularity, Podman, VS Code, JupyterHub, Git LFS, WandB, Comet,
-  Oríon), or when the user asks how a toolbox page should be structured.
+  any page under docs/toolbox/ (containers, development, experiments tools).
   Always invoke before writing toolbox content — do not write markdown
   directly.
 version: 1.0.0
@@ -15,8 +13,7 @@ argument-hint: <tool name or file-path>
 
 This skill drafts new tool pages or restructures existing ones under
 `docs/toolbox/`, so every tool page puts the same information in the same
-place. It complements `miladocs-write-guide`: guides teach a task end to end;
-toolbox pages document one tool.
+place.
 
 ## Workflow
 
@@ -28,11 +25,9 @@ toolbox pages document one tool.
 2. **Category.** Identify which section the tool belongs to. Each category has
    its own list of sections under *Category sections* in
    `references/toolbox-template.md`:
-   - `containers/` — tools that package an environment (Singularity /
-     Apptainer, Podman)
-   - `development/` — tools to write and debug code on the clusters (VS Code,
-     JupyterHub, Git LFS)
-   - `experiments/` — experiment tracking and tuning (WandB, Comet, Oríon)
+   - `containers/` — tools that package an environment
+   - `development/` — tools to write and debug code on the clusters
+   - `experiments/` — experiment tracking and tuning
 
    If the tool fits none of them, ask the user whether to create a new
    category (which needs its own `index.md`, see the template) or place it in
@@ -67,9 +62,6 @@ Ask at most 2 questions per message. Stop once enough is known to draft.
   the tool need internet access from compute nodes (offline mode)?
 - Is there an existing example under `docs/examples/` to include?
 
-Make reasonable assumptions for minor details and flag them in the draft
-with `<!-- TODO: confirm ... -->` comments.
-
 ### Step 2: Draft or restructure the page
 
 Follow `references/toolbox-template.md`:
@@ -87,8 +79,7 @@ Follow `references/toolbox-template.md`:
   move it into the matching section rather than rewriting it. Remove exact
   duplicates (for example the same command shown twice).
 - Content that fits no section: place it where it reads best, mark it with
-  `<!-- TODO: placement -->`, and list it in the Step 6 report. Do not stop
-  the run to ask.
+  and list it in the Step 6 report. Do not stop the run to ask.
 - **Included files.** Read every file pulled in with `--8<--` or
   `include-markdown`. If it contradicts the page (for example the page uses
   `uv` but the script runs `conda activate`), report the mismatch in Step 6.
@@ -98,7 +89,7 @@ Follow `references/toolbox-template.md`:
 ### Step 3: Update the category index
 
 Always open the category's `docs/toolbox/<category>/index.md` and check the
-tool's grid card against the page — not only when the title changed. The
+tool's grid card against the page, not only when the title changed. The
 card title must be spelled like the page's `# H1` (accents included), and
 the one-line description must match the page's purpose. Add the card if the
 page is new; fix it if it drifted. Page cards come first, then direct-link
@@ -137,8 +128,6 @@ any) in code blocks. Then offer to:
 **Apply mode:** save the page and the index change, build the site
 (`uv run properdocs build`) to check for warnings, and report:
 - What moved where, and what was added or removed
-- Every `<!-- TODO -->` left in the page (unverified facts, placement,
-  DRAC coverage)
 - Mismatches found in included files
 
 ## Additional Resources
@@ -148,5 +137,3 @@ any) in code blocks. Then offer to:
   checklist
 - **`../shared/miladocs-mkdocs-patterns.md`** — Frontmatter and MkDocs
   Material patterns (admonitions, tabs, grid cards, includes)
-- **`../miladocs-write-guide/`** — Use instead when the page is a step-by-step
-  task guide rather than a tool page
