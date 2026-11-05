@@ -1,47 +1,51 @@
-# Packing ML Jobs with GNU `parallel` + CUDA MPS on the Mila SLURM Cluster
+---
+title: "Packing ML jobs with GNU parallel and CUDA MPS on the Mila Slurm cluster"
+description: >-
+  Pack many experiments into a single Slurm allocation using GNU parallel and CUDA MPS to raise GPU utilization.
+---
 
-## Jobs vs Experiments
+# Packing ML jobs with GNU `parallel` + CUDA MPS on the Mila Slurm cluster
+
+## Jobs vs experiments
 
 Computer-science research often involves running many computationally-costly
-experiments, more often called "runs". Researchers will often have a script, or a
+experiments, more often called "runs". Researchers often have a script, or a
 command, that runs the bulk of the code they need for each such run. A common
 requirement is to rerun experiments several times with different "seeds" for the
 random-number generators to assure oneself that a result is not a fluke.
 
-The Slurm scheduler, however, thinks in terms of _jobs_. A job is a an allocation of
+The Slurm scheduler, however, thinks in terms of *jobs*. A job is an allocation of
 a certain set of resources for a certain amount of time. Chiefly, these resources
 are CPU cores, GPUs and memory, specified with `sbatch` and `salloc` flags like
 `--cpus-per-task=`, `--gres=gpu:a100l:1` and `--mem=16G`; while the resource of time
 is requested with a flag such as `--time=08:00:00`.
 
-**It is important to recognize that** _jobs_ *need not be in 1:1 correspondence with*
-_experiments_. While a 1:1 correspondence may simplify running experiments, it
+*Jobs* need not be in 1:1 correspondence with *experiments*. While a 1:1 correspondence may simplify running experiments, it
 sometimes leads to a great waste of resources. This is especially the case if
 experiments are lightweight while the allocated GPUs are heavyweight, making for a
 poor match.
-
 
 ## Why job packing?
 
 Many everyday ML workloads — seed sweeps, small hyperparameter grids, inference over
 many files, many reinforcement learning environments — do **not** saturate a modern
 GPU. A single training run can leave most of a GPU's resources (streaming
-multiprocessors, memory and I/O bandwidth) unutilized, Yet SLURM charges you for the
-whole allocation from the moment it starts, whether the GPU is busy or not. On a shared
+multiprocessors, memory and I/O bandwidth) unutilized, yet the whole allocation is
+billed from the moment it starts, whether the GPU is busy or not. On a shared
 lab cluster, the cost of running one experiment per `sbatch` job is threefold:
 
 - **Wasted compute.** Dozens of low-utilization jobs add up to GPUs that look "busy" in
   the queue while doing a fraction of the work they could (see the *Identifying GPU
-  waste* page in the MILA docs).
+  waste* page in the Mila docs).
 - **Queue overhead.** Each small job waits in line on its own, so a 20-seed sweep can
   spend more wall-clock time *queued* than training, and pays job startup (environment
   setup, dataset staging) 20 times.
 - **Scheduler pressure.** Thousands of tiny jobs crowd the queue for everyone; a few
-  well-packed jobs get the same science done with less contention — and you keep your
-  fair-share budget for runs that genuinely need a whole node.
+  well-packed jobs get the same science done with less contention — and fair-share budget
+  stays available for runs that genuinely need a whole node.
 
 **Job packing** is the practice of requesting *one* allocation and running *many*
-experiments inside it concurrently. GNU `parallel` is the packing tool: it launches your
+experiments inside it concurrently. GNU `parallel` is the packing tool: it launches
 experiments a few at a time, buffers their logs, records statuses, and retries failures.
 CUDA **MPS** (Multi-Process Service) makes the packing *efficient*: without it, packed
 processes each create their own CUDA context and the GPU time-slices between them;
@@ -63,9 +67,9 @@ staging datasets into `$SLURM_TMPDIR`, and running training with `uv run python`
 Three cluster-wide conventions used everywhere below:
 
 - **Partition.** All examples request `--partition=long` (Mila's default partition)
-  explicitly. Declare a realistic `--time` so the scheduler can backfill your job.
+  explicitly. Declare a realistic `--time` so the scheduler can backfill the job.
 - **`PARALLELISM`.** Each script reads a single environment variable to control packing,
-  with a safe default. `sbatch` forwards your environment by default, so:
+  with a safe default. `sbatch` forwards the environment by default, so:
 
   ```bash
   sbatch job.sh                                        # uses the script's default
@@ -88,9 +92,7 @@ Three cluster-wide conventions used everywhere below:
   `parallel`-spawned jobs inherit `CUDA_MPS_PIPE_DIRECTORY`/`CUDA_MPS_LOG_DIRECTORY` and
   automatically become MPS clients.
 
----
-
-## 1. Seed Sweep: `--seed` from N to M on a Single GPU (with MPS)
+## Seed sweep: `--seed` from N to M on a single GPU (with MPS)
 
 Pack a range of random seeds onto one GPU. Small models (e.g., the docs' ResNet18 on
 CIFAR-10) leave plenty of GPU memory headroom and issue small kernels — exactly the
@@ -157,14 +159,12 @@ Tips:
 - Size `PARALLELISM` to the GPU memory (check with `nvidia-smi` in a test job); MPS
   improves *compute* sharing but does not multiply memory — every process still
   allocates its own weights, activations, and CUDA buffers.
-- Divide your CPUs among the packed runs: leave roughly
+- Divide the CPUs among the packed runs: leave roughly
   `cpus-per-task / PARALLELISM` `DataLoader` workers per run.
 - Add `--joblog sweep.log` to the `parallel` command and rerun with `parallel --resume`
   to retry only the seeds that failed.
 
----
-
-## 2. Hyperparameter Grid from Three Nested `for` Loops (with MPS)
+## Hyperparameter grid from three nested `for` loops (with MPS)
 
 Generate the command list with nested Bash loops (model × learning rate × seed), write it
 to a file, and let `parallel` consume it — all processes sharing the GPU through MPS.
@@ -229,15 +229,13 @@ PARALLELISM=6 sbatch job.sh
 
 Tips:
 
-- The `for` loops make the sweep easy to extend (add a dataset loop, filter combos with
+- Grid dimensions can be added to the `for` loops (a dataset loop, filtering combos with
   `if`, etc.) without learning parallel's `:::`/`::::` syntax.
 - Retry only failed grid points: `parallel --joblog joblog.tsv --resume -j "$PARALLELISM" :::: "$commands"`.
 - Because grid points have mixed sizes (`resnet18` vs `resnet50`), MPS keeps the GPU
   busy while the large runs leave SMs idle.
 
----
-
-## 3. Batch Inference Packed Across a Node's GPUs (one MPS server per GPU)
+## Batch inference packed across a node's GPUs (one MPS server per GPU)
 
 Embarrassingly parallel scoring of many files, using one `parallel` worker per GPU.
 `srun` starts `SLURM_NTASKS` workers (one per requested GPU); each pins itself to its
@@ -322,19 +320,17 @@ PARALLELISM=8 sbatch job.sh     # lighter packing: 2 predictions per GPU
 Tips:
 
 - Keep `PARALLELISM` consistent with the allocation: 16 sub-jobs on 4 GPUs is fine,
-  16 on 1 GPU would just queue inside `parallel` (harmless, but set `--time` accordingly).
+  16 on 1 GPU would queue inside `parallel` (harmless, but set `--time` accordingly).
 - If a worker dies mid-run, add `--joblog "worker_${SLURM_PROCID}.log" --resume` inside
   `worker.sh` and resubmit: files already scored are skipped.
 - All workers share one `CUDA_MPS_PIPE_DIRECTORY` here because each server sees a
-  different GPU; if you ever see pipe collisions between servers, give each task its own
+  different GPU; if pipe collisions between servers appear, give each task its own
   subdirectory (`$CUDA_MPS_PIPE_DIRECTORY/$SLURM_PROCID`) set before `nvidia-cuda-mps-control -d`
   and inherited by that task's clients.
 - For a CPU-only variant, drop the `--gres` line, the MPS block, and the GPU pinning,
   and default to `PARALLELISM=${PARALLELISM:-$SLURM_CPUS_PER_TASK}`.
 
----
-
-## Quick Reference
+## Quick reference
 
 | Goal | How |
 | --- | --- |
@@ -351,12 +347,13 @@ Tips:
 | Retry only failures | `--joblog run.log` then `--resume` (or `--resume-failed`) |
 | Keep packed-run logs separate | `--line-buffer`, or `--results DIR/` |
 
-> **MPS caveats.** The MPS control daemon must be started *before* any CUDA context
-> exists in the allocation, and clients must see the same `CUDA_MPS_PIPE_DIRECTORY` /
-> `CUDA_MPS_LOG_DIRECTORY`. Always shut the server down at job end (`trap ... EXIT`) so
-> the next tenant of the node starts clean. MPS shares compute, not memory: budget
-> `PARALLELISM` against per-process GPU memory with `nvidia-smi`.
+!!! warning "MPS caveats"
+    The MPS control daemon must be started *before* any CUDA context exists in the
+    allocation, and clients must see the same `CUDA_MPS_PIPE_DIRECTORY` /
+    `CUDA_MPS_LOG_DIRECTORY`. Always shut the server down at job end (`trap ... EXIT`)
+    so the next tenant of the node starts clean. MPS shares compute, not memory: budget
+    `PARALLELISM` against per-process GPU memory with `nvidia-smi`.
 
-> Compute nodes have no internet access. Use `uv run --offline` (and `--locked` for
-> reproducibility) once your project environment is set up, as recommended in the
-> MILA docs' job scripts.
+!!! note "No internet access on compute nodes"
+    Use `uv run --offline` (and `--locked` for reproducibility) once the project
+    environment is set up, as recommended in the Mila docs' job scripts.
