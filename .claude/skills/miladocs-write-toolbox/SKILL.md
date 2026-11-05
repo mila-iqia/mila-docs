@@ -66,8 +66,9 @@ Ask at most 2 questions per message. Stop once enough is known to draft.
 
 Follow `references/toolbox-template.md`:
 - Start from the **Full Toolbox Page Skeleton** (intro, optional Before you
-  begin, Troubleshooting, Key concepts, Resources last as 1 to 3 grid
-  cards). Include *Before you begin* only for hard prerequisites (account,
+  begin, Troubleshooting, Resources last as 1 to 3 grid cards).
+  Toolbox pages have no *Key concepts* section: define new terms inline at
+  first use. Include *Before you begin* only for hard prerequisites (account,
   access, local install); link background pages inline where needed.
 - Fill its middle with the **category sections**, in order. Keep the
   `##` heading names verbatim so pages match across the toolbox; put
@@ -78,8 +79,8 @@ Follow `references/toolbox-template.md`:
 - When restructuring an existing page, keep all correct technical content —
   move it into the matching section rather than rewriting it. Remove exact
   duplicates (for example the same command shown twice).
-- Content that fits no section: place it where it reads best, mark it with
-  and list it in the Step 6 report. Do not stop the run to ask.
+- Content that fits no section: place it where it reads best and list it
+  in the Step 6 report under *Content with no matching section*.
 - **Included files.** Read every file pulled in with `--8<--` or
   `include-markdown`. If it contradicts the page (for example the page uses
   `uv` but the script runs `conda activate`), report the mismatch in Step 6.
@@ -110,8 +111,9 @@ Apply the `miladocs-standardize-format` steps **inline** on the draft — do
 NOT invoke it via the Skill tool (that would start a fresh context and lose
 the draft). Skip its Step 0 and run Steps 1–4 directly. Toolbox pages are
 exempt from the guide-only checks (*What this guide covers*, *Next step*);
-they end with `## Resources` instead, and `---` bookends sit after *Before
-you begin* (only when present) and before *Key concepts* / *Resources*. Skip
+they end with `## Resources` instead, have no *Key concepts* section, and
+`---` bookends sit after *Before you begin* (only when present) and before
+*Resources*. Skip
 the format skill's **Naming** category (its `Userguide_` / `Information_`
 convention does not apply here); check filenames against *Naming Conventions* in
 `references/toolbox-template.md` instead.
@@ -133,7 +135,17 @@ diffs, if any) in code blocks. Then offer to:
 - Save it to `docs/toolbox/<category>/<tool>.md`
   (`lowercase_with_underscores.md`) or overwrite the existing file
 - Make specific revisions before saving
-- Report what moved where, what was added or removed
+
+Then report, under these headings (omit a heading with nothing to list):
+
+- **Changes**: what moved where, and what was added or removed.
+- **Missing sections**: category sections left out because the page has no
+  content for them, and the questions that would fill them.
+- **Content added or inferred (to verify)**: anything not taken from the
+  original page or an included file.
+- **Mismatches in included files**: contradictions between the page and
+  files pulled in with `--8<--` or `include-markdown`.
+- **Content with no matching section**: where it was placed, and why.
 
 ## Additional Resources
 
