@@ -86,7 +86,7 @@ Follow `references/toolbox-template.md`:
   Do not edit files under `docs/examples/` unless the user asks — they are
   shared and may have generated `.diff` companions.
 
-### Step 3: Update the category index
+### Step 3: Update the category index and the nav
 
 Always open the category's `docs/toolbox/<category>/index.md` and check the
 tool's grid card against the page, not only when the title changed. The
@@ -94,6 +94,15 @@ card title must be spelled like the page's `# H1` (accents included), and
 the one-line description must match the page's purpose. Add the card if the
 page is new; fix it if it drifted. Page cards come first, then direct-link
 cards to external tools; keep each group in alphabetical order.
+
+Then open the site nav in `docs/README.md` (literate-nav) and check the
+tool's entry under `- [Toolbox](toolbox/index.md)`, following *Site nav* in
+`references/toolbox-template.md`. The label must match the `# H1`; add the
+entry for a new page or direct link.
+
+If a category was added or renamed, also update the category cards in the
+top-level `docs/toolbox/index.md` (see *Top-level toolbox index* in the
+template).
 
 ### Step 4: Standardize format
 
@@ -119,21 +128,17 @@ without the per-category approval prompts, and save directly in Step 6.
 
 ### Step 6: Present the result
 
-**Draft mode** (default): output the complete page (and the index diff, if
-any) in code blocks. Then offer to:
+**Draft mode** (default): output the complete page (and the index and nav
+diffs, if any) in code blocks. Then offer to:
 - Save it to `docs/toolbox/<category>/<tool>.md`
   (`lowercase_with_underscores.md`) or overwrite the existing file
 - Make specific revisions before saving
-
-**Apply mode:** save the page and the index change, build the site
-(`uv run properdocs build`) to check for warnings, and report:
-- What moved where, and what was added or removed
-- Mismatches found in included files
+- Report what moved where, what was added or removed
 
 ## Additional Resources
 
 - **`references/toolbox-template.md`** — Full page skeleton, category
-  sections, index page and direct links, naming, style rules, and pre-save
-  checklist
+  sections, category and top-level index pages, direct links, site nav,
+  naming, style rules (including line width), and pre-save checklist
 - **`../shared/miladocs-mkdocs-patterns.md`** — Frontmatter and MkDocs
   Material patterns (admonitions, tabs, grid cards, includes)

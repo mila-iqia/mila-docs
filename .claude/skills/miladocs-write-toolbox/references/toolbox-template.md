@@ -252,6 +252,77 @@ Rules for direct-link cards:
 
 ---
 
+## Top-level toolbox index (`docs/toolbox/index.md`)
+
+The entry page of the Toolbox lists the **categories**, not the tools. Update
+it only when a category is added, renamed, or removed; adding a tool never
+changes it.
+
+````markdown
+---
+title: Toolbox
+description: >-
+  <One sentence.>
+---
+
+# Toolbox
+
+<1–2 sentences on what the Toolbox covers.>
+
+<!-- optional — at most one admonition for a cross-category resource, such
+     as the Research Project Template -->
+!!! tip "<Title>"
+    <One or two sentences with the link.>
+
+<div class="grid cards" markdown>
+
+-   [:material-<icon>:{ .lg .middle } __<Category>__](<category>/index.md)
+    { .card }
+
+    ---
+    <One line: what the category covers.>
+
+</div>
+````
+
+Rules:
+
+- One card per category. The card title is spelled like the category
+  index's `# H1`; the description matches its purpose.
+- Cards follow the category order of the site nav (see *Site nav* below),
+  not alphabetical order.
+- No tool cards and no category sections (`## Set up`...) on this page.
+
+---
+
+## Site nav (`docs/README.md`)
+
+The site navigation is defined in `docs/README.md` with the literate-nav
+plugin, not in `properdocs.yml`. Every toolbox page and direct link has an
+entry there, under `- [Toolbox](toolbox/index.md)`:
+
+```markdown
+- [Toolbox](toolbox/index.md)
+    - [🔗 <Cross-category link>](https://<url>)
+    - [<Category>](toolbox/<category>/index.md)
+        - [<Tool page H1>](toolbox/<category>/<tool>.md)
+        - [🔗 <External tool>](https://<tool docs or repo>)
+```
+
+Rules:
+
+- The label of a tool page is its `# H1`, spelled exactly the same (accents
+  included); the label of a category is its index's `# H1`.
+- Within a category: page entries first (alphabetical), then direct-link
+  entries (alphabetical), in the same order as the category index cards.
+- Prefix direct-link labels with `🔗 ` so external links stand out.
+- Add an entry when a page or direct link is added, fix it when a title
+  changes, and remove it when a page is deleted.
+- Pages pulled into another page with `include-markdown` (for example the
+  Singularity sub-pages) have no nav entry.
+
+---
+
 ## Naming Conventions
 
 - Filename: `lowercase_with_underscores.md`, placed in
@@ -270,7 +341,41 @@ Same rules as `../../miladocs-write-guide/references/guide-template.md`
 (complete clauses in alternatives), plus:
 
 - Notes and warnings use admonitions, never `> **NOTE**` blockquotes.
-- Every example runs on a compute node, never on a login node.
+- Each command runs where it belongs. When the section does not make it
+  obvious, say where it runs ("on a login node", "on a compute node", "on
+  the local machine"):
+    - **Installation and setup** (downloading a binary, `uv add`,
+      `pip install`, `wandb login`, editing `~/.bashrc`) runs on a **login
+      node**. Exception: heavy installs that compile code or need a GPU (for
+      example `flash-attn`) run on a compute node.
+    - **Code examples and workloads** (training scripts, `podman run`,
+      `orion hunt`, notebooks, editors such as VSCode) run on a **compute
+      node**, never on a login node.
+    - **Local commands** (for example `mila init`) run on the **local
+      machine**.
+
+### Line width
+
+Lines are at most 80 characters (per CONTRIBUTING.md). Wrap prose, list
+items, and admonition text; never wrap the exceptions below.
+
+- **Commands** in code blocks: split long commands with a trailing `\` and a
+  4-space indent on the continuation line. Split between arguments, never
+  inside one.
+- **Links**: a line whose length comes from a single link target may exceed
+  the limit. This covers full URLs and relative paths (with or without an
+  `#anchor`), in prose, in a list item, or in a grid-card title line, with
+  or without trailing punctuation. Put the link on its own line to keep the
+  surrounding text within the limit. Never break a link target.
+- **Unsplittable arguments**: a command argument that is a single long URL
+  or path (for example a `wget` download URL) may exceed the limit; do not
+  break it with `\`.
+- **Verbatim output and messages**: command output in result blocks
+  (for example `nvidia-smi` tables) and error or log messages quoted in code
+  blocks, inside admonitions included, keep their original line length.
+  Never reflow them; trim repeated lines instead if they are too long to
+  read.
+- **Included files** (`--8<--`, `include-markdown`) are exempt.
 
 ---
 
@@ -297,18 +402,18 @@ Same rules as `../../miladocs-write-guide/references/guide-template.md`
 - [ ] Category `index.md` card matches the page (title spelled like the
       `# H1`, description matches the page's purpose); page cards first,
       then direct-link cards, each group alphabetical
+- [ ] Nav entry in `docs/README.md` matches the page (label spelled like
+      the `# H1`, same order as the category index cards)
+- [ ] Top-level `docs/toolbox/index.md` updated if a category was added,
+      renamed, or removed
 - [ ] Tone rules applied (no "you", active voice, present tense, no vague words)
 - [ ] No numbered headings
 - [ ] No `---` between content sections — only the two bookends are permitted
       (after "Before you begin", when present, and before "Key concepts" /
       "Resources")
-- [ ] Line width ≤ 80 characters (per CONTRIBUTING.md):
-      - Long shell commands in code blocks are split with a trailing `\`
-        and a 4-space indent on the continuation line.
-      - A line whose length comes from a single URL may exceed the limit
-        (a link in prose, a list item, or a grid-card title line, with or
-        without trailing punctuation). Never break a URL across lines.
-      - Included example files (`--8<--`) are exempt.
+- [ ] Line width ≤ 80 characters, except the cases listed in
+      *Line width* (link targets, unsplittable arguments, verbatim output
+      and messages, included files)
 - [ ] Included files (`--8<--`, `include-markdown`) are consistent with the
       page (same tools, same commands, e.g. `uv` vs. Conda); mismatches
       reported, not silently edited
