@@ -39,7 +39,6 @@ For now, the only skill lives in the [mila-iqia/skills][skills] marketplace, as 
 `opt-tools` plugin.  To use it to optimize your code, start a session with your agent at the root of the experiment code and
     describe the desired outcome in plain language:
 
-
 === "Use the Skill (all agents)"
 
     The request to use the Skill can also be added directly in the prompt:
@@ -70,6 +69,9 @@ The agent detects the skill and follows its requirements:
 * **Improve the Skills:** An `optimization-report.md`is generated and can be sent in the repository mentioned in Slack usage notifications. This reports describes the issues found, the fixes made, and the gains obtained.
 
 ## The report is optional
+
+!!! info "Report directory"
+    The `DROPDIR` needed to automatically send a report is mentionned in your Slack resources usage notification.
 
 Once the work is done, the agent may offer to send the report to IDT. Reports
 show which problems recur across the cluster and which optimizations transfer
