@@ -33,6 +33,13 @@ connections, account management, and job submission.
     Add the Mila skills marketplace and install cluster-focused skills for
     account setup, SSH connections, and job submission.
 
+-   [:material-rocket-launch:{ .lg .middle } __Optimize Your Experiments with AI Agents__](optimization.md)
+    { .card }
+
+    ---
+    Use the IDT optimization skill to find and fix inefficient experiments,
+    with your own coding agent.
+
 -   [:material-brain:{ .lg .middle } __Mila Docs MCP Server__](mcp.md)
     { .card }
 
