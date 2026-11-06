@@ -36,22 +36,32 @@ context into a skill the agent can load in order to:
 ## The optimization skill
 
 For now, the only skill lives in the [mila-iqia/skills][skills] marketplace, as the
-`opt-tools` plugin.
-If the marketplace was registered following
-[Install Mila Skills for Claude Code](mila_skills.md), only the install step
-is new:
+`opt-tools` plugin.  To use it to optimize your code, start a session with your agent at the root of the experiment code and
+    describe the desired outcome in plain language:
 
-```
-/plugin install opt-tools@mila-skills
-```
 
-Then start a session with your agent at the root of the experiment code and
-describe the desired outcome in plain language:
+=== "Use the Skill (all agents)"
 
-```
-My GPU utilization is low and these training runs are too slow —
-profile the code and speed it up without changing the results.
-```
+    The request to use the Skill can also be added directly in the prompt:
+    ```
+    Try to optimize my code using guidance from https://raw.githubusercontent.com/mila-iqia/skills/refs/heads/master/opt-tools/skills/optimization-target/SKILL.md.
+    ```
+
+=== "Use the Skill with Claude Code"
+
+    If the marketplace was registered following
+    [Install Mila Skills for Claude Code](mila_skills.md), only the install step
+    is new:
+
+    ```
+    /plugin install opt-tools@mila-skills
+    ```
+
+    Claude Code can then be called to optimize the code
+
+    ```
+    Try to optimize my code.
+    ```   
 
 The agent detects the skill and follows its requirements:
 
