@@ -86,10 +86,10 @@ Respectfully, and with your permission at every step:
 
     ---
 
-    Say hello on TBD and we'll set up
-    something that works for you — usually read access to a repo.
+    Send a private message to `@breuleux` and `@Soline Blanc` on Slack and we'll set up
+    something that works for you.
 
-    [:octicons-arrow-right-24: #TBD](https://mila-umontreal.slack.com/archives/TBD)
+    [:octicons-arrow-right-24: Go to Slack](https://mila-umontreal.slack.com/)
 
 -   :material-robot:{ .lg .middle } **Optimize first, share the report**
 
