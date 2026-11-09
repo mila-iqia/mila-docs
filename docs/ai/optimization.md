@@ -64,28 +64,18 @@ The agent detects the skill and follows its requirements:
 * **Protect the science:** Optimization must preserve result integrity. The skill explicitly requires user confirmation before making any changes that could alter findings (such as hyperparameter adjustments).
 * **Improve the Skills:** An optimization report is generated and can be submitted to the relevant repository to document identified found issues, applied fixes and performance gains.
 
-## The report is optional
+!!! info "Sharing the report is optional"
+    The report summarizes the workload's purpose, environment, identified bottlenecks, and applied fixes. Review and redact any details before submission.
+    Upon completion, the agent may ask to submit the report to IDT to help track recurring performance issues and reusable optimizations. Sharing is strictly opt-in.
 
-!!! info "Report directory"
-    The `DROPDIR` needed to automatically send a report is mentionned in your Slack resources usage notification.
+!!! info "Sharing the report is optional"
+    The optimization report is written locally and summarizes the experiment's purpose, its stack, its identified issues and the applied fixes.
 
-Once the work is done, the agent may offer to send the report to IDT. Reports
-show which problems recur across the cluster and which optimizations transfer
-from one codebase to another. **Sharing remains the user's choice.** The
-report is written locally in the repository, and nothing leaves the machine
-without explicit confirmation.
+    **Sharing it remains the user's choice**
 
-To keep the report local:
-
-* tell the agent **not to upload the report** (for example: *"do not send the
-  report to IDT, keep it local only"*), or
-* do not provide the drop directory — the agent only uploads when it has been
-  given one, and does not retry a failed upload.
-
-The report is a summary written for an outside reader (what the code does, the
-stack, the issues and the fixes). Before sharing it, feel free to review the file and remove
-anything that should not be shared; the file remains under the author's
-control.
+    * The user can review and update it before submission.
+    * It is possible to simply ask the agent not to share the report.
+    * The report submission needs a drop directory name (the agent may refer to it as `DROPDIR`). Not providing the directory name will lead to the agent not sharing the report.
 
 ## Feedback
 
