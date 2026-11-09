@@ -1,22 +1,16 @@
 ---
-title: Optimize your experiments with AI agents
+title: Optimize your experiments with AI
 description: >-
-  IDT's optimization loop: use your coding agent with a Mila skill to
-  diagnose and fix underused GPUs in your experiment code.
+  Pair your coding agent with a Mila skill to diagnose bottlenecks, optimize your workload, and achieve faster results.
 ---
 
-# Optimize your experiments with AI agents
+# Optimize your experiments with AI
 
-Users periodically receive notifications that jobs use GPUs inefficiently.
-Such notifications state that a problem exists, not what to change in the
-code. Discussing a specific case with IDT at the
-[Office Hours](../help/office_hours.md) is effective, but one-on-one support
-does not scale across the community.
+If you are facing slow experiments, constrained compute resources, or low utilization, there is a good chance your agent, equipped with adequate guidance and context, can help you out.
 
-**IDT is working on closing this gap.** Coding agents (Claude Code or
-similar) already have broad knowledge of PyTorch and Slurm; what they lack is
+Coding agents already have broad knowledge of PyTorch and Slurm; what they lack is
 Mila-specific context and specific optimization methods. IDT packages that
-context into a skill the agent can load in order to:
+context into a **skill** the agent can load in order to:
 
 1. **Diagnose** — measure actual job behavior (throughput, resources utilization)
    instead of guessing
@@ -24,6 +18,8 @@ context into a skill the agent can load in order to:
    job packing, checkpointing frequency…) ranked by expected gain
 3. **Fix safely** — implement the changes while keeping experimental results
    identical, and record the findings in a report.
+
+You're always welcome for the [IDT Office Hours](../help/office_hours.md) to get help on this.
 
 !!! wip "Work in progress"
     This is an early version: coverage of real-world cases is still being
