@@ -60,9 +60,9 @@ The skill lives in the [mila-iqia/skills][skills] marketplace, as the
 
 The agent detects the skill and follows its requirements:
 
-* **Maximize resources utilization:** It is the main goal or the Skill, and can be done through multiple vectors such as jobs packing.
-* **Protect the science:** The optimization should have no impact on the results. Hyperparameters changes for instance can alter results, so the skill explicitely ask precisions to the user for such an operation.
-* **Improve the Skills:** An `optimization-report.md`is generated and can be sent in the repository mentioned in Slack usage notifications. This reports describes the issues found, the fixes made, and the gains obtained.
+* **Maximize resources utilization:** The core objective of the skill, achieved through diagnoses and standard improvement strategies like job packing.
+* **Protect the science:** Optimization must preserve result integrity. The skill explicitly requires user confirmation before making any changes that could alter findings (such as hyperparameter adjustments).
+* **Improve the Skills:** An optimization report is generated and can be submitted to the relevant repository to document identified found issues, applied fixes and performance gains.
 
 ## The report is optional
 
