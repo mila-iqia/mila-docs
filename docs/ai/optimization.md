@@ -9,13 +9,13 @@ description: >-
 If you are facing slow experiments, constrained compute resources, or low utilization, there is a good chance your agent, equipped with adequate guidance and context, can help you out.
 
 Coding agents already have broad knowledge of PyTorch and Slurm; what they lack is
-Mila-specific context and specific optimization methods. IDT packages that
+Mila-specific context and relevant optimization methods. IDT packages that
 context into a **skill** the agent can load in order to:
 
 1. **Diagnose** — measure actual job behavior (throughput, resources utilization)
    instead of guessing
 2. **Recommend** — propose concrete fixes (dataloader workers, `torch.compile`,
-   job packing, checkpointing frequency…) ranked by expected gain
+   job packing, checkpointing frequency, etc) ranked by expected gain
 3. **Fix safely** — implement the changes while keeping experimental results
    identical, and record the findings in a report.
 
@@ -32,7 +32,7 @@ You're always welcome for the [IDT Office Hours](../help/office_hours.md) to get
 ## The optimization skill
 
 The skill lives in the [mila-iqia/skills][skills] marketplace, as the
-`opt-tools` plugin.  To use it to optimize your code, start a session with your agent at the root of the experiment code and
+`opt-tools` plugin. To optimize your code with it, start a session with your agent at the root of the experiment code and
     describe the desired outcome in plain language:
 
 === "Use the Skill (all agents)"
