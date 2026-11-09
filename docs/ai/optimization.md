@@ -65,10 +65,6 @@ The agent detects the skill and follows its requirements:
 * **Improve the Skills:** An optimization report is generated and can be submitted to the relevant repository to document identified found issues, applied fixes and performance gains.
 
 !!! info "Sharing the report is optional"
-    The report summarizes the workload's purpose, environment, identified bottlenecks, and applied fixes. Review and redact any details before submission.
-    Upon completion, the agent may ask to submit the report to IDT to help track recurring performance issues and reusable optimizations. Sharing is strictly opt-in.
-
-!!! info "Sharing the report is optional"
     The optimization report is written locally and summarizes the experiment's purpose, its stack, its identified issues and the applied fixes.
 
     **Sharing it remains the user's choice**
