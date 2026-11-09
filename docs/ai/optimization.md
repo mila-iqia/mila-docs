@@ -18,24 +18,24 @@ similar) already have broad knowledge of PyTorch and Slurm; what they lack is
 Mila-specific context and specific optimization methods. IDT packages that
 context into a skill the agent can load in order to:
 
-1. **Diagnose** — measure actual job behavior (throughput, GPU utilization)
+1. **Diagnose** — measure actual job behavior (throughput, resources utilization)
    instead of guessing
 2. **Recommend** — propose concrete fixes (dataloader workers, `torch.compile`,
    job packing, checkpointing frequency…) ranked by expected gain
 3. **Fix safely** — implement the changes while keeping experimental results
    identical, and record the findings in a report.
 
-!!! wip "This is a work in progress"
+!!! wip "Work in progress"
     This is an early version: coverage of real-world cases is still being
     established.
 
-    * The skill requests confirmation before any change that could
-    affect experimental results (for example, touching batch size).
-    *  Reports of incorrect behavior directly inform the next versions.
+    It explicitely requests confirmation to:
+    * apply changes that could alter experimental results
+    * share reports to the IDT team so that the skill may benefit from a feedback loop.
 
 ## The optimization skill
 
-For now, the only skill lives in the [mila-iqia/skills][skills] marketplace, as the
+The skill lives in the [mila-iqia/skills][skills] marketplace, as the
 `opt-tools` plugin.  To use it to optimize your code, start a session with your agent at the root of the experiment code and
     describe the desired outcome in plain language:
 
