@@ -26,7 +26,7 @@ You're always welcome for the [IDT Office Hours](../help/office_hours.md) to get
     established.
 
     It explicitely requests confirmation to:
-    
+
     * apply changes that could alter experimental results
     * share reports to the IDT team so that the skill may benefit from a feedback loop.
 
