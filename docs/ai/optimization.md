@@ -22,8 +22,8 @@ context into a **skill** the agent can load in order to:
 You're always welcome for the [IDT Office Hours](../help/office_hours.md) to get help on this.
 
 !!! wip "Work in progress"
-    This is an early version: coverage of real-world cases is still being
-    established.
+    This is an early version: we are actively working on improving it based
+    on various real-world experiments.
 
     It explicitely requests confirmation to:
 
