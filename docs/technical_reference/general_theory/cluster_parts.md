@@ -38,7 +38,7 @@ for nodes, this is not always possible in the field of artificial intelligence
 as hardware evolves rapidly and new hardware is continually added. As a result,
 compute nodes are often grouped into classes, some of which have different GPU
 models or no GPU at all. For the Mila cluster, this information is available in
-the [Node profile description](../clusters/mila/nodes.md) section. Keep track
+the [Mila compute nodes](../clusters/mila/nodes.md) section. Keep track
 of *which* compute nodes the code runs on.
 
 ### The storage nodes

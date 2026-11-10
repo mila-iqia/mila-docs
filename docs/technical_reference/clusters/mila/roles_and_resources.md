@@ -22,7 +22,7 @@ if applicable, your co-supervisor.
 ## Overview of available computing resources at Mila
 
 The Mila cluster is a heterogeneous cluster with a variety of node types
-(see [Node profile description](nodes.md)) and is to be used for regular development.
+(see [Mila compute nodes](nodes.md)) and is to be used for regular development.
 It uses [Slurm](../../general_theory/slurm.md) to schedule jobs.
 
 ### Mila cluster versus DRAC / PAICE clusters

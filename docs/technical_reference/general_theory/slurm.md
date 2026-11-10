@@ -197,7 +197,7 @@ submission command.
 
 To access those special nodes you need to request them explicitly by adding the
 flag `--constraint=<name>`. The full list of nodes in the Mila Cluster can be
-accessed at [Node profile description](../clusters/mila/nodes.md).
+accessed at [Mila compute nodes](../clusters/mila/nodes.md).
 
 *Examples:*
 

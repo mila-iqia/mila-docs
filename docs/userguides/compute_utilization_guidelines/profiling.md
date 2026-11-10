@@ -348,7 +348,7 @@ Here is a quick overview of the clusters and their associated portals (if applic
 Even though situations are diverse, the following guidelines pave the way
 for efficient GPU utilization.
 
-!!! tip "Do — improve efficiency"
+!!! do "Do — improve efficiency"
     - **Profile before scaling:** Run a test job with a profiler (WandB or
       TensorBoard) before launching large sweeps to ensure the data loader
       saturates the GPU.
@@ -367,7 +367,7 @@ for efficient GPU utilization.
       allocation that fits the job. Smaller allocations fill queue gaps faster,
       reducing wait time.
 
-!!! warning "Don't — common pitfalls"
+!!! dont "Don't — common pitfalls"
     - **Hoarding nodes:** Do not keep high-end GPUs (e.g., H100s) allocated on
       interactive partitions while away from the keyboard. Release them if not
       actively computing.

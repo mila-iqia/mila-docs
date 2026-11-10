@@ -33,6 +33,8 @@ theme:
     admonition:
       wip: fontawesome/solid/brush
       monitoring: fontawesome/solid/chart-line
+      do: fontawesome/solid/check
+      dont: fontawesome/solid/xmark
   name: material
   custom_dir: overrides
   features:
