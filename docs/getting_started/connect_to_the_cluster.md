@@ -278,6 +278,11 @@ everything's installed!
 ```
 </div>
 
+!!! note "Going further"
+    See the [Logging in to the cluster](../userguides/prepare/login.md) guide
+    for manual SSH configuration, connecting to specific login nodes or
+    compute nodes, and guidelines on using login nodes responsibly.
+
 ---
 
 ## Key concepts

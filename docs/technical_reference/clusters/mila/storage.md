@@ -5,7 +5,7 @@
 | `/network/datasets/`                             | High        | Curated raw datasets (read only)                                     | —                   | —      | —            |
 | `/network/weights/`                              | High        | Curated models weights (read only)                                   | —                   | —      | —            |
 | `$HOME` or `/home/mila/<u>/<username>/`          | Low         | Personal user space; specific libraries, code, binaries              | 100GB/1000K         | Daily  | no           |
-| `$SCRATCH` or `/network/scratch/<u>/<username>/` | High        | Temporary job results; processed datasets; optimized for small files | 5TB/no              | no     | 90 days      |
+| `$SCRATCH` or `/network/scratch/<u>/<username>/` | High        | Temporary job results; processed datasets; optimized for small files | 5TB/10M             | no     | 90 days      |
 | `$SLURM_TMPDIR`                                  | Highest     | High speed disk for temporary job results                            | no/no               | no     | at job end   |
 | `/network/projects/<groupname>/`                 | Fair        | Shared space for collaboration; long-term project storage            | 1TB/1000K           | Daily  | no           |
 | `$ARCHIVE` or `/network/archive/<u>/<username>/` | Low         | Long-term personal storage                                           | 5TB                 | no     | no           |
@@ -35,9 +35,10 @@ disk-quota
 or temporary job results. Its block size is optimized for small files which
 minimizes the performance hit of working on extracted datasets.
 
-Quotas are enabled on `$SCRATCH` for disk capacity (blocks). The limit is
-5TiB. There is no limit in the number of files (inodes). The command to check
-the quota usage from a login node is:
+Quotas are enabled on `$SCRATCH` for both disk capacity (blocks) and number of
+files (inodes). The limits for blocks and inodes are respectively 5TiB and a
+maximum 10M number of files (inodes). The command to check the quota usage
+from a login node is:
 
 ```bash
 disk-quota
