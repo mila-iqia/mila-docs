@@ -11,11 +11,14 @@ description: >-
 for black-box function optimization developed at Mila. It serves as a
 meta-optimizer for machine learning models and training, as well as a flexible
 experimentation platform for large-scale asynchronous optimization procedures.
+On the clusters, it runs hyperparameter optimization (HPO) searches in
+parallel across many Slurm jobs.
 
-!!! note
-    Network Architecture Search (NAS) is a subset of hyperparameter
-    optimization (HPO) in which the hyperparameters define the network. The
-    same technique applies to both.
+!!! note "Neural Architecture Search"
+    Oríon also handles Neural Architecture Search (NAS), a form of HPO in which
+    the hyperparameters describe the network itself, such as the number of
+    layers or the width of each layer. Add these hyperparameters to the search
+    space and have the training script build the model from them.
 
 ## Set up
 
