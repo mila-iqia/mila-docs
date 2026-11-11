@@ -12,13 +12,17 @@ for black-box function optimization developed at Mila. It serves as a
 meta-optimizer for machine learning models and training, as well as a flexible
 experimentation platform for large-scale asynchronous optimization procedures.
 
+!!! note
+    Network Architecture Search (NAS) is a subset of hyperparameter
+    optimization (HPO) in which the hyperparameters define the network. The
+    same technique applies to both.
+
 ## Set up
 
-Add Oríon to the project environment. Oríon relies on `pkg_resources`, so
-`setuptools` is also required:
+On a login node, add Oríon to the project environment :
 
 ```bash
-uv add "orion>=0.2.7" setuptools
+uv add orion
 ```
 
 ## Use in a Slurm job
@@ -46,16 +50,17 @@ cat > $ORION_CONFIG <<- EOM
         max_broken: 10
 
     worker:
-        n_workers: $SBATCH_CPUS_PER_GPU
+        n_workers: $SLURM_CPUS_PER_GPU
         pool_size: 0
         executor: joblib
         heartbeat: 120
         max_broken: 10
         idle_timeout: 60
 
-    database:
-        host: $SCRATCH/${EXPERIMENT_NAME}_orion.pkl
-        type: pickleddb
+    storage:
+        database:
+            host: $SCRATCH/${EXPERIMENT_NAME}_orion.pkl
+            type: pickleddb
 EOM
 ```
 
@@ -70,7 +75,7 @@ model, the optimizer, and other parts of the training. The example below
 covers a common set of hyperparameters.
 
 ```bash
-# Define your hyperparameter search space
+# Define the hyperparameter search space
 cat > $SPACE_CONFIG <<- EOM
     {
         "epochs": "orion~fidelity(1, 100, base=2)",
@@ -87,7 +92,7 @@ Once Oríon is configured and has a search space, run `orion hunt`. It starts
 the training with a different set of hyperparameters for each worker.
 
 ```bash
-orion hunt --config $ORION_CONFIG \
+uv run orion hunt --config $ORION_CONFIG \
     python train.py --config $SPACE_CONFIG --arg1 value1
 ```
 
@@ -108,14 +113,6 @@ sbatch --array=1-100 --gres=gpu:1 --cpus-per-gpu=2 --mem-per-gpu=16G \
     hpo_launcher.sh train.py
 ```
 
-<!-- TODO: placement — the NAS note fits no template section -->
-!!! note
-    Network Architecture Search (NAS) is a subset of hyperparameter
-    optimization where hyperparameters are used to generate a network. The
-    same technique applies to both NAS and HPO.
-
-<!-- TODO: confirm DRAC behaviour (internet access, modules, storage) -->
-
 ## Example
 
 The `hpo_launcher.sh` script submitted above combines the configuration,
@@ -126,8 +123,7 @@ search space, and `orion hunt` steps:
 ```
 
 For a step-by-step example that adapts a PyTorch training script to Oríon,
-see
-[Hyperparameter Optimization with Oríon](../../examples/good_practices/hpo_with_orion/index.md).
+see [Hyperparameter Optimization with Oríon](../../examples/good_practices/hpo_with_orion/index.md).
 
 ---
 

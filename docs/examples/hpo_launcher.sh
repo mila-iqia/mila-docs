@@ -3,16 +3,8 @@ set -v
 
 # Usage:
 #
-#   sbatch --array=1-100 --gres=gpu:1 --cpus-per-gpu=2 --mem-per-gpu=16G scripts/hpo_launcher.sh train.py
+#   sbatch --array=1-100 --gres=gpu:1 --cpus-per-gpu=2 --mem-per-gpu=16G hpo_launcher.sh train.py
 #
-
-# Slurm configuration
-# ===================
-
-# Python
-# ===================
-
-conda activate py39
 
 # Environment
 # ===================
@@ -28,10 +20,10 @@ export SPACE_CONFIG=$SCRATCH/space-config.json
 # Configure Orion
 # ===================
 #
-#    - user hyperband
-#    - launch 4 workers for each tasks (one for each CPU)
+#    - use hyperband
+#    - launch one worker per CPU allocated to the GPU
 #    - worker dies if idle for more than a minute
-#    - Each worker are sharing a single GPU to maximize usage
+#    - all workers share a single GPU to maximize usage
 #
 cat > $ORION_CONFIG <<- EOM
     experiment:
@@ -42,19 +34,20 @@ cat > $ORION_CONFIG <<- EOM
         max_broken: 10
 
     worker:
-        n_workers: $SBATCH_CPUS_PER_GPU
+        n_workers: $SLURM_CPUS_PER_GPU
         pool_size: 0
         executor: joblib
         heartbeat: 120
         max_broken: 10
         idle_timeout: 60
 
-    database:
-        host: $SCRATCH/${EXPERIMENT_NAME}_orion.pkl
-        type: pickleddb
+    storage:
+        database:
+            host: $SCRATCH/${EXPERIMENT_NAME}_orion.pkl
+            type: pickleddb
 EOM
 
-# Define your hyperparameter search space
+# Define the hyperparameter search space
 cat > $SPACE_CONFIG <<- EOM
     {
         "epochs": "orion~fidelity(1, 100, base=2)",
@@ -67,4 +60,4 @@ EOM
 # Run
 # ===================
 
-orion hunt --config $ORION_CONFIG python "$@ --config $SPACE_CONFIG"
+uv run orion hunt --config $ORION_CONFIG python "$@" --config $SPACE_CONFIG
