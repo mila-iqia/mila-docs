@@ -7,7 +7,7 @@ description: >-
 
 # Help us help you
 
-In a cutting-edge research environment like Mila's, each of us rely on the community to keep pace with rapid innovation. Sharing the challenges you encounter and the breakthroughs you achieve helps us build and test better tools to support you and future researchers, to stay at the forefront of AI research.
+In a cutting-edge research environment like Mila's, each of us rely on the community to keep pace with rapid innovation. Sharing the challenges you encounter and the breakthroughs you achieve helps us build better tools to support you and future researchers, to stay at the forefront of AI research.
 Feel free to reach out to us via your preferred channel (email, Slack, or GitHub). All feedback and suggestions are greatly appreciated!
 
 More specifically, several ongoing projects require real-world data to become more effective. Like any system grounded in practice, these tools are only as capable as the diverse concrete examples they are built upon.
