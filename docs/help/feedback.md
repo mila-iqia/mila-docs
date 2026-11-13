@@ -23,9 +23,9 @@ More specifically, several ongoing projects require real-world data to become mo
 
 -->
 
-### Optimization loop project
+## Optimization loop project
 
-#### Description
+### Description
 
 When we profile someone's code at the [Office Hours](office_hours.md) or during
 a compute-waste intervention, the same handful of problems keeps coming back: a
