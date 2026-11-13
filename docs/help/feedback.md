@@ -15,11 +15,14 @@ More specifically, several ongoing projects require real-world data to become mo
 
 **That's where you come in.**
 
+<!--
 ## Projects
 
 | Project | Quick overview | What we need |
 | ------- | -------------- | ------------ |
 | [Optimization loop project](../ai/optimization.md) | Optimize code through agent Skills | Research experiment/code base |
+
+-->
 
 ### Optimization loop project
 
