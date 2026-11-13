@@ -11,8 +11,7 @@ In an research environment such as Mila, it is important to us to be transparent
 As we are currently not researchers (except for one member), former researchers at most, we do our best to reach out to researchers and understand their daily life and struggles.
 We learn, but we also guess and conclude. In general, don't hesitate to reach us in your favorite communication way (mail, Slack, Git), every feedback or advice is more than appreciated!
 
-More specifically, we are working on some projects requiring real-life testing and data to be more effective: like any tool built on real cases, it is only as
-good as the real cases it was built from.
+More specifically, several ongoing projects require real-world data to become more effective. Like any system grounded in practice, these tools are only as capable as the diverse concrete examples they are built upon.
 
 **That's where you come in.**
 
@@ -61,7 +60,7 @@ Respectfully, and with your permission at every step:
 
 * **You decide what you share.** That can be read access to a repo or a copy of
   the training loop and launch scripts without any data.
-   
+
 * **Your code stays internal.** Examples are kept privately and we use a locally-hosted LLM to help us test ideas for optimizing the code, but we would never share your code or use external agents like Claude or Codex without your consent. Your approval would always be requested.
 * **You get the findings back.** Every case we profile comes with what we
   found. Worst case, you get a free profiling session!
