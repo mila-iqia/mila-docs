@@ -36,11 +36,9 @@ We are turning that experience into tools —
 [skills your AI agent can use](../ai/optimization.md) to diagnose and fix these
 problems automatically.
 
-#### What we're asking for
+#### How you can help us help you
 
-If you look at your experiment code and think *"this probably runs worse than
-it should"*, or simply *"I have no idea how fast this is supposed to be"* —
-that's exactly the code we want.
+If you are facing slow experiments, constrained compute resources, low utilization, or even if you simply have no idea about how fast this is supposed to be, that's exactly the code we want.
 
 We're especially interested in:
 
@@ -55,8 +53,7 @@ We're especially interested in:
 
 !!! tip "Perfection is not mandatory"
 
-    You don't need working benchmark scripts, clean code, or a bug-free repo. Messy
-    research code is the norm.
+    You don't need working benchmark scripts, clean code, or a bug-free repo. Starting research projects with messy code is the norm.
 
 #### What happens to your code
 
@@ -64,8 +61,8 @@ Respectfully, and with your permission at every step:
 
 * **You decide what you share.** That can be read access to a repo or a copy of
   the training loop and launch scripts without any data.
-* **Your code stays internal.** Examples are kept privately. Your approval will
-  be requested if we wish to test an optimization with non-local agents.
+   
+* **Your code stays internal.** Examples are kept privately and we use a locally-hosted LLM to help us test ideas for optimizing the code, but we would never share your code or use external agents like Claude or Codex without your consent. Your approval would always be requested.
 * **You get the findings back.** Every case we profile comes with what we
   found. Worst case, you get a free profiling session!
 

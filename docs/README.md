@@ -143,7 +143,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
 - [AI agents](ai/index.md)
     - [Set Up Claude Code](ai/claude_code.md)
     - [Install Mila Skills for Claude Code](ai/mila_skills.md)
-    - [Optimize Your Experiments with AI](ai/optimization.md)
+    - [Optimize Your Experiments](ai/optimization.md)
     - [Mila Docs MCP Server](ai/mcp.md)
     - [Add Mila Docs context to AI assistants](ai/context.md)
 - [Technical reference](technical_reference/index.md)
