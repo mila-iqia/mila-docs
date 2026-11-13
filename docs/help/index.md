@@ -79,6 +79,15 @@ Need a hand getting your experiments running on the cluster? You'll find everyth
 
     [:octicons-arrow-right-24: Join us at the Office Hours](office_hours.md)
 
+-   :material-hand-heart:{ .lg .middle } **Help us help you**
+
+    ---
+
+    Think your experiment code could run better than it does? Share it with IDT:
+    real code is what we build and test our optimization tools on.
+
+    [:octicons-arrow-right-24: Share your code](feedback.md)
+
 </div>
 
 ## 1. Try these resources first
