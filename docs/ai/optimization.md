@@ -15,7 +15,7 @@ context into a **skill** the agent can load in order to:
 1. **Diagnose** — measure actual job behavior (e.g., throughput, resources utilization)
 2. **Recommend** — propose concrete fixes (e.g., dataloader workers, job packing)
 3. **Fix safely** — implement the changes while keeping experimental results identical
-4. **Improve the Skill (Optional)** — record the findings in a report.
+4. **Help improve the Skill (Optional)** — record the findings in a report.
 
 You're always welcome at the [IDT Office Hours](../help/office_hours.md) to get help with this.
 
@@ -70,7 +70,6 @@ The agent detects the skill and follows its requirements:
 
     * The user can review and update it before submission.
     * It is possible to simply ask the agent not to share the report.
-    * The report submission needs a drop directory name (the agent may refer to it as `DROPDIR`). Not providing the directory name will lead to the agent not sharing the report.
 
 ## Feedback
 
@@ -80,7 +79,7 @@ Feedback on real-world use drives the next iterations:
 * Did it miss something a human reviewer would catch immediately?
 * Was the measurement sound — did the results stay the same?
 
-Reach IDT on Slack ([#mila-cluster][slack] or [#compute-canada][slack-cc]),
+To share feedback with us, reach IDT on Slack ([#mila-cluster][slack] or [#compute-canada][slack-cc]),
 come to the [Office Hours](../help/office_hours.md), or have the agent include
 its observations in the report it sends (the skill asks it to). Negative
 experiences are as valuable as positive ones.
