@@ -174,9 +174,13 @@ plugins:
   # - privacy
   - redirects:
       redirect_maps:
+        # waste is sent in the bi-monthly resources usage notifications (through Slack)
         "waste.md": "userguides/compute_utilization_guidelines/profiling.md"
+        # Userguide_login_mfa and Userguide have been sent by mail when MFA has been set in 2025
         "Userguide_login_mfa.md": "getting_started/mfa.md"
         "Userguide.md": "userguides/prepare/login.md"
+        # send-ssh-key-to-it is mentioned in the IT onboarding quiz, when we ask to send the key to the support
+        "send-ssh-key-to-it.md": "technical_reference/general_theory/ssh_on_clusters.md"
   - search
   - include-markdown:
       dedent: true
