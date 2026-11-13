@@ -7,9 +7,8 @@ description: >-
 
 # Help us help you
 
-In an research environment such as Mila, it is important to us to be transparent and reachable because we trust the force of community.
-As we are currently not researchers (except for one member), former researchers at most, we do our best to reach out to researchers and understand their daily life and struggles.
-We learn, but we also guess and conclude. In general, don't hesitate to reach us in your favorite communication way (mail, Slack, Git), every feedback or advice is more than appreciated!
+In a cutting-edge research environment like Mila's, each of us rely on the community to keep pace with rapid innovation. Sharing the challenges you encounter and the breakthroughs you achieve helps us build and test better tools to support you and future researchers, to stay at the forefront of AI research.
+Feel free to reach out to us via your preferred channel (email, Slack, or GitHub). All feedback and suggestions are greatly appreciated!
 
 More specifically, several ongoing projects require real-world data to become more effective. Like any system grounded in practice, these tools are only as capable as the diverse concrete examples they are built upon.
 
@@ -47,8 +46,6 @@ We're especially interested in:
 * **Workloads that feel slow** but where the bottleneck isn't obvious
 * **Code that got "big"** — it started as one script and became a training
   suite across several clusters
-* **Workload types that are under-represented** in our examples: RL loops,
-  inference serving, heavy data preprocessing, multi-agent setups
 * **Code that already runs well** — we need those too, as reference cases, so
   our tools learn what "good" looks like and stop "optimizing" what doesn't
   need it.
@@ -66,7 +63,7 @@ Respectfully, and with your permission at every step:
 
 * **Your code stays internal.** Examples are kept privately and we use a locally-hosted LLM to help us test ideas for optimizing the code, but we would never share your code or use external agents like Claude or Codex without your consent. Your approval would always be requested.
 * **You get the findings back.** Every case we profile comes with what we
-  found. Worst case, you get a free profiling session!
+  found. Worst case, you get a free optimizations from experts!
 
 ## How to share
 
