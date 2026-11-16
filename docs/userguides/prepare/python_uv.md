@@ -12,6 +12,9 @@ description: >-
 `uv` locally and on the cluster, managing project dependencies, running scripts
 reproducibly, and submitting Slurm batch jobs.
 
+!!! skills "Recommended Skill"
+    If you want to use an agent for this guide, check out [this Skill](https://raw.githubusercontent.com/mila-iqia/skills/refs/heads/master/mila-tools/skills/mila-local-setup/SKILL.md).
+
 ## Before you begin
 
 <div class="grid cards" markdown>

@@ -30,6 +30,9 @@ description: Install tools to connect to the cluster for the first time.
 This guide helps with the installation of `uv` and `milatools`, in order to connect to the cluster.
 Connections to the clusters are then done by SSH (see [this page](../technical_reference/general_theory/ssh_on_clusters.md) to learn how the connection work underneath).
 
+!!! skills "Recommended Skill for this task"
+    If you are using an agent for this step, check out [this Skill](https://raw.githubusercontent.com/mila-iqia/skills/refs/heads/master/mila-tools/skills/mila-connect-cluster/SKILL.md).
+
 ## What this guide covers
 
 * Understand which token to use for the portal vs. SSH cluster logins

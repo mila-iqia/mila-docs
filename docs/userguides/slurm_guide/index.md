@@ -34,6 +34,12 @@ monitoring, managing and synchronizing tasks across multiple nodes.
     guide](../../getting_started/index.md). Every step also lists the equivalent
     `ssh mila` terminal command as an alternative.
 
+!!! skills "Recommended Skills"
+    If you want to use an agent for this guide, check out the following Skills:
+
+    * [Connect to the cluster](https://raw.githubusercontent.com/mila-iqia/skills/refs/heads/master/mila-tools/skills/mila-connect-cluster/SKILL.md)
+    * [Run jobs with Slurm](https://raw.githubusercontent.com/mila-iqia/skills/refs/heads/master/mila-tools/skills/mila-run-jobs/SKILL.md).
+
 <div class="grid cards" markdown>
 
 -   [:material-lightbulb-alert-outline:{ .lg .middle } __Understand Slurm__](basics.md)
