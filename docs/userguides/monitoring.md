@@ -14,6 +14,14 @@ later. This page explains what to monitor, how to prepare metric collection
 before the job starts, and which guide covers each tool available on the
 cluster.
 
+!!! skills "Recommended Skills"
+    To optimize your code with your agent, check out the following Skills:
+    
+    * [Global optimization Skill](https://raw.githubusercontent.com/mila-iqia/skills/refs/heads/master/opt-tools/skills/optimization-target/SKILL.md).
+    * [Pytorch Skills](https://github.com/srygaard/optimization-skills/tree/main)
+
+    ⚠️ We are currently working on these Skills: they may ask you to send us a report. Every feedback is more than welcome but you are free to say no. More details in [Optimize your experiments with AI](../../ai/optimization.md) and [Help us help you](../../help/feedback.md).
+
 ## Before you begin
 
 <div class="grid cards" markdown>

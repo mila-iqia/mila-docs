@@ -11,6 +11,9 @@ Reproducible research depends on being able to recreate an experiment's
 environment, code, and data at any later point. This page gives a short
 overview of the practices involved.
 
+!!! skills "Recommended Skill"
+    To add your papers to Paperoni with an agent, check out [this Skill](https://raw.githubusercontent.com/mila-iqia/skills/refs/heads/master/mila-tools/skills/mila-paperoni/SKILL.md).
+
 ## Before you begin
 
 <div class="grid cards" markdown>
