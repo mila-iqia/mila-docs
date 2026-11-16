@@ -38,7 +38,7 @@ We are turning that experience into tools —
 [skills your AI agent can use](../ai/optimization.md) to diagnose and fix these
 problems automatically.
 
-#### How you can help us help you
+### How you can help us help you
 
 If you are facing slow experiments, constrained compute resources, low utilization, or even if you simply have no idea about how fast this is supposed to be, that's exactly the code we want.
 
@@ -55,7 +55,7 @@ We're especially interested in:
 
     You don't need working benchmark scripts, clean code, or a bug-free repo. Starting research projects with messy code is the norm.
 
-#### What happens to your code
+### What happens to your code
 
 Respectfully, and with your permission at every step:
 
