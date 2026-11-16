@@ -15,7 +15,7 @@ context into a **skill** the agent can load in order to:
 1. **Diagnose** — measure actual job behavior (e.g., throughput, resources utilization)
 2. **Recommend** — propose concrete fixes (e.g., dataloader workers, job packing)
 3. **Fix safely** — implement the changes while keeping experimental results identical
-4. **Help improve the Skill (Optional)** — record the findings in a report.
+4. **Share findings (optional)** — send report about progress made to the IDT team, to help improve the Skill(s).
 
 You're always welcome at the [IDT Office Hours](../help/office_hours.md) to get help with this.
 
