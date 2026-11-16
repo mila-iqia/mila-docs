@@ -16,7 +16,7 @@ cluster.
 
 !!! skills "Recommended Skills"
     To optimize your code with your agent, check out the following Skills:
-    
+
     * [Global optimization Skill](https://raw.githubusercontent.com/mila-iqia/skills/refs/heads/master/opt-tools/skills/optimization-target/SKILL.md).
     * [Pytorch Skills](https://github.com/srygaard/optimization-skills/tree/main)
 
