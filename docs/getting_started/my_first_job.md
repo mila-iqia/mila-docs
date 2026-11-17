@@ -46,7 +46,7 @@ code`](https://github.com/mila-iqia/milatools) command from
     VSCode](https://code.visualstudio.com/Download) on a personal computer
     before starting.
 
-!!! skills "Recommended Skill for this task"
+!!! tip "Recommended Skill for this task"
     If you are using an agent for this step, check out [this Skill](https://raw.githubusercontent.com/mila-iqia/skills/refs/heads/master/mila-tools/skills/mila-run-jobs/SKILL.md).
 
 ## What this guide covers

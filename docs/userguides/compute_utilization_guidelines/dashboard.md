@@ -8,7 +8,7 @@ description: Understand RGU and SM occupancy metrics and how to read the Compute
 **[Link to dashboard](https://sarc.mila.quebec/dash/metrics).
 Access granted with Mila credentials.**
 
-!!! skills "Recommended Skill"
+!!! tip "Recommended Skill"
     If you prefer to use an agent to request these data, check out [this Skill](https://raw.githubusercontent.com/mila-iqia/skills/refs/heads/master/mila-tools/skills/mila-sarc/SKILL.md).
 
 The **Compute Utilization Dashboard** provides visibility into cluster usage.

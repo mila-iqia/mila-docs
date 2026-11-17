@@ -34,7 +34,7 @@ monitoring, managing and synchronizing tasks across multiple nodes.
     guide](../../getting_started/index.md). Every step also lists the equivalent
     `ssh mila` terminal command as an alternative.
 
-!!! skills "Recommended Skills"
+!!! tip "Recommended Skills"
     If you want to use an agent for this guide, check out the following Skills:
 
     * [Connect to the cluster](https://raw.githubusercontent.com/mila-iqia/skills/refs/heads/master/mila-tools/skills/mila-connect-cluster/SKILL.md)

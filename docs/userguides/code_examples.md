@@ -13,7 +13,7 @@ concept in isolation, and the **Research Project Template**, a complete
 project structure ready to be used for a new research project. Both are
 designed to run on the Mila cluster as-is.
 
-!!! skills "Recommended Skills"
+!!! tip "Recommended Skills"
     To optimize your code with your agent, check out the following Skills:
 
     * [Global optimization Skill](https://raw.githubusercontent.com/mila-iqia/skills/refs/heads/master/opt-tools/skills/optimization-target/SKILL.md).
