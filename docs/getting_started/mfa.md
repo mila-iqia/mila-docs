@@ -27,6 +27,10 @@ description: Configure MFA to access the Mila cluster securely.
         <div class="progress-marker"><a href="../train_first_model">5</a></div>
         <div class="progress-label"><a href="../train_first_model">Train your first model</a></div>
     </div>
+    <div class="progress-step">
+        <div class="progress-marker"><a href="mila_local_agent">6</a></div>
+        <div class="progress-label"><a href="mila_local_agent">Use Mila local agent</a></div>
+    </div>
 </nav>
 
 This guide covers how to register for MFA and choose an

@@ -38,8 +38,8 @@ skills:
         <div class="progress-label"><a href="train_first_model">Train your first model</a></div>
     </div>
     <div class="progress-step">
-        <div class="progress-marker"><a href="train_first_model">5</a></div>
-        <div class="progress-label"><a href="train_first_model">Use Mila local agent</a></div>
+        <div class="progress-marker"><a href="mila_local_agent">6</a></div>
+        <div class="progress-label"><a href="mila_local_agent">Use Mila local agent</a></div>
     </div>
 </nav>
 
@@ -83,10 +83,8 @@ train your first model on the Mila cluster.
 * [ ] Monitor the job
 
 ## [Use Mila local agent](mila_local_agent.md)
-* [ ] Download OpenCode (once)
+* [ ] Get a Mila agent API key (once)
 * [ ] Create a SSH tunnel
+* [ ] Download OpenCode (once)
+* [ ] Configure OpenCode (once)
 * [ ] Launch OpenCode
-* [ ] Choose the model
-* [ ] Ask your question
-* [ ] Add documentation MCP
-* [ ] Add Mila Skills
