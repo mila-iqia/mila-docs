@@ -1,7 +1,7 @@
 # Mila Technical Documentation — Reference Summary for LLM Agents
 
 > Source: https://docs.mila.quebec (source repo: https://github.com/mila-iqia/mila-docs),
-> summarized from the repository state of 2026-10-20.
+> summarized from the repository state of 2026-11-19.
 > Scope: Mila organisation & support, Mila cluster (access, MFA, SSH, Slurm, partitions,
 > nodes, storage, tools), DRAC (Digital Research Alliance of Canada) and PAICE clusters,
 > Python environments (uv), experiment tracking, compute-efficiency policy, containers,
@@ -130,10 +130,12 @@ acknowledge DRAC, the regional partner and the AI institute managing the cluster
 - **Windows**: install WSL2 (`wsl --install Ubuntu` in PowerShell, reboot, open "Ubuntu") and
   run everything inside WSL.
 - Install `uv` locally: `curl -LsSf https://astral.sh/uv/install.sh | sh`
-- Install milatools: `uv tool install --upgrade milatools` (older: `pip install milatools`;
-  docs assume milatools ≥ 0.0.17).
-- Run `mila init` (asks for your cluster username): creates `~/.ssh/config` entries
-  (`mila`, `mila1`..`mila5`, `mila-cpu`, `cn-????` compute-node rules), an SSH key (`~/.ssh/id_ed25519_mila`), and adds the
+- Install milatools: `uv tool install --upgrade milatools` (or `pip install milatools`; needs
+  Python ≥ 3.9; if something misbehaves, `uv tool upgrade milatools` / `pip install -U milatools`
+  and re-run `mila init`).
+- Run `mila init` (asks for your cluster username): creates `~/.ssh/config` entries (`mila`,
+  `mila-cpu`, `*.server.mila.quebec !*login.server.mila.quebec` and `cn-????` compute-node rules;
+  ControlMaster multiplexing on Linux/macOS), an SSH key (`~/.ssh/id_ed25519_mila`), and adds the
   public key to `~/.ssh/authorized_keys` on the cluster (needed to reach compute nodes).
 - Test: `ssh mila`, enter the 6-digit OTP (not echoed). You land on a **login node**.
   - No OTP prompt → redo milatools install/config. No banner after OTP → redo MFA setup.
@@ -165,34 +167,49 @@ Close VSCode and press Ctrl+C in the terminal to release the allocation. If VSCo
 - **Public-key auth only** (passwords disabled since March 31, 2025) + MFA.
 - Login: host `login.server.mila.quebec`, **port 2222**, user = cluster username,
   `PreferredAuthentications publickey,keyboard-interactive`.
-  - `ssh -p 2222 <user>@login.server.mila.quebec` (load-balancer → least-loaded login node)
-  - Specific node: `ssh -p 2222 <user>@login-X.login.server.mila.quebec` (X = 1..4, a login-5
-    entry exists in the sample config).
-- Manual `~/.ssh/config` template:
+  - `ssh -p 2222 <user>@login.server.mila.quebec` (load-balancer → least-loaded of the 4 login nodes)
+  - Specific node: `ssh -p 2222 <user>@login-X.login.server.mila.quebec` (X = 1..4).
+- Manual `~/.ssh/config` template (current docs version; set `IdentityFile` to your private key,
+  the guide uses `~/.ssh/id_rsa_mila`; the guide also gives a matching manual template for the
+  DRAC/PAICE clusters — `narval rorqual fir nibi trillium trillium-gpu tamia killarney vulcan` —
+  with per-cluster `ProxyJump` rules for their compute nodes):
 ```sshconfig
-Host mila             login.server.mila.quebec
-    Hostname          login.server.mila.quebec
-Host mila1    login-1.login.server.mila.quebec
-    Hostname  login-1.login.server.mila.quebec
-# ... mila2..mila5 likewise
-Host cn-????
-    Hostname             %h.server.mila.quebec
-Match host !*login.server.mila.quebec,*.server.mila.quebec
-    Hostname                 %h
-    ProxyJump                mila
-Match host           *login.server.mila.quebec
-    Port                     2222
-    ServerAliveInterval      120
-    ServerAliveCountMax      5
-Match host *.server.mila.quebec
+Host mila
+    HostName login.server.mila.quebec
+    Port 2222
     PreferredAuthentications publickey,keyboard-interactive
-    AddKeysToAgent           yes
-    # ForwardAgent yes        (optional)
-    # UseKeychain  yes        (macOS only)
-    User                     CHANGEME_YOUR_MILA_USERNAME
+    ServerAliveInterval 120
+    ServerAliveCountMax 5
+    User <cluster-username>
+    IdentityFile ~/.ssh/id_rsa_mila
+
+Host mila-cpu                 # ssh mila-cpu → auto-allocates a CPU (mem=8G) on a compute node
+    Port 2222
+    RequestTTY force
+    ConnectTimeout 600
+    ServerAliveInterval 120
+    ForwardAgent yes
+    StrictHostKeyChecking no
+    UserKnownHostsFile /dev/null
+    LogLevel ERROR
+    ProxyCommand ssh mila "/cvmfs/config.mila.quebec/scripts/milatools/slurm-proxy.sh mila-cpu --mem=8G"
+    RemoteCommand /cvmfs/config.mila.quebec/scripts/milatools/entrypoint.sh mila-cpu
+    User <cluster-username>
+    IdentityFile ~/.ssh/id_rsa_mila
+
+Host cn-????                  # compute nodes: jump through mila (same for *.server.mila.quebec
+    ProxyJump mila            # except the login nodes)
+    User <cluster-username>
+    IdentityFile ~/.ssh/id_rsa_mila
+
+# Add to every host above → connection multiplexing, MFA once per machine boot:
+#   ControlMaster auto
+#   ControlPath ~/.cache/ssh/%r@%h:%p
+#   ControlPersist yes
 ```
-- **Reduce MFA prompts**: add `ControlMaster auto` and `ControlPersist yes` to the mila entry →
-  MFA once per machine boot (Linux/macOS; Windows via WSL). cluv requires ControlMaster.
+- **Reduce MFA prompts**: ControlMaster multiplexing (`ControlMaster auto` + `ControlPath
+  ~/.cache/ssh/%r@%h:%p` + `ControlPersist yes`) → MFA once per machine boot (Linux/macOS;
+  Windows via WSL). The current docs template and `mila init` include it; cluv requires it.
 - `scp file.zip mila:scratch/uploaded.zip`, `rsync -avz mila:path/ local/`,
   `ssh mila squeue -u '$USER'` (single-quote remote variables).
 - Login-node host key fingerprints:
@@ -208,11 +225,16 @@ Match host *.server.mila.quebec
   cluster (`chmod 600 ~/.ssh/authorized_keys; chmod 700 ~/.ssh; chmod go-w ~`) or agent
   forwarding. From laptop: `ssh -J mila USER@cn-xxxx` or with the wildcard rule
   `ssh cn-xxxx.server.mila.quebec`.
-- **`ssh mila-cpu`** (created by `mila init`): auto-allocates a CPU on a compute node; multiple
-  connections reuse the same job. Good for light work (VSCode editing, building, tests).
-- Keys: generate with `ssh-keygen -t ed25519` (or `-t rsa -b 3072`); regenerate a public key
-  with `ssh-keygen -y -f ~/.ssh/id_ed25519`. Use a passphrase. **Never share the private key**;
-  Mila will never ask for it (phishing).
+- **`ssh mila-cpu`** (created by `mila init`, and part of the manual template): auto-allocates
+  one CPU (8G RAM) on a compute node via a ProxyCommand; multiple connections reuse the same
+  job ("use it liberally"). Works transparently with VSCode Remote-SSH. Good for light work
+  (VSCode editing, building, tests). Modify the entry at your own risk.
+- Keys: generate with `ssh-keygen -t ed25519` (fast, ~82-byte public key) or `-t rsa -b 3072`
+  (ultra-compatible, recommended RSA size); regenerate a public key with
+  `ssh-keygen -y -f ~/.ssh/id_ed25519`. Protect the private key with a passphrase (the
+  pass*phrase* ≠ your login password, though making them equal allows auto-unlock via Keychain
+  (macOS) or pam_ssh (Linux)). **Never share the private key**; do not put it in the cloud,
+  emails, Slack messages or Git repos. Mila will never ask for it (phishing).
 - Shell: default `/bin/bash`; Zsh is also supported; Mila doesn't debug other shell setups.
   Change shell → support ticket.
 - **Login-node reboots**: 1st Tuesday of each month 2:00 PM EST → login-1 & login-2;
@@ -470,7 +492,7 @@ python3 my_script
 | `/network/datasets/` | High | curated raw datasets, read-only | – | – | – |
 | `/network/weights/` | High | curated model weights, read-only | – | – | – |
 | `$HOME` = `/home/mila/<u>/<username>/` | Low | code, libraries, binaries, small important results | 100 GiB / 1M files | daily | no |
-| `$SCRATCH` = `/network/scratch/<u>/<username>/` | High | processed datasets, temp results, checkpoints; optimized for small files | 5 TiB / unlimited | **no** | files unused **90 days** deleted (daily purge; shorter if FS > 90% full) |
+| `$SCRATCH` = `/network/scratch/<u>/<username>/` | High | processed datasets, temp results, checkpoints; optimized for small files | 5 TiB / **10M files** | **no** | files unused **90 days** deleted (daily purge; shorter if FS > 90% full) |
 | `$SLURM_TMPDIR` | Highest | node-local disk for the job | – | no | **deleted at job end** |
 | `/network/projects/<group>/` | Fair | shared long-term project storage (request via IT) | 1 TiB / 1M files per group (can request more) | daily | no |
 | `$ARCHIVE` = `/network/archive/<u>/<username>/` | Low | long-term personal storage (logs, samples, paper data) | 5 TB soft / 5.1 TB hard, 7-day grace | **no** | no |
@@ -799,9 +821,9 @@ for epoch in range(epochs):
 - Metrics: `gpu_utilization` (fraction of time any kernel runs — can be 100% while wasteful) vs
   **SM occupancy** (fraction of warps active vs max; used by the dashboard).
   SMO ≥ 50% excellent · 30–50% good · 15–30% good with room · 5–15% poor · < 5% critical.
-- Dashboard: filter bar (dates, period, cluster, job states; "Update"), "RGU allocated vs
-  efficiency levels" (Used / Acceptable Idle / Critical Waste <15% / No data), "RGU by cluster",
-  job table; click a bar to focus.
+- Dashboard: underlying data are refreshed **every hour**; filter bar (dates, period, cluster,
+  job states; "Update"), "RGU allocated vs efficiency levels" (Used / Acceptable Idle /
+  Critical Waste <15% / No data), "RGU by cluster", job table; click a bar to focus.
 - Diagnosis flow: SMO ≥ 30% → fine; else VRAM < 20% → bigger batch, smaller GPU, or pack jobs;
   else check data loader (I/O or CPU preprocessing bottleneck; `num_workers` 2–4 per GPU,
   `pin_memory=True`, stage data to `$SLURM_TMPDIR`).
@@ -812,6 +834,8 @@ for epoch in range(epochs):
   tensor → extreme IOPS on `$HOME`; you will be contacted.
 
 ### 11.4 Environmental impact
+(As of 2026-11 this page is *temporarily* removed from the docs site navigation; figures kept
+here for reference.)
 Mila cluster ~115–150 kW, Quebec hydro at 0.6 kg CO2/MWh → < 1 t CO2/year (~$20/year offset).
 Hardware manufacturing impact not estimated.
 
@@ -838,7 +862,10 @@ Hardware manufacturing impact not estimated.
    (and *Artificial Intelligence* tab for PAICE).
 4. Mila global allocation: email **ccdb-accounts@mila.quebec** with **your** CCRI.
 5. SSH: add your public key in CCDB *My Account > SSH Keys* (`mila init` can help write
-   the SSH config). Set up **MFA** in *My Account > Multifactor Authentication* (DRAC MFA is
+   the SSH config; the "Logging in to the cluster" guide also has a manual `~/.ssh/config`
+   template for the DRAC/PAICE clusters — `narval rorqual fir nibi trillium trillium-gpu
+   tamia killarney vulcan` — with per-cluster `ProxyJump` rules for their compute nodes).
+   Set up **MFA** in *My Account > Multifactor Authentication* (DRAC MFA is
    separate from Mila's).
 6. **Annual renewal** required for all accounts (sponsor and sponsored); see DRAC renewal FAQ.
 
