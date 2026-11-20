@@ -822,9 +822,9 @@ for epoch in range(epochs):
 - Metrics: `gpu_utilization` (fraction of time any kernel runs — can be 100% while wasteful) vs
   **SM occupancy** (fraction of warps active vs max; used by the dashboard).
   SMO ≥ 50% excellent · 30–50% good · 15–30% good with room · 5–15% poor · < 5% critical.
-- Dashboard: underlying data refreshed **every hour**; filter bar (dates, period, cluster, job states; "Update"), "RGU allocated vs
-  efficiency levels" (Used / Acceptable Idle / Critical Waste <15% / No data), "RGU by cluster",
-  job table; click a bar to focus.
+- Dashboard: underlying data are refreshed **every hour**; filter bar (dates, period, cluster,
+  job states; "Update"), "RGU allocated vs efficiency levels" (Used / Acceptable Idle /
+  Critical Waste <15% / No data), "RGU by cluster", job table; click a bar to focus.
 - Diagnosis flow: SMO ≥ 30% → fine; else VRAM < 20% → bigger batch, smaller GPU, or pack jobs;
   else check data loader (I/O or CPU preprocessing bottleneck; `num_workers` 2–4 per GPU,
   `pin_memory=True`, stage data to `$SLURM_TMPDIR`).
