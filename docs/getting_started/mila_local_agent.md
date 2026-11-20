@@ -86,7 +86,7 @@ provider. We recommend the agent harness OpenCode in this guide, feel free to us
 
 ## Get an API key
 
-1. Get an API key by asking IDT team for one, by mail, Slack or during the [Office Hours](help/office_hours/).
+1. Get an API key by asking IDT team for one, by mail, Slack or during the [Office Hours](../../help/office_hours/).
 
 2. Store it by adding the export to `~/.bashrc`:
 
@@ -264,7 +264,7 @@ file at `~/.config/opencode/opencode.jsonc`:
     * **Your repository** is the repository where you want to work (`~/Desktop/my-repo` on the screenshot).
     * **One MCP** is active (the Mila docs one, as described in the configuration).
 
-    ![OpenCode](../../_static/images/mila_agent_opencode.png)
+    ![OpenCode](../_static/images/mila_agent_opencode.png)
 
 ---
 

@@ -37,12 +37,12 @@ This section describes what Mila provides to empower you in your research with A
     ---
     Install the Mila skills to automate common workflows.
 
--   [:material-book:{ .lg .middle } __Learn from Mila shared knowledge__](add_context.md)
+-   [:material-book:{ .lg .middle } __Learn from Mila shared knowledge__](context.md)
     { .card }
 
     ---
     Give your AI assistant access to the Mila documentation through the Mila Docs
-    MCP server.
+    MCP server or a condensed Markdown file.
 
 </div>
 
