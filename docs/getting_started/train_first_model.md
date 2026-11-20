@@ -151,7 +151,7 @@ The output will confirm the submission of the job (e.g. `Submitted batch job
     example, all nodes with the requested GPU type may be busy, or some
     nodes may be DOWN or reserved for maintenance. This is **not** an error
     — the job will start automatically once a matching node is free.
-    
+
     **Options:**
 
     - **Wait.** The job will start on its own. Check back with `squeue
