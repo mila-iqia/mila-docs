@@ -205,7 +205,7 @@ file at `~/.config/opencode/opencode.jsonc`:
         { "action": "tool.use", "resource": "webfetch:*://*.cn/*", "effect": "deny" },
         { "action": "tool.use", "resource": "webfetch:*://*.cn:*", "effect": "deny" }
     ],
-    
+
     "plugin": [
         "opencode-models-discovery@latest"
     ],
@@ -273,22 +273,3 @@ file at `~/.config/opencode/opencode.jsonc`:
 Model discovery
 :   Querying the gateway's model list at runtime so the harness shows the
     currently deployed models without manual configuration.
-
-## Next steps
-
-<div class="grid cards" markdown>
-
--   [:material-toy-brick:{ .lg .middle } __Add Mila Skills__](mila_skills.md)
-    { .card }
-
-    ---
-    Install the Mila skills to automate common workflows with the agent.
-
--   [:material-book:{ .lg .middle } __Learn from Mila shared knowledge__](add_context.md)
-    { .card }
-
-    ---
-    Give the agent access to the Mila documentation through the Mila Docs
-    MCP server.
-
-</div>
