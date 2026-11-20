@@ -13,6 +13,9 @@
 
   --md-admonition-color--dont: 228, 0, 0;
   --md-admonition-color-hex--dont: rgb(228, 0, 0);
+
+  --md-admonition-color--skills: 94, 129, 166;
+  --md-admonition-color-hex--skills: rgb(94, 129, 166);
 }
 
 :root > * {
@@ -107,6 +110,21 @@ a.announce {
   background-color: var(--md-admonition-color-hex--dont);
   -webkit-mask-image: var(--md-admonition-icon--dont);
           mask-image: var(--md-admonition-icon--dont);
+}
+
+.md-typeset .admonition.skills,
+.md-typeset details.skills {
+  border-color: rgba(var(--md-admonition-color--skills));
+}
+.md-typeset .skills > .admonition-title,
+.md-typeset .skills > summary {
+  background-color: rgba(var(--md-admonition-color--skills), 0.1); /*color.adjust($clr-blue-a200, $alpha: -0.9);//rgba(43, 155, 70, 0.1);*/
+}
+.md-typeset .skills > .admonition-title::before,
+.md-typeset .skills > summary::before {
+  background-color: var(--md-admonition-color-hex--skills);
+  -webkit-mask-image: var(--md-admonition-icon--skills);
+          mask-image: var(--md-admonition-icon--skills);
 }
 
 a.full-card {

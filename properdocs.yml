@@ -35,6 +35,7 @@ theme:
       monitoring: fontawesome/solid/chart-line
       do: fontawesome/solid/check
       dont: fontawesome/solid/xmark
+      skills: fontawesome/solid/robot
   name: material
   custom_dir: overrides
   features:

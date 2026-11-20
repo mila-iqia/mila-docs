@@ -46,6 +46,9 @@ code`](https://github.com/mila-iqia/milatools) command from
     VSCode](https://code.visualstudio.com/Download) on a personal computer
     before starting.
 
+!!! tip "Recommended Skill for this task"
+    If you are using an agent for this step, check out [this Skill](https://raw.githubusercontent.com/mila-iqia/skills/refs/heads/master/mila-tools/skills/mila-run-jobs/SKILL.md).
+
 ## What this guide covers
 
 * Open VSCode on a compute node with one GPU using `mila code`.
