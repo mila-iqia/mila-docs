@@ -135,8 +135,7 @@ acknowledge DRAC, the regional partner and the AI institute managing the cluster
   and re-run `mila init`).
 - Run `mila init` (asks for your cluster username): creates `~/.ssh/config` entries (`mila`,
   `mila-cpu`, `*.server.mila.quebec !*login.server.mila.quebec` and `cn-????` compute-node rules;
-  no more `mila1`..`mila5` per-node aliases; ControlMaster multiplexing on Linux/macOS), an SSH
-  key (`~/.ssh/id_ed25519_mila`), and adds the
+  ControlMaster multiplexing on Linux/macOS), an SSH key (`~/.ssh/id_ed25519_mila`), and adds the
   public key to `~/.ssh/authorized_keys` on the cluster (needed to reach compute nodes).
 - Test: `ssh mila`, enter the 6-digit OTP (not echoed). You land on a **login node**.
   - No OTP prompt → redo milatools install/config. No banner after OTP → redo MFA setup.
