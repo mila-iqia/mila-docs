@@ -12,18 +12,15 @@ Coding agents already have broad knowledge of PyTorch and Slurm; what they lack 
 Mila-specific context and relevant optimization methods. IDT packages that
 context into a **skill** the agent can load in order to:
 
-1. **Diagnose** — measure actual job behavior (e.g., throughput, resources utilization)
+1. **Diagnose** — measure actual job behavior (e.g., throughput, resource utilization)
 2. **Recommend** — propose concrete fixes (e.g., dataloader workers, job packing)
 3. **Fix safely** — implement the changes while keeping experimental results identical
-4. **Share findings (optional)** — send report about progress made to the IDT team, to help improve the Skill(s).
+4. **Share findings (optional)** — send a report on the improvements made to the IDT team to help improve the skill.
 
 You're always welcome at the [IDT Office Hours](../help/office_hours.md) to get help with this.
 
 !!! wip "Work in progress"
-    This is an early version: we are actively working on improving it based
-    on various real-world experiments.
-
-    It explicitely requests confirmation to:
+    This is an early version: we are actively working on improving the skill based on various real-world experiments and feedback from you, or your agent. Therefore, the skill will always explicitely request your confirmation to:
 
     * apply changes that could alter experimental results
     * share reports to the IDT team so that the skill may benefit from a feedback loop.

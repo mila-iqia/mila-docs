@@ -9,9 +9,7 @@ description: >-
 
 In a cutting-edge research environment like Mila's, the community is our greatest asset to keep pace with rapid innovation. Sharing the challenges you encounter and the breakthroughs you achieve helps us build better tools to support you and future researchers, to stay at the forefront of AI research.
 
-Feel free to reach out to us via your preferred channel (email, Slack or GitHub): all feedback and suggestions are greatly appreciated!
-
-More specifically, several ongoing projects require real-world data to become more effective. Like any system grounded in practice, these tools are only as capable as the diverse concrete examples they are built upon.
+Feel free to reach out to IDT via your preferred channel (email, Slack or GitHub): all feedback and suggestions are greatly appreciated! There is also a more specific way to help us: we need real-world data to anchor our projects in concrete use cases, so that we can fine-tune them regarding your real needs.
 
 **That's where you come in.**
 
@@ -24,23 +22,27 @@ More specifically, several ongoing projects require real-world data to become mo
 
 -->
 
-## Optimization loop project
+## How we want to help you
 
-### Description
+The project we currently need data for is **[Optimization loop](../ai/optimization.md)**:
 
-When we profile someone's code at the [Office Hours](office_hours.md) or during
+when we profile someone's code at the [Office Hours](office_hours.md) or during
 a compute-waste intervention, the same handful of problems keeps coming back: a
-dataloader with too few workers, experiments small enough that a whole GPU
+dataloader with too few workers, experiments small enough that a whole GPU is
 twice as large as they need, checkpoints written after every batch. Fixing them
 is usually easy — *finding* them is the hard part, and it takes experience.
 
-We are turning that experience into tools —
-[skills your AI agent can use](../ai/optimization.md) to diagnose and fix these
-problems automatically.
+The tools we provide you are **skills** your AI agent can use to diagnose and fix
+these problems automatically.
 
-### How you can help us help you
+## What we are looking for
 
-If you are facing slow experiments, constrained compute resources, low utilization, or even if you simply have no idea about how fast this is supposed to be, that's exactly the code we want.
+If you are facing **slow experiments**, **constrained compute resources**, **low utilization**, or even if you simply have no idea about how fast this is supposed to be, that's exactly the code we want. Every codebase we
+collect makes the tools sharper for the next researcher.
+
+## How you can help us help you
+
+### Sharing your code
 
 We're especially interested in:
 
@@ -55,16 +57,23 @@ We're especially interested in:
 
     You don't need working benchmark scripts, clean code, or a bug-free repo. Starting research projects with messy code is the norm.
 
-### What happens to your code
+!!! question "What happens to the code you share"
 
-Respectfully, and with your permission at every step:
+    Respectfully, and with your permission at every step:
 
-* **You decide what you share.** That can be read access to a repo or a copy of
-  the training loop and launch scripts without any data.
+    * **You decide what you share.** That can be read access to a repo or a copy of
+      the training loop and launch scripts without any data.
 
-* **Your code stays internal.** Examples are kept privately and we use a locally-hosted LLM to help us test ideas for optimizing the code, but we would never share your code or use external agents like Claude or Codex without your consent. Your approval would always be requested.
-* **You get the findings back.** Every case we profile comes with what we
-  found. Worst case, you get a free optimizations from experts!
+    * **Your code stays internal.** Examples are kept privately and we use a locally-hosted LLM to help us test ideas for optimizing the code, but we would never share your code or use external agents like Claude or Codex without your consent. Your approval would always be requested.
+    * **You get the findings back.** Every case we profile comes with what we
+      found. Worst case, you get a free optimization!
+
+### Trying the skill
+
+The [skill we are currently working on](https://github.com/mila-iqia/skills/tree/master/opt-tools/skills/optimization-target) is available. Feel free to try it!
+
+It will ask you if you are willing to share a report with us. These feedbacks help us.
+You can also try the skill and give us your impressions by Slack or during the Office Hours!
 
 ## How to share
 
@@ -100,6 +109,3 @@ Respectfully, and with your permission at every step:
 &nbsp;
 
 </div>
-
-Even a *"yes, you can look at my repo"* is a complete answer. Every codebase we
-collect makes the tools sharper for the next researcher.
