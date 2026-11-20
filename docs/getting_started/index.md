@@ -83,6 +83,7 @@ train your first model on the Mila cluster.
 * [ ] Monitor the job
 
 ## [Use Mila local agent](mila_local_agent.md)
+
 * [ ] Get a Mila agent API key (once)
 * [ ] Create a SSH tunnel
 * [ ] Download OpenCode (once)

@@ -7,8 +7,6 @@ description: >-
 
 # Get Started with the Mila Coding Agent
 
-
-
 <nav class="progress-track" aria-label="Getting started progression">
     <div class="progress-step is-done">
         <div class="progress-marker"><a href="../cluster_access">✓</a></div>
@@ -42,15 +40,12 @@ that exposes an OpenAI-compatible API, so any agent harness that supports
 such an endpoint can use the agent instead of a cloud
 provider. We recommend the agent harness OpenCode in this guide, feel free to use another one.
 
-
 !!! warning "Beta"
     The Mila agent is in beta. Announcements are posted on the `#mila-local-agent` Slack channel, but this is a community channel.
     Feel free to reach out there or to the IDT team if you encounter issues or have ideas.
 
-
 !!! success "Requirements"
     - `sudo` privileges on your machine.
-
 
 ## What this guide covers
 
@@ -63,6 +58,7 @@ provider. We recommend the agent harness OpenCode in this guide, feel free to us
 ---
 
 ## Overview of the Mila agent
+
 **Why use it?**
 
 !!! success "A locally hosted coding agent"
@@ -104,7 +100,6 @@ provider. We recommend the agent harness OpenCode in this guide, feel free to us
     source ~/.bashrc
     ```
 
-
 ## Route traffic to the agent node from a local machine
 
 ??? info "How it works"
@@ -124,14 +119,13 @@ provider. We recommend the agent harness OpenCode in this guide, feel free to us
     OpenCode and other harnesses address the gateway by hostname, so the local
     machine must resolve `cn-d003.server.mila.quebec` to itself and forward the port through the login node.
 
-
 1. Start a SSH tunnel with port forwarding:
 
     ```bash
     ssh mila -L 8080:cn-d003.server.mila.quebec:8080  # (1)!
     ```
 
-    1.  `-L 8080:cn-d003.server.mila.quebec:8080` forwards local port 8080 to
+    1. `-L 8080:cn-d003.server.mila.quebec:8080` forwards local port 8080 to
         port 8080 on the node, through the login node. Keep this session
         open while working with the Mila agent.
 
@@ -231,6 +225,7 @@ file at `~/.config/opencode/opencode.jsonc`:
         a configuration change.
 
 2. Launch OpenCode
+
     ```bash
     opencode
     ```
@@ -242,10 +237,10 @@ file at `~/.config/opencode/opencode.jsonc`:
     * **One MCP** is active (the Mila docs one, as described in the configuration).
 
     ![OpenCode](../../_static/images/mila_agent_opencode.png)
+
 ---
 
 ## Key concepts
-
 
 Model discovery
 :   Querying the gateway's model list at runtime so the harness shows the

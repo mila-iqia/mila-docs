@@ -13,7 +13,6 @@ This section describes what Mila provides to empower you in your research with A
 
 ## Guides
 
-
 <div class="grid cards important" markdown>
 
 -   [:material-run-fast:{ .lg .middle } __Getting started with the Mila local agent__](local_agent.md)
