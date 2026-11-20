@@ -15,7 +15,7 @@ This section describes what Mila provides to empower you in your research with A
 
 <div class="grid cards important" markdown>
 
--   [:material-run-fast:{ .lg .middle } __Getting started with the Mila local agent__](local_agent.md)
+-   [:material-run-fast:{ .lg .middle } __Getting started with the Mila local agent__](../getting_started/mila_local_agent.md)
     { .card }
 
     ---
