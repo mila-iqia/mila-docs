@@ -31,8 +31,8 @@ description: >-
         <div class="progress-label"><a href="../train_first_model">Train your first model</a></div>
     </div>
     <div class="progress-step is-current">
-        <div class="progress-marker"><a href="mila_local_agent">6</a></div>
-        <div class="progress-label"><a href="mila_local_agent">Use Mila local agent</a></div>
+        <div class="progress-marker"><a href="../mila_local_agent">6</a></div>
+        <div class="progress-label"><a href="../mila_local_agent">Use Mila local agent</a></div>
     </div>
 </nav>
 

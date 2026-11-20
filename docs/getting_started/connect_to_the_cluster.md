@@ -26,8 +26,8 @@ description: Install tools to connect to the cluster for the first time.
         <div class="progress-label"><a href="../train_first_model">Train your first model</a></div>
     </div>
     <div class="progress-step">
-        <div class="progress-marker"><a href="mila_local_agent">6</a></div>
-        <div class="progress-label"><a href="mila_local_agent">Use Mila local agent</a></div>
+        <div class="progress-marker"><a href="../mila_local_agent">6</a></div>
+        <div class="progress-label"><a href="../mila_local_agent">Use Mila local agent</a></div>
     </div>
 </nav>
 
