@@ -12,6 +12,10 @@ installed, each skill can be invoked by researchers through common tasks — fro
 
 ## Before you begin
 
+!!! note
+    The Mila Skills are public and work with any harness —
+    you can use one of this guide, but it is a recommendation, not a requirement.
+
 <div class="grid cards" markdown>
 
 -   [:material-robot:{ .lg .middle } __Set Up the Mila agent__](../getting_started/mila_local_agent.md)
