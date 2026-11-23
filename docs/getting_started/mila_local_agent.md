@@ -210,8 +210,8 @@ file at `~/.config/opencode/opencode.jsonc`:
         "opencode-models-discovery@latest"
     ],
     "skills": [
-        "https://raw.githubusercontent.com/mila-iqia/skills/master/opt-tools/skills",
-        "https://raw.githubusercontent.com/mila-iqia/skills/master/mila-tools/skills"
+      "https://mila-iqia.github.io/skills/opt-tools/skills",
+      "https://mila-iqia.github.io/skills/mila-tools/skills"
     ],
     "mcp": {
         "servers": {
