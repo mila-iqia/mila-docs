@@ -13,15 +13,13 @@ an [OpenCode](http://opencode.ai/) harness.
 The [Get Started with the Mila Coding Agent](../getting_started/mila_local_agent.md)
 guide details the stack and covers the one-time setup on a local machine.
 
-
 ??? info "Overview of the agent"
     This open-weight language model (currently `Qwen3.8 Flash Next Fp8`) is
     served behind a LiteLLM gateway on a DGX-A100 node of the Mila cluster.
-    
+
     The gateway exposes an OpenAI-compatible API, so any agent harness that
     supports such an endpoint can use the agent instead of a cloud provider
     — conversations, code, and data stay within the Mila ecosystem.
-
 
 !!! warning "Beta"
     The Mila agent is in beta. Announcements about newly deployed models and
@@ -98,13 +96,13 @@ not needed.
     prompt.
 
 ## Use of another harness
+
 OpenCode is the recommended harness used in this guide, but it is not required.
 With another harness, point it to the following OpenAI-compatible endpoint:
 
 ``` linenums="0"
 http://cn-d003.server.mila.quebec:8080/v1/
 ```
-
 
 ## Configure OpenCode
 
@@ -156,7 +154,6 @@ are loaded when the skill is actually used.
     [Mila Skills](mila_skills.md).
 
 There are different ways to add Skills with OpenCode: the **automatic discovery** and through the **configuration file**.
-
 
 === "Automatic discovery"
 
@@ -216,8 +213,6 @@ Such as the Skills, there are several ways to add plugins with OpenCode: an
     opencode plugin list
     opencode plugin update
     ```
-
-
 
 ## Add context
 
