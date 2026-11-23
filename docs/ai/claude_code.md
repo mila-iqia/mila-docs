@@ -4,7 +4,7 @@ description: >-
   Install Claude Code and extend Claude Code with skills from a marketplace.
 ---
 
-# Set Up Claude Code
+# Use Claude Code
 
 Claude Code is Anthropic's official command-line interface for Claude.
 It brings an AI coding assistant directly into the terminal, desktop, or
@@ -25,13 +25,14 @@ add domain-specific behavior to Claude Code.
 ## What this guide covers
 
 * Install Claude Code using the CLI installer, desktop app,
-  or IDE extension
-* Authenticate with an Anthropic account
-* Install skills from a skills marketplace
+  or IDE extension and authenticate with an Anthropic account
+* Add Skills and plugins
 
 ---
 
-## Install Claude Code
+## First-time use
+
+### Install Claude Code
 
 Claude Code is available as a command-line tool and as an extension for VS Code.
 
@@ -121,7 +122,7 @@ Claude Code is available as a command-line tool and as an extension for VS Code.
     For the most up-to-date installation instructions, see the [Claude Code
     product page](https://claude.com/product/claude-code).
 
-## Authenticate
+### Authenticate
 
 After installation, launch Claude Code to complete authentication.
 
@@ -161,14 +162,18 @@ browser; the terminal session authenticates automatically when login succeeds.
 The desktop app and IDE extensions display a built-in login prompt on first
 launch.
 
-## Install skills from a marketplace
+
+## Add Skills and plugins
 
 Skills extend Claude Code with reusable, domain-specific behavior. Each skill is
 a self-contained workflow invoked as a slash command — for example,
 `/code-review` or `/skill-creator`. Skills are distributed through
 GitHub-hosted marketplaces and can be installed into any Claude Code session.
 
-### Add a marketplace
+
+### Install skills from a marketplace
+
+**1. Add a marketplace**
 
 Skills marketplaces are GitHub repositories containing skill definitions.
 Register a marketplace as a source before installing its skills:
@@ -179,11 +184,46 @@ Register a marketplace as a source before installing its skills:
 
 ```
 
-!!! note
-    The official Anthropic marketplace (`claude-plugins-official`) is
-    pre-registered and requires no `add` step.
+!!! tip "Mila Skills"
+    The command to add the Mila Skills, detailed on [this page](mila_skills.md), is:
+    ```
+    /plugin marketplace add mila-iqia/skills
+    ```
+    <div class="result" style="border:None; padding:0" markdown>
+    ``` linenums="0"
+     ▐▛███▜▌   Claude Code v2.1.109
+    ▝▜█████▛▘  Sonnet 4.6 · Claude Team
+      ▘▘ ▝▝    ~/CODE/project
 
-### Install a skill
+    ❯ /plugin marketplace add mila-iqia/skills
+      ⎿  Successfully added marketplace: mila-skills
+
+    ```
+    </div>
+
+    Then, activate it in the current session with:
+
+    ```
+    /reload-plugins
+    ```
+    <div class="result" style="border:None; padding:0" markdown>
+    ``` linenums="0"
+     ▐▛███▜▌   Claude Code v2.1.109
+    ▝▜█████▛▘  Sonnet 4.6 · Claude Team
+      ▘▘ ▝▝    ~/CODE/project
+
+    ❯ /reload-plugins
+      ⎿  Reloaded: 1 plugin · 0 skills · 5 agents · 0 hooks · 0 plugin MCP servers · 0 plugin LSP servers
+
+    ```
+    </div>
+
+
+!!! note
+      The official Anthropic marketplace (`claude-plugins-official`) is
+      pre-registered and requires no `add` step.
+
+**2. Install a skill**
 
 Once a marketplace is registered, install skills by name using the format
 `skill-name@marketplace-name`:
@@ -257,8 +297,6 @@ installed skills.
 ```
 
 </div>
-
-### Explore the official skills library
 
 The `/plugin` command opens an interactive manager with four tabs: **Discover**,
 **Installed**, **Marketplaces**, and **Errors**. Use the **Discover** tab to
