@@ -148,7 +148,8 @@ If you find any errors in the documentation, missing or unclear sections, or wou
     - Context
         - [Mila Docs MCP Server](ai/mcp.md)
         - [Mila Docs context](ai/context.md)
-    - [Mila Skills](ai/mila_skills.md)
+    - Skills
+        - [Mila Skills](ai/mila_skills.md)
 - [Technical reference](technical_reference/index.md)
     - [Cheatsheet](technical_reference/cheatsheet.md)
     - [Clusters](technical_reference/clusters/index.md)

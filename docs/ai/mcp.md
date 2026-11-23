@@ -237,6 +237,7 @@ Use scancel with the job ID:
   scancel -t PD
 
 To find the job ID first, run squeue --me. More details in the https://docs.mila.quebec/help/faq/#how-do-i-cancel-a-job.
+
 ```
 </div>
 
