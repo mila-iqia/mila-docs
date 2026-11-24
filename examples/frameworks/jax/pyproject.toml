@@ -1,0 +1,17 @@
+[project]
+name = "jax_single_gpu_example"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11,<3.14"
+dependencies = [
+    "flax>=0.10.6",
+    "jax[cuda12]>=0.5.3",
+    "optax>=0.2.5",
+    "rich>=14.0.0",
+    "torchvision>=0.22.1",
+    "tqdm>=4.67.1",
+]
+
+[tool.setuptools.packages.find]
+include = ["main.py", "model.py"]
