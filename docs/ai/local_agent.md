@@ -8,10 +8,15 @@ description: >-
 
 # Use the Mila local agent
 
-Mila provides a **locally hosted** AI agent. Here is a guide to use it with
-an [OpenCode](http://opencode.ai/) harness.
+Mila provides a **locally hosted** AI agent.
+
+In this guide:
+
+* **the model** is a LLM hosted on the Mila cluster
+* **the harness** is [OpenCode](http://opencode.ai/), but feel free to use your own.
+
 The [Get Started with the Mila Coding Agent](../getting_started/mila_local_agent.md)
-guide details the stack and covers the one-time setup on a local machine.
+covers the one-time setup on a local machine.
 
 ??? info "Overview of the agent"
     This open-weight language model (currently `Qwen3.8 Flash Next Fp8`) is
