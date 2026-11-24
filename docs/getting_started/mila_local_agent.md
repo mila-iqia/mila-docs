@@ -65,6 +65,7 @@ provider. We recommend the agent harness OpenCode in this guide, feel free to us
 
     * Data do not leave the Mila ecosystem
     * It runs on our own resources
+    * Free for Mila researchers
     * You can be part of it by your feedback
 
 **What's in there?**
@@ -78,7 +79,7 @@ provider. We recommend the agent harness OpenCode in this guide, feel free to us
       </tr>
       <tr>
         <th scope="row">Node</th>
-        <td>DGX-A100 (<code>ccn-d003.server.mila.quebec<code>)</td>
+        <td>8 x DGX-A100 (Node <code>cn-d003.server.mila.quebec<code>)</td>
       </tr>
     </tbody>
   </table>

@@ -7,7 +7,7 @@ description: >-
 # Mila Skills
 
 The [mila-iqia/skills](https://github.com/mila-iqia/skills) repository is a
-curated collection of skills for Mila cluster workflows. Once
+curated collection of Skills for Mila cluster workflows. Once
 installed, each skill can be invoked by researchers through common tasks — from setting up a Mila account to submitting batch jobs with sbatch. This page describes the Skills.
 
 ## Before you begin
