@@ -19,7 +19,7 @@ searches on the clusters.
     ---
     Track and compare experiments in a web dashboard on Comet.
 
--   [:material-tune:{ .lg .middle } __Orion__](orion.md)
+-   [:material-tune:{ .lg .middle } __Oríon__](orion.md)
     { .card }
 
     ---
