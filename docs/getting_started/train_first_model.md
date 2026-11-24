@@ -149,20 +149,20 @@ The output will confirm the submission of the job (e.g. `Submitted batch job
   ```
   </div>
 
-    ??? question "Job stuck with `ReqNodeNotAvail`"
+??? question "Job stuck with `ReqNodeNotAvail`"
 
-        No node matching the job's requirements is currently available — for
-        example, all nodes with the requested GPU type may be busy, or some
-        nodes may be DOWN or reserved for maintenance. This is **not** an error
-        — the job will start automatically once a matching node is free.
+    No node matching the job's requirements is currently available — for
+    example, all nodes with the requested GPU type may be busy, or some
+    nodes may be DOWN or reserved for maintenance. This is **not** an error
+    — the job will start automatically once a matching node is free.
 
-        **Options:**
+    **Options:**
 
-        - **Wait.** The job will start on its own. Check back with `squeue
-          --me`.
-        - **Request a different GPU type.** Cancel the queued job with `scancel
-          <JOBID>`, then resubmit with a different `--gres` flag, e.g.: `sbatch
-          --gres=gpu:rtx8000:1 job.sh`
+    - **Wait.** The job will start on its own. Check back with `squeue
+        --me`.
+    - **Request a different GPU type.** Cancel the queued job with `scancel
+        <JOBID>`, then resubmit with a different `--gres` flag, e.g.: `sbatch
+        --gres=gpu:rtx8000:1 job.sh`
 
 * **Watch the output file:** Once the job starts, a file `slurm-<JOBID>.out`
   will be created containing the job log. Open it to watch the model being

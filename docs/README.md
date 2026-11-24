@@ -150,6 +150,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
         - [Mila Docs context](ai/context.md)
     - Skills
         - [Mila Skills](ai/mila_skills.md)
+        - [Optimize Your Experiments](ai/optimization.md)
 - [Technical reference](technical_reference/index.md)
     - [Cheatsheet](technical_reference/cheatsheet.md)
     - [Clusters](technical_reference/clusters/index.md)
@@ -194,3 +195,4 @@ If you find any errors in the documentation, missing or unclear sections, or wou
 - [Get help](help/index.md)
     - [IDT Office Hours](help/office_hours.md)
     - [Frequently asked questions (FAQ)](help/faq.md)
+    - [Help us help you](help/feedback.md)
