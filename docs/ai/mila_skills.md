@@ -141,7 +141,7 @@ They are divided into two plugins:
 
 | Skill | Description |
 |---|---|
-| `/optimization-target` | Optimize experiment code and compute usage on Slurm clusters so that many experiments finish as quickly as possible without changing or compromising their results. |
+| [`/optimization-target`](optimization.md) | Optimize experiment code and compute usage on Slurm clusters so that many experiments finish as quickly as possible without changing or compromising their results. |
 
 <!-- Steven's skills
 | `/pytorch-compile` | Diagnose and fix torch.compile problems: graph breaks, recompilation, slow
@@ -208,12 +208,11 @@ Install the folder where the harness discovers skills:
 
 <div class="grid cards" markdown>
 
--   [:material-brain:{ .lg .middle } __Mila Docs MCP Server__](mcp.md)
+-   [:material-rocket-launch:{ .lg .middle } __Optimize Your Experiments with AI__](optimization.md)
     { .card }
 
     ---
-    Configure the Mila Docs MCP server so that AI assistants can draw on Mila
-    documentation automatically.
+    Discover the IDT optimization skill to identify bottlenecks, implement fixes, and speed up your experiments by leveraging your own coding agent.
 
 &nbsp;
 
