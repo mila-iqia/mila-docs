@@ -36,6 +36,9 @@ skills:
 This guide covers obtaining your Mila account (`@mila.quebec`) and enabling your cluster
 access.
 
+!!! tip "Recommended Skill for this task"
+    If you are using an agent for this step, check out [this Skill](https://raw.githubusercontent.com/mila-iqia/skills/refs/heads/master/mila-tools/skills/mila-account-setup/SKILL.md).
+
 ## What this guide covers
 
 * Obtain your Mila account
