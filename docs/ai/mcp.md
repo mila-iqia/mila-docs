@@ -265,11 +265,11 @@ To find the job ID first, run squeue --me. More details in the https://docs.mila
 
 <div class="grid cards" markdown>
 
--   [:material-toy-brick:{ .lg .middle } __Add Mila Skills__](mila_skills.md)
+-   [:material-toy-brick:{ .lg .middle } __Mila Skills__](mila_skills.md)
     { .card }
 
     ---
-    Add the Mila skills marketplace and install cluster-focused skills.
+    Overview of the Skills provided by Mila.
 
 -   [:material-book:{ .lg .middle } __Add Mila Docs context to AI assistants__](context.md)
     { .card }
