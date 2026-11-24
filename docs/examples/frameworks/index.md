@@ -7,6 +7,5 @@ These examples use [uv](../../technical_reference/general_theory/portability.md#
 
 - [PyTorch Setup](pytorch_setup/index.md)
 - [Jax Setup](jax_setup/index.md)
-- [Jax](jax/index.md)
 - [Flash Attention Setup](flash_attn_setup/index.md)
 - TensorFlow (Coming soon!)

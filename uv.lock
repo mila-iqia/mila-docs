@@ -558,7 +558,7 @@ requires-dist = [{ name = "jax", extras = ["cuda12"], specifier = ">=0.5.3" }]
 [[package]]
 name = "jax-single-gpu-example"
 version = "0.1.0"
-source = { virtual = "docs/examples/frameworks/jax" }
+source = { virtual = "docs/examples/distributed/single_gpu/single_gpu_jax" }
 dependencies = [
     { name = "flax" },
     { name = "jax", extra = ["cuda12"] },
