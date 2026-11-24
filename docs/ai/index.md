@@ -48,6 +48,20 @@ This section describes what Mila provides to empower you in your research with A
 
 ## Overview of an agent ecosystem
 
+### Information this section is focused on
+
+This section is focused on what Mila provides or recommend. Below is a lightweight pictured overview of the main mentioned entities:
+
+| Entity | Description | Provided/Recommended |
+| ------ | ----------- | -------------------- |
+| **Agent** | A model + a harness (see next lines) |  |
+| **Model** | The "brain": it does the thinking. | [Mila provides a local agent](local_agent.md) |
+| **Harness** | The "shell" around this brain. It contains tools such as Skills or MCP | To use the local agent, Mila recommends [OpenCode](http://opencode.ai/) |
+| **Skills** | A "recipe" for a task. The agent only knows it has a specific recipe for a specific task at first, and only loads the content of the recipe when the user ask this particular task. | Mila provides [a set of Skills](https://github.com/mila-iqia/skills) |
+| **MCP** | Which "friend" to contact to get a specific information, and how to contact them. | Mila provides a [MCP server for its documentation](mcp.md) |
+
+### More global explanation
+
 An AI agent combines several parts that work together: a **model** does the thinking, and a program called a
 **harness** provides everything else needed to get work done — information
 to read, tools to use, and rules to follow.
