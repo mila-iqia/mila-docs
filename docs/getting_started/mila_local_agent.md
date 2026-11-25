@@ -211,7 +211,8 @@ file at `~/.config/opencode/opencode.jsonc`:
     ],
     "skills": [
       "https://mila-iqia.github.io/skills/opt-tools/skills",
-      "https://mila-iqia.github.io/skills/mila-tools/skills"
+      "https://mila-iqia.github.io/skills/mila-tools/skills",
+      "https://mila-iqia.github.io/skills/pytorch-opt-skills/skills"
     ],
     "mcp": {
         "servers": {
