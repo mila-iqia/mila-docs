@@ -483,11 +483,11 @@
 }
 
 /* Lines, arrowheads and labels drawn on the ground */
-.wf2-loop .lp-edge  { fill: none; stroke: var(--wf-ground); stroke-width: 1.5; }
+.wf2-loop .lp-edge  { fill: none; stroke: var(--wf-text); stroke-width: 1.5; }
 .wf2-loop .lp-loop  { stroke-dasharray: 5 4; }
-.wf2-loop .lp-head  { fill: var(--wf-ground); }
-.wf2-loop .lp-label { fill: var(--wf-ground); font-size: 11px; font-style: italic; }
-.wf2-loop .lp-center { fill: var(--wf-ground); font-size: 11.5px; font-weight: 600; }
+.wf2-loop .lp-head  { fill: var(--wf-text); }
+.wf2-loop .lp-label { fill: var(--wf-text); font-size: 11px; font-style: italic; }
+.wf2-loop .lp-center { fill: var(--wf-text); font-size: 11.5px; font-weight: 600; }
 
 /* Entry / exit pills */
 .wf2-loop .lp-io      { fill: var(--wf-surface); stroke: var(--wf-ground); stroke-dasharray: 4 3; }

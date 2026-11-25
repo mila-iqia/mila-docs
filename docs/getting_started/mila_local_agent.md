@@ -34,11 +34,8 @@ description: >-
     </div>
 </nav>
 
-Mila provides a **locally hosted** AI agent stack running on a DGX-A100 node of the
-Mila cluster. It serves open-weight language models behind a LiteLLM gateway
-that exposes an OpenAI-compatible API, so any agent harness that supports
-such an endpoint can use the agent instead of a cloud
-provider. We recommend the agent harness OpenCode in this guide, feel free to use another one.
+Mila provides a **locally hosted** AI agent running on the
+Mila cluster. Any agent harness that supports OpenAI-compatible API can use the agent. We recommend the agent harness OpenCode in this guide, feel free to use another one.
 
 !!! warning "Beta"
     The Mila agent is in beta. Announcements are posted on the `#mila-local-agent` Slack channel, but this is a community channel.
@@ -79,7 +76,7 @@ provider. We recommend the agent harness OpenCode in this guide, feel free to us
       </tr>
       <tr>
         <th scope="row">Node</th>
-        <td>8 x DGX-A100 (Node <code>cn-d003.server.mila.quebec<code>)</td>
+        <td>8 x DGX-A100 (Node <code>cn-d003.server.mila.quebec</code>)</td>
       </tr>
     </tbody>
   </table>
@@ -176,7 +173,7 @@ prompt:
 1. Install OpenCode from <https://opencode.ai/>. Then create the configuration
 file at `~/.config/opencode/opencode.jsonc`:
 
-    ```jsonc title="~/.config/opencode/opencode.jsonc"
+    ```json title="~/.config/opencode/opencode.jsonc"
     {
     "$schema": "https://opencode.ai/config.json",
 
@@ -231,9 +228,9 @@ file at `~/.config/opencode/opencode.jsonc`:
             "baseURL": "http://cn-d003.server.mila.quebec:8080/v1",
             "apiKey": "{env:MILA_AGENT_KEY}",
             "modelsDiscovery": {
-            "enabled": true,
-            "smartModelName": true,
-            "modelInfoFormat": "litellm"
+                "enabled": true,
+                "smartModelName": true,
+                "modelInfoFormat": "litellm"
             }
         }
         }
