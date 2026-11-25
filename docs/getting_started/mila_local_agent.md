@@ -35,7 +35,9 @@ description: >-
 </nav>
 
 Mila provides a **locally hosted** AI agent running on the
-Mila cluster. Any agent harness that supports OpenAI-compatible API can use the agent. We recommend the agent harness OpenCode in this guide, feel free to use another one.
+Mila cluster. Any agent harness that supports OpenAI-compatible API can use it.
+
+We recommend the agent harness OpenCode in this guide, feel free to use another one.
 
 !!! warning "Beta"
     The Mila agent is in beta. Announcements are posted on the `#mila-local-agent` Slack channel, but this is a community channel.
