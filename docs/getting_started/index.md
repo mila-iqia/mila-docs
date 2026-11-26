@@ -84,6 +84,6 @@ train your first model on the Mila cluster.
 
 ## [Use Mila local agent](mila_local_agent.md)
 
-* [ ] Get a Mila agent API key
+* [ ] Get a Mila agent API key (see [this form](https://forms.gle/Dgm3NyZmMy89T7an8))
 * [ ] Create a SSH tunnel
 * [ ] Configure OpenCode

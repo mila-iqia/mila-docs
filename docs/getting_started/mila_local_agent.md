@@ -86,7 +86,7 @@ We recommend the agent harness OpenCode in this guide, feel free to use another 
 
 ## Get an API key
 
-1. Get an API key by asking IDT team for one, by mail, Slack or during the [Office Hours](../help/office_hours.md).
+1. Get an API key by filling [this form](https://forms.gle/Dgm3NyZmMy89T7an8).
 
 2. Store it by adding the export to `~/.bashrc`:
 
