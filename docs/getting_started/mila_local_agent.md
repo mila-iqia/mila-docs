@@ -176,69 +176,7 @@ prompt:
 file at `~/.config/opencode/opencode.jsonc`:
 
     ```json title="~/.config/opencode/opencode.jsonc"
-    {
-    "$schema": "https://opencode.ai/config.json",
-
-    // Basic suggested Guardrails: never let the agent fetch .cn domains (last matching rule wins,
-    // so the specific denies must come after the broad ask rules).
-    "permissions": [
-        { "action": "shell", "resource": "curl *", "effect": "ask" },
-        { "action": "shell", "resource": "wget *", "effect": "ask" },
-        { "action": "shell", "resource": "curl *://*.cn*", "effect": "deny" },
-        { "action": "shell", "resource": "curl *.cn*", "effect": "deny" },
-        { "action": "shell", "resource": "wget *://*.cn*", "effect": "deny" },
-        { "action": "shell", "resource": "wget *.cn*", "effect": "deny" },
-        { "action": "shell", "resource": "* curl *://*.cn*", "effect": "deny" },
-        { "action": "shell", "resource": "* wget *://*.cn*", "effect": "deny" },
-        { "action": "webfetch", "resource": "*.cn", "effect": "deny" },
-        { "action": "webfetch", "resource": "*.cn/*", "effect": "deny" },
-        { "action": "webfetch", "resource": "*.cn:*", "effect": "deny" }
-    ],
-
-    // Hard layer: evaluated after permissions and saved "Allow always"
-    // approvals, so no approval or agent rule can lift these.
-    "policies": [
-        { "action": "tool.use", "resource": "shell:*://*.cn*", "effect": "deny" },
-        { "action": "tool.use", "resource": "shell:*curl *.cn*", "effect": "deny" },
-        { "action": "tool.use", "resource": "shell:*wget *.cn*", "effect": "deny" },
-        { "action": "tool.use", "resource": "webfetch:*://*.cn", "effect": "deny" },
-        { "action": "tool.use", "resource": "webfetch:*://*.cn/*", "effect": "deny" },
-        { "action": "tool.use", "resource": "webfetch:*://*.cn:*", "effect": "deny" }
-    ],
-
-    "plugin": [
-        "opencode-models-discovery@latest"
-    ],
-    "skills": [
-      "https://mila-iqia.github.io/skills/opt-tools/skills",
-      "https://mila-iqia.github.io/skills/mila-tools/skills",
-      "https://mila-iqia.github.io/skills/pytorch-opt-skills/skills"
-    ],
-    "mcp": {
-        "servers": {
-            "mila-docs": {
-                "type": "remote",
-                "url": "https://558773LESW.algolia.net/mcp/1/3_N8rKyLQhaxUEpt0FMx6A/mcp",
-                "enabled": true
-            }
-        }
-    },
-    "provider": {
-        "a100": {
-        "npm": "@ai-sdk/openai-compatible",
-        "name": "DGX A100",
-        "options": {
-            "baseURL": "http://cn-d003.server.mila.quebec:8080/v1",
-            "apiKey": "{env:MILA_AGENT_KEY}",
-            "modelsDiscovery": {
-                "enabled": true,
-                "smartModelName": true,
-                "modelInfoFormat": "litellm"
-            }
-        }
-        }
-    }
-    }
+    --8<-- "docs/ai/opencode_configuration.json"
     ```
 
     ??? info "Configuration explanation"

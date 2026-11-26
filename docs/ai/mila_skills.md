@@ -51,8 +51,8 @@ out a specific task. A Skill adds **know-how**, not
 and the Skill tells it how to combine them, in which order, and which Mila
 specifics to respect.
 
-**Physically, a Skill is a folder of files installed on the machine. Each folder
-holds a `SKILL.md` file with two parts:
+**Physically**, a Skill is a folder of files installed on the machine. Each
+folder holds a `SKILL.md` file with two parts:
 
 * a header naming the skill and describing when it applies — this is what
   turns the skill into a slash command such as `/mila-run-jobs`;
@@ -123,7 +123,8 @@ holds a `SKILL.md` file with two parts:
 
 ## Available Mila Skills
 
-The Skills provided Mila are gathered in the [Mila Skills Github repository](https://github.com/mila-iqia/skills).
+The Skills provided by Mila are gathered in the [Mila Skills GitHub
+repository](https://github.com/mila-iqia/skills).
 They are divided into two plugins:
 
 ### `mila-tools` plugin

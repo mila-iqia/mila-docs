@@ -111,6 +111,12 @@ http://cn-d003.server.mila.quebec:8080/v1/
 
 ## Configure OpenCode
 
+??? tip "Configuration file"
+
+    ```json title="~/.config/opencode/opencode.jsonc"
+    --8<-- "docs/ai/opencode_configuration.json"
+    ```
+
 OpenCode reads two levels of configuration and merges them:
 
 | Level | File | Applies to |
