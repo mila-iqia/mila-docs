@@ -37,6 +37,10 @@ skills:
         <div class="progress-marker"><a href="train_first_model">5</a></div>
         <div class="progress-label"><a href="train_first_model">Train your first model</a></div>
     </div>
+    <div class="progress-step">
+        <div class="progress-marker"><a href="mila_local_agent">6</a></div>
+        <div class="progress-label"><a href="mila_local_agent">Use Mila local agent</a></div>
+    </div>
 </nav>
 
 This section helps you in your first steps on the cluster.
@@ -77,3 +81,9 @@ train your first model on the Mila cluster.
 
 * [ ] Submit the job through Slurm
 * [ ] Monitor the job
+
+## [Use Mila local agent](mila_local_agent.md)
+
+* [ ] Get a Mila agent API key (see [this form](https://forms.gle/Dgm3NyZmMy89T7an8))
+* [ ] Create a SSH tunnel
+* [ ] Configure OpenCode (see [the recommended configuration file](https://raw.githubusercontent.com/mila-iqia/mila-docs/refs/heads/master/docs/ai/opencode_configuration.json))

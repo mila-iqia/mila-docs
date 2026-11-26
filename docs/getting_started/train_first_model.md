@@ -30,6 +30,10 @@ skills:
         <div class="progress-marker" aria-current="step"><a href="../train_first_model">5</a></div>
         <div class="progress-label"><a href="../train_first_model">Train your first model</a></div>
     </div>
+    <div class="progress-step">
+        <div class="progress-marker"><a href="../mila_local_agent">6</a></div>
+        <div class="progress-label"><a href="../mila_local_agent">Use Mila local agent</a></div>
+    </div>
 </nav>
 
 This guide covers training a small model (ResNet18) on CIFAR-10 using a single

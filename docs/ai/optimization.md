@@ -93,11 +93,11 @@ these tools are trained and improved on.
 
 <div class="grid cards" markdown>
 
--   [:material-toy-brick:{ .lg .middle } __Install Mila Skills for Claude Code__](mila_skills.md)
+-   [:material-toy-brick:{ .lg .middle } __Mila Skills__](mila_skills.md)
     { .card }
 
     ---
-    Add the Mila skills marketplace to Claude Code.
+    Overview of the Skills provided by Mila.
 
 -   [:material-chart-line:{ .lg .middle } __Identifying GPU waste__](../userguides/compute_utilization_guidelines/profiling.md)
     { .card }

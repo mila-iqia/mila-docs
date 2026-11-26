@@ -101,6 +101,7 @@ If you find any errors in the documentation, missing or unclear sections, or wou
     - [Connect to the cluster](getting_started/connect_to_the_cluster.md)
     - [Run Your First Job](getting_started/my_first_job.md)
     - [Train Your First Model](getting_started/train_first_model.md)
+    - [Use Mila local agent](getting_started/mila_local_agent.md)
 - [How-tos and Guides](userguides/index.md)
     - Prepare
         - [Logging in to the cluster](userguides/prepare/login.md)
@@ -141,11 +142,15 @@ If you find any errors in the documentation, missing or unclear sections, or wou
         - [Advanced Examples](examples/advanced/index.md)
             - [Multi-Node / Multi-GPU ImageNet Training](examples/advanced/imagenet/index.md)
 - [AI agents](ai/index.md)
-    - [Set Up Claude Code](ai/claude_code.md)
-    - [Install Mila Skills for Claude Code](ai/mila_skills.md)
-    - [Optimize Your Experiments](ai/optimization.md)
-    - [Mila Docs MCP Server](ai/mcp.md)
-    - [Add Mila Docs context to AI assistants](ai/context.md)
+    - Models (LLM) & Harness
+        - [Mila local agent & OpenCode](ai/local_agent.md)
+        - [Claude Code](ai/claude_code.md)
+    - Context
+        - [Mila Docs MCP Server](ai/mcp.md)
+        - [Mila Docs context](ai/context.md)
+    - Skills
+        - [Mila Skills](ai/mila_skills.md)
+        - [Optimize Your Experiments](ai/optimization.md)
 - [Technical reference](technical_reference/index.md)
     - [Cheatsheet](technical_reference/cheatsheet.md)
     - [Clusters](technical_reference/clusters/index.md)
