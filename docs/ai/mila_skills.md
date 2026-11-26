@@ -144,11 +144,13 @@ They are divided into two plugins:
 |---|---|
 | [`/optimization-target`](optimization.md) | Optimize experiment code and compute usage on Slurm clusters so that many experiments finish as quickly as possible without changing or compromising their results. |
 
-<!-- Steven's skills
+### `pytorch-opt-skills` plugin
+
 | `/pytorch-compile` | Diagnose and fix torch.compile problems: graph breaks, recompilation, slow
   compile time, and compile-mode / runtime tradeoffs. |
 | `/pytorch-dataloader` | Diagnose and fix PyTorch input pipelines that starve the GPU. |
 | `/pytorch-profiler-full` | Find where a PyTorch training step's time goes with torch.profiler. |
+<!--
 | `/vibecheck` | Measurable, prioritized cleanup of a Python ML research repo before open-sourcing it. |
 -->
 

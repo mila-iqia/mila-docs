@@ -86,4 +86,4 @@ train your first model on the Mila cluster.
 
 * [ ] Get a Mila agent API key (see [this form](https://forms.gle/Dgm3NyZmMy89T7an8))
 * [ ] Create a SSH tunnel
-* [ ] Configure OpenCode
+* [ ] Configure OpenCode (see [the recommended configuration file](https://raw.githubusercontent.com/mila-iqia/mila-docs/refs/heads/master/docs/ai/opencode_configuration.json))
